@@ -1,4 +1,4 @@
-import { getPayPalDomain, getDevTouchpoint } from '../../../../../src/utils/sdk';
+import { getPayPalDomain, getPayPalAPIDomain, getDevTouchpoint, getFeatures } from '../../../../../src/utils/sdk';
 
 describe('getPayPalDomain', () => {
     beforeEach(() => {
@@ -33,6 +33,42 @@ describe('getPayPalDomain', () => {
         window.__TEST_ENV__ = 'https://www.stage.com';
         __ENV__ = 'stage';
         expect(getPayPalDomain()).toBe('https://www.stage.com');
+    });
+});
+
+describe('getPayPalAPIDomain', () => {
+    beforeEach(() => {
+        // reset test variables
+        window.__TEST_ENV__ = undefined;
+        __ENV__ = 'stage';
+        __MESSAGES__ = {
+            __TEST_ENV__: undefined,
+            __API_DOMAIN__: { __SANDBOX__: 'https://api.sandbox.com' }
+        };
+    });
+    test('returns message test environment if window test environment is not set', () => {
+        __MESSAGES__.__TEST_ENV__ = 'https://www.test-env.com';
+        expect(getPayPalAPIDomain()).toBe('https://api.test-env.com');
+    });
+    test('returns window test environment if it is set', () => {
+        __MESSAGES__.__TEST_ENV__ = 'https://www.test-env.com';
+        window.__TEST_ENV__ = 'https://www.window-test-env.com';
+        expect(getPayPalAPIDomain()).toBe('https://api.window-test-env.com');
+    });
+    test('returns sandbox domain if no test environment is set and env is sandbox', () => {
+        __MESSAGES__.__TEST_ENV__ = 'https://www.test-env.com';
+        window.__TEST_ENV__ = 'https://www.window-test-env.com';
+        __ENV__ = 'sandbox';
+        expect(getPayPalAPIDomain()).toBe('https://api.sandbox.com');
+    });
+    test('returns error if no test environment is set', () => {
+        expect(() => getPayPalAPIDomain()).toThrow(Error);
+    });
+    test('returns stage domain if set via window test env global and env is stage', () => {
+        __MESSAGES__.__TEST_ENV__ = 'https://www.stage.com';
+        window.__TEST_ENV__ = 'https://www.stage.com';
+        __ENV__ = 'stage';
+        expect(getPayPalAPIDomain()).toBe('https://api.stage.com');
     });
 });
 
@@ -71,5 +107,35 @@ describe('getDevTouchpoint', () => {
         window.__DEV_TOUCHPOINT__ = true;
         __ENV__ = 'sandbox';
         expect(getDevTouchpoint()).toBe(undefined);
+    });
+});
+
+describe('getFeatures', () => {
+    it('should return "native-modal" when input features are undefined and getNativeModal is true', () => {
+        __MESSAGES__ = {
+            __NATIVE_MODAL__: true
+        };
+        expect(getFeatures()).toBe('native-modal');
+    });
+
+    it('should return "new-feature,other-new-feature,native-modal" when input features are "new-feature,other-new-feature" and getNativeModal is true', () => {
+        __MESSAGES__ = {
+            __NATIVE_MODAL__: true
+        };
+        expect(getFeatures('new-feature,other-new-feature')).toBe('new-feature,other-new-feature,native-modal');
+    });
+
+    it('should return only "new-feature,other-new-feature,native-modal" when getNativeModal is false', () => {
+        __MESSAGES__ = {
+            __NATIVE_MODAL__: false
+        };
+        expect(getFeatures('new-feature,other-new-feature')).toBe('new-feature,other-new-feature');
+    });
+
+    it('should return undefined input features are undefined and both getNativeModal is false', () => {
+        __MESSAGES__ = {
+            __NATIVE_MODAL__: false
+        };
+        expect(getFeatures()).toBe(undefined);
     });
 });

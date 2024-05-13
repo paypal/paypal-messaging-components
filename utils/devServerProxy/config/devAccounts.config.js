@@ -24,6 +24,58 @@ export default {
     DEV00USLTSQEZ: ['US', ['v2_long_term'], 'long_term_single_eqz'],
     DEVUSLTSQEZRB: ['US', ['v2_long_term'], 'long_term_single_eqz_mixed'],
 
+    // Buttons Messages
+    // generic pay later
+    DEV0GENERICPL: ['US', ['v2_product_list'], 'buttons/generic_pay_later'],
+    // generic pay later - bnpl
+    DEV000GENBNPL: ['US', ['v2_product_list'], 'buttons/generic_pay_later_bnpl'],
+    // generic paypal
+    DEV000GENPYPL: ['US', ['v2_product_list'], 'buttons/generic_paypal'],
+    // paypal purchase protection
+    DEV0BTNPYPLPP: ['US', ['v2_product_list'], 'buttons/purchase_protection'],
+    // Buttons LT MQ GTZ
+    DEVBTNLTMQGTZ: ['US', ['v2_long_term'], 'buttons/long_term_multi_gtz'],
+    // Buttons LT MQ EQZ
+    DEVBTNLTMQEQZ: ['US', ['v2_long_term'], 'buttons/long_term_multi_eqz'],
+    // Buttons LT NQ GTZ
+    DEVBTNLTNQGTZ: ['US', ['v2_long_term'], 'buttons/long_term_nq_gtz'],
+    // Buttons LT MQ EQZ
+    DEVBTNLTNQEQZ: ['US', ['v2_long_term'], 'buttons/long_term_nq_eqz'],
+    // Buttons LT SQ GTZ
+    DEVBTNLTSQGTZ: ['US', ['v2_long_term'], 'buttons/long_term_single_gtz'],
+    // Buttons LT SQ EQZ
+    DEVBTNLTSQEQZ: ['US', ['v2_long_term'], 'buttons/long_term_single_eqz'],
+    // Buttons ST NQ
+    DEV00BTNSTSNQ: ['US', ['v2_short_term'], 'buttons/short_term_nq'],
+    // Buttons ST Q
+    DEV000BTNSTSQ: ['US', ['v2_short_term'], 'buttons/short_term_q'],
+
+    // Marks Messages
+    // generic pay later
+    DEV00MRKGENPL: ['US', ['v2_product_list'], 'marks/generic_pay_later'],
+    // generic pay later - bnpl
+    DEVMRKGENBNPL: ['US', ['v2_product_list'], 'marks/generic_pay_later_bnpl'],
+    // generic paypal
+    DEVMRKGENPYPL: ['US', ['v2_product_list'], 'marks/generic_paypal'],
+    // paypal purchase protection
+    DEV0MRKPYPLPP: ['US', ['v2_product_list'], 'marks/purchase_protection'],
+    // Marks LT MQ GTZ
+    DEVMRKLTMQGTZ: ['US', ['v2_long_term'], 'marks/long_term_multi_gtz'],
+    // Marks LT MQ EQZ
+    DEVMRKLTMQEQZ: ['US', ['v2_long_term'], 'marks/long_term_multi_eqz'],
+    // Marks LT NQ GTZ
+    DEVMRKLTNQGTZ: ['US', ['v2_long_term'], 'marks/long_term_nq_gtz'],
+    // Marks LT MQ EQZ
+    DEVMRKLTNQEQZ: ['US', ['v2_long_term'], 'marks/long_term_nq_eqz'],
+    // Marks LT SQ GTZ
+    DEVMRKLTSQGTZ: ['US', ['v2_long_term'], 'marks/long_term_single_gtz'],
+    // Marks LT SQ EQZ
+    DEVMRKLTSQEQZ: ['US', ['v2_long_term'], 'marks/long_term_single_eqz'],
+    // Marks ST NQ
+    DEV00MRKSTSNQ: ['US', ['v2_short_term'], 'marks/short_term_nq'],
+    // Marks ST Q
+    DEV000MRKSTSQ: ['US', ['v2_short_term'], 'marks/short_term_q'],
+
     // Multi product modal
     DEV00000NIGPL: ['US', ['v2_short_term', 'v2_ppc_ni'], 'short_term_nq'],
 

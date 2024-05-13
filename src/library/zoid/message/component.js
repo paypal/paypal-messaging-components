@@ -28,7 +28,8 @@ import {
     getDevTouchpoint,
     getMerchantConfig,
     getLocalTreatments,
-    getTsCookieFromStorage
+    getTsCookieFromStorage,
+    getURIPopup
 } from '../../../utils';
 import validate from './validation';
 import containerTemplate from './containerTemplate';
@@ -141,23 +142,26 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
 
                     return ({ meta }) => {
                         const { modal, index, account, merchantId, currency, amount, buyerCountry, onApply } = props;
-                        const { offerType, offerCountry, messageRequestId } = meta;
-
-                        // Avoid spreading message props because both message and modal
-                        // zoid components have an onClick prop that functions differently
-                        modal.show({
-                            account,
-                            merchantId,
-                            currency,
-                            amount,
-                            buyerCountry,
-                            onApply,
-                            offer: offerType,
-                            offerCountry,
-                            refId: messageRequestId,
-                            refIndex: index,
-                            src: 'message_click'
-                        });
+                        const { offerType, offerCountry, messageRequestId, lander } = meta;
+                        if (offerType === 'PURCHASE_PROTECTION') {
+                            getURIPopup(lander, offerType);
+                        } else {
+                            // Avoid spreading message props because both message and modal
+                            // zoid components have an onClick prop that functions differently
+                            modal.show({
+                                account,
+                                merchantId,
+                                currency,
+                                amount,
+                                buyerCountry,
+                                onApply,
+                                offer: offerType,
+                                offerCountry,
+                                refId: messageRequestId,
+                                refIndex: index,
+                                page_view_link_source: 'message_click'
+                            });
+                        }
 
                         logger.track({
                             index,
@@ -168,8 +172,8 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                         logger.track({
                             index,
                             et: 'CLICK',
-                            event_type: 'click',
-                            link: 'Banner Wrapper'
+                            event_type: 'message_clicked',
+                            page_view_link_name: 'Banner Wrapper'
                         });
 
                         if (typeof onClick === 'function') {
@@ -191,7 +195,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                             logger.track({
                                 index,
                                 et: 'CLIENT_IMPRESSION',
-                                event_type: 'hover'
+                                event_type: 'message_hovered'
                             });
                         }
 
@@ -473,7 +477,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 type: 'string',
                 queryParam: 'features',
                 required: false,
-                value: validate.features ?? getFeatures
+                value: ({ props }) => getFeatures(validate.features({ props }))
             }
         }
     })

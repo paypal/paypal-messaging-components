@@ -1,0 +1,19 @@
+{
+    "_variables": {
+        "financing_code": "PURCHASE_PROTECTION"
+    },
+    "meta": {
+        "id": "",
+        "offer_country_code": "US",
+        "offerType": "PURCHASE_PROTECTION",
+        "lander": "https://www.paypal.com/us/digital-wallet/buyer-purchase-protection"
+    },
+    "headline": [
+        ["A safer, easier way to pay", ["default", "xsmall"]],
+        ["You're protected on most purchases.", ["small", "medium", "large", "xlarge"]]
+    ],
+    "subHeadline": [],
+    "disclaimer": [
+        ["<span aria-hidden='true'>Terms Apply</span><span class='sr-only'> Terms Apply</span>", ["default"]]
+    ]
+}

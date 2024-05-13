@@ -29,7 +29,8 @@ const Message = function ({ markup, meta, parentStyles, warnings }) {
         merchantId: window.xprops.merchantId ?? null,
         merchantConfigHash: window.xprops.merchantConfigHash ?? null,
         disableSetCookie: window.xprops.disableSetCookie ?? null,
-        features: window.xprops.features ?? null
+        features: window.xprops.features ?? null,
+        contextualComponents: window.xprops.contextualComponents ?? null
     });
 
     const [serverData, setServerData] = createState({
@@ -167,7 +168,7 @@ const Message = function ({ markup, meta, parentStyles, warnings }) {
                     stageTag,
                     merchant_config: merchantConfigHash,
                     channel,
-                    contextualComponents,
+                    contextual_components: contextualComponents,
                     deviceID: getOrCreateDeviceID(),
                     treatments: treatmentsHash,
                     disableSetCookie,

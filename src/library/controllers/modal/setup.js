@@ -4,7 +4,9 @@ import {
     awaitDOMContentLoaded,
     getAllBySelector,
     objectMerge,
-    isZoidComponent
+    isZoidComponent,
+    setupGlobalState,
+    getNamespace
 } from '../../../utils';
 import Modal from './interface';
 import { getModalComponent } from '../../zoid/modal';
@@ -13,22 +15,13 @@ export default function setup() {
     // Load the zoid components into memory so that the zoid interface can bootstrap between parent and child
     getModalComponent();
 
-    const { namespace } = getGlobalState().config;
+    setupGlobalState();
 
-    // Allow specified global namespace override
-    if (namespace) {
-        window[namespace] = {
-            ...(window[namespace] || {}),
-            MessagesModal: Modal
-        };
+    if (__MESSAGES__.__TARGET__ !== 'SDK') {
+        const namespace = getNamespace();
 
-        if (window.paypal) {
-            delete window.paypal.MessagesModal;
-
-            if (Object.keys(window.paypal).length === 0) {
-                delete window.paypal;
-            }
-        }
+        window[namespace] = window[namespace] ?? {};
+        window[namespace].MessagesModal = Modal;
     }
 
     // Prevent auto render from firing inside zoid iframe

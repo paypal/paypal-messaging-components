@@ -2,6 +2,7 @@
     "meta": {
         "product": "PAY_LATER_LONG_TERM",
         "offerCountry": "DE",
+        "useV4Design": "false",
         "variables": {
             "transaction_amount": "${eval(transaction_amount ? transaction_amount : '-')}",
             "qualifying_offer": "${eval(CREDIT_OFFERS_DS.qualifying_offer ? CREDIT_OFFERS_DS.qualifying_offer : 'false')}",
@@ -19,7 +20,7 @@
         }
     },
     "content": {
-        "headline": "Später bezahlen in 3, 6, 12 oder 24 monatlichen Raten",
+        "headline": "Später bezahlen in monatlichen Raten",
         "subheadline": "Noch heute kaufen – ohne Anzahlung.",
         "calculator": {
             "title": "Wie viel kostet Ihr Einkauf?",
@@ -29,12 +30,12 @@
             "genericError": "Etwas ist schief gelaufen. Versuchen Sie es später erneut."
         },
         "instructions": [
-            "Wählen Sie PayPal als Bezahlmethode aus, um später mit <strong>PayPal Ratenzahlung</strong> zu bezahlen.",
+            "Wählen Sie PayPal als Bezahlmethode aus, um mit<strong> PayPal Ratenzahlung</strong> zu bezahlen.",
             "Schließen Sie Ihren Einkauf in wenigen Schritten ab.",
             "Das war’s! Falls Sie möchten, können Sie auch früher bezahlen. Ohne Zusatzkosten."
         ],
         "disclosure": {
-            "nonZeroAPR": "Vorbehaltlich Kreditwürdigkeitsprüfung. Laufzeiten von 3, 6, 12 oder 24 Monaten. Ab {formattedMinAmount} und bis zu {formattedMaxAmount} Bestellwert. Für die Laufzeiten 3, 6 und 12 Monate gilt ein effektiver Jahreszins von 11,99%, p.a. zu einem festen Sollzinssatz von 11,29% p.a. bei 3 Monaten, von 11,31% p.a. bei 6 Monaten, von 11,31% p.a. bei 12 Monaten. Für die Laufzeit von 24 Monaten gilt ein effektiver Jahreszins von 10,99% p.a. zu einem festen Sollzinssatz von 10,42% p.a. Repräsentatives Beispiel gem. § 17 (4) PAngV: Nettodarlehensbetrag 1.000 €, Gesamtbetrag 1.062,53 €, 12 monatliche Raten à 88,54 €, fester Sollzinssatz 11,31% p.a., eff. Jahreszins 11,99% p.a. Der Kreditgeber ist PayPal (Europe) S.à r.l. et Cie, S.C.A., 22-24 Boulevard Royal, L-2449 Luxembourg.",
+            "nonZeroAPR": "Vorbehaltlich Kreditwürdigkeitsprüfung. Laufzeiten von 3, 6, 12 oder 24 Monaten. Ab {formattedMinAmount} und bis zu {formattedMaxAmount} Bestellwert. Für die Laufzeiten 3, 6 und 12 Monate gilt ein effektiver Jahreszins von 12,99%, p.a. zu einem festen Sollzinssatz von 12,19% p.a. bei 3 Monaten, von 12,21% p.a. bei 6 Monaten, von 12,22% p.a. bei 12 Monaten. Für die Laufzeit von 24 Monaten gilt ein effektiver Jahreszins von 11,99% p.a. zu einem festen Sollzinssatz von 11,33% p.a. Repräsentatives Beispiel gem. § 17 (4) PAngV: Nettodarlehensbetrag 1.000 €, Gesamtbetrag 1.067,79 €, 12 monatliche Raten à 88,98 €, fester Sollzinssatz 12,22% p.a., eff. Jahreszins 12,99% p.a. Der Kreditgeber ist PayPal (Europe) S.à r.l. et Cie, S.C.A., 22-24 Boulevard Royal, L-2449 Luxembourg.",
             "zeroAPR": "Vorbehaltlich Kreditwürdigkeitsprüfung und nur für Transaktionen in Euro. Ab einem Bestellwert von {formattedMinAmount} bis {formattedMaxAmount} mit einem eff. Jahreszins von {formattedAPR}% p.a. und einem festen Sollzinssatz von {formattedNominalRatePrecision2}% p.a. für Darlehensverträge, die im Angebotszeitraum abgeschlossen werden. Laufzeit 3, 6, 12 oder 24 Monate. Der Kreditgeber ist PayPal (Europe) S.à r.l. et Cie, S.C.A., 22-24 Boulevard Royal, L-2449 Luxembourg. Als Verbraucher steht Ihnen gemäß § 514 BGB bei unentgeltlichen Darlehensverträgen ab einem Finanzierungsbetrag von 200 € ein Widerrufsrecht zu. Anspruchsberechtigte Kunden müssen PayPal ein SEPA Lastschriftmandat erteilen sowie über ein deutsches PayPal Privat-Konto mit bestätigtem Bankkonto als Zahlungsquelle verfügen. Abhängig von der Verfügbarkeit. Laufzeiten können in bestimmten Anwendungsfällen abweichen."
         },
         "navLinkPrefix": "Für andere Später Bezahlen Optionen wählen Sie",

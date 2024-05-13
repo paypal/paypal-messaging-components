@@ -58,6 +58,7 @@ export default function useCalculator({ autoSubmit = false } = {}) {
         merchantId,
         customerId,
         onCalculate,
+        onError,
         buyerCountry,
         ignoreCache,
         amount,
@@ -68,7 +69,8 @@ export default function useCalculator({ autoSubmit = false } = {}) {
         contextualComponents,
         devTouchpoint,
         disableSetCookie,
-        features
+        features,
+        language
     } = useXProps();
 
     const [state, dispatch] = useReducer(reducer, {
@@ -98,7 +100,8 @@ export default function useCalculator({ autoSubmit = false } = {}) {
             devTouchpoint,
             deviceID: getOrCreateDeviceID(),
             disableSetCookie,
-            features
+            features,
+            language
         })
             .then(data => {
                 setServerData(data);
@@ -113,6 +116,13 @@ export default function useCalculator({ autoSubmit = false } = {}) {
                 });
             })
             .catch(() => {
+                // Call the onError handler provided via xprops
+                if (onError) {
+                    onError({
+                        message: 'Failed to fetch modal offers'
+                    });
+                }
+
                 dispatch({
                     type: 'view',
                     data: {

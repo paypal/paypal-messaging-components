@@ -40,6 +40,10 @@
             @include smallMobile {
                 padding: 0px;
             }
+
+            .checkout & {
+                padding: 0px;
+            }
         }
 
         &.checkout {
@@ -124,7 +128,7 @@
         background: $ql-gray;
 
         .donuts__container {
-            margin-top: -30px;
+            margin-top: -25px;
             padding-bottom: 0px;
             ::after {
                 margin-top: -30px;

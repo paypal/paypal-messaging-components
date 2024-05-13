@@ -32,15 +32,15 @@
         "instructions": {
             "instructionsHeadline": "How Pay in 4 works",
             "instructionsSubHeadline": [
-                "Choose PayPal at checkout to pay later with <strong>Pay in 4</strong>. ",
+                "Choose PayPal at checkout to pay later with <strong>Pay in 4</strong><span aria-hidden='true'>.</span>",
                 "Complete your purchase with a 25% down payment.",
                 "Use autopay for the rest of your payments. It's easy!"
             ]
         },
         "preapproval": {
-            "preapprovalHeadline": "You’re pre-approved",
+            "preapprovalHeadline": "Pay in 4",
             "preapprovalLabel": "Pre-approved",
-            "preapprovalSubHeadline": "Pay {formattedTotalCost} in {total_payments} interest-free payments.",
+            "preapprovalSubHeadline": "Split {formattedTotalCost} into {total_payments} interest-free payments with no impact on credit score and no late fees.",
             "preapprovalDisclaimerHeadline": "What to know about pre-approval",
             "preapprovalDisclaimerBody": [
                 "If you no longer meet the criteria used to select you for this offer, or give info we can’t match, pre-approval won’t apply and you may be declined for Pay in 4.",

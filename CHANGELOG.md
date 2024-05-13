@@ -1,5 +1,90 @@
 # Changelog
 
+### [1.64.2](https://github.com/paypal/paypal-messaging-components/compare/v1.64.1...v1.64.2) (2024-05-09)
+
+
+### Bug Fixes
+
+* update API domain ([#1087](https://github.com/paypal/paypal-messaging-components/issues/1087)) ([f3e52c6](https://github.com/paypal/paypal-messaging-components/commit/f3e52c6081d658b828ed7fed54c58acd68f25676))
+* update xo features conditional to allow for multiple features flags ([#1086](https://github.com/paypal/paypal-messaging-components/issues/1086)) ([a674430](https://github.com/paypal/paypal-messaging-components/commit/a674430d2faa553c79a791db6dd2e995902aea7c))
+
+### [1.64.1](https://github.com/paypal/paypal-messaging-components/compare/v1.64.0...v1.64.1) (2024-05-07)
+
+
+### Code Refactoring
+
+* Update log schema ([#1084](https://github.com/paypal/paypal-messaging-components/issues/1084)) ([8d13520](https://github.com/paypal/paypal-messaging-components/commit/8d13520aafcbed27869669a18f6f9428435ca285))
+
+## [1.64.0](https://github.com/paypal/paypal-messaging-components/compare/v1.63.0...v1.64.0) (2024-04-30)
+
+
+### Features
+
+* purchase protection messsage ([#1075](https://github.com/paypal/paypal-messaging-components/issues/1075)) ([c90c280](https://github.com/paypal/paypal-messaging-components/commit/c90c28024c8743104a0497602692626a496bbd99))
+* Update DE Pi30 and Ratenzahlung modals to have EN variants ([#1076](https://github.com/paypal/paypal-messaging-components/issues/1076)) ([c428184](https://github.com/paypal/paypal-messaging-components/commit/c428184c75f20b28b16aa34a0e5ab8149bde3294))
+
+
+### Code Refactoring
+
+* allow mod XO learn more modal inside iframe ([#1079](https://github.com/paypal/paypal-messaging-components/issues/1079)) ([5884791](https://github.com/paypal/paypal-messaging-components/commit/5884791a79c014604a1ac4bc9506753d912925d3))
+* font feature ([#1061](https://github.com/paypal/paypal-messaging-components/issues/1061)) ([282c7fe](https://github.com/paypal/paypal-messaging-components/commit/282c7fe66b3b28fe183b6825868882fe56139707))
+
+## [1.63.0](https://github.com/paypal/paypal-messaging-components/compare/v1.62.0...v1.63.0) (2024-04-16)
+
+
+### Features
+
+* update DE long term modal apr ([#1072](https://github.com/paypal/paypal-messaging-components/issues/1072)) ([4bfbb4d](https://github.com/paypal/paypal-messaging-components/commit/4bfbb4d5a88ecf8df6fac62060c09b70fc283c42))
+
+
+### Code Refactoring
+
+* update calculator padding for XO modal ([#1073](https://github.com/paypal/paypal-messaging-components/issues/1073)) ([9903198](https://github.com/paypal/paypal-messaging-components/commit/9903198c3da4fdd59ef68063cd640256e5a970af))
+
+## [1.62.0](https://github.com/paypal/paypal-messaging-components/compare/v1.61.0...v1.62.0) (2024-04-09)
+
+
+### Features
+
+* support onError modal callback ([#1070](https://github.com/paypal/paypal-messaging-components/issues/1070)) ([8a0a2eb](https://github.com/paypal/paypal-messaging-components/commit/8a0a2eb88d275a8cc6cb5215c683b08e696940de))
+
+
+### Code Refactoring
+
+* update QL checkout Pay Monthly and Pay in 4 modals ([#1068](https://github.com/paypal/paypal-messaging-components/issues/1068)) ([18d4a6a](https://github.com/paypal/paypal-messaging-components/commit/18d4a6a400577f5cceb73acaf71a534c29f1cdc6))
+
+## [1.61.0](https://github.com/paypal/paypal-messaging-components/compare/v1.60.0...v1.61.0) (2024-04-02)
+
+
+### Features
+
+* add support for buttons messages ([#1057](https://github.com/paypal/paypal-messaging-components/issues/1057)) ([b3700c9](https://github.com/paypal/paypal-messaging-components/commit/b3700c968afb486fef6809bc948a20194fc049d2))
+
+## [1.60.0](https://github.com/paypal/paypal-messaging-components/compare/v1.59.0...v1.60.0) (2024-03-26)
+
+
+### Features
+
+* improve ql xo ax ([#1065](https://github.com/paypal/paypal-messaging-components/issues/1065)) ([a6e3d4f](https://github.com/paypal/paypal-messaging-components/commit/a6e3d4fabd64333e62966fde92a56438593a3791))
+
+
+### Bug Fixes
+
+* modified DE header margin so it will not overlap with the svg ([#1060](https://github.com/paypal/paypal-messaging-components/issues/1060)) ([b6e5374](https://github.com/paypal/paypal-messaging-components/commit/b6e53740b5946d113911416267550177be7f013a))
+* setup global state from script in modal setup ([#1058](https://github.com/paypal/paypal-messaging-components/issues/1058)) ([18ff80e](https://github.com/paypal/paypal-messaging-components/commit/18ff80eb5e00efdadc94d1baeb489410b0126f7d))
+
+
+### Code Refactoring
+
+* tweak close styles ([#1064](https://github.com/paypal/paypal-messaging-components/issues/1064)) ([4df4302](https://github.com/paypal/paypal-messaging-components/commit/4df430262dcfbe6b974572fbc432e7b19f321bf2))
+
+## [1.59.0](https://github.com/paypal/paypal-messaging-components/compare/v1.58.0...v1.59.0) (2024-03-19)
+
+
+### Features
+
+* fix preapproval pi4 xo modal ([#1062](https://github.com/paypal/paypal-messaging-components/issues/1062)) ([2448735](https://github.com/paypal/paypal-messaging-components/commit/244873576fbf4535f042c40bc49a2c61bf8f590c))
+
 ## [1.58.0](https://github.com/paypal/paypal-messaging-components/compare/v1.57.0...v1.58.0) (2024-03-12)
 
 

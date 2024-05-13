@@ -126,6 +126,34 @@ export function addPeriod() {
     }`;
 }
 
+/**
+ * Removes period after inline logotype PayPal logo for fallback content
+ */
+export function removeInlinePeriod(breakpoint) {
+    return `@media screen and (max-width: ${breakpoint}px) {
+       .locale--US .message__logo-container::after {
+            content: '';
+        }
+    }`;
+}
+
+/**
+ * Removes period after "PayPal" in logo type none for fallbacks.
+ * Specifically used in button and mark messages.
+ */
+export function removePeriodFromProductName(breakpoint) {
+    return `@media screen and (max-width: ${breakpoint}px) {
+        .message__headline span:last-child > span::before {
+            content: 'PayPal';
+            display: inline-block;
+            font-weight: bold;
+        }
+        .message__headline span:last-child > strong {
+            display: none;
+        }
+    }`;
+}
+
 // Sets logo position for GPL 20x1 ratio
 export function logo20x1() {
     return `
@@ -168,5 +196,20 @@ export function primaryWrap(breakpoint) {
             white-space: normal;
         }
         .locale--DE .message__messaging span.br:first-child { white-space: nowrap; }
+    }`;
+}
+
+/**
+ * Used to hide "Learn more" disclaimer for fallback messages and disables pointer events on the message.
+ * Specifically used in Buttons and Marks fallback messages where we do not want to show the "Learn more" disclaimer link.
+ */
+export function hideDisclaimer(breakpoint) {
+    return `@media screen and (max-width: ${breakpoint}px) {
+       .message__disclaimer > .tag--default {
+            display: none;
+        }
+        button {
+            pointer-events: none; 
+        }
     }`;
 }

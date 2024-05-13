@@ -46,7 +46,7 @@
         overflow: hidden;
         height: 25rem; // Needs to be tall enough to seamlessly flow behind the main body content
         max-height: 85vh; // Prevent it from bleeding below on small height tablet views
-        background-color: $beige;    
+        background-color: $beige;
 
         // We have multiple backgrounds to give the appearance of
         // reserving space at the top of the modal when scrolling.
@@ -190,11 +190,13 @@
             flex-direction: column-reverse;
             align-items: baseline;
             text-align: left;
-            
+
             .close {
-                margin: 10px auto 0px 10px;
+                width: 44px;
+                height: 44px;
+                margin: 10px auto 10px 10px;
                 padding-left: 0px;
-    
+
                 @include mobile {
                     margin-left: 15px;
                 }
@@ -212,6 +214,12 @@
         @include tablet {
             width: 100%;
             padding-bottom: 40px;
+        }
+
+        .checkout & {
+            @include tablet {
+                padding-bottom: 44px;
+            }
         }
 
         svg {
@@ -280,7 +288,7 @@
 
             &.headline-de {
                 @include tablet {
-                    margin-right: 20px;
+                    margin-right: 102px;
                 }
 
                 @include mobile {
@@ -343,14 +351,14 @@
 
             span {
                 white-space: nowrap;
-            }   
+            }
         }
 
         .preapproved {
             display: flex;
             align-items: center;
             flex-direction: row;
-            
+
             .preapproved-label {
                 font-size: 14px;
                 font-weight: 400;
@@ -388,7 +396,7 @@
                     margin-left: 20px;
                 }
             }
-    
+
             .subheadline_p {
                 max-width: 400px;
 

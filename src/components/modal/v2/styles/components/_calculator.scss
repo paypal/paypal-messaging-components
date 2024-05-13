@@ -34,6 +34,16 @@
         margin-top: 15px;
     }
 
+    .checkout & {
+        @include tablet {
+            margin-bottom: 0px;
+        }
+
+        @include mobile {
+            margin-bottom: 0px;
+        }
+    }
+
     .form {
         .title {
             color: $text-main;
@@ -60,6 +70,11 @@
                 position: absolute;
                 left: 0.5rem;
                 top: 0.25rem;
+
+                .checkout & {
+                    top: 0.5rem;
+                    left: 0.9rem;
+                }
             }
 
             .input__currency-symbol {
@@ -87,10 +102,16 @@
                         font-size: 14px;
                     }
                 }
+
+                .checkout & {
+                    font-size: 16px;
+                    padding: 1.75rem 0.5rem 0.5rem 0.75rem;
+                }
             }
         }
 
-        &.v4Design, &.checkout {
+        &.v4Design,
+        &.checkout {
             h4 {
                 font-weight: 700;
             }
