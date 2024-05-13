@@ -1,7 +1,7 @@
 import runDescribeBlock from './runDescribeBlock';
 
 const positions = ['top', 'left', 'right'];
-const logoTypes = ['primary', 'alternative', 'inline', 'none'];
+const logoTypes = ['alternative', 'inline', 'none'];
 
 const tests = [].concat(
     // Logo types with valid logo position options
