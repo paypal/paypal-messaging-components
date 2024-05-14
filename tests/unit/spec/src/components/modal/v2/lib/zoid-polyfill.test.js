@@ -126,7 +126,7 @@ describe('zoidPollyfill', () => {
             );
         });
         test('onCalculate returning a log message', () => {
-            window.xprops.onCalculate({ value: 500 });
+            window.xprops.onCalculate({ value: '500' });
 
             expect(logger.track).toHaveBeenCalledTimes(1);
             expect(logger.track).toHaveBeenCalledWith(
@@ -134,7 +134,7 @@ describe('zoidPollyfill', () => {
                     event_type: 'modal_rendered',
                     page_view_link_name: 'Calculator',
                     page_view_link_source: 'Calculator',
-                    calculator_input: 500
+                    calculator_input: '500'
                 })
             );
         });
@@ -233,8 +233,8 @@ describe('zoidPollyfill', () => {
                     "offer_country_code": "US",
                   },
                   "event_type": "modal_rendered",
-                  "render_duration": 50,
-                  "request_duration": 100,
+                  "render_duration": "50",
+                  "request_duration": "100",
                 },
               ],
               "name": "onReady",
@@ -260,7 +260,7 @@ describe('zoidPollyfill', () => {
         `);
         postMessage.mockClear();
 
-        window.xprops.onCalculate({ value: 500 });
+        window.xprops.onCalculate({ value: '500' });
 
         expect(postMessage).toHaveBeenCalledTimes(1);
         expect(postMessage.mock.calls[0][0]).toEqual(expect.any(String));
@@ -268,7 +268,7 @@ describe('zoidPollyfill', () => {
             Object {
               "args": Array [
                 Object {
-                  "calculator_input": 500,
+                  "calculator_input": "500",
                   "event_type": "modal_clicked",
                   "page_view_link_name": "Calculator",
                   "page_view_link_source": "Calculator",
@@ -390,8 +390,8 @@ describe('zoidPollyfill', () => {
                     "offer_country_code": "US",
                   },
                   "event_type": "modal_rendered",
-                  "render_duration": 50,
-                  "request_duration": 100,
+                  "render_duration": "50",
+                  "request_duration": "100",
                 },
               ],
               "name": "onReady",

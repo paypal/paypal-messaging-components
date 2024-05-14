@@ -399,6 +399,7 @@
 
             .subheadline_p {
                 max-width: 400px;
+                margin-top: -1px;
 
                 @include desktop {
                     margin-bottom: 0px;
