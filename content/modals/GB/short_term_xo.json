@@ -50,7 +50,7 @@
             "buttonTextIneligible": "Back to Checkout",
             "link": "https://www.paypal.com/link/to/short-term-application"
         },
-        "disclosure": "Pay in 3 is a form of credit, so carefully consider whether the purchase is affordable and how you will make the repayments. Be aware of the possible impact of using Pay in 3 and of missing payments, including making other borrowing more difficult or more expensive. Pay in 3 eligibility is subject to status and approval. 18+ UK residents only. Available for purchases of {formattedMinAmount} to {formattedMaxAmount}. Terms and conditions apply. PayPal Pay in 3 is a trading name of PayPal (Europe) S.à r.l. et Cie, S.C.A. 22-24 Boulevard Royal L-2449, Luxembourg.",
+        "disclosure": "Pay in 3 is an unregulated credit agreement, so you will have fewer protections under this agreement than you would under a regulated credit agreement. Carefully consider whether the purchase is affordable and how you will make the repayments. Be aware of the possible impact of using Pay in 3 and of missing payments, including making other borrowing more difficult or more expensive. Pay in 3 eligibility is subject to status and approval. 18+ UK residents only. Available for purchases of {formattedMinAmount} to {formattedMaxAmount}. Terms and conditions apply. PayPal Pay in 3 is a trading name of PayPal UK Ltd, Whittaker House, Whittaker Avenue, Richmond-Upon-Thames, Surrey, United Kingdom, TW9 1EH.",
         "learnMoreLink": [["Learn more about Pay in 3", ["https://www.paypal.com/uk/webapps/mpp/paypal-payin3/faq"]]]
     }
 }

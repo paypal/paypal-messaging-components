@@ -51,8 +51,7 @@
         "@paypal/sdk-client": "^4.0.166",
         "@paypal/sdk-constants": "^1.0.118",
         "@paypal/sdk-logos": "^2.0.0",
-        "core-js-pure": "3.31.1",
-        "zalgo-promise": "^1.0.48"
+        "core-js-pure": "3.31.1"
     },
     "devDependencies": {
         "@babel/eslint-parser": "^7.17.0",
