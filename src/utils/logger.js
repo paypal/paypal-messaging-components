@@ -3,7 +3,7 @@
 import objectKeys from 'core-js-pure/stable/object/keys';
 import arrayIncludes from 'core-js-pure/stable/array/includes';
 import { Logger, LOG_LEVEL } from '@krakenjs/beaver-logger/src';
-import { ZalgoPromise } from 'zalgo-promise';
+import { ZalgoPromise } from '@krakenjs/zalgo-promise/src';
 
 import { getGlobalAPIUrl } from './global';
 import { request } from './miscellaneous';
