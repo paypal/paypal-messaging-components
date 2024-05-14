@@ -128,36 +128,52 @@ $donut-text-v4: #545d68;
             }
         }
 
-        &::after {
-            content: '';
-            flex-grow: 1;
-            border-top: 1px dashed $dark-gray;
-            top: 55px;
-            width: 100%;
-            max-width: 50px;
-            position: absolute;
-            transform: translateX((90%));
-
-            @include mobile {
-                max-width: 45px;
-            }
-            @include smallMobile {
-                max-width: 35px;
-            }
-        }
-        &__3 {
-            @extend .donut__single_payment_line;
+        .svg {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+    
             &::after {
-                max-width: 85px;
-                transform: translateX((70%));
+                content: '';
+                flex-grow: 1;
+                border-top: 1px dashed $dark-gray;
+                width: 100%;
+                max-width: 50px;
+                transform: translateX((97%));
+                margin-top: -50%;
+                margin-bottom: 50%;
 
+                @include smallHeightMobile {
+                    transform: translateX((100%));
+                }
                 @include mobile {
-                    max-width: min(80px, calc(100vw * 0.2));
-                    transform: translateX((67%));
+                    max-width: 45px;
                 }
                 @include smallMobile {
-                    max-width: min(55px, calc(100vw * 0.3));
-                    transform: translateX((75%));
+                    max-width: 35px;
+                }
+            }
+        }    
+        
+        &__3 {
+            @extend .donut__single_payment_line;
+            .svg {
+                &::after {
+                    max-width: 85px;
+                    transform: translateX((100%));
+                    margin-left: 50%;
+
+                    @include smallHeightMobile {
+                        transform: translateX((75%));
+                    }
+                    @include mobile {
+                        max-width: min(70px, calc(100vw * 0.2));
+                        transform: translateX((67%));
+                    }
+                    @include smallMobile {
+                        max-width: min(55px, calc(100vw * 0.3));
+                        transform: translateX((57%));
+                    }
                 }
             }
         }
