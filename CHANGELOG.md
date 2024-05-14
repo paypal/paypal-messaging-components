@@ -1,5 +1,22 @@
 # Changelog
 
+### [1.64.3](https://github.com/paypal/paypal-messaging-components/compare/v1.64.2...v1.64.3) (2024-05-14)
+
+
+### Bug Fixes
+
+* origami styling ([#1080](https://github.com/paypal/paypal-messaging-components/issues/1080)) ([28d5fc1](https://github.com/paypal/paypal-messaging-components/commit/28d5fc1d1f4bb42dc6ec6d16f052f52af3df6645))
+
+
+### Code Refactoring
+
+* ensure content attribute on meta element is not incorrectly set to undefined after closing modal ([#1083](https://github.com/paypal/paypal-messaging-components/issues/1083)) ([905905e](https://github.com/paypal/paypal-messaging-components/commit/905905e7ce4480803b9509bfdb80979c9dd6c368))
+* fix donut dash position ([#1089](https://github.com/paypal/paypal-messaging-components/issues/1089)) ([b2429be](https://github.com/paypal/paypal-messaging-components/commit/b2429beaad97c4dc711103a29e9bb6c73b0bd0cf))
+* pass modal zoid polyfill duration as string ([#1066](https://github.com/paypal/paypal-messaging-components/issues/1066)) ([f1b66cd](https://github.com/paypal/paypal-messaging-components/commit/f1b66cd1899349ca37d5bad2f56db631776b15a3))
+* remove ecToken from modalContent request ([#1091](https://github.com/paypal/paypal-messaging-components/issues/1091)) ([0beb8d6](https://github.com/paypal/paypal-messaging-components/commit/0beb8d63c6147e3176e01022238ed602626a1cdd))
+* remove extra older zalgo-promise dependency ([#1093](https://github.com/paypal/paypal-messaging-components/issues/1093)) ([3733916](https://github.com/paypal/paypal-messaging-components/commit/37339165ffff421dd3c6296977f87bb633622b35))
+* update GB legal disclosure content in modals ([#1092](https://github.com/paypal/paypal-messaging-components/issues/1092)) ([78e759d](https://github.com/paypal/paypal-messaging-components/commit/78e759d41d9c0e36f1835976688090b52b61be18))
+
 ### [1.64.2](https://github.com/paypal/paypal-messaging-components/compare/v1.64.1...v1.64.2) (2024-05-09)
 
 
