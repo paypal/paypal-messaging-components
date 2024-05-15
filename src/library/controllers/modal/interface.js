@@ -42,7 +42,8 @@ const memoizedModal = memoizeOnProps(
         contextualComponents,
         cspNonce,
         integrationIdentifier,
-        features
+        features,
+        buttonSessionId
     }) => {
         addPerformanceMeasure(PERFORMANCE_MEASURE_KEYS.FIRST_MODAL_RENDER_DELAY);
 
@@ -68,7 +69,8 @@ const memoizedModal = memoizeOnProps(
             contextualComponents,
             cspNonce,
             integrationIdentifier,
-            features
+            features,
+            buttonSessionId
         });
         // Fired from inside the default onReady callback
         let renderProm;
