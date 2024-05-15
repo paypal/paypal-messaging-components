@@ -11,6 +11,7 @@ import shortTermSingleNQ from './short_term_nq';
 import genericPayLater from './generic_pay_later';
 import genericPayLaterBNPL from './generic_pay_later_bnpl';
 import genericPayPal from './generic_paypal';
+import purchaseProtection from './purchase_protection';
 
 export default function getMutations(id, type) {
     switch (id) {
@@ -47,6 +48,8 @@ export default function getMutations(id, type) {
         // // Generic Pay Later - Buy now, Pay Later message
         case 'GENERIC_PL_BNPL':
             return genericPayLaterBNPL[type];
+        case 'PURCHASE_PROTECTION':
+            return purchaseProtection[type];
         // // Generic PayPal message
         case 'GENERIC_PAYPAL':
         default:

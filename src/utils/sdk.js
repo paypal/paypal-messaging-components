@@ -33,6 +33,14 @@ export function getDisableSetCookie() {
     }
 }
 
+export function getNativeModal() {
+    if (typeof __MESSAGES__.__NATIVE_MODAL__ !== 'undefined') {
+        return __MESSAGES__.__NATIVE_MODAL__;
+    }
+
+    return false;
+}
+
 // SDK helper functions with standalone build polyfills
 export function getEnv() {
     if (__MESSAGES__.__TARGET__ === 'SDK') {
@@ -202,6 +210,51 @@ export const isScriptBeingDestroyed = () => {
     }
 };
 
+export function getPayPalAPIDomain() {
+    if (getEnv() !== 'production' && getEnv() !== 'sandbox') {
+        const testEnviroment = window.__TEST_ENV__ ?? __MESSAGES__.__TEST_ENV__;
+
+        if (testEnviroment) {
+            try {
+                const url = new URL(testEnviroment);
+
+                // Check if the hostname starts with 'www.' and replace it with 'api.'
+                if (url.hostname.startsWith('www.')) {
+                    url.hostname = url.hostname.replace('www.', 'api.');
+                } else {
+                    // If 'www' is not part of the domain, prepend 'api.' directly
+                    url.hostname = `api.${url.hostname}`;
+                }
+                return url.pathname === '/' && !url.search ? url.origin : url.href;
+            } catch (error) {
+                return testEnviroment;
+            }
+        }
+
+        // eslint-disable-next-line security/detect-unsafe-regex
+        if (window.location.origin.match(/\.paypal\.com(:\d+)?$/)) {
+            return window.location.origin;
+        }
+    }
+
+    // Not using `getPayPalAPIDomain` function call here because it outputs 'cors.api.paypal.com'
+    // The domain with prefixed 'cors' does not route to logging application.
+    if (__MESSAGES__.__TARGET__ === 'SDK') {
+        if (getEnv() === 'sandbox') {
+            return 'https://api.sandbox.paypal.com';
+        }
+        return 'https://api.paypal.com';
+    } else {
+        const domain = __MESSAGES__.__API_DOMAIN__[`__${getEnv().toUpperCase()}__`];
+
+        if (domain) {
+            return domain;
+        }
+
+        throw new Error('Missing PayPal Domain');
+    }
+}
+
 export function getPayPalDomain() {
     if (getEnv() !== 'production' && getEnv() !== 'sandbox') {
         const testEnviroment = window.__TEST_ENV__ ?? __MESSAGES__.__TEST_ENV__;
@@ -248,10 +301,24 @@ export function getDevTouchpoint() {
         return undefined; // Prevent the zoid query param
     }
 }
-export function getFeatures() {
-    if (getDisableSetCookie()) {
-        return 'disable-set-cookie';
-    } else {
-        return undefined;
+
+// Combine static features and input features into single string
+export function getFeatures(featureProps) {
+    const staticFeatures = [];
+
+    if (getNativeModal()) {
+        staticFeatures.push('native-modal');
     }
+
+    let newFeatures = featureProps || '';
+    if (staticFeatures.length > 0) {
+        newFeatures += newFeatures ? `,${staticFeatures.join(',')}` : staticFeatures.join(',');
+    }
+
+    return featureProps === undefined && newFeatures === '' ? undefined : newFeatures;
+}
+
+// open mini-browser with message lander url
+export function getURIPopup(lander, label) {
+    return window.open(lander, label, 'width=460,height=900');
 }

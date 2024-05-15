@@ -1,0 +1,39 @@
+{
+    "meta": {
+        "offerCountry": "DE",
+        "language": "en-DE",
+        "useV4Design": "false",
+        "periodicPayment": "{formattedPeriodicPayment}",
+        "product": "PAY_LATER_PAY_IN_1",
+        "minAmount": "{minAmount}",
+        "maxAmount": "{maxAmount}",
+        "qualifying": "{qualifying_offer}",
+        "amount": "{transaction_amount}",
+        "variables": {
+            "transaction_amount": "${eval(transaction_amount ? transaction_amount : '-')}",
+            "qualifying_offer": "${eval(CREDIT_OFFERS_DS.qualifying_offer ? CREDIT_OFFERS_DS.qualifying_offer : 'false')}",
+            "financing_code": "${CREDIT_OFFERS_DS.financing_code}",
+            "formattedPeriodicPayment": "${CREDIT_OFFERS_DS.formattedPeriodicPayment}",
+            "total_payments": "${CREDIT_OFFERS_DS.total_payments}",
+            "formattedMinAmount": "${CREDIT_OFFERS_DS.formattedMinAmount}",
+            "formattedMaxAmount": "${CREDIT_OFFERS_DS.formattedMaxAmount}",
+            "formattedTotalCost": "${CREDIT_OFFERS_DS.formattedTotalCost}",
+            "minAmount": "${CREDIT_OFFERS_DS.minAmount}",
+            "maxAmount": "${CREDIT_OFFERS_DS.maxAmount}"
+        }
+    },
+    "content": {
+        "headline": "Buy what you love now. Pay in 30 Days.",
+        "subheadline": "Available for purchases of <span>{formattedMinAmount} - {formattedMaxAmount}.</span>",
+        "instructions": [
+            "Choose PayPal at checkout to use <strong> Pay in 30 Days.</strong>",
+            "Complete your purchase in a few quick steps.",
+            "Need more than 30 days? Postpone once for a fee."
+        ],
+        "disclosure": [
+            "Available for purchases of {formattedMinAmount} - {formattedMaxAmount}. Subject to a credit check. Eligible customers must grant PayPal a SEPA direct debit mandate and have a German PayPal private account with a bank account as a funding instrument."
+        ],
+        "navLinkPrefix": "For monthly Pay Later Options,",
+        "linkToProductList": "see PayPal Ratenzahlung."
+    }
+}

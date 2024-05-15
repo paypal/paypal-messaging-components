@@ -184,7 +184,7 @@ export const LongTerm = ({
                 }`}
             >
                 {typeof disclosure === 'string' || Array.isArray(disclosure) ? (
-                    <InlineLinks text={disclosure} />
+                    <InlineLinks text={disclosure} useNewCheckoutDesign={useNewCheckoutDesign} />
                 ) : (
                     <InlineLinks
                         text={(disclosure?.[offerAPRDisclaimers[0].aprType] ?? '').replace(/\D00\s?(EUR|€)/g, ' €')}

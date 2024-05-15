@@ -62,7 +62,7 @@ const BodyContent = () => {
     const isQualifying = productMeta?.qualifying;
 
     const useV4Design = productMeta?.useV4Design === 'true';
-    const useNewCheckoutDesign = features === 'new-checkout-design' ? 'true' : 'false';
+    const useNewCheckoutDesign = features?.includes('new-checkout-design') ? 'true' : 'false';
 
     // add v4Design class to root html to update lander specific styles to v4
     const documentClassName = document.documentElement.className;
@@ -106,7 +106,9 @@ const BodyContent = () => {
                 openProductList={openProductList}
             />
         ),
-        [VIEW_IDS.PAY_LATER_PAY_IN_1]: <PayIn1 content={content} openProductList={openProductList} />,
+        [VIEW_IDS.PAY_LATER_PAY_IN_1]: (
+            <PayIn1 productMeta={productMeta} content={content} openProductList={openProductList} />
+        ),
         [VIEW_IDS.PAY_LATER_SHORT_TERM]: (
             <ShortTerm
                 content={content}
@@ -122,7 +124,7 @@ const BodyContent = () => {
     // specific adjacent DOM structure
     return (
         <Fragment>
-            {typeof cta !== 'undefined' && features === 'new-checkout-design' ? (
+            {typeof cta !== 'undefined' && features?.includes('new-checkout-design') ? (
                 <CheckoutHeader
                     headline={headline}
                     subheadline={subheadline}

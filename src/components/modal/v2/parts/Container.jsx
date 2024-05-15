@@ -40,7 +40,7 @@ const Container = ({ children }) => {
     } = useXProps();
     const [transitionState] = useTransitionState();
     const [loading, setLoading] = useState(false);
-    const useNewCheckoutDesign = features === 'new-checkout-design' ? 'true' : 'false';
+    const useNewCheckoutDesign = features?.includes('new-checkout-design') ? 'true' : 'false';
 
     useEffect(() => {
         if (transitionState === 'CLOSED') {

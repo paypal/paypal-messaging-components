@@ -26,6 +26,11 @@ if (!isZoidComponent()) {
     });
 }
 
+// Extract rendered parts from activeTags string
+function extractRenderedParts(activeTags) {
+    return activeTags.split('::').map(part => part.split(':')[1]);
+}
+
 export function addLoggerMetaMutator(index, metaMutation) {
     logger.addMetaBuilder(existingMeta => {
         // Remove potential existing meta info
@@ -49,20 +54,24 @@ export function buildStatsPayload({ container, activeTags, index, requestDuratio
 
     const sdkMetaAttributes = getScriptAttributes();
 
+    const [headline, subHeadline, disclaimer] = extractRenderedParts(activeTags);
+
     return checkAdblock().then(detected => {
         return {
             index,
-            adblock: detected.toString(),
+            ad_blocker: detected.toString(),
             blocked: isHidden(container).toString(),
             bn_code: sdkMetaAttributes[SDK_SETTINGS.PARTNER_ATTRIBUTION_ID],
             // Beaver logger filters payload props based on Boolean conversion value
             // so everything must be converted to a string to prevent unintended filtering
-            pos_x: Math.round(containerRect.left).toString(),
-            pos_y: Math.round(containerRect.top).toString(),
+            position_in_page_x: Math.round(containerRect.left).toString(),
+            position_in_page_y: Math.round(containerRect.top).toString(),
             browser_width: String(topWindow?.innerWidth),
             browser_height: String(topWindow?.innerHeight),
-            visible: isInViewport(container).toString(),
-            active_tags: activeTags,
+            in_viewport: isInViewport(container).toString(),
+            headline,
+            sub_headline: subHeadline,
+            disclaimer,
             request_duration: formatStat(requestDuration),
             render_duration: renderDuration
         };
@@ -90,7 +99,7 @@ export function runStats({ container, activeTags, index, requestDuration }) {
         logger.track({
             index,
             et: 'CLIENT_IMPRESSION',
-            event_type: 'stats',
+            event_type: 'message_rendered',
             first_render_delay: Math.round(firstRenderDelay).toString()
         });
     });

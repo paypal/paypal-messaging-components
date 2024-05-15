@@ -1,5 +1,51 @@
 # Changelog
 
+### [1.64.3](https://github.com/paypal/paypal-messaging-components/compare/v1.64.2...v1.64.3) (2024-05-14)
+
+
+### Bug Fixes
+
+* origami styling ([#1080](https://github.com/paypal/paypal-messaging-components/issues/1080)) ([28d5fc1](https://github.com/paypal/paypal-messaging-components/commit/28d5fc1d1f4bb42dc6ec6d16f052f52af3df6645))
+
+
+### Code Refactoring
+
+* ensure content attribute on meta element is not incorrectly set to undefined after closing modal ([#1083](https://github.com/paypal/paypal-messaging-components/issues/1083)) ([905905e](https://github.com/paypal/paypal-messaging-components/commit/905905e7ce4480803b9509bfdb80979c9dd6c368))
+* fix donut dash position ([#1089](https://github.com/paypal/paypal-messaging-components/issues/1089)) ([b2429be](https://github.com/paypal/paypal-messaging-components/commit/b2429beaad97c4dc711103a29e9bb6c73b0bd0cf))
+* pass modal zoid polyfill duration as string ([#1066](https://github.com/paypal/paypal-messaging-components/issues/1066)) ([f1b66cd](https://github.com/paypal/paypal-messaging-components/commit/f1b66cd1899349ca37d5bad2f56db631776b15a3))
+* remove ecToken from modalContent request ([#1091](https://github.com/paypal/paypal-messaging-components/issues/1091)) ([0beb8d6](https://github.com/paypal/paypal-messaging-components/commit/0beb8d63c6147e3176e01022238ed602626a1cdd))
+* remove extra older zalgo-promise dependency ([#1093](https://github.com/paypal/paypal-messaging-components/issues/1093)) ([3733916](https://github.com/paypal/paypal-messaging-components/commit/37339165ffff421dd3c6296977f87bb633622b35))
+* update GB legal disclosure content in modals ([#1092](https://github.com/paypal/paypal-messaging-components/issues/1092)) ([78e759d](https://github.com/paypal/paypal-messaging-components/commit/78e759d41d9c0e36f1835976688090b52b61be18))
+
+### [1.64.2](https://github.com/paypal/paypal-messaging-components/compare/v1.64.1...v1.64.2) (2024-05-09)
+
+
+### Bug Fixes
+
+* update API domain ([#1087](https://github.com/paypal/paypal-messaging-components/issues/1087)) ([f3e52c6](https://github.com/paypal/paypal-messaging-components/commit/f3e52c6081d658b828ed7fed54c58acd68f25676))
+* update xo features conditional to allow for multiple features flags ([#1086](https://github.com/paypal/paypal-messaging-components/issues/1086)) ([a674430](https://github.com/paypal/paypal-messaging-components/commit/a674430d2faa553c79a791db6dd2e995902aea7c))
+
+### [1.64.1](https://github.com/paypal/paypal-messaging-components/compare/v1.64.0...v1.64.1) (2024-05-07)
+
+
+### Code Refactoring
+
+* Update log schema ([#1084](https://github.com/paypal/paypal-messaging-components/issues/1084)) ([8d13520](https://github.com/paypal/paypal-messaging-components/commit/8d13520aafcbed27869669a18f6f9428435ca285))
+
+## [1.64.0](https://github.com/paypal/paypal-messaging-components/compare/v1.63.0...v1.64.0) (2024-04-30)
+
+
+### Features
+
+* purchase protection messsage ([#1075](https://github.com/paypal/paypal-messaging-components/issues/1075)) ([c90c280](https://github.com/paypal/paypal-messaging-components/commit/c90c28024c8743104a0497602692626a496bbd99))
+* Update DE Pi30 and Ratenzahlung modals to have EN variants ([#1076](https://github.com/paypal/paypal-messaging-components/issues/1076)) ([c428184](https://github.com/paypal/paypal-messaging-components/commit/c428184c75f20b28b16aa34a0e5ab8149bde3294))
+
+
+### Code Refactoring
+
+* allow mod XO learn more modal inside iframe ([#1079](https://github.com/paypal/paypal-messaging-components/issues/1079)) ([5884791](https://github.com/paypal/paypal-messaging-components/commit/5884791a79c014604a1ac4bc9506753d912925d3))
+* font feature ([#1061](https://github.com/paypal/paypal-messaging-components/issues/1061)) ([282c7fe](https://github.com/paypal/paypal-messaging-components/commit/282c7fe66b3b28fe183b6825868882fe56139707))
+
 ## [1.63.0](https://github.com/paypal/paypal-messaging-components/compare/v1.62.0...v1.63.0) (2024-04-16)
 
 

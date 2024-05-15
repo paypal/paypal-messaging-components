@@ -10,7 +10,7 @@ export default {
             color: [Types.STRING, ['black', 'white', 'monochrome', 'grayscale|greyscale']],
             size: [Types.NUMBER, [12, 10, 11, 13, 14, 15, 16]],
             align: [Types.STRING, ['left', 'right', 'center']],
-            fontFamily: [Types.STRING],
+            fontFamily: [Types.ANY],
             fontSource: [Types.ANY]
         }
     },
@@ -21,7 +21,7 @@ export default {
         ],
         ratio: [Types.STRING, ['1x1', '1x4', '8x1', '20x1']],
         text: {
-            fontFamily: [Types.STRING],
+            fontFamily: [Types.ANY],
             fontSource: [Types.ANY]
         }
     }

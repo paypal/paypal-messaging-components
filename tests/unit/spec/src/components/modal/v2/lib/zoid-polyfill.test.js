@@ -108,7 +108,7 @@ describe('zoidPollyfill', () => {
             expect(logger.track).toHaveBeenCalledTimes(1);
             expect(logger.track).toHaveBeenCalledWith(
                 expect.objectContaining({
-                    event_type: 'modal-render',
+                    event_type: 'modal_rendered',
                     modal: 'product_1_product_2:PRODUCT_1'
                 })
             );
@@ -119,22 +119,22 @@ describe('zoidPollyfill', () => {
             expect(logger.track).toHaveBeenCalledTimes(1);
             expect(logger.track).toHaveBeenCalledWith(
                 expect.objectContaining({
-                    event_type: 'click',
-                    link: 'test link',
-                    src: 'test src'
+                    event_type: 'modal_rendered',
+                    page_view_link_name: 'test link',
+                    page_view_link_source: 'test src'
                 })
             );
         });
         test('onCalculate returning a log message', () => {
-            window.xprops.onCalculate({ value: 500 });
+            window.xprops.onCalculate({ value: '500' });
 
             expect(logger.track).toHaveBeenCalledTimes(1);
             expect(logger.track).toHaveBeenCalledWith(
                 expect.objectContaining({
-                    event_type: 'click',
-                    link: 'Calculator',
-                    src: 'Calculator',
-                    amount: 500
+                    event_type: 'modal_rendered',
+                    page_view_link_name: 'Calculator',
+                    page_view_link_source: 'Calculator',
+                    calculator_input: '500'
                 })
             );
         });
@@ -144,8 +144,8 @@ describe('zoidPollyfill', () => {
             expect(logger.track).toHaveBeenCalledTimes(1);
             expect(logger.track).toHaveBeenCalledWith(
                 expect.objectContaining({
-                    event_type: 'modal-open',
-                    src: 'Show'
+                    event_type: 'modal_viewed',
+                    page_view_link_source: 'Show'
                 })
             );
         });
@@ -155,8 +155,8 @@ describe('zoidPollyfill', () => {
             expect(logger.track).toHaveBeenCalledTimes(1);
             expect(logger.track).toHaveBeenCalledWith(
                 expect.objectContaining({
-                    event_type: 'modal-close',
-                    link: 'Close Button'
+                    event_type: 'modal_close',
+                    page_view_link_name: 'Close Button'
                 })
             );
         });
@@ -168,8 +168,8 @@ describe('zoidPollyfill', () => {
                 expect.objectContaining({
                     index: '1',
                     et: 'CLICK',
-                    event_type: 'modal-close',
-                    link: 'Escape Key'
+                    event_type: 'modal_close',
+                    page_view_link_name: 'Escape Key'
                 })
             );
         });
@@ -233,8 +233,8 @@ describe('zoidPollyfill', () => {
                     "offer_country_code": "US",
                   },
                   "event_type": "modal_rendered",
-                  "render_duration": 50,
-                  "request_duration": 100,
+                  "render_duration": "50",
+                  "request_duration": "100",
                 },
               ],
               "name": "onReady",
@@ -260,7 +260,7 @@ describe('zoidPollyfill', () => {
         `);
         postMessage.mockClear();
 
-        window.xprops.onCalculate({ value: 500 });
+        window.xprops.onCalculate({ value: '500' });
 
         expect(postMessage).toHaveBeenCalledTimes(1);
         expect(postMessage.mock.calls[0][0]).toEqual(expect.any(String));
@@ -268,7 +268,7 @@ describe('zoidPollyfill', () => {
             Object {
               "args": Array [
                 Object {
-                  "calculator_input": 500,
+                  "calculator_input": "500",
                   "event_type": "modal_clicked",
                   "page_view_link_name": "Calculator",
                   "page_view_link_source": "Calculator",
@@ -390,8 +390,8 @@ describe('zoidPollyfill', () => {
                     "offer_country_code": "US",
                   },
                   "event_type": "modal_rendered",
-                  "render_duration": 50,
-                  "request_duration": 100,
+                  "render_duration": "50",
+                  "request_duration": "100",
                 },
               ],
               "name": "onReady",
