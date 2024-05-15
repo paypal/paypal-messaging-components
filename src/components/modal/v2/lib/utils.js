@@ -23,7 +23,8 @@ export const getContent = memoize(
         contextualComponents,
         devTouchpoint,
         disableSetCookie,
-        features
+        features,
+        buttonSessionId
     }) => {
         const query = objectEntries({
             currency,
@@ -44,7 +45,8 @@ export const getContent = memoize(
             contextual_components: contextualComponents,
             devTouchpoint,
             disableSetCookie,
-            features
+            features,
+            buttonSessionId
         })
             .filter(([, val]) => Boolean(val))
             .reduce(
