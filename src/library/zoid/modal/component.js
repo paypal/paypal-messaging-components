@@ -161,18 +161,18 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                 type: 'function',
                 queryParam: false,
                 value: ({ props }) => {
-                    const { onClick, onApply } = props;
+                    const { onClick, onApply, buttonSessionId } = props;
 
                     return ({ linkName, src }) => {
                         const { index, refIndex } = props;
-
                         logger.track({
                             index,
                             refIndex,
                             et: 'CLICK',
                             event_type: 'modal_rendered',
                             page_view_link_name: linkName,
-                            page_view_link_source: src ?? linkName
+                            page_view_link_source: src ?? linkName,
+                            buttonSessionId
                         });
 
                         if (typeof onClick === 'function') {
@@ -237,7 +237,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                 type: 'function',
                 queryParam: false,
                 value: ({ props }) => {
-                    const { onShow } = props;
+                    const { onShow, buttonSessionId } = props;
 
                     return () => {
                         const { index, refIndex, src = 'show' } = props;
@@ -247,7 +247,8 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                             refIndex,
                             et: 'CLIENT_IMPRESSION',
                             event_type: 'modal_viewed',
-                            src
+                            src,
+                            buttonSessionId
                         });
 
                         if (typeof onShow === 'function') {
@@ -290,7 +291,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                 type: 'function',
                 queryParam: false,
                 value: ({ props, state, event }) => {
-                    const { onReady } = props;
+                    const { onReady, buttonSessionId } = props;
                     // Fired anytime we fetch new content (e.g. amount change)
                     return ({ products, meta, ts }) => {
                         const { index, offer, merchantId, account, refIndex, messageRequestId } = props;
@@ -336,6 +337,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                         logger.info('modal_render', {
                             index,
                             refIndex,
+                            buttonSessionId,
                             duration: getCurrentTime() - renderStart
                         });
 
@@ -348,6 +350,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                             // For standalone modal the stats event does not run, so we duplicate some data here
                             bn_code: getScriptAttributes()[SDK_SETTINGS.PARTNER_ATTRIBUTION_ID],
                             first_modal_render_delay: Math.round(firstModalRenderDelay).toString(),
+                            buttonSessionId,
                             render_duration: Math.round(getCurrentTime() - renderStart).toString()
                         });
 
