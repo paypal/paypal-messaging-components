@@ -3,7 +3,7 @@ import { node, dom } from '@krakenjs/jsx-pragmatic/src';
 import { Spinner } from '@paypal/common-components';
 import { ZalgoPromise } from '@krakenjs/zalgo-promise/src';
 
-export default ({ doc, props: { cspNonce, features, onError }, event, state }) => {
+export default ({ doc, props: { cspNonce, features, onError, onClose }, event, state }) => {
     const ERROR_DELAY = 15000;
     const useNewCheckoutDesign = features?.includes('new-checkout-design') ? 'true' : 'false';
     const styles = `
@@ -206,6 +206,7 @@ export default ({ doc, props: { cspNonce, features, onError }, event, state }) =
     };
 
     const handleClose = () => {
+        onClose({ linkName: 'Pre-render Close' });
         event.trigger('modal-hide');
     };
 
