@@ -1,5 +1,12 @@
 # Changelog
 
+### [1.64.4](https://github.com/paypal/paypal-messaging-components/compare/v1.64.3...v1.64.4) (2024-05-21)
+
+
+### Bug Fixes
+
+* trigger onClose callback when closing pre-render modal ([#1095](https://github.com/paypal/paypal-messaging-components/issues/1095)) ([633b598](https://github.com/paypal/paypal-messaging-components/commit/633b5981c95f4b2269bc8e29d4ee076f7a226584))
+
 ### [1.64.3](https://github.com/paypal/paypal-messaging-components/compare/v1.64.2...v1.64.3) (2024-05-14)
 
 
