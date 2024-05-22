@@ -27,7 +27,8 @@ function generateLogPayload(account, { meta, events: bizEvents, tracking }) {
     const components = Object.entries(meta)
         .filter(([, component]) => component.account === account)
         .map(([index, component]) => {
-            const { type, buttonSessionId = undefined, messageRequestId, stats = {}, trackingDetails } = component;
+            // buttonSessionId could be undefined here
+            const { type, buttonSessionId, messageRequestId, stats = {}, trackingDetails } = component;
             const { clickUrl } = trackingDetails;
             delete trackingDetails.clickUrl;
 
