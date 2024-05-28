@@ -201,10 +201,8 @@ export default function useCalculator({ autoSubmit = false } = {}) {
         dispatch({
             type: 'input',
             data: {
-                value:
-                    localize(value, country, 2).length > 9 || value.length > 9
-                        ? state.inputValue
-                        : value.replace(/[^\d.,]/g, ''),
+                // eslint-disable-next-line security/detect-unsafe-regex
+                value: !value.match(/^\D*(\d\D*){0,9}$/gm) ? state.inputValue : value.replace(/[^\d.,]/g, ''),
                 autoSubmit
             }
         });

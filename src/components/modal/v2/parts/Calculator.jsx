@@ -207,7 +207,7 @@ const Calculator = ({ setExpandedState, calculator, aprDisclaimer, useV4Design, 
                 </div>
                 <div aria-live="polite">{renderError(error || emptyState || isLoading)}</div>
             </form>
-            {hasInitialAmount || hasUsedInputField ? (
+            {(hasInitialAmount || hasUsedInputField) && !error ? (
                 <div aria-live="polite" className="content-column">
                     <TermsTable
                         view={view}
