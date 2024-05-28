@@ -218,7 +218,7 @@ const Calculator = ({ setExpandedState, calculator, aprDisclaimer, useV4Design, 
                     />
                 </div>
             ) : null}
-            {country === 'US' && !error && (
+            {country === 'US' && (
                 <div
                     className={`finance-terms__disclaimer ${
                         !(hasInitialAmount || hasUsedInputField) || error ? 'no-amount' : ''
