@@ -1,5 +1,17 @@
 # Changelog
 
+### [1.64.5](https://github.com/paypal/paypal-messaging-components/compare/v1.64.4...v1.64.5) (2024-05-28)
+
+
+### Code Refactoring
+
+* Update Calculator to show error when below/above threshold is met ([#1097](https://github.com/paypal/paypal-messaging-components/issues/1097)) ([53ed327](https://github.com/paypal/paypal-messaging-components/commit/53ed3276e9202083cf7c966ec1c2ed4b98042f8f))
+
+
+### Continuous Integration
+
+* split tests ([#1090](https://github.com/paypal/paypal-messaging-components/issues/1090)) ([b49c74a](https://github.com/paypal/paypal-messaging-components/commit/b49c74a1a81806adcc1e5f9b7b8bce15bf045449))
+
 ### [1.64.4](https://github.com/paypal/paypal-messaging-components/compare/v1.64.3...v1.64.4) (2024-05-21)
 
 
