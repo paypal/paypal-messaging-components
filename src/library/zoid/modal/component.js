@@ -137,6 +137,12 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                 required: false,
                 value: validate.ecToken
             },
+            buttonSessionId: {
+                type: 'string',
+                queryParam: 'button_session_id',
+                required: false,
+                value: validate.buttonSessionId
+            },
             pageType: {
                 type: 'string',
                 queryParam: 'page_type',
@@ -159,7 +165,6 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
 
                     return ({ linkName, src }) => {
                         const { index, refIndex } = props;
-
                         logger.track({
                             index,
                             refIndex,
@@ -284,7 +289,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                 type: 'function',
                 queryParam: false,
                 value: ({ props, state, event }) => {
-                    const { onReady } = props;
+                    const { onReady, buttonSessionId } = props;
                     // Fired anytime we fetch new content (e.g. amount change)
                     return ({ products, meta, ts }) => {
                         const { index, offer, merchantId, account, refIndex, messageRequestId } = props;
@@ -318,6 +323,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                                 [index]: {
                                     type: 'modal',
                                     messageRequestId,
+                                    buttonSessionId,
                                     account: merchantId || account,
                                     partnerClientId,
                                     trackingDetails

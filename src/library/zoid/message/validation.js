@@ -275,6 +275,17 @@ export default {
 
         return undefined;
     },
+    buttonSessionId: ({ props: { buttonSessionId } }) => {
+        if (typeof buttonSessionId !== 'undefined') {
+            if (!validateType(Types.STRING, buttonSessionId)) {
+                logInvalidType('buttonSessionId', Types.STRING, buttonSessionId);
+            } else {
+                return buttonSessionId;
+            }
+        }
+
+        return undefined;
+    },
     contextualComponents: ({ props: { contextualComponents } }) => {
         // Return early if contextualComponents is undefined
         if (typeof contextualComponents === 'undefined') {
