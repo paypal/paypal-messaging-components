@@ -1,5 +1,12 @@
 # Changelog
 
+### [1.64.6](https://github.com/paypal/paypal-messaging-components/compare/v1.64.5...v1.64.6) (2024-06-17)
+
+
+### Code Refactoring
+
+* add button session id to modals ([#1078](https://github.com/paypal/paypal-messaging-components/issues/1078)) ([d15bf57](https://github.com/paypal/paypal-messaging-components/commit/d15bf57dac237f3b4b5c0ed23b1387ebfe926b52))
+
 ### [1.64.5](https://github.com/paypal/paypal-messaging-components/compare/v1.64.4...v1.64.5) (2024-05-28)
 
 
