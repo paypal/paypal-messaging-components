@@ -286,12 +286,12 @@ export default ({ doc, props: { cspNonce, features, onError, onClose }, event, s
             </head>
             <style nonce={cspNonce}>{styles}</style>
             {/* 
-                disable jsx-a11y/no-static-element-interactions
+                disable jsx-a11y/no-noninteractive-element-interactions
                     because we need handleEscape to work regardless of which element has focus,
                     and Safari currently forbids an iframe from setting focus within its document
                     until the user interacts with the contents of the iframe 
             */}
-            {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
+            {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions */}
             <body onRender={handleRender} onKeyUp={handleEscape}>
                 <div class="modal" aria-errormessage="modal-status">
                     {/* 
