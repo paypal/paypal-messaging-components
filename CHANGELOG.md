@@ -1,5 +1,13 @@
 # Changelog
 
+### [1.64.7](https://github.com/paypal/paypal-messaging-components/compare/v1.64.6...v1.64.7) (2024-06-24)
+
+
+### Bug Fixes
+
+* moves hidden modal offscreen so right click is not interrupted on safari ([#1099](https://github.com/paypal/paypal-messaging-components/issues/1099)) ([8d80d95](https://github.com/paypal/paypal-messaging-components/commit/8d80d95251b6a452ec4253558536b6c5756a672f))
+* update linting ([#1102](https://github.com/paypal/paypal-messaging-components/issues/1102)) ([f20c355](https://github.com/paypal/paypal-messaging-components/commit/f20c3558040b8eb2ebe352c49449dc93cf2f5ca2))
+
 ### [1.64.6](https://github.com/paypal/paypal-messaging-components/compare/v1.64.5...v1.64.6) (2024-06-17)
 
 
