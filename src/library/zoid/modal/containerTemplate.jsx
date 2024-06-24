@@ -112,6 +112,11 @@ export default ({ uid, frame, prerenderFrame, doc, event, state, props: { cspNon
                         border: none !important;
                     }
 
+                    #${uid}.${CLASS.HIDDEN} > div > iframe {
+                        top: -99999px !important;
+                        left: -99999px !important;
+                    }
+
                     #${uid} > div {
                         background: rgba(108, 115, 120, 0);
                         transition: background ${TRANSITION_DELAY}ms linear;
