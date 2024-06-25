@@ -69,7 +69,7 @@ export const getIntersectionObserverPolyfill = () => {
     return ZalgoPromise.resolve(
         // eslint-disable-next-line compat/compat
         typeof window.IntersectionObserver === 'undefined'
-            ? dynamicImport('https://polyfill.io/v3/polyfill.js?features=IntersectionObserver')
+            ? dynamicImport('https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=IntersectionObserver')
             : undefined
     );
 };
