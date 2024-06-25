@@ -1,5 +1,12 @@
 # Changelog
 
+### [1.64.8](https://github.com/paypal/paypal-messaging-components/compare/v1.64.7...v1.64.8) (2024-06-25)
+
+
+### Bug Fixes
+
+* replace polyfill url ([#1103](https://github.com/paypal/paypal-messaging-components/issues/1103)) ([f77e17f](https://github.com/paypal/paypal-messaging-components/commit/f77e17fbe2309a7308b8fa79a745c4573b305530))
+
 ### [1.64.7](https://github.com/paypal/paypal-messaging-components/compare/v1.64.6...v1.64.7) (2024-06-24)
 
 
