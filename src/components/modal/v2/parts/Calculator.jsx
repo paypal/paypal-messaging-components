@@ -192,9 +192,12 @@ const Calculator = ({ setExpandedState, calculator, aprDisclaimer, useV4Design, 
             >
                 <h4 className="title">{title}</h4>
                 <div className="input__wrapper transitional">
-                    <div className={`input__label ${country}`}>{renderInputLabelOnEmptyField(country)}</div>
+                    <label htmlFor="purchase-amount" className={`input__label ${country}`}>
+                        {renderInputLabelOnEmptyField(country)}
+                    </label>
                     {inputCurrencySymbol && <div className="input__currency-symbol">{inputCurrencySymbol}</div>}
                     <input
+                        id="purchase-amount"
                         aria-required="true"
                         className={`input ${displayValue === '' && country === 'US' ? 'empty-input' : ''}`}
                         placeholder={currencyFormat(inputPlaceholder).replace(/(\s?€)/g, '')}
