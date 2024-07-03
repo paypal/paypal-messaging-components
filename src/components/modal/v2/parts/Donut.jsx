@@ -67,7 +67,11 @@ const Donut = ({
                 </svg>
             </span>
             {/* eslint-disable-next-line jsx-a11y/aria-role */}
-            <span aria-labelledby={`donut__payment__${currentNum} donut__timestamp__${currentNum}`} role="text">
+            <span aria-labelledby={`donut__sr_text_${currentNum}`} role="text">
+                <p className="sr-only" id={`donut__sr_text_${currentNum}`}>
+                    {/* the space before the comma is needed so the payment gets read correctly */}
+                    {isQualifying && periodicPayment !== '-' ? `${periodicPayment} , ${timeStamp}` : timeStamp}
+                </p>
                 {isQualifying && periodicPayment !== '-' && (
                     <span
                         className={isV4Design ? 'donut__payment_v4' : 'donut__payment'}
