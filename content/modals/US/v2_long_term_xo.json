@@ -1,7 +1,7 @@
 {
     "meta": {
         "product": "PAY_LATER_LONG_TERM",
-        "useV4Design": "false",
+        "useV5Design": "false",
         "offerCountry": "US",
         "variables": {
             "transaction_amount": "${eval(transaction_amount ? transaction_amount : '-')}",
