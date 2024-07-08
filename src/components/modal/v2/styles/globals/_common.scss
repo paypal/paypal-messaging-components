@@ -14,11 +14,11 @@ html {
         background: $lander-beige;
     }
 
-    &.v4Design {
-        background: $v4-lander-gray;
+    &.v5Design {
+        background: $v5-lander-gray;
         
         .content__wrapper-overflow {
-            background-color: $v4-gray;
+            background-color: $v5-gray;
         }
     }
 }

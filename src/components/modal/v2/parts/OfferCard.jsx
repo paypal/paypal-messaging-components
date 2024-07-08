@@ -1,7 +1,7 @@
 /** @jsx h */
 import { h } from 'preact';
 
-const OfferCard = ({ offer: { content, meta }, useV4Design, useNewCheckoutDesign }) => {
+const OfferCard = ({ offer: { content, meta }, useV5Design, useNewCheckoutDesign }) => {
     const { termsLabel } = content;
     const aprRemoveTrailingZeros = meta?.apr.replace(/\D00$/, '');
     const aprFieldTitle = aprRemoveTrailingZeros === '0' ? termsLabel?.zeroApr : termsLabel?.nonZeroApr;
@@ -25,7 +25,7 @@ const OfferCard = ({ offer: { content, meta }, useV4Design, useNewCheckoutDesign
                 </div>
                 <div className="offer__field-col">
                     <strong
-                        className={`offer__field-title ${useV4Design === 'true' ? 'v4Design' : ''} ${
+                        className={`offer__field-title ${useV5Design === 'true' ? 'v5Design' : ''} ${
                             useNewCheckoutDesign === 'true' ? 'checkout' : ''
                         }`}
                     >

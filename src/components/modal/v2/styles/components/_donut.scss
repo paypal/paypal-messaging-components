@@ -6,7 +6,7 @@ $grey300: #dbd8d0;
 $grey350: #bdbdbd;
 $grey600: #888;
 $donut-background: #0070e0;
-$donut-text-v4: #545d68;
+$donut-text-v5: #545d68;
 
 .donut__single_payment {
     display: flex;
@@ -92,9 +92,9 @@ $donut-text-v4: #545d68;
             @media all and (min-width: $webpage) {
                 margin-top: 0.25rem;
             }
-            &_v4 {
+            &_v5 {
                 @extend .donut__payment;
-                color: $donut-text-v4;
+                color: $donut-text-v5;
             }
 
             .checkout & {
@@ -111,9 +111,9 @@ $donut-text-v4: #545d68;
                 line-height: 22px;
             }
             white-space: nowrap;
-            &_v4 {
+            &_v5 {
                 @extend .donut__timestamp;
-                color: $donut-text-v4;
+                color: $donut-text-v5;
             }
         }
     }
@@ -122,8 +122,8 @@ $donut-text-v4: #545d68;
             svg g {
                 fill: $donut-background;
             }
-            span.donut__timestamp_v4,
-            span.donut__payment_v4 {
+            span.donut__timestamp_v5,
+            span.donut__payment_v5 {
                 color: $text-main;
             }
         }

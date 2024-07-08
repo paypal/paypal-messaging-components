@@ -2,7 +2,7 @@
 import { Fragment, h } from 'preact';
 import { currencyFormat } from '../lib';
 
-const Instructions = ({ instructions, expandedState = false, className = '', useV4Design, useNewCheckoutDesign }) => {
+const Instructions = ({ instructions, expandedState = false, className = '', useV5Design, useNewCheckoutDesign }) => {
     const renderBullet = (index, design) => {
         return (
             <div className="instructions__bullet">
@@ -19,7 +19,7 @@ const Instructions = ({ instructions, expandedState = false, className = '', use
             return (
                 <ol
                     className={`${expandedState ? '' : 'collapsed'} ${className} ${
-                        useV4Design === 'true' ? 'v4Design' : ''
+                        useV5Design === 'true' ? 'v5Design' : ''
                     }`}
                 >
                     {instructions.map((instruction, index) => (
@@ -47,7 +47,7 @@ const Instructions = ({ instructions, expandedState = false, className = '', use
                         className={
                             (`${expandedState ? '' : 'collapsed'}`,
                             className,
-                            `${useV4Design === 'true' ? 'v4Design' : ''}`)
+                            `${useV5Design === 'true' ? 'v5Design' : ''}`)
                         }
                     >
                         {instructions.instructionsSubHeadline.map((instruction, index) => {

@@ -12,7 +12,7 @@ const Header = ({
     qualifyingSubheadline,
     closeButtonLabel = 'Close',
     viewName,
-    useV4Design
+    useV5Design
 }) => {
     const { country } = useServerData();
     const [, handleClose] = useTransitionState();
@@ -40,12 +40,12 @@ const Header = ({
             <div aria-hidden="true" className="header__fixed-wrapper header__fixed-wrapper--front">
                 <div
                     className={`header__background-wrapper header__background-wrapper--gradient ${
-                        useV4Design ? 'v4Design' : ''
+                        useV5Design ? 'v5Design' : ''
                     }`}
                 />
             </div>
             <div aria-hidden="true" className="header__fixed-wrapper">
-                <div className={`header__background-wrapper ${useV4Design ? 'v4Design' : ''}`} />
+                <div className={`header__background-wrapper ${useV5Design ? 'v5Design' : ''}`} />
             </div>
             <div className="header__icons">
                 <div className={`logo__wrapper ${isScrolled ? 'logo__wrapper--scroll' : ''}`}>
@@ -70,7 +70,7 @@ const Header = ({
                 <div className="header__fixed-wrapper header__fixed-wrapper--front">
                     <div
                         className={`header__background-wrapper header__background-wrapper--sticky ${
-                            useV4Design ? 'v4Design' : ''
+                            useV5Design ? 'v5Design' : ''
                         }`}
                     />
                 </div>

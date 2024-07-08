@@ -78,7 +78,7 @@ export const LongTerm = ({
         linkToProductList,
         cta
     },
-    productMeta: { useV4Design },
+    productMeta: { useV5Design },
     openProductList,
     useNewCheckoutDesign
 }) => {
@@ -162,7 +162,7 @@ export const LongTerm = ({
                         setExpandedState={setExpandedState}
                         calculator={calculator}
                         aprDisclaimer={offerAPRDisclaimers}
-                        useV4Design={useV4Design}
+                        useV5Design={useV5Design}
                         useNewCheckoutDesign={useNewCheckoutDesign}
                     />
                     <div className={`content__col ${expandedState ? '' : 'collapsed'}`}>
@@ -173,7 +173,7 @@ export const LongTerm = ({
                 </div>
                 <Instructions
                     instructions={instructions}
-                    useV4Design={useV4Design}
+                    useV5Design={useV5Design}
                     useNewCheckoutDesign={useNewCheckoutDesign}
                     expandedState={expandedState}
                 />
