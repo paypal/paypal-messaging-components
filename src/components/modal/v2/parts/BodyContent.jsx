@@ -125,7 +125,7 @@ const BodyContent = () => {
                 openProductList={openProductList}
             />
         ),
-        [VIEW_IDS.PRODUCT_LIST]: <ProductList content={content} setViewName={setViewName} />
+        [VIEW_IDS.PRODUCT_LIST]: <ProductList content={content} useV5Design={useV5Design} setViewName={setViewName} />
     };
 
     // IMPORTANT: These elements cannot be nested inside of other elements.

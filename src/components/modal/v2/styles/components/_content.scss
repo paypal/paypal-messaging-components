@@ -47,6 +47,12 @@
                     padding-left: 65px;
                     padding-right: 65px;
                 }
+
+                &.v5Design {
+                    button {
+                        background-color: $ql-gray;
+                    }
+                }
             }
 
             @include lander {

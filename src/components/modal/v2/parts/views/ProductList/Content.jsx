@@ -4,7 +4,7 @@ import { useServerData } from '../../../lib';
 import Tile from '../../Tile';
 import styles from './styles.scss';
 
-export const ProductList = ({ content: { instructions, disclosure, productTiles }, setViewName }) => {
+export const ProductList = ({ content: { instructions, disclosure, productTiles }, useV5Design, setViewName }) => {
     const { views } = useServerData();
     const availableTiles = {
         payLater: productTiles?.payLater?.filter(tile => views.find(view => tile.viewName === view.meta.product)),
@@ -14,7 +14,7 @@ export const ProductList = ({ content: { instructions, disclosure, productTiles 
     return (
         <Fragment>
             <style>{styles._getCss()}</style>
-            <div className="content__row dynamic product-list">
+            <div className={`content__row dynamic product-list ${useV5Design ? 'v5Design' : ''}`}>
                 <div className="content__col">
                     <div className="content__row product-list">
                         <p
@@ -25,7 +25,13 @@ export const ProductList = ({ content: { instructions, disclosure, productTiles 
                     </div>
                     {productTiles &&
                         availableTiles.payLater?.map(({ header, body, viewName }) => (
-                            <Tile header={header} body={body} viewName={viewName} setViewName={setViewName} />
+                            <Tile
+                                header={header}
+                                body={body}
+                                viewName={viewName}
+                                setViewName={setViewName}
+                                useV5Design={useV5Design}
+                            />
                         ))}
 
                     {productTiles && !!availableTiles.credit?.length && (
@@ -35,7 +41,13 @@ export const ProductList = ({ content: { instructions, disclosure, productTiles 
                     )}
                     {productTiles &&
                         availableTiles.credit?.map(({ header, body, viewName }) => (
-                            <Tile header={header} body={body} viewName={viewName} setViewName={setViewName} />
+                            <Tile
+                                header={header}
+                                body={body}
+                                viewName={viewName}
+                                setViewName={setViewName}
+                                useV5Design={useV5Design}
+                            />
                         ))}
                 </div>
                 <div className="content__col collapsed">

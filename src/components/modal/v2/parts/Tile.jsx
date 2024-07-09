@@ -2,12 +2,12 @@
 import { h } from 'preact';
 import { useXProps } from '../lib';
 
-const Tile = ({ header, body, viewName, setViewName }) => {
+const Tile = ({ header, body, viewName, setViewName, useV5Design }) => {
     const { onClick } = useXProps();
 
     return (
         <button
-            className="tile"
+            className={`tile ${useV5Design ? 'v5Design' : ''}`}
             aria-label={`${header} ${body}`}
             type="button"
             onClick={() => {
