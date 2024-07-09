@@ -2,7 +2,14 @@
 import { h } from 'preact';
 import { useEffect, useState } from 'preact/hooks';
 
-const OfferAccordion = ({ offer: { content, meta }, aprDisclaimer, index, activeSelection, setActiveSelection }) => {
+const OfferAccordion = ({
+    offer: { content, meta },
+    useV5Design,
+    aprDisclaimer,
+    index,
+    activeSelection,
+    setActiveSelection
+}) => {
     const [open, setOpen] = useState('');
     const { termsLabel } = content;
     const currencySymbolFormat = str => {
@@ -18,8 +25,13 @@ const OfferAccordion = ({ offer: { content, meta }, aprDisclaimer, index, active
     }, []);
 
     return (
-        <div id={index} className={`accordion__container ${activeSelection === index ? 'active' : ''} ${open}`}>
-            <div className="accordion__row">
+        <div
+            id={index}
+            className={`accordion__container ${activeSelection === index ? 'active' : ''} ${open} ${
+                useV5Design ? 'v5Design' : ''
+            }`}
+        >
+            <div className={`accordion__row ${useV5Design ? 'v5Design' : ''}`}>
                 <button
                     className="accordion__header-container"
                     type="button"

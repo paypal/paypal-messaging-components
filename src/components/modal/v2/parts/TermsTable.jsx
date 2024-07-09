@@ -51,6 +51,7 @@ const TermsTable = ({ isLoading, view: { meta, offers }, aprDisclaimer, useV5Des
                     aprDisclaimer={disclaimer}
                     activeSelection={activeSelection}
                     setActiveSelection={setActiveSelection}
+                    useV5Design={useV5Design}
                 />
             );
         });

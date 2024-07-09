@@ -2,7 +2,14 @@
 import { Fragment, h } from 'preact';
 import { currencyFormat } from '../lib';
 
-const Instructions = ({ instructions, expandedState = false, className = '', useV5Design, useNewCheckoutDesign }) => {
+const Instructions = ({
+    instructions,
+    expandedState = false,
+    className = '',
+    useV5Design,
+    country,
+    useNewCheckoutDesign
+}) => {
     const renderBullet = (index, design) => {
         return (
             <div className="instructions__bullet">
@@ -19,7 +26,11 @@ const Instructions = ({ instructions, expandedState = false, className = '', use
             return (
                 <ol className={`${expandedState ? '' : 'collapsed'} ${className}`}>
                     {instructions.map((instruction, index) => (
-                        <li className={`instructions__item-wrapper ${useV5Design ? 'v5Design' : ''}`}>
+                        <li
+                            className={`instructions__item-wrapper ${useV5Design ? 'v5Design' : ''} ${
+                                country === 'DE' ? 'DE' : ''
+                            }`}
+                        >
                             {renderBullet(index + 1, useNewCheckoutDesign)}
                             <div
                                 // eslint-disable-next-line react/no-danger
@@ -35,7 +46,9 @@ const Instructions = ({ instructions, expandedState = false, className = '', use
             return (
                 <Fragment>
                     <h2
-                        className={`instructions__item-wrapper ${useV5Design ? 'v5Design' : ''}`}
+                        className={`instructions__item-wrapper ${useV5Design ? 'v5Design' : ''} ${
+                            country === 'DE' ? 'DE' : ''
+                        }`}
                         // eslint-disable-next-line react/no-danger
                         dangerouslySetInnerHTML={{ __html: instructions.instructionsHeadline }}
                     />

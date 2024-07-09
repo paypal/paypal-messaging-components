@@ -34,7 +34,7 @@ export const PayIn1 = ({
             <style>{styles._getCss()}</style>
             <div className="content__row dynamic">
                 <div className="content__col">
-                    <Instructions instructions={instructions} useV5Design={useV5Design} />
+                    <Instructions instructions={instructions} country={country} useV5Design={useV5Design} />
                 </div>
                 <div className="content__col">
                     <div className="branded-image">
