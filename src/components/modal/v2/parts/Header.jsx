@@ -31,8 +31,7 @@ const Header = ({
 
     // Used to specifically target styles to a specific country
     const countryClassName = country?.toLowerCase();
-    console.log('ehad', headline);
-    console.log('sub', subheadline);
+
     // IMPORTANT: These elements cannot be nested inside of other elements.
     // They are using very precise CSS position sticky rules that require this
     // specific adjacent DOM structure
@@ -96,7 +95,11 @@ const Header = ({
                     dangerouslySetInnerHTML={{ __html: headline }}
                 />
                 {isQualifying === 'true' && qualifyingSubheadline !== '' ? (
-                    <p className={`subheadline_p subheadline-${countryClassName} qualifying`}>
+                    <p
+                        className={`subheadline_p subheadline-${countryClassName} qualifying ${
+                            useV5Design ? 'v5Design' : ''
+                        }`}
+                    >
                         {qualifyingSubheadline.replace(/(\s?EUR)/g, ' €')}
                     </p>
                 ) : (

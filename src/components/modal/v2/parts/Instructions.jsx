@@ -23,7 +23,7 @@ const Instructions = ({ instructions, expandedState = false, className = '', use
                     }`}
                 >
                     {instructions.map((instruction, index) => (
-                        <li className="instructions__item-wrapper">
+                        <li className={`instructions__item-wrapper ${useV5Design ? 'v5Design' : ''}`}>
                             {renderBullet(index + 1, useNewCheckoutDesign)}
                             <div
                                 // eslint-disable-next-line react/no-danger
