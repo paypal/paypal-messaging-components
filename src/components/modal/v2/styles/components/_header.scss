@@ -140,7 +140,9 @@
                 }
 
                 &.v5Design {
-                    margin: 50px 56px 8px;
+                    @include tablet {
+                        margin: 50px 56px 8px;
+                    }
                 }
             }
         }
@@ -364,6 +366,9 @@
             &.v5Design {
                 max-width: 503px;
                 margin-bottom: 0px;
+                @include mobile {
+                    padding: 10px 22px 40px;
+                }
             }
         }
 

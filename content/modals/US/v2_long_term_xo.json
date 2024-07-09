@@ -20,7 +20,9 @@
     },
     "content": {
         "headline": "Pay Monthly",
+        "v5Headline": "Pay in full or Pay Monthly",
         "subheadline": "Get more time to pay, with no down payment or late fees.",
+        "v5Subheadline": "Check out with PayPal to pay in full or get more time to pay, with no down payment or late fees.",
         "calculator": {
             "title": "How much is your purchase?",
             "inputLabel": "Purchase amount",
