@@ -81,11 +81,11 @@ const Header = ({
             </div>
             <div className="header__content">
                 {!useV5Design && (
-                    <>
+                    <div>
                         <Icon name={`${viewName}-desktop`} />
                         <Icon name={`${viewName}-mobile`} />
                         {/* <Icon name="background-pp-mobile" /> */}
-                    </>
+                    </div>
                 )}
                 <h2
                     // id used for aria-labelleby on modal container element

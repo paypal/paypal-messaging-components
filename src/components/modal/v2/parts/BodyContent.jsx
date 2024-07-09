@@ -150,8 +150,8 @@ const BodyContent = () => {
             ) : (
                 <Header
                     logo="logo"
-                    headline={v5Headline ?? headline}
-                    subheadline={v5Subheadline ?? subheadline}
+                    headline={v5Headline && useV5Design ? v5Headline : headline}
+                    subheadline={v5Subheadline && useV5Design ? v5Subheadline : subheadline}
                     isQualifying={isQualifying ?? 'false'}
                     qualifyingSubheadline={qualifyingSubheadline}
                     closeButtonLabel={closeButtonLabel}
