@@ -73,6 +73,11 @@ strong {
             }
         }
 
+        &.v5Design strong {
+            color: #000000;
+            font-weight: 400;
+        }
+
         .checkout & {
             justify-content: flex-start;
         }
@@ -100,7 +105,6 @@ strong {
             flex-grow: 1;
         }
 
-        .v5Design,
         .checkout {
             color: $dark-gray;
             font-weight: 400;
@@ -118,6 +122,10 @@ strong {
 
         &:is(strong) {
             color: $text-main;
+        }
+
+        .v5Design {
+            color: $v5-gray
         }
 
         .checkout & {
@@ -138,6 +146,10 @@ strong {
 
         &:is(strong) {
             color: $text-main;
+        }
+
+        .v5Design & {
+            color: $v5-gray
         }
 
         .checkout & {

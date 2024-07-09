@@ -73,6 +73,7 @@ export const LongTerm = ({
         disclaimer,
         genericDisclaimer,
         instructions,
+        v5Instructions,
         disclosure,
         navLinkPrefix,
         linkToProductList,
@@ -172,7 +173,7 @@ export const LongTerm = ({
                     </div>
                 </div>
                 <Instructions
-                    instructions={instructions}
+                    instructions={v5Instructions ?? instructions}
                     useV5Design={useV5Design}
                     useNewCheckoutDesign={useNewCheckoutDesign}
                     expandedState={expandedState}
@@ -181,7 +182,7 @@ export const LongTerm = ({
             <div
                 className={`content__row disclosure ${expandedState ? '' : 'collapsed'} ${
                     useNewCheckoutDesign === 'true' ? 'checkout' : ''
-                }`}
+                } ${useV5Design === 'true' ? 'v5Design' : ''}`}
             >
                 {typeof disclosure === 'string' || Array.isArray(disclosure) ? (
                     <InlineLinks text={disclosure} useNewCheckoutDesign={useNewCheckoutDesign} />

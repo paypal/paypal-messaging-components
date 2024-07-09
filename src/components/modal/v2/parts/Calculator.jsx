@@ -183,7 +183,11 @@ const Calculator = ({ setExpandedState, calculator, aprDisclaimer, useV5Design, 
     };
 
     return (
-        <div className={`calculator ${useNewCheckoutDesign === 'true' ? 'checkout' : ''}`}>
+        <div
+            className={`calculator ${useNewCheckoutDesign === 'true' ? 'checkout' : ''} ${
+                useV5Design === 'true' ? 'v5Design' : ''
+            }`}
+        >
             <form
                 className={`form ${useV5Design === 'true' ? 'v5Design' : ''} ${
                     useNewCheckoutDesign === 'true' ? 'checkout' : ''
@@ -191,7 +195,7 @@ const Calculator = ({ setExpandedState, calculator, aprDisclaimer, useV5Design, 
                 onSubmit={submit}
             >
                 <h4 className="title">{title}</h4>
-                <div className="input__wrapper transitional">
+                <div className={`input__wrapper transitional ${useV5Design === 'true' ? 'v5Design' : ''}`}>
                     <label htmlFor="purchase-amount" className={`input__label ${country}`}>
                         {renderInputLabelOnEmptyField(country)}
                     </label>
@@ -225,7 +229,7 @@ const Calculator = ({ setExpandedState, calculator, aprDisclaimer, useV5Design, 
                 <div
                     className={`finance-terms__disclaimer ${
                         !(hasInitialAmount || hasUsedInputField) || error ? 'no-amount' : ''
-                    }`}
+                    } ${useV5Design === 'true' ? 'v5Design' : ''}`}
                 >
                     {aprDisclaimer[0].aprDisclaimer}
                 </div>

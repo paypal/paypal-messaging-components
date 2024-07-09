@@ -110,7 +110,15 @@
             }
         }
 
-        &.v5Design,
+        &.v5Design {
+            label {
+                color: $v5-gray;
+            }
+            input {
+                border: 1px solid $v5-gray;
+            }
+        }
+
         &.checkout {
             h4 {
                 font-weight: 700;
@@ -177,6 +185,18 @@
         }
         @include smallMobile {
             margin-top: 0px;
+        }
+
+        &.v5Design {
+            color: $v5-gray;
+        }
+    }
+
+    &.v5Design {
+        text-align: left;
+        align-items: left;
+        @include tablet {
+            width: 503px;
         }
     }
 

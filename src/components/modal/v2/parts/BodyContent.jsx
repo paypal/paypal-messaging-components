@@ -57,7 +57,15 @@ const BodyContent = () => {
     const content = useContent(viewName);
     const productMeta = useProductMeta(viewName);
 
-    const { headline, subheadline, qualifyingSubheadline = '', closeButtonLabel, cta } = content;
+    const {
+        headline,
+        v5Headline,
+        subheadline,
+        v5Subheadline,
+        qualifyingSubheadline = '',
+        closeButtonLabel,
+        cta
+    } = content;
 
     const isQualifying = productMeta?.qualifying;
 
@@ -119,6 +127,7 @@ const BodyContent = () => {
         ),
         [VIEW_IDS.PRODUCT_LIST]: <ProductList content={content} setViewName={setViewName} />
     };
+
     // IMPORTANT: These elements cannot be nested inside of other elements.
     // They are using very precise CSS position sticky rules that require this
     // specific adjacent DOM structure
@@ -141,8 +150,8 @@ const BodyContent = () => {
             ) : (
                 <Header
                     logo="logo"
-                    headline={headline}
-                    subheadline={subheadline}
+                    headline={v5Headline ?? headline}
+                    subheadline={v5Subheadline ?? subheadline}
                     isQualifying={isQualifying ?? 'false'}
                     qualifyingSubheadline={qualifyingSubheadline}
                     closeButtonLabel={closeButtonLabel}

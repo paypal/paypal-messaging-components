@@ -145,6 +145,10 @@
     }
 
     .disclosure {
+        &.v5Design {
+            color: $v5-gray;
+        }
+        
         &.checkout {
             padding-bottom: 60px;
             @include mobile {

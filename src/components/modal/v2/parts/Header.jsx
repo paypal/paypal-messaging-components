@@ -31,7 +31,8 @@ const Header = ({
 
     // Used to specifically target styles to a specific country
     const countryClassName = country?.toLowerCase();
-
+    console.log('ehad', headline);
+    console.log('sub', subheadline);
     // IMPORTANT: These elements cannot be nested inside of other elements.
     // They are using very precise CSS position sticky rules that require this
     // specific adjacent DOM structure
@@ -48,16 +49,20 @@ const Header = ({
                 <div className={`header__background-wrapper ${useV5Design ? 'v5Design' : ''}`} />
             </div>
             <div className="header__icons">
-                <div className={`logo__wrapper ${isScrolled ? 'logo__wrapper--scroll' : ''}`}>
+                <div
+                    className={`logo__wrapper ${isScrolled ? 'logo__wrapper--scroll' : ''} ${
+                        useV5Design ? 'v5Design' : ''
+                    }`}
+                >
                     <div className="pp-logo">
-                        <Icon name={logo} />
+                        <Icon name={useV5Design ? 'v5Design' : logo} />
                     </div>
                 </div>
                 {!isLander && (
                     // We don't need to render an 'x' button if the target is a lander since you will close via a
                     // merchant-provided close button from their own iframe, or by closing the window in the case of a webpage.
                     <button
-                        className="close"
+                        className={`close ${useV5Design ? 'v5Design' : ''}`}
                         aria-label={closeButtonLabel}
                         type="button"
                         id="close-btn"
@@ -76,9 +81,13 @@ const Header = ({
                 </div>
             </div>
             <div className="header__content">
-                <Icon name={`${viewName}-desktop`} />
-                <Icon name={`${viewName}-mobile`} />
-                {/* <Icon name="background-pp-mobile" /> */}
+                {!useV5Design && (
+                    <>
+                        <Icon name={`${viewName}-desktop`} />
+                        <Icon name={`${viewName}-mobile`} />
+                        {/* <Icon name="background-pp-mobile" /> */}
+                    </>
+                )}
                 <h2
                     // id used for aria-labelleby on modal container element
                     id="header__headline"
@@ -92,7 +101,7 @@ const Header = ({
                     </p>
                 ) : (
                     <p
-                        className={`subheadline_p subheadline-${countryClassName}`}
+                        className={`subheadline_p subheadline-${countryClassName} ${useV5Design ? 'v5Design' : ''}`}
                         // eslint-disable-next-line react/no-danger
                         dangerouslySetInnerHTML={{
                             __html: currencyFormat(subheadline) ?? ''

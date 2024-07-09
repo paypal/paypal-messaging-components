@@ -137,6 +137,13 @@
                 margin-top: 10px;
             }
 
+            &.v5Design {
+                color: $v5-gray;
+                @include tablet {
+                    margin-top: 20px;
+                }
+            }
+            
             &.checkout {
                 @include mobile {
                     margin-bottom: 60px;
@@ -158,7 +165,7 @@
     }
 
     &.v5Design {
-        background: $v5-gray;
+        background: $v5-white;
     }
 
     &.checkout {

@@ -38,7 +38,7 @@
         }
 
         .v5Design {
-            background-color: $v5-gray;
+            background-color: $v5-white;
         }
     }
 
@@ -138,6 +138,10 @@
                 .pp-logo {
                     pointer-events: none;
                 }
+
+                &.v5Design {
+                    margin: 50px 56px 8px;
+                }
             }
         }
 
@@ -183,6 +187,10 @@
                 path {
                     stroke-width: 2.2;
                 }
+            }
+
+            &.v5Design {
+                margin-bottom: 50px;
             }
         }
 
@@ -352,6 +360,11 @@
             span {
                 white-space: nowrap;
             }
+
+            &.v5Design {
+                max-width: 503px;
+                margin-bottom: 0px;
+            }
         }
 
         .preapproved {
@@ -374,6 +387,45 @@
             }
         }
 
+        &.v5Design {
+            // logo icons
+            svg {
+                position: relative;
+                bottom: 0px;
+                right: -20px;
+
+                @include mobile {
+                    right: -22px;
+                }
+            }
+
+            h2 {
+                margin-top: 20px;
+                margin-bottom: 0px;
+
+                @include tablet {
+                    margin-left: 20px;
+                }
+            }
+
+            .subheadline_p {
+                max-width: 400px;
+                margin-top: -1px;
+                
+                @include desktop {
+                    margin-bottom: 0px;
+                }
+                @include tablet {
+                    margin-bottom: 10px;
+                    margin-left: 20px;
+                    padding: 0px 10px 0px 0px;
+                }
+                @include mobile {
+                    padding: 10px 22px 50px;
+                }
+            }
+        }
+        
         &.checkout {
             background-color: $ql-gray;
 
