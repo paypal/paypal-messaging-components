@@ -57,15 +57,7 @@ const BodyContent = () => {
     const content = useContent(viewName);
     const productMeta = useProductMeta(viewName);
 
-    const {
-        headline,
-        v5Headline,
-        subheadline,
-        v5Subheadline,
-        qualifyingSubheadline = '',
-        closeButtonLabel,
-        cta
-    } = content;
+    const { headline, subheadline, qualifyingSubheadline = '', closeButtonLabel, cta } = content;
 
     const isQualifying = productMeta?.qualifying;
 
@@ -150,8 +142,8 @@ const BodyContent = () => {
             ) : (
                 <Header
                     logo="logo"
-                    headline={v5Headline && useV5Design ? v5Headline : headline}
-                    subheadline={v5Subheadline && useV5Design ? v5Subheadline : subheadline}
+                    headline={headline}
+                    subheadline={subheadline}
                     isQualifying={isQualifying ?? 'false'}
                     qualifyingSubheadline={qualifyingSubheadline}
                     closeButtonLabel={closeButtonLabel}

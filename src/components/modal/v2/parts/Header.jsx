@@ -54,7 +54,7 @@ const Header = ({
                     }`}
                 >
                     <div className="pp-logo">
-                        <Icon name={useV5Design ? 'v5Design' : logo} />
+                        <Icon name={logo} />
                     </div>
                 </div>
                 {!isLander && (

@@ -26,7 +26,6 @@
     },
     "content": {
         "headline": "Pay in 4",
-        "v5Headline": "Pay in 4 interest-free payments",
         "subheadline": "No impact on credit score and no late fees. Available for purchases of {formattedMinAmount} to {formattedMaxAmount}.",
         "qualifyingSubheadline": "Split {formattedTotalCost} into {total_payments} interest-free payments with no impact on credit score and no late fees.",
         "donutTimestamps": ["Today", "2 weeks", "4 weeks", "6 weeks"],
