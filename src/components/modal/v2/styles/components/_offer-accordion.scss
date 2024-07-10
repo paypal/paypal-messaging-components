@@ -21,7 +21,14 @@
         &.active {
             outline: 3px solid $light-blue;
             border-color: transparent;
+        }
+        .v5Design {
+            button {
+                background-color: $ql-gray;
+            }
+        }
 
+        &.open {
             &.v5Design {
                 background-color: #0070e0;
                 color: $v5-white;
@@ -32,12 +39,6 @@
                 div {
                     color: $v5-white !important;
                 }
-            }
-        }
-
-        .v5Design {
-            button {
-                background-color: $ql-gray;
             }
         }
     }

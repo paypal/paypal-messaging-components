@@ -27,6 +27,16 @@ strong {
             }
         }
 
+        &.v5Design {
+            &:last-child::after {
+                content: '';
+                border-bottom: 0.5px solid $offer-border-gray;
+                display: block;
+                margin-top: 20px;
+                margin-bottom: 20px;
+            }
+        }
+        
         @include desktop {
             &:last-child {
                 margin-bottom: 20px;
@@ -125,8 +135,8 @@ strong {
             color: $text-main;
         }
 
-        .v5Design {
-            color: $v5-gray
+        &.v5Design {
+            color: $v5-gray !important
         }
 
         .checkout & {

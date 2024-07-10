@@ -145,8 +145,9 @@
 
             &.v5Design {
                 color: $v5-gray;
-                @include tablet {
-                    margin-top: 20px;
+                margin-top: 20px;
+                &.DE {
+                    margin-top: 80px;
                 }
             }
             

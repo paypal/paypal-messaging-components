@@ -125,8 +125,6 @@
         }
 
         &.v5Design {
-            padding-top: 10px;
-
             &.DE strong {
                 font-weight: 400;
             }
@@ -153,6 +151,10 @@
         }
     }
 
+    &.v5Design {
+        padding-top: 14px;
+    }
+    
     &.checkout {
         h2 {
             @include tablet {

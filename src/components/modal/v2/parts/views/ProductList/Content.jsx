@@ -5,7 +5,7 @@ import Tile from '../../Tile';
 import styles from './styles.scss';
 
 export const ProductList = ({ content: { instructions, disclosure, productTiles }, useV5Design, setViewName }) => {
-    const { views } = useServerData();
+    const { views, country } = useServerData();
     const availableTiles = {
         payLater: productTiles?.payLater?.filter(tile => views.find(view => tile.viewName === view.meta.product)),
         credit: productTiles?.credit?.filter(tile => views.find(view => tile.viewName === view.meta.product))
@@ -36,7 +36,7 @@ export const ProductList = ({ content: { instructions, disclosure, productTiles 
 
                     {productTiles && !!availableTiles.credit?.length && (
                         <div className="content__row product-list">
-                            <p className="credit">{instructions.credit}</p>
+                            <p className={`credit ${useV5Design ? 'v5Design' : ''}`}>{instructions.credit}</p>
                         </div>
                     )}
                     {productTiles &&
@@ -54,7 +54,13 @@ export const ProductList = ({ content: { instructions, disclosure, productTiles 
                     <div className="branded-image" />
                 </div>
             </div>
-            <div className="content__row disclosure collapsed">{disclosure}</div>
+            <div
+                className={`content__row disclosure collapsed ${useV5Design ? 'v5Design' : ''} ${
+                    country === 'DE' ? 'DE' : ''
+                }`}
+            >
+                {disclosure}
+            </div>
         </Fragment>
     );
 };

@@ -94,7 +94,11 @@ const Instructions = ({
     };
 
     return (
-        <div className={`content__row instructions ${useNewCheckoutDesign === 'true' ? 'checkout' : ''}`}>
+        <div
+            className={`content__row instructions ${useV5Design ? 'v5Design' : ''} ${
+                useNewCheckoutDesign === 'true' ? 'checkout' : ''
+            }`}
+        >
             {renderInstructionsContent()}
         </div>
     );

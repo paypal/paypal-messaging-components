@@ -47,7 +47,7 @@ const Header = ({
             </div>
             <div aria-hidden="true" className="header__fixed-wrapper">
                 <div
-                    className={`header__background-wrapper ${useV5Design ? 'v5Design' : ''} ${
+                    className={`header__background-wrapper ${useV4Design ? 'v4Design' : ''} ${
                         useV5Design ? 'v5Design' : ''
                     }`}
                 />
@@ -105,7 +105,9 @@ const Header = ({
                     </p>
                 ) : (
                     <p
-                        className={`subheadline_p subheadline-${countryClassName} ${useV5Design ? 'v5Design' : ''}`}
+                        className={`subheadline_p subheadline-${countryClassName} ${useV5Design ? 'v5Design' : ''} ${
+                            country === 'DE' ? 'DE' : ''
+                        }`}
                         // eslint-disable-next-line react/no-danger
                         dangerouslySetInnerHTML={{
                             __html: currencyFormat(subheadline) ?? ''

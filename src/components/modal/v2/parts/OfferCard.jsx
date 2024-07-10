@@ -8,7 +8,7 @@ const OfferCard = ({ offer: { content, meta }, useV4Design, useV5Design, useNewC
     const offerHeaderField = termsLabel?.offerHeader;
 
     return (
-        <div className="offer__container">
+        <div className={`offer__container ${useV5Design === 'true' ? 'v5Design' : ''}`}>
             <div className={`offer__row ${useV5Design === 'true' ? 'v5Design' : ''}`}>
                 <strong
                     className="offer__field-header"
@@ -34,8 +34,8 @@ const OfferCard = ({ offer: { content, meta }, useV4Design, useV5Design, useNewC
                 <div className="offer__field-col">
                     <strong
                         className={`offer__field-title ${useV4Design === 'true' ? 'v4Design' : ''} ${
-                            useNewCheckoutDesign === 'true' ? 'checkout' : ''
-                        }`}
+                            useV5Design === 'true' ? 'v5Design' : ''
+                        } ${useNewCheckoutDesign === 'true' ? 'checkout' : ''}`}
                     >
                         {termsLabel?.total}
                     </strong>
