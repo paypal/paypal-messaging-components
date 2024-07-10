@@ -24,7 +24,7 @@ export const ShortTerm = ({
         learnMoreLink,
         cta
     },
-    productMeta: { qualifying, periodicPayment, useV5Design, preapproved },
+    productMeta: { qualifying, periodicPayment, useV4Design, useV5Design, preapproved },
     openProductList,
     useNewCheckoutDesign
 }) => {
@@ -114,6 +114,7 @@ export const ShortTerm = ({
                                 {elements.map((installment, index) => (
                                     <Donut
                                         key={index}
+                                        useV4Design={useV4Design}
                                         useV5Design={useV5Design}
                                         qualifying={qualifying}
                                         // regex replaces EUR with the euro symbol €
@@ -139,6 +140,7 @@ export const ShortTerm = ({
                         )}
                         <Instructions
                             instructions={instructions}
+                            useV4Design={useV4Design}
                             useV5Design={useV5Design}
                             useNewCheckoutDesign={useNewCheckoutDesign}
                         />

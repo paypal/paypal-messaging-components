@@ -6,6 +6,7 @@ const Instructions = ({
     instructions,
     expandedState = false,
     className = '',
+    useV4Design,
     useV5Design,
     country,
     useNewCheckoutDesign
@@ -24,7 +25,11 @@ const Instructions = ({
     const renderInstructionsContent = () => {
         if (Array.isArray(instructions)) {
             return (
-                <ol className={`${expandedState ? '' : 'collapsed'} ${className}`}>
+                <ol
+                    className={`${expandedState ? '' : 'collapsed'} ${className} ${
+                        useV4Design === 'true' ? 'v4Design' : ''
+                    }`}
+                >
                     {instructions.map((instruction, index) => (
                         <li
                             className={`instructions__item-wrapper ${useV5Design ? 'v5Design' : ''} ${
@@ -52,7 +57,13 @@ const Instructions = ({
                         // eslint-disable-next-line react/no-danger
                         dangerouslySetInnerHTML={{ __html: instructions.instructionsHeadline }}
                     />
-                    <ol className={(`${expandedState ? '' : 'collapsed'}`, className)}>
+                    <ol
+                        className={
+                            (`${expandedState ? '' : 'collapsed'}`,
+                            className,
+                            `${useV4Design === 'true' ? 'v4Design' : ''}`)
+                        }
+                    >
                         {instructions.instructionsSubHeadline.map((instruction, index) => {
                             return (
                                 <li className={`instructions__item-wrapper ${useV5Design ? 'v5Design' : ''}`}>

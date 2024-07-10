@@ -65,7 +65,14 @@ const getError = ({ offers, error = '' }, isLoading, calculator, amount, country
     return null;
 };
 
-const Calculator = ({ setExpandedState, calculator, aprDisclaimer, useV5Design, useNewCheckoutDesign }) => {
+const Calculator = ({
+    setExpandedState,
+    calculator,
+    aprDisclaimer,
+    useV4Design,
+    useV5Design,
+    useNewCheckoutDesign
+}) => {
     const { view, value, isLoading, submit, changeInput } = useCalculator({ autoSubmit: true });
     const { amount } = useXProps();
     const { country, views } = useServerData();
@@ -189,9 +196,9 @@ const Calculator = ({ setExpandedState, calculator, aprDisclaimer, useV5Design, 
             }`}
         >
             <form
-                className={`form ${useV5Design === 'true' ? 'v5Design' : ''} ${
-                    useNewCheckoutDesign === 'true' ? 'checkout' : ''
-                }`}
+                className={`form ${useV4Design === 'true' ? 'v4Design' : ''} ${
+                    useV5Design === 'true' ? 'v5Design' : ''
+                } ${useNewCheckoutDesign === 'true' ? 'checkout' : ''}`}
                 onSubmit={submit}
             >
                 <h4 className="title">{title}</h4>
@@ -220,6 +227,7 @@ const Calculator = ({ setExpandedState, calculator, aprDisclaimer, useV5Design, 
                         view={view}
                         isLoading={isLoading}
                         aprDisclaimer={aprDisclaimer}
+                        useV4Design={useV4Design}
                         useV5Design={useV5Design}
                         useNewCheckoutDesign={useNewCheckoutDesign}
                     />

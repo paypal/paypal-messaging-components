@@ -61,11 +61,15 @@ const BodyContent = () => {
 
     const isQualifying = productMeta?.qualifying;
 
+    const useV4Design = productMeta?.useV4Design === 'true';
     const useV5Design = productMeta?.useV5Design === 'true';
     const useNewCheckoutDesign = features?.includes('new-checkout-design') ? 'true' : 'false';
 
-    // add v5Design class to root html to update lander specific styles to v5
+    // add v4Design or v5Design class to root html to update lander specific styles to v4 or v5 respectively
     const documentClassName = document.documentElement.className;
+    if (useV4Design && isLander) {
+        document.documentElement.className = `${documentClassName} v4Design`;
+    }
     if (useV5Design && isLander) {
         document.documentElement.className = `${documentClassName} v5Design`;
     }
@@ -148,11 +152,12 @@ const BodyContent = () => {
                     qualifyingSubheadline={qualifyingSubheadline}
                     closeButtonLabel={closeButtonLabel}
                     viewName={viewName}
+                    useV4Design={useV4Design}
                     useV5Design={useV5Design}
                 />
             )}
             <div
-                className={`content__container ${useV5Design ? 'v5Design' : ''} ${
+                className={`content__container ${useV4Design ? 'v4Design' : ''} ${useV5Design ? 'v5Design' : ''} ${
                     useNewCheckoutDesign === 'true' ? 'checkout' : ''
                 }`}
             >

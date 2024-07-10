@@ -7,7 +7,7 @@ const Donut = ({
     cx = 21,
     cy = 21,
     radius = 15.91549430918954,
-    radiusV5 = 5.5,
+    radiusV4andV5 = 5.5,
     viewBox = `0 0 ${2 * cx} ${2 * cy}`,
     style = { fontSize: '0.375rem' },
     segmentStrokeWidth = 5.8,
@@ -16,18 +16,19 @@ const Donut = ({
     timeStamp,
     periodicPayment,
     qualifying,
+    useV4Design,
     useV5Design
 }) => {
     const percentage = (currentNum / numOfPayments) * 100;
     const segStrokeWidth = segmentStrokeWidth ?? strokeWidth;
     const strokeDasharray = `${percentage} ${100 - percentage}`;
-    const isV5Design = useV5Design === 'true';
+    const isV4OrV5Design = useV4Design === 'true' || useV5Design === 'true';
 
     const segments = (
         <circle
             cx={cx}
             cy={cy}
-            r={isV5Design ? radiusV5 : radius}
+            r={isV4OrV5Design ? radiusV4andV5 : radius}
             className="donut__percent"
             stroke-dasharray={strokeDasharray}
             stroke-dashoffset={25}
@@ -42,7 +43,7 @@ const Donut = ({
         <div
             className={`donut__single_payment ${
                 isQualifying ? 'donut__qualifying_payment' : 'donut__non_qualifying_payment'
-            } ${isV5Design && isBelowNumOfPayments ? isPi3 : ''} `}
+            } ${isV4OrV5Design && isBelowNumOfPayments ? isPi3 : ''} `}
         >
             <span className="svg">
                 <svg aria-hidden viewBox={viewBox} className="donut" style={style} xmlns="http://www.w3.org/2000/svg">
@@ -51,12 +52,12 @@ const Donut = ({
                         cy={cy}
                         r={radius}
                         fill="transparent"
-                        className={isV5Design ? 'donut__background__line' : 'donut__background'}
+                        className={isV4OrV5Design ? 'donut__background__line' : 'donut__background'}
                         stroke-width={strokeWidth}
                     />
                     <g
-                        stroke-width={isV5Design ? 0 : segStrokeWidth}
-                        fill={isV5Design ? '#545D68' : 'transparent'}
+                        stroke-width={isV4OrV5Design ? 0 : segStrokeWidth}
+                        fill={isV4OrV5Design ? '#545D68' : 'transparent'}
                         stroke-linecap={strokeLinecap}
                     >
                         {segments}
@@ -70,7 +71,7 @@ const Donut = ({
             <span aria-labelledby={`donut__payment__${currentNum} donut__timestamp__${currentNum}`} role="text">
                 {isQualifying && periodicPayment !== '-' && (
                     <span
-                        className={isV5Design ? 'donut__payment_v5' : 'donut__payment'}
+                        className={isV4OrV5Design ? 'donut__payment_v5' : 'donut__payment'}
                         id={`donut__payment__${currentNum}`}
                         aria-hidden="true"
                     >
@@ -78,7 +79,7 @@ const Donut = ({
                     </span>
                 )}
                 <span
-                    className={isV5Design ? 'donut__timestamp_v5' : 'donut__timestamp'}
+                    className={isV4OrV5Design ? 'donut__timestamp_v5' : 'donut__timestamp'}
                     id={`donut__timestamp__${currentNum}`}
                     aria-hidden="true"
                 >

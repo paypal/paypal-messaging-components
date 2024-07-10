@@ -12,6 +12,7 @@ const Header = ({
     qualifyingSubheadline,
     closeButtonLabel = 'Close',
     viewName,
+    useV4Design,
     useV5Design
 }) => {
     const { country } = useServerData();
@@ -40,19 +41,19 @@ const Header = ({
             <div aria-hidden="true" className="header__fixed-wrapper header__fixed-wrapper--front">
                 <div
                     className={`header__background-wrapper header__background-wrapper--gradient ${
+                        useV4Design ? 'v4Design' : ''
+                    } ${useV5Design ? 'v5Design' : ''}`}
+                />
+            </div>
+            <div aria-hidden="true" className="header__fixed-wrapper">
+                <div
+                    className={`header__background-wrapper ${useV5Design ? 'v5Design' : ''} ${
                         useV5Design ? 'v5Design' : ''
                     }`}
                 />
             </div>
-            <div aria-hidden="true" className="header__fixed-wrapper">
-                <div className={`header__background-wrapper ${useV5Design ? 'v5Design' : ''}`} />
-            </div>
             <div className="header__icons">
-                <div
-                    className={`logo__wrapper ${isScrolled ? 'logo__wrapper--scroll' : ''} ${
-                        useV5Design ? 'v5Design' : ''
-                    }`}
-                >
+                <div className={`logo__wrapper ${isScrolled ? 'logo__wrapper--scroll' : ''}`}>
                     <div className="pp-logo">
                         <Icon name={logo} />
                     </div>
@@ -61,7 +62,7 @@ const Header = ({
                     // We don't need to render an 'x' button if the target is a lander since you will close via a
                     // merchant-provided close button from their own iframe, or by closing the window in the case of a webpage.
                     <button
-                        className={`close ${useV5Design ? 'v5Design' : ''}`}
+                        className="close"
                         aria-label={closeButtonLabel}
                         type="button"
                         id="close-btn"
@@ -74,8 +75,8 @@ const Header = ({
                 <div className="header__fixed-wrapper header__fixed-wrapper--front">
                     <div
                         className={`header__background-wrapper header__background-wrapper--sticky ${
-                            useV5Design ? 'v5Design' : ''
-                        }`}
+                            useV4Design ? 'v4Design' : ''
+                        } ${useV5Design ? 'v5Design' : ''}`}
                     />
                 </div>
             </div>

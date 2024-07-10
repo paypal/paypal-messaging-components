@@ -7,7 +7,6 @@
         "qualifying": "{qualifying_offer}",
         "amount": "{transaction_amount}",
         "apr": "{apr}",
-        "useV5Design": "false",
         "variables": {
             "transaction_amount": "${eval(transaction_amount ? transaction_amount : '-')}",
             "qualifying_offer": "${eval(CREDIT_OFFERS_DS.qualifying_offer ? CREDIT_OFFERS_DS.qualifying_offer : 'false')}",
