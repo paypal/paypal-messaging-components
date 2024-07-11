@@ -114,8 +114,9 @@
                     margin-right: 15px;
                 }
                 input {
-                    @include tablet {
-                        width: 100%;
+                    width: 100%;
+                    @include mobile {
+                        padding-right: 0px;
                     }
                 }
             }
@@ -131,10 +132,10 @@
             input {
                 border: 1px solid $v5-gray;
             }
-            @include tablet {
+            // @include tablet {
                 display: flex;
                 flex-direction: column;
-            }
+            // }
         }
 
         &.v4Design,
@@ -215,6 +216,10 @@
         text-align: left;
         @include tablet {
             width: 88%;
+        }
+        @include mobile {
+            width: 100%;
+            padding-right: 0px;
         }
 
         .offer__wrapper {
