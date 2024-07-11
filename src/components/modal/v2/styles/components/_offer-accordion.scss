@@ -27,6 +27,7 @@
             .accordion__row {
                 button {
                     background-color: $ql-gray;
+                    border-radius: 11px;
                 }
             }
         }
@@ -57,6 +58,14 @@
         border: none;
         width: 100%;
         cursor: pointer;
+
+        .accordion__offer-field-header {
+            &:first-child {
+                .v5Design & {
+                    font-weight: bold;
+                }
+            }
+        }
     }
 
     &__collapsible {
@@ -80,6 +89,10 @@
 
                 .accordion__offer-field-title {
                     color: $light-blue;
+
+                    .v5Design & {
+                        text-decoration: underline;
+                    }
                 }
             }
 

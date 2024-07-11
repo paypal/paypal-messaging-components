@@ -28,7 +28,7 @@ const OfferAccordion = ({
         <div
             id={index}
             className={`accordion__container ${activeSelection === index ? 'active' : ''} ${open} ${
-                useV5Design ? 'v5Design' : ''
+                useV5Design === 'true' ? 'v5Design' : ''
             }`}
         >
             <div className="accordion__row">
