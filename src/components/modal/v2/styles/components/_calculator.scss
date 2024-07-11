@@ -108,6 +108,17 @@
                     padding: 1.75rem 0.5rem 0.5rem 0.75rem;
                 }
             }
+
+            &.v5Design {
+                @include tablet {
+                    margin-right: 15px;
+                }
+                input {
+                    @include tablet {
+                        width: 100%;
+                    }
+                }
+            }
         }
 
         &.v5Design {
@@ -119,6 +130,10 @@
             }
             input {
                 border: 1px solid $v5-gray;
+            }
+            @include tablet {
+                display: flex;
+                flex-direction: column;
             }
         }
 
@@ -198,9 +213,13 @@
 
     &.v5Design {
         text-align: left;
-        align-items: left;
         @include tablet {
-            width: 503px;
+            width: 88%;
+        }
+
+        .offer__wrapper {
+            display: flex;
+            flex-direction: column;
         }
     }
 

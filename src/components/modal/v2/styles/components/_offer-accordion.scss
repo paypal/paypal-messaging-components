@@ -22,9 +22,12 @@
             outline: 3px solid $light-blue;
             border-color: transparent;
         }
-        .v5Design {
-            button {
-                background-color: $ql-gray;
+        &.v5Design {
+            width: 100%;
+            .accordion__row {
+                button {
+                    background-color: $ql-gray;
+                }
             }
         }
 

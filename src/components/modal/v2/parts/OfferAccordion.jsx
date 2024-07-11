@@ -31,7 +31,7 @@ const OfferAccordion = ({
                 useV5Design ? 'v5Design' : ''
             }`}
         >
-            <div className={`accordion__row ${useV5Design ? 'v5Design' : ''}`}>
+            <div className="accordion__row">
                 <button
                     className="accordion__header-container"
                     type="button"
