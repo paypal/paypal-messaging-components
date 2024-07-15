@@ -37,7 +37,7 @@ export const selectors = {
     shortTerm: {
         // Donut component used in short term view modals
         donuts: {
-            periodicPayment: 'span[class*=donut__payment]'
+            periodicPayment: 'span[class^=donut__payment]'
         }
     },
     productList: {
