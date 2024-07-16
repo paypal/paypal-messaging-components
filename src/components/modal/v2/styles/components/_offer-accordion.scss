@@ -36,6 +36,7 @@
 
         &.open {
             &.v5Design {
+                outline: none;
                 background-color: #0070e0;
                 color: $v5-white;
                 button {
