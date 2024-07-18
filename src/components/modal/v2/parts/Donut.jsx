@@ -43,7 +43,9 @@ const Donut = ({
         <div
             className={`donut__single_payment ${
                 isQualifying ? 'donut__qualifying_payment' : 'donut__non_qualifying_payment'
-            } ${isV4OrV5Design && isBelowNumOfPayments ? isPi3 : ''} `}
+            } ${isV4OrV5Design && isBelowNumOfPayments ? isPi3 : ''}${
+                isV4OrV5Design && currentNum === numOfPayments ? 'donut__single_payment_line__end' : ''
+            } `}
         >
             <span className="svg">
                 <svg aria-hidden viewBox={viewBox} className="donut" style={style} xmlns="http://www.w3.org/2000/svg">

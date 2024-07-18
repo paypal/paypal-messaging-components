@@ -177,5 +177,13 @@ $donut-text-v5: #545d68;
                 }
             }
         }
+        &__end {
+            @extend .donut__single_payment_line;
+            .svg {
+                &::after {
+                    display: none;
+                }
+            }
+        }
     }
 }
