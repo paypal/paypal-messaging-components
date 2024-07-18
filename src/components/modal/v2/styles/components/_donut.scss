@@ -168,7 +168,8 @@ $donut-text-v5: #545d68;
                     }
                     @include mobile {
                         max-width: min(70px, calc(100vw * 0.2));
-                        transform: translateX((67%));
+                        margin-left: auto;
+                        padding-left: 2px;
                     }
                     @include smallMobile {
                         max-width: min(55px, calc(100vw * 0.3));
