@@ -36,16 +36,9 @@
 
         &.open {
             &.v5Design {
-                outline: none;
-                background-color: #0070e0;
-                color: $v5-white;
-                button {
-                    background-color: #0070e0;
-                    color: $v5-white;
-                }
-                div {
-                    color: $v5-white !important;
-                }
+                background-color: $white;
+                outline: 3px solid $black;
+                border-color: transparent;
             }
         }
     }
