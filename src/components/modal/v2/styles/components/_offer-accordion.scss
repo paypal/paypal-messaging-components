@@ -26,10 +26,12 @@
             width: 100%;
             padding-right: 5px;
             background-color: $ql-gray;
+            &:not(:last-child) {
+                margin-bottom: 16px;
+            }
             .accordion__row {
                 button {
                     border-radius: 11px;
-
                 }
             }
         }
