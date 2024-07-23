@@ -64,6 +64,10 @@
                 display: flex;
                 align-items: center;
                 color: $text-main;
+
+                &.v5Design {
+                    font-size: 100%;
+                }
             }
         }
     }

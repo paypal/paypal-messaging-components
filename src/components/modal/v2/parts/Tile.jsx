@@ -18,7 +18,7 @@ const Tile = ({ header, body, viewName, setViewName, useV5Design }) => {
             <div className="tile__row">
                 <div aria-hidden="true" className="tile__col">
                     <div className="tile__header">{header}</div>
-                    <div className="tile__body">{body}</div>
+                    <div className={`tile__body ${useV5Design ? 'v5Design' : ''}`}>{body}</div>
                 </div>
             </div>
         </button>
