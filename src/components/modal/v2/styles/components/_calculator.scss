@@ -113,8 +113,14 @@
                 @include tablet {
                     margin-right: 15px;
                 }
+                .input__label {
+                    left: 12px;
+                    top: 8px;
+                }
                 input {
                     width: 100%;
+                    padding-left: 12px;
+                    padding-bottom: 8px;
                     @include mobile {
                         padding-right: 0px;
                     }
@@ -127,7 +133,7 @@
                 font-weight: 700;
             }
             label {
-                color: $v5-gray;
+                color: $v5-gray;                
             }
             input {
                 border: 1px solid $v5-gray;
@@ -209,6 +215,7 @@
 
         &.v5Design {
             color: $v5-gray;
+            padding-top: 16px;
         }
     }
 
