@@ -23,6 +23,7 @@ const Donut = ({
     const segStrokeWidth = segmentStrokeWidth ?? strokeWidth;
     const strokeDasharray = `${percentage} ${100 - percentage}`;
     const isV4OrV5Design = useV4Design === 'true' || useV5Design === 'true';
+    const isV5Design = useV5Design === 'true';
 
     const segments = (
         <circle
@@ -45,9 +46,9 @@ const Donut = ({
                 isQualifying ? 'donut__qualifying_payment' : 'donut__non_qualifying_payment'
             } ${isV4OrV5Design && isBelowNumOfPayments ? isPi3 : ''}${
                 isV4OrV5Design && currentNum === numOfPayments ? 'donut__single_payment_line__end' : ''
-            } `}
+            }`}
         >
-            <span className="svg">
+            <span className={`${isV5Design ? 'v5Design' : ''} svg`}>
                 <svg aria-hidden viewBox={viewBox} className="donut" style={style} xmlns="http://www.w3.org/2000/svg">
                     <circle
                         cx={cx}

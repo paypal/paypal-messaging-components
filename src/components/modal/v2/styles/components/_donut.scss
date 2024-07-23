@@ -153,7 +153,12 @@ $donut-text-v5: #545d68;
                     max-width: 35px;
                 }
             }
-        }    
+        }
+        .v5Design {
+            &.svg::after {
+                margin-bottom: 12px;
+            }
+        }
         
         &__3 {
             @extend .donut__single_payment_line;
@@ -182,7 +187,7 @@ $donut-text-v5: #545d68;
             @extend .donut__single_payment_line;
             .svg {
                 &::after {
-                    display: none;
+                    visibility: hidden;
                 }
             }
         }
