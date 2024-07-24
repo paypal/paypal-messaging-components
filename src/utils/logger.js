@@ -5,7 +5,7 @@ import arrayIncludes from 'core-js-pure/stable/array/includes';
 import { Logger, LOG_LEVEL } from '@krakenjs/beaver-logger/src';
 import { ZalgoPromise } from '@krakenjs/zalgo-promise/src';
 
-import { getGlobalAPIUrl } from './global';
+import { getGlobalUrl } from './global';
 import { request } from './miscellaneous';
 
 import { getLibraryVersion, getDisableSetCookie } from './sdk';
@@ -105,7 +105,7 @@ function generateLogPayload(account, { meta, events: bizEvents, tracking }) {
 
 /**
  * Translate the meta, events, and tracking into payloads for the
- * endpoint `/v1/credit/upstream-messaging-events`
+ * endpoint `/credit-presentment/glog`
  * @param {Object} data - the data the logger wishes to send
  * @param {Object} data.meta - the data the logger wishes to send
  * @param {Object[]} data.events - the data captured by logger.{debug|info|warn|error} calls
@@ -130,7 +130,7 @@ function translateLogData({ meta, events, tracking }) {
 
 export const logger = Logger({
     // Url to send logs to
-    url: getGlobalAPIUrl('LOGGER'),
+    url: getGlobalUrl('LOGGER'),
     // Prefix to prepend to all events
     prefix: 'paypal_messages',
     // Log level to display in the browser console

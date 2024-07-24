@@ -10,8 +10,7 @@ import {
     getPageType,
     getPartnerAccount,
     getPayPalDomain,
-    getScript,
-    getPayPalAPIDomain
+    getScript
 } from './sdk';
 import { createState } from './miscellaneous';
 import { ppDebug } from './debug';
@@ -75,16 +74,6 @@ export const createTitleGenerator = () => {
 export function getGlobalUrl(type) {
     return `${getPayPalDomain()}${__MESSAGES__.__URI__[`__${type.toUpperCase()}__`]}`;
 }
-
-/**
- * Create an API URL of the requested type from Webpack global variables
- * @param {String} type URL type
- * @returns {String} URL of requested type
- */
-export function getGlobalAPIUrl(type) {
-    return `${getPayPalAPIDomain()}${__MESSAGES__.__URI__[`__${type.toUpperCase()}__`]}`;
-}
-
 // Return a getter function as opposed to the value itself so that it can be lazy loaded within
 // the SDK lifecycle to guard against unintentionally using state from previous SDK instances
 export const createGlobalVariableGetter = (variable, fn) => () => {
