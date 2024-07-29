@@ -73,7 +73,6 @@ export const LongTerm = ({
         disclaimer,
         genericDisclaimer,
         instructions,
-        v5Instructions,
         disclosure,
         navLinkPrefix,
         linkToProductList,
@@ -174,7 +173,7 @@ export const LongTerm = ({
                     </div>
                 </div>
                 <Instructions
-                    instructions={v5Instructions ?? instructions}
+                    instructions={instructions}
                     useV4Design={useV4Design}
                     useV5Design={useV5Design}
                     useNewCheckoutDesign={useNewCheckoutDesign}
