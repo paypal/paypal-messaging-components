@@ -3,3 +3,4 @@ coverage/
 tests/report/
 dist/
 demo/
+tests/playwright/test-examples/
