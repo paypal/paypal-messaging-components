@@ -1,11 +1,11 @@
 name: Playwright Accessibility Tests
 on:
-  # allow for manual triggers
+    # allow for manual triggers
     workflow_dispatch: {}
     push:
-        branches: [playwright-automated-testing ]
+        branches: [playwright-automated-testing]
     pull_request:
-        branches: [playwright-automated-testing ]
+        branches: [playwright-automated-testing]
 jobs:
     test:
         timeout-minutes: 60
