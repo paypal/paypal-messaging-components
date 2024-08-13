@@ -37,14 +37,14 @@ module.exports = defineConfig({
             }
         }
     ],
-    // webServer: [
-    //     {
-    //         command: 'npm run dev:ci',
-    //         url: 'http://127.0.0.1:8080',
-    //         timeout: 120 * 1000,
-    //         reuseExistingServer: !process.env.CI
-    //     }
-    // ],
+    webServer: [
+        {
+            command: './.github/scripts/runServerV2.sh',
+            port: 8080,
+            timeout: 120 * 1000,
+            reuseExistingServer: !process.env.CI
+        }
+    ],
     use: {
         /* Base URL to use in actions like `await page.goto('/')`. */
         baseURL: 'https://127.0.0.1:8080',
