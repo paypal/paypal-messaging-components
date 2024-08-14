@@ -89,9 +89,6 @@ module.exports = defineConfig({
         ignoreHTTPSErrors: true,
         /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
         trace: 'on-first-retry',
-        bypassCSP: true,
-        launchOptions: {
-            args: ['--disable-web-security']
-        }
+        bypassCSP: true
     }
 });
