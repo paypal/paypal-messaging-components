@@ -45,7 +45,6 @@ module.exports = defineConfig({
                 ...devices['Desktop Safari']
             }
         },
-
         /* Test against mobile viewports. */
         {
             name: 'Mobile Chrome',
@@ -53,6 +52,7 @@ module.exports = defineConfig({
                 ...devices['Pixel 5']
             }
         },
+
         {
             name: 'Mobile Safari',
             use: {
@@ -65,8 +65,7 @@ module.exports = defineConfig({
             name: 'Microsoft Edge',
             use: {
                 ...devices['Desktop Edge'],
-                channel: 'msedge',
-                ignoreHTTPSErrors: true
+                channel: 'msedge'
             }
         },
         {
