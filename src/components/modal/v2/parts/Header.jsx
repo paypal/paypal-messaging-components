@@ -12,7 +12,8 @@ const Header = ({
     qualifyingSubheadline,
     closeButtonLabel = 'Close',
     viewName,
-    useV4Design
+    useV4Design,
+    useV5Design
 }) => {
     const { country } = useServerData();
     const [, handleClose] = useTransitionState();
@@ -41,11 +42,15 @@ const Header = ({
                 <div
                     className={`header__background-wrapper header__background-wrapper--gradient ${
                         useV4Design ? 'v4Design' : ''
-                    }`}
+                    } ${useV5Design ? 'v5Design' : ''}`}
                 />
             </div>
             <div aria-hidden="true" className="header__fixed-wrapper">
-                <div className={`header__background-wrapper ${useV4Design ? 'v4Design' : ''}`} />
+                <div
+                    className={`header__background-wrapper ${useV4Design ? 'v4Design' : ''} ${
+                        useV5Design ? 'v5Design' : ''
+                    }`}
+                />
             </div>
             <div className="header__icons">
                 <div className={`logo__wrapper ${isScrolled ? 'logo__wrapper--scroll' : ''}`}>
@@ -71,14 +76,18 @@ const Header = ({
                     <div
                         className={`header__background-wrapper header__background-wrapper--sticky ${
                             useV4Design ? 'v4Design' : ''
-                        }`}
+                        } ${useV5Design ? 'v5Design' : ''}`}
                     />
                 </div>
             </div>
             <div className="header__content">
-                <Icon name={`${viewName}-desktop`} />
-                <Icon name={`${viewName}-mobile`} />
-                {/* <Icon name="background-pp-mobile" /> */}
+                {!useV5Design && (
+                    <div>
+                        <Icon name={`${viewName}-desktop`} />
+                        <Icon name={`${viewName}-mobile`} />
+                        {/* <Icon name="background-pp-mobile" /> */}
+                    </div>
+                )}
                 <h2
                     // id used for aria-labelleby on modal container element
                     id="header__headline"
@@ -87,12 +96,18 @@ const Header = ({
                     dangerouslySetInnerHTML={{ __html: headline }}
                 />
                 {isQualifying === 'true' && qualifyingSubheadline !== '' ? (
-                    <p className={`subheadline_p subheadline-${countryClassName} qualifying`}>
+                    <p
+                        className={`subheadline_p subheadline-${countryClassName} qualifying ${
+                            useV5Design ? 'v5Design' : ''
+                        }`}
+                    >
                         {qualifyingSubheadline.replace(/(\s?EUR)/g, ' €')}
                     </p>
                 ) : (
                     <p
-                        className={`subheadline_p subheadline-${countryClassName}`}
+                        className={`subheadline_p subheadline-${countryClassName} ${useV5Design ? 'v5Design' : ''} ${
+                            country === 'DE' ? 'DE' : ''
+                        }`}
                         // eslint-disable-next-line react/no-danger
                         dangerouslySetInnerHTML={{
                             __html: currencyFormat(subheadline) ?? ''

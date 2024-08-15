@@ -27,6 +27,18 @@ strong {
             }
         }
 
+        &.v5Design {
+            &:last-child {
+                margin-bottom: 0px;
+            }
+            &:last-child::after {
+                content: '';
+                border-bottom: 0.5px solid $offer-border-gray;
+                display: block;
+                margin-top: 20px;
+            }
+        }
+        
         @include desktop {
             &:last-child {
                 margin-bottom: 20px;
@@ -71,6 +83,11 @@ strong {
             &:first-child {
                 padding-bottom: 10px;
             }
+        }
+
+        &.v5Design strong {
+            color: #000000;
+            font-weight: 400;
         }
 
         .checkout & {
@@ -120,6 +137,11 @@ strong {
             color: $text-main;
         }
 
+        &.v5Design {
+            color: $v5-gray !important;
+            padding-bottom: 6px;
+        }
+
         .checkout & {
             font-size: 14px;
         }
@@ -138,6 +160,10 @@ strong {
 
         &:is(strong) {
             color: $text-main;
+        }
+
+        .v5Design & {
+            color: $v5-gray
         }
 
         .checkout & {

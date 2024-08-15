@@ -21,6 +21,9 @@
     box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.04), 0px 1px 12px rgba(0, 0, 0, 0.08);
     cursor: pointer;
 
+    &.v5Design {
+        box-shadow: none;
+    }
     &:hover {
         box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.04), 1px 4px 0px rgba(0, 0, 0, 0.08);
     }
@@ -61,7 +64,16 @@
                 display: flex;
                 align-items: center;
                 color: $text-main;
+
+                &.v5Design {
+                    font-size: 100%;
+                }
             }
         }
     }
+
+    &.v5Design {
+        height: 100px;
+    }
+
 }

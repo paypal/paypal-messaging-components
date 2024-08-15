@@ -9,7 +9,7 @@ import { useServerData } from '../../../lib/providers';
 import { currencyFormat } from '../../../lib/hooks/currency'; // Remove .00 cents from formated min and max
 
 export const PayIn1 = ({
-    productMeta: { useV4Design },
+    productMeta: { useV5Design },
     content: { instructions, linkToProductList, disclosure, navLinkPrefix },
     openProductList
 }) => {
@@ -34,7 +34,7 @@ export const PayIn1 = ({
             <style>{styles._getCss()}</style>
             <div className="content__row dynamic">
                 <div className="content__col">
-                    <Instructions instructions={instructions} useV4Design={useV4Design} />
+                    <Instructions instructions={instructions} country={country} useV5Design={useV5Design} />
                 </div>
                 <div className="content__col">
                     <div className="branded-image">
@@ -42,7 +42,7 @@ export const PayIn1 = ({
                     </div>
                 </div>
             </div>
-            <div className="content__row disclosure">
+            <div className={`content__row disclosure ${useV5Design ? 'v5Design' : ''} ${country === 'DE' ? 'DE' : ''}`}>
                 <p> {currencyFormat(disclosure)} </p>
             </div>
             <div className="content__row productLink">

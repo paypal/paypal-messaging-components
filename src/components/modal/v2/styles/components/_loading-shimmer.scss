@@ -68,6 +68,11 @@
         }
     }
     &__container {
+        &.shimmer {
+            .v5Design & {
+                width: 100%;
+            }
+        }
         &:first-child {
             &.shimmer {
                 margin-top: 25px;
