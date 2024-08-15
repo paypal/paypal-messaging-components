@@ -78,7 +78,7 @@ export const LongTerm = ({
         linkToProductList,
         cta
     },
-    productMeta: { useV4Design },
+    productMeta: { useV4Design, useV5Design },
     openProductList,
     useNewCheckoutDesign
 }) => {
@@ -163,6 +163,7 @@ export const LongTerm = ({
                         calculator={calculator}
                         aprDisclaimer={offerAPRDisclaimers}
                         useV4Design={useV4Design}
+                        useV5Design={useV5Design}
                         useNewCheckoutDesign={useNewCheckoutDesign}
                     />
                     <div className={`content__col ${expandedState ? '' : 'collapsed'}`}>
@@ -174,6 +175,7 @@ export const LongTerm = ({
                 <Instructions
                     instructions={instructions}
                     useV4Design={useV4Design}
+                    useV5Design={useV5Design}
                     useNewCheckoutDesign={useNewCheckoutDesign}
                     expandedState={expandedState}
                 />
@@ -181,7 +183,7 @@ export const LongTerm = ({
             <div
                 className={`content__row disclosure ${expandedState ? '' : 'collapsed'} ${
                     useNewCheckoutDesign === 'true' ? 'checkout' : ''
-                }`}
+                } ${useV5Design === 'true' ? 'v5Design' : ''} ${country === 'DE' ? 'DE' : ''}`}
             >
                 {typeof disclosure === 'string' || Array.isArray(disclosure) ? (
                     <InlineLinks text={disclosure} useNewCheckoutDesign={useNewCheckoutDesign} />

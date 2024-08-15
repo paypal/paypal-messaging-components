@@ -24,7 +24,7 @@ export const ShortTerm = ({
         learnMoreLink,
         cta
     },
-    productMeta: { qualifying, periodicPayment, useV4Design, preapproved },
+    productMeta: { qualifying, periodicPayment, useV4Design, useV5Design, preapproved },
     openProductList,
     useNewCheckoutDesign
 }) => {
@@ -115,6 +115,7 @@ export const ShortTerm = ({
                                     <Donut
                                         key={index}
                                         useV4Design={useV4Design}
+                                        useV5Design={useV5Design}
                                         qualifying={qualifying}
                                         // regex replaces EUR with the euro symbol €
                                         periodicPayment={
@@ -140,6 +141,7 @@ export const ShortTerm = ({
                         <Instructions
                             instructions={instructions}
                             useV4Design={useV4Design}
+                            useV5Design={useV5Design}
                             useNewCheckoutDesign={useNewCheckoutDesign}
                         />
                     </div>
@@ -150,7 +152,11 @@ export const ShortTerm = ({
                     </div>
                 </div>
             </div>
-            <div className={`content__row disclosure ${cta && useNewCheckoutDesign === 'true' ? 'checkout' : ''}`}>
+            <div
+                className={`content__row disclosure ${cta && useNewCheckoutDesign === 'true' ? 'checkout' : ''} ${
+                    useV5Design === 'true' ? 'v5Design' : ''
+                }`}
+            >
                 <InlineLinks text={currencyFormat(disclosure)} />
                 {renderLearnMoreLink()}
             </div>
