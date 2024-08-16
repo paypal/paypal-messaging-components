@@ -22,7 +22,7 @@ jobs:
               run: npm i
 
             - name: Run Playwright tests in Docker
-              uses: docker://mcr.microsoft.com/playwright:v1.44.0-jammy
+              uses: docker://mcr.microsoft.com/playwright:v1.46.0-jammy
               with:
                   args: npm exec -- playwright test
 
