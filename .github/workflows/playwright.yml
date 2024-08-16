@@ -24,7 +24,9 @@ jobs:
             - name: Run Playwright tests in Docker
               uses: docker://mcr.microsoft.com/playwright:v1.46.0-jammy
               with:
-                  args: npm exec -- playwright test
+                  # Fix for Firefox, HOME=/root is required to avoid permission issues
+                  # https://github.com/microsoft/playwright/issues/6500
+                  args: env HOME=/root npm exec -- playwright test
 
             - uses: actions/upload-artifact@v4
               if: always()
