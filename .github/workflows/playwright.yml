@@ -1,26 +1,39 @@
 name: Playwright Accessibility Tests
+
 on:
-    # allow for manual triggers
     workflow_dispatch: {}
     push:
         branches: [playwright-automated-testing]
     pull_request:
         branches: [playwright-automated-testing]
+
 jobs:
     test:
         timeout-minutes: 60
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v4
+
             - uses: actions/setup-node@v4
               with:
                   node-version: lts/*
+
+            - name: Cache node_modules
+              uses: actions/cache@v4
+              with:
+                  path: node_modules
+                  key: node-modules-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+                  restore-keys: |
+                    node-modules-${{ runner.os }}-
+
             - name: Install dependencies
-              run: npm i
-            - name: Install Playwright Browsers
-              run: npx playwright install --with-deps
-            - name: Run Playwright tests
-              run: npx playwright test
+              run: npm ci
+
+            - name: Run Playwright tests in Docker
+              uses: docker://mcr.microsoft.com/playwright:v1.44.0-jammy
+              with:
+                  args: npm exec -- playwright test
+
             - uses: actions/upload-artifact@v4
               if: always()
               with:
