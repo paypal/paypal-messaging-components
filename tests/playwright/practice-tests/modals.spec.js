@@ -186,7 +186,28 @@ test.describe('modals', () => {
             .analyze();
         expect(results.violations).toEqual([]);
     });
-    // TODO: DE getting product modal??
+    // TODO: DE getting product modal?? DE test pay in one q & non q, long term q & non q, and product list page
+    test('DE prduct list page', async ({ page }) => {
+        // Navigate to page
+        await page.goto(`/snapshot/v2/standalone-modal.html?account=DEV_DE_MULTI&amount=200&offer=DEV_DE_PAY_IN_1`);
+        page.waitForLoadState('domcontentloaded');
+
+        const messageButton = await page.$('button');
+        await messageButton.click();
+
+        const modalIframe = await page.$('iframe[name*="__zoid__paypal_credit_modal"]');
+        const modalFrame = await modalIframe.contentFrame();
+
+        await modalFrame.locator('.content__wrapper').waitFor({
+            state: 'visible'
+        });
+
+        const results = await new AxeBuilder({ page })
+            .include(modalIframe)
+            .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'best-practice'])
+            .analyze();
+        expect(results.violations).toEqual([]);
+    });
     test('DE qualifying PAY IN ONE modal', async ({ page }) => {
         // Navigate to page
         await page.goto(`/snapshot/v2/standalone-modal.html?account=DEV_DE_MULTI&amount=200&offer=DEV_DE_PAY_IN_1`);

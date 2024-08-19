@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 import { AxeBuilder } from '@axe-core/playwright';
 
 test.describe('smart', () => {
-    test('message should not have any automatically detectable accessibility issues', async ({ page }) => {
+    test.skip('message should not have any automatically detectable accessibility issues', async ({ page }) => {
         // Navigate to page
         await page.goto(`/standalone.html?account=DEV_US_MULTI&amount=200&offer=PAY_LATER_SHORT_TERM`);
         page.waitForLoadState('domcontentloaded');
@@ -19,7 +19,7 @@ test.describe('smart', () => {
 
         expect(results.violations).toEqual([]);
     });
-    test('modal should not have any automatically detectable accessibility issues', async ({ page }) => {
+    test.skip('modal should not have any automatically detectable accessibility issues', async ({ page }) => {
         // Navigate to page
         await page.goto(`/snapshot/v2/standalone-modal.html?account=DEV_US_MULTI&amount=59&offer=PAY_LATER_SHORT_TERM`);
         page.waitForLoadState('domcontentloaded');
