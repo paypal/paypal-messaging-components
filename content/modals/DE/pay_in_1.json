@@ -1,7 +1,7 @@
 {
     "meta": {
         "offerCountry": "DE",
-        "useV4Design": "false",
+        "useV5Design": "false",
         "periodicPayment": "{formattedPeriodicPayment}",
         "product": "PAY_LATER_PAY_IN_1",
         "minAmount": "{minAmount}",

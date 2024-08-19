@@ -117,11 +117,17 @@
                 }
             }
         }
-    }
 
-    .v4Design {
-        strong {
-            font-weight: 400;
+        .v4Design {
+            strong {
+                font-weight: 400;
+            }
+        }
+
+        &.v5Design {
+            &.DE strong {
+                font-weight: 400;
+            }
         }
     }
 
@@ -145,6 +151,11 @@
         }
     }
 
+    &.v5Design {
+        padding-top: 14px;
+        margin-bottom: 50px;
+    }
+    
     &.checkout {
         h2 {
             @include tablet {

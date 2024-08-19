@@ -1,5 +1,13 @@
 # Changelog
 
+### [1.64.10](https://github.com/paypal/paypal-messaging-components/compare/v1.64.9...v1.64.10) (2024-08-15)
+
+
+### Code Refactoring
+
+* update it modal disclosure ([#1114](https://github.com/paypal/paypal-messaging-components/issues/1114)) ([9554587](https://github.com/paypal/paypal-messaging-components/commit/95545876178282e69409a4bb59da9ccd0a287875))
+* update modals v5design ([#1108](https://github.com/paypal/paypal-messaging-components/issues/1108)) ([f4bc6ef](https://github.com/paypal/paypal-messaging-components/commit/f4bc6ef70c8916db752f84d5064e488185ca75a6))
+
 ### [1.64.9](https://github.com/paypal/paypal-messaging-components/compare/v1.64.8...v1.64.9) (2024-07-03)
 
 
