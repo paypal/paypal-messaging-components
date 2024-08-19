@@ -31,7 +31,7 @@
             "Need more than 30 days? Postpone once for a fee."
         ],
         "disclosure": [
-            "Available for purchases of {formattedMinAmount} - {formattedMaxAmount}. Subject to a credit check. Eligible customers must have a German private PayPal account with a linked debit card or bank account with valid SEPA mandate as a funding instrument."
+            "* Subject to Credit Check. Available for purchases between {formattedMinAmount} - {formattedMaxAmount}. Eligible customers must have a German private PayPal account with a linked debit card or bank account with valid SEPA mandate as a funding instrument."
         ],
         "navLinkPrefix": "For monthly Pay Later Options,",
         "linkToProductList": "see PayPal Ratenzahlung."
