@@ -18,25 +18,25 @@ test.describe('smart', () => {
 
         expect(results.violations).toEqual([]);
     });
-    // test('modal should not have any automatically detectable accessibility issues', async ({ page }) => {
-    //     // Navigate to page
-    //     await page.goto(`/snapshot/v2/standalone-modal.html?account=DEV_US_MULTI&amount=59&offer=PAY_LATER_SHORT_TERM`);
-    //     page.waitForLoadState('domcontentloaded');
+    test('modal should not have any automatically detectable accessibility issues', async ({ page }) => {
+        // Navigate to page
+        await page.goto(`/snapshot/v2/standalone-modal.html?account=DEV_US_MULTI&amount=59&offer=PAY_LATER_SHORT_TERM`);
+        page.waitForLoadState('domcontentloaded');
 
-    //     const messageButton = await page.$('button');
-    //     await messageButton.click();
+        const messageButton = await page.$('button');
+        await messageButton.click();
 
-    //     const modalIframe = await page.$('iframe[name*="__zoid__paypal_credit_modal"]');
-    //     const modalFrame = await modalIframe.contentFrame();
+        const modalIframe = await page.$('iframe[name*="__zoid__paypal_credit_modal"]');
+        const modalFrame = await modalIframe.contentFrame();
 
-    //     await modalFrame.locator('.content__wrapper').waitFor({
-    //         state: 'visible'
-    //     });
+        await modalFrame.locator('.content__wrapper').waitFor({
+            state: 'visible'
+        });
 
-    //     const results = await new AxeBuilder({ page })
-    //         .include(modalIframe)
-    //         .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'best-practice'])
-    //         .analyze();
-    //     expect(results.violations).toEqual([]);
-    // });
+        const results = await new AxeBuilder({ page })
+            .include(modalIframe)
+            .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'best-practice'])
+            .analyze();
+        expect(results.violations).toEqual([]);
+    });
 });
