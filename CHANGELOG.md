@@ -1,5 +1,12 @@
 # Changelog
 
+### [1.64.11](https://github.com/paypal/paypal-messaging-components/compare/v1.64.10...v1.64.11) (2024-08-20)
+
+
+### Code Refactoring
+
+* updated logger endpoint ([#1109](https://github.com/paypal/paypal-messaging-components/issues/1109)) ([cd05411](https://github.com/paypal/paypal-messaging-components/commit/cd054119dcab77500343b09b10d571e9374d731c))
+
 ### [1.64.10](https://github.com/paypal/paypal-messaging-components/compare/v1.64.9...v1.64.10) (2024-08-15)
 
 
