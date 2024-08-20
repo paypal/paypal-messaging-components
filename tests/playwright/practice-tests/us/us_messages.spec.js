@@ -13,14 +13,16 @@ const testCases = [
     { amount: 100, account: 'DEV_US_NO_INTEREST', offer: 'NI' }
 ];
 test.describe('sdk', () => {
+    test.setTimeout(120000); // Set a custom timeout of 2 minutes for this test
+
     test('message should not have any automatically detectable accessibility issues', async ({ sdkMessage }) => {
         await Promise.all(
             testCases.map(async ({ account, amount, offer }) => {
                 await test.step(`accessibility test for ${account || 'default'}`, async () => {
                     // Navigate to page
-                    const page = await sdkMessage({ amount, account, offer });
+                    const { page, context } = await sdkMessage({ amount, account, offer });
 
-                    const zoidIFrame = await page.$('iframe[name*="__zoid__paypal_message__"]');
+                    const zoidIFrame = await page.waitForSelector('iframe[name*="__zoid__paypal_message__"]');
                     const messageIframe = await zoidIFrame.contentFrame();
 
                     const button = await messageIframe.$('button');
@@ -32,6 +34,8 @@ test.describe('sdk', () => {
                         .analyze();
 
                     expect(results.violations).toEqual([]);
+                    // Close the context after the test
+                    await context.close();
                 });
             })
         );

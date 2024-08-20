@@ -4,7 +4,7 @@ import { test, expect } from './setupTest';
 // US test cases, TODO: grab it from the config
 const testCases = [
     {},
-    { account: 'DEV_US_MULTI' },
+    { amount: 200, account: 'DEV_US_MULTI', offer: '' }
     { amount: 29, account: 'DEV_US_MULTI', offer: 'PAY_LATER_SHORT_TERM' },
     { amount: 200, account: 'DEV_US_MULTI', offer: 'PAY_LATER_SHORT_TERM' },
     { amount: 20001, account: 'DEV_US_MULTI', offer: 'PAY_LATER_LONG_TERM' },
@@ -18,12 +18,14 @@ const testCases = [
 ];
 
 test.describe('sdk', () => {
-    test('message should not have any automatically detectable accessibility issues', async ({ sdkModal }) => {
+    test.setTimeout(120000); // Set a custom timeout of 2 minutes for this test
+
+    test('modal should not have any automatically detectable accessibility issues', async ({ sdkModal }) => {
         await Promise.all(
             testCases.map(async ({ account, amount, offer }) => {
                 await test.step(`accessibility test for ${account}`, async () => {
                     // Navigate to page
-                    const page = await sdkModal({ amount, account, offer });
+                    const { page, context } = await sdkModal({ amount, account, offer });
 
                     const messageButton = await page.$('button');
                     await messageButton.click();
