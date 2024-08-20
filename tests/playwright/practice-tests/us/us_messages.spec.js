@@ -14,23 +14,26 @@ const testCases = [
 ];
 test.describe('sdk', () => {
     test('message should not have any automatically detectable accessibility issues', async ({ sdkMessage }) => {
-        for (const { account, amount, offer } of testCases) {
-            await test.step(`accessibility test for ${account || 'default'}`, async () => {
-                // Navigate to page
-                const page = await sdkMessage({ amount, account, offer });
+        await Promise.all(
+            testCases.map(async ({ account, amount, offer }) => {
+                await test.step(`accessibility test for ${account || 'default'}`, async () => {
+                    // Navigate to page
+                    const page = await sdkMessage({ amount, account, offer });
 
-                const zoidIFrame = await page.$('iframe[name*="__zoid__paypal_message__"]');
-                const messageIframe = await zoidIFrame.contentFrame();
+                    const zoidIFrame = await page.$('iframe[name*="__zoid__paypal_message__"]');
+                    const messageIframe = await zoidIFrame.contentFrame();
 
-                const button = await messageIframe.$('button');
-                // TODO: 'best-practice' and 'wcag2aa' are resulting in errors, investigate
-                const results = await new AxeBuilder({ page })
-                    .include(button)
-                    .withTags(['wcag2a', 'wcag21a', 'wcag21aa']) // Removed 'best-practice' and 'wcag2aa' for now
-                    .analyze();
+                    const button = await messageIframe.$('button');
 
-                expect(results.violations).toEqual([]);
-            });
-        }
+                    // Run accessibility check
+                    const results = await new AxeBuilder({ page })
+                        .include(button)
+                        .withTags(['wcag2a', 'wcag21a', 'wcag21aa']) // Removed 'best-practice' and 'wcag2aa' for now
+                        .analyze();
+
+                    expect(results.violations).toEqual([]);
+                });
+            })
+        );
     });
 });

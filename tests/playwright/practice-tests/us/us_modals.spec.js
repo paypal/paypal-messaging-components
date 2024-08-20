@@ -19,31 +19,33 @@ const testCases = [
 
 test.describe('sdk', () => {
     test('message should not have any automatically detectable accessibility issues', async ({ sdkModal }) => {
-        for (const { account, amount, offer } of testCases) {
-            await test.step(`accessibility test for ${account}`, async () => {
-                // Navigate to page
-                const page = await sdkModal({ amount, account, offer });
+        await Promise.all(
+            testCases.map(async ({ account, amount, offer }) => {
+                await test.step(`accessibility test for ${account}`, async () => {
+                    // Navigate to page
+                    const page = await sdkModal({ amount, account, offer });
 
-                const messageButton = await page.$('button');
-                await messageButton.click();
+                    const messageButton = await page.$('button');
+                    await messageButton.click();
 
-                // Get the iframe that contains the modal
-                const modalIframe = await page.$('iframe[name*="__zoid__paypal_credit_modal"]');
-                const modalFrame = await modalIframe.contentFrame();
+                    // Get the iframe that contains the modal
+                    const modalIframe = await page.$('iframe[name*="__zoid__paypal_credit_modal"]');
+                    const modalFrame = await modalIframe.contentFrame();
 
-                // Wait for the modal to become visible
-                await modalFrame.locator('.content__wrapper').waitFor({
-                    state: 'visible'
+                    // Wait for the modal to become visible
+                    await modalFrame.locator('.content__wrapper').waitFor({
+                        state: 'visible'
+                    });
+
+                    // TODO: 'best-practice' and 'wcag2aa' are resulting in errors, investigate
+                    const results = await new AxeBuilder({ page })
+                        .include(modalIframe)
+                        .withTags(['wcag2a', 'wcag21a', 'wcag21aa'])
+                        .analyze();
+
+                    expect(results.violations).toEqual([]);
                 });
-
-                // TODO: 'best-practice' and 'wcag2aa' are resulting in errors, investigate
-                const results = await new AxeBuilder({ page })
-                    .include(modalIframe)
-                    .withTags(['wcag2a', 'wcag21a', 'wcag21aa'])
-                    .analyze();
-
-                expect(results.violations).toEqual([]);
-            });
-        }
+            })
+        );
     });
 });
