@@ -4,7 +4,7 @@ import { test, expect } from './setupTest';
 // US test cases, TODO: grab it from the config
 const testCases = [
     {},
-    { amount: 200, account: 'DEV_US_MULTI', offer: '' }
+    { amount: 200, account: 'DEV_US_MULTI', offer: '' },
     { amount: 29, account: 'DEV_US_MULTI', offer: 'PAY_LATER_SHORT_TERM' },
     { amount: 200, account: 'DEV_US_MULTI', offer: 'PAY_LATER_SHORT_TERM' },
     { amount: 20001, account: 'DEV_US_MULTI', offer: 'PAY_LATER_LONG_TERM' },
