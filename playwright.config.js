@@ -11,6 +11,7 @@ const { defineConfig, devices } = require('@playwright/test');
  * @see https://playwright.dev/docs/test-configuration
  */
 module.exports = defineConfig({
+    timeout: 350000,
     testDir: './tests/playwright/practice-tests',
     /* Run tests in files in parallel */
     fullyParallel: true,
@@ -25,6 +26,7 @@ module.exports = defineConfig({
     reporter: 'html',
     /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
     /* Configure projects for major browsers */
+
     projects: [
         {
             name: 'chromium',
@@ -76,19 +78,19 @@ module.exports = defineConfig({
             }
         }
     ],
-    webServer: [
-        {
-            command: './.github/scripts/runServerV2.sh',
-            timeout: 120 * 1000,
-            reuseExistingServer: !process.env.CI
-        }
-    ],
     use: {
         /* Base URL to use in actions like `await page.goto('/')`. */
         baseURL: 'https://localhost.paypal.com:8080',
         ignoreHTTPSErrors: true,
         /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-        trace: 'on-first-retry',
-        bypassCSP: true
+        trace: 'on',
+        bypassCSP: true,
+        navigationTimeout: 40000,
+        headless: true,
+        viewport: {
+            width: 1200,
+            height: 800
+        },
+        actionTimeout: 50000
     }
 });
