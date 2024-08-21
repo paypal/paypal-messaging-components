@@ -26,7 +26,7 @@ export const DEV_DE_PAY_IN_1 = {
             message: 'Non-qualifying Pay in 1',
             expectedValue: 'Bezahlen Sie bei Einkäufen von 1€ bis 1.000€ erst nach 30 Tagen',
             modalContent: {
-                subheadline: 'Erhältlich für Einkäufe i.H.v. 1€ - 1.000€.'
+                subheadline: 'Erhältlich für Einkäufe i.H.v. 1€ - 2.000€.'
             }
         }
     ]
