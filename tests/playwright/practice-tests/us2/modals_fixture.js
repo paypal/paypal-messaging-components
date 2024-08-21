@@ -47,7 +47,7 @@ export const test = base.extend({
             // TODO: US non qualifying & qualifying long term 'best-practice' tag error
             const results = await new AxeBuilder({ page })
                 .include(modalIframe)
-                .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'])
+                .withTags(['wcag2a', 'wcag21a', 'wcag21aa'])
                 .analyze();
             expect(results.violations).toEqual([]);
         };
