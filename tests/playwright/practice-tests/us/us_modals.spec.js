@@ -46,6 +46,8 @@ test.describe('sdk', () => {
                         .analyze();
 
                     expect(results.violations).toEqual([]);
+                    // Close the context after the test
+                    await context.close();
                 });
             })
         );

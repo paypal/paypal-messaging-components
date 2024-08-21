@@ -22,7 +22,7 @@ const test = base.extend({
             // Create a new browser context and page
             const context = await browser.newContext();
             const page = await context.newPage();
-            
+
             await page.goto(`/snapshot/v2/standalone-modal.html?account=${account}&amount=${amount}&offer=${offer}`);
             page.waitForLoadState('domcontentloaded');
             return { page, context };
