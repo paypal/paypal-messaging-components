@@ -78,6 +78,13 @@ module.exports = defineConfig({
             }
         }
     ],
+    webServer: [
+        {
+            command: './.github/scripts/runServerV2.sh',
+            timeout: 120 * 1000,
+            reuseExistingServer: !process.env.CI
+        }
+    ],
     use: {
         /* Base URL to use in actions like `await page.goto('/')`. */
         baseURL: 'https://localhost.paypal.com:8080',
