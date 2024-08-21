@@ -17,14 +17,14 @@ export const generateUrl = ({ account, amount, offer }) => {
 // Extend Playwright base test with custom fixtures
 export const test = base.extend({
     // Fixture for navigating to the page
-    navigatePage: async ({ page }, use) => {
-        const navigate = async ({ account, amount, offer }) => {
-            const url = generateUrl({ account, amount, offer });
-            await page.goto(url);
-            await page.waitForLoadState('domcontentloaded');
-        };
-        await use(navigate);
-    },
+    // navigatePage: async ({ page }, use) => {
+    //     const navigate = async ({ account, amount, offer }) => {
+    //         const url = generateUrl({ account, amount, offer });
+    //         await page.goto(url);
+    //         await page.waitForLoadState('domcontentloaded');
+    //     };
+    //     await use(navigate);
+    // },
 
     // Fixture for loading the modal
     loadModal: async ({ page }, use) => {
