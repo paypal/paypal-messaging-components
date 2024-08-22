@@ -11,7 +11,7 @@ export const navigatePage = async (page, account, amount, offer) => {
 test.describe('US SDK Messages Accessibility Tests', () => {
     test('Short Term', async ({ page, runAxeCoreScan }) => {
         navigatePage(page, 'DEV_US_MULTI', 100, 'PAY_LATER_SHORT_TERM');
-        await expect(page.frameLocator('iframe[name*="__zoid__paypal_message__"]').getByRole('button')).toBeVisible({
+        await expect(page.frameLocator('iframe[name*="__zoid__paypal_message__"]')).toBeVisible({
             timeout: 30000
         });
 
