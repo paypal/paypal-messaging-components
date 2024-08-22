@@ -1,0 +1,32 @@
+[
+    {
+        "name": "US Modal product list",
+        "account": "DEV_US_MULTI",
+        "amount": 200,
+        "offer": ""
+    },
+    {
+        "name": "US Modal short term non qualifying",
+        "account": "DEV_US_MULTI",
+        "amount": 29,
+        "offer": "PAY_LATER_SHORT_TERM"
+    },
+    {
+        "name": "US Modal short term qualifying",
+        "account": "DEV_US_MULTI",
+        "amount": 200,
+        "offer": "PAY_LATER_SHORT_TERM"
+    },
+    {
+        "name": "US Modal long term non qualifying",
+        "account": "DEV_US_MULTI",
+        "amount": 20001,
+        "offer": "PAY_LATER_LONG_TERM"
+    },
+    {
+        "name": "US Modal long term qualifying",
+        "account": "DEV_US_MULTI",
+        "amount": 1501,
+        "offer": "PAY_LATER_LONG_TERM"
+    }
+]
