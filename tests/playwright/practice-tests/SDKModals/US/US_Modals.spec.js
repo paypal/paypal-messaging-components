@@ -1,4 +1,4 @@
-import { test, navigatePage } from '../setup';
+import { test, navigatePage } from './setup';
 
 test.describe('US SDK Modals Accessibility Tests', () => {
     test('US Modal PRODUCT LIST', async ({ page, loadModal, runAxeCoreScan }) => {
