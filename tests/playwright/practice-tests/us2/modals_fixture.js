@@ -4,13 +4,7 @@ import { AxeBuilder } from '@axe-core/playwright';
 
 // Function to generate URL based on parameters
 export const generateUrl = ({ account, amount, offer }) => {
-    let url = `/snapshot/v2/standalone-modal.html?account=${account}`;
-    if (amount !== undefined) {
-        url += `&amount=${amount}`;
-    }
-    if (offer !== undefined && offer !== '') {
-        url += `&offer=${offer}`;
-    }
+    let url = `/snapshot/v2/standalone-modal.html?account=${account}&amount=${amount}&offer=${offer}`;
     return url;
 };
 // Helper function to navigate to the URL and wait for the page to load
