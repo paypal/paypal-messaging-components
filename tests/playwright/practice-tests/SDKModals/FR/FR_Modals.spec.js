@@ -1,4 +1,4 @@
-import { test, navigatePage } from '../setup.js';
+import { test, navigatePage } from '../setup';
 
 test.describe('FR SDK Modals Accessibility Tests', () => {
     test('FR Modal SHORT TERM Q', async ({ page, loadModal, runAxeCoreScan }) => {

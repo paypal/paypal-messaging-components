@@ -1,4 +1,4 @@
-import { test, navigatePage } from '../setup.js';
+import { test, navigatePage } from '../setup';
 
 test.describe('DE SDK Modals Accessibility Tests', () => {
     test('DE Modal PRODUCT LIST', async ({ page, loadModal, runAxeCoreScan }) => {
