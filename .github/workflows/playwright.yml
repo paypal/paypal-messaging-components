@@ -18,7 +18,7 @@ jobs:
             - name: Install dependencies
               run: npm i
 
-            -  # Cache Playwright browser binaries
+            # Cache Playwright browser binaries
             - name: Cache Playwright browsers
               uses: actions/cache@v2
               with:
