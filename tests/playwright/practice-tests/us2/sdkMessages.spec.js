@@ -1,17 +1,13 @@
 import { test } from './modals_fixture';
 
-// Helper function to navigate to the URL and wait for the page to load
-export const navigatePage = async (page, account, amount, offer) => {
-    const url = `/snapshot/v2/sdk.html?account=${account}&amount=${amount}&offer=${offer}`;
-    await page.goto(url, { waitUntil: 'domcontentloaded' });
-};
-
 test.describe('US SDK Messages Accessibility Tests', () => {
     test('Short Term', async ({ page, runAxeCoreScan }) => {
-        navigatePage(page, 'DEV_US_MULTI', 100, 'PAY_LATER_SHORT_TERM');
+        await page.goto('/snapshot/v2/sdk.html?account=DEV_US_SHORT_TERM&amount=100&offer=PAY_LATER_SHORT_TERM');
+        await page.waitForLoadState('domcontentloaded');
 
         const zoidIFrame = await page.waitForSelector('iframe[name*="__zoid__paypal_message__"]');
         const messageIframe = await zoidIFrame.contentFrame();
+
         const button = await messageIframe.$('button');
         // Run Axe accessibility checks on the modal iframe
         await runAxeCoreScan(button);
