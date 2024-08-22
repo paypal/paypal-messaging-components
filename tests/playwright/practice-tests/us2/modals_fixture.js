@@ -22,8 +22,6 @@ export const navigatePage = async (page, account, amount, offer) => {
 
 // Extend Playwright base test with custom fixtures
 export const test = base.extend({
-  
-
     // Fixture for loading the modal
     loadModal: async ({ page }, use) => {
         const loadModal = async () => {
