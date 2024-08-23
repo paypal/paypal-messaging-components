@@ -19,6 +19,9 @@ jobs:
               run: npm i
             - name: Install Playwright Browsers
               run: npx playwright install --with-deps
+            - name: Run server
+              run: |
+                  ./.github/scripts/runServerV2.sh
             - name: Run Playwright tests (Chrome)
               run: npx playwright test --project=chromium --debug
             - name: Run Playwright tests (firefox)
