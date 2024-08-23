@@ -23,11 +23,11 @@ jobs:
               run: |
                   ./.github/scripts/runServerV2.sh
             - name: Run Playwright tests (Chrome)
-              run: xvfb-run npx playwright test --project=chromium --debug &
+              run: xvfb-run npx playwright test --project=chromium --debug 
             - name: Run Playwright tests (Firefox)
-              run: xvfb-run npx playwright test --project=firefox --debug &
+              run: xvfb-run npx playwright test --project=firefox --debug 
             - name: Run Playwright tests (Webkit)
-              run: xvfb-run npx playwright test --project=webkit --debug & 
+              run: xvfb-run npx playwright test --project=webkit --debug 
             - uses: actions/upload-artifact@v4
               if: always()
               with:
