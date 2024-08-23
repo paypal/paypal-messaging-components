@@ -19,8 +19,6 @@ module.exports = defineConfig({
     forbidOnly: !!process.env.CI,
     /* Retry on CI only */
     retries: process.env.CI ? 3 : 0,
-    reportSlowTests: { max: 0, threshold: 400001 },
-
     // retries: 1,
     /* Opt out of parallel tests on CI. */
     workers: process.env.CI ? 60 : undefined,
@@ -92,7 +90,6 @@ module.exports = defineConfig({
         ignoreHTTPSErrors: true,
         /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
         trace: 'on',
-        bypassCSP: true,
-        headless: true
+        bypassCSP: true
     }
 });
