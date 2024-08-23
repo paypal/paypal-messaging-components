@@ -12,21 +12,29 @@ const { defineConfig, devices } = require('@playwright/test');
  */
 module.exports = defineConfig({
     testDir: './tests/playwright/practice-tests',
-    timeout: 600000,
+    timeout: 9 * 60000,
     /* Run tests in files in parallel */
     fullyParallel: true,
     /* Fail the build on CI if you accidentally left test.only in the source code. */
     forbidOnly: !!process.env.CI,
     /* Retry on CI only */
     retries: process.env.CI ? 3 : 0,
+    reportSlowTests: { max: 0, threshold: 400001 },
+
     // retries: 1,
     /* Opt out of parallel tests on CI. */
-    workers: process.env.CI ? 5 : undefined,
+    workers: process.env.CI ? 60 : undefined,
     /* Reporter to use. See https://playwright.dev/docs/test-reporters */
     reporter: 'html',
     /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
     /* Configure projects for major browsers */
     projects: [
+        {
+            name: 'chromium',
+            use: {
+                ...devices['Desktop Chrome']
+            }
+        },
         {
             name: 'firefox',
             use: {
@@ -71,19 +79,20 @@ module.exports = defineConfig({
             }
         }
     ],
-    webServer: [
-        {
-            command: './.github/scripts/runServerV2.sh',
-            timeout: 120 * 1000,
-            reuseExistingServer: !process.env.CI
-        }
-    ],
+    // webServer: [
+    //     {
+    //         command: './.github/scripts/runServerV2.sh',
+    //         timeout: 120 * 1000,
+    //         reuseExistingServer: !process.env.CI
+    //     }
+    // ],
     use: {
         /* Base URL to use in actions like `await page.goto('/')`. */
         baseURL: 'https://localhost.paypal.com:8080',
         ignoreHTTPSErrors: true,
         /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
         trace: 'on',
-        bypassCSP: true
+        bypassCSP: true,
+        headless: true
     }
 });
