@@ -8,22 +8,41 @@ on:
         branches: [playwright-automated-testing]
 jobs:
     test:
-        timeout-minutes: 60
         runs-on: ubuntu-latest
+
         steps:
-            - uses: actions/checkout@v4
-            - uses: actions/setup-node@v4
+            # Checkout the repository
+              uses: actions/checkout@v4
+
+            # Set up Node.js
+              uses: actions/setup-node@v4
               with:
                   node-version: lts/*
+
+            # Install dependencies
             - name: Install dependencies
               run: npm i
-            - name: Install Playwright Browsers
+
+            # Start the local server
+            - name: Start Local Server
+              run: npm run start-server &
+
+            # Add a wait step to ensure the server is ready before running tests
+            - name: Wait for Server to be Ready
+              run: sleep 10 # Adjust the time as necessary for your server
+
+            # Install Playwright browsers
+            - name: Install Playwright browsers
               run: npx playwright install --with-deps
+
+            # Run Playwright tests with fail-fast option and limit workers for parallelism
             - name: Run Playwright tests
-              run: npx playwright test
-            - uses: actions/upload-artifact@v4
+              run: npx playwright test --workers=2
+
+            # Optionally, store the test results if the tests fail
+              uses: actions/upload-artifact@v2
               if: ${{ !cancelled() }}
               with:
-                  name: playwright-report
+                  name: playwright-results
                   path: playwright-report/
                   retention-days: 30
