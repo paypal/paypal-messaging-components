@@ -1,6 +1,5 @@
 name: Playwright Accessibility Tests
 on:
-    # allow for manual triggers
     workflow_dispatch: {}
     push:
         branches: [playwright-automated-testing]
@@ -11,35 +10,21 @@ jobs:
         runs-on: ubuntu-latest
 
         steps:
-            # Checkout the repository
               uses: actions/checkout@v4
-
-            # Set up Node.js
               uses: actions/setup-node@v4
               with:
                   node-version: lts/*
-
-            # Install dependencies
             - name: Install dependencies
               run: npm i
-
-            # Start the local server
             - name: Start Local Server
               run: npm run start-server &
-
-            # Add a wait step to ensure the server is ready before running tests
             - name: Wait for Server to be Ready
-              run: sleep 10 # Adjust the time as necessary for your server
+              run: sleep 10
 
-            # Install Playwright browsers
             - name: Install Playwright browsers
               run: npx playwright install --with-deps
-
-            # Run Playwright tests with fail-fast option and limit workers for parallelism
             - name: Run Playwright tests
               run: npx playwright test --workers=2
-
-            # Optionally, store the test results if the tests fail
               uses: actions/upload-artifact@v2
               if: ${{ !cancelled() }}
               with:
