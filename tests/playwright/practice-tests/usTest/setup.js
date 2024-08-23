@@ -32,7 +32,7 @@ export const test = base.extend({
 
     // Fixture for running Axe accessibility checks
     runAxeCoreScan: async ({ page }, use) => {
-        const runAxeCoreScan = async (modalIframe) => {
+        const runAxeCoreScan = async modalIframe => {
             const results = await new AxeBuilder({ page })
                 .include(modalIframe)
                 .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'])
