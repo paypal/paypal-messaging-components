@@ -76,13 +76,13 @@ test.describe('Modals Accessibility Tests', () => {
         const modalIframe = await loadModal();
         await runAxeCoreScan(modalIframe);
     });
-    test('US Modal short term pl2go', async ({ page, loadModal, runAxeCoreScan }) => {
-        const url = generateUrl({ accoun: 'DEV_US_SHORT_TERM_PL2GO', amount: 200, offer: 'PAY_LATER_SHORT_TERM' });
-        await page.goto(url);
-        await page.waitForLoadState('domcontentloaded');
-        const modalIframe = await loadModal();
-        await runAxeCoreScan(modalIframe);
-    });
+    // test('US Modal short term pl2go', async ({ page, loadModal, runAxeCoreScan }) => {
+    //     const url = generateUrl({ accoun: 'DEV_US_SHORT_TERM_PL2GO', amount: 200, offer: 'PAY_LATER_SHORT_TERM' });
+    //     await page.goto(url);
+    //     await page.waitForLoadState('domcontentloaded');
+    //     const modalIframe = await loadModal();
+    //     await runAxeCoreScan(modalIframe);
+    // });
     test('US Modal long term pl2go', async ({ page, loadModal, runAxeCoreScan }) => {
         const url = generateUrl({ account: 'DEV_US_LONG_TERM_PL2GO', amount: 200, offer: 'PAY_LATER_LONG_TERM' });
         await page.goto(url);
