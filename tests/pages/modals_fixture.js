@@ -28,12 +28,20 @@ export const test = base.extend({
     // Fixture for loading the modal
     loadModal: async ({ page }, use) => {
         const loadModal = async () => {
-            const messageButton = await page.$('button');
+            const messageButton = await page.waitForSelector('button', { state: 'visible', timeout: 300000 });
+            if (!messageButton) {
+                throw new Error('Button not found');
+            }
             await messageButton.click();
-            const modalIframe = await page.waitForSelector('iframe[name*="__zoid__paypal_credit_modal"]');
+
+            const modalIframe = await page.waitForSelector('iframe[name*="__zoid__paypal_credit_modal"]', {
+                state: 'attached',
+                timeout: 30000
+            });
             const modalFrame = await modalIframe.contentFrame();
             await modalFrame.locator('.content__wrapper').waitFor({
-                state: 'visible'
+                state: 'visible',
+                timeout: 30000
             });
             return modalIframe;
         };
