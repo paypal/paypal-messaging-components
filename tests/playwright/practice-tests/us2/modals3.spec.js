@@ -1,4 +1,4 @@
-import { test } from './modals_fixture';
+import { test } from '../../../pages/modals_fixture';
 
 test.describe('Modals Accessibility Tests', () => {
     test('US Modal product list', async ({ page, loadModal, runAxeCoreScan }) => {
