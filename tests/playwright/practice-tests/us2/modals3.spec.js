@@ -83,10 +83,8 @@ test.describe('Modals Accessibility Tests', () => {
     //     const modalIframe = await loadModal();
     //     await runAxeCoreScan(modalIframe);
     // });
-    test('US Modal long term pl2go', async ({ page, loadModal, runAxeCoreScan }) => {
-        const url = generateUrl({ account: 'DEV_US_LONG_TERM_PL2GO', amount: 200, offer: 'PAY_LATER_LONG_TERM' });
-        await page.goto(url);
-        await page.waitForLoadState('domcontentloaded');
+    test('US Modal long term pl2go', async ({ navigateUrl, loadModal, runAxeCoreScan }) => {
+        await navigateUrl({ account: 'DEV_US_LONG_TERM_PL2GO', amount: 200, offer: 'PAY_LATER_LONG_TERM' });
         const modalIframe = await loadModal();
         await runAxeCoreScan(modalIframe);
     });

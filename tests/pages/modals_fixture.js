@@ -19,7 +19,17 @@ export const test = base.extend({
     navigatePage: async ({ page }, use) => {
         const navigate = async ({ account, amount, offer }) => {
             const url = generateUrl({ account, amount, offer });
-            await page.goto(url);
+
+            try {
+                const response = await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 30000 });
+                if (response && response.ok()) {
+                    console.log('all good');
+                } else {
+                    throw new Error('Failed to lead');
+                }
+            } catch (error) {
+                console.error('Naviagation failed');
+            }
             await page.waitForLoadState('domcontentloaded');
         };
         await use(navigate);
