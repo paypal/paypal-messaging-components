@@ -16,11 +16,7 @@ module.exports = defineConfig({
     forbidOnly: !!process.env.CI,
     /* Retry on CI only */
     retries: process.env.CI ? 2 : 0,
-
-    /* Opt out of parallel tests on CI. */
     workers: 40,
-    /* Run tests in files in parallel */
-    fullyParallel: true,
     /* Reporter to use. See https://playwright.dev/docs/test-reporters */
     reporter: 'html',
     timeout: 5 * 60000,
@@ -90,8 +86,8 @@ module.exports = defineConfig({
         /* Base URL to use in actions like `await page.goto('/')`. */
         baseURL: 'https://localhost.paypal.com:8080',
         ignoreHTTPSErrors: true,
-        /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-        trace: 'on-first-retry',
+
+        trace: 'on',
         bypassCSP: true,
         headless: !!process.env.CI || undefined,
         video: 'on'
