@@ -1,7 +1,7 @@
 // modalsFixture.js
 import { test as base, expect } from '@playwright/test';
 import { AxeBuilder } from '@axe-core/playwright';
-import { selectors } from '../playwright/util/selectors';
+import { selectors } from '../util/selectors';
 
 // Function to generate URL based on parameters
 export const generateUrl = ({ account, amount, offer }) => {
