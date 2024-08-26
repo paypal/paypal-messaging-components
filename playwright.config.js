@@ -19,6 +19,8 @@ module.exports = defineConfig({
 
     /* Opt out of parallel tests on CI. */
     workers: 40,
+    /* Run tests in files in parallel */
+    fullyParallel: true,
     /* Reporter to use. See https://playwright.dev/docs/test-reporters */
     reporter: 'html',
     timeout: 5 * 60000,
