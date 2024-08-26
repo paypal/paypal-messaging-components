@@ -4,6 +4,14 @@ import { selectors } from '../util/selectors';
 
 // Extend Playwright base test with custom fixtures
 export const modalTest = baseTest.extend({
+    navigatePage: async ({ navigatePage }, use) => {
+        const modalUrl = '/snapshot/v2/standalone-modal.html';
+        const navigate = async ({ account, amount, offer }) => {
+            await navigatePage(modalUrl, { account, amount, offer });
+        };
+        await use(navigate);
+    },
+
     // Fixture for loading the modal
     loadModal: async ({ page }, use) => {
         const loadModal = async () => {
@@ -28,5 +36,12 @@ export const modalTest = baseTest.extend({
             return modalIframe;
         };
         await use(loadModal);
+    },
+    runAxeCoreScan: async ({ runAxeCoreScan }, use) => {
+        const tags = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'];
+        const axeCoreScanner = async element => {
+            runAxeCoreScan(element, tags);
+        };
+        await use(axeCoreScanner);
     }
 });
