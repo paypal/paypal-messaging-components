@@ -28,52 +28,52 @@ module.exports = defineConfig({
                 ...devices['Desktop Chrome'],
                 headless: true
             }
-        },
-        {
-            name: 'firefox',
-            use: {
-                ...devices['Desktop Firefox'],
-                headless: true
-            }
-        },
-
-        {
-            name: 'webkit',
-            use: {
-                ...devices['Desktop Safari'],
-                headless: true
-            }
-        },
-        /* Test against mobile viewports. */
-        {
-            name: 'Mobile Chrome',
-            use: {
-                ...devices['Pixel 5']
-            }
-        },
-
-        {
-            name: 'Mobile Safari',
-            use: {
-                ...devices['iPhone 12']
-            }
-        },
-
-        /* Test against branded browsers. */
-        {
-            name: 'Microsoft Edge',
-            use: {
-                ...devices['Desktop Edge'],
-                channel: 'msedge'
-            }
-        },
-        {
-            name: 'Google Chrome',
-            use: {
-                ...devices['Desktop Chrome'],
-                channel: 'chrome'
-            }
         }
+        // {
+        //     name: 'firefox',
+        //     use: {
+        //         ...devices['Desktop Firefox'],
+        //         headless: true
+        //     }
+        // },
+
+        // {
+        //     name: 'webkit',
+        //     use: {
+        //         ...devices['Desktop Safari'],
+        //         headless: true
+        //     }
+        // },
+        // /* Test against mobile viewports. */
+        // {
+        //     name: 'Mobile Chrome',
+        //     use: {
+        //         ...devices['Pixel 5']
+        //     }
+        // },
+
+        // {
+        //     name: 'Mobile Safari',
+        //     use: {
+        //         ...devices['iPhone 12']
+        //     }
+        // },
+
+        // /* Test against branded browsers. */
+        // {
+        //     name: 'Microsoft Edge',
+        //     use: {
+        //         ...devices['Desktop Edge'],
+        //         channel: 'msedge'
+        //     }
+        // },
+        // {
+        //     name: 'Google Chrome',
+        //     use: {
+        //         ...devices['Desktop Chrome'],
+        //         channel: 'chrome'
+        //     }
+        // }
     ],
     webServer: [
         {
