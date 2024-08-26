@@ -1,6 +1,7 @@
 // modalsFixture.js
 import { test as base, expect } from '@playwright/test';
 import { AxeBuilder } from '@axe-core/playwright';
+import { selectors } from '../playwright/util/selectors';
 
 // Function to generate URL based on parameters
 export const generateUrl = ({ account, amount, offer }) => {
@@ -19,18 +20,7 @@ export const test = base.extend({
     navigatePage: async ({ page }, use) => {
         const navigate = async ({ account, amount, offer }) => {
             const url = generateUrl({ account, amount, offer });
-
-            try {
-                const response = await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 30000 });
-                if (response && response.ok()) {
-                    console.log('all good');
-                } else {
-                    throw new Error('Failed to lead');
-                }
-            } catch (error) {
-                console.error('Naviagation failed');
-            }
-            await page.waitForLoadState('domcontentloaded');
+            await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 30000 });
         };
         await use(navigate);
     },
@@ -38,18 +28,21 @@ export const test = base.extend({
     // Fixture for loading the modal
     loadModal: async ({ page }, use) => {
         const loadModal = async () => {
-            const messageButton = await page.waitForSelector('button', { state: 'visible', timeout: 300000 });
+            const messageButton = await page.waitForSelector(selectors.standaloneLearnMore, {
+                state: 'visible',
+                timeout: 300000
+            });
             if (!messageButton) {
                 throw new Error('Button not found');
             }
             await messageButton.click();
 
-            const modalIframe = await page.waitForSelector('iframe[name*="__zoid__paypal_credit_modal"]', {
+            const modalIframe = await page.waitForSelector(selectors.modal.iframe, {
                 state: 'attached',
                 timeout: 30000
             });
             const modalFrame = await modalIframe.contentFrame();
-            await modalFrame.locator('.content__wrapper').waitFor({
+            await modalFrame.locator(selectors.modal.contentWrapper).waitFor({
                 state: 'visible',
                 timeout: 30000
             });
