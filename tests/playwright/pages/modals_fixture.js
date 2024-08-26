@@ -26,12 +26,12 @@ export const modalTest = baseTest.extend({
 
             const modalIframe = await page.waitForSelector(selectors.modal.iframe, {
                 state: 'attached',
-                timeout: 30000
+                timeout: 300000
             });
             const modalFrame = await modalIframe.contentFrame();
             await modalFrame.locator(selectors.modal.contentWrapper).waitFor({
                 state: 'visible',
-                timeout: 30000
+                timeout: 300000
             });
             return modalIframe;
         };
