@@ -36,12 +36,5 @@ export const modalTest = baseTest.extend({
             return modalIframe;
         };
         await use(loadModal);
-    },
-    runAxeCoreScan: async ({ runAxeCoreScan }, use) => {
-        const tags = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'];
-        const axeCoreScanner = async element => {
-            runAxeCoreScan(element, tags);
-        };
-        await use(axeCoreScanner);
     }
 });
