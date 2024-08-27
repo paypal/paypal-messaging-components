@@ -25,55 +25,52 @@ module.exports = defineConfig({
         {
             name: 'chromium',
             use: {
+                ...devices['Desktop Chrome']
+            }
+        },
+        {
+            name: 'firefox',
+            use: {
+                ...devices['Desktop Firefox']
+            }
+        },
+
+        {
+            name: 'webkit',
+            use: {
+                ...devices['Desktop Safari']
+            }
+        },
+        /* Test against mobile viewports. */
+        {
+            name: 'Mobile Chrome',
+            use: {
+                ...devices['Pixel 5']
+            }
+        },
+
+        {
+            name: 'Mobile Safari',
+            use: {
+                ...devices['iPhone 12']
+            }
+        },
+
+        /* Test against branded browsers. */
+        {
+            name: 'Microsoft Edge',
+            use: {
+                ...devices['Desktop Edge'],
+                channel: 'msedge'
+            }
+        },
+        {
+            name: 'Google Chrome',
+            use: {
                 ...devices['Desktop Chrome'],
-                headless: true
+                channel: 'chrome'
             }
         }
-        // {
-        //     name: 'firefox',
-        //     use: {
-        //         ...devices['Desktop Firefox'],
-        //         headless: true
-        //     }
-        // },
-
-        // {
-        //     name: 'webkit',
-        //     use: {
-        //         ...devices['Desktop Safari'],
-        //         headless: true
-        //     }
-        // },
-        // /* Test against mobile viewports. */
-        // {
-        //     name: 'Mobile Chrome',
-        //     use: {
-        //         ...devices['Pixel 5']
-        //     }
-        // },
-
-        // {
-        //     name: 'Mobile Safari',
-        //     use: {
-        //         ...devices['iPhone 12']
-        //     }
-        // },
-
-        // /* Test against branded browsers. */
-        // {
-        //     name: 'Microsoft Edge',
-        //     use: {
-        //         ...devices['Desktop Edge'],
-        //         channel: 'msedge'
-        //     }
-        // },
-        // {
-        //     name: 'Google Chrome',
-        //     use: {
-        //         ...devices['Desktop Chrome'],
-        //         channel: 'chrome'
-        //     }
-        // }
     ],
     webServer: [
         {
@@ -83,13 +80,10 @@ module.exports = defineConfig({
         }
     ],
     use: {
-        /* Base URL to use in actions like `await page.goto('/')`. */
         baseURL: 'https://localhost.paypal.com:8080',
         ignoreHTTPSErrors: true,
-
-        trace: 'on',
+        trace: 'on-first-retry',
         bypassCSP: true,
-        headless: !!process.env.CI || undefined,
-        video: 'on'
+        headless: !!process.env.CI || undefined
     }
 });
