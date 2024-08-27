@@ -30,4 +30,14 @@ modalTest.describe('Multi Modals', () => {
         const modalIframe = await loadModal();
         await runAxeCoreScan(modalIframe, ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa']);
     });
+    modalTest('DE Modal PRODUCT LIST', async ({ navigatePage, loadModal, runAxeCoreScan }) => {
+        await navigatePage({ account: 'DEV_DE_MULTI', amount: 200, offer: '' });
+        const modalIframe = await loadModal();
+        await runAxeCoreScan(modalIframe, ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa']);
+    });
+    modalTest('DE Modal PAY IN ONE', async ({ navigatePage, loadModal, runAxeCoreScan }) => {
+        await navigatePage({ account: 'DEV_DE_MULTI', amount: 200, offer: 'PAY_LATER_PAY_IN_1' });
+        const modalIframe = await loadModal();
+        await runAxeCoreScan(modalIframe, ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa']);
+    });
 });

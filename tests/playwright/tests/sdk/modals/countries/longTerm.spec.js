@@ -26,4 +26,14 @@ modalTest.describe('Long Term Modals', () => {
         const modalIframe = await loadModal();
         await runAxeCoreScan(modalIframe, ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa']);
     });
+    modalTest('DE Modal LONG TERM Q', async ({ navigatePage, loadModal, runAxeCoreScan }) => {
+        await navigatePage({ account: 'DEV_DE_LONG_TERM', amount: 500, offer: 'PAY_LATER_LONG_TERM' });
+        const modalIframe = await loadModal();
+        await runAxeCoreScan(modalIframe, ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa']);
+    });
+    modalTest('DE Modal LONG TERM NQ', async ({ navigatePage, loadModal, runAxeCoreScan }) => {
+        await navigatePage({ account: 'DEV_DE_LONG_TERM', amount: 50, offer: 'PAY_LATER_LONG_TERM' });
+        const modalIframe = await loadModal();
+        await runAxeCoreScan(modalIframe, ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa']);
+    });
 });
