@@ -1,4 +1,4 @@
-import { modalTest } from '../../../pages/modals_fixture';
+import { modalTest } from '../../../../pages/modals_fixture';
 
 modalTest.describe('Long Term Modals', () => {
     modalTest('US Modal long term non qualifying', async ({ navigatePage, loadModal, runAxeCoreScan }) => {
