@@ -17,7 +17,7 @@ jobs:
             testConfigs: ${{ steps.setTestConfigs.outputs.testConfigs }}
         steps:
             - name: Checkout repo
-              uses: actions/checkout@v3
+              uses: actions/checkout@v4
               with:
                   persist-credentials: false
 
@@ -41,12 +41,12 @@ jobs:
                 testPathPattern: ${{ fromJSON(needs.getMatrix.outputs.testPathPatterns) }}
         steps:
             - name: Checkout repo
-              uses: actions/checkout@v3
+              uses: actions/checkout@v4
               with:
                   persist-credentials: false
 
             - name: Setup node
-              uses: actions/setup-node@v3
+              uses: actions/setup-node@v4
               with:
                   node-version-file: '.nvmrc'
 
@@ -78,12 +78,12 @@ jobs:
                 testConfig: ${{ fromJSON(needs.getMatrix.outputs.testConfigs) }}
         steps:
             - name: Checkout repo
-              uses: actions/checkout@v3
+              uses: actions/checkout@v4
               with:
                   persist-credentials: false
 
             - name: Setup node
-              uses: actions/setup-node@v3
+              uses: actions/setup-node@v4
               with:
                   node-version-file: '.nvmrc'
 
