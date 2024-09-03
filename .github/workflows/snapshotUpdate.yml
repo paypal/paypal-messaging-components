@@ -40,7 +40,7 @@ jobs:
                   echo ${{ github.event.number }} > ./workflow/metadata/pull_number.txt
 
             - name: Save Metadata
-              uses: actions/upload-artifact@v2
+              uses: actions/upload-artifact@v4
               with:
                   name: metadata
                   path: workflow/metadata/
@@ -120,7 +120,7 @@ jobs:
 
             - name: Save Snapshot Artifact
               if: steps.artifactInputs.outputs.skip != 'true'
-              uses: actions/upload-artifact@v2
+              uses: actions/upload-artifact@v4
               with:
                   name: ${{ steps.artifactInputs.outputs.name }}
                   path: ${{ steps.artifactInputs.outputs.filePath }}
@@ -207,7 +207,7 @@ jobs:
 
             - name: Save Snapshot Artifact
               if: steps.artifactInputs.outputs.skip != 'true'
-              uses: actions/upload-artifact@v2
+              uses: actions/upload-artifact@v4
               with:
                   name: ${{ steps.artifactInputs.outputs.name }}
                   path: ${{ steps.artifactInputs.outputs.filePath }}
