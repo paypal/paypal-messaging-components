@@ -24,12 +24,24 @@ jobs:
                   ./.github/scripts/runServerV2.sh
             - name: Run Playwright Modals
               run: npx playwright test tests/playwright/tests/sdk/modals
-            - name: Run Playwright Messages (US)
+            - name: Run Playwright Messages (AU)
               run:  |
-                  npx playwright test tests/playwright/tests/sdk/messages --grep @US
+                  npx playwright test tests/playwright/tests/sdk/messages --grep @AU
             - name: Run Playwright Messages (DE)
               run:  |
                   npx playwright test tests/playwright/tests/sdk/messages --grep @DE
+            - name: Run Playwright Messages (ES)
+              run:  |
+                  npx playwright test tests/playwright/tests/sdk/messages --grep @ES
+            - name: Run Playwright Messages (FR)
+              run:  |
+                  npx playwright test tests/playwright/tests/sdk/messages --grep @FR
+            - name: Run Playwright Messages (IT)
+              run:  |
+                  npx playwright test tests/playwright/tests/sdk/messages --grep @IT
+            - name: Run Playwright Messages (US)
+              run:  |
+                  npx playwright test tests/playwright/tests/sdk/messages --grep @US
             - uses: actions/upload-artifact@v4
               if: always()
               with:
