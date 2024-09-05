@@ -24,13 +24,12 @@ jobs:
                   ./.github/scripts/runServerV2.sh
             - name: Run Playwright Modals
               run: npx playwright test tests/playwright/tests/sdk/modals
-            - name: Run Playwright Messages
+            - name: Run Playwright Messages (US)
               run:  |
-                tags=("US","DE")
-                for tag in ${tags[@]}
-                do
-                  npx playwright test tests/playwright/tests/sdk/messages --grep @$tag
-                done
+                  npx playwright test tests/playwright/tests/sdk/messages --grep @US
+            - name: Run Playwright Messages (DE)
+              run:  |
+                  npx playwright test tests/playwright/tests/sdk/messages --grep @DE
             - uses: actions/upload-artifact@v4
               if: always()
               with:
