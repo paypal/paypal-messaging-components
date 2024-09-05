@@ -1,7 +1,8 @@
 {
     "meta": {
         "offerCountry": "DE",
-        "offerType": "PI30Q",
+        "offerType": "PAY_LATER_PAY_IN_1",
+        "messageType": "PLPI1_SQ",
         "offerTerm": "{total_payments}",
         "lander": "",
         "variables": {

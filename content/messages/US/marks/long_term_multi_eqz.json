@@ -2,7 +2,8 @@
     "meta": {
         "id": "",
         "offerCountry": "US",
-        "offerType": "LT_MQEZ",
+        "offerType": "PAY_LATER_LONG_TERM",
+        "messageType": "PLLT_MQ_EZ",
         "offerTerm": "${CREDIT_OFFERS_DS.total_payments}",
         "lander": "https://www.paypal.com/credit-presentment/lander/modal",
         "variables": {

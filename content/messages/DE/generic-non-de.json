@@ -1,7 +1,8 @@
 {
     "meta": {
         "offerCountry": "DE",
-        "offerType": "GENERIC:NON-DE",
+        "offerType": "GENERIC",
+        "messageType": "GENERIC_NON_DE",
         "offerTerm": "{total_payments}",
         "lander": "",
         "variables": {

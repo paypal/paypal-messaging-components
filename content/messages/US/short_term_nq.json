@@ -1,8 +1,8 @@
 {
     "meta": {
         "id": "dd36a466-2b98-4504-820c-958cbb6bd2c9",
-        "offerCountry": "US",
-        "offerType": "GPLNQ",
+        "offerType": "PAY_LATER_SHORT_TERM",
+        "messageType": "PLST_NQ",
         "offerTerm": "${CREDIT_OFFERS_DS.total_payments}",
         "lander": "",
         "variables": {

@@ -1,7 +1,8 @@
 {
     "meta": {
         "offerCountry": "ES",
-        "offerType": "SHORT_TERM:Q",
+        "offerType": "PAY_LATER_SHORT_TERM",
+        "messageType": "PLST_SQ",
         "offerTerm": "{total_payments}",
         "lander": "",
         "variables": {

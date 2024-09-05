@@ -5,7 +5,8 @@
         },
         "id": "",
         "offerCountry": "US",
-        "offerType": "GENERIC_PL_BNPL",
+        "offerType": "GENERIC",
+        "messageType": "GENERIC_PL_BNPL",
         "lander": "https://www.paypal.com/credit-presentment/lander/modal"
     },
     "headline": [

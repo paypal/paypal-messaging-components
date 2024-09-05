@@ -5,7 +5,8 @@
         },
         "id": "",
         "offerCountry": "US",
-        "offerType": "GENERIC_PAYPAL",
+        "offerType": "GENERIC",
+        "messageType": "GENERIC_PAYPAL",
         "lander": "https://www.paypal.com/credit-presentment/lander/modal"
     },
     "headline": [["A safer, easier way to pay", ["default", "xsmall"]]],

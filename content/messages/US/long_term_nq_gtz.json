@@ -2,7 +2,8 @@
     "meta": {
         "id": "d8dbfe8b-0bb8-44b1-ae07-6f32816fafe6",
         "offerCountry": "US",
-        "offerType": "LT_NQGZ",
+        "offerType": "PAY_LATER_LONG_TERM",
+        "messageType": "PLLT_NQ_GZ",
         "offerTerm": "${CREDIT_OFFERS_DS.total_payments}",
         "lander": "https://www.paypal.com/ppclander",
         "variables": {

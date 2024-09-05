@@ -1,8 +1,8 @@
 {
     "meta": {
         "id": "67b97f85-2824-4403-b123-abbf50579b2d",
-        "offerCountry": "GB",
-        "offerType": "PL",
+        "offerType": "PAY_LATER_SHORT_TERM",
+        "messageType": "PLST_NQ",
         "offerTerm": "{total_payments}",
         "lander": "",
         "variables": {

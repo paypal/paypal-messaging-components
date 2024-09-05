@@ -1,7 +1,8 @@
 {
     "meta": {
         "offerCountry": "DE",
-        "offerType": "GPL:EQZ:NON-DE",
+        "offerType": "PAY_LATER_LONG_TERM",
+        "messageType": "PLLT_NQ_EZ_NON-DE",
         "offerTerm": "{total_payments}",
         "lander": "",
         "variables": {
