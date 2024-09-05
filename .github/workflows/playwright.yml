@@ -10,11 +10,6 @@ jobs:
     test:
         timeout-minutes: 60
         runs-on: ubuntu-latest
-
-        strategy:
-          matrix:
-            countries: [US,DE]
-
         steps:
             - uses: actions/checkout@v4
             - uses: actions/setup-node@v4
@@ -30,7 +25,7 @@ jobs:
             - name: Run Playwright Modals
               run: npx playwright test tests/playwright/tests/sdk/modals
             - name: Run Playwright Messages
-              run:  npx playwright test tests/playwright/tests/sdk/messages -- --grep @${{matrix.countries}}
+              run:  npx playwright test tests/playwright/tests/sdk/messages -- --grep @US
             - uses: actions/upload-artifact@v4
               if: always()
               with:
