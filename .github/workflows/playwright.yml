@@ -35,5 +35,5 @@ jobs:
               if: always()
               with:
                   name: playwright-report-${{matrix.countries}}
-                  path: playwright-report/
+                  path: playwright-report-${{matrix.countries}}/
                   retention-days: 30
