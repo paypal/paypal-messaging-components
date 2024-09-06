@@ -30,10 +30,10 @@ jobs:
             - name: Run Playwright Modals
               run: npx playwright test tests/playwright/tests/sdk/modals
             - name: Run Playwright Messages
-              run:  npx playwright test tests/playwright/tests/sdk/messages --grep @${{matrix.countries}} --output=playwright-report/playwright-report-${{matrix.countries}}
+              run:  npx playwright test tests/playwright/tests/sdk/messages --grep @${{matrix.countries}} --output=playwright-report-${{matrix.countries}}
             - uses: actions/upload-artifact@v4
               if: always()
               with:
-                  name: playwright-report
+                  name: playwright-report-${{matrix.countries}}
                   path: playwright-report/
                   retention-days: 30
