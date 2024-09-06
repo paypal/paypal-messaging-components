@@ -235,7 +235,6 @@ export function getStandardProductOffer(offer) {
         case 'GPL:GTZ:NON-DE':
         case 'GPLQ:EQZ:NON-DE':
         case 'GPLQ:GTZ:NON-DE':
-        // Updated values
         case 'PLLT_NQ_EZ_NON-DE':
         case 'PLLT_NQ_GZ_NON-DE':
         case 'PLLT_MQ_EZ_NON-DE':
@@ -260,7 +259,6 @@ export function getStandardProductOffer(offer) {
         case 'SHORT_TERM:Q':
         case 'SHORT_TERM:NQ':
         case 'SHORT_TERM:NO_AMOUNT':
-        // Updated values
         case 'PLST_NQ':
         case 'PLST_SQ':
         case OFFER.PAY_LATER_SHORT_TERM:
@@ -272,7 +270,6 @@ export function getStandardProductOffer(offer) {
         case 'PI30:NON-DE':
         case 'PI30Q:NON-DE':
         case 'PI30NQ:NON-DE':
-        // updated values
         case 'PLPI1_NA_NON-DE':
         case 'PLPI1_NA':
         case 'PLPI1_NQ_NON-DE':
@@ -301,7 +298,6 @@ export function getStandardProductOffer(offer) {
         case 'NIQ':
         case 'NIQ:NON-US':
         case 'PPCNI_NQ':
-        // updated values
         case 'PPCNI_NQ_NON-US':
         case 'PPCNI_SQ':
         case 'PPCNI_SQ_NON-US':
