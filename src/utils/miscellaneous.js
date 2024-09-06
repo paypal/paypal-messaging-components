@@ -218,6 +218,7 @@ export function getStandardProductOffer(offer) {
     }
 
     switch (offer.toUpperCase()) {
+        // TODO: Cleanup once content is updated
         case 'LT_NQEZ':
         case 'LT_NQGZ':
         case 'LT_MQEZ':
@@ -226,7 +227,6 @@ export function getStandardProductOffer(offer) {
         case 'LT_SQEZ':
         case 'LT_SQEZ_RB':
         case 'LT_SQGZ':
-        case OFFER.PAY_LATER_LONG_TERM:
         case 'GPL:EQZ':
         case 'GPL:GTZ':
         case 'GPLQ:EQZ':
@@ -235,8 +235,20 @@ export function getStandardProductOffer(offer) {
         case 'GPL:GTZ:NON-DE':
         case 'GPLQ:EQZ:NON-DE':
         case 'GPLQ:GTZ:NON-DE':
+        // Updated values
+        case 'PLLT_NQ_EZ_NON-DE':
+        case 'PLLT_NQ_GZ_NON-DE':
+        case 'PLLT_MQ_EZ_NON-DE':
+        case 'PLLT_MQ_GZ_NON-DE':
+        case 'PLLT_NQ_EZ':
+        case 'PLLT_NQ_GZ':
+        case 'PLLT_MQ_EZ':
+        case 'PLLT_MQ_GZ':
+        case 'PLLT_SQ_EZ':
+        case 'PLLT_SQ_GZ':
+        case OFFER.PAY_LATER_LONG_TERM:
             return OFFER.PAY_LATER_LONG_TERM;
-        case OFFER.PAY_LATER_SHORT_TERM:
+        // TODO: Cleanup once content is updated
         case 'GPL':
         case 'GPLQ':
         case 'GPLNQ':
@@ -248,14 +260,26 @@ export function getStandardProductOffer(offer) {
         case 'SHORT_TERM:Q':
         case 'SHORT_TERM:NQ':
         case 'SHORT_TERM:NO_AMOUNT':
+        // Updated values
+        case 'PLST_NQ':
+        case 'PLST_SQ':
+        case OFFER.PAY_LATER_SHORT_TERM:
             return OFFER.PAY_LATER_SHORT_TERM;
-        case OFFER.PAY_LATER_PAY_IN_1:
+        // TODO: Cleanup once content is updated
         case 'PI30':
         case 'PI30Q':
         case 'PI30NQ':
         case 'PI30:NON-DE':
         case 'PI30Q:NON-DE':
         case 'PI30NQ:NON-DE':
+        // updated values
+        case 'PLPI1_NA_NON-DE':
+        case 'PLPI1_NA':
+        case 'PLPI1_NQ_NON-DE':
+        case 'PLPI1_NQ':
+        case 'PLPI1_SQ_NON-DE':
+        case 'PLPI1_SQ':
+        case OFFER.PAY_LATER_PAY_IN_1:
             return OFFER.PAY_LATER_PAY_IN_1;
         case 'EZP':
         case 'EZP:ANY:EQZ':
@@ -271,11 +295,17 @@ export function getStandardProductOffer(offer) {
         case 'PALAQ:ANY:EQZ':
         case 'PALAQ:ANY:GTZ':
             return OFFER.PAYPAL_CREDIT_INSTALLMENTS;
-        case OFFER.PAYPAL_CREDIT_NO_INTEREST:
+        // TODO: Cleanup once content is updated
         case 'NI':
         case 'NI:NON-US':
         case 'NIQ':
         case 'NIQ:NON-US':
+        case 'PPCNI_NQ':
+        // updated values
+        case 'PPCNI_NQ_NON-US':
+        case 'PPCNI_SQ':
+        case 'PPCNI_SQ_NON-US':
+        case OFFER.PAYPAL_CREDIT_NO_INTEREST:
             return OFFER.PAYPAL_CREDIT_NO_INTEREST;
         case OFFER.PAY_LATER:
             return OFFER.PAY_LATER;

@@ -8,6 +8,7 @@ import pi30nqNonDe from './pi30nq-non-de';
 import pi30qNonDe from './pi30q-non-de';
 
 export default function getMutations(id, type) {
+    console.log('hello here', id, type);
     switch (id) {
         case 'PI30Q':
         case 'PLPI1_SQ':
@@ -19,7 +20,7 @@ export default function getMutations(id, type) {
         case 'PLPI1_SQ_NON-DE':
             return pi30qNonDe[type];
         case 'PI30NQ:NON-DE':
-        case 'PlPI1_NQ_NON-DE':
+        case 'PLPI1_NQ_NON-DE':
             return pi30nqNonDe[type];
         case 'PI30:NON-DE':
         case 'PLPI1_NA_NON-DE':
