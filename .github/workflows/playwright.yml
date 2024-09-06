@@ -10,9 +10,14 @@ jobs:
     test:
         timeout-minutes: 60
         runs-on: ubuntu-latest
+
+        strategy:
+          matrix:
+            countries: [AU,US]
+
         steps:
-            - uses: actions/checkout@v4
-            - uses: actions/setup-node@v4
+            - uses: actions/checkout@v5
+            - uses: actions/setup-node@v5
               with:
                   node-version: lts/*
             - name: Install dependencies
@@ -24,25 +29,9 @@ jobs:
                   ./.github/scripts/runServerV2.sh
             - name: Run Playwright Modals
               run: npx playwright test tests/playwright/tests/sdk/modals
-            - name: Run Playwright Messages (AU)
-              run:  |
-                  npx playwright test tests/playwright/tests/sdk/messages --grep @AU
-            - name: Run Playwright Messages (DE)
-              run:  |
-                  npx playwright test tests/playwright/tests/sdk/messages --grep @DE
-            - name: Run Playwright Messages (ES)
-              run:  |
-                  npx playwright test tests/playwright/tests/sdk/messages --grep @ES
-            - name: Run Playwright Messages (FR)
-              run:  |
-                  npx playwright test tests/playwright/tests/sdk/messages --grep @FR
-            - name: Run Playwright Messages (IT)
-              run:  |
-                  npx playwright test tests/playwright/tests/sdk/messages --grep @IT
-            - name: Run Playwright Messages (US)
-              run:  |
-                  npx playwright test tests/playwright/tests/sdk/messages --grep @US
-            - uses: actions/upload-artifact@v4
+            - name: Run Playwright Messages
+              run:  npx playwright test tests/playwright/tests/sdk/messages --grep @${{matrix.countries}} --output=playwright-report/playwright-report-${{matrix.countries}}
+            - uses: actions/upload-artifact@v5
               if: always()
               with:
                   name: playwright-report
