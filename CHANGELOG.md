@@ -1,5 +1,13 @@
 # Changelog
 
+### [1.64.12](https://github.com/paypal/paypal-messaging-components/compare/v1.64.11...v1.64.12) (2024-09-11)
+
+
+### Code Refactoring
+
+* Add partner client id ([#1127](https://github.com/paypal/paypal-messaging-components/issues/1127)) ([3895648](https://github.com/paypal/paypal-messaging-components/commit/38956481375276043811e62e64a2dddfaed122ce))
+* update DE disclosure ([#1119](https://github.com/paypal/paypal-messaging-components/issues/1119)) ([f5cf87c](https://github.com/paypal/paypal-messaging-components/commit/f5cf87c229d46e95d0c98a266e5ca22170cb41e2))
+
 ### [1.64.11](https://github.com/paypal/paypal-messaging-components/compare/v1.64.10...v1.64.11) (2024-08-20)
 
 
