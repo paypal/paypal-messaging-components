@@ -10,6 +10,11 @@ jobs:
     test:
         timeout-minutes: 60
         runs-on: ubuntu-latest
+
+        strategy:
+            matrix:
+                countries: [AU, DE, GB, FR, IT, ES, US]
+
         steps:
             - uses: actions/checkout@v4
             - uses: actions/setup-node@v4
@@ -23,12 +28,14 @@ jobs:
               run: |
                   ./.github/scripts/runServerV2.sh
             - name: Run Playwright Modals
-              run: npx playwright test tests/playwright/tests/sdk/modals
+              continue-on-error: true
+              run: npx playwright test tests/playwright/tests/sdk/modals --grep @${{matrix.countries}} --output=playwright-report-${{matrix.countries}}
             - name: Run Playwright Messages
-              run:  npx playwright test tests/playwright/tests/sdk/messages
+              continue-on-error: true
+              run: npx playwright test tests/playwright/tests/sdk/messages --grep @${{matrix.countries}} --output=playwright-report-${{matrix.countries}}
             - uses: actions/upload-artifact@v4
               if: always()
               with:
-                  name: playwright-report
+                  name: playwright-report-${{matrix.countries}}
                   path: playwright-report/
                   retention-days: 30

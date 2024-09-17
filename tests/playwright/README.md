@@ -61,3 +61,11 @@ npx playwright codegen
 --debug
 
 <!-- opens codegen debug tool -->
+
+npx playwright test --grep @smoke
+<!-- run with only certain tag name -->
+
+npx playwright test --grep-invert @regression
+<!-- If you want to run tests excluding a specific tag, use --grep-invert: -->
+
+

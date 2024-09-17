@@ -1,6 +1,6 @@
-import { modalTest } from '../../../../pages/modals_fixture';
+import { modalTest } from '../../../pages/modals_fixture';
 
-modalTest.describe('Multi Modals', () => {
+modalTest.describe('@US Multi Modals', () => {
     modalTest('US Modal long term non qualifying', async ({ navigatePage, loadModal, runAxeCoreScan }) => {
         await navigatePage({ account: 'DEV_US_MULTI', amount: 20001, offer: 'PAY_LATER_LONG_TERM' });
         const modalIframe = await loadModal();
@@ -30,6 +30,8 @@ modalTest.describe('Multi Modals', () => {
         const modalIframe = await loadModal();
         await runAxeCoreScan(modalIframe, ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa']);
     });
+});
+modalTest.describe('@DE Multi Modals', () => {
     modalTest('DE Modal PRODUCT LIST', async ({ navigatePage, loadModal, runAxeCoreScan }) => {
         await navigatePage({ account: 'DEV_DE_MULTI', amount: 200, offer: '' });
         const modalIframe = await loadModal();
