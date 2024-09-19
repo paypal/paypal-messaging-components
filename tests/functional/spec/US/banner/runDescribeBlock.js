@@ -18,11 +18,16 @@ export default function runDescribeBlock(layout, tests) {
                 }
             });
 
+            // Skip the tests if the account includes 'BTN' or 'MRK' and layout is 'flex' as we do not support flex layouts for this integration.
+            const shouldSkip = (account.includes('BTN') || account.includes('MRK')) && layout === 'flex';
+
             describe.each(tests)('%s', (name, style, viewport = viewportDefault) => {
                 if (isFlexLayout) {
                     viewport.height = 700; // eslint-disable-line no-param-reassign
                 }
-                runBannerTest(viewport, getConfig(style));
+                if (!shouldSkip) {
+                    runBannerTest(viewport, getConfig(style));
+                }
             });
         });
 
