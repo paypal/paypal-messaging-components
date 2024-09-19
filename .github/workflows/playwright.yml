@@ -43,6 +43,6 @@ jobs:
               with:
                   name: playwright-report-${{matrix.countries}}
                   path: |
-                    playwright-report-modals-${{matrix.countries}}/
-                    playwright-report-messages-${{matrix.countries}}/
+                    playwright-report-modals-${{matrix.countries}}/**
+                    playwright-report-messages-${{matrix.countries}}/**
                   retention-days: 1
