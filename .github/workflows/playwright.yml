@@ -22,22 +22,27 @@ jobs:
                   node-version: lts/*
             - name: Install dependencies
               run: npm i
+
             - name: Install Playwright Browsers
               run: npx playwright install --with-deps
+
             - name: Run server
               run: |
                   ./.github/scripts/runServerV2.sh
+
             - name: Run Playwright Modals
               continue-on-error: true
-              run: npx playwright test tests/playwright/tests/sdk/modals --grep @${{matrix.countries}} --output=playwright-report-${{matrix.countries}}/playwright-report-modals-${{matrix.countries}}
+              run: npx playwright test tests/playwright/tests/sdk/modals --grep @${{matrix.countries}} --output=playwright-report-modals-${{matrix.countries}}
               
             - name: Run Playwright Messages
               continue-on-error: true
-              run: npx playwright test tests/playwright/tests/sdk/messages --grep @${{matrix.countries}} --output=playwright-report-${{matrix.countries}}/playwright-report-messages-${{matrix.countries}}
+              run: npx playwright test tests/playwright/tests/sdk/messages --grep @${{matrix.countries}} --output=playwright-report-messages-${{matrix.countries}}
 
             - uses: actions/upload-artifact@v4
               if: always()
               with:
                   name: playwright-report-${{matrix.countries}}
-                  path: playwright-report-${{matrix.countries}}/
+                  path: |
+                    playwright-report-modals-${{matrix.countries}}/
+                    playwright-report-messages-${{matrix.countries}}/
                   retention-days: 1
