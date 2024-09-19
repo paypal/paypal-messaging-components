@@ -33,10 +33,10 @@ jobs:
               
             - name: Run Playwright Messages
               continue-on-error: true
-              run: npx playwright test tests/playwright/tests/sdk/messages --grep @${{matrix.countries}} --output=playwright-message-report-${{matrix.countries}}/messages
+              run: npx playwright test tests/playwright/tests/sdk/messages --grep @${{matrix.countries}} --output=playwright-report-${{matrix.countries}}/messages
 
             - name: Merge Playwright Reports
-              run: zip -r playwright-report-${{matrix.countries}}.zip playwright-report-${{matrix.countries}}/
+              run: zip -r playwright-report-${{matrix.countries}}.zip playwright-report-${{matrix.countries}}/**
 
             - uses: actions/upload-artifact@v4
               if: always()
