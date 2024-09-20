@@ -27,15 +27,25 @@ jobs:
             - name: Run server
               run: |
                   ./.github/scripts/runServerV2.sh
+
             - name: Run Playwright Modals
               continue-on-error: true
               run: npx playwright test tests/playwright/tests/sdk/modals --grep @${{matrix.countries}} --output=playwright-report-${{matrix.countries}}
-            - name: Run Playwright Messages
-              continue-on-error: true
-              run: npx playwright test tests/playwright/tests/sdk/messages --grep @${{matrix.countries}} --output=playwright-report-${{matrix.countries}}
+            
             - uses: actions/upload-artifact@v4
               if: always()
               with:
-                  name: playwright-report-${{matrix.countries}}
+                  name: playwright-report-modal-${{matrix.countries}}
                   path: playwright-report/
-                  retention-days: 30
+                  retention-days: 1
+              
+            - name: Run Playwright Messages
+              continue-on-error: true
+              run: npx playwright test tests/playwright/tests/sdk/messages --grep @${{matrix.countries}} --output=playwright-report-${{matrix.countries}}
+
+            - uses: actions/upload-artifact@v4
+              if: always()
+              with:
+                  name: playwright-report-message-${{matrix.countries}}
+                  path: playwright-report/
+                  retention-days: 1
