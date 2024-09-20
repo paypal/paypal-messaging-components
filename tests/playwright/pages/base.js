@@ -25,7 +25,8 @@ export const baseTest = base.extend({
     },
     // Fixture for running Axe accessibility checks
     runAxeCoreScan: async ({ page }, use) => {
-        const runAxeCoreScan = async (element, tags = []) => {
+        const runAxeCoreScan = async element => {
+            const tags = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'best-practice'];
             const results = await new AxeBuilder({ page }).include(element).withTags(tags).analyze();
             expect(results.violations).toEqual([]);
         };

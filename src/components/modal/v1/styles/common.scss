@@ -19,7 +19,6 @@ body {
 h1,
 h2,
 h3,
-h4,
 p,
 li {
     color: #2c2e2f;
@@ -44,20 +43,13 @@ h2 {
 
 h3 {
     font-size: 15px;
-    font-weight: 600;
-    margin-bottom: 6px;
-    font-family: PayPalSansSmall, Helvetica, Arial, Sans-Serif;
+    line-height: 18px;
+    font-weight: bold;
 }
 
 svg {
     margin: auto;
     display: block;
-}
-
-h4 {
-    font-size: 15px;
-    line-height: 18px;
-    font-weight: bold;
 }
 
 p {

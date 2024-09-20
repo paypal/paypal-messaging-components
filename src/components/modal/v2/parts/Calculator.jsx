@@ -190,7 +190,7 @@ const Calculator = ({ setExpandedState, calculator, aprDisclaimer, useV4Design, 
                 }`}
                 onSubmit={submit}
             >
-                <h4 className="title">{title}</h4>
+                <h3 className="title">{title}</h3>
                 <div className="input__wrapper transitional">
                     <label htmlFor="purchase-amount" className={`input__label ${country}`}>
                         {renderInputLabelOnEmptyField(country)}
