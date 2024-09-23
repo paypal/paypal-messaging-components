@@ -28,11 +28,14 @@ messageTest.describe('@DE Long Term', () => {
         const messageIFrame = await loadMessage();
         await messageAxeCoreScan(messageIFrame);
     });
-    messageTest('DE Message long term 0APR non qualifying', async ({ navigatePage, loadMessage, messageAxeCoreScan }) => {
-        await navigatePage({ account: 'DEV_DE_LONG_TERM_0APR', amount: 29, offer: 'PAY_LATER_LONG_TERM' });
-        const messageIFrame = await loadMessage();
-        await messageAxeCoreScan(messageIFrame);
-    });
+    messageTest(
+        'DE Message long term 0APR non qualifying',
+        async ({ navigatePage, loadMessage, messageAxeCoreScan }) => {
+            await navigatePage({ account: 'DEV_DE_LONG_TERM_0APR', amount: 29, offer: 'PAY_LATER_LONG_TERM' });
+            const messageIFrame = await loadMessage();
+            await messageAxeCoreScan(messageIFrame);
+        }
+    );
     messageTest('DE Message long term 0APR qualifying', async ({ navigatePage, loadMessage, messageAxeCoreScan }) => {
         await navigatePage({ account: 'DEV_DE_LONG_TERM_0APR', amount: 100, offer: 'PAY_LATER_LONG_TERM' });
         const messageIFrame = await loadMessage();

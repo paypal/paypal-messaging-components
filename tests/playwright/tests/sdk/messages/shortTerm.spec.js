@@ -47,11 +47,14 @@ messageTest.describe('@GB Short Term', () => {
         const messageIFrame = await loadMessage();
         await messageAxeCoreScan(messageIFrame);
     });
-    messageTest('GB Message short term checkout qualifying', async ({ navigatePage, loadMessage, messageAxeCoreScan }) => {
-        await navigatePage({ account: 'DEV_GB_SHORT_TERM_CHECKOUT', amount: 100, offer: 'PAY_LATER_SHORT_TERM' });
-        const messageIFrame = await loadMessage();
-        await messageAxeCoreScan(messageIFrame);
-    });
+    messageTest(
+        'GB Message short term checkout qualifying',
+        async ({ navigatePage, loadMessage, messageAxeCoreScan }) => {
+            await navigatePage({ account: 'DEV_GB_SHORT_TERM_CHECKOUT', amount: 100, offer: 'PAY_LATER_SHORT_TERM' });
+            const messageIFrame = await loadMessage();
+            await messageAxeCoreScan(messageIFrame);
+        }
+    );
 
     messageTest(
         'GB Message short term checkout non qualifying',
