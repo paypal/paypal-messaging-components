@@ -26,7 +26,7 @@ export const baseTest = base.extend({
 
     // Fixture for running Axe accessibility checks
     messageAxeCoreScan: async ({ page }, use) => {
-        const runAxeCoreScan = async element => {
+        const runAxeCoreScan = async () => {
             const tags = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'best-practice'];
             const results = await new AxeBuilder({ page })
                 .include('body') // Include everything inside iframe
@@ -42,7 +42,7 @@ export const baseTest = base.extend({
     },
 
     modalAxeCoreScan: async ({ page }, use) => {
-        const runAxeCoreScan = async element => {
+        const runAxeCoreScan = async () => {
             const tags = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'best-practice'];
             const results = await new AxeBuilder({ page })
                 .include('body') // Include everything inside iframe
