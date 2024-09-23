@@ -23,11 +23,32 @@ export const baseTest = base.extend({
         };
         await use(navigate);
     },
+
     // Fixture for running Axe accessibility checks
-    runAxeCoreScan: async ({ page }, use) => {
-        const runAxeCoreScan = async element => {
+    messageAxeCoreScan: async ({ page }, use) => {
+        const runAxeCoreScan = async (element, type) => {
             const tags = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'best-practice'];
-            const results = await new AxeBuilder({ page }).include(element).withTags(tags).analyze();
+            const results = await new AxeBuilder({ page })
+                .include('body') // Include everything inside iframe
+                .withTags(tags)
+                .disableRules(['page-has-heading-one', 'landmark-one-main'])
+                // evaluating a message on a larger page on merchant website, does not need level one heading
+                // does not need landmark because it is a button that opens a modal that has a landmark
+                .analyze();
+
+            expect(results.violations).toEqual([]);
+        };
+        await use(runAxeCoreScan);
+    },
+
+    modalAxeCoreScan: async ({ page }, use) => {
+        const runAxeCoreScan = async (element, type) => {
+            const tags = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'best-practice'];
+            const results = await new AxeBuilder({ page })
+                .include('body') // Include everything inside iframe
+                .withTags(tags)
+                .analyze();
+
             expect(results.violations).toEqual([]);
         };
         await use(runAxeCoreScan);
