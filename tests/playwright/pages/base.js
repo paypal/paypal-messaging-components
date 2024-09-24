@@ -40,7 +40,7 @@ export const baseTest = base.extend({
     messageAxeCoreScan: async ({ page }, use) => {
         await use(async () => {
             await runAxeCoreScan(page, {
-                disableRules: ['page-has-heading-one', 'landmark-one-main']
+                disableRules: ['page-has-heading-one']
                 // ignore heading levels on message and need for landmark
             });
         });
