@@ -6,7 +6,7 @@
         "id": "",
         "offerCountry": "US",
         "offerType": "GENERIC",
-        "messageType": "GENERIC_PL_BNPL",
+        "messageType": "GENERIC",
         "lander": "https://www.paypal.com/credit-presentment/lander/modal"
     },
     "headline": [["Buy now, pay later", ["default", "xsmall"]]],
