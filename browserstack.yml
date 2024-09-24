@@ -1,0 +1,19 @@
+userName: BROWSERSTACK_USERNAME
+accessKey: BROWSERSTACK_ACCESS_KEY
+platforms:
+  - os: Windows
+    osVersion: 11
+    browserName: Chrome
+    browserVersion: 103.0
+browserstackLocal: true
+browserstack.playwrightVersion: 1.46.0
+buildName: Upstream Messaging Testing
+buildIdentifier: ${BUILD_NUMBER}
+projectName: GPL Upstream Messaging
+testObservability: true
+debug: true
+networkLogs: true
+consoleLogs: info
+accessibility: true
+parallelePerPlatform: 50
+acceptInsecureCerts: true

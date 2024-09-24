@@ -9,7 +9,7 @@ messageTest.describe('@AU Short Term', () => {
     messageTest('AU Message short term qualifying', async ({ navigatePage, loadMessage, runAxeCoreScan }) => {
         await navigatePage({ account: 'DEV_AU_SHORT_TERM', amount: 100, offer: 'PAY_LATER_SHORT_TERM' });
         const messageIFrame = await loadMessage();
-        await runAxeCoreScan(messageIFrame, ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa']);
+        await runAxeCoreScan(messageIFrame, ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'best-practice']);
     });
 });
 messageTest.describe('@ES Short Term', () => {
