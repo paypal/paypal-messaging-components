@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Messaging.js Dev Sandbox</title>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+        <script src="//localhost.paypal.com:8080/messaging.js"></script>
+        <style>
+            body {
+                padding: 0;
+                margin: 0;
+                font-family: Arial, sans-serif;
+            }
+            .message-columns {
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+                padding: 10px;
+            }
+            .message-container {
+                margin-bottom: 5px;
+                width: fit-content;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="message-columns"></div>
+
+        <script src="../../helpers/utils.js"></script>
+        <script>
+            const query = window.location.search.substring(1);
+            const mappedParams = mapQueryParams(query);
+
+            // Define message variations with both text color and logo type
+            const messageVariations = [
+                { color: 'black', logo: 'primary', banner: 'banner-1' },
+                { color: 'monochrome', logo: 'primary', banner: 'banner-2' },
+                { color: 'grayscale', logo: 'primary', banner: 'banner-3' },
+                { color: 'white', logo: 'primary', banner: 'banner-4' },
+
+                { color: 'black', logo: 'alternative', banner: 'banner-5' },
+                { color: 'monochrome', logo: 'alternative', banner: 'banner-6' },
+                { color: 'grayscale', logo: 'alternative', banner: 'banner-7' },
+                { color: 'white', logo: 'alternative', banner: 'banner-8' },
+
+                { color: 'black', logo: 'inline', banner: 'banner-9' },
+                { color: 'monochrome', logo: 'inline', banner: 'banner-10' },
+                { color: 'grayscale', logo: 'inline', banner: 'banner-11' },
+                { color: 'white', logo: 'inline', banner: 'banner-12' },
+
+                { color: 'black', logo: 'none', banner: 'banner-13' },
+                { color: 'monochrome', logo: 'none', banner: 'banner-14' },
+                { color: 'grayscale', logo: 'none', banner: 'banner-15' },
+                { color: 'white', logo: 'none', banner: 'banner-16' }
+            ];
+
+            // Function to render messages dynamically
+            const renderMessages = variations => {
+                const container = document.querySelector('.message-columns');
+
+                variations.forEach(variation => {
+                    const messageContainer = document.createElement('div');
+                    messageContainer.classList.add('message-container');
+
+                    // Create message element and assign a class for each banner
+                    const messageDiv = document.createElement('div');
+                    messageDiv.classList.add('messages', variation.banner);
+
+                    messageContainer.appendChild(messageDiv);
+                    container.appendChild(messageContainer);
+
+                    paypal
+                        .Messages({
+                            ...mappedParams,
+                            style: {
+                                text: {
+                                    color: variation.color
+                                },
+                                logo: {
+                                    type: variation.logo
+                                }
+                            }
+                        })
+                        .render(`.${variation.banner}`)
+                        .then(() => {
+                            // If the text color is white, set a black background
+                            if (variation.color === 'white') {
+                                messageDiv.style.backgroundColor = 'black';
+                            }
+                        });
+                });
+            };
+
+            // Call the function to render messages
+            renderMessages(messageVariations);
+        </script>
+    </body>
+</html>
