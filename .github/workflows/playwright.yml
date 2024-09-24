@@ -12,6 +12,7 @@ jobs:
         runs-on: ubuntu-latest
 
         strategy:
+            fail-fast: false
             matrix:
                 countries: [AU, DE, GB, FR, IT, ES, US]
 
@@ -30,14 +31,14 @@ jobs:
 
             - name: Run Playwright Modals
               run: npx playwright test tests/playwright/tests/sdk/modals --grep @${{matrix.countries}} --output=playwright-report-${{matrix.countries}}
-            
+
             - uses: actions/upload-artifact@v4
               if: always()
               with:
                   name: playwright-report-modal-${{matrix.countries}}
                   path: playwright-report/
                   retention-days: 1
-              
+
             - name: Run Playwright Messages
               run: npx playwright test tests/playwright/tests/sdk/messages --grep @${{matrix.countries}} --output=playwright-report-${{matrix.countries}}
 
