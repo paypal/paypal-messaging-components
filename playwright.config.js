@@ -18,7 +18,7 @@ module.exports = defineConfig({
     retries: process.env.CI ? 2 : 0,
     workers: 80,
     /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-    reporter: [['line'],['html']]
+    reporter: [['line'],['html']],
     timeout: 5 * 60000,
     /* Configure projects for major browsers */
     projects: [
