@@ -5,6 +5,22 @@ platforms:
     osVersion: 11
     browserName: Chrome
     browserVersion: 103.0
+  - os: Windows
+    osVersion: 10
+    browserName: playwright-firefox
+    browserVersion: latest
+  - os: OS X
+    osVersion: Big Sur
+    browserName: playwright-webkit
+    browserVersion: latest
+  - deviceName: Samsung Galaxy S9
+    osVersion: 8.0
+    browserName: chrome
+    deviceOrientation: portrait
+  - deviceName: iPhone SE 2020
+    osVersion: 16
+    browserName: playwright-safari
+    deviceOrientation: portrait
 browserstackLocal: true
 browserstack.playwrightVersion: 1.46.0
 buildName: Upstream Messaging Testing
