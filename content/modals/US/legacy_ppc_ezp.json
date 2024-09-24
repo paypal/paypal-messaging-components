@@ -24,7 +24,7 @@
             "title": "About promotional offers",
             "text": "PayPal Credit promotional offers are available for a limited time only and may vary, depending on where you shop. Offers aren't valid on previous returns, refunds, and exchanges, or when using the Send Money feature in your PayPal account."
         },
-        "disclaimer": "PayPal Credit is subject to credit approval as determined by the lender, Synchrony Bank, and is available to US customers who are of legal age in their state of residence. You must pay with PayPal Credit to get the offers. Offers not valid on previous purchases, returns or exchanges. Minimum purchase required is before shipping and tax. For New Accounts: Variable Purchase APR is {aprEntry.apr}%. The APR is accurate as of {aprEntry.formattedDate} and will vary with the market based on the Prime Rate (as defined in your credit card agreement). Minimum interest charge is $2.00.",
+        "disclaimer": "PayPal Credit is subject to credit approval as determined by the lender, Synchrony Bank, and is available to US customers who are of legal age in their state of residence. You must pay with PayPal Credit to get the offers. Offers not valid on previous purchases, returns or exchanges. Minimum purchase required is before shipping and tax. For New Accounts: Variable Purchase and Cash APR is {aprEntry.apr}%. Variable Penalty APR is 35.99%. The APRs are accurate as of {aprEntry.formattedDate} and will vary with the market based on the Prime Rate (as defined in your credit card agreement). Minimum Interest charge is $2.00.",
         "copyright": "Copyright {fullYear} Bill Me Later, Inc. All rights reserved."
     }
 }
