@@ -19,7 +19,6 @@
             }
             .message-container {
                 margin-bottom: 5px;
-                width: fit-content;
             }
         </style>
     </head>
@@ -86,7 +85,7 @@
                         .then(() => {
                             // If the text color is white, set a black background
                             if (variation.color === 'white') {
-                                messageDiv.style.backgroundColor = 'black';
+                                messageContainer.style.backgroundColor = 'black';
                             }
                         });
                 });
