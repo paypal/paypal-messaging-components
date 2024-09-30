@@ -1,6 +1,6 @@
 import { modalTest } from '../../../pages/modals_fixture';
 
-modalTest.describe('@US Long Term Modals', () => {
+modalTest.describe('@LONGTERM US Long Term Modals', () => {
     modalTest('US Modal long term non qualifying', async ({ navigatePage, loadModal, modalAxeCoreScan }) => {
         await navigatePage({ account: 'DEV_US_LONG_TERM', amount: 20001, offer: 'PAY_LATER_LONG_TERM' });
         const modalIframe = await loadModal();
@@ -27,7 +27,7 @@ modalTest.describe('@US Long Term Modals', () => {
         await modalAxeCoreScan(modalIframe);
     });
 });
-modalTest.describe('@DE Long Term Modals', () => {
+modalTest.describe('@LONGTERM DE Long Term Modals', () => {
     modalTest('DE Modal LONG TERM Q', async ({ navigatePage, loadModal, modalAxeCoreScan }) => {
         await navigatePage({ account: 'DEV_DE_LONG_TERM', amount: 500, offer: 'PAY_LATER_LONG_TERM' });
         const modalIframe = await loadModal();

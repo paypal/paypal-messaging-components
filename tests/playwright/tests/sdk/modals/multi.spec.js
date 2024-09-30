@@ -1,6 +1,6 @@
 import { modalTest } from '../../../pages/modals_fixture';
 
-modalTest.describe('@US Multi Modals', () => {
+modalTest.describe('@MULTI US Multi Modals', () => {
     modalTest('US Modal long term Multi Q', async ({ navigatePage, loadModal, modalAxeCoreScan }) => {
         await navigatePage({ account: 'DEV_US_MULTI', amount: 1501, offer: 'PAY_LATER_LONG_TERM' });
         const modalIframe = await loadModal();
@@ -27,7 +27,7 @@ modalTest.describe('@US Multi Modals', () => {
         await modalAxeCoreScan(modalIframe);
     });
 });
-modalTest.describe('@USDE Product List Modals', () => {
+modalTest.describe('@MUTLI US/DE Product List Modals', () => {
     modalTest('US, DE Modal Product List', async ({ navigatePage, loadModal, modalAxeCoreScan }) => {
         await navigatePage({ account: 'DEV_US_MULTI', amount: 200, offer: '' });
         const modalIframe = await loadModal();
@@ -35,7 +35,7 @@ modalTest.describe('@USDE Product List Modals', () => {
     });
 });
 
-modalTest.describe('@DE Multi Modals', () => {
+modalTest.describe('@MULTI DE Multi Modals', () => {
     modalTest('DE Modal PAY IN ONE', async ({ navigatePage, loadModal, modalAxeCoreScan }) => {
         await navigatePage({ account: 'DEV_DE_MULTI', amount: 200, offer: 'PAY_LATER_PAY_IN_1' });
         const modalIframe = await loadModal();

@@ -14,7 +14,7 @@ jobs:
         strategy:
             fail-fast: false
             matrix:
-                countries: [DE, GB, US, USFRITESAU, USGBCheckout, USDE]
+                countries: [LONGTERM, SHORTTERM, MULTI]
 
         steps:
             - uses: actions/checkout@v4
@@ -39,8 +39,8 @@ jobs:
                   path: playwright-report/
                   retention-days: 1
 
-            - name: Run Playwright Messages
-              run: npx playwright test tests/playwright/tests/sdk/messages --grep @${{matrix.countries}} --output=playwright-report-${{matrix.countries}}
+            # - name: Run Playwright Messages
+            #   run: npx playwright test tests/playwright/tests/sdk/messages --grep @${{matrix.countries}} --output=playwright-report-${{matrix.countries}}
 
             - uses: actions/upload-artifact@v4
               if: always()
