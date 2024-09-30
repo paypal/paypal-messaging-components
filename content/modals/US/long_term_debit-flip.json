@@ -1,0 +1,50 @@
+{
+    "meta": {
+        "product": "PAY_LATER_LONG_TERM",
+        "offerCountry": "US",
+        "useV5Design": "true",
+        "variables": {
+            "transaction_amount": "${eval(transaction_amount ? transaction_amount : '-')}",
+            "qualifying_offer": "${eval(CREDIT_OFFERS_DS.qualifying_offer ? CREDIT_OFFERS_DS.qualifying_offer : 'false')}",
+            "financing_code": "${CREDIT_OFFERS_DS.financing_code}",
+            "formattedPeriodicPayment": "${CREDIT_OFFERS_DS.formattedPeriodicPayment}",
+            "total_payments": "${CREDIT_OFFERS_DS.total_payments}",
+            "formattedMinAmount": "${CREDIT_OFFERS_DS.formattedMinAmount}",
+            "formattedMaxAmount": "${CREDIT_OFFERS_DS.formattedMaxAmount}",
+            "formattedTotalCost": "${CREDIT_OFFERS_DS.formattedTotalCost}",
+            "minAmount": "${CREDIT_OFFERS_DS.minAmount}",
+            "maxAmount": "${CREDIT_OFFERS_DS.maxAmount}",
+            "apr": "${CREDIT_OFFERS_DS.apr}",
+            "nominal_rate": "${CREDIT_OFFERS_DS.nominal_rate}"
+        }
+    },
+    "content": {
+        "headline": "Switch to Pay Monthly",
+        "subheadline": "Pay in installments, starting 1 month from today",
+        "calculator": {
+            "title": "Examples for your purchase",
+            "genericTitle": "How much is your purchase?",
+            "inputLabel": "Purchase amount",
+            "inputPlaceholder": "Enter amount",
+            "genericError": "Something went wrong. Please try again later."
+        },
+        "genericDisclaimer": "Terms vary based on purchase amount and your credit.",
+        "instructions": {
+            "instructionsHeadline": "How to switch",
+            "instructionsSubHeadline": [
+                "Apply for Pay Monthly. Switching is available for purchases of $50 to $5,000.",
+                "Choose a Pay Monthly plan. First payment due in 1 month with $0 due today.",
+                "Get money back in your PayPal balance and keep any rewards from your original purchase."
+            ]
+        },
+        "disclosure": [
+            "Pay Monthly is subject to consumer credit approval. Eligible purchases are available to switch within 30 days after the completed transaction. Payments may change based on shipping, taxes, updates to your purchase, or missed payments. Availability depends on the merchant and purchase type and may not be available for subscriptions or recurring payments. Pay Monthly is currently not available to residents of <span aria-hidden='true'>AK, CT, HI, NC, or NV</span><span class='sr-only'>Alaska, Connecticut, Hawaii, North Carolina, or Nevada</span>. You must be 18 years old or older to apply. Missed payments may have an impact on your credit score. The lender for Pay Monthly is WebBank. PayPal, Inc. (NMLS #910457): <span aria-hidden='true'>RI</span><span class='sr-only'>Rhode Island</span> Loan Broker Licensee. <span aria-hidden='true'>VT</span><span class='sr-only'>Vermont</span> Loan Solicitation Licensee. <span aria-hidden='true'>VT</span><span class='sr-only'>Vermont</span> residents:",
+            [
+                "Find more disclosures ",
+                "https://www.paypal.com/us/digital-wallet/ways-to-pay/buy-now-pay-later",
+                "Find more disclosures, opens new tab"
+            ],
+            "by going to PayPal’s page on Pay Later."
+        ]
+    }
+}
