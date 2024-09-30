@@ -14,7 +14,7 @@ jobs:
         strategy:
             fail-fast: false
             matrix:
-                countries: [DE, GB, US, US/FR/IT/ES/AU, US/GB-Checkout, US/DE]
+                countries: [DE, GB, US, USFRITESAU, USGBCheckout, USDE]
 
         steps:
             - uses: actions/checkout@v4

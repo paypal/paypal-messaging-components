@@ -27,7 +27,7 @@ modalTest.describe('@US Multi Modals', () => {
         await modalAxeCoreScan(modalIframe);
     });
 });
-modalTest.describe('@US/DE Product List Modals', () => {
+modalTest.describe('@USDE Product List Modals', () => {
     modalTest('US, DE Modal Product List', async ({ navigatePage, loadModal, modalAxeCoreScan }) => {
         await navigatePage({ account: 'DEV_US_MULTI', amount: 200, offer: '' });
         const modalIframe = await loadModal();
