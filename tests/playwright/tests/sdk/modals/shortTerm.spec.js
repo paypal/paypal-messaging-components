@@ -1,6 +1,6 @@
 import { modalTest } from '../../../pages/modals_fixture';
 
-modalTest.describe('@SHORTTERM US/GB Short Term Checkout', () => {
+modalTest.describe('@MODALS US/GB Short Term Checkout', () => {
     modalTest('US Modal short term checkout Q', async ({ navigatePage, loadModal, modalAxeCoreScan }) => {
         await navigatePage({ account: 'DEV_US_SHORT_TERM_CHECKOUT', amount: 200, offer: 'PAY_LATER_SHORT_TERM' });
         const modalIframe = await loadModal();
@@ -22,7 +22,7 @@ modalTest.describe('@SHORTTERM US/GB Short Term Checkout', () => {
         await modalAxeCoreScan(modalIframe);
     });
 });
-modalTest.describe('@SHORTTERM GB Short Term', () => {
+modalTest.describe('@MODALS GB Short Term', () => {
     modalTest('GB  Modal short term Q', async ({ navigatePage, loadModal, modalAxeCoreScan }) => {
         await navigatePage({ account: 'DEV_GB_SHORT_TERM', amount: 200, offer: 'PAY_LATER_SHORT_TERM' });
         const modalIframe = await loadModal();
@@ -35,7 +35,7 @@ modalTest.describe('@SHORTTERM GB Short Term', () => {
     });
 });
 
-modalTest.describe('@SHORTTERM US/FR/IT/ES/AU Short Term', () => {
+modalTest.describe('@MODALS US/FR/IT/ES/AU Short Term', () => {
     modalTest('US, FR, IT, ES, AU short term Q', async ({ navigatePage, loadModal, modalAxeCoreScan }) => {
         await navigatePage({ account: 'DEV_FR_SHORT_TERM', amount: 200, offer: 'PAY_LATER_SHORT_TERM' });
         const modalIframe = await loadModal();

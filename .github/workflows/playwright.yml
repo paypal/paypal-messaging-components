@@ -14,7 +14,7 @@ jobs:
         strategy:
             fail-fast: false
             matrix:
-                countries: [LONGTERM, SHORTTERM, MULTI]
+                countries: [MODALS]
 
         steps:
             - uses: actions/checkout@v4
