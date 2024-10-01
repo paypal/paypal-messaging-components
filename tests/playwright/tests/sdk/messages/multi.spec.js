@@ -2,7 +2,7 @@ import { messageTest } from '../../../pages/messages_fixture';
 
 messageTest.describe('Multi Messages', () => {
     messageTest('Generic', async ({ navigatePage, loadMessage, messageAxeCoreScan }) => {
-        await navigatePage({ account: 'DEV0USGENERIC' });
+        await navigatePage({ account: 'DEV0USGENERIC', url: '/accessibility/colorsdk.html' });
         const messageIframe = await loadMessage();
         await messageAxeCoreScan(messageIframe);
     });

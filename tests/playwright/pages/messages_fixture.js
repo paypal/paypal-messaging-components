@@ -5,9 +5,9 @@ import { selectors } from '../util/selectors';
 // Extend Playwright base test with custom fixtures
 export const messageTest = baseTest.extend({
     navigatePage: async ({ navigatePage }, use) => {
-        const messageUrl = '/accessibility/colorsdk.html';
-        const navigate = async ({ account, amount, offer }) => {
-            await navigatePage(messageUrl, { account, amount, offer });
+        const messageUrl = '/snapshot/v2/sdk.html';
+        const navigate = async ({ account, amount, offer, url = messageUrl }) => {
+            await navigatePage(url, { account, amount, offer });
         };
         await use(navigate);
     },
