@@ -76,7 +76,7 @@ const Calculator = ({
     const { view, value, isLoading, submit, changeInput } = useCalculator({ autoSubmit: true });
     const { amount } = useXProps();
     const { country, views } = useServerData();
-    const { title, inputLabel, inputPlaceholder, inputCurrencySymbol } = calculator;
+    const { title, genericTitle, inputLabel, inputPlaceholder, inputCurrencySymbol } = calculator;
 
     // Set hasUsedInputField to true if someone has typed in the input field at any point.
     const [hasUsedInputField, setHasUsedInputField] = useState(false);
@@ -201,7 +201,7 @@ const Calculator = ({
                 } ${useNewCheckoutDesign === 'true' ? 'checkout' : ''}`}
                 onSubmit={submit}
             >
-                <h4 className="title">{title}</h4>
+                <h4 className="title">{hasInitialAmount || hasEnteredAmount ? title : genericTitle || title}</h4>
                 <div className={`input__wrapper transitional ${useV5Design === 'true' ? 'v5Design' : ''}`}>
                     <label htmlFor="purchase-amount" className={`input__label ${country}`}>
                         {renderInputLabelOnEmptyField(country)}

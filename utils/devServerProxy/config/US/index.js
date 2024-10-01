@@ -522,6 +522,70 @@ export default {
             ]
         }
     },
+    DEV_US_LONG_TERM_DEBIT_FLIP: {
+        country: 'US',
+        modalViews: [
+            {
+                template: 'long_term_debit-flip.json',
+                offersTemplate: 'long_term_debit-flip.json',
+                product: OFFER.PAY_LATER_LONG_TERM
+            }
+        ],
+        messageThresholds: [
+            {
+                amount: 0,
+                template: 'generic.json',
+                product: 'PRODUCT_LIST'
+            },
+            {
+                amount: 0.01,
+                template: 'long_term_nq_eqz.json',
+                product: OFFER.PAY_LATER_LONG_TERM
+            },
+            {
+                amount: 199,
+                template: 'long_term_single_eqz.json',
+                product: OFFER.PAY_LATER_LONG_TERM
+            },
+            {
+                amount: 10000.01,
+                template: 'long_term_nq_eqz.json',
+                product: OFFER.PAY_LATER_LONG_TERM
+            }
+        ],
+        offers: {
+            [OFFER.PAY_LATER_LONG_TERM]: [
+                {
+                    totalPayments: 6,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 199,
+                    maxAmount: 2999.99
+                },
+                {
+                    totalPayments: 12,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 199,
+                    maxAmount: 20000
+                },
+                {
+                    totalPayments: 24,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 500,
+                    maxAmount: 20000
+                },
+                {
+                    totalPayments: 36,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 3000,
+                    maxAmount: 20000
+                }
+            ]
+        }
+    },
     // contextualComponents local dev test accounts
     // PayPal Button only
     DEV_US_PAYPAL_BUTTON_MULTI: {
