@@ -1,6 +1,6 @@
 import { modalTest } from '../../../pages/modals_fixture';
 
-modalTest.describe('@MODALS Long Term Modals', () => {
+modalTest.describe('Long Term Modals', () => {
     modalTest('US LONG TERM MULTI & LT Q', async ({ navigatePage, loadModal, modalAxeCoreScan }) => {
         await navigatePage({ account: 'DEV_US_MULTI', amount: 1501, offer: 'PAY_LATER_LONG_TERM' });
         const modalIframe = await loadModal();
@@ -37,7 +37,7 @@ modalTest.describe('@MODALS Long Term Modals', () => {
     });
 });
 
-modalTest.describe('@MODALS Short Term Modals', () => {
+modalTest.describe('Short Term Modals', () => {
     modalTest('US SHORT TERM MULTI & ST Q', async ({ navigatePage, loadModal, modalAxeCoreScan }) => {
         await navigatePage({ account: 'DEV_US_MULTI', amount: 200, offer: 'PAY_LATER_SHORT_TERM' });
         const modalIframe = await loadModal();
@@ -75,7 +75,7 @@ modalTest.describe('@MODALS Short Term Modals', () => {
     });
 });
 
-modalTest.describe('@MODALS US/DE Product List Modals', () => {
+modalTest.describe('US/DE Product List Modals', () => {
     modalTest('US, DE PRODUCT LIST', async ({ navigatePage, loadModal, modalAxeCoreScan }) => {
         await navigatePage({ account: 'DEV_US_MULTI', amount: 200, offer: '' });
         const modalIframe = await loadModal();
@@ -83,7 +83,7 @@ modalTest.describe('@MODALS US/DE Product List Modals', () => {
     });
 });
 
-modalTest.describe('@MODALS US/GB Checkout', () => {
+modalTest.describe('US/GB Checkout', () => {
     modalTest('GB SHORT TERM CHECKOUT Q', async ({ navigatePage, loadModal, modalAxeCoreScan }) => {
         await navigatePage({ account: 'DEV_GB_SHORT_TERM_CHECKOUT', amount: 200, offer: 'PAY_LATER_SHORT_TERM' });
         const modalIframe = await loadModal();
