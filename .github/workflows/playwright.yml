@@ -25,7 +25,7 @@ jobs:
                   ./.github/scripts/runServerV2.sh
 
             - name: Run Playwright Tests
-              run: npx playwright test tests/playwright/tests/sdk/messages
+              run: npx playwright test tests/playwright/tests/sdk/modals
 
             - uses: actions/upload-artifact@v4
               if: always()
