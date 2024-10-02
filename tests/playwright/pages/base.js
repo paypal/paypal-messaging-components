@@ -13,6 +13,19 @@ export const generateUrl = (baseUrl, { account, amount, offer }) => {
     }
     return url;
 };
+// Common function for running Axe accessibility scans
+const runAxeCoreScan = async (page, options = {}) => {
+    const tags = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'best-practice'];
+    const { disableRules = [] } = options; // Optionally pass disable rules
+
+    const results = await new AxeBuilder({ page })
+        .include('body') // Include everything inside iframe or page
+        .withTags(tags)
+        .disableRules(disableRules) // Disable rules based on options
+        .analyze();
+
+    expect(results.violations).toEqual([]);
+};
 
 // Extend Playwright base test with custom fixtures
 export const baseTest = base.extend({
@@ -23,12 +36,19 @@ export const baseTest = base.extend({
         };
         await use(navigate);
     },
-    // Fixture for running Axe accessibility checks
-    runAxeCoreScan: async ({ page }, use) => {
-        const runAxeCoreScan = async (element, tags = []) => {
-            const results = await new AxeBuilder({ page }).include(element).withTags(tags).analyze();
-            expect(results.violations).toEqual([]);
-        };
-        await use(runAxeCoreScan);
+
+    messageAxeCoreScan: async ({ page }, use) => {
+        await use(async () => {
+            await runAxeCoreScan(page, {
+                disableRules: ['page-has-heading-one', 'landmark-one-main']
+                // ignore heading levels on message and need for landmark
+            });
+        });
+    },
+
+    modalAxeCoreScan: async ({ page }, use) => {
+        await use(async () => {
+            await runAxeCoreScan(page);
+        });
     }
 });

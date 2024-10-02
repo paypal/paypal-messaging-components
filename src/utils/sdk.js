@@ -210,51 +210,6 @@ export const isScriptBeingDestroyed = () => {
     }
 };
 
-export function getPayPalAPIDomain() {
-    if (getEnv() !== 'production' && getEnv() !== 'sandbox') {
-        const testEnviroment = window.__TEST_ENV__ ?? __MESSAGES__.__TEST_ENV__;
-
-        if (testEnviroment) {
-            try {
-                const url = new URL(testEnviroment);
-
-                // Check if the hostname starts with 'www.' and replace it with 'api.'
-                if (url.hostname.startsWith('www.')) {
-                    url.hostname = url.hostname.replace('www.', 'api.');
-                } else {
-                    // If 'www' is not part of the domain, prepend 'api.' directly
-                    url.hostname = `api.${url.hostname}`;
-                }
-                return url.pathname === '/' && !url.search ? url.origin : url.href;
-            } catch (error) {
-                return testEnviroment;
-            }
-        }
-
-        // eslint-disable-next-line security/detect-unsafe-regex
-        if (window.location.origin.match(/\.paypal\.com(:\d+)?$/)) {
-            return window.location.origin;
-        }
-    }
-
-    // Not using `getPayPalAPIDomain` function call here because it outputs 'cors.api.paypal.com'
-    // The domain with prefixed 'cors' does not route to logging application.
-    if (__MESSAGES__.__TARGET__ === 'SDK') {
-        if (getEnv() === 'sandbox') {
-            return 'https://api.sandbox.paypal.com';
-        }
-        return 'https://api.paypal.com';
-    } else {
-        const domain = __MESSAGES__.__API_DOMAIN__[`__${getEnv().toUpperCase()}__`];
-
-        if (domain) {
-            return domain;
-        }
-
-        throw new Error('Missing PayPal Domain');
-    }
-}
-
 export function getPayPalDomain() {
     if (getEnv() !== 'production' && getEnv() !== 'sandbox') {
         const testEnviroment = window.__TEST_ENV__ ?? __MESSAGES__.__TEST_ENV__;

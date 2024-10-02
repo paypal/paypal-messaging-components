@@ -47,6 +47,12 @@
                     padding-left: 65px;
                     padding-right: 65px;
                 }
+
+                &.v5Design {
+                    button {
+                        background-color: #f5f7fb;
+                    }
+                }
             }
 
             @include lander {
@@ -137,6 +143,14 @@
                 margin-top: 10px;
             }
 
+            &.v5Design {
+                color: $v5-gray;
+                margin-top: 20px;
+                &.DE {
+                    margin-top: auto;
+                }
+            }
+            
             &.checkout {
                 @include mobile {
                     margin-bottom: 60px;
@@ -159,6 +173,9 @@
 
     &.v4Design {
         background: $v4-gray;
+    }
+    &.v5Design {
+        background: $v5-white;
     }
 
     &.checkout {

@@ -10,7 +10,7 @@ const createSpy = async () => {
     page.on('request', request => {
         const url = request.url();
         const postDataString = request.postData();
-        if (url.includes('upstream-messaging-events') && postDataString) {
+        if (url.includes('glog') && postDataString) {
             const postData = JSON.parse(postDataString);
 
             const events = postData.data?.components.reduce((acc, component) => {

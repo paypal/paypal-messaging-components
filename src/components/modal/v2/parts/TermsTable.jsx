@@ -5,7 +5,14 @@ import OfferCard from './OfferCard';
 import OfferAccordion from './OfferAccordion';
 import LoadingShimmer from './LoadingShimmer';
 
-const TermsTable = ({ isLoading, view: { meta, offers }, aprDisclaimer, useV4Design, useNewCheckoutDesign }) => {
+const TermsTable = ({
+    isLoading,
+    view: { meta, offers },
+    aprDisclaimer,
+    useV4Design,
+    useV5Design,
+    useNewCheckoutDesign
+}) => {
     const { offerCountry } = meta;
     /**
      * numOffers/setNumOffers is used to dynamically change the number of loading shimmers that are rendered
@@ -36,6 +43,7 @@ const TermsTable = ({ isLoading, view: { meta, offers }, aprDisclaimer, useV4Des
                         offer={offer}
                         index={idx}
                         useV4Design={useV4Design}
+                        useV5Design={useV5Design}
                         useNewCheckoutDesign={useNewCheckoutDesign}
                     />
                 );
@@ -51,6 +59,7 @@ const TermsTable = ({ isLoading, view: { meta, offers }, aprDisclaimer, useV4Des
                     aprDisclaimer={disclaimer}
                     activeSelection={activeSelection}
                     setActiveSelection={setActiveSelection}
+                    useV5Design={useV5Design}
                 />
             );
         });

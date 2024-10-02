@@ -7,7 +7,6 @@ const standaloneGlobals = globals({
 });
 
 standaloneGlobals.__MESSAGES__.__DOMAIN__.__TEST__ = 'http://localhost.paypal.com:8080';
-standaloneGlobals.__MESSAGES__.__API_DOMAIN__.__TEST__ = 'http://localhost.paypal.com:8080';
 
 Object.assign(window, {
     __ENV__: 'test',

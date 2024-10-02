@@ -32,7 +32,7 @@ export default {
                     apr: 9.99,
                     nominalRate: 0,
                     minAmount: 1,
-                    maxAmount: 1000
+                    maxAmount: 2000
                 }
             ],
             PAY_LATER_LONG_TERM: [
@@ -87,7 +87,7 @@ export default {
                 product: 'PAY_LATER_PAY_IN_1'
             },
             {
-                amount: 1000.01,
+                amount: 2000.01,
                 template: 'pi30nq.json',
                 product: 'PAY_LATER_PAY_IN_1'
             }
@@ -99,7 +99,7 @@ export default {
                     apr: 9.99,
                     nominalRate: 0,
                     minAmount: 1,
-                    maxAmount: 1000
+                    maxAmount: 2000
                 }
             ]
         }
@@ -124,7 +124,7 @@ export default {
                 product: 'PAY_LATER_PAY_IN_1'
             },
             {
-                amount: 1000.01,
+                amount: 2000.01,
                 template: 'pi30nq.json',
                 product: 'PAY_LATER_PAY_IN_1'
             }
@@ -136,7 +136,7 @@ export default {
                     apr: 9.99,
                     nominalRate: 0,
                     minAmount: 1,
-                    maxAmount: 1000
+                    maxAmount: 2000
                 }
             ]
         }

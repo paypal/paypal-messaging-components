@@ -6,8 +6,8 @@ import { selectors } from '../util/selectors';
 export const messageTest = baseTest.extend({
     navigatePage: async ({ navigatePage }, use) => {
         const messageUrl = '/snapshot/v2/sdk.html';
-        const navigate = async ({ account, amount, offer }) => {
-            await navigatePage(messageUrl, { account, amount, offer });
+        const navigate = async ({ account, amount, offer, url = messageUrl }) => {
+            await navigatePage(url, { account, amount, offer });
         };
         await use(navigate);
     },

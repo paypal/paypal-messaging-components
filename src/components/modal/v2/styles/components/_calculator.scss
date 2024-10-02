@@ -108,11 +108,45 @@
                     padding: 1.75rem 0.5rem 0.5rem 0.75rem;
                 }
             }
+
+            &.v5Design {
+                @include tablet {
+                    margin-right: 15px;
+                }
+                .input__label {
+                    left: 12px;
+                    top: 8px;
+                }
+                input {
+                    width: 100%;
+                    padding-left: 12px;
+                    padding-bottom: 8px;
+                    @include mobile {
+                        padding-right: 0px;
+                    }
+                }
+            }
+        }
+
+        &.v5Design {
+            h4 {
+                font-weight: 700;
+            }
+            label {
+                color: $v5-gray;                
+            }
+            input {
+                border: 1px solid $v5-gray;
+            }
+            // @include tablet {
+                display: flex;
+                flex-direction: column;
+            // }
         }
 
         &.v4Design,
         &.checkout {
-            h4 {
+            h3 {
                 font-weight: 700;
             }
         }
@@ -177,6 +211,27 @@
         }
         @include smallMobile {
             margin-top: 0px;
+        }
+
+        &.v5Design {
+            color: $v5-gray;
+            padding-top: 16px;
+        }
+    }
+
+    &.v5Design {
+        text-align: left;
+        @include tablet {
+            width: 88%;
+        }
+        @include mobile {
+            width: 100%;
+            padding-right: 0px;
+        }
+
+        .offer__wrapper {
+            display: flex;
+            flex-direction: column;
         }
     }
 

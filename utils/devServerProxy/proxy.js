@@ -5,7 +5,7 @@ export default (app, server, compiler) => {
     createMessageRoutes(app, server, compiler);
     createModalRoutes(app, server, compiler);
 
-    app.post('/v1/credit/upstream-messaging-events', (req, res) => res.send(''));
+    app.post('/credit-presentment/glog', (req, res) => res.send(''));
 
     app.get('/credit-presentment/experiments/hash', (req, res) => res.send('1daf92517fb7620b02add6943517ae0a5ca8f0a0'));
 

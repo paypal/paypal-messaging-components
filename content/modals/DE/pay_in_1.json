@@ -1,7 +1,7 @@
 {
     "meta": {
         "offerCountry": "DE",
-        "useV4Design": "false",
+        "useV5Design": "false",
         "periodicPayment": "{formattedPeriodicPayment}",
         "product": "PAY_LATER_PAY_IN_1",
         "minAmount": "{minAmount}",
@@ -30,7 +30,7 @@
             "Sie benötigen mehr als 30 Tage? Gegen eine Gebühr kann die Zahlung aufgeschoben werden."
         ],
         "disclosure": [
-            "Erhältlich für Einkäufe i.Hv. {formattedMinAmount} - {formattedMaxAmount}. Vorbehaltlich Kreditwürdigkeitsprüfung. Anspruchsberechtigte Kunden müssen PayPal ein SEPA-Lastschriftmandat erteilen sowie über ein deutsches PayPal-Privatkonto mit einem Bankkonto als Zahlungsquelle verfügen."
+            "* Vorbehaltlich Kreditwürdigkeitsprüfung. Erhältlich für Einkäufe i.Hv. {formattedMinAmount} - {formattedMaxAmount}. Nutzungsvoraussetzung ist ein deutsches PayPal-Privatkonto mit einer verknüpften Debitkarte oder einem Bankkonto mit gültigem SEPA-Lastschriftmandat als Zahlungsquelle."
         ],
         "navLinkPrefix": "Um Ihren Einkauf in monatlichen Raten zu zahlen,",
         "linkToProductList": "wählen Sie die PayPal Ratenzahlung."

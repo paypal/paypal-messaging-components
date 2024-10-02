@@ -40,6 +40,9 @@
         .v4Design {
             background-color: $v4-gray;
         }
+        .v5Design {
+            background-color: $v5-white;
+        }
     }
 
     &__background-wrapper {
@@ -352,6 +355,17 @@
             span {
                 white-space: nowrap;
             }
+
+            &.v5Design {
+                max-width: 503px;
+                margin-bottom: 0px;
+                @include mobile {
+                    padding: 10px 22px 40px;
+                }
+                &.DE {
+                    margin-bottom: 20px;
+                }
+            }
         }
 
         .preapproved {
@@ -373,7 +387,7 @@
                 }
             }
         }
-
+       
         &.checkout {
             background-color: $ql-gray;
 
