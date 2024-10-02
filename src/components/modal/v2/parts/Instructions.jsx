@@ -2,7 +2,15 @@
 import { Fragment, h } from 'preact';
 import { currencyFormat } from '../lib';
 
-const Instructions = ({ instructions, expandedState = false, className = '', useV4Design, useNewCheckoutDesign }) => {
+const Instructions = ({
+    instructions,
+    expandedState = false,
+    className = '',
+    useV4Design,
+    useV5Design,
+    country,
+    useNewCheckoutDesign
+}) => {
     const renderBullet = (index, design) => {
         return (
             <div className="instructions__bullet">
@@ -23,7 +31,11 @@ const Instructions = ({ instructions, expandedState = false, className = '', use
                     }`}
                 >
                     {instructions.map((instruction, index) => (
-                        <li className="instructions__item-wrapper">
+                        <li
+                            className={`instructions__item-wrapper ${useV5Design ? 'v5Design' : ''} ${
+                                country === 'DE' ? 'DE' : ''
+                            }`}
+                        >
                             {renderBullet(index + 1, useNewCheckoutDesign)}
                             <div
                                 // eslint-disable-next-line react/no-danger
@@ -39,7 +51,9 @@ const Instructions = ({ instructions, expandedState = false, className = '', use
             return (
                 <Fragment>
                     <h2
-                        className="instructions__item-wrapper"
+                        className={`instructions__item-wrapper ${useV5Design ? 'v5Design' : ''} ${
+                            country === 'DE' ? 'DE' : ''
+                        }`}
                         // eslint-disable-next-line react/no-danger
                         dangerouslySetInnerHTML={{ __html: instructions.instructionsHeadline }}
                     />
@@ -52,7 +66,7 @@ const Instructions = ({ instructions, expandedState = false, className = '', use
                     >
                         {instructions.instructionsSubHeadline.map((instruction, index) => {
                             return (
-                                <li className="instructions__item-wrapper">
+                                <li className={`instructions__item-wrapper ${useV5Design ? 'v5Design' : ''}`}>
                                     {renderBullet(index + 1, useNewCheckoutDesign)}
                                     {/* eslint-disable-next-line react/no-danger */}
                                     <div dangerouslySetInnerHTML={{ __html: currencyFormat(instruction) }} />
@@ -80,7 +94,11 @@ const Instructions = ({ instructions, expandedState = false, className = '', use
     };
 
     return (
-        <div className={`content__row instructions ${useNewCheckoutDesign === 'true' ? 'checkout' : ''}`}>
+        <div
+            className={`content__row instructions ${useV5Design ? 'v5Design' : ''} ${
+                useNewCheckoutDesign === 'true' ? 'checkout' : ''
+            }`}
+        >
             {renderInstructionsContent()}
         </div>
     );

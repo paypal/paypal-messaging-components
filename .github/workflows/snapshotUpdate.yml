@@ -15,7 +15,7 @@ jobs:
             testConfigs: ${{ steps.setTestConfigs.outputs.testConfigs }}
         steps:
             - name: Checkout repo
-              uses: actions/checkout@v3
+              uses: actions/checkout@v4
               with:
                   persist-credentials: false
 
@@ -40,7 +40,7 @@ jobs:
                   echo ${{ github.event.number }} > ./workflow/metadata/pull_number.txt
 
             - name: Save Metadata
-              uses: actions/upload-artifact@v2
+              uses: actions/upload-artifact@v4
               with:
                   name: metadata
                   path: workflow/metadata/
@@ -54,12 +54,12 @@ jobs:
                 testPathPattern: ${{ fromJSON(needs.getMatrix.outputs.testPathPatterns) }}
         steps:
             - name: Checkout repo
-              uses: actions/checkout@v3
+              uses: actions/checkout@v4
               with:
                   persist-credentials: false
 
             - name: Setup node
-              uses: actions/setup-node@v3
+              uses: actions/setup-node@v4
               with:
                   node-version-file: '.nvmrc'
 
@@ -120,7 +120,7 @@ jobs:
 
             - name: Save Snapshot Artifact
               if: steps.artifactInputs.outputs.skip != 'true'
-              uses: actions/upload-artifact@v2
+              uses: actions/upload-artifact@v4
               with:
                   name: ${{ steps.artifactInputs.outputs.name }}
                   path: ${{ steps.artifactInputs.outputs.filePath }}
@@ -135,12 +135,12 @@ jobs:
                 testConfig: ${{ fromJSON(needs.getMatrix.outputs.testConfigs) }}
         steps:
             - name: Checkout repo
-              uses: actions/checkout@v3
+              uses: actions/checkout@v4
               with:
                   persist-credentials: false
 
             - name: Setup node
-              uses: actions/setup-node@v3
+              uses: actions/setup-node@v4
               with:
                   node-version-file: '.nvmrc'
 
@@ -207,7 +207,7 @@ jobs:
 
             - name: Save Snapshot Artifact
               if: steps.artifactInputs.outputs.skip != 'true'
-              uses: actions/upload-artifact@v2
+              uses: actions/upload-artifact@v4
               with:
                   name: ${{ steps.artifactInputs.outputs.name }}
                   path: ${{ steps.artifactInputs.outputs.filePath }}

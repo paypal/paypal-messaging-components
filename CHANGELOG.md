@@ -1,5 +1,28 @@
 # Changelog
 
+### [1.64.12](https://github.com/paypal/paypal-messaging-components/compare/v1.64.11...v1.64.12) (2024-09-11)
+
+
+### Code Refactoring
+
+* Add partner client id ([#1127](https://github.com/paypal/paypal-messaging-components/issues/1127)) ([3895648](https://github.com/paypal/paypal-messaging-components/commit/38956481375276043811e62e64a2dddfaed122ce))
+* update DE disclosure ([#1119](https://github.com/paypal/paypal-messaging-components/issues/1119)) ([f5cf87c](https://github.com/paypal/paypal-messaging-components/commit/f5cf87c229d46e95d0c98a266e5ca22170cb41e2))
+
+### [1.64.11](https://github.com/paypal/paypal-messaging-components/compare/v1.64.10...v1.64.11) (2024-08-20)
+
+
+### Code Refactoring
+
+* updated logger endpoint ([#1109](https://github.com/paypal/paypal-messaging-components/issues/1109)) ([cd05411](https://github.com/paypal/paypal-messaging-components/commit/cd054119dcab77500343b09b10d571e9374d731c))
+
+### [1.64.10](https://github.com/paypal/paypal-messaging-components/compare/v1.64.9...v1.64.10) (2024-08-15)
+
+
+### Code Refactoring
+
+* update it modal disclosure ([#1114](https://github.com/paypal/paypal-messaging-components/issues/1114)) ([9554587](https://github.com/paypal/paypal-messaging-components/commit/95545876178282e69409a4bb59da9ccd0a287875))
+* update modals v5design ([#1108](https://github.com/paypal/paypal-messaging-components/issues/1108)) ([f4bc6ef](https://github.com/paypal/paypal-messaging-components/commit/f4bc6ef70c8916db752f84d5064e488185ca75a6))
+
 ### [1.64.9](https://github.com/paypal/paypal-messaging-components/compare/v1.64.8...v1.64.9) (2024-07-03)
 
 

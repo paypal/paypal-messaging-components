@@ -65,7 +65,14 @@ const getError = ({ offers, error = '' }, isLoading, calculator, amount, country
     return null;
 };
 
-const Calculator = ({ setExpandedState, calculator, aprDisclaimer, useV4Design, useNewCheckoutDesign }) => {
+const Calculator = ({
+    setExpandedState,
+    calculator,
+    aprDisclaimer,
+    useV4Design,
+    useV5Design,
+    useNewCheckoutDesign
+}) => {
     const { view, value, isLoading, submit, changeInput } = useCalculator({ autoSubmit: true });
     const { amount } = useXProps();
     const { country, views } = useServerData();
@@ -183,15 +190,19 @@ const Calculator = ({ setExpandedState, calculator, aprDisclaimer, useV4Design, 
     };
 
     return (
-        <div className={`calculator ${useNewCheckoutDesign === 'true' ? 'checkout' : ''}`}>
+        <div
+            className={`calculator ${useNewCheckoutDesign === 'true' ? 'checkout' : ''} ${
+                useV5Design === 'true' ? 'v5Design' : ''
+            }`}
+        >
             <form
                 className={`form ${useV4Design === 'true' ? 'v4Design' : ''} ${
-                    useNewCheckoutDesign === 'true' ? 'checkout' : ''
-                }`}
+                    useV5Design === 'true' ? 'v5Design' : ''
+                } ${useNewCheckoutDesign === 'true' ? 'checkout' : ''}`}
                 onSubmit={submit}
             >
                 <h3 className="title">{title}</h3>
-                <div className="input__wrapper transitional">
+                <div className={`input__wrapper transitional ${useV5Design === 'true' ? 'v5Design' : ''}`}>
                     <label htmlFor="purchase-amount" className={`input__label ${country}`}>
                         {renderInputLabelOnEmptyField(country)}
                     </label>
@@ -217,6 +228,7 @@ const Calculator = ({ setExpandedState, calculator, aprDisclaimer, useV4Design, 
                         isLoading={isLoading}
                         aprDisclaimer={aprDisclaimer}
                         useV4Design={useV4Design}
+                        useV5Design={useV5Design}
                         useNewCheckoutDesign={useNewCheckoutDesign}
                     />
                 </div>
@@ -225,7 +237,7 @@ const Calculator = ({ setExpandedState, calculator, aprDisclaimer, useV4Design, 
                 <div
                     className={`finance-terms__disclaimer ${
                         !(hasInitialAmount || hasUsedInputField) || error ? 'no-amount' : ''
-                    }`}
+                    } ${useV5Design === 'true' ? 'v5Design' : ''}`}
                 >
                     {aprDisclaimer[0].aprDisclaimer}
                 </div>

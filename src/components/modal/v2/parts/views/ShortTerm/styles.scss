@@ -44,6 +44,13 @@
             .checkout & {
                 padding: 0px;
             }
+            
+            .v5Design & {
+                @include tablet {
+                    margin-top: 20px;
+                    margin-bottom: 20px;
+                }
+            }
         }
 
         &.checkout {
@@ -145,6 +152,12 @@
     }
 
     .disclosure {
+        &.v5Design {
+            color: $v5-gray;
+            padding-top: 24px;
+            margin-top: auto !important;
+        }
+        
         &.checkout {
             padding-bottom: 60px;
             @include mobile {

@@ -22,6 +22,26 @@
             outline: 3px solid $light-blue;
             border-color: transparent;
         }
+        &.v5Design {
+            width: 100%;
+            padding-right: 5px;
+            &:not(:last-child) {
+                margin-bottom: 16px;
+            }
+            .accordion__row {
+                button {
+                    border-radius: 11px;
+                }
+            }
+        }
+
+        &.open {
+            &.v5Design {
+                background-color: $white;
+                outline: 3px solid $black;
+                border-color: transparent;
+            }
+        }
     }
 
     &__header-container {
@@ -35,6 +55,14 @@
         border: none;
         width: 100%;
         cursor: pointer;
+
+        .accordion__offer-field-header {
+            &:first-child {
+                .v5Design & {
+                    font-weight: bold;
+                }
+            }
+        }
     }
 
     &__collapsible {
@@ -48,6 +76,7 @@
             height: 172px;
             transition: height 0.2s linear;
         }
+
         .accordion__row {
             display: flex;
             justify-content: space-between;
@@ -57,6 +86,10 @@
 
                 .accordion__offer-field-title {
                     color: $light-blue;
+
+                    .v5Design & {
+                        text-decoration: underline;
+                    }
                 }
             }
 
