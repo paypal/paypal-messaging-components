@@ -23,8 +23,11 @@ const Instructions = ({
     };
     const renderIcons = icons => {
         return (
-            <div className="instructions__bullet">
-                <span dangerouslySetInnerHTML={{ __html: icons }} />
+            <div className="instructions__icon">
+                <span
+                    // eslint-disable-next-line react/no-danger
+                    dangerouslySetInnerHTML={{ __html: icons }}
+                />
             </div>
         );
     };
