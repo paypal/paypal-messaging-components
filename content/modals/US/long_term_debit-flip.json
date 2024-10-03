@@ -32,7 +32,7 @@
         "instructions": {
             "instructionsHeadline": "How to switch",
             "instructionsSubHeadline": [
-                "Apply for Pay Monthly. Switching is available for purchases of $50 to $5,000.",
+                "Apply for Pay Monthly. Switching is available for purchases of {formattedMinAmount} to {formattedMaxAmount}.",
                 "Choose a Pay Monthly plan. First payment due in 1 month with $0 due today.",
                 "Get money back in your PayPal balance and keep any rewards from your original purchase."
             ],

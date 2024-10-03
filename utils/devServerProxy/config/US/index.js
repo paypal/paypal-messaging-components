@@ -556,32 +556,32 @@ export default {
         offers: {
             [OFFER.PAY_LATER_LONG_TERM]: [
                 {
+                    totalPayments: 3,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 50,
+                    maxAmount: 5000
+                },
+                {
                     totalPayments: 6,
                     apr: 0,
                     nominalRate: 0,
-                    minAmount: 199,
-                    maxAmount: 2999.99
+                    minAmount: 50,
+                    maxAmount: 5000
                 },
                 {
                     totalPayments: 12,
                     apr: 0,
                     nominalRate: 0,
-                    minAmount: 199,
-                    maxAmount: 20000
+                    minAmount: 50,
+                    maxAmount: 5000
                 },
                 {
                     totalPayments: 24,
                     apr: 0,
                     nominalRate: 0,
-                    minAmount: 500,
-                    maxAmount: 20000
-                },
-                {
-                    totalPayments: 36,
-                    apr: 0,
-                    nominalRate: 0,
-                    minAmount: 3000,
-                    maxAmount: 20000
+                    minAmount: 50,
+                    maxAmount: 5000
                 }
             ]
         }
