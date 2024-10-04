@@ -3,7 +3,7 @@
         "id": "dd819621-1aa5-44b4-94a4-3b1b38b3e0a3",
         "offerCountry": "US",
         "offerType": "PAYPAL_CREDIT_NO_INTEREST",
-        "messageType": "PPCNI_NQ_NON-US",
+        "messageType": "PPCNI_NQ_XB",
         "offerTerm": "${CREDIT_OFFERS_DS.total_payments}",
         "lander": "https://www.paypal.com/ppclander",
         "variables": {

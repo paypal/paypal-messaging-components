@@ -2,7 +2,7 @@
     "meta": {
         "offerCountry": "DE",
         "offerType": "PAY_LATER_LONG_TERM",
-        "messageType": "PLLT_MQ_EZ_NON-DE",
+        "messageType": "PLLT_MQ_EZ_XB",
         "offerTerm": "{total_payments}",
         "lander": "",
         "variables": {

@@ -2,7 +2,7 @@
     "meta": {
         "offerCountry": "DE",
         "offerType": "PAY_LATER_PAY_IN_1",
-        "messageType": "PLPI1_NA_NON-DE",
+        "messageType": "PLP1_NA_XB",
         "offerTerm": "{total_payments}",
         "lander": "",
         "variables": {
