@@ -24,10 +24,10 @@ export default function getMutations(id, type) {
         case 'PALA:SINGLE:GTZ':
             return ezpSingleGTZ[type];
         case 'NIQ:NON-US':
-        case 'PPCNI_SQ_NON-US':
+        case 'PPCNI_SQ_XB':
             return niQXB[type];
         case 'NI:NON-US':
-        case 'PPCNI_NQ_NON-US':
+        case 'PPCNI_NQ_XB':
             return niNQXB[type];
         case 'NIQ':
         case 'PPCNI_SQ':

@@ -21,22 +21,22 @@ export default function getMutations(id, type) {
         case 'PLLT_MQ_GZ':
             return gplqGtz[type];
         case 'GPL:EQZ:NON-DE':
-        case 'PLLT_NQ_EZ_NON-DE':
+        case 'PLLT_NQ_EZ_XB':
             return gplEqzNonDe[type];
         case 'GPL:GTZ:NON-DE':
-        case 'PLLT_NQ_GZ_NON-DE':
+        case 'PLLT_NQ_GZ_XB':
             return gplGtzNonDe[type];
         case 'GPLQ:EQZ:NON-DE':
-        case 'PLLT_MQ_EZ_NON-DE':
+        case 'PLLT_MQ_EZ_XB':
             return gplqEqzNonDe[type];
         case 'GPLQ:GTZ:NON-DE':
-        case 'PLLT_MQ_GZ_NON-DE':
+        case 'PLLT_MQ_GZ_XB':
             return gplqGtzNonDe[type];
         case 'GPL:EQZ':
         case 'PLLT_NQ_EZ':
             return gplEqz[type];
         case 'GENERIC:NON-DE':
-        case 'GENERIC_NON-DE':
+        case 'GENERIC_XB':
             return genericNonDe[type];
         case 'GENERIC':
         default:

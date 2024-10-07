@@ -10,22 +10,22 @@ import pi30qNonDe from './pi30q-non-de';
 export default function getMutations(id, type) {
     switch (id) {
         case 'PI30Q':
-        case 'PLPI1_SQ':
+        case 'PLP1_SQ':
             return pi30q[type];
         case 'PI30NQ':
-        case 'PLPI1_NQ':
+        case 'PLP1_NQ':
             return pi30nq[type];
         case 'PI30Q:NON-DE':
-        case 'PLPI1_SQ_NON-DE':
+        case 'PLP1_SQ_XB':
             return pi30qNonDe[type];
         case 'PI30NQ:NON-DE':
-        case 'PLPI1_NQ_NON-DE':
+        case 'PLP1_NQ_XB':
             return pi30nqNonDe[type];
         case 'PI30:NON-DE':
-        case 'PLPI1_NA_NON-DE':
+        case 'PLP1_NA_XB':
             return pi30nonDe[type];
         case 'PI30':
-        case 'PLPI1_NA':
+        case 'PLP1_NA':
         default:
             return pi30[type];
     }
