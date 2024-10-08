@@ -522,12 +522,12 @@ export default {
             ]
         }
     },
-    DEV_US_LONG_TERM_DEBIT_FLIP: {
+    DEV_US_LONG_TERM_DF: {
         country: 'US',
         modalViews: [
             {
-                template: 'long_term_debit-flip.json',
-                offersTemplate: 'long_term_debit-flip.json',
+                template: 'long_term_df.json',
+                offersTemplate: 'long_term_df.json',
                 product: OFFER.PAY_LATER_LONG_TERM
             }
         ],
