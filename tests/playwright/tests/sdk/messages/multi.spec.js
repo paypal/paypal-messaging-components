@@ -1,4 +1,5 @@
 import { messageTest } from '../../../pages/messages_fixture';
+
 const { test } = require('@playwright/test');
 
 messageTest.describe('Multi Messages', () => {
