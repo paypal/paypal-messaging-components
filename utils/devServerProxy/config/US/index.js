@@ -60,7 +60,7 @@ export default {
                     totalPayments: 6,
                     apr: 0,
                     nominalRate: 0,
-                    minAmount: 99,
+                    minAmount: 149,
                     maxAmount: 9999.99
                 }
             ],
@@ -259,7 +259,7 @@ export default {
                 product: OFFER.PAYPAL_CREDIT_NO_INTEREST
             },
             {
-                amount: 99,
+                amount: 149,
                 template: 'ppc_ni_q.json',
                 product: OFFER.PAYPAL_CREDIT_NO_INTEREST
             }
@@ -270,7 +270,7 @@ export default {
                     totalPayments: 6,
                     apr: 0,
                     nominalRate: 0,
-                    minAmount: 99,
+                    minAmount: 149,
                     maxAmount: 9999.99
                 }
             ]
