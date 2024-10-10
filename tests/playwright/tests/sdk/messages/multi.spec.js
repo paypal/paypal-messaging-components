@@ -1,4 +1,5 @@
 import { messageTest } from '../../../pages/messages_fixture';
+const { test } = require('@playwright/test');
 
 messageTest.describe('Multi Messages', () => {
     messageTest('Generic', async ({ navigatePage, loadMessage, messageAxeCoreScan }) => {
@@ -43,6 +44,18 @@ messageTest.describe('Multi Messages', () => {
     messageTest('Buttons Message', async ({ navigatePage, loadMessage, messageAxeCoreScan }) => {
         await navigatePage({ account: 'DEV0GENERICPL' });
         const messageIframe = await loadMessage();
+        await messageAxeCoreScan(messageIframe);
+    });
+});
+messageTest.describe('Flex Test Chromium', () => {
+    messageTest('Flex', async ({ browserName, navigatePage, page, loadMessage, messageAxeCoreScan }) => {
+        // Skip this test if it's not running on Chromium
+        if (browserName !== 'chromium') {
+            test.skip('This test is only meant to run on Chromium');
+        }
+        await navigatePage({ account: 'DEV0USGENERIC', url: '/accessibility/flexsdk.html' });
+        const messageIframe = await loadMessage();
+        await page.waitForTimeout(5000);
         await messageAxeCoreScan(messageIframe);
     });
 });
