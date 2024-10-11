@@ -2,6 +2,7 @@
 import { h, Fragment } from 'preact';
 import { useServerData } from '../../../lib';
 import Tile from '../../Tile';
+import { currencyFormat } from '../../../lib/hooks/currency';
 import styles from './styles.scss';
 
 export const ProductList = ({ content: { instructions, disclosure, productTiles }, useV5Design, setViewName }) => {
@@ -43,7 +44,7 @@ export const ProductList = ({ content: { instructions, disclosure, productTiles 
                         availableTiles.credit?.map(({ header, body, viewName }) => (
                             <Tile
                                 header={header}
-                                body={body}
+                                body={currencyFormat(body)}
                                 viewName={viewName}
                                 setViewName={setViewName}
                                 useV5Design={useV5Design}
