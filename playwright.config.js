@@ -28,7 +28,7 @@ module.exports = defineConfig({
                 ...devices['Desktop Chrome']
             }
         },
-        /* Test against mobile viewports. */
+        /* mobile viewports. */
         {
             name: 'Mobile Chrome',
             use: {
