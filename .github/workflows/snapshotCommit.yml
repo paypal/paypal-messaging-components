@@ -21,13 +21,13 @@ jobs:
                   repository: ${{ github.event.workflow_run.head_repository.full_name }}
 
             - name: Download Artifacts
-              uses: actions/github-script@v3.1.0
+              uses: actions/github-script@v7
               with:
                   script: |
                       const fs = require('fs');
                       const { execSync } = require('child_process');
 
-                      const artifacts = await github.actions.listWorkflowRunArtifacts({
+                      const artifacts = await github.rest.actions.listWorkflowRunArtifacts({
                         owner: context.repo.owner,
                         repo: context.repo.repo,
                         run_id: context.payload.workflow_run.id
@@ -35,7 +35,7 @@ jobs:
 
                       await Promise.all(
                         artifacts.data.artifacts.map(async (artifact) => {
-                          const download = await github.actions.downloadArtifact({
+                          const download = await github.rest.actions.downloadArtifact({
                             owner: context.repo.owner,
                             repo: context.repo.repo,
                             artifact_id: artifact.id,
@@ -66,7 +66,7 @@ jobs:
 
             - name: Reset Label
               if: github.event.workflow_run.event == 'pull_request'
-              uses: actions/github-script@v3.1.0
+              uses: actions/github-script@v7
               with:
                   # The workflow_run that comes along with the event drops the PR number for some reason
                   # so we have to pass the PR number from the original workflow as an artifact
@@ -75,7 +75,7 @@ jobs:
 
                       const pullNumber = Number(fs.readFileSync('./pull_number.txt', 'utf8')).toString();
 
-                      await github.issues.removeLabel({
+                      await github.rest.issues.removeLabel({
                         owner: context.repo.owner,
                         repo: context.repo.repo,
                         issue_number: pullNumber,

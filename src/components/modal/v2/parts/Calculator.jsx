@@ -76,7 +76,7 @@ const Calculator = ({
     const { view, value, isLoading, submit, changeInput } = useCalculator({ autoSubmit: true });
     const { amount } = useXProps();
     const { country, views } = useServerData();
-    const { title, inputLabel, inputPlaceholder, inputCurrencySymbol } = calculator;
+    const { title, genericTitle, inputLabel, inputPlaceholder, inputCurrencySymbol } = calculator;
 
     // Set hasUsedInputField to true if someone has typed in the input field at any point.
     const [hasUsedInputField, setHasUsedInputField] = useState(false);

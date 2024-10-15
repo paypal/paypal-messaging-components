@@ -142,6 +142,11 @@
         }
     }
 
+    .instructions__icon {
+        margin-right: 0.7rem;
+        margin-top: 5px;
+    }
+    
     @include lander {
         @include tablet {
             margin: 0px;
