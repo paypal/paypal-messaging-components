@@ -7,7 +7,6 @@ import Icon from './Icon';
 const Header = ({
     headline,
     subheadline,
-    logo,
     isQualifying = 'false',
     qualifyingSubheadline,
     closeButtonLabel = 'Close',
@@ -55,7 +54,7 @@ const Header = ({
             <div className="header__icons">
                 <div className={`logo__wrapper ${isScrolled ? 'logo__wrapper--scroll' : ''}`}>
                     <div className="pp-logo">
-                        <Icon name={logo} />
+                        <Icon name={useV5Design ? 'logo_v5' : 'logo'} />
                     </div>
                 </div>
                 {!isLander && (

@@ -40,7 +40,7 @@ const MutatedText = ({ tagData, options }) => {
         // truncate zeros for non-qualifying messages
         const matchNQ = formattedStr.match(
             // eslint-disable-next-line security/detect-unsafe-regex
-            /((\$|£)?(\d{1,5}(\.|,)){1,3}00(€|(.|\s*)EUR)?(-|(\s(\D{1,3})\s))(\$|£)?(\d{1,5}(\.|,|\s)){1,3}00(€|(.|\s*)EUR)?)/g
+            /((\$|£)?(\d{1,5}(\.|,)){1,3}00(€|(.|\s*)EUR)?((-|(\s(\D{1,3})\s))(\$|£)?(\d{1,5}(\.|,|\s)){1,3}00(€|(.|\s*)EUR)?|\+))/g
         );
         if (matchNQ !== null) {
             matchNQ.forEach(foundString => {
@@ -49,7 +49,8 @@ const MutatedText = ({ tagData, options }) => {
                     .replace(/(\.|,)00$/g, '')
                     .replace(/(\.|,)00€/g, '€')
                     .replace(/(\.|,)00(.|\s*)EUR/g, '€')
-                    .replace(/(\s*EUR)/g, '€');
+                    .replace(/(\s*EUR)/g, '€')
+                    .replace(/(\.|,)00(\+)/g, '+');
                 formattedStr = formattedStr.replace(foundString, filteredString);
             });
         }
