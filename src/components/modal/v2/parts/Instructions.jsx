@@ -21,6 +21,16 @@ const Instructions = ({
             </div>
         );
     };
+    const renderIcons = icons => {
+        return (
+            <div className="instructions__icon">
+                <span
+                    // eslint-disable-next-line react/no-danger
+                    dangerouslySetInnerHTML={{ __html: icons }}
+                />
+            </div>
+        );
+    };
 
     const renderInstructionsContent = () => {
         if (Array.isArray(instructions)) {
@@ -67,7 +77,9 @@ const Instructions = ({
                         {instructions.instructionsSubHeadline.map((instruction, index) => {
                             return (
                                 <li className={`instructions__item-wrapper ${useV5Design ? 'v5Design' : ''}`}>
-                                    {renderBullet(index + 1, useNewCheckoutDesign)}
+                                    {instructions.instructionsIcons
+                                        ? renderIcons(Object.values(instructions.instructionsIcons)[index])
+                                        : renderBullet(index + 1, useNewCheckoutDesign)}
                                     {/* eslint-disable-next-line react/no-danger */}
                                     <div dangerouslySetInnerHTML={{ __html: currencyFormat(instruction) }} />
                                 </li>

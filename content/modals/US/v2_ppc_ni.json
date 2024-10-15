@@ -26,15 +26,15 @@
         "instructions": [
             "Apply now and get a decision in seconds.",
             "Check out with PayPal and choose <strong>PayPal Credit</strong>.",
-            "No Interest if paid in full in 6 months on purchases of $99+"
+            "No Interest if paid in full in 6 months on purchases of {formattedMinAmount}+"
         ],
         "terms": [
             "Interest will be charged to your account from the purchase date if the balance is not paid in full within 6 months.",
             "A minimum monthly payment is required and may or may not pay off the promotional purchase by the end of the 6 month period.",
             "No interest will be charged on the purchase if you pay it off in full within 6 months. If you do not, interest will be charged on the purchase from the purchase date at the Purchase APR applicable to your account.",
             "For New Accounts: Variable Purchase and Cash APR is {aprEntry.apr}%. Variable Penalty APR is 35.99%. The APRs are accurate as of {aprEntry.formattedDate} and will vary with the market based on the Prime Rate (as defined in your credit card agreement). Minimum Interest charge is $2.00.",
-            "Individual items that are less than $99 qualify for special financing when combined for a total of $99 or more in a single transaction.",
-            "Multiple separate transactions of less than $99 per transaction cannot be combined to meet the minimum purchase amount."
+            "Individual items that are less than {formattedMinAmount} qualify for special financing when combined for a total of {formattedMinAmount} or more in a single transaction.",
+            "Multiple separate transactions of less than {formattedMinAmount} per transaction cannot be combined to meet the minimum purchase amount."
         ],
         "buttonText": "Apply Now",
         "disclaimer": "Subject to credit approval",
