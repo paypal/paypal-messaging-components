@@ -35,7 +35,7 @@ jobs:
 
                       await Promise.all(
                         artifacts.data.artifacts.map(async (artifact) => {
-                          const download = await github.actions.downloadArtifact({
+                          const download = await github.rest.actions.downloadArtifact({
                             owner: context.repo.owner,
                             repo: context.repo.repo,
                             artifact_id: artifact.id,
