@@ -64,9 +64,9 @@ jobs:
               run: |
                   npm run test:func -- --testPathPattern "${{ matrix.testPathPattern }}"
 
-            - name: Collect Diffs and Upload to Imgur
-              run: |
-                  ./scripts/snapshot-tests/collect-diffs.sh
+            # - name: Collect Diffs and Upload to Imgur
+            #   run: |
+            #       ./scripts/snapshot-tests/collect-diffs.sh
 
     compareSnapshotsV2:
         name: Compare V2
@@ -101,6 +101,6 @@ jobs:
               run: |
                   CONFIG_PATH=${{ matrix.testConfig }} npm run test:func:snapshots
 
-            - name: Collect Diffs and Upload to Imgur
-              run: |
-                  ./scripts/snapshot-tests/collect-diffs-v2.sh
+            # - name: Collect Diffs and Upload to Imgur
+            #   run: |
+            #       ./scripts/snapshot-tests/collect-diffs-v2.sh
