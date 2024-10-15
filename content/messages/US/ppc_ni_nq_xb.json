@@ -16,7 +16,7 @@
     "headline": [
         ["Buy now. Pay over time.", ["default", "xsmall", "small"]],
         [
-            ["No Interest if paid in full in 6 months", ["on purchases of $99+", "weak"]],
+            ["No Interest if paid in full in 6 months", ["on purchases of {formattedMinAmount}+", "weak"]],
             ["medium", "large", "xlarge"]
         ]
     ],
