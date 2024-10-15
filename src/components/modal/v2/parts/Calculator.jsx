@@ -201,7 +201,7 @@ const Calculator = ({
                 } ${useNewCheckoutDesign === 'true' ? 'checkout' : ''}`}
                 onSubmit={submit}
             >
-                <h3 className="title">{title}</h3>
+                <h3 className="title">{!hasInitialAmount ? genericTitle || title : title}</h3>
                 <div className={`input__wrapper transitional ${useV5Design === 'true' ? 'v5Design' : ''}`}>
                     <label htmlFor="purchase-amount" className={`input__label ${country}`}>
                         {renderInputLabelOnEmptyField(country)}
