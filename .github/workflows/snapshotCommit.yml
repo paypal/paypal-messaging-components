@@ -75,7 +75,7 @@ jobs:
 
                       const pullNumber = Number(fs.readFileSync('./pull_number.txt', 'utf8')).toString();
 
-                      await github.issues.removeLabel({
+                      await github.rest.issues.removeLabel({
                         owner: context.repo.owner,
                         repo: context.repo.repo,
                         issue_number: pullNumber,
