@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.65.0](https://github.com/paypal/paypal-messaging-components/compare/v1.64.12...v1.65.0) (2024-10-15)
+
+
+### Features
+
+* add new content to support new channel ([#1139](https://github.com/paypal/paypal-messaging-components/issues/1139)) ([23eaf99](https://github.com/paypal/paypal-messaging-components/commit/23eaf992eea30e4dda0bb52dbe5274d4e9a8b154))
+
+
+### Code Refactoring
+
+* update PPC NI apr and content ([#1135](https://github.com/paypal/paypal-messaging-components/issues/1135)) ([ccca6e2](https://github.com/paypal/paypal-messaging-components/commit/ccca6e24570272d27ff11f65fe81dd3bb603791f))
+* update ppc ni min amount ([#1144](https://github.com/paypal/paypal-messaging-components/issues/1144)) ([2693b55](https://github.com/paypal/paypal-messaging-components/commit/2693b55d2d02b41a4a104886bac51787d52e5456))
+
 ### [1.64.12](https://github.com/paypal/paypal-messaging-components/compare/v1.64.11...v1.64.12) (2024-09-11)
 
 
