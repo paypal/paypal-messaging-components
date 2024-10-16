@@ -46,7 +46,7 @@ messageTest.describe('Multi Messages', () => {
         await messageAxeCoreScan(messageIframe);
     });
 });
-messageTest.describe('Flex Test Chromium', () => {
+messageTest.describe('Flex Test', () => {
     messageTest('Flex', async ({ navigatePage, page, loadMessage, messageAxeCoreScan }) => {
         await navigatePage({ account: 'DEV0USGENERIC', url: '/accessibility/flexsdk.html' });
         const messageIframe = await loadMessage();
