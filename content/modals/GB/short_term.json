@@ -39,7 +39,7 @@
             "Complete your purchase with the first payment today.",
             "Remaining payments are taken automatically."
         ],
-        "disclosure": "Pay in 3 is an unregulated credit agreement, so you will have fewer protections under this agreement than you would under a regulated credit agreement. Carefully consider whether the purchase is affordable and how you will make the repayments. Be aware of the possible impact of using Pay in 3 and of missing payments, including making other borrowing more difficult or more expensive. Pay in 3 eligibility is subject to status and approval. 18+ UK residents only. Available for purchases of {formattedMinAmount} to {formattedMaxAmount}. Terms and conditions apply. PayPal Pay in 3 is a trading name of PayPal UK Ltd, Whittaker House, Whittaker Avenue, Richmond-Upon-Thames, Surrey, United Kingdom, TW9 1EH.",
+        "disclosure": "Pay in 3 is an unregulated credit agreement, so you will have fewer protections under this agreement than you would under a regulated credit agreement. Carefully consider whether the purchase is affordable and how you will make the repayments. Be aware of the possible impact of using Pay in 3 and of missing payments, including making other borrowing more difficult or more expensive. Pay in 3 eligibility is subject to status and approval. 18+ UK residents only. Available for purchases of {formattedMinAmount} to {formattedMaxAmount}. Terms and conditions apply. PayPal Pay in 3 is a trading name of PayPal UK Ltd, 5 Fleet Place, London, United Kingdom, EC4M 7RD.",
         "learnMoreLink": [["Learn more about Pay in 3", ["https://www.paypal.com/uk/webapps/mpp/paypal-payin3/faq"]]]
     }
 }
