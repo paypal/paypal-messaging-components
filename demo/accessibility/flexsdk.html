@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Messaging.js Dev Sandbox</title>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+        <script src="//localhost.paypal.com:8080/messaging.js"></script>
+
+        <style>
+            body {
+                padding: 0;
+                margin: 0;
+            }
+
+            .container {
+                display: flex;
+                flex-wrap: wrap;
+            }
+
+            .flex {
+                flex-grow: 1;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="container"></div>
+        <script src="../../helpers/utils.js"></script>
+        <script>
+            // Function to map query parameters
+            function mapQueryParams(query) {
+                const params = new URLSearchParams(query);
+                return {
+                    account: params.get('account') || 'defaultAccount',
+                    layout: params.get('layout') || 'flex',
+                    ratio: params.get('ratio') ? params.get('ratio').split(',') : ['1x4', '1x1', '20x1', '8x1'],
+                    color: params.get('color')
+                        ? params.get('color').split(',')
+                        : ['blue', 'black', 'white-no-border', 'white', 'gray', 'monochrome', 'grayscale']
+                };
+            }
+
+            const query = window.location.search.substring(1);
+            const mappedParams = mapQueryParams(query);
+
+            // Define the configurations for the VIEW and CONFIG objects
+            window.VIEW = {
+                labelPatterns: ['layout', 'ratio', 'color']
+            };
+
+            window.CONFIG = {
+                account: mappedParams.account,
+                style: {
+                    layout: mappedParams.layout,
+                    ratio: mappedParams.ratio,
+                    color: mappedParams.color
+                }
+            };
+
+            const container = document.querySelector('.container');
+
+            // Helper function to generate all possible combinations of ratio and color
+            function getVariantsByAccount(config) {
+                const { ratio, color } = config.style;
+                const variations = [];
+
+                ratio.forEach(r => {
+                    color.forEach(c => {
+                        variations.push({
+                            style: {
+                                ratio: r,
+                                color: c
+                            }
+                        });
+                    });
+                });
+
+                return {
+                    [config.account]: variations
+                };
+            }
+
+            // Function to flatten object for labels (if needed)
+            function objectFlattenToArray(obj) {
+                return Object.entries(obj).map(([key, value]) => `${key}:${value}`);
+            }
+
+            // Get and render all message variants
+            Object.entries(getVariantsByAccount(window.CONFIG)).map(([account, configs]) => {
+                configs.forEach(conf => {
+                    // Create the wrapper for each message
+                    const wrapper = document.createElement('div');
+                    wrapper.className = 'flex';
+                    container.appendChild(wrapper);
+
+                    const mainContainer = document.createElement('div');
+                    wrapper.appendChild(mainContainer);
+
+                    const sideContainer = document.createElement('div');
+                    wrapper.appendChild(sideContainer);
+
+                    // Render the PayPal message
+                    paypal
+                        .Messages({
+                            account: window.CONFIG.account,
+                            style: {
+                                layout: window.CONFIG.style.layout,
+                                ratio: conf.style.ratio,
+                                color: conf.style.color
+                            }
+                        })
+                        .render(mainContainer);
+
+                    // If showLabels is true, display labels for each variation
+                    if (window.VIEW.showLabels === true) {
+                        const label = objectFlattenToArray(conf.style).join(' | ');
+                        const h4 = document.createElement('h4');
+                        h4.textContent = `${label}`;
+                        container.appendChild(h4);
+                    }
+                });
+            });
+        </script>
+    </body>
+</html>
