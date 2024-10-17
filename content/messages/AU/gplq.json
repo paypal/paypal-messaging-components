@@ -1,7 +1,8 @@
 {
     "meta": {
         "offerCountry": "AU",
-        "offerType": "GPLQ",
+        "offerType": "PAY_LATER_SHORT_TERM",
+        "messageType": "PLST_SQ",
         "offerTerm": "{total_payments}",
         "lander": "",
         "variables": {

@@ -6,6 +6,7 @@
         "id": "",
         "offer_country_code": "US",
         "offerType": "PURCHASE_PROTECTION",
+        "messageType": "PURCHASE_PROTECTION",
         "lander": "https://www.paypal.com/us/digital-wallet/buyer-purchase-protection"
     },
     "headline": [
