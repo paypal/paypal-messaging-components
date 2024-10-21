@@ -1,5 +1,13 @@
 # Changelog
 
+### [1.65.1](https://github.com/paypal/paypal-messaging-components/compare/v1.65.0...v1.65.1) (2024-10-21)
+
+
+### Code Refactoring
+
+* update messageType values ([#1131](https://github.com/paypal/paypal-messaging-components/issues/1131)) ([ac7eaa1](https://github.com/paypal/paypal-messaging-components/commit/ac7eaa124a152558ade8fd36f43bdc3fcc49e15e))
+* update UK Pi3 modal address in legal disclosure ([#1150](https://github.com/paypal/paypal-messaging-components/issues/1150)) ([d14d54d](https://github.com/paypal/paypal-messaging-components/commit/d14d54d84a684809ab485d3e23319dcdf834997a))
+
 ## [1.65.0](https://github.com/paypal/paypal-messaging-components/compare/v1.64.12...v1.65.0) (2024-10-15)
 
 
