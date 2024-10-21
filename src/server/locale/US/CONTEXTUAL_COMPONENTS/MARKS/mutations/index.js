@@ -54,6 +54,7 @@ export default function getMutations(id, type) {
         case 'GENERIC_PL':
             return genericPayLater[type];
         // // Generic Pay Later - Buy now, Pay Later message
+        case 'GENERIC_PL_BNPL':
         case 'GENERIC':
             return genericPayLaterBNPL[type];
         case 'PURCHASE_PROTECTION':
