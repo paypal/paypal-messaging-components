@@ -18,28 +18,36 @@ export default function getMutations(id, type) {
         // Long Term messages
         // Long Term Non-qualifying at 0% APR
         case 'LT_NQEZ':
+        case 'PLLT_NQ_EZ':
             return longTermNQEQZ[type];
         // Long Term Non-qualifying non-0% APR
         case 'LT_NQGZ':
+        case 'PLLT_NQ_GZ':
             return longTermNQGTZ[type];
         // Long Term multiple qualifying offers at 0% APR
         case 'LT_MQEZ':
+        case 'PLLT_MQ_EZ':
             return longTermMultiEQZ[type];
         // Long Term multiple qualifying offers non-0% APR
         case 'LT_MQGZ':
+        case 'PLLT_MQ_GZ':
             return longTermMultiGTZ[type];
         // Long Term single qualifying offer at 0% APR
         case 'LT_SQEZ':
+        case 'PLLT_SQ_EZ':
             return longTermSingleEQZ[type];
         // Long Term single qualifying offer non-0% APR
         case 'LT_SQGZ':
+        case 'PLLT_SQ_GZ':
             return longTermSingleGTZ[type];
         // Short Term messages
         // Short Term Qualifying
         case 'ST_SQ':
+        case 'PLST_SQ':
             return shortTermSingleQ[type];
         // Short Term Non-qualifying
         case 'ST_NQ':
+        case 'PLST_NQ':
             return shortTermSingleNQ[type];
         // Generic Messages
         // Generic Pay Later message
@@ -47,6 +55,7 @@ export default function getMutations(id, type) {
             return genericPayLater[type];
         // // Generic Pay Later - Buy now, Pay Later message
         case 'GENERIC_PL_BNPL':
+        case 'GENERIC':
             return genericPayLaterBNPL[type];
         case 'PURCHASE_PROTECTION':
             return purchaseProtection[type];
