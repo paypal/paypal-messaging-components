@@ -2,7 +2,8 @@
     "meta": {
         "id": "cc5f94fd-40a0-441a-b457-838e015c0404",
         "offerCountry": "US",
-        "offerType": "PALA:SINGLE:EQZ",
+        "offerType": "PAYPAL_CREDIT_INSTALLMENTS",
+        "messageType": "PALA:SINGLE:EQZ",
         "offerTerm": "${CREDIT_OFFERS_DS.total_payments}",
         "lander": "https://www.paypal.com/us/webapps/mpp/credit-pala-easy-payments",
         "variables": {

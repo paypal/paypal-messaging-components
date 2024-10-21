@@ -2,7 +2,8 @@
     "meta": {
         "id": "73ba853f-bd9a-49d4-ab3d-9cdc51721093",
         "offerCountry": "GB",
-        "offerType": "PLQ",
+        "offerType": "PAY_LATER_SHORT_TERM",
+        "messageType": "PLST_SQ",
         "offerTerm": "{total_payments}",
         "lander": "",
         "variables": {

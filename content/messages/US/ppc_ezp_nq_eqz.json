@@ -2,7 +2,8 @@
     "meta": {
         "id": "0e26560f-7c8c-44e6-85fa-7f577aad8690",
         "offerCountry": "US",
-        "offerType": "EZP:ANY:EQZ",
+        "offerType": "PAYPAL_CREDIT_INSTALLMENTS",
+        "messageType": "EZP:ANY:EQZ",
         "offerTerm": "${CREDIT_OFFERS_DS.total_payments}",
         "lander": "https://www.paypal.com/us/webapps/mpp/credit-easy-payments",
         "variables": {
