@@ -41,7 +41,21 @@
             "Complete your purchase with an initial 25% payment.",
             "Remaining payments are taken automatically. It’s easy!"
         ],
-        "disclosure": "PayPal Pay in 4 is for eligible purchases between {formattedMinAmount}-{formattedMaxAmount} AUD. It’s available to Australian residents with an Australian PayPal account. Eligibility is subject to your PayPal account status and a credit assessment, which may require a credit check. Pay in 4 is a form of credit, so consider whether you can afford the repayments as use of the product may impact your credit score.",
+        "disclosure": [
+            "PayPal Pay in 4 is for eligible purchases between {formattedMinAmount}–{formattedMaxAmount} AUD. It’s available to Australian residents with an Australian PayPal account. Eligibility is subject to your PayPal account status and a credit assessment, which may require a credit check. Pay in 4 is a continuing credit contract offered under the",
+            [
+                "PayPal Pay in 4 Facility Agreement ",
+                "https://www.paypal.com/au/webapps/mpp/paypal-payin4/terms",
+                "PayPal Pay in 4 Facility Agreement, opens new tab"
+            ],
+            "that may allow you up to $2,000.00 in credit for eligible purchases, so consider whether you can afford the repayments as use of the product may impact your credit score. Please read the",
+            [
+                "TMD ",
+                "https://www.paypalobjects.com/marketing/ua/pdf/AU/en/tmd-pp-pay-in-4-100124.pdf",
+                "TMD, opens new tab"
+            ],
+            "before deciding to use PayPal Pay in 4."
+        ],
         "linkToProductList": "See other ways to pay later"
     }
 }
