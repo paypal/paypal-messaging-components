@@ -5,12 +5,6 @@ const accounts = [
     'DEV0000000NIQ',
     'DEV000NINONUS',
     'DEV00NINONUSQ',
-    'DEV0000000EAZ',
-    'DEV0000000EAG',
-    'DEV0000000PSZ',
-    'DEV0000000PSG',
-    'DEV0000000PMZ',
-    'DEV0000000PMG',
     // pay later short term
     'DEV0000000GPL',
     'DEV00000GPLNQ',

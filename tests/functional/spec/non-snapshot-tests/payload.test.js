@@ -127,7 +127,7 @@ const runTest = async ({
 
 describe('payload testing', () => {
     const config = {
-        account: 'DEV00000000NI',
+        account: 'DEV_US_NO_INTEREST',
         amount: 500,
         style: bannerStyles[0]
     };
@@ -277,7 +277,7 @@ describe('payload testing', () => {
             config,
             callback: async ({ bannerFrame, modalFrame }) => {
                 await clickBanner(bannerFrame);
-                await modalFrame.click(selectors.button.contentHeader);
+                await modalFrame.click(selectors.button.applynow);
             },
             matchComponentEvents: [
                 {
