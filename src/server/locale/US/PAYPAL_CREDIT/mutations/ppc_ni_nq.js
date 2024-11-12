@@ -111,7 +111,7 @@ export default {
                     },
                     {
                         tag: 'medium',
-                        replace: [['$99+.', '$99+']],
+                        replace: [['9+.', '9+']],
                         br: ['purchases']
                     }
                 ]
@@ -130,7 +130,7 @@ export default {
                     },
                     {
                         tag: 'medium',
-                        replace: [['$99+.', '$99+']],
+                        replace: [['9+.', '9+']],
                         br: ['purchases']
                     }
                 ]
