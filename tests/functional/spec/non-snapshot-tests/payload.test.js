@@ -164,7 +164,7 @@ describe('payload testing', () => {
                 {
                     index: expect.any(String),
                     event_type: 'modal_rendered',
-                    modal: expect.stringMatching(/(NI)|(EZP)|(INST)/i),
+                    modal: expect.stringMatching(/(NI)|(NO_INTEREST)|(INST)/i),
                     first_modal_render_delay: expect.stringNumber(),
                     timestamp: expect.any(Number),
                     render_duration: expect.any(String)
@@ -277,7 +277,10 @@ describe('payload testing', () => {
             config,
             callback: async ({ bannerFrame, modalFrame }) => {
                 await clickBanner(bannerFrame);
-                await modalFrame.click(selectors.button.applynow);
+                await page.waitFor(2000);
+                await modalFrame.waitForSelector(selectors.modal.applynow, { visible: true });
+                await page.waitFor(5 * 1000);
+                await modalFrame.click(selectors.modal.applynow);
             },
             matchComponentEvents: [
                 {

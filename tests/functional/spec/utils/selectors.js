@@ -44,7 +44,6 @@ const selectors = {
         contentHeader: '.content-header .button',
         btn: '.button',
         closeBtn: '#close-btn',
-        applynow: '.button .content__row',
         btnSecondary: '.button.secondary',
         // Used in DE modal instead of .btnSecondary
         btnMd: '.button.md',
