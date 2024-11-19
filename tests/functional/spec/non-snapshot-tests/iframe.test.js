@@ -19,13 +19,13 @@ describe('message inside another iframe', () => {
             console.log(`rerender.test page error for [iframe popup]`, error);
         });
 
-        const { bannerFrame } = await setupTestPage({
+        const { bannerElement } = await setupTestPage({
             config: { account: 'DEV_US_MULTI' },
             testPage: 'iframe.html',
             frameName: 'message iframe'
         });
 
-        await bannerFrame.click('button');
+        await bannerElement.click('button');
 
         const { popup: popup1, closeButton: closeButton1 } = await getPopup();
 
@@ -40,7 +40,7 @@ describe('message inside another iframe', () => {
 
         // Re-open the modal
 
-        await bannerFrame.click('button');
+        await bannerElement.click('button');
 
         const { popup: popup2, closeButton: closeButton2 } = await getPopup();
 

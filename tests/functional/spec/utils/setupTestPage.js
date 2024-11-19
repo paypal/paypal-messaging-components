@@ -5,10 +5,11 @@ const {
     message: { messageIframe, messageMessaging }
 } = selectors;
 
-export default async function setupTestPage({ config, testPage }) {
+export default async function setupTestPage({ config, testPage, frameName }) {
     await page.goto(`https://localhost.paypal.com:8080/snapshot/${testPage}?config=${JSON.stringify(config)}`);
 
-    const zoidMessageIframeEl = await page.waitForSelector(messageIframe, { visible: true });
+    const frameWithMessage = frameName ? page.frames().find(frame => frame.name() === frameName) : page.mainFrame();
+    const zoidMessageIframeEl = await frameWithMessage.waitForSelector(messageIframe, { visible: true });
     const bannerElement = await zoidMessageIframeEl.contentFrame();
 
     await bannerElement.waitForSelector(messageMessaging);
