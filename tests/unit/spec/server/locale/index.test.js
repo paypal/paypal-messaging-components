@@ -137,8 +137,6 @@ describe('locale methods', () => {
 
         test.each([
             ['US', 'NI'],
-            // ['US', 'EZP:ANY:EQZ'],
-            // ['US', 'PALA:SINGLE:EQZ'],
             ['US', 'GPLQ'],
             ['DE', 'GPL:EQZ'],
             ['DE', 'GPL:GTZ'],
