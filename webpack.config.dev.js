@@ -104,8 +104,7 @@ module.exports = (env = {}) => {
     const COMPONENTS_DEV_CONFIG = getWebpackConfig({
         entry: {
             'smart-credit-message': './src/components/message/index.js',
-            'smart-credit-modal-v2': './src/components/modal/v2/index.js',
-            'smart-credit-modal-US-EZP': `./src/components/modal/v1/content/US-EZP/index.js`
+            'smart-credit-modal-v2': './src/components/modal/v2/index.js'
         },
         libraryTarget: 'window',
         modulename: 'crc',
