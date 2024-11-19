@@ -25,7 +25,6 @@ const selectors = {
         contentHeader: '.content-header',
         contentDescriptionTitle: '.content-body .description h3',
         contentTermsTitle: '.content-body .terms h3',
-        ezpContentHeaderTitle: '.content-header .title',
         instructions: '.instructions',
         applynow: '.button.content__row'
     },
