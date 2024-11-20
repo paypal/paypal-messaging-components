@@ -1,7 +1,6 @@
 /** @jsx h */
 import { h } from 'preact';
 import { useRef, useState, useEffect } from 'preact/hooks';
-import Content from './Content';
 import Header from '../../../parts/Header';
 import Container from '../../../parts/Container';
 import Button from '../../../parts/Button';
@@ -34,7 +33,7 @@ const ContentWrapper = () => {
 
     return (
         <Container contentWrapper={contentWrapper} contentMaxWidth={612}>
-            <Header className={showApplyNow ? 'logo-wrapper--shift' : ''} logo="US-EZP">
+            <Header className={showApplyNow ? 'logo-wrapper--shift' : ''}>
                 <Button
                     className={`apply-now ${showApplyNow ? 'show' : ''}`}
                     onClick={showApplyNow ? handleApplyNowClick : null}
@@ -45,9 +44,7 @@ const ContentWrapper = () => {
             <div className="content-wrapper" ref={contentWrapper}>
                 <div className="content-background">
                     <div className="content">
-                        <main className="main">
-                            <Content />
-                        </main>
+                        <main className="main" />
                     </div>
                 </div>
             </div>
