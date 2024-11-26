@@ -3,13 +3,6 @@ import { bannerStyles } from '../utils/testStylesConfig';
 import { selectors } from '../../v2/utils/index';
 import setupTestPage from '../utils/setupTestPage';
 
-const {
-    message: { messageIframe },
-    modal: {
-        button: { close }
-    }
-} = selectors;
-
 const EVENT_TYPES = ['MORS', 'modal_rendered', 'message_hovered', 'modal_close', 'modal_viewed', 'scroll'];
 
 const createSpy = async () => {
@@ -165,7 +158,7 @@ describe('payload testing', () => {
                 {
                     index: expect.any(String),
                     event_type: 'modal_rendered',
-                    modal: expect.stringMatching(/(NI)|(NO_INTEREST)|(INST)/i),
+                    modal: expect.stringMatching(/(NI)|(NO_INTEREST)/i),
                     first_modal_render_delay: expect.any(String),
                     timestamp: expect.any(Number),
                     render_duration: expect.any(String)
@@ -229,7 +222,7 @@ describe('payload testing', () => {
             testName: 'hover stat sent',
             config,
             callback: async () => {
-                await page.hover(messageIframe);
+                await page.hover(selectors.message.messageIframe);
             },
             matchObjematchComponentEventscts: [
                 {
@@ -264,7 +257,7 @@ describe('payload testing', () => {
             testName: 'modal close stat sent',
             config,
             callback: async ({ modalFrame }) => {
-                await modalFrame.click(close);
+                await modalFrame.click(selectors.modal.button.close);
             },
             matchComponentEvents: [
                 {
