@@ -1,4 +1,4 @@
-import { selectors } from '../../v2/utils/index';
+import { selectors } from '../../v2/utils';
 
 export default async function setupTestPage({ config, testPage, frameName }) {
     await page.goto(`https://localhost.paypal.com:8080/snapshot/${testPage}?config=${JSON.stringify(config)}`);

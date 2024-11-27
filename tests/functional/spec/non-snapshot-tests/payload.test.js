@@ -1,6 +1,6 @@
 import packageConfig from '../../../../package.json';
 import { bannerStyles } from '../utils/testStylesConfig';
-import { selectors } from '../../v2/utils/index';
+import { selectors } from '../../v2/utils';
 import setupTestPage from '../utils/setupTestPage';
 
 const EVENT_TYPES = ['MORS', 'modal_rendered', 'message_hovered', 'modal_close', 'modal_viewed', 'scroll'];
