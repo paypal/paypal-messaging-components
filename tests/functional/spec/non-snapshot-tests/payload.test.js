@@ -150,7 +150,7 @@ describe('payload testing', () => {
                 {
                     et: 'CLIENT_IMPRESSION',
                     event_type: 'message_rendered',
-                    first_render_delay: expect.any(String),
+                    first_render_delay: expect.stringNumber(),
                     timestamp: expect.any(Number),
                     render_duration: expect.any(String),
                     request_duration: expect.any(String)
