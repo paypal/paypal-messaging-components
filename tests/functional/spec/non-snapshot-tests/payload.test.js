@@ -159,7 +159,7 @@ describe('payload testing', () => {
                     index: expect.any(String),
                     event_type: 'modal_rendered',
                     modal: expect.stringMatching(/(NI)|(NO_INTEREST)/i),
-                    first_modal_render_delay: expect.any(String),
+                    first_modal_render_delay: expect.stringNumber(),
                     timestamp: expect.any(Number),
                     render_duration: expect.any(String)
                 }
