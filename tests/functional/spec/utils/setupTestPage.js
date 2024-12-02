@@ -9,7 +9,7 @@ export default async function setupTestPage({ config, testPage, frameName }) {
     });
     const bannerFrame = await bannerElement.contentFrame();
 
-    await bannerFrame.waitForSelector(selectors.message.messageMessaging, { visibile: true });
+    await bannerFrame.waitForSelector(selectors.message.messageMessaging, { visible: true });
 
     const openModal = async () => {
         await bannerElement.click(selectors.message.messageMessaging);
