@@ -7,9 +7,23 @@ const IOS_INTERFACE_NAME = 'paypalMessageModalCallbackHandler';
 const ANDROID_INTERFACE_NAME = 'paypalMessageModalCallbackHandler';
 
 const setupBrowser = props => {
+    const propListeners = new Set();
+
+    window.addEventListener(
+        'message',
+        newProps => {
+            if (newProps && typeof newProps === 'object') {
+                Array.from(propListeners.values()).forEach(listener => {
+                    listener({ ...window.xprops, ...newProps });
+                });
+                Object.assign(window.xprops, newProps);
+            }
+        },
+        false
+    );
+
     window.xprops = {
-        // We will never recieve new props via this integration style
-        onProps: () => {},
+        onProps: listener => propListeners.add(listener),
         // TODO: Verify these callbacks are instrumented correctly
         onReady: ({ products, meta }) => {
             const { clientId, payerId, merchantId, offer, partnerAttributionId } = props;
