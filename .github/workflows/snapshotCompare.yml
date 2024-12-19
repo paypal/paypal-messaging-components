@@ -60,7 +60,6 @@ jobs:
                   ./.github/scripts/runServer.sh
 
             - name: Compare Snapshots - ${{ matrix.testPathPattern }}
-              continue-on-error: true
               run: |
                   npm run test:func -- --testPathPattern "${{ matrix.testPathPattern }}"
 
@@ -97,7 +96,6 @@ jobs:
                   ./.github/scripts/runServerV2.sh
 
             - name: Compare Snapshots - ${{ matrix.testConfig }}
-              continue-on-error: true
               run: |
                   CONFIG_PATH=${{ matrix.testConfig }} npm run test:func:snapshots
 
