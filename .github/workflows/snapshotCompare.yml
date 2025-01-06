@@ -11,7 +11,7 @@ on:
 jobs:
     getMatrix:
         name: Get Matrix
-        runs-on: ubuntu-latest
+        runs-on: ubuntu-24.04
         outputs:
             testPathPatterns: ${{ steps.setTestPathPatterns.outputs.testPathPatterns }}
             testConfigs: ${{ steps.setTestConfigs.outputs.testConfigs }}
@@ -33,7 +33,7 @@ jobs:
 
     compareSnapshots:
         name: Compare
-        runs-on: ubuntu-latest
+        runs-on: ubuntu-24.04
         needs: getMatrix
         strategy:
             fail-fast: false
@@ -70,7 +70,7 @@ jobs:
 
     compareSnapshotsV2:
         name: Compare V2
-        runs-on: ubuntu-latest
+        runs-on: ubuntu-24.04
         needs: getMatrix
         strategy:
             fail-fast: false
