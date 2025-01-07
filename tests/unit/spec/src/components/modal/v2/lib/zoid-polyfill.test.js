@@ -1,13 +1,19 @@
-import zoidPolyfill from 'src/components/modal/v2/lib/zoid-polyfill';
+import zoidPolyfill, { updateBrowserProps } from 'src/components/modal/v2/lib/zoid-polyfill';
 import { logger } from 'src/utils';
 
 // Mock all of utils because the `stats` util that would be included has a side-effect call to logger.track
-jest.mock('src/utils', () => ({
-    logger: {
-        track: jest.fn(),
-        addMetaBuilder: jest.fn()
-    }
-}));
+jest.mock('src/utils', () => {
+    const originalModule = jest.requireActual('@krakenjs/belter/src');
+
+    return {
+        ...originalModule,
+        logger: {
+            track: jest.fn(),
+            addMetaBuilder: jest.fn(),
+            warn: jest.fn()
+        }
+    };
+});
 
 jest.mock('@krakenjs/belter/src', () => {
     const originalModule = jest.requireActual('@krakenjs/belter/src');
@@ -25,9 +31,21 @@ jest.mock('@krakenjs/belter/src', () => {
         })
     };
 });
-jest.mock('src/components/modal/v2/lib/utils', () => ({
-    isIframe: true
-}));
+jest.mock('src/components/modal/v2/lib/utils', () => {
+    const originalModule = jest.requireActual('src/components/modal/v2/lib/utils');
+
+    return {
+        ...originalModule,
+        isIframe: true
+    };
+});
+
+const addEventListenerSpy = jest.fn();
+const addEventListener = window.addEventListener.bind(window);
+window.addEventListener = (...args) => {
+    addEventListenerSpy(...args);
+    addEventListener(...args);
+};
 
 const mockLoadUrl = (url, { platform = 'web' } = {}) => {
     delete window.location;
@@ -73,13 +91,14 @@ describe('zoidPollyfill', () => {
     describe('sets up xprops for browser', () => {
         beforeAll(() => {
             mockLoadUrl(
-                'https://localhost.paypal.com:8080/credit-presentment/native/message?client_id=client_1&logo_type=inline&amount=500&devTouchpoint=true'
+                'https://localhost.paypal.com:8080/credit-presentment/lander/modal?client_id=client_1&logo_type=inline&amount=500&devTouchpoint=true'
             );
 
             zoidPolyfill();
         });
         afterEach(() => {
             logger.track.mockClear();
+            addEventListenerSpy.mockClear();
         });
         test('window.xprops initalized', () => {
             expect(window.actions).toBeUndefined();
@@ -177,7 +196,7 @@ describe('zoidPollyfill', () => {
 
     test('sets up xprops for webview', () => {
         mockLoadUrl(
-            'https://localhost.paypal.com:8080/credit-presentment/native/message?client_id=client_1&logo_type=inline&amount=500&dev_touchpoint=true',
+            'https://localhost.paypal.com:8080/credit-presentment/native/modal?client_id=client_1&logo_type=inline&amount=500&dev_touchpoint=true',
             {
                 platform: 'ios'
             }
@@ -316,94 +335,145 @@ describe('zoidPollyfill', () => {
         postMessage.mockClear();
     });
 
-    test('notifies when props update', () => {
-        mockLoadUrl(
-            'https://localhost.paypal.com:8080/credit-presentment/native/message?client_id=client_1&logo_type=inline&amount=500&devTouchpoint=true',
-            {
-                platform: 'android'
-            }
-        );
-        const postMessage = global.Android.paypalMessageModalCallbackHandler;
-
-        zoidPolyfill();
-
-        expect(window.actions).toEqual(
-            expect.objectContaining({
-                updateProps: expect.any(Function)
-            })
-        );
-        expect(window.xprops).toEqual(
-            expect.objectContaining({
-                onProps: expect.any(Function)
-            })
-        );
-
-        const onPropsCallback = jest.fn();
-
-        window.xprops.onProps(onPropsCallback);
-        window.actions.updateProps({ amount: 1000 });
-
-        expect(onPropsCallback).toHaveBeenCalledTimes(1);
-        expect(onPropsCallback).toHaveBeenCalledWith(
-            expect.objectContaining({
-                clientId: 'client_1',
-                logoType: 'inline',
-                amount: 1000
-            })
-        );
-
-        window.actions.updateProps({ offer: 'TEST' });
-
-        expect(onPropsCallback).toHaveBeenCalledTimes(2);
-        expect(onPropsCallback).toHaveBeenCalledWith(
-            expect.objectContaining({
-                clientId: 'client_1',
-                logoType: 'inline',
-                amount: 1000,
-                offer: 'TEST'
-            })
-        );
-
-        window.xprops.onReady({
-            products: ['PRODUCT_1', 'PRODUCT_2'],
-            meta: {
-                trackingDetails: {
-                    fdata: '123abc',
-                    credit_product_identifiers: ['PAY_LATER_LONG_TERM_US'],
-                    offer_country_code: 'US',
-                    extra_field: 'should not be present'
+    describe('notifies when props update', () => {
+        test('webview', () => {
+            mockLoadUrl(
+                'https://localhost.paypal.com:8080/credit-presentment/native/modal?client_id=client_1&logo_type=inline&amount=500&devTouchpoint=true',
+                {
+                    platform: 'android'
                 }
-            }
-        });
+            );
+            const postMessage = global.Android.paypalMessageModalCallbackHandler;
 
-        expect(postMessage).toHaveBeenCalledTimes(1);
-        expect(postMessage.mock.calls[0][0]).toEqual(expect.any(String));
-        expect(JSON.parse(postMessage.mock.calls[0][0])).toMatchInlineSnapshot(`
-            Object {
-              "args": Array [
+            zoidPolyfill();
+
+            expect(window.actions).toEqual(
+                expect.objectContaining({
+                    updateProps: expect.any(Function)
+                })
+            );
+            expect(window.xprops).toEqual(
+                expect.objectContaining({
+                    onProps: expect.any(Function)
+                })
+            );
+
+            const onPropsCallback = jest.fn();
+
+            window.xprops.onProps(onPropsCallback);
+            window.actions.updateProps({ amount: 1000 });
+
+            expect(onPropsCallback).toHaveBeenCalledTimes(1);
+            expect(onPropsCallback).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    clientId: 'client_1',
+                    logoType: 'inline',
+                    amount: 1000
+                })
+            );
+
+            window.actions.updateProps({ offer: 'TEST' });
+
+            expect(onPropsCallback).toHaveBeenCalledTimes(2);
+            expect(onPropsCallback).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    clientId: 'client_1',
+                    logoType: 'inline',
+                    amount: 1000,
+                    offer: 'TEST'
+                })
+            );
+
+            window.xprops.onReady({
+                products: ['PRODUCT_1', 'PRODUCT_2'],
+                meta: {
+                    trackingDetails: {
+                        fdata: '123abc',
+                        credit_product_identifiers: ['PAY_LATER_LONG_TERM_US'],
+                        offer_country_code: 'US',
+                        extra_field: 'should not be present'
+                    }
+                }
+            });
+
+            expect(postMessage).toHaveBeenCalledTimes(1);
+            expect(postMessage.mock.calls[0][0]).toEqual(expect.any(String));
+            expect(JSON.parse(postMessage.mock.calls[0][0])).toMatchInlineSnapshot(`
                 Object {
-                  "__shared__": Object {
-                    "credit_product_identifiers": Array [
-                      "PAY_LATER_LONG_TERM_US",
-                    ],
-                    "fdata": "123abc",
-                    "offer_country_code": "US",
-                  },
-                  "event_type": "modal_rendered",
-                  "render_duration": "50",
-                  "request_duration": "100",
-                },
-              ],
-              "name": "onReady",
-            }
-        `);
-        postMessage.mockClear();
+                  "args": Array [
+                    Object {
+                      "__shared__": Object {
+                        "credit_product_identifiers": Array [
+                          "PAY_LATER_LONG_TERM_US",
+                        ],
+                        "fdata": "123abc",
+                        "offer_country_code": "US",
+                      },
+                      "event_type": "modal_rendered",
+                      "render_duration": "50",
+                      "request_duration": "100",
+                    },
+                  ],
+                  "name": "onReady",
+                }
+            `);
+            postMessage.mockClear();
+        });
+        test('browser', () => {
+            mockLoadUrl(
+                'https://localhost.paypal.com:8080/credit-presentment/lander/modal?client_id=client_1&logo_type=inline&amount=500&devTouchpoint=true&origin=http://example.com'
+            );
+
+            zoidPolyfill();
+
+            expect(window.xprops).toEqual(
+                expect.objectContaining({
+                    onProps: expect.any(Function)
+                })
+            );
+
+            // verify event listener was added
+            expect(addEventListenerSpy).toHaveBeenCalledTimes(1);
+            expect(addEventListenerSpy).toHaveBeenCalledWith('message', expect.any(Function), false);
+
+            const newPropsEvent = {
+                data: {
+                    origin: 'http://example.com',
+                    eventName: 'PROPS_UPDATE',
+                    eventPayload: {
+                        amount: 1000,
+                        offerType: ['PAY_LATER_LONG_TERM', 'PAY_LATER_SHORT_TERM']
+                    }
+                }
+            };
+
+            // jest doesn't support calling postMessage, so we cannot use the event listener above
+            // instead we will manually verify that updateBrowserProps works as intended
+            const propListeners = new Set();
+            const onPropsCallback = jest.fn();
+            propListeners.add(onPropsCallback);
+            updateBrowserProps(window.xprops, propListeners, newPropsEvent);
+
+            // subscribeCallback({
+            //     amount: 1000
+            // });
+
+            expect(onPropsCallback).toHaveBeenCalledTimes(1);
+            expect(onPropsCallback).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    clientId: 'client_1',
+                    logoType: 'inline',
+                    amount: 1000,
+                    offer: 'PAY_LATER_LONG_TERM,PAY_LATER_SHORT_TERM'
+                })
+            );
+        });
     });
 
     describe('communication with parent window on onClose ', () => {
         beforeAll(() => {
             mockLoadUrl(
-                'https://localhost.paypal.com:8080/credit-presentment/native/message?client_id=client_1&logo_type=inline&amount=500&devTouchpoint=true'
+                'https://localhost.paypal.com:8080/credit-presentment/native/modal?client_id=client_1&logo_type=inline&amount=500&devTouchpoint=true'
             );
             zoidPolyfill();
             const postMessage = jest.fn();

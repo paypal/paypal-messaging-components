@@ -1,24 +1,100 @@
 /* global Android */
 import { isAndroidWebview, isIosWebview, getPerformance } from '@krakenjs/belter/src';
 import { getOrCreateDeviceID, logger } from '../../../../utils';
-import { isIframe } from './utils';
+import { isIframe, createUUID, validateUpdatedProps } from './utils';
 
 const IOS_INTERFACE_NAME = 'paypalMessageModalCallbackHandler';
 const ANDROID_INTERFACE_NAME = 'paypalMessageModalCallbackHandler';
+
+export function updateBrowserProps(initialProps, propListeners, newPropsEvent) {
+    const { origin, eventName, id, eventPayload: updatedProps } = newPropsEvent.data;
+    if (
+        // verify the event is coming from the merchant page and is the correct event
+        origin === initialProps.origin &&
+        eventName === 'PROPS_UPDATE' &&
+        updatedProps &&
+        typeof updatedProps === 'object'
+    ) {
+        // send ack so PostMessenger will stop trying to resend message
+        postMessage(
+            {
+                eventName: id,
+                eventPayload: { ok: true },
+                id: createUUID()
+            },
+            // TODO: resolve Failed to execute 'postMessage' on 'DOMWindow': The target origin provided ('https://www.msmaster.qa.paypal.com') does not match the recipient window's origin ('https://localhost:8443').
+            initialProps.origin
+        );
+
+        const validatedProps = validateUpdatedProps(updatedProps);
+        Array.from(propListeners.values()).forEach(listener => {
+            listener({ ...window.xprops, ...validatedProps });
+        });
+
+        console.debug(
+            'LearnMore message ack',
+            {
+                eventName: id,
+                eventPayload: { ok: true }
+            },
+            initialProps.origin
+        );
+    }
+}
 
 const setupBrowser = props => {
     const propListeners = new Set();
 
     window.addEventListener(
         'message',
-        newProps => {
-            if (newProps && typeof newProps === 'object') {
-                Array.from(propListeners.values()).forEach(listener => {
-                    listener({ ...window.xprops, ...newProps });
-                });
-                Object.assign(window.xprops, newProps);
-            }
-        },
+        event => updateBrowserProps(props, propListeners, event),
+        // event => {
+        //     console.log('LearnMore message event.data', event.data);
+        //     const { eventName, eventPayload: updatedProps, id } = event.data;
+        //     if (
+        //         // verify the event is coming from the merchant page
+        //         event.data.origin === props.origin &&
+        //         eventName === 'PROPS_UPDATE' &&
+        //         updatedProps &&
+        //         typeof updatedProps === 'object'
+        //     ) {
+        //         Array.from(propListeners.values()).forEach(listener => {
+        //             listener({ ...window.xprops, ...updatedProps });
+        //         });
+
+        //         let validatedProps;
+        //         Object.entries(updatedProps).forEach(entry => {
+        //             const [k, v] = entry;
+        //             if (k === 'offerType') {
+        //                 validatedProps.offer = validate.offer({ props: { offer: v } });
+        //             } else {
+        //                 validatedProps[k] = validate[k]({ props: { [k]: v } });
+        //             }
+        //         });
+
+        //         Object.assign(window.xprops, validatedProps);
+
+        //         console.log(
+        //             'LearnMore message ack',
+        //             {
+        //                 eventName: id,
+        //                 eventPayload: { ok: true },
+        //                 id: createUUID()
+        //             },
+        //             props.origin
+        //         );
+
+        //         // send back ack so PostMessenger won't retry sending message unnecessarily
+        //         postMessage(
+        //             {
+        //                 eventName: id,
+        //                 eventPayload: { ok: true },
+        //                 id: createUUID()
+        //             },
+        //             props.origin
+        //         );
+        //     }
+        // },
         false
     );
 

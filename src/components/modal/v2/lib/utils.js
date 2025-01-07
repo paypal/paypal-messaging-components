@@ -2,6 +2,7 @@ import objectEntries from 'core-js-pure/stable/object/entries';
 import arrayFrom from 'core-js-pure/stable/array/from';
 import { isIosWebview, isAndroidWebview } from '@krakenjs/belter/src';
 import { request, memoize, ppDebug } from '../../../../utils';
+import validate from '../../../../library/zoid/message/validation';
 
 export const getContent = memoize(
     ({
@@ -111,4 +112,33 @@ export function formatDateByCountry(country) {
         return currentDate.toLocaleDateString('en-US', options);
     }
     return currentDate.toLocaleDateString('en-GB', options);
+}
+
+export function createUUID() {
+    // crypto.randomUUID() is only available in HTTPS secure environments and modern browsers
+    if (typeof crypto !== 'undefined' && crypto && crypto.randomUUID instanceof Function) {
+        return crypto.randomUUID();
+    }
+
+    const validChars = '0123456789abcdefghijklmnopqrstuvwxyz';
+    const stringLength = 32;
+    let randomId = '';
+    for (let index = 0; index < stringLength; index++) {
+        const randomIndex = Math.floor(Math.random() * validChars.length);
+        randomId += validChars.charAt(randomIndex);
+    }
+    return randomId;
+}
+
+export function validateUpdatedProps(updatedProps) {
+    const validatedProps = {};
+    Object.entries(updatedProps).forEach(entry => {
+        const [k, v] = entry;
+        if (k === 'offerType') {
+            validatedProps.offer = validate.offer({ props: { offer: v } });
+        } else {
+            validatedProps[k] = validate[k]({ props: { [k]: v } });
+        }
+    });
+    return validatedProps;
 }
