@@ -1,4 +1,4 @@
-import zoidPolyfill, { updateBrowserProps } from 'src/components/modal/v2/lib/zoid-polyfill';
+import zoidPolyfill, { validateAndUpdateBrowserProps } from 'src/components/modal/v2/lib/zoid-polyfill';
 import { logger } from 'src/utils';
 
 // Mock all of utils because the `stats` util that would be included has a side-effect call to logger.track
@@ -419,54 +419,68 @@ describe('zoidPollyfill', () => {
             `);
             postMessage.mockClear();
         });
-        test('browser', () => {
-            mockLoadUrl(
-                'https://localhost.paypal.com:8080/credit-presentment/lander/modal?client_id=client_1&logo_type=inline&amount=500&devTouchpoint=true&origin=http://example.com'
-            );
+        describe('browser', () => {
+            beforeAll(() => {
+                mockLoadUrl(
+                    'https://localhost.paypal.com:8080/credit-presentment/lander/modal?client_id=client_1&logo_type=inline&amount=500&devTouchpoint=true&origin=http://example.com'
+                );
+                zoidPolyfill();
+            });
+            afterEach(() => {
+                logger.track.mockClear();
+                addEventListenerSpy.mockClear();
+            });
+            test('event listener is added', () => {
+                expect(window.xprops).toEqual(
+                    expect.objectContaining({
+                        onProps: expect.any(Function)
+                    })
+                );
 
-            zoidPolyfill();
-
-            expect(window.xprops).toEqual(
-                expect.objectContaining({
-                    onProps: expect.any(Function)
-                })
-            );
-
-            // verify event listener was added
-            expect(addEventListenerSpy).toHaveBeenCalledTimes(1);
-            expect(addEventListenerSpy).toHaveBeenCalledWith('message', expect.any(Function), false);
-
-            const newPropsEvent = {
-                data: {
+                expect(addEventListenerSpy).toHaveBeenCalledTimes(1);
+                expect(addEventListenerSpy).toHaveBeenCalledWith('message', expect.any(Function), false);
+            });
+            test('validateAndUpdateBrowserProps updates props when values are valid', () => {
+                // jest doesn't support calling postMessage, so we cannot use the event listener above
+                // instead we will manually verify that validateAndUpdateBrowserProps works as intended
+                const newPropsEvent = {
                     origin: 'http://example.com',
-                    eventName: 'PROPS_UPDATE',
-                    eventPayload: {
-                        amount: 1000,
-                        offerType: ['PAY_LATER_LONG_TERM', 'PAY_LATER_SHORT_TERM']
+                    data: {
+                        eventName: 'PROPS_UPDATE',
+                        eventPayload: {
+                            amount: 1000,
+                            offerType: ['PAY_LATER_LONG_TERM', 'PAY_LATER_SHORT_TERM']
+                        }
                     }
-                }
-            };
+                };
 
-            // jest doesn't support calling postMessage, so we cannot use the event listener above
-            // instead we will manually verify that updateBrowserProps works as intended
-            const propListeners = new Set();
-            const onPropsCallback = jest.fn();
-            propListeners.add(onPropsCallback);
-            updateBrowserProps(window.xprops, propListeners, newPropsEvent);
+                const propListeners = new Set();
+                const onPropsCallback = jest.fn();
+                propListeners.add(onPropsCallback);
+                validateAndUpdateBrowserProps(window.xprops, propListeners, newPropsEvent);
 
-            // subscribeCallback({
-            //     amount: 1000
-            // });
+                expect(onPropsCallback).toHaveBeenCalledTimes(1);
+                expect(onPropsCallback).toHaveBeenCalledWith(
+                    expect.objectContaining({
+                        clientId: 'client_1',
+                        logoType: 'inline',
+                        amount: 1000,
+                        offer: 'PAY_LATER_LONG_TERM,PAY_LATER_SHORT_TERM'
+                    })
+                );
+            });
+            test('validateAndUpdateBrowserProps handles unrelated events with no data', () => {
+                const unrelatedEvent = {
+                    data: {}
+                };
 
-            expect(onPropsCallback).toHaveBeenCalledTimes(1);
-            expect(onPropsCallback).toHaveBeenCalledWith(
-                expect.objectContaining({
-                    clientId: 'client_1',
-                    logoType: 'inline',
-                    amount: 1000,
-                    offer: 'PAY_LATER_LONG_TERM,PAY_LATER_SHORT_TERM'
-                })
-            );
+                const propListeners = new Set();
+                const onPropsCallback = jest.fn();
+                propListeners.add(onPropsCallback);
+                validateAndUpdateBrowserProps(window.xprops, propListeners, unrelatedEvent);
+
+                expect(onPropsCallback).toHaveBeenCalledTimes(0);
+            });
         });
     });
 

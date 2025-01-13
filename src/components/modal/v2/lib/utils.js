@@ -130,7 +130,7 @@ export function createUUID() {
     return randomId;
 }
 
-export function validateUpdatedProps(updatedProps) {
+export function validateProps(updatedProps) {
     const validatedProps = {};
     Object.entries(updatedProps).forEach(entry => {
         const [k, v] = entry;
@@ -141,4 +141,31 @@ export function validateUpdatedProps(updatedProps) {
         }
     });
     return validatedProps;
+}
+
+export function sendEventAck(eventId) {
+    // skip this step if running in test env because jest's target windows don't support postMessage
+    if (window.process?.env?.NODE_ENV === 'test') {
+        return;
+    }
+
+    // target window selection depends on if checkout window is in popup or modal iframe
+    let targetWindow;
+    const popupCheck = window.parent === window;
+    if (popupCheck) {
+        targetWindow = window.opener;
+    } else {
+        targetWindow = window.parent;
+    }
+
+    targetWindow.postMessage(
+        {
+            // PostMessenger stops reposting an event when it receives an eventName which matches the id in the message it sent and type 'ack'
+            eventName: eventId,
+            type: 'ack',
+            eventPayload: { ok: true },
+            id: createUUID()
+        },
+        '*'
+    );
 }

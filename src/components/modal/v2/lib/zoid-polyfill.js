@@ -1,44 +1,30 @@
 /* global Android */
 import { isAndroidWebview, isIosWebview, getPerformance } from '@krakenjs/belter/src';
 import { getOrCreateDeviceID, logger } from '../../../../utils';
-import { isIframe, createUUID, validateUpdatedProps } from './utils';
+import { isIframe, validateProps, sendEventAck } from './utils';
 
 const IOS_INTERFACE_NAME = 'paypalMessageModalCallbackHandler';
 const ANDROID_INTERFACE_NAME = 'paypalMessageModalCallbackHandler';
 
-export function updateBrowserProps(initialProps, propListeners, newPropsEvent) {
-    const { origin, eventName, id, eventPayload: updatedProps } = newPropsEvent.data;
-    if (
-        // verify the event is coming from the merchant page and is the correct event
-        origin === initialProps.origin &&
-        eventName === 'PROPS_UPDATE' &&
-        updatedProps &&
-        typeof updatedProps === 'object'
-    ) {
-        // send ack so PostMessenger will stop trying to resend message
-        postMessage(
-            {
-                eventName: id,
-                eventPayload: { ok: true },
-                id: createUUID()
-            },
-            // TODO: resolve Failed to execute 'postMessage' on 'DOMWindow': The target origin provided ('https://www.msmaster.qa.paypal.com') does not match the recipient window's origin ('https://localhost:8443').
-            initialProps.origin
-        );
+function listenAndAssignProps(newProps, propListeners) {
+    Array.from(propListeners.values()).forEach(listener => {
+        listener({ ...window.xprops, ...newProps });
+    });
+    Object.assign(window.xprops, newProps);
+}
 
-        const validatedProps = validateUpdatedProps(updatedProps);
-        Array.from(propListeners.values()).forEach(listener => {
-            listener({ ...window.xprops, ...validatedProps });
-        });
-
-        console.debug(
-            'LearnMore message ack',
-            {
-                eventName: id,
-                eventPayload: { ok: true }
-            },
-            initialProps.origin
-        );
+export function validateAndUpdateBrowserProps(initialProps, propListeners, updatedPropsEvent) {
+    const {
+        origin,
+        data: { eventName, id, eventPayload: newProps }
+    } = updatedPropsEvent;
+    // verify the event is coming from the merchant page
+    const eventOriginCheck = origin === decodeURIComponent(initialProps.origin);
+    if (eventOriginCheck && eventName === 'PROPS_UPDATE' && newProps && typeof newProps === 'object') {
+        // send event ack so PostMessenger will stop reposting event
+        sendEventAck(id);
+        const validProps = validateProps(newProps);
+        listenAndAssignProps(validProps, propListeners, true);
     }
 }
 
@@ -47,56 +33,29 @@ const setupBrowser = props => {
 
     window.addEventListener(
         'message',
-        event => updateBrowserProps(props, propListeners, event),
-        // event => {
-        //     console.log('LearnMore message event.data', event.data);
-        //     const { eventName, eventPayload: updatedProps, id } = event.data;
-        //     if (
-        //         // verify the event is coming from the merchant page
-        //         event.data.origin === props.origin &&
-        //         eventName === 'PROPS_UPDATE' &&
-        //         updatedProps &&
-        //         typeof updatedProps === 'object'
-        //     ) {
-        //         Array.from(propListeners.values()).forEach(listener => {
-        //             listener({ ...window.xprops, ...updatedProps });
-        //         });
-
-        //         let validatedProps;
-        //         Object.entries(updatedProps).forEach(entry => {
-        //             const [k, v] = entry;
-        //             if (k === 'offerType') {
-        //                 validatedProps.offer = validate.offer({ props: { offer: v } });
-        //             } else {
-        //                 validatedProps[k] = validate[k]({ props: { [k]: v } });
-        //             }
-        //         });
-
-        //         Object.assign(window.xprops, validatedProps);
-
-        //         console.log(
-        //             'LearnMore message ack',
-        //             {
-        //                 eventName: id,
-        //                 eventPayload: { ok: true },
-        //                 id: createUUID()
-        //             },
-        //             props.origin
-        //         );
-
-        //         // send back ack so PostMessenger won't retry sending message unnecessarily
-        //         postMessage(
-        //             {
-        //                 eventName: id,
-        //                 eventPayload: { ok: true },
-        //                 id: createUUID()
-        //             },
-        //             props.origin
-        //         );
-        //     }
-        // },
+        event => {
+            validateAndUpdateBrowserProps(props, propListeners, event);
+        },
         false
     );
+
+    // window.addEventListener(
+    //     'message',
+    //     event => {
+    //         const {
+    //             origin,
+    //             data: { eventName, id, eventPayload: newProps }
+    //         } = event;
+    //         // verify the event is coming from the merchant page
+    //         const eventOriginCheck = origin === decodeURIComponent(props.origin);
+    //         if (eventOriginCheck && eventName === 'PROPS_UPDATE' && newProps && typeof newProps === 'object') {
+    //             // send event ack so PostMessenger will stop reposting event
+    //             sendEventAck(id);
+    //             listenAndAssignProps(newProps, propListeners, true);
+    //         }
+    //     },
+    //     false
+    // );
 
     window.xprops = {
         onProps: listener => propListeners.add(listener),
@@ -216,11 +175,7 @@ const setupWebview = props => {
     window.actions = {
         updateProps: newProps => {
             if (newProps && typeof newProps === 'object') {
-                Array.from(propListeners.values()).forEach(listener => {
-                    listener({ ...window.xprops, ...newProps });
-                });
-
-                Object.assign(window.xprops, newProps);
+                listenAndAssignProps(newProps, propListeners, false);
             }
         }
     };
