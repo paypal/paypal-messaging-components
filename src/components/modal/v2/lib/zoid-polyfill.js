@@ -15,16 +15,16 @@ function listenAndAssignProps(newProps, propListeners) {
 
 export function validateAndUpdateBrowserProps(initialProps, propListeners, updatedPropsEvent) {
     const {
-        origin,
+        origin: eventOrigin,
         data: { eventName, id, eventPayload: newProps }
     } = updatedPropsEvent;
-    // verify the event is coming from the merchant page
-    const eventOriginCheck = origin === decodeURIComponent(initialProps.origin);
-    if (eventOriginCheck && eventName === 'PROPS_UPDATE' && newProps && typeof newProps === 'object') {
+    const merchantOrigin = decodeURIComponent(initialProps.origin);
+
+    if (eventOrigin === merchantOrigin && eventName === 'PROPS_UPDATE' && newProps && typeof newProps === 'object') {
         // send event ack so PostMessenger will stop reposting event
-        sendEventAck(id);
+        sendEventAck(id, merchantOrigin);
         const validProps = validateProps(newProps);
-        listenAndAssignProps(validProps, propListeners, true);
+        listenAndAssignProps(validProps, propListeners);
     }
 }
 
@@ -157,7 +157,7 @@ const setupWebview = props => {
     window.actions = {
         updateProps: newProps => {
             if (newProps && typeof newProps === 'object') {
-                listenAndAssignProps(newProps, propListeners, false);
+                listenAndAssignProps(newProps, propListeners);
             }
         }
     };

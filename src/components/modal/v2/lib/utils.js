@@ -143,7 +143,7 @@ export function validateProps(updatedProps) {
     return validatedProps;
 }
 
-export function sendEventAck(eventId) {
+export function sendEventAck(eventId, trustedOrigin) {
     // skip this step if running in test env because jest's target windows don't support postMessage
     if (window.process?.env?.NODE_ENV === 'test') {
         return;
@@ -166,6 +166,6 @@ export function sendEventAck(eventId) {
             eventPayload: { ok: true },
             id: createUUID()
         },
-        '*'
+        trustedOrigin
     );
 }
