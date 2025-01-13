@@ -39,24 +39,6 @@ const setupBrowser = props => {
         false
     );
 
-    // window.addEventListener(
-    //     'message',
-    //     event => {
-    //         const {
-    //             origin,
-    //             data: { eventName, id, eventPayload: newProps }
-    //         } = event;
-    //         // verify the event is coming from the merchant page
-    //         const eventOriginCheck = origin === decodeURIComponent(props.origin);
-    //         if (eventOriginCheck && eventName === 'PROPS_UPDATE' && newProps && typeof newProps === 'object') {
-    //             // send event ack so PostMessenger will stop reposting event
-    //             sendEventAck(id);
-    //             listenAndAssignProps(newProps, propListeners, true);
-    //         }
-    //     },
-    //     false
-    // );
-
     window.xprops = {
         onProps: listener => propListeners.add(listener),
         // TODO: Verify these callbacks are instrumented correctly
