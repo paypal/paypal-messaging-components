@@ -134,7 +134,7 @@ export function validateProps(updatedProps) {
     const validatedProps = {};
     Object.entries(updatedProps).forEach(entry => {
         const [k, v] = entry;
-        if (k === 'offerType') {
+        if (k === 'offerTypes') {
             validatedProps.offer = validate.offer({ props: { offer: v } });
         } else {
             validatedProps[k] = validate[k]({ props: { [k]: v } });

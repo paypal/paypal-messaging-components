@@ -449,7 +449,7 @@ describe('zoidPollyfill', () => {
                         eventName: 'PROPS_UPDATE',
                         eventPayload: {
                             amount: 1000,
-                            offerType: ['PAY_LATER_LONG_TERM', 'PAY_LATER_SHORT_TERM']
+                            offerTypes: ['PAY_LATER_LONG_TERM', 'PAY_LATER_SHORT_TERM']
                         }
                     }
                 };
