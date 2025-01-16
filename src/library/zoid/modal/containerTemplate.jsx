@@ -112,9 +112,10 @@ export default ({ uid, frame, prerenderFrame, doc, event, state, props: { cspNon
                         border: none !important;
                     }
 
-                    #${uid}.${CLASS.HIDDEN} > div > iframe {
-                        top: -99999px !important;
-                        left: -99999px !important;
+                    @supports (hanging-punctuation: first) and (font: -apple-system-body) and (-webkit-appearance: none) {
+                        #${uid}.${CLASS.HIDDEN} > div > iframe {
+                            opacity: 0;
+                        }
                     }
 
                     #${uid} > div {
