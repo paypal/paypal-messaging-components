@@ -18,11 +18,11 @@ export function validateAndUpdateBrowserProps(initialProps, propListeners, updat
         origin: eventOrigin,
         data: { eventName, id, eventPayload: newProps }
     } = updatedPropsEvent;
-    const merchantOrigin = decodeURIComponent(initialProps.origin);
+    const clientOrigin = decodeURIComponent(initialProps.origin);
 
-    if (eventOrigin === merchantOrigin && eventName === 'PROPS_UPDATE' && newProps && typeof newProps === 'object') {
+    if (eventOrigin === clientOrigin && eventName === 'PROPS_UPDATE' && newProps && typeof newProps === 'object') {
         // send event ack so PostMessenger will stop reposting event
-        sendEventAck(id, merchantOrigin);
+        sendEventAck(id, clientOrigin);
         const validProps = validateProps(newProps);
         listenAndAssignProps(validProps, propListeners);
     }
