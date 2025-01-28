@@ -1,10 +1,11 @@
 /* global Android */
 import { isAndroidWebview, isIosWebview, getPerformance } from '@krakenjs/belter/src';
 import { getOrCreateDeviceID, logger } from '../../../../utils';
-import { isIframe, validateProps, sendEventAck } from './utils';
+import { isIframe, validateProps, createAckEvent, sendEvent } from './utils';
 
 const IOS_INTERFACE_NAME = 'paypalMessageModalCallbackHandler';
 const ANDROID_INTERFACE_NAME = 'paypalMessageModalCallbackHandler';
+const POSTMESSENGER_EVENT_NAME = 'paypal-messages-modal-event';
 
 function listenAndAssignProps(newProps, propListeners) {
     Array.from(propListeners.values()).forEach(listener => {
@@ -13,28 +14,35 @@ function listenAndAssignProps(newProps, propListeners) {
     Object.assign(window.xprops, newProps);
 }
 
-export function validateAndUpdateBrowserProps(initialProps, propListeners, updatedPropsEvent) {
+export function validateAndUpdateBrowserProps(clientOrigin, propListeners, updatedPropsEvent) {
     const {
         origin: eventOrigin,
         data: { eventName, id, eventPayload: newProps }
     } = updatedPropsEvent;
-    const clientOrigin = decodeURIComponent(initialProps.origin);
 
     if (eventOrigin === clientOrigin && eventName === 'PROPS_UPDATE' && newProps && typeof newProps === 'object') {
-        // send event ack so PostMessenger will stop reposting event
-        sendEventAck(id, clientOrigin);
+        // send event ack with original event id so PostMessenger will stop reposting event
+        sendEvent(createAckEvent(id), clientOrigin);
         const validProps = validateProps(newProps);
         listenAndAssignProps(validProps, propListeners);
     }
 }
 
+function createHookEventWithPayload(eventPayload) {
+    return {
+        eventName: POSTMESSENGER_EVENT_NAME,
+        eventPayload
+    };
+}
+
 const setupBrowser = props => {
     const propListeners = new Set();
+    const clientOrigin = decodeURIComponent(props.origin);
 
     window.addEventListener(
         'message',
         event => {
-            validateAndUpdateBrowserProps(props, propListeners, event);
+            validateAndUpdateBrowserProps(clientOrigin, propListeners, event);
         },
         false
     );
@@ -97,6 +105,13 @@ const setupBrowser = props => {
             });
         },
         onCalculate: ({ value }) => {
+            sendEvent(
+                createHookEventWithPayload({
+                    eventType: 'modal_calculate',
+                    data: {}
+                }),
+                clientOrigin
+            );
             logger.track({
                 index: '1',
                 et: 'CLICK',
@@ -107,6 +122,13 @@ const setupBrowser = props => {
             });
         },
         onShow: () => {
+            sendEvent(
+                createHookEventWithPayload({
+                    eventType: 'modal_viewed',
+                    data: {}
+                }),
+                clientOrigin
+            );
             logger.track({
                 index: '1',
                 et: 'CLIENT_IMPRESSION',
@@ -115,6 +137,13 @@ const setupBrowser = props => {
             });
         },
         onClose: ({ linkName }) => {
+            sendEvent(
+                createHookEventWithPayload({
+                    eventType: 'modal_close',
+                    data: {}
+                }),
+                clientOrigin
+            );
             if (isIframe && document.referrer) {
                 const targetOrigin = new window.URL(document.referrer).origin;
                 window.parent.postMessage('paypal-messages-modal-close', targetOrigin);
@@ -125,6 +154,15 @@ const setupBrowser = props => {
                 event_type: 'modal_close',
                 page_view_link_name: linkName
             });
+        },
+        onApply: () => {
+            sendEvent(
+                createHookEventWithPayload({
+                    eventType: 'modal_apply',
+                    data: {}
+                }),
+                clientOrigin
+            );
         },
         // Overridable defaults
         integrationType: __MESSAGES__.__TARGET__,

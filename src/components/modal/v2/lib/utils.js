@@ -143,7 +143,17 @@ export function validateProps(updatedProps) {
     return validatedProps;
 }
 
-export function sendEventAck(eventId, trustedOrigin) {
+export function createAckEvent(eventId) {
+    return {
+        // PostMessenger stops reposting an event when it receives an eventName which matches the id in the message it sent and type 'ack'
+        eventName: eventId,
+        type: 'ack',
+        eventPayload: { ok: true },
+        id: createUUID()
+    };
+}
+
+export function sendEvent(payload, trustedOrigin) {
     // skip this step if running in test env because jest's target windows don't support postMessage
     if (process.env.NODE_ENV === 'test') {
         return;
@@ -158,14 +168,5 @@ export function sendEventAck(eventId, trustedOrigin) {
         targetWindow = window.parent;
     }
 
-    targetWindow.postMessage(
-        {
-            // PostMessenger stops reposting an event when it receives an eventName which matches the id in the message it sent and type 'ack'
-            eventName: eventId,
-            type: 'ack',
-            eventPayload: { ok: true },
-            id: createUUID()
-        },
-        trustedOrigin
-    );
+    targetWindow.postMessage(payload, trustedOrigin);
 }
