@@ -1,7 +1,7 @@
 /* global Android */
 import { isAndroidWebview, isIosWebview, getPerformance } from '@krakenjs/belter/src';
 import { getOrCreateDeviceID, logger } from '../../../../utils';
-import { isIframe, validateProps, createAckEvent, sendEvent } from './utils';
+import { isIframe, validateProps, createAckEvent, sendEvent, createUUID } from './utils';
 
 const IOS_INTERFACE_NAME = 'paypalMessageModalCallbackHandler';
 const ANDROID_INTERFACE_NAME = 'paypalMessageModalCallbackHandler';
@@ -31,7 +31,10 @@ export function validateAndUpdateBrowserProps(clientOrigin, propListeners, updat
 function createHookEventWithPayload(eventPayload) {
     return {
         eventName: POSTMESSENGER_EVENT_NAME,
-        eventPayload
+        eventPayload,
+        // type and id are required fields for PostMessenger to consider event valid
+        type: 'message',
+        id: createUUID()
     };
 }
 
