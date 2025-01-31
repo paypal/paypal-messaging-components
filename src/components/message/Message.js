@@ -30,7 +30,8 @@ const Message = function ({ markup, meta, parentStyles, warnings }) {
         merchantConfigHash: window.xprops.merchantConfigHash ?? null,
         disableSetCookie: window.xprops.disableSetCookie ?? null,
         features: window.xprops.features ?? null,
-        contextualComponents: window.xprops.contextualComponents ?? null
+        contextualComponents: window.xprops.contextualComponents ?? null,
+        pageType: window.xprops.pageType ?? null
     });
 
     const [serverData, setServerData] = createState({
@@ -129,7 +130,8 @@ const Message = function ({ markup, meta, parentStyles, warnings }) {
                     contextualComponents,
                     treatmentsHash,
                     disableSetCookie,
-                    features
+                    features,
+                    pageType
                 } = xprops;
 
                 setProps({
@@ -146,7 +148,8 @@ const Message = function ({ markup, meta, parentStyles, warnings }) {
                     channel,
                     contextualComponents,
                     disableSetCookie,
-                    features
+                    features,
+                    pageType
                 });
 
                 // Generate new MRID on message update.
@@ -172,7 +175,8 @@ const Message = function ({ markup, meta, parentStyles, warnings }) {
                     deviceID: getOrCreateDeviceID(),
                     treatments: treatmentsHash,
                     disableSetCookie,
-                    features
+                    features,
+                    pageType
                 })
                     .filter(([, val]) => Boolean(val))
                     .reduce(
