@@ -8,7 +8,7 @@ import { ZalgoPromise } from '@krakenjs/zalgo-promise/src';
 import { getGlobalUrl } from './global';
 import { request } from './miscellaneous';
 
-import { getLibraryVersion, getDisableSetCookie, getPageType } from './sdk';
+import { getLibraryVersion, getDisableSetCookie } from './sdk';
 
 function generateLogPayload(account, { meta, events: bizEvents, tracking }) {
     const { deviceID, sessionID, integration_type, messaging_version } = meta.global ?? {};
@@ -56,7 +56,6 @@ function generateLogPayload(account, { meta, events: bizEvents, tracking }) {
             // eslint-disable-next-line compat/compat
             const clickUrlParams = new URLSearchParams(clickUrl);
             const fdata = clickUrlParams.get('fdata');
-            const pageType = getPageType();
 
             return {
                 component_type: type,
@@ -66,9 +65,6 @@ function generateLogPayload(account, { meta, events: bizEvents, tracking }) {
                 merchant_events: bizEvents.filter(event => event.payload?.index === index),
                 ...trackingDetails,
                 ...stats,
-
-                // overwrites potentially poisoned PAGE_TYPE value from cached trackingDetails
-                PAGE_TYPE: pageType,
 
                 component_events: componentEvents
                     .filter(({ event_type }) => event_type !== 'MORS')
