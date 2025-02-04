@@ -176,7 +176,7 @@ const Message = function ({ markup, meta, parentStyles, warnings }) {
                     treatments: treatmentsHash,
                     disableSetCookie,
                     features,
-                    pageType
+                    page_type: pageType
                 })
                     .filter(([, val]) => Boolean(val))
                     .reduce(
