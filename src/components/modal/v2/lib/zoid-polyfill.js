@@ -143,7 +143,9 @@ const setupBrowser = props => {
             sendEvent(
                 createHookEventWithPayload({
                     eventType: 'modal_close',
-                    data: {}
+                    data: {
+                        linkName
+                    }
                 }),
                 clientOrigin
             );
@@ -157,15 +159,6 @@ const setupBrowser = props => {
                 event_type: 'modal_close',
                 page_view_link_name: linkName
             });
-        },
-        onApply: () => {
-            sendEvent(
-                createHookEventWithPayload({
-                    eventType: 'modal_apply',
-                    data: {}
-                }),
-                clientOrigin
-            );
         },
         // Overridable defaults
         integrationType: __MESSAGES__.__TARGET__,

@@ -443,8 +443,10 @@ describe('zoidPollyfill', () => {
             test('validateAndUpdateBrowserProps updates props when values are valid', () => {
                 // jest doesn't support calling postMessage, so we cannot use the event listener above
                 // instead we will manually verify that validateAndUpdateBrowserProps works as intended
+                const clientOrigin = 'http://example.com';
+
                 const newPropsEvent = {
-                    origin: 'http://example.com',
+                    origin: clientOrigin,
                     data: {
                         eventName: 'PROPS_UPDATE',
                         eventPayload: {
@@ -457,7 +459,7 @@ describe('zoidPollyfill', () => {
                 const propListeners = new Set();
                 const onPropsCallback = jest.fn();
                 propListeners.add(onPropsCallback);
-                validateAndUpdateBrowserProps(window.xprops, propListeners, newPropsEvent);
+                validateAndUpdateBrowserProps(clientOrigin, propListeners, newPropsEvent);
 
                 expect(onPropsCallback).toHaveBeenCalledTimes(1);
                 expect(onPropsCallback).toHaveBeenCalledWith(
