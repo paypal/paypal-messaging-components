@@ -320,6 +320,13 @@
                     max-width: 75%;
                 }
             }
+
+            &.v5Design {
+                font-family: $paypal-pro;
+                font-weight: bold;
+                font-size: 32px;
+                line-height: 36px;
+            }
         }
 
         .subheadline_p {
@@ -387,7 +394,7 @@
                 }
             }
         }
-       
+
         &.checkout {
             background-color: $ql-gray;
 
@@ -403,8 +410,10 @@
             }
 
             h2 {
+                font-family: $paypal-pro;
+                font-weight: bold;
                 margin-top: 20px;
-                margin-bottom: 0px;
+                margin-bottom: 5px;
 
                 @include tablet {
                     margin-left: 20px;

@@ -19,9 +19,6 @@ $donut-text-v5: #545d68;
 
     width: 80px;
 
-    svg {
-        max-width: 50px;
-    }
     &.donut__qualifying_payment {
         svg {
             text {
@@ -43,6 +40,7 @@ $donut-text-v5: #545d68;
     }
 
     svg {
+        max-width: 50px;
         width: 100%;
 
         text {
@@ -99,7 +97,6 @@ $donut-text-v5: #545d68;
 
             .checkout & {
                 font-size: 16px;
-                margin-top: -0.5rem;
             }
         }
 
@@ -132,7 +129,7 @@ $donut-text-v5: #545d68;
             display: flex;
             flex-direction: column;
             align-items: center;
-    
+
             &::after {
                 content: '';
                 flex-grow: 1;
@@ -159,10 +156,14 @@ $donut-text-v5: #545d68;
                 margin-bottom: 12px;
             }
         }
-        
+
         &__3 {
             @extend .donut__single_payment_line;
             .svg {
+                @include mobile {
+                    position: relative;
+                }
+
                 &::after {
                     max-width: 85px;
                     transform: translateX((100%));
@@ -172,8 +173,7 @@ $donut-text-v5: #545d68;
                         transform: translateX((75%));
                     }
                     @include mobile {
-                        max-width: min(70px, calc(100vw * 0.2));
-                        margin-left: auto;
+                        max-width: none;
                         padding-left: 2px;
                     }
                     @include smallMobile {
