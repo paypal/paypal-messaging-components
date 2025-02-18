@@ -410,10 +410,8 @@
             }
 
             h2 {
-                font-family: $paypal-pro;
-                font-weight: bold;
                 margin-top: 20px;
-                margin-bottom: 5px;
+                margin-bottom: 0px;
 
                 @include tablet {
                     margin-left: 20px;
