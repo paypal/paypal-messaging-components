@@ -1,11 +1,17 @@
 /* global Android */
 import { isAndroidWebview, isIosWebview, getPerformance } from '@krakenjs/belter/src';
 import { getOrCreateDeviceID, logger } from '../../../../utils';
-import { isIframe, validateProps, createAckEvent, sendEvent, createUUID } from './utils';
+import { validateProps } from './utils';
+import { sendEvent, PostMessengerMessage } from './postMessage';
 
 const IOS_INTERFACE_NAME = 'paypalMessageModalCallbackHandler';
 const ANDROID_INTERFACE_NAME = 'paypalMessageModalCallbackHandler';
-const POSTMESSENGER_EVENT_NAME = 'paypal-messages-modal-event';
+// these constants should maintain parity with MESSAGE_MODAL_EVENT_NAMES in core-web-sdk
+export const POSTMESSENGER_EVENT_NAMES = {
+    CALCULATE: 'paypal-messages-modal-calculate',
+    CLOSE: 'paypal-messages-modal-close',
+    SHOW: 'paypal-messages-modal-show'
+};
 
 function listenAndAssignProps(newProps, propListeners) {
     Array.from(propListeners.values()).forEach(listener => {
@@ -22,20 +28,10 @@ export function validateAndUpdateBrowserProps(clientOrigin, propListeners, updat
 
     if (eventOrigin === clientOrigin && eventName === 'PROPS_UPDATE' && newProps && typeof newProps === 'object') {
         // send event ack with original event id so PostMessenger will stop reposting event
-        sendEvent(createAckEvent(id), clientOrigin);
+        sendEvent(new PostMessengerMessage('ack', id));
         const validProps = validateProps(newProps);
         listenAndAssignProps(validProps, propListeners);
     }
-}
-
-function createHookEventWithPayload(eventPayload) {
-    return {
-        eventName: POSTMESSENGER_EVENT_NAME,
-        eventPayload,
-        // type and id are required fields for PostMessenger to consider event valid
-        type: 'message',
-        id: createUUID()
-    };
 }
 
 const setupBrowser = props => {
@@ -108,11 +104,9 @@ const setupBrowser = props => {
             });
         },
         onCalculate: ({ value }) => {
+            const eventPayload = {};
             sendEvent(
-                createHookEventWithPayload({
-                    eventType: 'modal_calculate',
-                    data: {}
-                }),
+                new PostMessengerMessage('message', POSTMESSENGER_EVENT_NAMES.CALCULATE, eventPayload),
                 clientOrigin
             );
             logger.track({
@@ -125,13 +119,8 @@ const setupBrowser = props => {
             });
         },
         onShow: () => {
-            sendEvent(
-                createHookEventWithPayload({
-                    eventType: 'modal_viewed',
-                    data: {}
-                }),
-                clientOrigin
-            );
+            const eventPayload = {};
+            sendEvent(new PostMessengerMessage('message', POSTMESSENGER_EVENT_NAMES.SHOW, eventPayload), clientOrigin);
             logger.track({
                 index: '1',
                 et: 'CLIENT_IMPRESSION',
@@ -140,19 +129,10 @@ const setupBrowser = props => {
             });
         },
         onClose: ({ linkName }) => {
-            sendEvent(
-                createHookEventWithPayload({
-                    eventType: 'modal_close',
-                    data: {
-                        linkName
-                    }
-                }),
-                clientOrigin
-            );
-            if (isIframe && document.referrer) {
-                const targetOrigin = new window.URL(document.referrer).origin;
-                window.parent.postMessage('paypal-messages-modal-close', targetOrigin);
-            }
+            const eventPayload = {
+                linkName
+            };
+            sendEvent(new PostMessengerMessage('message', POSTMESSENGER_EVENT_NAMES.CLOSE, eventPayload), clientOrigin);
             logger.track({
                 index: '1',
                 et: 'CLICK',
