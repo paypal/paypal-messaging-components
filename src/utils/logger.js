@@ -8,7 +8,7 @@ import { ZalgoPromise } from '@krakenjs/zalgo-promise/src';
 import { getGlobalUrl } from './global';
 import { request } from './miscellaneous';
 
-import { getLibraryVersion, getDisableSetCookie } from './sdk';
+import { getLibraryVersion, getDisableSetCookie, getClientId } from './sdk';
 
 function generateLogPayload(account, { meta, events: bizEvents, tracking }) {
     const { deviceID, sessionID, integration_type, messaging_version } = meta.global ?? {};
@@ -211,4 +211,15 @@ logger.addTrackingBuilder(() => {
         // Send a timestamp with every tracking event so they can be correctly ordered
         timestamp: new Date().getTime()
     };
+});
+
+logger.addHeaderBuilder(() => {
+    if (__MESSAGES__.__TARGET__ === 'SDK') {
+        const encodedClientId = btoa(getClientId());
+        return {
+            // Send authorization header with tracking event
+            authorization: `Basic ${encodedClientId}`
+        };
+    }
+    return null;
 });
