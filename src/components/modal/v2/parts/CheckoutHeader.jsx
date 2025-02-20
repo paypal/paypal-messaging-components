@@ -34,11 +34,11 @@ const CheckoutHeader = ({
     // Used to specifically target styles to a specific country
     const countryClassName = country?.toLowerCase();
 
-    const getCardArt = (viewName, country) => {
-        if (country === 'GB') {
+    const getCardArt = (view, countryName) => {
+        if (countryName === 'GB') {
             return 'pay-in-3-card';
         }
-        return viewName === 'PAY_LATER_LONG_TERM' ? 'pay-monthly-card' : 'pay-in-4-card';
+        return view === 'PAY_LATER_LONG_TERM' ? 'pay-monthly-card' : 'pay-in-4-card';
     };
 
     // IMPORTANT: These elements cannot be nested inside of other elements.

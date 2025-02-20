@@ -135,7 +135,7 @@ export const ShortTerm = ({
                                     />
                                 ))}
                                 {useV5Design === 'true' && useNewCheckoutDesign === 'true' && (
-                                    <span className="dashed-line"></span>
+                                    <span className="dashed-line" />
                                 )}
                             </div>
                         </div>
