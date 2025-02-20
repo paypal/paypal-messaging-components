@@ -130,24 +130,26 @@ $donut-text-v5: #545d68;
             flex-direction: column;
             align-items: center;
 
-            &::after {
-                content: '';
-                flex-grow: 1;
-                border-top: 1px dashed $dark-gray;
-                width: 100%;
-                max-width: 50px;
-                transform: translateX((97%));
-                margin-top: -50%;
-                margin-bottom: 50%;
+            &:not(.checkout) {
+                &::after {
+                    content: '';
+                    flex-grow: 1;
+                    border-top: 1px dashed $dark-gray;
+                    width: 100%;
+                    max-width: 50px;
+                    transform: translateX((97%));
+                    margin-top: -50%;
+                    margin-bottom: 50%;
 
-                @include smallHeightMobile {
-                    transform: translateX((100%));
-                }
-                @include mobile {
-                    max-width: 45px;
-                }
-                @include smallMobile {
-                    max-width: 35px;
+                    @include smallHeightMobile {
+                        transform: translateX((100%));
+                    }
+                    @include mobile {
+                        max-width: 45px;
+                    }
+                    @include smallMobile {
+                        max-width: 35px;
+                    }
                 }
             }
         }

@@ -44,6 +44,7 @@
 
             .checkout & {
                 padding: 0px;
+                justify-content: space-between;
             }
 
             .v5Design & {
@@ -52,6 +53,33 @@
                     margin-bottom: 20px;
                 }
             }
+        }
+    }
+
+    .dashed-line {
+        border-bottom: 1px dashed $dark-gray;
+        width: 100%;
+        max-width: 280px;
+        height: 1px;
+        position: absolute;
+        left: 50%;
+        top: 2.75%;
+        transform: translate(-50%, -50%);
+
+        @include mobile {
+            max-width: 235px;
+            height: 1px;
+            left: 50%;
+            top: 2.75%;
+            transform: translate(-50%, -50%);
+        }
+        @include smallMobile {
+            max-width: 200px;
+            height: 1px;
+            position: absolute;
+            left: 50%;
+            top: 2.5%;
+            transform: translate(-50%, -50%);
         }
     }
 

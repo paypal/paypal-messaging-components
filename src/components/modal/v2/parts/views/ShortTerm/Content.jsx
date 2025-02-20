@@ -37,6 +37,7 @@ export const ShortTerm = ({
 
     const preapprovalDisclaimerHeadline = preapproval?.preapprovalDisclaimerHeadline;
     const preapprovalDisclaimerBody = preapproval?.preapprovalDisclaimerBody;
+    const countryClassName = country?.toLowerCase();
 
     const renderCheckoutCtaButton = () => {
         /**
@@ -49,7 +50,11 @@ export const ShortTerm = ({
         if (typeof cta !== 'undefined') {
             return (
                 <div className="button__fixed-wrapper">
-                    <div className={`button__container ${useNewCheckoutDesign === 'true' ? 'checkout' : ''}`}>
+                    <div
+                        className={`button__container ${
+                            useNewCheckoutDesign === 'true' ? 'checkout' : ''
+                        } ${countryClassName}`}
+                    >
                         {isQualifying ? (
                             <Button
                                 onClick={() => {
@@ -116,6 +121,7 @@ export const ShortTerm = ({
                                         key={index}
                                         useV4Design={useV4Design}
                                         useV5Design={useV5Design}
+                                        useNewCheckoutDesign={useNewCheckoutDesign}
                                         qualifying={qualifying}
                                         // regex replaces EUR with the euro symbol €
                                         periodicPayment={
@@ -128,6 +134,9 @@ export const ShortTerm = ({
                                         numOfPayments={elements.length}
                                     />
                                 ))}
+                                {useV5Design === 'true' && useNewCheckoutDesign === 'true' && (
+                                    <span className="dashed-line"></span>
+                                )}
                             </div>
                         </div>
                         {isPreapproved && (

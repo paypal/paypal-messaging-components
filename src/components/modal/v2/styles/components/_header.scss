@@ -308,6 +308,7 @@
                     }
                 }
             }
+
             &.headline-gb-preapproved {
                 max-width: 50%;
                 @include mobile {
@@ -322,10 +323,12 @@
             }
 
             &.v5Design {
-                font-family: $paypal-pro;
-                font-weight: bold;
-                font-size: 32px;
-                line-height: 36px;
+                &.headline-gb {
+                    font-family: $paypal-pro;
+                    font-weight: bold;
+                    font-size: 32px;
+                    line-height: 36px;
+                }
             }
         }
 
@@ -411,11 +414,16 @@
 
             h2 {
                 margin-top: 20px;
-                margin-bottom: 0px;
 
                 @include tablet {
                     margin-left: 20px;
                 }
+            }
+
+            .headline-gb {
+                font-family: $paypal-pro;
+                font-weight: bold;
+                margin-bottom: 5px;
             }
 
             .subheadline_p {
