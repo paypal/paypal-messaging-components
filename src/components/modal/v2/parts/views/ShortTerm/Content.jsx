@@ -127,7 +127,6 @@ export const ShortTerm = ({
                                             useV4Design={useV4Design}
                                             useV5Design={useV5Design}
                                             useNewCheckoutDesign={useNewCheckoutDesign}
-                                            country={country}
                                             qualifying={qualifying}
                                             // regex replaces EUR with the euro symbol €
                                             periodicPayment={
