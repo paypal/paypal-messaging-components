@@ -117,26 +117,28 @@ export const ShortTerm = ({
                         <div className={`content__row donuts ${useNewCheckoutDesign === 'true' ? 'checkout' : ''}`}>
                             <div className="donuts__container">
                                 {elements.map((installment, index) => (
-                                    <Donut
-                                        key={index}
-                                        useV4Design={useV4Design}
-                                        useV5Design={useV5Design}
-                                        useNewCheckoutDesign={useNewCheckoutDesign}
-                                        qualifying={qualifying}
-                                        // regex replaces EUR with the euro symbol €
-                                        periodicPayment={
-                                            installment?.total_payment
-                                                ? installment.total_payment.replace(/(\s?EUR)/g, ' €')
-                                                : localeFormattedPayment
-                                        }
-                                        currentNum={index + 1}
-                                        timeStamp={installment?.payment_date ?? donutTimestamps[index]}
-                                        numOfPayments={elements.length}
-                                    />
+                                    <Fragment>
+                                        <Donut
+                                            key={index}
+                                            useV4Design={useV4Design}
+                                            useV5Design={useV5Design}
+                                            useNewCheckoutDesign={useNewCheckoutDesign}
+                                            qualifying={qualifying}
+                                            // regex replaces EUR with the euro symbol €
+                                            periodicPayment={
+                                                installment?.total_payment
+                                                    ? installment.total_payment.replace(/(\s?EUR)/g, ' €')
+                                                    : localeFormattedPayment
+                                            }
+                                            currentNum={index + 1}
+                                            timeStamp={installment?.payment_date ?? donutTimestamps[index]}
+                                            numOfPayments={elements.length}
+                                        />
+                                        {useV5Design === 'true' && useNewCheckoutDesign === 'true' && (
+                                            <span className={`dashed-line-${index}`} />
+                                        )}
+                                    </Fragment>
                                 ))}
-                                {useV5Design === 'true' && useNewCheckoutDesign === 'true' && (
-                                    <span className="dashed-line" />
-                                )}
                             </div>
                         </div>
                         {isPreapproved && (

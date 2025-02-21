@@ -56,31 +56,62 @@
         }
     }
 
-    .dashed-line {
+    .dashed-line-0 {
         border-bottom: 1px dashed $dark-gray;
         width: 100%;
-        max-width: 280px;
+        max-width: 115px;
         height: 1px;
         position: absolute;
-        left: 50%;
+        left: 33%;
         top: 2.75%;
         transform: translate(-50%, -50%);
 
+        @include lander {
+            max-width: 130px;
+            left: 37%;
+            top: 3.5%;
+        }
+
         @include mobile {
-            max-width: 235px;
+            z-index: 9;
+            max-width: 105px;
             height: 1px;
-            left: 50%;
+            left: 33%;
             top: 2.75%;
             transform: translate(-50%, -50%);
         }
-        @include smallMobile {
-            max-width: 200px;
+    }
+
+    .dashed-line-1 {
+        border-bottom: 1px dashed $dark-gray;
+        width: 100%;
+        max-width: 115px;
+        height: 1px;
+        position: absolute;
+        left: 67%;
+        top: 2.75%;
+        transform: translate(-50%, -50%);
+
+        @include lander {
+            max-width: 130px;
+            left: 63%;
+            top: 3.5%;
+        }
+
+        @include mobile {
+            border-bottom: 1px dashed $dark-gray;
+            width: 100%;
+            max-width: 103px;
             height: 1px;
             position: absolute;
-            left: 50%;
-            top: 2.5%;
+            left: 67%;
+            top: 2.75%;
             transform: translate(-50%, -50%);
         }
+    }
+
+    .dashed-line-2 {
+        display: none;
     }
 
     .learnMoreLink__container {
