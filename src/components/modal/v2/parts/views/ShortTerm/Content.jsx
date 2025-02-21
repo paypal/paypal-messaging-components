@@ -112,7 +112,11 @@ export const ShortTerm = ({
         <Fragment>
             <style>{styles._getCss()}</style>
             <div className="dynamic__container">
-                <div className={`content__row dynamic ${useNewCheckoutDesign === 'true' ? 'checkout' : ''}`}>
+                <div
+                    className={`content__row dynamic ${
+                        useNewCheckoutDesign === 'true' ? 'checkout' : ''
+                    } ${countryClassName}`}
+                >
                     <div className="content__col">
                         <div className={`content__row donuts ${useNewCheckoutDesign === 'true' ? 'checkout' : ''}`}>
                             <div className="donuts__container">
@@ -123,6 +127,7 @@ export const ShortTerm = ({
                                             useV4Design={useV4Design}
                                             useV5Design={useV5Design}
                                             useNewCheckoutDesign={useNewCheckoutDesign}
+                                            country={country}
                                             qualifying={qualifying}
                                             // regex replaces EUR with the euro symbol €
                                             periodicPayment={
