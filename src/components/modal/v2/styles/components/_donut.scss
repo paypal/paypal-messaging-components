@@ -130,7 +130,7 @@ $donut-text-v5: #545d68;
             flex-direction: column;
             align-items: center;
 
-            &:not(.checkout) {
+            .v4Design & {
                 &::after {
                     content: '';
                     flex-grow: 1;
