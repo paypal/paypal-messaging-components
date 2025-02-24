@@ -1,5 +1,23 @@
 # Changelog
 
+## [1.66.0](https://github.com/paypal/paypal-messaging-components/compare/v1.65.4...v1.66.0) (2025-02-04)
+
+
+### Features
+
+* deprecate legacy messages and modals ([#1153](https://github.com/paypal/paypal-messaging-components/issues/1153)) ([267a3f9](https://github.com/paypal/paypal-messaging-components/commit/267a3f92392e12a54a29071f4fe8f789c37c2502))
+
+
+### Bug Fixes
+
+* corrects page type tracking value cache poisoning ([#1171](https://github.com/paypal/paypal-messaging-components/issues/1171)) ([e6c5ad0](https://github.com/paypal/paypal-messaging-components/commit/e6c5ad0d491f8f629f78ce4866da803fa9bc70e3))
+* modal reopening animation ([#1167](https://github.com/paypal/paypal-messaging-components/issues/1167)) ([8c0ac5c](https://github.com/paypal/paypal-messaging-components/commit/8c0ac5c937948555702187362f2514e8522c31b3))
+
+
+### Code Refactoring
+
+* fix de lt calculator spacing ([#1168](https://github.com/paypal/paypal-messaging-components/issues/1168)) ([7d87001](https://github.com/paypal/paypal-messaging-components/commit/7d87001e4a4a3ab88c4fd47f4308cc55f38fd06d))
+
 ### [1.65.4](https://github.com/paypal/paypal-messaging-components/compare/v1.65.3...v1.65.4) (2024-12-11)
 
 

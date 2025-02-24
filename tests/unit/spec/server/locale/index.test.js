@@ -34,16 +34,6 @@ jest.mock('server/locale/US/PAYPAL_CREDIT/mutations/ppc_ni_nq', () => ({
     'layout:flex': ['flex', 'US', 'NI']
 }));
 
-jest.mock('server/locale/US/PAYPAL_CREDIT/mutations/ppc_ezp_nq_eqz', () => ({
-    'layout:text': ['text', 'US', 'EZP:ANY:EQZ'],
-    'layout:flex': ['flex', 'US', 'EZP:ANY:EQZ']
-}));
-
-jest.mock('server/locale/US/PAYPAL_CREDIT/mutations/ppc_ezp_single_eqz', () => ({
-    'layout:text': ['text', 'US', 'PALA:SINGLE:EQZ'],
-    'layout:flex': ['flex', 'US', 'PALA:SINGLE:EQZ']
-}));
-
 jest.mock('server/locale/US/PAY_LATER_SHORT_TERM/mutations/short_term_q', () => ({
     'layout:text': ['text', 'US', 'GPLQ'],
     'layout:flex': ['flex', 'US', 'GPLQ']
@@ -147,8 +137,6 @@ describe('locale methods', () => {
 
         test.each([
             ['US', 'NI'],
-            ['US', 'EZP:ANY:EQZ'],
-            ['US', 'PALA:SINGLE:EQZ'],
             ['US', 'GPLQ'],
             ['DE', 'GPL:EQZ'],
             ['DE', 'GPL:GTZ'],

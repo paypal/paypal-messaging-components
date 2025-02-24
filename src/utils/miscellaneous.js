@@ -278,20 +278,6 @@ export function getStandardProductOffer(offer) {
         case 'PLP1_SQ':
         case OFFER.PAY_LATER_PAY_IN_1:
             return OFFER.PAY_LATER_PAY_IN_1;
-        case 'EZP':
-        case 'EZP:ANY:EQZ':
-        case 'EZP:ANY:GTZ':
-        case 'PALA:MULTI:EQZ':
-        case 'PALA:MULTI:GTZ':
-        case 'PALA:SINGLE:EQZ':
-        case 'PALA:SINGLE:GTZ':
-        case OFFER.PAYPAL_CREDIT_INSTALLMENTS:
-        case 'INST':
-        case 'INST:ANY:EQZ':
-        case 'INST:ANY:GTZ':
-        case 'PALAQ:ANY:EQZ':
-        case 'PALAQ:ANY:GTZ':
-            return OFFER.PAYPAL_CREDIT_INSTALLMENTS;
         // TODO: Cleanup once content is updated
         case 'NI':
         case 'NI:NON-US':

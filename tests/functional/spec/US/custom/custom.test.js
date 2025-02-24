@@ -10,7 +10,7 @@ describe.skip('US > custom', () => {
 
     // Logitech banner
     runBannerTest(viewport, {
-        account: 'DEV0000000EAZ',
+        account: 'DEV00000000NI',
         style: {
             layout: 'custom',
             markup: 'https://www.paypalobjects.com/upstream/assets/custom/6QXSKQZUKASMW-1.html'
