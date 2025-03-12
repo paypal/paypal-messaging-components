@@ -50,7 +50,7 @@ const OfferAccordion = ({
                 <div className="accordion__row">
                     <div className="accordion__offer-field-title">{termsLabel?.eMoney}</div>
                     <div className="accordion__offer-field-value">
-                        {currencySymbolFormat(meta?.formattedPeriodicPayment)}
+                        {currencySymbolFormat(meta?.formattedTransactionAmount)}
                     </div>
                 </div>
                 <div className="accordion__row">
