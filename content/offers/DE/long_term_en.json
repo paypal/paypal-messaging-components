@@ -41,7 +41,7 @@
         "termsLabel": {
             "offerPayment": "{formattedPeriodicPayment} / month",
             "offerNumInstallments": "{total_payments} installments",
-            "eMoney": "Transaction amount e-money service",
+            "eMoney": "E-money transaction amount",
             "totalInterest": "Interest amount",
             "total": "Total amount"
         }

@@ -78,7 +78,7 @@
             min-height: 172px;
             transition: height 0.2s linear;
             margin-bottom: inherit;
-            
+
             @include smallMobile {
                 min-height: 190px;
             }
@@ -94,10 +94,6 @@
 
                 .accordion__offer-field-title {
                     color: $light-blue;
-
-                    .v5Design & {
-                        text-decoration: underline;
-                    }
                 }
             }
 
