@@ -323,7 +323,8 @@
             }
 
             &.v5Design {
-                &.headline-gb {
+                &.headline-gb,
+                &.headline-new {
                     font-family: $paypal-pro;
                     font-weight: bold;
                     font-size: 32px;

@@ -12,7 +12,8 @@ const Header = ({
     closeButtonLabel = 'Close',
     viewName,
     useV4Design,
-    useV5Design
+    useV5Design,
+    use5Dot1Design
 }) => {
     const { country } = useServerData();
     const [, handleClose] = useTransitionState();
@@ -90,7 +91,9 @@ const Header = ({
                 <h2
                     // id used for aria-labelleby on modal container element
                     id="header__headline"
-                    className={`headline-${countryClassName} ${useV5Design ? 'v5Design' : ''}`}
+                    className={`headline-${countryClassName} ${useV5Design ? 'v5Design' : ''} ${
+                        use5Dot1Design ? 'headline-new' : ''
+                    }`}
                     // eslint-disable-next-line react/no-danger
                     dangerouslySetInnerHTML={{ __html: headline }}
                 />

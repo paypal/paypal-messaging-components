@@ -63,6 +63,7 @@ const BodyContent = () => {
 
     const useV4Design = productMeta?.useV4Design === 'true';
     const useV5Design = productMeta?.useV5Design === 'true';
+    const use5Dot1Design = productMeta?.['v5.1'];
     const useNewCheckoutDesign = features?.includes('new-checkout-design') ? 'true' : 'false';
 
     // add v4Design or v5Design class to root html to update lander specific styles to v4 or v5 respectively
@@ -154,6 +155,7 @@ const BodyContent = () => {
                     viewName={viewName}
                     useV4Design={useV4Design}
                     useV5Design={useV5Design}
+                    use5Dot1Design={use5Dot1Design}
                 />
             )}
             <div
