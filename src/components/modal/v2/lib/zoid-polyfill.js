@@ -12,6 +12,7 @@ export const POSTMESSENGER_EVENT_NAMES = {
     CLOSE: 'paypal-messages-modal-close',
     SHOW: 'paypal-messages-modal-show'
 };
+export const WRAPPER_CLOSE_MESSAGE_NAME = 'MODAL_CLOSED';
 
 function listenAndAssignProps(newProps, propListeners) {
     Array.from(propListeners.values()).forEach(listener => {
@@ -20,18 +21,41 @@ function listenAndAssignProps(newProps, propListeners) {
     Object.assign(window.xprops, newProps);
 }
 
-export function validateAndUpdateBrowserProps(clientOrigin, propListeners, updatedPropsEvent) {
+export function validateAndUpdateBrowserProps(propListeners, updatedPropsEvent) {
     const {
-        origin: eventOrigin,
-        data: { eventName, id, eventPayload: newProps }
+        data: { eventPayload: newProps }
     } = updatedPropsEvent;
-
-    if (eventOrigin === clientOrigin && eventName === 'PROPS_UPDATE' && newProps && typeof newProps === 'object') {
-        // send event ack with original event id so PostMessenger will stop reposting event
-        sendEvent(new PostMessengerMessage('ack', id));
+    if (newProps && typeof newProps === 'object') {
         const validProps = validateProps(newProps);
         listenAndAssignProps(validProps, propListeners);
     }
+}
+
+export function logModalClose(linkName) {
+    logger.track({
+        index: '1',
+        et: 'CLICK',
+        event_type: 'modal_close',
+        page_view_link_name: linkName
+    });
+}
+
+export function handleModalWrapperEvents(clientOrigin, propListeners, event) {
+    const {
+        origin: eventOrigin,
+        data: { eventName, id }
+    } = event;
+    if (eventOrigin !== clientOrigin) {
+        return;
+    }
+    if (eventName === 'PROPS_UPDATE') {
+        validateAndUpdateBrowserProps(propListeners, event);
+    }
+    if (eventName === WRAPPER_CLOSE_MESSAGE_NAME) {
+        logModalClose(event.data.eventPayload.linkName);
+    }
+    // send event ack with original event id so PostMessenger will stop reposting event
+    sendEvent(new PostMessengerMessage('ack', id));
 }
 
 const setupBrowser = props => {
@@ -41,7 +65,7 @@ const setupBrowser = props => {
     window.addEventListener(
         'message',
         event => {
-            validateAndUpdateBrowserProps(clientOrigin, propListeners, event);
+            handleModalWrapperEvents(clientOrigin, propListeners, event);
         },
         false
     );
@@ -133,12 +157,7 @@ const setupBrowser = props => {
                 linkName
             };
             sendEvent(new PostMessengerMessage('message', POSTMESSENGER_EVENT_NAMES.CLOSE, eventPayload), clientOrigin);
-            logger.track({
-                index: '1',
-                et: 'CLICK',
-                event_type: 'modal_close',
-                page_view_link_name: linkName
-            });
+            logModalClose(linkName);
         },
         // Overridable defaults
         integrationType: __MESSAGES__.__TARGET__,
