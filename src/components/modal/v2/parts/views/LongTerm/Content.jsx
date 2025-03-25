@@ -80,7 +80,8 @@ export const LongTerm = ({
     },
     productMeta: { useV4Design, useV5Design },
     openProductList,
-    useNewCheckoutDesign
+    useNewCheckoutDesign,
+    use5Dot1Design
 }) => {
     const [expandedState, setExpandedState] = useState(false);
     const { amount, onClick, onClose } = useXProps();
@@ -164,6 +165,7 @@ export const LongTerm = ({
                         aprDisclaimer={offerAPRDisclaimers}
                         useV4Design={useV4Design}
                         useV5Design={useV5Design}
+                        use5Dot1Design={use5Dot1Design}
                         useNewCheckoutDesign={useNewCheckoutDesign}
                     />
                     <div className={`content__col ${expandedState ? '' : 'collapsed'}`}>

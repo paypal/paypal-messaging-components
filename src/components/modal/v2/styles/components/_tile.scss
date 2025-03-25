@@ -24,6 +24,9 @@
     &.v5Design {
         box-shadow: none;
     }
+    &.v5Dot1Design {
+        box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.04), 0px 1px 12px rgba(0, 0, 0, 0.08);
+    }
     &:hover {
         box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.04), 1px 4px 0px rgba(0, 0, 0, 0.08);
     }
@@ -68,6 +71,10 @@
                 &.v5Design {
                     font-size: 100%;
                 }
+
+                &.v5Dot1Design {
+                    color: $v5-gray;
+                }
             }
         }
     }
@@ -75,5 +82,4 @@
     &.v5Design {
         height: 100px;
     }
-
 }
