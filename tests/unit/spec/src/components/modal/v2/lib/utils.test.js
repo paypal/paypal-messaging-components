@@ -19,7 +19,7 @@ describe('validateProps', () => {
     it('validates amount, contextualComponents, and offerType, and preserves value of other props', () => {
         const propsToFix = {
             amount: '10',
-            offerTypes: 'PAY_LATER_SHORT_TERM, PAY_LATER_LONG_TERM',
+            offerType: 'PAY_LATER_SHORT_TERM, PAY_LATER_LONG_TERM',
             contextualComponents: 'paypal_button'
         };
         const propsToPreserve = {
