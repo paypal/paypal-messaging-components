@@ -1,5 +1,74 @@
 # Changelog
 
+### [1.66.4](https://github.com/paypal/paypal-messaging-components/compare/v1.66.3...v1.66.4) (2025-03-18)
+
+
+### Bug Fixes
+
+* remove alt tag from div ([#1184](https://github.com/paypal/paypal-messaging-components/issues/1184)) ([2fe1b15](https://github.com/paypal/paypal-messaging-components/commit/2fe1b15bb1a2587e4583a82cdf7afd88e3a5fe3b))
+
+
+### Code Refactoring
+
+* update v5 modal styles ([#1182](https://github.com/paypal/paypal-messaging-components/issues/1182)) ([881a239](https://github.com/paypal/paypal-messaging-components/commit/881a23925d9364841e79b1f91d1ca8c37098f0bb))
+
+### [1.66.3](https://github.com/paypal/paypal-messaging-components/compare/v1.66.2...v1.66.3) (2025-03-12)
+
+
+### Bug Fixes
+
+* update DE modal value in Offer Accordion ([#1180](https://github.com/paypal/paypal-messaging-components/issues/1180)) ([0656c1f](https://github.com/paypal/paypal-messaging-components/commit/0656c1f70cb0442a00f2a4a026e074e0cef80679))
+
+### [1.66.2](https://github.com/paypal/paypal-messaging-components/compare/v1.66.1...v1.66.2) (2025-03-10)
+
+
+### Bug Fixes
+
+* prefix client-id for lander modal events ([#1177](https://github.com/paypal/paypal-messaging-components/issues/1177)) ([092d71e](https://github.com/paypal/paypal-messaging-components/commit/092d71ed892a7e1e12980cc89232c9d97c4e1e86))
+
+### [1.66.1](https://github.com/paypal/paypal-messaging-components/compare/v1.66.0...v1.66.1) (2025-02-24)
+
+
+### Bug Fixes
+
+* page type format in req query ([#1173](https://github.com/paypal/paypal-messaging-components/issues/1173)) ([6e14913](https://github.com/paypal/paypal-messaging-components/commit/6e14913dcd4f6afeb1cb638a0ee7fca405102ee9))
+
+
+### Code Refactoring
+
+* 5.1 styling for UK Hub ([da79d61](https://github.com/paypal/paypal-messaging-components/commit/da79d6126e97050abb6481b8997e911bae41dd3e))
+* update UK XO modal ([#1176](https://github.com/paypal/paypal-messaging-components/issues/1176)) ([ca848ef](https://github.com/paypal/paypal-messaging-components/commit/ca848efde68e36877dcf327a1df5f6cea7e9cc22))
+
+## [1.66.0](https://github.com/paypal/paypal-messaging-components/compare/v1.65.4...v1.66.0) (2025-02-04)
+
+
+### Features
+
+* deprecate legacy messages and modals ([#1153](https://github.com/paypal/paypal-messaging-components/issues/1153)) ([267a3f9](https://github.com/paypal/paypal-messaging-components/commit/267a3f92392e12a54a29071f4fe8f789c37c2502))
+
+
+### Bug Fixes
+
+* corrects page type tracking value cache poisoning ([#1171](https://github.com/paypal/paypal-messaging-components/issues/1171)) ([e6c5ad0](https://github.com/paypal/paypal-messaging-components/commit/e6c5ad0d491f8f629f78ce4866da803fa9bc70e3))
+* modal reopening animation ([#1167](https://github.com/paypal/paypal-messaging-components/issues/1167)) ([8c0ac5c](https://github.com/paypal/paypal-messaging-components/commit/8c0ac5c937948555702187362f2514e8522c31b3))
+
+
+### Code Refactoring
+
+* fix de lt calculator spacing ([#1168](https://github.com/paypal/paypal-messaging-components/issues/1168)) ([7d87001](https://github.com/paypal/paypal-messaging-components/commit/7d87001e4a4a3ab88c4fd47f4308cc55f38fd06d))
+
+### [1.65.4](https://github.com/paypal/paypal-messaging-components/compare/v1.65.3...v1.65.4) (2024-12-11)
+
+
+### Bug Fixes
+
+* DE GPL LT Calculator properly display APRs ([#1163](https://github.com/paypal/paypal-messaging-components/issues/1163)) ([5cc9bcc](https://github.com/paypal/paypal-messaging-components/commit/5cc9bcce1df1cf20d978118baec6e055ee997ed9))
+
+
+### Continuous Integration
+
+* update playwright automated tests to run on all PRs ([#1158](https://github.com/paypal/paypal-messaging-components/issues/1158)) ([ef9f9d8](https://github.com/paypal/paypal-messaging-components/commit/ef9f9d88600fe0d82f77e1e354e0a483aee54b20))
+
 ### [1.65.3](https://github.com/paypal/paypal-messaging-components/compare/v1.65.2...v1.65.3) (2024-11-19)
 
 

@@ -17,7 +17,8 @@ const Donut = ({
     periodicPayment,
     qualifying,
     useV4Design,
-    useV5Design
+    useV5Design,
+    useNewCheckoutDesign
 }) => {
     const percentage = (currentNum / numOfPayments) * 100;
     const segStrokeWidth = segmentStrokeWidth ?? strokeWidth;
@@ -48,7 +49,9 @@ const Donut = ({
                 isV4OrV5Design && currentNum === numOfPayments ? 'donut__single_payment_line__end' : ''
             }`}
         >
-            <span className={`${isV5Design ? 'v5Design' : ''} svg`}>
+            <span
+                className={`${isV5Design ? 'v5Design' : ''} ${useNewCheckoutDesign === 'true' ? 'checkout' : ''} svg`}
+            >
                 <svg aria-hidden viewBox={viewBox} className="donut" style={style} xmlns="http://www.w3.org/2000/svg">
                     <circle
                         cx={cx}
