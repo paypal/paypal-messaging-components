@@ -218,7 +218,7 @@ logger.addHeaderBuilder(() => {
         const encodedClientId = btoa(getClientId());
         return {
             // Send authorization header with tracking event
-            authorization: `Basic ${encodedClientId}`
+            Authorization: `Basic ${encodedClientId}`
         };
     }
     return null;

@@ -73,7 +73,11 @@ export function getAccount() {
 }
 
 export function getClientId() {
-    return getClientID();
+    if (__MESSAGES__.__TARGET__ === 'SDK') {
+        return getClientID();
+    } else {
+        return undefined;
+    }
 }
 
 export function getPageType() {
