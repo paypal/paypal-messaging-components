@@ -173,6 +173,18 @@ export const logger = Logger({
             ? `${url}?disableSetCookie=true&features=disable-set-cookie`
             : url;
 
+        // Send authorization header with tracking event
+        if (__MESSAGES__.__TARGET__ === 'SDK') {
+            const encodedClientId = btoa(getClientId());
+            // eslint-disable-next-line no-param-reassign
+            headers.Authorization = `Basic ${encodedClientId}`;
+        }
+        if (__MESSAGES__.__TARGET__ === 'STANDALONE' || __MESSAGES__.__TARGET__ === 'STANDALONE_MODAL') {
+            const encodedPayerId = btoa(trimmedMeta['1'].account);
+            // eslint-disable-next-line no-param-reassign
+            headers.Authorization = `Basic ${encodedPayerId}`;
+        }
+
         return ZalgoPromise.all(
             translateLogData(trimmedLog).map(data => {
                 return request(method, urlWithCookieParams, {
@@ -211,15 +223,4 @@ logger.addTrackingBuilder(() => {
         // Send a timestamp with every tracking event so they can be correctly ordered
         timestamp: new Date().getTime()
     };
-});
-
-logger.addHeaderBuilder(() => {
-    if (__MESSAGES__.__TARGET__ === 'SDK') {
-        const encodedClientId = btoa(getClientId());
-        return {
-            // Send authorization header with tracking event
-            Authorization: `Basic ${encodedClientId}`
-        };
-    }
-    return null;
 });
