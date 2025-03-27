@@ -62,6 +62,7 @@ const TermsTable = ({
                     activeSelection={activeSelection}
                     setActiveSelection={setActiveSelection}
                     useV5Design={useV5Design}
+                    use5Dot1Design={use5Dot1Design}
                 />
             );
         });

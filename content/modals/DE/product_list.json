@@ -1,7 +1,8 @@
 {
     "meta": {
         "product": "PRODUCT_LIST",
-        "useV5Design": "false"
+        "useV5Design": "true",
+        "v5.1": "true"
     },
     "content": {
         "headline": "<span aria-hidden='true'>Jetzt kaufen, <br/>später bezahlen</span><span class='sr-only'>Jetzt kaufen, später bezahlen</span>",

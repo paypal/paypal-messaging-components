@@ -13,6 +13,7 @@
         "total_payments": "{total_payments}",
         "formattedTotalCost": "{formattedTotalCost}",
         "formattedTotalInterest": "{formattedTotalInterest}",
+        "formattedTransactionAmount": "{formattedTransactionAmount}",
         "variables": {
             "transaction_amount": "${eval(transaction_amount ? transaction_amount : '-')}",
             "qualifying_offer": "${eval(CREDIT_OFFERS_DS.qualifying_offer ? CREDIT_OFFERS_DS.qualifying_offer : 'false')}",
