@@ -9,7 +9,7 @@ jobs:
     getMatrix:
         name: Get Matrix
         if: github.event.label.name == 'snapshots' || github.event_name == 'workflow_dispatch'
-        runs-on: ubuntu-latest
+        runs-on: ubuntu-24.04
         outputs:
             testPathPatterns: ${{ steps.setTestPathPatterns.outputs.testPathPatterns }}
             testConfigs: ${{ steps.setTestConfigs.outputs.testConfigs }}
@@ -31,7 +31,7 @@ jobs:
     captureMetadata:
         name: Capture Metadata
         if: github.event_name == 'pull_request'
-        runs-on: ubuntu-latest
+        runs-on: ubuntu-24.04
         needs: getMatrix
         steps:
             - name: Capture PR Number
@@ -47,7 +47,7 @@ jobs:
 
     updateSnapshots:
         name: Update
-        runs-on: ubuntu-latest
+        runs-on: ubuntu-24.04
         needs: getMatrix
         strategy:
             matrix:
@@ -128,7 +128,7 @@ jobs:
 
     updateSnapshotsV2:
         name: Update V2
-        runs-on: ubuntu-latest
+        runs-on: ubuntu-24.04
         needs: getMatrix
         strategy:
             matrix:

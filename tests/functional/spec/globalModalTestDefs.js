@@ -10,7 +10,7 @@ import modalSnapshot from './utils/modalSnapshot';
 export const xClosesModal =
     ({ account, viewport, groupString }) =>
     async () => {
-        let testNameParts = 'ezp x button closes modal';
+        let testNameParts = 'x button closes modal';
         logTestName({ account, viewport, groupString, testNameParts });
 
         if (account.includes('NI')) {

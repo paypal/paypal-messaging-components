@@ -28,6 +28,19 @@ export function validateAndUpdateBrowserProps(initialProps, propListeners, updat
     }
 }
 
+const getAccount = (merchantId, clientId, payerId) => {
+    if (merchantId) {
+        return merchantId;
+    }
+
+    // Logger endpoint expects account field to be prefixed if the value is a clientId
+    if (clientId) {
+        return `client-id:${clientId}`;
+    }
+
+    return payerId;
+};
+
 const setupBrowser = props => {
     const propListeners = new Set();
 
@@ -70,7 +83,7 @@ const setupBrowser = props => {
                         // TODO: This should likely be specific to this integration type
                         type: 'modal',
                         // messageRequestId,
-                        account: merchantId || clientId || payerId,
+                        account: getAccount(merchantId, clientId, payerId),
                         trackingDetails
                     }
                 };
