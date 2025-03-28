@@ -8,14 +8,14 @@ const IOS_INTERFACE_NAME = 'paypalMessageModalCallbackHandler';
 const ANDROID_INTERFACE_NAME = 'paypalMessageModalCallbackHandler';
 // these constants should maintain parity with MESSAGE_MODAL_EVENT_NAMES in core-web-sdk
 
-function listenAndAssignProps(newProps, propListeners) {
+function updateProps(newProps, propListeners) {
     Array.from(propListeners.values()).forEach(listener => {
         listener({ ...window.xprops, ...newProps });
     });
     Object.assign(window.xprops, newProps);
 }
 
-export function validateAndUpdateBrowserProps(clientOrigin, propListeners, updatedPropsEvent) {
+export function handleBrowserEvents(clientOrigin, propListeners, updatedPropsEvent) {
     const {
         origin: eventOrigin,
         data: { eventName, id, eventPayload: newProps }
@@ -25,7 +25,7 @@ export function validateAndUpdateBrowserProps(clientOrigin, propListeners, updat
         // send event ack with original event id so PostMessenger will stop reposting event
         sendEvent(createPostMessengerEvent('ack', id), clientOrigin);
         const validProps = validateProps(newProps);
-        listenAndAssignProps(validProps, propListeners);
+        updateProps(validProps, propListeners);
     }
 }
 
@@ -49,7 +49,7 @@ const setupBrowser = props => {
     window.addEventListener(
         'message',
         event => {
-            validateAndUpdateBrowserProps(clientOrigin, propListeners, event);
+            handleBrowserEvents(clientOrigin, propListeners, event);
         },
         false
     );
@@ -184,7 +184,7 @@ const setupWebview = props => {
     window.actions = {
         updateProps: newProps => {
             if (newProps && typeof newProps === 'object') {
-                listenAndAssignProps(newProps, propListeners);
+                updateProps(newProps, propListeners);
             }
         }
     };
