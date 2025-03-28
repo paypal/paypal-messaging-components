@@ -6,14 +6,14 @@ import { isIframe, validateProps, sendEventAck } from './utils';
 const IOS_INTERFACE_NAME = 'paypalMessageModalCallbackHandler';
 const ANDROID_INTERFACE_NAME = 'paypalMessageModalCallbackHandler';
 
-function listenAndAssignProps(newProps, propListeners) {
+function updateProps(newProps, propListeners) {
     Array.from(propListeners.values()).forEach(listener => {
         listener({ ...window.xprops, ...newProps });
     });
     Object.assign(window.xprops, newProps);
 }
 
-export function validateAndUpdateBrowserProps(initialProps, propListeners, updatedPropsEvent) {
+export function handleBrowserEvents(initialProps, propListeners, updatedPropsEvent) {
     const {
         origin: eventOrigin,
         data: { eventName, id, eventPayload: newProps }
@@ -24,7 +24,7 @@ export function validateAndUpdateBrowserProps(initialProps, propListeners, updat
         // send event ack so PostMessenger will stop reposting event
         sendEventAck(id, clientOrigin);
         const validProps = validateProps(newProps);
-        listenAndAssignProps(validProps, propListeners);
+        updateProps(validProps, propListeners);
     }
 }
 
@@ -47,7 +47,7 @@ const setupBrowser = props => {
     window.addEventListener(
         'message',
         event => {
-            validateAndUpdateBrowserProps(props, propListeners, event);
+            handleBrowserEvents(props, propListeners, event);
         },
         false
     );
@@ -170,7 +170,7 @@ const setupWebview = props => {
     window.actions = {
         updateProps: newProps => {
             if (newProps && typeof newProps === 'object') {
-                listenAndAssignProps(newProps, propListeners);
+                updateProps(newProps, propListeners);
             }
         }
     };

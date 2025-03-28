@@ -1,4 +1,4 @@
-import zoidPolyfill, { validateAndUpdateBrowserProps } from 'src/components/modal/v2/lib/zoid-polyfill';
+import zoidPolyfill, { handleBrowserEvents } from 'src/components/modal/v2/lib/zoid-polyfill';
 import { logger } from 'src/utils';
 
 // Mock all of utils because the `stats` util that would be included has a side-effect call to logger.track
@@ -440,9 +440,9 @@ describe('zoidPollyfill', () => {
                 expect(addEventListenerSpy).toHaveBeenCalledTimes(1);
                 expect(addEventListenerSpy).toHaveBeenCalledWith('message', expect.any(Function), false);
             });
-            test('validateAndUpdateBrowserProps updates props when values are valid', () => {
+            test('handleBrowserEvents updates props when values are valid', () => {
                 // jest doesn't support calling postMessage, so we cannot use the event listener above
-                // instead we will manually verify that validateAndUpdateBrowserProps works as intended
+                // instead we will manually verify that handleBrowserEvents works as intended
                 const newPropsEvent = {
                     origin: 'http://example.com',
                     data: {
@@ -457,7 +457,7 @@ describe('zoidPollyfill', () => {
                 const propListeners = new Set();
                 const onPropsCallback = jest.fn();
                 propListeners.add(onPropsCallback);
-                validateAndUpdateBrowserProps(window.xprops, propListeners, newPropsEvent);
+                handleBrowserEvents(window.xprops, propListeners, newPropsEvent);
 
                 expect(onPropsCallback).toHaveBeenCalledTimes(1);
                 expect(onPropsCallback).toHaveBeenCalledWith(
@@ -469,7 +469,7 @@ describe('zoidPollyfill', () => {
                     })
                 );
             });
-            test('validateAndUpdateBrowserProps handles unrelated events with no data', () => {
+            test('handleBrowserEvents handles unrelated events with no data', () => {
                 const unrelatedEvent = {
                     data: {}
                 };
@@ -477,7 +477,7 @@ describe('zoidPollyfill', () => {
                 const propListeners = new Set();
                 const onPropsCallback = jest.fn();
                 propListeners.add(onPropsCallback);
-                validateAndUpdateBrowserProps(window.xprops, propListeners, unrelatedEvent);
+                handleBrowserEvents(window.xprops, propListeners, unrelatedEvent);
 
                 expect(onPropsCallback).toHaveBeenCalledTimes(0);
             });
