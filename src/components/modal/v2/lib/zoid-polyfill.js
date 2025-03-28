@@ -2,16 +2,11 @@
 import { isAndroidWebview, isIosWebview, getPerformance } from '@krakenjs/belter/src';
 import { getOrCreateDeviceID, logger } from '../../../../utils';
 import { validateProps } from './utils';
-import { sendEvent, PostMessengerMessage } from './postMessage';
+import { sendEvent, createPostMessengerEvent, POSTMESSENGER_EVENT_NAMES } from './postMessage';
 
 const IOS_INTERFACE_NAME = 'paypalMessageModalCallbackHandler';
 const ANDROID_INTERFACE_NAME = 'paypalMessageModalCallbackHandler';
 // these constants should maintain parity with MESSAGE_MODAL_EVENT_NAMES in core-web-sdk
-export const POSTMESSENGER_EVENT_NAMES = {
-    CALCULATE: 'paypal-messages-modal-calculate',
-    CLOSE: 'paypal-messages-modal-close',
-    SHOW: 'paypal-messages-modal-show'
-};
 
 function listenAndAssignProps(newProps, propListeners) {
     Array.from(propListeners.values()).forEach(listener => {
@@ -28,7 +23,7 @@ export function validateAndUpdateBrowserProps(clientOrigin, propListeners, updat
 
     if (eventOrigin === clientOrigin && eventName === 'PROPS_UPDATE' && newProps && typeof newProps === 'object') {
         // send event ack with original event id so PostMessenger will stop reposting event
-        sendEvent(new PostMessengerMessage('ack', id));
+        sendEvent(createPostMessengerEvent('ack', id), clientOrigin);
         const validProps = validateProps(newProps);
         listenAndAssignProps(validProps, propListeners);
     }
@@ -117,9 +112,11 @@ const setupBrowser = props => {
             });
         },
         onCalculate: ({ value }) => {
-            const eventPayload = {};
+            const eventPayload = {
+                // for data security, also add new params to createSafePayload in ./postMessage.js
+            };
             sendEvent(
-                new PostMessengerMessage('message', POSTMESSENGER_EVENT_NAMES.CALCULATE, eventPayload),
+                createPostMessengerEvent('message', POSTMESSENGER_EVENT_NAMES.CALCULATE, eventPayload),
                 clientOrigin
             );
             logger.track({
@@ -132,8 +129,10 @@ const setupBrowser = props => {
             });
         },
         onShow: () => {
-            const eventPayload = {};
-            sendEvent(new PostMessengerMessage('message', POSTMESSENGER_EVENT_NAMES.SHOW, eventPayload), clientOrigin);
+            const eventPayload = {
+                // for data security, also add new params to createSafePayload in ./postMessage.js
+            };
+            sendEvent(createPostMessengerEvent('message', POSTMESSENGER_EVENT_NAMES.SHOW, eventPayload), clientOrigin);
             logger.track({
                 index: '1',
                 et: 'CLIENT_IMPRESSION',
@@ -144,8 +143,9 @@ const setupBrowser = props => {
         onClose: ({ linkName }) => {
             const eventPayload = {
                 linkName
+                // for data security, also add new params to createSafePayload in ./postMessage.js
             };
-            sendEvent(new PostMessengerMessage('message', POSTMESSENGER_EVENT_NAMES.CLOSE, eventPayload), clientOrigin);
+            sendEvent(createPostMessengerEvent('message', POSTMESSENGER_EVENT_NAMES.CLOSE, eventPayload), clientOrigin);
             logger.track({
                 index: '1',
                 et: 'CLICK',

@@ -1,3 +1,5 @@
+import { uniqueID } from '@krakenjs/belter/src';
+
 // these constants are defined in PostMessenger
 const POSTMESSENGER_EVENT_TYPES = {
     ACK: 'ack',
@@ -7,48 +9,63 @@ const POSTMESSENGER_ACK_PAYLOAD = {
     ok: 'true'
 };
 
-function createUUID() {
-    // crypto.randomUUID() is only available in HTTPS secure environments and modern browsers
-    if (typeof crypto !== 'undefined' && crypto && crypto.randomUUID instanceof Function) {
-        return crypto.randomUUID();
-    }
-
-    const validChars = '0123456789abcdefghijklmnopqrstuvwxyz';
-    const stringLength = 32;
-    let randomId = '';
-    for (let index = 0; index < stringLength; index++) {
-        const randomIndex = Math.floor(Math.random() * validChars.length);
-        randomId += validChars.charAt(randomIndex);
-    }
-    return randomId;
-}
+export const POSTMESSENGER_EVENT_NAMES = {
+    CALCULATE: 'paypal-messages-modal-calculate',
+    CLOSE: 'paypal-messages-modal-close',
+    SHOW: 'paypal-messages-modal-show'
+};
 
 export function sendEvent(payload, trustedOrigin) {
-    // target window selection depends on if checkout window is in popup or modal iframe
-    let targetWindow;
-    const isPopup = window.parent === window;
-    const isTest = process.env.NODE_ENV === 'test';
-    // jest postMessage mock is on window.parent
-    if (isPopup && !isTest) {
-        targetWindow = window.opener;
-    } else {
-        targetWindow = window.parent;
+    if (!trustedOrigin && !document.referrer) {
+        return;
     }
 
-    targetWindow.postMessage(payload, trustedOrigin);
+    const isTest = process.env.NODE_ENV === 'test';
+    const targetWindow = !isTest && window.parent === window ? window.opener : window.parent;
+
+    // referrer origin is used by integrations not passing in props.origin manually
+    // eslint-disable-next-line compat/compat
+    const referrerOrigin = !isTest ? new window.URL(document.referrer)?.origin : undefined;
+
+    targetWindow.postMessage(payload, trustedOrigin || referrerOrigin);
 }
 
-export class PostMessengerMessage {
-    constructor(type, eventName, eventPayload) {
-        this.eventName = eventName;
-        this.id = createUUID();
+// This function provides data security by preventing accidentally exposing sensitive data; we are adding
+// an extra layer of validation here by only allowing explicitly approved fields to be included
+function createSafePayload(unscreenedPayload) {
+    const allowedFields = [
+        'linkName' // close event
+    ];
 
-        if (type === 'ack') {
-            this.type = POSTMESSENGER_EVENT_TYPES.ACK;
-            this.eventPayload = POSTMESSENGER_ACK_PAYLOAD;
-        } else if (type === 'message') {
-            this.type = POSTMESSENGER_EVENT_TYPES.MESSAGE;
-            this.eventPayload = eventPayload;
+    const safePayload = {};
+    const entries = Object.entries(unscreenedPayload);
+    entries.forEach(entry => {
+        const [key, value] = entry;
+        if (allowedFields.includes(key)) {
+            safePayload[key] = value;
         }
+    });
+
+    return safePayload;
+}
+
+export function createPostMessengerEvent(typeArg, eventName, eventPayloadArg) {
+    let type;
+    let eventPayload;
+
+    if (typeArg === 'ack') {
+        type = POSTMESSENGER_EVENT_TYPES.ACK;
+        eventPayload = POSTMESSENGER_ACK_PAYLOAD;
+    } else if (typeArg === 'message') {
+        type = POSTMESSENGER_EVENT_TYPES.MESSAGE;
+        // createSafePayload
+        eventPayload = createSafePayload(eventPayloadArg);
     }
+
+    return {
+        eventName,
+        id: uniqueID(),
+        type,
+        eventPayload
+    };
 }

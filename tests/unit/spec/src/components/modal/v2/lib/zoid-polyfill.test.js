@@ -1,7 +1,5 @@
-import zoidPolyfill, {
-    validateAndUpdateBrowserProps,
-    POSTMESSENGER_EVENT_NAMES
-} from 'src/components/modal/v2/lib/zoid-polyfill';
+import zoidPolyfill, { validateAndUpdateBrowserProps } from 'src/components/modal/v2/lib/zoid-polyfill';
+import { POSTMESSENGER_EVENT_NAMES } from 'src/components/modal/v2/lib/postMessage';
 import { logger } from 'src/utils';
 
 // Mock all of utils because the `stats` util that would be included has a side-effect call to logger.track
