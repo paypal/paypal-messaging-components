@@ -1,14 +1,14 @@
 import openModal from '../../utils/initializeModal';
 import { viewports, getGroupString } from '../../utils/testStylesConfig';
 import { xClosesModal, closeModalEsc, clickOutsideClosesModal, closeReopenModal } from '../../globalModalTestDefs';
-import { clickHereSeeTerms, applyNowBtn, switchTabs } from './us_modalTestDefs';
+import { clickHereSeeTerms, applyNowBtn } from './us_modalTestDefs';
 
-const accounts = ['DEV0000000PSZ'];
+const accounts = ['DEV_US_NO_INTEREST'];
 
 describe.each([
     [accounts[0], viewports[0]],
     [accounts[0], viewports[1]]
-])('US EZP basic standalone modal functionality tests %o', (account, viewport) => {
+])('US basic standalone modal functionality tests %o', (account, viewport) => {
     beforeEach(async () => {
         await openModal(viewport, { account }, 'modal-standalone.html');
     });
@@ -36,6 +36,4 @@ describe.each([
         `${groupString} apply now button opens browser to credit application login`,
         applyNowBtn({ account, viewport, groupString })
     );
-
-    test(`${groupString} EZP content by clicking tabs`, switchTabs({ account, viewport, groupString }));
 });

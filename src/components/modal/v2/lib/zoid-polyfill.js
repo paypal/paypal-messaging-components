@@ -2,32 +2,27 @@
 import { isAndroidWebview, isIosWebview, getPerformance } from '@krakenjs/belter/src';
 import { getOrCreateDeviceID, logger } from '../../../../utils';
 import { validateProps } from './utils';
-import { sendEvent, PostMessengerMessage } from './postMessage';
+import { sendEvent, createPostMessengerEvent, POSTMESSENGER_EVENT_NAMES } from './postMessage';
 
 const IOS_INTERFACE_NAME = 'paypalMessageModalCallbackHandler';
 const ANDROID_INTERFACE_NAME = 'paypalMessageModalCallbackHandler';
 // these constants should maintain parity with MESSAGE_MODAL_EVENT_NAMES in core-web-sdk
-export const POSTMESSENGER_EVENT_NAMES = {
-    CALCULATE: 'paypal-messages-modal-calculate',
-    CLOSE: 'paypal-messages-modal-close',
-    SHOW: 'paypal-messages-modal-show'
-};
 export const WRAPPER_CLOSE_MESSAGE_NAME = 'MODAL_CLOSED';
 
-function listenAndAssignProps(newProps, propListeners) {
+function updateProps(newProps, propListeners) {
     Array.from(propListeners.values()).forEach(listener => {
         listener({ ...window.xprops, ...newProps });
     });
     Object.assign(window.xprops, newProps);
 }
 
-export function validateAndUpdateBrowserProps(propListeners, updatedPropsEvent) {
+export function handlePropsUpdateEvent(propListeners, updatedPropsEvent) {
     const {
         data: { eventPayload: newProps }
     } = updatedPropsEvent;
     if (newProps && typeof newProps === 'object') {
         const validProps = validateProps(newProps);
-        listenAndAssignProps(validProps, propListeners);
+        updateProps(validProps, propListeners);
     }
 }
 
@@ -40,7 +35,7 @@ export function logModalClose(linkName) {
     });
 }
 
-export function handleModalWrapperEvents(clientOrigin, propListeners, event) {
+export function handleBrowserEvents(clientOrigin, propListeners, event) {
     const {
         origin: eventOrigin,
         data: { eventName, id }
@@ -49,14 +44,27 @@ export function handleModalWrapperEvents(clientOrigin, propListeners, event) {
         return;
     }
     if (eventName === 'PROPS_UPDATE') {
-        validateAndUpdateBrowserProps(propListeners, event);
+        handlePropsUpdateEvent(propListeners, event);
     }
     if (eventName === WRAPPER_CLOSE_MESSAGE_NAME) {
         logModalClose(event.data.eventPayload.linkName);
     }
     // send event ack with original event id so PostMessenger will stop reposting event
-    sendEvent(new PostMessengerMessage('ack', id));
+    sendEvent(createPostMessengerEvent('ack', id), clientOrigin);
 }
+
+const getAccount = (merchantId, clientId, payerId) => {
+    if (merchantId) {
+        return merchantId;
+    }
+
+    // Logger endpoint expects account field to be prefixed if the value is a clientId
+    if (clientId) {
+        return `client-id:${clientId}`;
+    }
+
+    return payerId;
+};
 
 const setupBrowser = props => {
     const propListeners = new Set();
@@ -65,7 +73,7 @@ const setupBrowser = props => {
     window.addEventListener(
         'message',
         event => {
-            handleModalWrapperEvents(clientOrigin, propListeners, event);
+            handleBrowserEvents(clientOrigin, propListeners, event);
         },
         false
     );
@@ -101,7 +109,7 @@ const setupBrowser = props => {
                         // TODO: This should likely be specific to this integration type
                         type: 'modal',
                         // messageRequestId,
-                        account: merchantId || clientId || payerId,
+                        account: getAccount(merchantId, clientId, payerId),
                         trackingDetails
                     }
                 };
@@ -128,9 +136,11 @@ const setupBrowser = props => {
             });
         },
         onCalculate: ({ value }) => {
-            const eventPayload = {};
+            const eventPayload = {
+                // for data security, also add new params to createSafePayload in ./postMessage.js
+            };
             sendEvent(
-                new PostMessengerMessage('message', POSTMESSENGER_EVENT_NAMES.CALCULATE, eventPayload),
+                createPostMessengerEvent('message', POSTMESSENGER_EVENT_NAMES.CALCULATE, eventPayload),
                 clientOrigin
             );
             logger.track({
@@ -143,8 +153,10 @@ const setupBrowser = props => {
             });
         },
         onShow: () => {
-            const eventPayload = {};
-            sendEvent(new PostMessengerMessage('message', POSTMESSENGER_EVENT_NAMES.SHOW, eventPayload), clientOrigin);
+            const eventPayload = {
+                // for data security, also add new params to createSafePayload in ./postMessage.js
+            };
+            sendEvent(createPostMessengerEvent('message', POSTMESSENGER_EVENT_NAMES.SHOW, eventPayload), clientOrigin);
             logger.track({
                 index: '1',
                 et: 'CLIENT_IMPRESSION',
@@ -155,8 +167,9 @@ const setupBrowser = props => {
         onClose: ({ linkName }) => {
             const eventPayload = {
                 linkName
+                // for data security, also add new params to createSafePayload in ./postMessage.js
             };
-            sendEvent(new PostMessengerMessage('message', POSTMESSENGER_EVENT_NAMES.CLOSE, eventPayload), clientOrigin);
+            sendEvent(createPostMessengerEvent('message', POSTMESSENGER_EVENT_NAMES.CLOSE, eventPayload), clientOrigin);
             logModalClose(linkName);
         },
         // Overridable defaults
@@ -190,7 +203,7 @@ const setupWebview = props => {
     window.actions = {
         updateProps: newProps => {
             if (newProps && typeof newProps === 'object') {
-                listenAndAssignProps(newProps, propListeners);
+                updateProps(newProps, propListeners);
             }
         }
     };

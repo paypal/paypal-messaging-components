@@ -1,8 +1,8 @@
 import zoidPolyfill, {
-    handleModalWrapperEvents,
-    POSTMESSENGER_EVENT_NAMES,
+    handleBrowserEvents,
     WRAPPER_CLOSE_MESSAGE_NAME
 } from 'src/components/modal/v2/lib/zoid-polyfill';
+import { POSTMESSENGER_EVENT_NAMES } from 'src/components/modal/v2/lib/postMessage';
 import { logger } from 'src/utils';
 
 // Mock all of utils because the `stats` util that would be included has a side-effect call to logger.track
@@ -451,9 +451,9 @@ describe('zoidPollyfill', () => {
                 expect(addEventListenerSpy).toHaveBeenCalledTimes(1);
                 expect(addEventListenerSpy).toHaveBeenCalledWith('message', expect.any(Function), false);
             });
-            test('handleModalWrapperEvents handles PROPS_UPDATE and updates props when values are valid', () => {
+            test('handleBrowserEvents handles PROPS_UPDATE and updates props when values are valid', () => {
                 // jest doesn't support calling postMessage, so we cannot use the event listener above
-                // instead we will manually verify that handleModalWrapperEvents works as intended
+                // instead we will manually verify that handleBrowserEvents works as intended
                 const clientOrigin = 'http://example.com';
 
                 const newPropsEvent = {
@@ -462,7 +462,7 @@ describe('zoidPollyfill', () => {
                         eventName: 'PROPS_UPDATE',
                         eventPayload: {
                             amount: 1000,
-                            offerTypes: ['PAY_LATER_LONG_TERM', 'PAY_LATER_SHORT_TERM']
+                            offerType: ['PAY_LATER_LONG_TERM', 'PAY_LATER_SHORT_TERM']
                         }
                     }
                 };
@@ -470,7 +470,7 @@ describe('zoidPollyfill', () => {
                 const propListeners = new Set();
                 const onPropsCallback = jest.fn();
                 propListeners.add(onPropsCallback);
-                handleModalWrapperEvents(clientOrigin, propListeners, newPropsEvent);
+                handleBrowserEvents(clientOrigin, propListeners, newPropsEvent);
 
                 expect(onPropsCallback).toHaveBeenCalledTimes(1);
                 expect(onPropsCallback).toHaveBeenCalledWith(
@@ -482,9 +482,9 @@ describe('zoidPollyfill', () => {
                     })
                 );
             });
-            test('handleModalWrapperEvents handles MODAL_CLOSE and logs close method', () => {
+            test('handleBrowserEvents handles MODAL_CLOSE and logs close method', () => {
                 // jest doesn't support calling postMessage, so we cannot use the event listener above
-                // instead we will manually verify that handleModalWrapperEvents works as intended
+                // instead we will manually verify that handleBrowserEvents works as intended
                 const clientOrigin = 'http://example.com';
 
                 const newPropsEvent = {
@@ -500,7 +500,7 @@ describe('zoidPollyfill', () => {
                 const propListeners = new Set();
                 const onPropsCallback = jest.fn();
                 propListeners.add(onPropsCallback);
-                handleModalWrapperEvents(clientOrigin, propListeners, newPropsEvent);
+                handleBrowserEvents(clientOrigin, propListeners, newPropsEvent);
 
                 expect(logger.track).toHaveBeenCalledTimes(1);
                 expect(logger.track).toHaveBeenCalledWith(
@@ -512,7 +512,7 @@ describe('zoidPollyfill', () => {
                     })
                 );
             });
-            test('handleModalWrapperEvents handles unrelated events with no data', () => {
+            test('handleBrowserEvents handles unrelated events with no data', () => {
                 const unrelatedEvent = {
                     data: {}
                 };
@@ -520,7 +520,7 @@ describe('zoidPollyfill', () => {
                 const propListeners = new Set();
                 const onPropsCallback = jest.fn();
                 propListeners.add(onPropsCallback);
-                handleModalWrapperEvents(window.xprops, propListeners, unrelatedEvent);
+                handleBrowserEvents(window.xprops, propListeners, unrelatedEvent);
 
                 expect(onPropsCallback).toHaveBeenCalledTimes(0);
             });

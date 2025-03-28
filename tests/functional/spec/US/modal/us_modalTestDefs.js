@@ -69,43 +69,6 @@ export const applyNowBtn =
         await modalSnapshot(`${groupString} ${testNameParts}`, viewport, account);
     };
 
-/**
- * Runs inside modalCalc.test.js for the US locale.
- */
-export const nonQualErrorEZP =
-    ({ account, viewport, groupString }) =>
-    async () => {
-        const testNameParts = 'non-qualifying ezp amount error message';
-        logTestName({ account, viewport, groupString, testNameParts });
-
-        const elementModal = await page.$(selectors.modal.iframe);
-        const modalFrame = await elementModal.contentFrame();
-
-        await modalFrame.waitForSelector(selectors.calculator.calc);
-        await page.waitFor(1000);
-        await modalFrame.click(selectors.calculator.calcInput, { clickCount: 3 });
-        await page.waitFor(1000);
-        await modalFrame.type(selectors.calculator.calcInput, '2');
-        await modalFrame.click(selectors.button.btnSecondary);
-        await page.waitFor(4 * 1000);
-
-        await modalSnapshot(`${groupString} ${testNameParts}`, viewport, account);
-    };
-
-export const ezpFinanceTerms =
-    ({ account, viewport, groupString }) =>
-    async () => {
-        const testNameParts = 'ezp finance terms';
-        logTestName({ account, viewport, groupString, testNameParts });
-
-        const elementModal = await page.$(selectors.modal.iframe);
-        const modalFrame = await elementModal.contentFrame();
-        await modalFrame.waitForSelector(selectors.modal.container, { visible: true });
-        await page.waitFor(800);
-
-        await modalSnapshot(`${groupString} ${testNameParts}`, viewport, account);
-    };
-
 export const updateFinanceTerms =
     ({ account, viewport, groupString }) =>
     async () => {
@@ -121,54 +84,4 @@ export const updateFinanceTerms =
         await page.waitFor(4 * 1000);
 
         await modalSnapshot(`${groupString} ${testNameParts}`, viewport, account);
-    };
-
-export const ezpModalContent =
-    ({ account, viewport, groupString }) =>
-    async () => {
-        const testNameParts = 'ezp message content';
-        logTestName({ account, viewport, groupString, testNameParts });
-
-        const elementModal = await page.$(selectors.modal.iframe);
-        const modalFrame = await elementModal.contentFrame();
-        await page.waitFor(1000);
-        await modalFrame.waitForSelector(selectors.calculator.calc);
-        await page.waitFor(800);
-
-        const calc = modalFrame.$eval(selectors.calculator.calc, element => element);
-        expect(calc).toBeTruthy();
-
-        await modalFrame.waitForSelector(selectors.modal.contentBody);
-        await modalFrame.waitForSelector(selectors.modal.contentBodyTitle);
-
-        const contentHeaderTitle = await modalFrame.$eval(
-            selectors.modal.ezpContentHeaderTitle,
-            element => element.innerText
-        );
-        const calcTitle = await modalFrame.$eval(selectors.calculator.calcTitle, element => element.innerText);
-
-        expect(contentHeaderTitle).toContain('Split your purchases into equal monthly payments');
-        expect(calcTitle).toContain('Enter a purchase amount to calculate your monthly Easy Payments.');
-        await page.waitFor(300);
-
-        await modalSnapshot(`${groupString} ${testNameParts}`, viewport, account);
-    };
-
-export const switchTabs =
-    ({ account, viewport, groupString }) =>
-    async () => {
-        const testNameParts = 'EZP and NI tabs click';
-        logTestName({ account, viewport, groupString, testNameParts });
-
-        const elementModal = await page.$(selectors.modal.iframe);
-        const modalFrame = await elementModal.contentFrame();
-        await modalFrame.waitForSelector(selectors.button.tabs);
-        await page.waitFor(500);
-        // Select the tab that is NOT currently selected.
-        await modalFrame.click(selectors.button.tabUnselected);
-        await page.waitFor(200);
-
-        await modalSnapshot(`${groupString} ${testNameParts}`, viewport, account);
-        await page.waitFor(200);
-        await modalFrame.click(selectors.button.tabUnselected);
     };

@@ -8,7 +8,7 @@ const InlineLinks = ({ text, useNewCheckoutDesign }) => {
     const { onClick } = useXProps();
 
     if (!Array.isArray(text)) {
-        return text;
+        return <span dangerouslySetInnerHTML={{ __html: text }} />;
     }
     return text.map(textChunk => {
         if (Array.isArray(textChunk)) {

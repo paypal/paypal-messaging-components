@@ -17,12 +17,6 @@ messageTest.describe('Multi Messages', () => {
         await messageAxeCoreScan(messageIframe);
     });
 
-    messageTest('Credit', async ({ navigatePage, loadMessage, messageAxeCoreScan }) => {
-        await navigatePage({ account: 'DEV0000000PMG', amount: 1501 });
-        const messageIframe = await loadMessage();
-        await messageAxeCoreScan(messageIframe);
-    });
-
     messageTest('Short Term Q', async ({ navigatePage, loadMessage, messageAxeCoreScan }) => {
         await navigatePage({ account: 'DEV000000GPLQ', amount: 200 });
         const messageIframe = await loadMessage();

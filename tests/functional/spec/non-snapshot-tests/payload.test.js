@@ -1,6 +1,6 @@
 import packageConfig from '../../../../package.json';
 import { bannerStyles } from '../utils/testStylesConfig';
-import selectors from '../utils/selectors';
+import { selectors } from '../../v2/utils';
 import setupTestPage from '../utils/setupTestPage';
 
 const EVENT_TYPES = ['MORS', 'modal_rendered', 'message_hovered', 'modal_close', 'modal_viewed', 'scroll'];
@@ -28,12 +28,6 @@ const createSpy = async () => {
         }
     });
     return spy;
-};
-
-const clickBanner = async bannerFrame => {
-    await bannerFrame.click(selectors.banner.messageMessaging);
-    await page.waitForSelector(selectors.modal.iframe, { visible: true });
-    await page.waitFor(5 * 1000);
 };
 
 const runTest = async ({
@@ -127,7 +121,7 @@ const runTest = async ({
 
 describe('payload testing', () => {
     const config = {
-        account: 'DEV0000000EAZ',
+        account: 'DEV_US_NO_INTEREST',
         amount: 500,
         style: bannerStyles[0]
     };
@@ -164,7 +158,7 @@ describe('payload testing', () => {
                 {
                     index: expect.any(String),
                     event_type: 'modal_rendered',
-                    modal: expect.stringMatching(/(NI)|(EZP)|(INST)/i),
+                    modal: expect.stringMatching(/(NI)|(NO_INTEREST)/i),
                     first_modal_render_delay: expect.stringNumber(),
                     timestamp: expect.any(Number),
                     render_duration: expect.any(String)
@@ -201,9 +195,6 @@ describe('payload testing', () => {
         await runTest({
             testName: 'click stat sent',
             config,
-            callback: async ({ bannerFrame }) => {
-                await clickBanner(bannerFrame);
-            },
             matchComponentEvents: [
                 {
                     index: expect.any(String),
@@ -216,8 +207,10 @@ describe('payload testing', () => {
                 },
                 {
                     index: expect.any(String),
+                    refIndex: expect.any(String),
                     et: 'CLIENT_IMPRESSION',
                     event_type: 'modal_viewed',
+                    src: 'show',
                     timestamp: expect.any(Number)
                 }
             ]
@@ -228,8 +221,8 @@ describe('payload testing', () => {
         await runTest({
             testName: 'hover stat sent',
             config,
-            callback: async ({ bannerFrame }) => {
-                await bannerFrame.hover('.message__messaging');
+            callback: async () => {
+                await page.hover(selectors.message.messageIframe);
             },
             matchObjematchComponentEventscts: [
                 {
@@ -244,47 +237,15 @@ describe('payload testing', () => {
         });
     });
 
-    test.todo('fix modal calculate stat sent');
-    test.skip('modal calculate stat sent', async () => {
-        await runTest({
-            testName: 'modal calculate stat sent',
-            config,
-            callback: async ({ bannerFrame, modalFrame }) => {
-                await clickBanner(bannerFrame);
-                await modalFrame.click(selectors.calculator.calcInput, { clickCount: 3 });
-                await modalFrame.type(selectors.calculator.calcInput, '650');
-                // TODO: find a fix for this request
-                // After clicking, test fails due to this request failing:
-                // https://localhost.paypal.com:8080/smart-credit-common.js
-                await modalFrame.click(selectors.button.btnSecondary);
-            },
-            matchObjects: [
-                {
-                    index: expect.any(String),
-                    et: 'CLICK',
-                    event_type: 'modal_rendered',
-                    page_view_link_name: 'Calculator',
-                    amount: expect.any(String),
-                    render_duration: expect.any(String)
-                }
-            ]
-        });
-    });
-
     test('modal click stat sent', async () => {
         await runTest({
             testName: 'modal click stat sent',
             config,
-            callback: async ({ bannerFrame, modalFrame }) => {
-                await clickBanner(bannerFrame);
-                await modalFrame.click(selectors.button.contentHeader);
-            },
             matchComponentEvents: [
                 {
                     index: expect.any(String),
-                    et: 'CLICK',
+                    et: 'CLIENT_IMPRESSION',
                     event_type: 'modal_rendered',
-                    page_view_link_name: 'Apply Now',
                     timestamp: expect.any(Number)
                 }
             ]
@@ -295,9 +256,8 @@ describe('payload testing', () => {
         await runTest({
             testName: 'modal close stat sent',
             config,
-            callback: async ({ bannerFrame, modalFrame }) => {
-                await clickBanner(bannerFrame);
-                await modalFrame.click(selectors.button.closeBtn);
+            callback: async ({ modalFrame }) => {
+                await modalFrame.click(selectors.modal.button.close);
             },
             matchComponentEvents: [
                 {

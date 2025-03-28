@@ -76,6 +76,9 @@
     @include desktop {
         max-height: 90vh;
     }
+    @include mobile {
+        min-width: 285px;
+    }
 
     @include lander {
         height: auto;

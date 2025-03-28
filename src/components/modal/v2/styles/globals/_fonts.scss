@@ -1,3 +1,27 @@
+// PPUI 5.1
+@font-face {
+    font-family: 'PayPalPro';
+    src: url(https://www.paypalobjects.com/marketing/pp-com-components/fonts/SupremeLLTestSubWeb-Bold.woff)
+        format('woff');
+    font-weight: bold;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'PayPalPro';
+    src: url(https://www.paypalobjects.com/marketing/pp-com-components/fonts/SupremeLLTestSubWeb-Black.woff)
+        format('woff');
+    font-weight: bold;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'PayPalPro';
+    src: url(https://www.paypalobjects.com/marketing/pp-com-components/fonts/SupremeLLTestSubWeb-Book.woff)
+        format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+// TODO: Remove once all modals on 5.1
 @font-face {
     font-family: 'PayPalOpen';
     src: url(https://www.paypalobjects.com/paypal-ui/fonts/PayPalOpen-Bold.woff) format('woff');

@@ -25,6 +25,10 @@
             text-decoration: underline;
             outline: 3px solid $dark-blue;
         }
+
+        .v5Design & {
+            font-family: $paypal-pro;
+        }
     }
 
     &.checkout {
@@ -36,6 +40,17 @@
             &:hover,
             &:focus {
                 background: $light-blue;
+            }
+        }
+
+        &.gb {
+            .button {
+                background: $black;
+
+                &:hover,
+                &:focus {
+                    background: $black;
+                }
             }
         }
     }
