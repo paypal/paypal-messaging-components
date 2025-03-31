@@ -62,14 +62,14 @@ const Header = ({
                     // We don't need to render an 'x' button if the target is a lander since you will close via a
                     // merchant-provided close button from their own iframe, or by closing the window in the case of a webpage.
                     <button
-                        className="close"
+                        className={`close ${useV5Design ? 'v5Design' : ''}`}
                         aria-label={closeButtonLabel}
                         type="button"
                         id="close-btn"
                         aria-keyshortcuts="escape"
                         onClick={() => handleClose('Close Button')}
                     >
-                        <Icon name="close" />
+                        <Icon name={useV5Design ? 'close_v5' : 'close'} />
                     </button>
                 )}
                 <div className="header__fixed-wrapper header__fixed-wrapper--front">
