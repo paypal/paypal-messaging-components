@@ -187,6 +187,16 @@
                     stroke-width: 2.2;
                 }
             }
+
+            &.v5Design {
+                height: 50px;
+                width: 50px;
+
+                svg {
+                    height: 30px;
+                    width: 30px;
+                }
+            }
         }
 
         &.checkout {
@@ -323,7 +333,8 @@
             }
 
             &.v5Design {
-                &.headline-gb {
+                &.headline-gb,
+                &.headline-new {
                     font-family: $paypal-pro;
                     font-weight: bold;
                     font-size: 32px;

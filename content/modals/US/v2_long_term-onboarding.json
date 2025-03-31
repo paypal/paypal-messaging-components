@@ -1,9 +1,9 @@
 {
     "meta": {
         "product": "PAY_LATER_LONG_TERM",
-        "offerCountry": "US",
         "useV5Design": "true",
         "v5.1": "true",
+        "offerCountry": "US",
         "variables": {
             "transaction_amount": "${eval(transaction_amount ? transaction_amount : '-')}",
             "qualifying_offer": "${eval(CREDIT_OFFERS_DS.qualifying_offer ? CREDIT_OFFERS_DS.qualifying_offer : 'false')}",
@@ -30,7 +30,7 @@
         },
         "genericDisclaimer": "Terms vary based on purchase amount and your credit.",
         "instructions": [
-            "Choose PayPal at checkout to pay later with <strong>Pay Monthly</strong>.",
+            "Create your PayPal account, then choose <strong>Pay Monthly</strong>.",
             "Get a decision in seconds and complete your purchase.",
             "Use autopay for your payments. It's easy!"
         ],

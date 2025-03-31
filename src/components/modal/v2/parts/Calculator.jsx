@@ -71,6 +71,7 @@ const Calculator = ({
     aprDisclaimer,
     useV4Design,
     useV5Design,
+    use5Dot1Design,
     useNewCheckoutDesign
 }) => {
     const { view, value, isLoading, submit, changeInput } = useCalculator({ autoSubmit: true });
@@ -229,6 +230,7 @@ const Calculator = ({
                         aprDisclaimer={aprDisclaimer}
                         useV4Design={useV4Design}
                         useV5Design={useV5Design}
+                        use5Dot1Design={use5Dot1Design}
                         useNewCheckoutDesign={useNewCheckoutDesign}
                     />
                 </div>

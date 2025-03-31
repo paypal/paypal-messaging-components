@@ -26,7 +26,8 @@ export const ShortTerm = ({
     },
     productMeta: { qualifying, periodicPayment, useV4Design, useV5Design, preapproved },
     openProductList,
-    useNewCheckoutDesign
+    useNewCheckoutDesign,
+    use5Dot1Design
 }) => {
     const { views, country } = useServerData();
     const { onClick, onClose } = useXProps();
@@ -126,6 +127,7 @@ export const ShortTerm = ({
                                             key={index}
                                             useV4Design={useV4Design}
                                             useV5Design={useV5Design}
+                                            use5Dot1Design={use5Dot1Design}
                                             useNewCheckoutDesign={useNewCheckoutDesign}
                                             qualifying={qualifying}
                                             // regex replaces EUR with the euro symbol €

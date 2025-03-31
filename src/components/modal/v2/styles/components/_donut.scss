@@ -124,7 +124,10 @@ $donut-text-v5: #545d68;
                 color: $text-main;
             }
         }
-
+        span.donut__timestamp_v5Dot1,
+        span.donut__payment_v5Dot1 {
+            color: $v5-gray;
+        }
         .svg {
             display: flex;
             flex-direction: column;

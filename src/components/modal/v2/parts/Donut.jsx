@@ -18,6 +18,7 @@ const Donut = ({
     qualifying,
     useV4Design,
     useV5Design,
+    use5Dot1Design,
     useNewCheckoutDesign
 }) => {
     const percentage = (currentNum / numOfPayments) * 100;
@@ -63,7 +64,8 @@ const Donut = ({
                     />
                     <g
                         stroke-width={isV4OrV5Design ? 0 : segStrokeWidth}
-                        fill={isV4OrV5Design ? '#545D68' : 'transparent'}
+                        // eslint-disable-next-line no-nested-ternary
+                        fill={use5Dot1Design ? '#686A6D' : isV4OrV5Design ? '#545D68' : 'transparent'}
                         stroke-linecap={strokeLinecap}
                     >
                         {segments}
@@ -77,7 +79,9 @@ const Donut = ({
             <span aria-labelledby={`donut__payment__${currentNum} donut__timestamp__${currentNum}`} role="text">
                 {isQualifying && periodicPayment !== '-' && (
                     <span
-                        className={isV4OrV5Design ? 'donut__payment_v5' : 'donut__payment'}
+                        className={`${isV4OrV5Design ? 'donut__payment_v5' : 'donut__payment'} ${
+                            use5Dot1Design ? 'donut__payment_v5Dot1' : ''
+                        }`}
                         id={`donut__payment__${currentNum}`}
                         aria-hidden="true"
                     >
@@ -85,7 +89,9 @@ const Donut = ({
                     </span>
                 )}
                 <span
-                    className={isV4OrV5Design ? 'donut__timestamp_v5' : 'donut__timestamp'}
+                    className={`${isV4OrV5Design ? 'donut__timestamp_v5' : 'donut__timestamp'} ${
+                        use5Dot1Design ? 'donut__timestamp_v5Dot1' : ''
+                    }`}
                     id={`donut__timestamp__${currentNum}`}
                     aria-hidden="true"
                 >
