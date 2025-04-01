@@ -163,6 +163,12 @@
         &.checkout {
             margin-bottom: 0px;
         }
+
+        ol {
+            @include tablet {
+                width: 88%;
+            }
+        }
     }
 
     &.checkout {

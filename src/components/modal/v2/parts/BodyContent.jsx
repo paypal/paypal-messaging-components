@@ -63,6 +63,7 @@ const BodyContent = () => {
 
     const useV4Design = productMeta?.useV4Design === 'true';
     const useV5Design = productMeta?.useV5Design === 'true';
+    const use5Dot1Design = productMeta?.['v5.1'];
     const useNewCheckoutDesign = features?.includes('new-checkout-design') ? 'true' : 'false';
 
     // add v4Design or v5Design class to root html to update lander specific styles to v4 or v5 respectively
@@ -101,12 +102,15 @@ const BodyContent = () => {
 
     // Add views to viewComponents object where the keys are the product name and the values are the view component
     const viewComponents = {
-        [VIEW_IDS.PAYPAL_CREDIT_NO_INTEREST]: <NoInterest content={content} openProductList={openProductList} />,
+        [VIEW_IDS.PAYPAL_CREDIT_NO_INTEREST]: (
+            <NoInterest content={content} openProductList={openProductList} use5Dot1Design={use5Dot1Design} />
+        ),
         [VIEW_IDS.PAY_LATER_LONG_TERM]: (
             <LongTerm
                 content={content}
                 productMeta={productMeta}
                 useNewCheckoutDesign={useNewCheckoutDesign}
+                use5Dot1Design={use5Dot1Design}
                 openProductList={openProductList}
             />
         ),
@@ -118,10 +122,18 @@ const BodyContent = () => {
                 content={content}
                 productMeta={productMeta}
                 useNewCheckoutDesign={useNewCheckoutDesign}
+                use5Dot1Design={use5Dot1Design}
                 openProductList={openProductList}
             />
         ),
-        [VIEW_IDS.PRODUCT_LIST]: <ProductList content={content} useV5Design={useV5Design} setViewName={setViewName} />
+        [VIEW_IDS.PRODUCT_LIST]: (
+            <ProductList
+                content={content}
+                useV5Design={useV5Design}
+                use5Dot1Design={use5Dot1Design}
+                setViewName={setViewName}
+            />
+        )
     };
 
     // IMPORTANT: These elements cannot be nested inside of other elements.
@@ -154,12 +166,13 @@ const BodyContent = () => {
                     viewName={viewName}
                     useV4Design={useV4Design}
                     useV5Design={useV5Design}
+                    use5Dot1Design={use5Dot1Design}
                 />
             )}
             <div
                 className={`content__container ${useV4Design ? 'v4Design' : ''} ${useV5Design ? 'v5Design' : ''} ${
                     useNewCheckoutDesign === 'true' ? 'checkout' : ''
-                }`}
+                } ${use5Dot1Design ? 'v5Dot1Design' : ''} `}
             >
                 <main className="main">
                     <div className="content__body">{viewComponents[viewName]}</div>

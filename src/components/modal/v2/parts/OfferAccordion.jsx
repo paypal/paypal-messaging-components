@@ -5,6 +5,7 @@ import { useEffect, useState } from 'preact/hooks';
 const OfferAccordion = ({
     offer: { content, meta },
     useV5Design,
+    use5Dot1Design,
     aprDisclaimer,
     index,
     activeSelection,
@@ -29,7 +30,7 @@ const OfferAccordion = ({
             id={index}
             className={`accordion__container ${activeSelection === index ? 'active' : ''} ${open} ${
                 useV5Design === 'true' ? 'v5Design' : ''
-            }`}
+            } ${use5Dot1Design ? 'v5Dot1Design' : ''}`}
         >
             <div className="accordion__row">
                 <button

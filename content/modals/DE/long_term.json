@@ -2,7 +2,8 @@
     "meta": {
         "product": "PAY_LATER_LONG_TERM",
         "offerCountry": "DE",
-        "useV5Design": "false",
+        "useV5Design": "true",
+        "v5.1": "true",
         "variables": {
             "transaction_amount": "${eval(transaction_amount ? transaction_amount : '-')}",
             "qualifying_offer": "${eval(CREDIT_OFFERS_DS.qualifying_offer ? CREDIT_OFFERS_DS.qualifying_offer : 'false')}",

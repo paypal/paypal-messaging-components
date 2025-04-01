@@ -6,7 +6,8 @@
         "maxAmount": "{maxAmount}",
         "qualifying": "{qualifying_offer}",
         "amount": "{transaction_amount}",
-        "useV5Design": "false",
+        "useV5Design": "true",
+        "v5.1": "true",
         "apr": "{apr}",
         "variables": {
             "transaction_amount": "${eval(transaction_amount ? transaction_amount : '-')}",

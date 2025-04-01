@@ -10,7 +10,8 @@ import { useServerData, useApplyNow } from '../../../lib';
 
 export const NoInterest = ({
     content: { instructions, terms, buttonText, disclaimer, footer, linkToProductList },
-    openProductList
+    openProductList,
+    use5Dot1Design
 }) => {
     const { views } = useServerData();
     const buttonRef = useRef();
@@ -45,8 +46,8 @@ export const NoInterest = ({
             <div className="content__footer">
                 <div className="content__row terms">
                     {terms.map(item => (
-                        <p className="terms-item">
-                            <span className="terms-bullet" />
+                        <p className={`terms-item ${use5Dot1Design ? 'v5Dot1Design' : ''}`}>
+                            <span className={`terms-bullet ${use5Dot1Design ? 'v5Dot1Design' : ''}`} />
                             <span className="terms-content">{item}</span>
                         </p>
                     ))}
@@ -54,7 +55,7 @@ export const NoInterest = ({
                 <div className="terms">
                     {footer.map(lineContent => {
                         return (
-                            <p className="content__footer-item">
+                            <p className={`content__footer-item  ${use5Dot1Design ? 'v5Dot1Design' : ''}`}>
                                 <InlineLinks text={lineContent} />
                             </p>
                         );
@@ -65,7 +66,11 @@ export const NoInterest = ({
             <div className="content__row dynamic no-interest">
                 <div className="button__fixed-wrapper">
                     <div className="button__container">
-                        <Button className="content__row" onClick={handleApplyNowClick} ref={buttonRef}>
+                        <Button
+                            className={`content__row ${use5Dot1Design ? 'v5Dot1Design' : ''}`}
+                            onClick={handleApplyNowClick}
+                            ref={buttonRef}
+                        >
                             {buttonText}
                         </Button>
                         <div aria-describedby="Subject to Credit Approval" className="content__row content__disclaimer">
