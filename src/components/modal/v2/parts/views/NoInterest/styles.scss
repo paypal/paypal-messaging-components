@@ -125,6 +125,10 @@
                 display: flex;
                 margin-left: unset;
 
+                &.v5Dot1Design {
+                    color: $v5-gray;
+                }
+
                 @include desktop {
                     margin-bottom: 10px;
                 }
@@ -145,6 +149,7 @@
                     /* pseudo class necessary for setting bullet color separate from font */
                     content: '\2022';
                     color: $dark-gray;
+
                     @include mobile {
                         padding: 0px 12.5px 0px 8px;
                     }
@@ -155,6 +160,9 @@
                     padding: 0 12.5px;
                     font-weight: bold;
                     font-size: large;
+                }
+                &.v5Dot1Design::before {
+                    color: $v5-gray;
                 }
             }
         }
@@ -186,6 +194,10 @@
             font-size: 14px;
             margin: 0 0 20px 0;
             color: $gray;
+
+            &.v5Dot1Design {
+                color: $v5-gray;
+            }
         }
     }
 }

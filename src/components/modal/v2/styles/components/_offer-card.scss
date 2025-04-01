@@ -104,6 +104,11 @@ strong {
             font-size: 1rem;
         }
 
+        &.v5Dot1Design {
+            color: $text-main !important;
+            font-weight: bold !important;
+        }
+
         .checkout & {
             font-size: 16px;
         }
@@ -142,6 +147,11 @@ strong {
             padding-bottom: 6px;
         }
 
+        &.v5Dot1Design {
+            color: $text-main !important;
+            font-weight: bold !important;
+        }
+
         .checkout & {
             font-size: 14px;
         }
@@ -166,6 +176,11 @@ strong {
             color: $v5-gray
         }
 
+        &.v5Dot1Design {
+            color: $text-main !important;
+            font-weight: bold !important;
+        }
+        
         .checkout & {
             font-size: 16px;
             color: $text-main;

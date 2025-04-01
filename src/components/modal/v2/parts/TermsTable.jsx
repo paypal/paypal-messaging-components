@@ -11,6 +11,7 @@ const TermsTable = ({
     aprDisclaimer,
     useV4Design,
     useV5Design,
+    use5Dot1Design,
     useNewCheckoutDesign
 }) => {
     const { offerCountry } = meta;
@@ -44,6 +45,7 @@ const TermsTable = ({
                         index={idx}
                         useV4Design={useV4Design}
                         useV5Design={useV5Design}
+                        use5Dot1Design={use5Dot1Design}
                         useNewCheckoutDesign={useNewCheckoutDesign}
                     />
                 );
@@ -60,6 +62,7 @@ const TermsTable = ({
                     activeSelection={activeSelection}
                     setActiveSelection={setActiveSelection}
                     useV5Design={useV5Design}
+                    use5Dot1Design={use5Dot1Design}
                 />
             );
         });

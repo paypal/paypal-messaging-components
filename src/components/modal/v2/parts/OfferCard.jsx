@@ -1,7 +1,7 @@
 /** @jsx h */
 import { h } from 'preact';
 
-const OfferCard = ({ offer: { content, meta }, useV4Design, useV5Design, useNewCheckoutDesign }) => {
+const OfferCard = ({ offer: { content, meta }, useV4Design, useV5Design, use5Dot1Design, useNewCheckoutDesign }) => {
     const { termsLabel } = content;
     const aprRemoveTrailingZeros = meta?.apr.replace(/\D00$/, '');
     const aprFieldTitle = aprRemoveTrailingZeros === '0' ? termsLabel?.zeroApr : termsLabel?.nonZeroApr;
@@ -11,7 +11,7 @@ const OfferCard = ({ offer: { content, meta }, useV4Design, useV5Design, useNewC
         <div className={`offer__container ${useV5Design === 'true' ? 'v5Design' : ''}`}>
             <div className={`offer__row ${useV5Design === 'true' ? 'v5Design' : ''}`}>
                 <strong
-                    className="offer__field-header"
+                    className={`offer__field-header ${use5Dot1Design ? 'v5Dot1Design' : ''}`}
                     // eslint-disable-next-line react/no-danger
                     dangerouslySetInnerHTML={{ __html: offerHeaderField }}
                 />
@@ -35,11 +35,13 @@ const OfferCard = ({ offer: { content, meta }, useV4Design, useV5Design, useNewC
                     <strong
                         className={`offer__field-title ${useV4Design === 'true' ? 'v4Design' : ''} ${
                             useV5Design === 'true' ? 'v5Design' : ''
-                        } ${useNewCheckoutDesign === 'true' ? 'checkout' : ''}`}
+                        } ${use5Dot1Design ? 'v5Dot1Design' : ''} ${useNewCheckoutDesign === 'true' ? 'checkout' : ''}`}
                     >
                         {termsLabel?.total}
                     </strong>
-                    <strong className="offer__field-value">{meta?.formattedTotalCost}</strong>
+                    <strong className={`offer__field-value ${use5Dot1Design ? 'v5Dot1Design' : ''}`}>
+                        {meta?.formattedTotalCost}
+                    </strong>
                 </div>
             </div>
         </div>
