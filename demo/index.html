@@ -4,19 +4,20 @@
         <title>Messages Dev Sandbox</title>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-        <script>
-            window.__TEST_ENV__ = 'https://www.msmaster.qa.paypal.com';
-        </script>
-        <script src="https://www.msmaster.qa.paypal.com/sdk/js?client-id=B_AFccMdMuxDJXveYSon7w-PMTQ_aLJPy3b1Q4rz4K9iDYHi8fjX80yGEzQ2-gSHQhJVmCiO7Yp6Q3Kfow&debug=true&components=messages&stage-alias=https://cdn-culs_auth_01.static.engineering.dev.paypalinc.com/upstream/bizcomponents/stage/package.tgz"></script>
+        <script src="//localhost.paypal.com:8080/sdk/js?client-id=DEV_US_MULTI&components=messages"></script>
     </head>
     <body>
         <div class="messages" data-pp-message></div>
         <script>
-            paypal
-                .Messages({
-                    amount: '500'
-                })
-                .render('.messages');
+            // paypal
+            //     .Messages({
+            //         style: {
+            //             layout: 'flex',
+            //             ratio: '8x1',
+            //             color: 'blue'
+            //         }
+            //     })
+            //     .render('.messages');
         </script>
     </body>
 </html>
