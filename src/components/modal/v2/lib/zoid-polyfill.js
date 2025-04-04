@@ -1,7 +1,7 @@
 /* global Android */
 import { isAndroidWebview, isIosWebview, getPerformance } from '@krakenjs/belter/src';
 import { getOrCreateDeviceID, logger } from '../../../../utils';
-import { validateProps } from './utils';
+import { validateProps, isIframe } from './utils';
 import { sendEvent, createPostMessengerEvent, POSTMESSENGER_EVENT_NAMES } from './postMessage';
 
 const IOS_INTERFACE_NAME = 'paypalMessageModalCallbackHandler';
@@ -15,15 +15,15 @@ function updateProps(newProps, propListeners) {
     Object.assign(window.xprops, newProps);
 }
 
-export function handleBrowserEvents(clientOrigin, propListeners, updatedPropsEvent) {
+export function handleBrowserEvents(trustedOrigin, propListeners, updatedPropsEvent) {
     const {
         origin: eventOrigin,
         data: { eventName, id, eventPayload: newProps }
     } = updatedPropsEvent;
 
-    if (eventOrigin === clientOrigin && eventName === 'PROPS_UPDATE' && newProps && typeof newProps === 'object') {
+    if (eventOrigin === trustedOrigin && eventName === 'PROPS_UPDATE' && newProps && typeof newProps === 'object') {
         // send event ack with original event id so PostMessenger will stop reposting event
-        sendEvent(createPostMessengerEvent('ack', id), clientOrigin);
+        sendEvent(createPostMessengerEvent('ack', id), trustedOrigin);
         const validProps = validateProps(newProps);
         updateProps(validProps, propListeners);
     }
@@ -44,12 +44,16 @@ const getAccount = (merchantId, clientId, payerId) => {
 
 const setupBrowser = props => {
     const propListeners = new Set();
-    const clientOrigin = decodeURIComponent(props.origin);
+
+    let trustedOrigin = decodeURIComponent(props.origin || '');
+    if (isIframe && document.referrer && !process.env.NODE_ENV === 'test') {
+        trustedOrigin = new window.URL(document.referrer).origin;
+    }
 
     window.addEventListener(
         'message',
         event => {
-            handleBrowserEvents(clientOrigin, propListeners, event);
+            handleBrowserEvents(trustedOrigin, propListeners, event);
         },
         false
     );
@@ -112,13 +116,7 @@ const setupBrowser = props => {
             });
         },
         onCalculate: ({ value }) => {
-            const eventPayload = {
-                // for data security, also add new params to createSafePayload in ./postMessage.js
-            };
-            sendEvent(
-                createPostMessengerEvent('message', POSTMESSENGER_EVENT_NAMES.CALCULATE, eventPayload),
-                clientOrigin
-            );
+            sendEvent(createPostMessengerEvent('message', POSTMESSENGER_EVENT_NAMES.CALCULATE), trustedOrigin);
             logger.track({
                 index: '1',
                 et: 'CLICK',
@@ -129,10 +127,7 @@ const setupBrowser = props => {
             });
         },
         onShow: () => {
-            const eventPayload = {
-                // for data security, also add new params to createSafePayload in ./postMessage.js
-            };
-            sendEvent(createPostMessengerEvent('message', POSTMESSENGER_EVENT_NAMES.SHOW, eventPayload), clientOrigin);
+            sendEvent(createPostMessengerEvent('message', POSTMESSENGER_EVENT_NAMES.SHOW), trustedOrigin);
             logger.track({
                 index: '1',
                 et: 'CLIENT_IMPRESSION',
@@ -145,7 +140,10 @@ const setupBrowser = props => {
                 linkName
                 // for data security, also add new params to createSafePayload in ./postMessage.js
             };
-            sendEvent(createPostMessengerEvent('message', POSTMESSENGER_EVENT_NAMES.CLOSE, eventPayload), clientOrigin);
+            sendEvent(
+                createPostMessengerEvent('message', POSTMESSENGER_EVENT_NAMES.CLOSE, eventPayload),
+                trustedOrigin
+            );
             logger.track({
                 index: '1',
                 et: 'CLICK',
