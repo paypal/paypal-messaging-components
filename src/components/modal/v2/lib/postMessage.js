@@ -16,18 +16,14 @@ export const POSTMESSENGER_EVENT_NAMES = {
 };
 
 export function sendEvent(payload, trustedOrigin) {
-    if (!trustedOrigin && !document.referrer) {
+    if (!trustedOrigin) {
         return;
     }
 
     const isTest = process.env.NODE_ENV === 'test';
     const targetWindow = !isTest && window.parent === window ? window.opener : window.parent;
 
-    // referrer origin is used by integrations not passing in props.origin manually
-    // eslint-disable-next-line compat/compat
-    const referrerOrigin = !isTest ? new window.URL(document.referrer)?.origin : undefined;
-
-    targetWindow.postMessage(payload, trustedOrigin || referrerOrigin);
+    targetWindow.postMessage(payload, trustedOrigin);
 }
 
 // This function provides data security by preventing accidentally exposing sensitive data; we are adding
@@ -38,13 +34,19 @@ function createSafePayload(unscreenedPayload) {
     ];
 
     const safePayload = {};
-    const entries = Object.entries(unscreenedPayload);
-    entries.forEach(entry => {
-        const [key, value] = entry;
-        if (allowedFields.includes(key)) {
-            safePayload[key] = value;
-        }
-    });
+    if (unscreenedPayload) {
+        const entries = Object.entries(unscreenedPayload);
+        entries.forEach(entry => {
+            const [key, value] = entry;
+            if (allowedFields.includes(key)) {
+                safePayload[key] = value;
+            } else {
+                console.warn(
+                    `attn PayPal dev: modal hook payload params are screened by function createSafePayload in postMessage.js for data security. Please consider if param ${key} is secure for posting, and add the secure param(s) to that function's allowed fields.`
+                );
+            }
+        });
+    }
 
     return safePayload;
 }
@@ -58,7 +60,7 @@ export function createPostMessengerEvent(typeArg, eventName, eventPayloadArg) {
         eventPayload = POSTMESSENGER_ACK_PAYLOAD;
     } else if (typeArg === 'message') {
         type = POSTMESSENGER_EVENT_TYPES.MESSAGE;
-        // createSafePayload
+        // createSafePayload, only call this if a payload is sent
         eventPayload = createSafePayload(eventPayloadArg);
     }
 
@@ -66,6 +68,6 @@ export function createPostMessengerEvent(typeArg, eventName, eventPayloadArg) {
         eventName,
         id: uniqueID(),
         type,
-        eventPayload
+        eventPayload: eventPayload || {}
     };
 }
