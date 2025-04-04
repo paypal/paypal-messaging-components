@@ -41,9 +41,7 @@ function createSafePayload(unscreenedPayload) {
             if (allowedFields.includes(key)) {
                 safePayload[key] = value;
             } else {
-                console.warn(
-                    `attn PayPal dev: modal hook payload params are screened by function createSafePayload in postMessage.js for data security. Please consider if param ${key} is secure for posting, and add the secure param(s) to that function's allowed fields.`
-                );
+                console.warn(`modal hook payload param should be allowlisted if secure: ${key}`);
             }
         });
     }
