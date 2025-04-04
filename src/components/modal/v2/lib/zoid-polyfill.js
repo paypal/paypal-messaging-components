@@ -6,8 +6,6 @@ import { sendEvent, createPostMessengerEvent, POSTMESSENGER_EVENT_NAMES } from '
 
 const IOS_INTERFACE_NAME = 'paypalMessageModalCallbackHandler';
 const ANDROID_INTERFACE_NAME = 'paypalMessageModalCallbackHandler';
-// these constants should maintain parity with MESSAGE_MODAL_EVENT_NAMES in core-web-sdk
-export const WRAPPER_CLOSE_MESSAGE_NAME = 'MODAL_CLOSED';
 
 function updateProps(newProps, propListeners) {
     Array.from(propListeners.values()).forEach(listener => {
@@ -46,7 +44,7 @@ export function handleBrowserEvents(clientOrigin, propListeners, event) {
     if (eventName === 'PROPS_UPDATE') {
         handlePropsUpdateEvent(propListeners, event);
     }
-    if (eventName === WRAPPER_CLOSE_MESSAGE_NAME) {
+    if (eventName === 'MODAL_CLOSED') {
         logModalClose(event.data.eventPayload.linkName);
     }
     // send event ack with original event id so PostMessenger will stop reposting event

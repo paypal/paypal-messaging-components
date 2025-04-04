@@ -1,7 +1,4 @@
-import zoidPolyfill, {
-    handleBrowserEvents,
-    WRAPPER_CLOSE_MESSAGE_NAME
-} from 'src/components/modal/v2/lib/zoid-polyfill';
+import zoidPolyfill, { handleBrowserEvents } from 'src/components/modal/v2/lib/zoid-polyfill';
 import { POSTMESSENGER_EVENT_NAMES } from 'src/components/modal/v2/lib/postMessage';
 import { logger } from 'src/utils';
 
@@ -490,7 +487,7 @@ describe('zoidPollyfill', () => {
                 const newPropsEvent = {
                     origin: clientOrigin,
                     data: {
-                        eventName: WRAPPER_CLOSE_MESSAGE_NAME,
+                        eventName: 'MODAL_CLOSED',
                         eventPayload: {
                             linkName: 'Custom Close Button'
                         }
