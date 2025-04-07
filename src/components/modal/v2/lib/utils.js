@@ -114,58 +114,17 @@ export function formatDateByCountry(country) {
     return currentDate.toLocaleDateString('en-GB', options);
 }
 
-export function createUUID() {
-    // crypto.randomUUID() is only available in HTTPS secure environments and modern browsers
-    if (typeof crypto !== 'undefined' && crypto && crypto.randomUUID instanceof Function) {
-        return crypto.randomUUID();
-    }
-
-    const validChars = '0123456789abcdefghijklmnopqrstuvwxyz';
-    const stringLength = 32;
-    let randomId = '';
-    for (let index = 0; index < stringLength; index++) {
-        const randomIndex = Math.floor(Math.random() * validChars.length);
-        randomId += validChars.charAt(randomIndex);
-    }
-    return randomId;
-}
-
 export function validateProps(updatedProps) {
     const validatedProps = {};
     Object.entries(updatedProps).forEach(entry => {
         const [k, v] = entry;
-        if (k === 'offerTypes') {
+        if (k === 'offerType') {
             validatedProps.offer = validate.offer({ props: { offer: v } });
+        } else if (!Object.keys(validate).includes(k)) {
+            validatedProps[k] = v;
         } else {
             validatedProps[k] = validate[k]({ props: { [k]: v } });
         }
     });
     return validatedProps;
-}
-
-export function sendEventAck(eventId, trustedOrigin) {
-    // skip this step if running in test env because jest's target windows don't support postMessage
-    if (process.env.NODE_ENV === 'test') {
-        return;
-    }
-
-    // target window selection depends on if checkout window is in popup or modal iframe
-    let targetWindow;
-    const popupCheck = window.parent === window;
-    if (popupCheck) {
-        targetWindow = window.opener;
-    } else {
-        targetWindow = window.parent;
-    }
-
-    targetWindow.postMessage(
-        {
-            // PostMessenger stops reposting an event when it receives an eventName which matches the id in the message it sent and type 'ack'
-            eventName: eventId,
-            type: 'ack',
-            eventPayload: { ok: true },
-            id: createUUID()
-        },
-        trustedOrigin
-    );
 }

@@ -1,7 +1,8 @@
 /* global Android */
 import { isAndroidWebview, isIosWebview, getPerformance } from '@krakenjs/belter/src';
 import { getOrCreateDeviceID, logger } from '../../../../utils';
-import { isIframe, validateProps, sendEventAck } from './utils';
+import { validateProps, isIframe } from './utils';
+import { sendEvent, createPostMessengerEvent, POSTMESSENGER_EVENT_NAMES } from './postMessage';
 
 const IOS_INTERFACE_NAME = 'paypalMessageModalCallbackHandler';
 const ANDROID_INTERFACE_NAME = 'paypalMessageModalCallbackHandler';
@@ -13,19 +14,41 @@ function updateProps(newProps, propListeners) {
     Object.assign(window.xprops, newProps);
 }
 
-export function handleBrowserEvents(initialProps, propListeners, updatedPropsEvent) {
+export function handlePropsUpdateEvent(propListeners, updatedPropsEvent) {
     const {
-        origin: eventOrigin,
-        data: { eventName, id, eventPayload: newProps }
+        data: { eventPayload: newProps }
     } = updatedPropsEvent;
-    const clientOrigin = decodeURIComponent(initialProps.origin);
-
-    if (eventOrigin === clientOrigin && eventName === 'PROPS_UPDATE' && newProps && typeof newProps === 'object') {
-        // send event ack so PostMessenger will stop reposting event
-        sendEventAck(id, clientOrigin);
+    if (newProps && typeof newProps === 'object') {
         const validProps = validateProps(newProps);
         updateProps(validProps, propListeners);
     }
+}
+
+export function logModalClose(linkName) {
+    logger.track({
+        index: '1',
+        et: 'CLICK',
+        event_type: 'modal_close',
+        page_view_link_name: linkName
+    });
+}
+
+export function handleBrowserEvents(clientOrigin, propListeners, event) {
+    const {
+        origin: eventOrigin,
+        data: { eventName, id }
+    } = event;
+    if (eventOrigin !== clientOrigin) {
+        return;
+    }
+    if (eventName === 'PROPS_UPDATE') {
+        handlePropsUpdateEvent(propListeners, event);
+    }
+    if (eventName === 'MODAL_CLOSED') {
+        logModalClose(event.data.eventPayload.linkName);
+    }
+    // send event ack with original event id so PostMessenger will stop reposting event
+    sendEvent(createPostMessengerEvent('ack', id), clientOrigin);
 }
 
 const getAccount = (merchantId, clientId, payerId) => {
@@ -44,10 +67,15 @@ const getAccount = (merchantId, clientId, payerId) => {
 const setupBrowser = props => {
     const propListeners = new Set();
 
+    let trustedOrigin = decodeURIComponent(props.origin || '');
+    if (isIframe && document.referrer && !process.env.NODE_ENV === 'test') {
+        trustedOrigin = new window.URL(document.referrer).origin;
+    }
+
     window.addEventListener(
         'message',
         event => {
-            handleBrowserEvents(props, propListeners, event);
+            handleBrowserEvents(trustedOrigin, propListeners, event);
         },
         false
     );
@@ -110,6 +138,7 @@ const setupBrowser = props => {
             });
         },
         onCalculate: ({ value }) => {
+            sendEvent(createPostMessengerEvent('message', POSTMESSENGER_EVENT_NAMES.CALCULATE), trustedOrigin);
             logger.track({
                 index: '1',
                 et: 'CLICK',
@@ -120,6 +149,7 @@ const setupBrowser = props => {
             });
         },
         onShow: () => {
+            sendEvent(createPostMessengerEvent('message', POSTMESSENGER_EVENT_NAMES.SHOW), trustedOrigin);
             logger.track({
                 index: '1',
                 et: 'CLIENT_IMPRESSION',
@@ -128,16 +158,15 @@ const setupBrowser = props => {
             });
         },
         onClose: ({ linkName }) => {
-            if (isIframe && document.referrer) {
-                const targetOrigin = new window.URL(document.referrer).origin;
-                window.parent.postMessage('paypal-messages-modal-close', targetOrigin);
-            }
-            logger.track({
-                index: '1',
-                et: 'CLICK',
-                event_type: 'modal_close',
-                page_view_link_name: linkName
-            });
+            const eventPayload = {
+                linkName
+                // for data security, also add new params to createSafePayload in ./postMessage.js
+            };
+            sendEvent(
+                createPostMessengerEvent('message', POSTMESSENGER_EVENT_NAMES.CLOSE, eventPayload),
+                trustedOrigin
+            );
+            logModalClose(linkName);
         },
         // Overridable defaults
         integrationType: __MESSAGES__.__TARGET__,

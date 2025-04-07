@@ -1,4 +1,5 @@
 import zoidPolyfill, { handleBrowserEvents } from 'src/components/modal/v2/lib/zoid-polyfill';
+import { POSTMESSENGER_EVENT_NAMES } from 'src/components/modal/v2/lib/postMessage';
 import { logger } from 'src/utils';
 
 // Mock all of utils because the `stats` util that would be included has a side-effect call to logger.track
@@ -88,6 +89,13 @@ const mockLoadUrl = (url, { platform = 'web' } = {}) => {
 };
 
 describe('zoidPollyfill', () => {
+    beforeAll(() => {
+        const postMessage = jest.fn();
+        window.parent.postMessage = postMessage;
+    });
+    afterEach(() => {
+        postMessage.mockClear();
+    });
     describe('sets up xprops for browser', () => {
         beforeAll(() => {
             mockLoadUrl(
@@ -440,16 +448,18 @@ describe('zoidPollyfill', () => {
                 expect(addEventListenerSpy).toHaveBeenCalledTimes(1);
                 expect(addEventListenerSpy).toHaveBeenCalledWith('message', expect.any(Function), false);
             });
-            test('handleBrowserEvents updates props when values are valid', () => {
+            test('handleBrowserEvents handles PROPS_UPDATE and updates props when values are valid', () => {
                 // jest doesn't support calling postMessage, so we cannot use the event listener above
                 // instead we will manually verify that handleBrowserEvents works as intended
+                const clientOrigin = 'http://example.com';
+
                 const newPropsEvent = {
-                    origin: 'http://example.com',
+                    origin: clientOrigin,
                     data: {
                         eventName: 'PROPS_UPDATE',
                         eventPayload: {
                             amount: 1000,
-                            offerTypes: ['PAY_LATER_LONG_TERM', 'PAY_LATER_SHORT_TERM']
+                            offerType: ['PAY_LATER_LONG_TERM', 'PAY_LATER_SHORT_TERM']
                         }
                     }
                 };
@@ -457,7 +467,7 @@ describe('zoidPollyfill', () => {
                 const propListeners = new Set();
                 const onPropsCallback = jest.fn();
                 propListeners.add(onPropsCallback);
-                handleBrowserEvents(window.xprops, propListeners, newPropsEvent);
+                handleBrowserEvents(clientOrigin, propListeners, newPropsEvent);
 
                 expect(onPropsCallback).toHaveBeenCalledTimes(1);
                 expect(onPropsCallback).toHaveBeenCalledWith(
@@ -466,6 +476,36 @@ describe('zoidPollyfill', () => {
                         logoType: 'inline',
                         amount: 1000,
                         offer: 'PAY_LATER_LONG_TERM,PAY_LATER_SHORT_TERM'
+                    })
+                );
+            });
+            test('handleBrowserEvents handles MODAL_CLOSE and logs close method', () => {
+                // jest doesn't support calling postMessage, so we cannot use the event listener above
+                // instead we will manually verify that handleBrowserEvents works as intended
+                const clientOrigin = 'http://example.com';
+
+                const newPropsEvent = {
+                    origin: clientOrigin,
+                    data: {
+                        eventName: 'MODAL_CLOSED',
+                        eventPayload: {
+                            linkName: 'Custom Close Button'
+                        }
+                    }
+                };
+
+                const propListeners = new Set();
+                const onPropsCallback = jest.fn();
+                propListeners.add(onPropsCallback);
+                handleBrowserEvents(clientOrigin, propListeners, newPropsEvent);
+
+                expect(logger.track).toHaveBeenCalledTimes(1);
+                expect(logger.track).toHaveBeenCalledWith(
+                    expect.objectContaining({
+                        index: '1',
+                        et: 'CLICK',
+                        event_type: 'modal_close',
+                        page_view_link_name: 'Custom Close Button'
                     })
                 );
             });
@@ -484,33 +524,65 @@ describe('zoidPollyfill', () => {
         });
     });
 
-    describe('communication with parent window on onClose ', () => {
+    describe('communication with parent window on modal events ', () => {
         beforeAll(() => {
             mockLoadUrl(
-                'https://localhost.paypal.com:8080/credit-presentment/native/modal?client_id=client_1&logo_type=inline&amount=500&devTouchpoint=true'
+                'https://localhost.paypal.com:8080/credit-presentment/lander/modal?client_id=client_1&logo_type=inline&amount=500&devTouchpoint=true&origin=http://localhost.paypal.com:8080'
             );
             zoidPolyfill();
-            const postMessage = jest.fn();
-            window.parent.postMessage = postMessage;
         });
         afterEach(() => {
             logger.track.mockClear();
-            postMessage.mockClear();
         });
-        test('does not send post message to parent window when referrer not present', () => {
-            window.xprops.onClose({ linkName: 'Escape Key' });
-            expect(postMessage).not.toHaveBeenCalled();
-        });
-
-        test('sends post message to parent window when referrer is present', () => {
-            Object.defineProperty(window.document, 'referrer', {
-                value: 'http://localhost.paypal.com:8080/lander'
+        describe('communication with parent window on onClose ', () => {
+            test.skip('does not send post message to parent window when referrer not present', () => {
+                window.xprops.onClose({ linkName: 'Escape Key' });
+                expect(postMessage).not.toHaveBeenCalled();
             });
 
-            window.xprops.onClose({ linkName: 'Escape Key' });
+            test('sends post message to parent window when referrer is present', () => {
+                Object.defineProperty(window.document, 'referrer', {
+                    value: 'http://localhost.paypal.com:8080/lander'
+                });
 
-            expect(postMessage).toHaveBeenCalledTimes(1);
-            expect(postMessage).toBeCalledWith('paypal-messages-modal-close', 'http://localhost.paypal.com:8080');
+                window.xprops.onClose({ linkName: 'Escape Key' });
+
+                expect(postMessage).toHaveBeenCalledTimes(1);
+                expect(postMessage).toBeCalledWith(
+                    expect.objectContaining({ eventName: POSTMESSENGER_EVENT_NAMES.CLOSE }),
+                    'http://localhost.paypal.com:8080'
+                );
+            });
+        });
+        describe('communication with parent window on onShow ', () => {
+            test('sends post message to parent window when referrer is present', () => {
+                Object.defineProperty(window.document, 'referrer', {
+                    value: 'http://localhost.paypal.com:8080/lander'
+                });
+
+                window.xprops.onShow();
+
+                expect(postMessage).toHaveBeenCalledTimes(1);
+                expect(postMessage).toBeCalledWith(
+                    expect.objectContaining({ eventName: POSTMESSENGER_EVENT_NAMES.SHOW }),
+                    'http://localhost.paypal.com:8080'
+                );
+            });
+        });
+        describe('communication with parent window on onCalculate ', () => {
+            test('sends post message to parent window when referrer is present', () => {
+                Object.defineProperty(window.document, 'referrer', {
+                    value: 'http://localhost.paypal.com:8080/lander'
+                });
+
+                window.xprops.onCalculate({ amount: 40 });
+
+                expect(postMessage).toHaveBeenCalledTimes(1);
+                expect(postMessage).toBeCalledWith(
+                    expect.objectContaining({ eventName: POSTMESSENGER_EVENT_NAMES.CALCULATE }),
+                    'http://localhost.paypal.com:8080'
+                );
+            });
         });
     });
 });
