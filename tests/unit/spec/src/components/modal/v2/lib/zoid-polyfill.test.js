@@ -448,7 +448,7 @@ describe('zoidPollyfill', () => {
                 expect(addEventListenerSpy).toHaveBeenCalledTimes(1);
                 expect(addEventListenerSpy).toHaveBeenCalledWith('message', expect.any(Function), false);
             });
-            test('handleBrowserEvents updates props when values are valid', () => {
+            test('handleBrowserEvents handles PROPS_UPDATE and updates props when values are valid', () => {
                 // jest doesn't support calling postMessage, so we cannot use the event listener above
                 // instead we will manually verify that handleBrowserEvents works as intended
                 const clientOrigin = 'http://example.com';
@@ -476,6 +476,36 @@ describe('zoidPollyfill', () => {
                         logoType: 'inline',
                         amount: 1000,
                         offer: 'PAY_LATER_LONG_TERM,PAY_LATER_SHORT_TERM'
+                    })
+                );
+            });
+            test('handleBrowserEvents handles MODAL_CLOSE and logs close method', () => {
+                // jest doesn't support calling postMessage, so we cannot use the event listener above
+                // instead we will manually verify that handleBrowserEvents works as intended
+                const clientOrigin = 'http://example.com';
+
+                const newPropsEvent = {
+                    origin: clientOrigin,
+                    data: {
+                        eventName: 'MODAL_CLOSED',
+                        eventPayload: {
+                            linkName: 'Custom Close Button'
+                        }
+                    }
+                };
+
+                const propListeners = new Set();
+                const onPropsCallback = jest.fn();
+                propListeners.add(onPropsCallback);
+                handleBrowserEvents(clientOrigin, propListeners, newPropsEvent);
+
+                expect(logger.track).toHaveBeenCalledTimes(1);
+                expect(logger.track).toHaveBeenCalledWith(
+                    expect.objectContaining({
+                        index: '1',
+                        et: 'CLICK',
+                        event_type: 'modal_close',
+                        page_view_link_name: 'Custom Close Button'
                     })
                 );
             });

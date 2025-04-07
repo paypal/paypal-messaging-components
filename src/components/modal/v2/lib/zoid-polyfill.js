@@ -6,7 +6,6 @@ import { sendEvent, createPostMessengerEvent, POSTMESSENGER_EVENT_NAMES } from '
 
 const IOS_INTERFACE_NAME = 'paypalMessageModalCallbackHandler';
 const ANDROID_INTERFACE_NAME = 'paypalMessageModalCallbackHandler';
-// these constants should maintain parity with MESSAGE_MODAL_EVENT_NAMES in core-web-sdk
 
 function updateProps(newProps, propListeners) {
     Array.from(propListeners.values()).forEach(listener => {
@@ -15,18 +14,41 @@ function updateProps(newProps, propListeners) {
     Object.assign(window.xprops, newProps);
 }
 
-export function handleBrowserEvents(trustedOrigin, propListeners, updatedPropsEvent) {
+export function handlePropsUpdateEvent(propListeners, updatedPropsEvent) {
     const {
-        origin: eventOrigin,
-        data: { eventName, id, eventPayload: newProps }
+        data: { eventPayload: newProps }
     } = updatedPropsEvent;
-
-    if (eventOrigin === trustedOrigin && eventName === 'PROPS_UPDATE' && newProps && typeof newProps === 'object') {
-        // send event ack with original event id so PostMessenger will stop reposting event
-        sendEvent(createPostMessengerEvent('ack', id), trustedOrigin);
+    if (newProps && typeof newProps === 'object') {
         const validProps = validateProps(newProps);
         updateProps(validProps, propListeners);
     }
+}
+
+export function logModalClose(linkName) {
+    logger.track({
+        index: '1',
+        et: 'CLICK',
+        event_type: 'modal_close',
+        page_view_link_name: linkName
+    });
+}
+
+export function handleBrowserEvents(clientOrigin, propListeners, event) {
+    const {
+        origin: eventOrigin,
+        data: { eventName, id }
+    } = event;
+    if (eventOrigin !== clientOrigin) {
+        return;
+    }
+    if (eventName === 'PROPS_UPDATE') {
+        handlePropsUpdateEvent(propListeners, event);
+    }
+    if (eventName === 'MODAL_CLOSED') {
+        logModalClose(event.data.eventPayload.linkName);
+    }
+    // send event ack with original event id so PostMessenger will stop reposting event
+    sendEvent(createPostMessengerEvent('ack', id), clientOrigin);
 }
 
 const getAccount = (merchantId, clientId, payerId) => {
@@ -144,12 +166,7 @@ const setupBrowser = props => {
                 createPostMessengerEvent('message', POSTMESSENGER_EVENT_NAMES.CLOSE, eventPayload),
                 trustedOrigin
             );
-            logger.track({
-                index: '1',
-                et: 'CLICK',
-                event_type: 'modal_close',
-                page_view_link_name: linkName
-            });
+            logModalClose(linkName);
         },
         // Overridable defaults
         integrationType: __MESSAGES__.__TARGET__,

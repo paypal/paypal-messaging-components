@@ -8,7 +8,7 @@ const POSTMESSENGER_EVENT_TYPES = {
 const POSTMESSENGER_ACK_PAYLOAD = {
     ok: 'true'
 };
-
+// these constants should maintain parity with MESSAGE_MODAL_EVENT_NAMES in core-web-sdk
 export const POSTMESSENGER_EVENT_NAMES = {
     CALCULATE: 'paypal-messages-modal-calculate',
     CLOSE: 'paypal-messages-modal-close',
