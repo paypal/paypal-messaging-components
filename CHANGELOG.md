@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.67.0](https://github.com/paypal/paypal-messaging-components/compare/v1.66.4...v1.67.0) (2025-04-01)
+
+
+### Features
+
+* revert demo pages ([#1189](https://github.com/paypal/paypal-messaging-components/issues/1189)) ([3a72627](https://github.com/paypal/paypal-messaging-components/commit/3a72627b91ca9d4d37ceb0e37e8d96a0d4361668))
+* support US onboarding modals ([#1185](https://github.com/paypal/paypal-messaging-components/issues/1185)) ([a7f7b54](https://github.com/paypal/paypal-messaging-components/commit/a7f7b54e1100ec28bedf5298e8c1cde628b8bddd))
+
+
+### Code Refactoring
+
+* 5.1 modal rebrand ([#1186](https://github.com/paypal/paypal-messaging-components/issues/1186)) ([1a22954](https://github.com/paypal/paypal-messaging-components/commit/1a2295402c3296d2e8c6c421ca75a06f163b4f84))
+* 5.1 rebrand margins ([#1188](https://github.com/paypal/paypal-messaging-components/issues/1188)) ([276e270](https://github.com/paypal/paypal-messaging-components/commit/276e2702c3b0b211ce8ed2ab06e8e353c5d1a0c3))
+
 ### [1.66.4](https://github.com/paypal/paypal-messaging-components/compare/v1.66.3...v1.66.4) (2025-03-18)
 
 

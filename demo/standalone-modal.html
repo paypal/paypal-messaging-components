@@ -4,25 +4,13 @@
         <title>Standalone Modal Sandbox</title>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-        <!-- <script src="//localhost.paypal.com:8080/modal.js"></script> -->
-        <script>
-            window.__TEST_ENV__ = 'https://msmaster.qa.paypal.com';
-        </script>
-        <script
-            src="https://cdn-5_1_rebrand_us_01.static.engineering.dev.paypalinc.com/upstream/bizcomponents/stage/modal.js"
-            data-pp-account="9DZUAPZS6JM5E"
-        ></script>
+        <script src="//localhost.paypal.com:8080/modal.js"></script>
     </head>
     <body>
         <button class="learn-more">Learn more</button>
         <script>
             const modal = window.paypal.MessagesModal({
-                // account: 'DEV_US_LONG_TERM_DF',
-                amount: '600',
-                channel: 'DEBIT_FLIP',
-                customerId: 'W9WK2RH9RWWQC'
-                // offer: 'PAY_LATER_SHORT_TERM'
-                // features: 'new-checkout-design',
+                account: 'DEV_US_MULTI'
             });
             document.querySelector('.learn-more').addEventListener('click', () => {
                 modal.show();
