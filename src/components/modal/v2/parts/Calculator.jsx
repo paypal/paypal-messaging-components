@@ -192,7 +192,6 @@ const Calculator = ({
     };
 
     return (
-        // <div className={`${cta ? 'calculator__border-checkout' : ''}`}>
         <div
             className={`calculator ${useNewCheckoutDesign === 'true' ? 'checkout' : ''} ${
                 useV5Design === 'true' ? 'v5Design' : ''

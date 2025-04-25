@@ -154,7 +154,6 @@ const BodyContent = () => {
                     preapprovalLabel={preapprovalLabel}
                     // toggles preapproval content
                     isPreapproved={isPreapproved ?? 'false'}
-                    // use5Dot1Design={use5Dot1Design}
                 />
             ) : (
                 <Header
