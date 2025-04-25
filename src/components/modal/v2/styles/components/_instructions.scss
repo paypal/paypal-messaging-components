@@ -156,6 +156,29 @@
         }
     }
 
+    &__border-checkout {
+        @include tablet {
+            border: 1px solid $checkout-border;
+            background-color: $white;
+            padding: 6px 16px 6px 16px;
+            border-radius: 12px;
+        }
+
+        @include mobile {
+            border: 1px solid $checkout-border;
+            background-color: $white;
+            padding: 6px 16px 6px 16px;
+            border-radius: 12px;
+        }
+
+        @include smallMobile {
+            border: 1px solid $checkout-border;
+            background-color: $white;
+            padding: 6px 16px 6px 16px;
+            border-radius: 12px;
+        }
+    }
+
     &.v5Design {
         padding-top: 14px;
         margin-bottom: 50px;
@@ -167,6 +190,34 @@
         ol {
             @include tablet {
                 width: 88%;
+            }
+        }
+
+        .instructions__border-checkout {
+            ol {
+                @include tablet {
+                    padding-left: 20px;
+                }
+            }
+
+            h2 {
+                @include tablet {
+                    margin-left: 20px;
+                }
+            }
+
+            .checkout & {
+                ol {
+                    @include tablet {
+                        padding-left: 0px;
+                    }
+                }
+
+                h2 {
+                    @include tablet {
+                        margin-left: 0px;
+                    }
+                }
             }
         }
     }

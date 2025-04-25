@@ -55,7 +55,7 @@ const Header = ({
             <div className="header__icons">
                 <div className={`logo__wrapper ${isScrolled ? 'logo__wrapper--scroll' : ''}`}>
                     <div className="pp-logo">
-                        <Icon name={useV5Design ? 'logo_v5' : 'logo'} />
+                        <Icon name="logo" />
                     </div>
                 </div>
                 {!isLander && (
@@ -69,7 +69,7 @@ const Header = ({
                         aria-keyshortcuts="escape"
                         onClick={() => handleClose('Close Button')}
                     >
-                        <Icon name={useV5Design ? 'close_v5' : 'close'} />
+                        <Icon name="close" />
                     </button>
                 )}
                 <div className="header__fixed-wrapper header__fixed-wrapper--front">

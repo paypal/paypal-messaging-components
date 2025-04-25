@@ -1,7 +1,7 @@
 {
     "meta": {
         "product": "PAY_LATER_LONG_TERM",
-        "useV4Design": "true",
+        "useV5Design": "true",
         "offerCountry": "US",
         "variables": {
             "transaction_amount": "${eval(transaction_amount ? transaction_amount : '-')}",
@@ -28,11 +28,14 @@
             "genericError": "Something went wrong. Please try again later."
         },
         "genericDisclaimer": "Terms vary based on purchase amount and your credit.",
-        "instructions": [
-            "Explore plan options. No sign-up fees or late fees.",
-            "Choose a plan and pay nothing today.",
-            "Use autopay for your payments. It's easy!"
-        ],
+        "instructions": {
+            "instructionsHeadline": "How it works",
+            "instructionsSubHeadline": [
+                "Explore plan options. No sign-up fees or late fees.",
+                "Choose a plan and pay nothing today.",
+                "Use autopay for your payments. It's easy!"
+            ]
+        },
         "cta": {
             "buttonTextEligible": "Continue with Pay Monthly",
             "buttonTextIneligible": "Back to Checkout",

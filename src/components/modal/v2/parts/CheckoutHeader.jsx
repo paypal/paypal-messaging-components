@@ -10,7 +10,6 @@ const CheckoutHeader = ({
     isQualifying = 'false',
     qualifyingSubheadline,
     closeButtonLabel = 'Close',
-    viewName,
     preapprovalHeadline,
     preapprovalSubHeadline,
     preapprovalLabel,
@@ -33,13 +32,6 @@ const CheckoutHeader = ({
 
     // Used to specifically target styles to a specific country
     const countryClassName = country?.toLowerCase();
-
-    const getCardArt = (view, countryName) => {
-        if (countryName === 'GB') {
-            return 'pay-in-3-card';
-        }
-        return view === 'PAY_LATER_LONG_TERM' ? 'pay-monthly-card' : 'pay-in-4-card';
-    };
 
     // IMPORTANT: These elements cannot be nested inside of other elements.
     // They are using very precise CSS position sticky rules that require this
@@ -73,7 +65,7 @@ const CheckoutHeader = ({
             </div>
             <div className="checkout header__content">
                 <div className="header__card-container">
-                    <Icon name={getCardArt(viewName, country)} />
+                    <Icon name="logo" />
                 </div>
                 <div className="preapproved">
                     <h2

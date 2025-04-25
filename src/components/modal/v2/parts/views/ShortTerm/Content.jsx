@@ -140,9 +140,11 @@ export const ShortTerm = ({
                                             timeStamp={installment?.payment_date ?? donutTimestamps[index]}
                                             numOfPayments={elements.length}
                                         />
-                                        {useV5Design === 'true' && useNewCheckoutDesign === 'true' && (
-                                            <span className={`dashed-line-${index}`} />
-                                        )}
+                                        {country === 'GB' &&
+                                            useV5Design === 'true' &&
+                                            useNewCheckoutDesign === 'true' && (
+                                                <span className={`dashed-line-${index}`} />
+                                            )}
                                     </Fragment>
                                 ))}
                             </div>
@@ -157,6 +159,7 @@ export const ShortTerm = ({
                         )}
                         <Instructions
                             instructions={instructions}
+                            cta={cta}
                             useV4Design={useV4Design}
                             useV5Design={useV5Design}
                             useNewCheckoutDesign={useNewCheckoutDesign}

@@ -4,6 +4,7 @@ import { currencyFormat } from '../lib';
 
 const Instructions = ({
     instructions,
+    cta,
     expandedState = false,
     className = '',
     useV4Design,
@@ -111,7 +112,7 @@ const Instructions = ({
                 useNewCheckoutDesign === 'true' ? 'checkout' : ''
             }`}
         >
-            {renderInstructionsContent()}
+            <div className={`${cta ? 'instructions__border-checkout' : ''}`}>{renderInstructionsContent()}</div>
         </div>
     );
 };

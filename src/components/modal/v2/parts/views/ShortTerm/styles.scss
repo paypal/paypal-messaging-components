@@ -59,11 +59,11 @@
     .dashed-line-0 {
         border-bottom: 1px dashed $dark-gray;
         width: 100%;
-        max-width: 115px;
+        max-width: 95px;
         height: 1px;
         position: absolute;
-        left: 33%;
-        top: 2.75%;
+        left: 35%;
+        top: 3.4%;
         transform: translate(-50%, -50%);
 
         @include lander {
@@ -74,10 +74,10 @@
 
         @include mobile {
             z-index: 9;
-            max-width: 105px;
+            max-width: 90px;
             height: 1px;
-            left: 33%;
-            top: 2.75%;
+            left: 35%;
+            top: 3.4%;
             transform: translate(-50%, -50%);
         }
     }
@@ -85,11 +85,11 @@
     .dashed-line-1 {
         border-bottom: 1px dashed $dark-gray;
         width: 100%;
-        max-width: 115px;
+        max-width: 100px;
         height: 1px;
         position: absolute;
-        left: 67%;
-        top: 2.75%;
+        left: 65%;
+        top: 3.4%;
         transform: translate(-50%, -50%);
 
         @include lander {
@@ -101,11 +101,11 @@
         @include mobile {
             border-bottom: 1px dashed $dark-gray;
             width: 100%;
-            max-width: 103px;
+            max-width: 90px;
             height: 1px;
             position: absolute;
-            left: 67%;
-            top: 2.75%;
+            left: 65%;
+            top: 3.4%;
             transform: translate(-50%, -50%);
         }
     }
@@ -188,11 +188,14 @@
     }
 
     .checkout {
-        background: $ql-gray;
+        background: $white;
 
         .donuts__container {
+            border: 1px solid $checkout-border;
+            border-radius: 12px;
+            margin-bottom: 15px;
             margin-top: -25px;
-            padding-bottom: 0px;
+            padding: 6px 16px 16px 16px;
         }
     }
 

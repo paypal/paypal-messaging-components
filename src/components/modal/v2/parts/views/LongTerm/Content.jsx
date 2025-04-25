@@ -162,6 +162,7 @@ export const LongTerm = ({
                     <Calculator
                         setExpandedState={setExpandedState}
                         calculator={calculator}
+                        cta={cta}
                         aprDisclaimer={offerAPRDisclaimers}
                         useV4Design={useV4Design}
                         useV5Design={useV5Design}
@@ -176,6 +177,7 @@ export const LongTerm = ({
                 </div>
                 <Instructions
                     instructions={instructions}
+                    cta={cta}
                     useV4Design={useV4Design}
                     useV5Design={useV5Design}
                     useNewCheckoutDesign={useNewCheckoutDesign}

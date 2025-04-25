@@ -92,7 +92,7 @@
         }
 
         &.checkout {
-            background-color: $ql-gray;
+            background-color: $white;
         }
     }
 
@@ -333,13 +333,10 @@
             }
 
             &.v5Design {
-                &.headline-gb,
-                &.headline-new {
-                    font-family: $paypal-pro;
-                    font-weight: bold;
-                    font-size: 32px;
-                    line-height: 36px;
-                }
+                font-family: $paypal-pro;
+                font-weight: bold;
+                font-size: 32px;
+                line-height: 36px;
             }
         }
 
@@ -398,7 +395,7 @@
                 font-size: 14px;
                 font-weight: 400;
                 line-height: 20px;
-                background-color: #d1e5f9;
+                background-color: #e3f7ff;
                 border-radius: 6px;
                 padding: 2px 8px;
                 margin: 0px 0px -20px 10px;
@@ -410,7 +407,7 @@
         }
 
         &.checkout {
-            background-color: $ql-gray;
+            background-color: $white;
 
             // logo icons
             svg {
@@ -424,17 +421,14 @@
             }
 
             h2 {
+                font-family: $paypal-pro;
+                font-weight: bold;
+                margin-bottom: 5px;
                 margin-top: 20px;
 
                 @include tablet {
                     margin-left: 20px;
                 }
-            }
-
-            .headline-gb {
-                font-family: $paypal-pro;
-                font-weight: bold;
-                margin-bottom: 5px;
             }
 
             .subheadline_p {

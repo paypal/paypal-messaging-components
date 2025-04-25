@@ -34,6 +34,32 @@
         margin-top: 15px;
     }
 
+    &.border-checkout {
+        @include tablet {
+            border: 1px solid $checkout-border;
+            background-color: $white;
+            padding: 16px 0px 16px 16px;
+            padding-left: 35px;
+            border-radius: 12px;
+        }
+
+        @include mobile {
+            margin-top: 20px;
+            border: 1px solid $checkout-border;
+            background-color: $white;
+            padding: 16px 16px 16px 16px;
+            border-radius: 12px;
+        }
+
+        @include smallMobile {
+            margin-top: 20px;
+            border: 1px solid $checkout-border;
+            background-color: $white;
+            padding: 16px 16px 16px 16px;
+            border-radius: 12px;
+        }
+    }
+
     .checkout & {
         @include tablet {
             margin-bottom: 0px;
@@ -56,6 +82,10 @@
                 @include lander {
                     margin-top: 20px;
                 }
+            }
+
+            &.checkout-title {
+                font-weight: 600;
             }
         }
 
@@ -88,7 +118,7 @@
             .input {
                 font-family: $paypal-open;
                 background: white;
-                border: 1px solid #ccc;
+                border: 1px solid $checkout-border;
                 border-radius: 3px;
                 color: $text-main;
                 font-size: 18px;
@@ -126,6 +156,10 @@
                     }
                 }
             }
+
+            &.checkout {
+                margin-right: 15px;
+            }
         }
 
         &.v5Design {
@@ -133,14 +167,14 @@
                 font-weight: 700;
             }
             label {
-                color: $v5-gray;                
+                color: $v5-gray;
             }
             input {
                 border: 1px solid $v5-gray;
             }
             // @include tablet {
-                display: flex;
-                flex-direction: column;
+            display: flex;
+            flex-direction: column;
             // }
         }
 
@@ -232,6 +266,15 @@
         .offer__wrapper {
             display: flex;
             flex-direction: column;
+        }
+
+        &.border-checkout {
+            width: auto;
+            padding-right: 35px;
+
+            &.checkout {
+                padding-left: 20px;
+            }
         }
     }
 

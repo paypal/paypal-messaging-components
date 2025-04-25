@@ -4,9 +4,9 @@
     display: flex;
     justify-content: center;
     .button {
-        font-family: $paypal-open;
+        font-family: $paypal-pro;
         display: inline-block;
-        background: $dark-blue;
+        background: $black;
         border: none;
         color: $white;
         border-radius: 3rem;
@@ -18,12 +18,12 @@
 
         &:hover,
         &:focus {
-            background: $light-blue;
+            background: $black;
         }
 
         &:focus {
             text-decoration: underline;
-            outline: 3px solid $dark-blue;
+            outline: 3px solid $black;
         }
 
         .v5Design & {
@@ -38,24 +38,5 @@
     &.checkout {
         border-top: 1px solid $ql-dark-gray;
         box-shadow: 0px 0px 2px $ql-dark-gray;
-        .button {
-            background: $ql-blue;
-
-            &:hover,
-            &:focus {
-                background: $light-blue;
-            }
-        }
-
-        &.gb {
-            .button {
-                background: $black;
-
-                &:hover,
-                &:focus {
-                    background: $black;
-                }
-            }
-        }
     }
 }
