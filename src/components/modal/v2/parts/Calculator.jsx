@@ -252,7 +252,6 @@ const Calculator = ({
                 </div>
             )}
         </div>
-        // </div>
     );
 };
 
