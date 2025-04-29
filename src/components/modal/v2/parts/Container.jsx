@@ -36,7 +36,8 @@ const Container = ({ children }) => {
         ecToken,
         contextualComponents,
         disableSetCookie,
-        features
+        features,
+        integrationIdentifier
     } = useXProps();
     const [transitionState] = useTransitionState();
     const [loading, setLoading] = useState(false);
@@ -80,7 +81,8 @@ const Container = ({ children }) => {
             contextualComponents,
             deviceID: getOrCreateDeviceID(),
             disableSetCookie,
-            features
+            features,
+            integrationIdentifier
         }).then(data => {
             setServerData(data);
             setLoading(false);

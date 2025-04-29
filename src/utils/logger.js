@@ -11,7 +11,8 @@ import { request } from './miscellaneous';
 import { getLibraryVersion, getDisableSetCookie } from './sdk';
 
 function generateLogPayload(account, { meta, events: bizEvents, tracking }) {
-    const { deviceID, sessionID, integration_type, messaging_version } = meta.global ?? {};
+    const { deviceID, sessionID, integration_type, messaging_version, flow_attributes, flow_version } =
+        meta.global ?? {};
 
     let clientID;
     if (account.startsWith('client-id:')) {
@@ -101,6 +102,9 @@ function generateLogPayload(account, { meta, events: bizEvents, tracking }) {
             session_id: sessionID,
             integration_type,
             integration_version: messaging_version,
+            flow_attributes,
+            flow_version,
+
             components
         }
     };
