@@ -6,8 +6,8 @@
         "maxAmount": "{maxAmount}",
         "qualifying": "{qualifying_offer}",
         "amount": "{transaction_amount}",
+        "useV5Design": "true",
         "apr": "{apr}",
-        "preapproved": "false",
         "variables": {
             "transaction_amount": "${eval(transaction_amount ? transaction_amount : '-')}",
             "qualifying_offer": "${eval(CREDIT_OFFERS_DS.qualifying_offer ? CREDIT_OFFERS_DS.qualifying_offer : 'false')}",
@@ -36,17 +36,22 @@
             ]
         },
         "instructions": {
-            "instructionsHeadline": "How to use Pay in 3",
-            "instructionsSubHeadline": "Confirm your info and apply, set up autopay, and review your purchase."
+            "instructionsHeadline": "How it works",
+            "instructionsSubHeadline": [
+                "Choose PayPal at checkout to pay later with Pay in 3. ",
+                "Complete your purchase with the first payment today.",
+                "Remaining payments are taken automatically."
+            ]
         },
         "preapproval": {
-            "preapprovalHeadline": "Pre-approved to Pay in 3 on this purchase ",
+            "preapprovalHeadline": "Pay in 3 interest-free payments",
+            "preapprovalLabel": "Pre-approved",
             "preapprovalSubHeadline": "Pay {formattedTotalCost} in {total_payments} interest-free payments.",
             "preapprovalDisclaimerHeadline": "What to know about pre-approval",
             "preapprovalDisclaimerBody": "Pre-approval may not be valid if you make another Pay in 3 purchase before the session expires."
         },
         "cta": {
-            "buttonTextEligible": "Continue with Pay in 3",
+            "buttonTextEligible": "Continue",
             "buttonTextIneligible": "Back to Checkout",
             "link": "https://www.paypal.com/link/to/short-term-application"
         },

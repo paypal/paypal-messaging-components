@@ -23,7 +23,7 @@ export const DEV_DE_LONG_TERM_EN = {
             modalContent: {
                 offerHeadline: '33,82€ / month',
                 updatedOfferHeadline: '170,83€ / month',
-                offerFieldValues: ['33,82€', '2,47€', '101,47€'],
+                offerFieldValues: ['99,00€', '2,47€', '101,47€'],
                 aprDisclaimer: 'Eff. Annual interest rate 9,99% p.a.'
             }
         },

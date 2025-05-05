@@ -13,6 +13,7 @@
         "total_payments": "{total_payments}",
         "formattedTotalCost": "{formattedTotalCost}",
         "formattedTotalInterest": "{formattedTotalInterest}",
+        "formattedTransactionAmount": "{formattedTransactionAmount}",
         "variables": {
             "transaction_amount": "${eval(transaction_amount ? transaction_amount : '-')}",
             "qualifying_offer": "${eval(CREDIT_OFFERS_DS.qualifying_offer ? CREDIT_OFFERS_DS.qualifying_offer : 'false')}",
@@ -22,6 +23,7 @@
             "formattedMinAmount": "${CREDIT_OFFERS_DS.formattedMinAmount}",
             "formattedMaxAmount": "${CREDIT_OFFERS_DS.formattedMaxAmount}",
             "formattedTotalCost": "${CREDIT_OFFERS_DS.formattedTotalCost}",
+            "formattedTransactionAmount": "${CREDIT_OFFERS_DS.formattedTransactionAmount}",
             "minAmount": "${CREDIT_OFFERS_DS.minAmount}",
             "maxAmount": "${CREDIT_OFFERS_DS.maxAmount}",
             "apr": "${CREDIT_OFFERS_DS.apr}",
@@ -40,7 +42,7 @@
         "termsLabel": {
             "offerPayment": "{formattedPeriodicPayment} / month",
             "offerNumInstallments": "{total_payments} installments",
-            "eMoney": "Transaction amount e-money service",
+            "eMoney": "E-money transaction amount",
             "totalInterest": "Interest amount",
             "total": "Total amount"
         }

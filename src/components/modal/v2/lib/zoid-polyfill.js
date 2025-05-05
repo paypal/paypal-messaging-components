@@ -1,15 +1,87 @@
 /* global Android */
 import { isAndroidWebview, isIosWebview, getPerformance } from '@krakenjs/belter/src';
 import { getOrCreateDeviceID, logger } from '../../../../utils';
-import { isIframe } from './utils';
+import { validateProps, isIframe } from './utils';
+import { sendEvent, createPostMessengerEvent, POSTMESSENGER_EVENT_NAMES } from './postMessage';
 
 const IOS_INTERFACE_NAME = 'paypalMessageModalCallbackHandler';
 const ANDROID_INTERFACE_NAME = 'paypalMessageModalCallbackHandler';
 
+function updateProps(newProps, propListeners) {
+    Array.from(propListeners.values()).forEach(listener => {
+        listener({ ...window.xprops, ...newProps });
+    });
+    Object.assign(window.xprops, newProps);
+}
+
+export function handlePropsUpdateEvent(propListeners, updatedPropsEvent) {
+    const {
+        data: { eventPayload: newProps }
+    } = updatedPropsEvent;
+    if (newProps && typeof newProps === 'object') {
+        const validProps = validateProps(newProps);
+        updateProps(validProps, propListeners);
+    }
+}
+
+export function logModalClose(linkName) {
+    logger.track({
+        index: '1',
+        et: 'CLICK',
+        event_type: 'modal_close',
+        page_view_link_name: linkName
+    });
+}
+
+export function handleBrowserEvents(clientOrigin, propListeners, event) {
+    const {
+        origin: eventOrigin,
+        data: { eventName, id }
+    } = event;
+    if (eventOrigin !== clientOrigin) {
+        return;
+    }
+    if (eventName === 'PROPS_UPDATE') {
+        handlePropsUpdateEvent(propListeners, event);
+    }
+    if (eventName === 'MODAL_CLOSED') {
+        logModalClose(event.data.eventPayload.linkName);
+    }
+    // send event ack with original event id so PostMessenger will stop reposting event
+    sendEvent(createPostMessengerEvent('ack', id), clientOrigin);
+}
+
+const getAccount = (merchantId, clientId, payerId) => {
+    if (merchantId) {
+        return merchantId;
+    }
+
+    // Logger endpoint expects account field to be prefixed if the value is a clientId
+    if (clientId) {
+        return `client-id:${clientId}`;
+    }
+
+    return payerId;
+};
+
 const setupBrowser = props => {
+    const propListeners = new Set();
+
+    let trustedOrigin = decodeURIComponent(props.origin || '');
+    if (isIframe && document.referrer && !process.env.NODE_ENV === 'test') {
+        trustedOrigin = new window.URL(document.referrer).origin;
+    }
+
+    window.addEventListener(
+        'message',
+        event => {
+            handleBrowserEvents(trustedOrigin, propListeners, event);
+        },
+        false
+    );
+
     window.xprops = {
-        // We will never recieve new props via this integration style
-        onProps: () => {},
+        onProps: listener => propListeners.add(listener),
         // TODO: Verify these callbacks are instrumented correctly
         onReady: ({ products, meta }) => {
             const { clientId, payerId, merchantId, offer, partnerAttributionId } = props;
@@ -39,7 +111,7 @@ const setupBrowser = props => {
                         // TODO: This should likely be specific to this integration type
                         type: 'modal',
                         // messageRequestId,
-                        account: merchantId || clientId || payerId,
+                        account: getAccount(merchantId, clientId, payerId),
                         trackingDetails
                     }
                 };
@@ -66,6 +138,7 @@ const setupBrowser = props => {
             });
         },
         onCalculate: ({ value }) => {
+            sendEvent(createPostMessengerEvent('message', POSTMESSENGER_EVENT_NAMES.CALCULATE), trustedOrigin);
             logger.track({
                 index: '1',
                 et: 'CLICK',
@@ -76,6 +149,7 @@ const setupBrowser = props => {
             });
         },
         onShow: () => {
+            sendEvent(createPostMessengerEvent('message', POSTMESSENGER_EVENT_NAMES.SHOW), trustedOrigin);
             logger.track({
                 index: '1',
                 et: 'CLIENT_IMPRESSION',
@@ -84,16 +158,15 @@ const setupBrowser = props => {
             });
         },
         onClose: ({ linkName }) => {
-            if (isIframe && document.referrer) {
-                const targetOrigin = new window.URL(document.referrer).origin;
-                window.parent.postMessage('paypal-messages-modal-close', targetOrigin);
-            }
-            logger.track({
-                index: '1',
-                et: 'CLICK',
-                event_type: 'modal_close',
-                page_view_link_name: linkName
-            });
+            const eventPayload = {
+                linkName
+                // for data security, also add new params to createSafePayload in ./postMessage.js
+            };
+            sendEvent(
+                createPostMessengerEvent('message', POSTMESSENGER_EVENT_NAMES.CLOSE, eventPayload),
+                trustedOrigin
+            );
+            logModalClose(linkName);
         },
         // Overridable defaults
         integrationType: __MESSAGES__.__TARGET__,
@@ -126,11 +199,7 @@ const setupWebview = props => {
     window.actions = {
         updateProps: newProps => {
             if (newProps && typeof newProps === 'object') {
-                Array.from(propListeners.values()).forEach(listener => {
-                    listener({ ...window.xprops, ...newProps });
-                });
-
-                Object.assign(window.xprops, newProps);
+                updateProps(newProps, propListeners);
             }
         }
     };

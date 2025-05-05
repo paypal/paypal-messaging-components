@@ -53,6 +53,12 @@
                         background-color: #f5f7fb;
                     }
                 }
+
+                &.v5Dot1Design {
+                    button {
+                        background-color: $white;
+                    }
+                }
             }
 
             @include lander {

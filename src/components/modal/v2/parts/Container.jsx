@@ -45,8 +45,6 @@ const Container = ({ children }) => {
     useEffect(() => {
         if (transitionState === 'CLOSED') {
             contentWrapperRef.current.scrollTop = 0;
-        } else if (transitionState === 'OPEN') {
-            window.focus();
         }
     }, [transitionState]);
 

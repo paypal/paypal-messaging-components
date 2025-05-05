@@ -187,6 +187,16 @@
                     stroke-width: 2.2;
                 }
             }
+
+            &.v5Design {
+                height: 50px;
+                width: 50px;
+
+                svg {
+                    height: 30px;
+                    width: 30px;
+                }
+            }
         }
 
         &.checkout {
@@ -308,6 +318,7 @@
                     }
                 }
             }
+
             &.headline-gb-preapproved {
                 max-width: 50%;
                 @include mobile {
@@ -318,6 +329,16 @@
             &.headline-us-preapproved {
                 @include smallMobile {
                     max-width: 75%;
+                }
+            }
+
+            &.v5Design {
+                &.headline-gb,
+                &.headline-new {
+                    font-family: $paypal-pro;
+                    font-weight: bold;
+                    font-size: 32px;
+                    line-height: 36px;
                 }
             }
         }
@@ -387,7 +408,7 @@
                 }
             }
         }
-       
+
         &.checkout {
             background-color: $ql-gray;
 
@@ -404,11 +425,16 @@
 
             h2 {
                 margin-top: 20px;
-                margin-bottom: 0px;
 
                 @include tablet {
                     margin-left: 20px;
                 }
+            }
+
+            .headline-gb {
+                font-family: $paypal-pro;
+                font-weight: bold;
+                margin-bottom: 5px;
             }
 
             .subheadline_p {

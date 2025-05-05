@@ -2,6 +2,7 @@ import objectEntries from 'core-js-pure/stable/object/entries';
 import arrayFrom from 'core-js-pure/stable/array/from';
 import { isIosWebview, isAndroidWebview } from '@krakenjs/belter/src';
 import { request, memoize, ppDebug } from '../../../../utils';
+import validate from '../../../../library/zoid/message/validation';
 
 export const getContent = memoize(
     ({
@@ -111,4 +112,19 @@ export function formatDateByCountry(country) {
         return currentDate.toLocaleDateString('en-US', options);
     }
     return currentDate.toLocaleDateString('en-GB', options);
+}
+
+export function validateProps(updatedProps) {
+    const validatedProps = {};
+    Object.entries(updatedProps).forEach(entry => {
+        const [k, v] = entry;
+        if (k === 'offerType') {
+            validatedProps.offer = validate.offer({ props: { offer: v } });
+        } else if (!Object.keys(validate).includes(k)) {
+            validatedProps[k] = v;
+        } else {
+            validatedProps[k] = validate[k]({ props: { [k]: v } });
+        }
+    });
+    return validatedProps;
 }

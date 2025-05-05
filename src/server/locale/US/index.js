@@ -18,7 +18,6 @@ export default (offerType, contextualComponents) => {
     // Non-contextualComponents messages
     switch (getStandardProductOffer(offerType)) {
         case OFFER.PAYPAL_CREDIT_NO_INTEREST:
-        case OFFER.PAYPAL_CREDIT_INSTALLMENTS:
             return paypalCredit;
         case OFFER.PAY_LATER_SHORT_TERM:
             return payLaterShortTerm;
