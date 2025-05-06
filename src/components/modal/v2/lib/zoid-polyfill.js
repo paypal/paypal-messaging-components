@@ -84,7 +84,7 @@ const setupBrowser = props => {
         onProps: listener => propListeners.add(listener),
         // TODO: Verify these callbacks are instrumented correctly
         onReady: ({ products, meta }) => {
-            const { clientId, payerId, merchantId, offer, partnerAttributionId, flowAttributes, flowVersion } = props;
+            const { clientId, payerId, merchantId, offer, partnerAttributionId } = props;
             const { trackingDetails } = meta;
 
             logger.addMetaBuilder(existingMeta => {
@@ -103,8 +103,6 @@ const setupBrowser = props => {
                         ...existingGlobal,
                         // integration_type needs to be sent or it will default to lander
                         integration_type: props.integrationType ?? __MESSAGES__.__TARGET__,
-                        flow_attributes: flowAttributes,
-                        flow_version: flowVersion,
                         // Device ID should be correctly set during message render
                         deviceID: getOrCreateDeviceID()
                         // sessionID: getSessionID()
