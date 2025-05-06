@@ -101,7 +101,6 @@ function generateLogPayload(account, { meta, events: bizEvents, tracking }) {
             session_id: sessionID,
             integration_type,
             integration_version: messaging_version,
-
             components
         }
     };
