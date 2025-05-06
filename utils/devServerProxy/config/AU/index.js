@@ -9,17 +9,17 @@ export default {
         ],
         messageThresholds: [
             {
-                amount: 0,
+                amount: 2000,
                 template: 'gpl.json',
                 product: 'PAY_LATER_SHORT_TERM'
             },
             {
-                amount: 30,
+                amount: 0.99,
                 template: 'gplq.json',
                 product: 'PAY_LATER_SHORT_TERM'
             },
             {
-                amount: 1500.01,
+                amount: 0,
                 template: 'gpl.json',
                 product: 'PAY_LATER_SHORT_TERM'
             }
@@ -30,8 +30,8 @@ export default {
                     totalPayments: 4,
                     apr: 0,
                     nominalRate: 0,
-                    minAmount: 30,
-                    maxAmount: 1500
+                    minAmount: 1,
+                    maxAmount: 1999.99
                 }
             ]
         }

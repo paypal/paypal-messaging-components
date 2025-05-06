@@ -2,15 +2,15 @@ export const DEV_AU_SHORT_TERM = {
     testFileName: 'shortTerm',
     country: 'AU',
     description: 'AU merchant eligible for short term only',
-    minAmount: 30,
-    maxAmount: 1500,
+    minAmount: 1,
+    maxAmount: 1999.99,
     amounts: [
         {
             value: '0.00',
             message: 'Non-qualifying Pay in 4',
             expectedValue: 'Pay in 4 interest-free payments',
             modalContent: {
-                subheadline: 'Available for purchases of $30 to $1,500. No sign-up fees or late fees.',
+                subheadline: 'Available for purchases below $2,000.00. No sign-up fees or late fees.',
                 periodicPayment: null
             }
         },
@@ -24,11 +24,11 @@ export const DEV_AU_SHORT_TERM = {
             }
         },
         {
-            value: '1500.01',
+            value: '2000.00',
             message: 'Non-qualifying Pay in 4',
             expectedValue: 'Pay in 4 interest-free payments',
             modalContent: {
-                subheadline: 'Available for purchases of $30 to $1,500. No sign-up fees or late fees.',
+                subheadline: 'Available for purchases below $2,000.00. No sign-up fees or late fees.',
                 periodicPayment: ''
             }
         }

@@ -26,7 +26,7 @@
     },
     "content": {
         "headline": "Pay in 4 interest-free payments",
-        "subheadline": "Available for purchases of {formattedMinAmount} to {formattedMaxAmount}. No sign-up fees or late fees.",
+        "subheadline": "Available for purchases under $2,000.00. No sign-up fees or late fees.",
         "qualifyingSubheadline": "Split your purchase of {formattedTotalCost} into {total_payments} with no sign-up fees or late fees.",
         "donutTimestamps": ["Today", "2 weeks", "4 weeks", "6 weeks"],
         "estimatedInstallments": {
@@ -43,19 +43,37 @@
             "Remaining payments are taken automatically. It’s easy!"
         ],
         "disclosure": [
-            "PayPal Pay in 4 is for eligible purchases between {formattedMinAmount}–{formattedMaxAmount} AUD. It’s available to Australian residents with an Australian PayPal account. Eligibility is subject to your PayPal account status and a credit assessment, which may require a credit check. Pay in 4 is a continuing credit contract offered under the",
+            "PayPal Pay in 4 is a continuing credit contract provided by PayPal Credit Pty Limited (ABN 66 600 629 258) to Australian residents and is subject to eligibility criteria, credit application and suitability assessment. PayPal Pay in 4 is available on eligible transactions under AU$2,000 and application and use may impact a customer's credit score. Please read and consider the",
             [
-                "PayPal Pay in 4 Facility Agreement ",
-                "https://www.paypal.com/au/webapps/mpp/paypal-payin4/terms",
+                "PayPal Credit Guide ",
+                "https://www.paypalobjects.com/marketing/ua/pdf/AU/en/pp-credit-guide-052125.pdf",
+                "PayPal Credit Guide, opens new tab"
+            ],
+            "before entering into the PayPal Pay in 4 Facility Agreement. Please see the",
+            [
+                "PayPal Pay in 4 Facility Agreement Agreement",
+                "https://www.paypal.com/au/webapps/mpp/ua/pay-in-4-facility?locale.x=en_AU",
                 "PayPal Pay in 4 Facility Agreement, opens new tab"
             ],
-            "that may allow you up to $2,000.00 in credit for eligible purchases, so consider whether you can afford the repayments as use of the product may impact your credit score. Please read the",
+            "for full details and for more information about how PayPal handles your personal information, please refer to our",
             [
-                "TMD ",
-                "https://www.paypalobjects.com/marketing/ua/pdf/AU/en/tmd-pp-pay-in-4-100124.pdf",
+                "Privacy Statement",
+                "https://www.paypal.com/au/legalhub/paypal/privacy-full",
+                "Privacy Statement, opens new tab"
+            ],
+            ". PayPal may disclose your personal information to a credit reporting body. To find out more about our credit reporting practices, please see our",
+            [
+                "Statement of Notifiable Matters",
+                "https://www.paypal.com/au/legalhub/paypal/credit-reporting?locale.x=en_AU",
+                "Statement of Notifiable Matters, opens new tab"
+            ],
+            ". To view the Target Market Determination for this product, see",
+            [
+                "here",
+                "https://www.paypalobjects.com/marketing/ua/pdf/AU/en/pay-in-4-rmd-052125.pdf",
                 "TMD, opens new tab"
             ],
-            "before deciding to use PayPal Pay in 4."
+            "."
         ],
         "linkToProductList": "See other ways to pay later"
     }
