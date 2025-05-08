@@ -9,7 +9,7 @@ export default {
         ],
         messageThresholds: [
             {
-                amount: 2000,
+                amount: 1999.99,
                 template: 'gpl.json',
                 product: 'PAY_LATER_SHORT_TERM'
             },

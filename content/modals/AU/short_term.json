@@ -43,7 +43,7 @@
             "Remaining payments are taken automatically. It’s easy!"
         ],
         "disclosure": [
-            "PayPal Pay in 4 is a continuing credit contract provided by PayPal Credit Pty Limited (ABN 66 600 629 258) to Australian residents and is subject to eligibility criteria, credit application and suitability assessment. PayPal Pay in 4 is available on eligible transactions under AU$2,000 and application and use may impact a customer's credit score. Please read and consider the",
+            "PayPal Pay in 4 is a continuing credit contract provided by PayPal Credit Pty Limited (ABN 66 600 629 258) to Australian residents and is subject to eligibility criteria, credit application and suitability assessment. PayPal Pay in 4 is available on eligible transactions under $2,000.00 AUD and application and use may impact a customer's credit score. Please read and consider the",
             [
                 "PayPal Credit Guide ",
                 "https://www.paypalobjects.com/marketing/ua/pdf/AU/en/pp-credit-guide-052125.pdf",
@@ -51,7 +51,7 @@
             ],
             "before entering into the PayPal Pay in 4 Facility Agreement. Please see the",
             [
-                "PayPal Pay in 4 Facility Agreement Agreement",
+                "PayPal Pay in 4 Facility Agreement",
                 "https://www.paypal.com/au/webapps/mpp/ua/pay-in-4-facility?locale.x=en_AU",
                 "PayPal Pay in 4 Facility Agreement, opens new tab"
             ],
