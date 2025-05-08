@@ -41,7 +41,6 @@
         "test:func:snapshots:ciupdate": "jest --verbose --config tests/functional/v2/jest.snapshotTests.config.js --updateSnapshot"
     },
     "dependencies": {
-        "@axe-core/playwright": "^4.9.1",
         "@krakenjs/beaver-logger": "^5.0.0",
         "@krakenjs/belter": "^2.0.0",
         "@krakenjs/jsx-pragmatic": "^3.0.0",
@@ -55,6 +54,7 @@
         "core-js-pure": "3.31.1"
     },
     "devDependencies": {
+        "@axe-core/playwright": "^4.10.1",
         "@babel/eslint-parser": "^7.17.0",
         "@babel/register": "^7.10.4",
         "@babel/runtime": "7.12.18",
