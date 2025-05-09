@@ -10,7 +10,7 @@ export const DEV_AU_SHORT_TERM = {
             message: 'Non-qualifying Pay in 4',
             expectedValue: 'Pay in 4 interest-free payments',
             modalContent: {
-                subheadline: 'Available for purchases under $2,000.00. No sign-up fees or late fees.',
+                subheadline: 'Available for purchases under $2,000. No sign-up fees or late fees.',
                 periodicPayment: null
             }
         },
@@ -28,7 +28,7 @@ export const DEV_AU_SHORT_TERM = {
             message: 'Non-qualifying Pay in 4',
             expectedValue: 'Pay in 4 interest-free payments',
             modalContent: {
-                subheadline: 'Available for purchases under $2,000.00. No sign-up fees or late fees.',
+                subheadline: 'Available for purchases under $2,000. No sign-up fees or late fees.',
                 periodicPayment: ''
             }
         }
