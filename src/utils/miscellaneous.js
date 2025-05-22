@@ -211,6 +211,7 @@ export function getStandardProductOffer(offer) {
         case 'LT_MQEZ':
         case 'LT_MQEZ_RB':
         case 'LT_MQGZ':
+        case 'LT_MQGZ:3MEZ':
         case 'LT_SQEZ':
         case 'LT_SQEZ_RB':
         case 'LT_SQGZ':
@@ -230,6 +231,7 @@ export function getStandardProductOffer(offer) {
         case 'PLLT_NQ_GZ':
         case 'PLLT_MQ_EZ':
         case 'PLLT_MQ_GZ':
+        case 'PLLT_MQ_GZ:3MEZ':
         case 'PLLT_SQ_EZ':
         case 'PLLT_SQ_GZ':
         case OFFER.PAY_LATER_LONG_TERM:

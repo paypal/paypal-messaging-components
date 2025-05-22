@@ -2,7 +2,7 @@
     "meta": {
         "id": "d8dbfe8b-0bb8-44b1-ae07-6f32816fafe6",
         "offerCountry": "US",
-        "offerType": "LT_MQEZ_RB",
+        "offerType": "LT_MQGZ:3MEZ",
         "offerTerm": "${CREDIT_OFFERS_DS.total_payments}",
         "lander": "https://www.paypal.com/ppclander",
         "variables": {

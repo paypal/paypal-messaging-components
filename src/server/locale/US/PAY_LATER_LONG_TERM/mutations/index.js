@@ -3,6 +3,7 @@
 import longTermNQEQZ from './long_term_nq_eqz';
 import longTermNQGTZ from './long_term_nq_gtz';
 import longTermMultiEQZ from './long_term_multi_eqz';
+import longTermMultiGTZ3MEZ from './long_term_multi_gtz_3mez';
 import longTermMultiGTZ from './long_term_multi_gtz';
 import longTermSingleEQZ from './long_term_single_eqz';
 import longTermSingleGTZ from './long_term_single_gtz';
@@ -22,6 +23,9 @@ export default function getMutations(id, type) {
         case 'LT_MQGZ':
         case 'PLLT_MQ_GZ':
             return longTermMultiGTZ[type];
+        case 'LT_MQGZ:3MEZ':
+        case 'PLLT_MQGZ:3MEZ':
+            return longTermMultiGTZ3MEZ[type];
         case 'LT_SQEZ':
         case 'PLLT_SQ_EZ':
             return longTermSingleEQZ[type];
