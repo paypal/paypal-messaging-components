@@ -145,13 +145,13 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                         const { offerType, offerCountry, messageRequestId, lander } = meta;
                         if (offerType === 'PURCHASE_PROTECTION') {
                             // Validate the lander URL before opening it 
-                            try { 
-                                const parsed = new URL(url, window.location.origin); 
-                                if (parsed.protocol === 'https:' || parsed.protocol === 'http:'){ 
-                                    getURIPopup(lander, offerType); 
-                                } 
-                            } catch (e) { 
-                                logger.warn('Blocked unsafe lander URL', { lander }); 
+                            try {
+                                const parsed = new URL(url, window.location.origin);
+                                if (parsed.protocol === 'https:' || parsed.protocol === 'http:') {
+                                    getURIPopup(lander, offerType);
+                                }
+                            } catch (e) {
+                                logger.warn('Blocked unsafe lander URL', { lander });
                             }
                         } else {
                             // Avoid spreading message props because both message and modal
