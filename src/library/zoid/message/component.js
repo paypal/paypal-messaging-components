@@ -144,7 +144,15 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                         const { modal, index, account, merchantId, currency, amount, buyerCountry, onApply } = props;
                         const { offerType, offerCountry, messageRequestId, lander } = meta;
                         if (offerType === 'PURCHASE_PROTECTION') {
-                            getURIPopup(lander, offerType);
+                            // Validate the lander URL before opening it 
+                            try { 
+                                const parsed = new URL(url, window.location.origin); 
+                                if (parsed.protocol === 'https:' || parsed.protocol === 'http:'){ 
+                                    getURIPopup(lander, offerType); 
+                                } 
+                            } catch (e) { 
+                                logger.warn('Blocked unsafe lander URL', { lander }); 
+                            }
                         } else {
                             // Avoid spreading message props because both message and modal
                             // zoid components have an onClick prop that functions differently
