@@ -144,9 +144,9 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                         const { modal, index, account, merchantId, currency, amount, buyerCountry, onApply } = props;
                         const { offerType, offerCountry, messageRequestId, lander } = meta;
                         if (offerType === 'PURCHASE_PROTECTION') {
-                            // Validate the lander URL before opening it 
+                            // Validate the url before opening it 
                             try {
-                                const parsed = new URL(url, window.location.origin);
+                                const parsed = new URL(lander, window.location.origin);
                                 if (parsed.protocol === 'https:' || parsed.protocol === 'http:') {
                                     getURIPopup(lander, offerType);
                                 }
