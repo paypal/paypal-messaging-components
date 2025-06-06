@@ -1,6 +1,5 @@
 /* eslint-disable eslint-comments/disable-enable-pair, no-else-return */
 import arrayFrom from 'core-js-pure/stable/array/from';
-
 import { getStorage as getBelterStorage } from '@krakenjs/belter/src';
 import { SDK_QUERY_KEYS, SDK_SETTINGS } from '@paypal/sdk-constants/src';
 import {
@@ -22,7 +21,6 @@ import {
     getDisableSetCookie as getSDKDisableCookie,
     getPageType as getSDKPageType
 } from '@paypal/sdk-client/src';
-
 import { TAG } from './constants';
 
 export function getDisableSetCookie() {
@@ -275,5 +273,18 @@ export function getFeatures(featureProps) {
 
 // open mini-browser with message lander url
 export function getURIPopup(lander, label) {
-    return window.open(lander, label, 'width=460,height=900');
+    try {
+        // eslint-disable-next-line compat/compat
+        const parsed = new URL(lander, window.location.origin);
+        const isHttp = parsed.protocol === 'https:' || parsed.protocol === 'http:';
+        const isPayPalDomain = /\.paypal\.com$/i.test(parsed.hostname) || /\.paypal\.com:\d+$/i.test(parsed.host);
+
+        if (isHttp && isPayPalDomain) {
+            return window.open(lander, label, 'width=460,height=900');
+        } else {
+            return null;
+        }
+    } catch (e) {
+        return null;
+    }
 }
