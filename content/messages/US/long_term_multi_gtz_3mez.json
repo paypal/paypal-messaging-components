@@ -21,7 +21,7 @@
         ["Buy now and pay later.", ["xsmall.2"]],
         [
             [
-                "As low as ${formattedMonthlyPayment}/<span aria-hidden='true'>mo</span><span class='sr-only'>month</span> or 0% APR."
+                "As low as ${formattedMonthlyPayment}/<span aria-hidden='true'>mo</span><span class='sr-only'>month</span> or 0% APR for 3 months."
             ],
             ["small", "medium", "large", "xlarge"]
         ]

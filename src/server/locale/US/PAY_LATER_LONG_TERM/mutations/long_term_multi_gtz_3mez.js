@@ -125,7 +125,7 @@ export default {
                         tag: 'medium',
                         br: ['mo.', 'mo'],
                         replace: [
-                            ['APR.', 'APR'],
+                            ['months.', 'months'],
                             ['mo.', 'mo']
                         ]
                     },
@@ -146,7 +146,7 @@ export default {
                         tag: 'medium',
                         br: ['mo.', 'mo'],
                         replace: [
-                            ['APR.', 'APR'],
+                            ['months.', 'months'],
                             ['mo.', 'mo']
                         ]
                     },
