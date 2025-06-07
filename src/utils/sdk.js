@@ -275,9 +275,9 @@ export function getFeatures(featureProps) {
 export function getURIPopup(lander, label) {
     try {
         // eslint-disable-next-line compat/compat
-        const parsed = new URL(lander, window.location.origin);
-        const isHttp = parsed.protocol === 'https:' || parsed.protocol === 'http:';
-        const isPayPalDomain = /\.paypal\.com$/i.test(parsed.hostname) || /\.paypal\.com:\d+$/i.test(parsed.host);
+        const parsed = new URL(lander);
+        const isHttp = parsed.protocol === 'https:';
+        const isPayPalDomain = /\.paypal\.com$/i.test(parsed.hostname);
 
         if (isHttp && isPayPalDomain) {
             return window.open(lander, label, 'width=460,height=900');
