@@ -11,14 +11,13 @@ strong {
 
         &:not(:last-child)::after {
             content: '';
-            border-bottom: 0.5px solid $offer-border-gray;
+            border-bottom: 1px solid $offer-border-gray;
             display: block;
             margin-top: 20px;
             margin-bottom: 20px;
 
             .checkout & {
                 margin-top: 15px;
-                border-bottom: 1px solid $dark-gray;
             }
 
             @include mobile {
@@ -82,10 +81,10 @@ strong {
         &.v5Design strong {
             color: #000000;
             font-weight: 400;
-        }
 
-        .checkout & {
-            justify-content: flex-start;
+            .checkout & {
+                font-weight: bold;
+            }
         }
     }
     &__field-header {
@@ -136,18 +135,15 @@ strong {
             color: $text-main;
         }
 
-        &.v5Design {
-            color: $v5-gray !important;
-            padding-bottom: 6px;
-        }
-
         &.v5Dot1Design {
             color: $text-main !important;
             font-weight: bold !important;
         }
-
         .checkout & {
-            font-size: 14px;
+            font-size: 16px;
+            & :last-of-type {
+                color: $text-main !important;
+            }
         }
     }
 
@@ -166,10 +162,6 @@ strong {
             color: $text-main;
         }
 
-        .v5Design & {
-            color: $v5-gray;
-        }
-
         &.v5Dot1Design {
             color: $text-main !important;
             font-weight: bold !important;
@@ -177,7 +169,6 @@ strong {
 
         .checkout & {
             font-size: 16px;
-            color: $text-main;
         }
     }
 }

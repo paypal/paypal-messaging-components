@@ -140,6 +140,12 @@
             position: relative;
             z-index: 1;
         }
+
+        .checkout & {
+            ::after {
+                content: '.';
+            }
+        }
     }
 
     .instructions__icon {

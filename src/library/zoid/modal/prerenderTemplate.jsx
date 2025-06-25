@@ -26,7 +26,7 @@ export default ({ doc, props: { cspNonce, features, onError, onClose }, event, s
             useNewCheckoutDesign === 'true'
                 ? ` @media screen and (min-width: 640px) {
                     .overlay {
-                        background-color: #f1f2f3;        
+                        background-color: #ffffff;        
                         position: fixed;
                         left: 50%;
                         top: 50%;
