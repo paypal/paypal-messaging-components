@@ -7,10 +7,10 @@
     },
     "content": {
         "headline": "<span aria-hidden='true'>Buy now, <br />pay over time</span><span class='sr-only'>Buy now, pay over time</span>",
-        "disclosure": "Terms apply for each option. Offer availability may depend on consumer & merchant eligibility.",
+        "disclosure": "Terms apply for each option. Offer availability may depend on consumer and merchant eligibility.",
         "instructions": {
             "payLater": "Get more info on Pay Later options.",
-            "credit": "Or shop with a reusable credit line."
+            "credit": "Shop with a reusable credit line."
         },
         "productTiles": {
             "payLater": [
@@ -27,8 +27,8 @@
             ],
             "credit": [
                 {
-                    "header": "PayPal Credit",
-                    "body": "No Interest if paid in full in 6 months for purchases of $149+.",
+                    "header": "PayPal Credit Card",
+                    "body": "No Interest if paid in full in 6 months on PayPal purchases of more than $149.",
                     "viewName": "PAYPAL_CREDIT_NO_INTEREST"
                 }
             ]
