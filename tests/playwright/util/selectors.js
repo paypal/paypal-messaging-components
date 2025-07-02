@@ -46,7 +46,7 @@ export const selectors = {
     noInterest: {
         // Apply Now button selectors unique to PPC NI view
         button: {
-            termsLink: '.content__footer-item > a',
+            termsLink: '.terms-content > a',
             applyNowBtn: '.button'
         }
     },
