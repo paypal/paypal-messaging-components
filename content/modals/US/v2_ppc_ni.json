@@ -23,33 +23,55 @@
         }
     },
     "content": {
-        "headline": "Pay over time <br />with PayPal Credit",
-        "subheadline": "Shop online with a reusable credit line.",
+        "headline": "Tap into special financing with the PayPal Credit Card",
         "instructions": [
-            "Apply now and get a decision in seconds.",
-            "Check out with PayPal and choose <strong>PayPal Credit</strong>.",
-            "No Interest if paid in full in 6 months on purchases of {formattedMinAmount}+"
+            "Apply now and get a decision in seconds. <br>No impact to credit score if declined.<sup>1</sup>",
+            "Check out with PayPal and choose your <strong>PayPal Credit</strong> account.",
+            "Special financing on PayPal purchases of {formattedMinAmount} or more."
         ],
         "terms": [
-            "Interest will be charged to your account from the purchase date if the balance is not paid in full within 6 months.",
-            "A minimum monthly payment is required and may or may not pay off the promotional purchase by the end of the 6 month period.",
-            "No interest will be charged on the purchase if you pay it off in full within 6 months. If you do not, interest will be charged on the purchase from the purchase date at the Purchase APR applicable to your account.",
-            "For New Accounts: Variable Purchase and Cash APR is {aprEntry.apr}%. Variable Penalty APR is 35.99%. The APRs are accurate as of {aprEntry.formattedDate} and will vary with the market based on the Prime Rate (as defined in your credit card agreement). Minimum Interest charge is $2.00.",
-            "Individual items that are less than {formattedMinAmount} qualify for special financing when combined for a total of {formattedMinAmount} or more in a single transaction.",
-            "Multiple separate transactions of less than {formattedMinAmount} per transaction cannot be combined to meet the minimum purchase amount."
+            "If approved, you'll get either a PayPal Credit Mastercard<sup>\u00AE</sup>, or PayPal Credit, a digital credit line for PayPal purchases.",
+            "Special financing for PayPal Credit Card and PayPal Credit: No interest if paid in full in 6 months on PayPal purchases of {formattedMinAmount} or more.",
+            [
+                "Interest will be charged to your account from the purchase date at the APR applicable to your account if the balance is not paid in full within 6 months."
+            ],
+            [
+                "A minimum monthly payment is required, which may not pay off the purchase by the end of the 6 month period."
+            ],
+            [
+                "Individual items less than {formattedMinAmount} qualify for special financing when combined for a total of {formattedMinAmount} or more in a single transaction. However, separate transactions cannot be combined to meet the minimum purchase amount."
+            ],
+            "All PayPal Credit Card and PayPal Credit purchases",
+            [
+                [
+                    "New Accounts as of 3/1/2025: Variable Purchase and Cash APR 30.39%. Variable Penalty APR 34.99%. APRs will vary with the market based on the Prime Rate. Min interest charge $2. PayPal Credit Mastercard: Cash Advance Fee 5% ($10 min). Foreign Trans Fee 3%. For current APRs, see account",
+                    [
+                        "Terms and Conditions",
+                        "https://www.synchronycredit.com/syfterms/html/PayPalCreditApplyTerms_combo.html",
+                        "."
+                    ]
+                ]
+            ],
+            [
+                "For standard purchases, if you pay your balance in full each month by the payment due date, you can avoid paying interest. you can also make minimum monthly payments, or any additional amount of your choosing, until you've paid off your balance according to your standard account terms, but interest charges may apply."
+            ],
+            [
+                "If you do not pay the required minimum monthly payment by the payment due date, you will be charged a late fee."
+            ]
         ],
         "buttonText": "Apply Now",
         "disclaimer": "Subject to credit approval",
-
         "footer": [
             [
-                "View the PayPal Credit",
-                ["Terms and Conditions.", "https://www.paypalobjects.com/marketing/web/us/en/ppcterms/ppcterms.html"]
+                "<sup>1</sup>An approved application will result in a hard credit inquiry, which may impact your credit score."
             ],
             [
-                "PayPal Credit is subject to credit approval as determined by the lender, Synchrony Bank, and is available to U.S. customers who are of legal age in their state of residence. You must pay with PayPal Credit to get the offers. Offers not valid on previous purchases, returns or exchanges. Minimum purchase required is before shipping and tax. For New Accounts: Variable Purchase and Cash APR is {aprEntry.apr}%. Variable Penalty APR is 35.99%. The APRs are accurate as of {aprEntry.formattedDate} and will vary with the market based on the Prime Rate (as defined in your credit card agreement). Minimum Interest charge is $2.00."
+                "The PayPal Credit Card and PayPal Credit digital line are issued by Synchrony Bank. The PayPal Credit Card is issued pursuant to a license by Mastercard International Incorporated. Mastercard and the circles design are registered trademarks of Mastercard International Incorporated."
             ],
-            ["Copyright {fullYear} Bill Me Later, Inc. All rights reserved."]
+            [
+                "Applications are subject to credit approval. You must be of legal age and reside in the US or its territories to apply."
+            ],
+            ["Copyright {fullYear} PayPal, Inc. All rights reserved."]
         ],
         "linkToProductList": "See other ways to pay over time"
     }

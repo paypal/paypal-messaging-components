@@ -9,7 +9,7 @@ import styles from './styles.scss';
 import { useServerData, useApplyNow } from '../../../lib';
 
 export const NoInterest = ({
-    content: { instructions, terms, buttonText, disclaimer, footer, linkToProductList },
+    content: { headline, instructions, terms, buttonText, disclaimer, footer, linkToProductList },
     openProductList,
     use5Dot1Design
 }) => {
@@ -43,26 +43,54 @@ export const NoInterest = ({
                     </div>
                 </div>
             </div>
-            <div className="content__footer">
-                <div className="content__row terms">
-                    {terms.map(item => (
-                        <p className={`terms-item ${use5Dot1Design ? 'v5Dot1Design' : ''}`}>
-                            <span className={`terms-bullet ${use5Dot1Design ? 'v5Dot1Design' : ''}`} />
-                            <span className="terms-content">{item}</span>
-                        </p>
-                    ))}
+            {/* TODO - remove conditional, keep PPCC content structure, remove old PPC content structure after PPCC launch 7/14/2025 */}
+            {headline.includes('PayPal Credit Card') ? (
+                <div className="content__footer">
+                    <div className="content__row terms">
+                        {terms.map(item => (
+                            <p className={`terms-item ppcc ${use5Dot1Design ? 'v5Dot1Design' : ''}`}>
+                                {Array.isArray(item) && (
+                                    <span className={`terms-bullet ${use5Dot1Design ? 'v5Dot1Design' : ''}`} />
+                                )}
+                                <span className="terms-content">
+                                    {Array.isArray(item) ? (
+                                        item.map(subItem => <InlineLinks text={subItem} />)
+                                    ) : (
+                                        <InlineLinks text={item} />
+                                    )}
+                                </span>
+                            </p>
+                        ))}
+                    </div>
+                    <div className="content__row terms">
+                        {footer.map(lineContent => (
+                            <p className={`content__footer-item ${use5Dot1Design ? 'v5Dot1Design' : ''}`}>
+                                <InlineLinks text={lineContent} />
+                            </p>
+                        ))}
+                        {renderProductListLinkItem()}
+                    </div>
                 </div>
-                <div className="terms">
-                    {footer.map(lineContent => {
-                        return (
+            ) : (
+                <div className="content__footer">
+                    <div className="content__row terms">
+                        {terms.map(item => (
+                            <p className={`terms-item ${use5Dot1Design ? 'v5Dot1Design' : ''}`}>
+                                <span className={`terms-bullet ${use5Dot1Design ? 'v5Dot1Design' : ''}`} />
+                                <span className="terms-content">{item}</span>
+                            </p>
+                        ))}
+                    </div>
+                    <div className="terms">
+                        {footer.map(lineContent => (
                             <p className={`content__footer-item  ${use5Dot1Design ? 'v5Dot1Design' : ''}`}>
                                 <InlineLinks text={lineContent} />
                             </p>
-                        );
-                    })}
-                    {renderProductListLinkItem()}
+                        ))}
+                        {renderProductListLinkItem()}
+                    </div>
                 </div>
-            </div>
+            )}
             <div className="content__row dynamic no-interest">
                 <div className="button__fixed-wrapper">
                     <div className="button__container">
