@@ -17,7 +17,7 @@
     "headline": [
         ["Buy now. Pay over time.", ["default", "xsmall", "small"]],
         [
-            ["No Interest if paid in full in 6 months", ["on purchases of {formattedMinAmount}+", "weak"]],
+            ["No Interest if paid in full in 6 months", ["on PayPal purchases of {formattedMinAmount}+", "weak"]],
             ["medium", "large", "xlarge"]
         ]
     ],
