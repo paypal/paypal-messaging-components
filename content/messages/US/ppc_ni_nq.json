@@ -19,7 +19,7 @@
         [
             [
                 "No Interest if paid in full in 6 months",
-                ["on PayPal purchases purchases of {formattedMinAmount}+.", "weak"]
+                ["on PayPal purchases of {formattedMinAmount}+.", "weak"]
             ],
             ["medium", "large", "xlarge"]
         ]
