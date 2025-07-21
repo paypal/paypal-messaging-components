@@ -28,10 +28,21 @@
         "instructions": [
             "Wählen Sie PayPal als Bezahlmethode aus und nutzen Sie die Option,<strong> 30 Tage später zu bezahlen.</strong>",
             "Schließen Sie Ihren Einkauf in wenigen Schritten ab.",
-            "Sie benötigen mehr als 30 Tage? Gegen eine Gebühr kann die Zahlung aufgeschoben werden."
+            "Sie benötigen mehr als 30 Tage? Optional kann eine Verlängerung der Zahlungsfrist um weitere 30 Tage oder alternativ um 54 Tage gegen Gebühr beantragt werden."
         ],
         "disclosure": [
-            "* Vorbehaltlich Kreditwürdigkeitsprüfung. Erhältlich für Einkäufe i.Hv. {formattedMinAmount} - {formattedMaxAmount}. Nutzungsvoraussetzung ist ein deutsches PayPal-Privatkonto mit einer verknüpften Debitkarte oder einem Bankkonto mit gültigem SEPA-Lastschriftmandat als Zahlungsquelle."
+            "Vorbehaltlich Kreditwürdigkeitsprüfung. Für Einkäufe zwischen {formattedMinAmount} - {formattedMaxAmount}. Es gelten die ",
+            [
+                "Bezahlung nach 30 Tagen Bedingungen.",
+                "https://www.paypalobjects.com/marketing/web24/de/ppe/Pay_in_30_Days_Terms_&_Conditions_July2024.pdf",
+                "Bedingungen für die Nutzung von Bezahlung nach 30 Tagen, öffnet in neuem Tab"
+            ],
+            " Nutzungsvoraussetzung ist ein deutsches PayPal-Privatkonto mit einer verknüpften Debitkarte oder einem Bankkonto mit gültigem SEPA-Lastschriftmandat als Zahlungsquelle. Optional kannst du beantragen, die Zahlungsfrist zusätzlich um weitere 30 Tage (auf insgesamt 60 Tage) oder alternativ um 54 Tage (auf insgesamt 84 Tage) gegen Gebühr zu verlängern. Die Höhe der Gebühr wird transparent vor Abschluss der Verlängerung im PayPal-Konto angezeigt. Für die Verlängerung gelten die ",
+            [
+                "Bedingungen für Mehr Zeit zum Bezahlen.",
+                "https://www.paypalobjects.com/marketing/web24/de/ppe/Mehr_Zeit_zum_Bezahlen_Besondere_Nutzungsbedingungen_072024_Marketing_Pages.pdf",
+                "Besondere Nutzungsbedingungen für die Nutzung von Mehr Zeit zum Bezahlen, öffnet in neuem Tab"
+            ]
         ],
         "navLinkPrefix": "Um Ihren Einkauf in monatlichen Raten zu zahlen,",
         "linkToProductList": "wählen Sie die PayPal Ratenzahlung."

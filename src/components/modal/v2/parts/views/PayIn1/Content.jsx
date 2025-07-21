@@ -3,6 +3,7 @@
 import { h, Fragment } from 'preact';
 import Instructions from '../../Instructions';
 import ProductListLink from '../../ProductListLink';
+import InlineLinks from '../../InlineLinks';
 import styles from './styles.scss';
 
 import { useServerData } from '../../../lib/providers';
@@ -43,7 +44,7 @@ export const PayIn1 = ({
                 </div>
             </div>
             <div className={`content__row disclosure ${useV5Design ? 'v5Design' : ''} ${country === 'DE' ? 'DE' : ''}`}>
-                <p> {currencyFormat(disclosure)} </p>
+                <InlineLinks text={currencyFormat(disclosure)} />
             </div>
             <div className="content__row productLink">
                 <div className="productLink__container">{renderProductListLink()}</div>
