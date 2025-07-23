@@ -29,7 +29,7 @@
         "instructions": [
             "Choose PayPal at checkout to use <strong> Pay in 30 Days.</strong>",
             "Complete your purchase in a few quick steps.",
-            "Need more than 30 days? For a fee, you can extend the payment deadline by 30 days or 54 days."
+            "Need more than 30 days? Optionally, you can apply to extend the payment deadline for a fee by an additional 30 days or alternatively by 54 days."
         ],
         "disclosure": [
             "Subject to credit check. For purchases between {formattedMinAmount} - {formattedMaxAmount}. ",
@@ -38,13 +38,13 @@
                 "https://www.paypalobjects.com/marketing/web24/de/ppe/Pay_in_30_Days_Terms_&_Conditions_July2024.pdf",
                 " Terms for Pay in 30 Days, opens new tab"
             ],
-            " apply. Eligible customers must have a German PayPal account with a linked debit card or bank account with a valid SEPA mandate as a funding instrument. Optionally, you can request an extension of the payment period for an additional 30 days (to a total of 60 days) or for 54 days (to a total of 84 days) for a fee. The fee amount will be transparently displayed on your PayPal account before the extension is completed. The ",
+            " apply. Eligible customers must have a German PayPal account with a linked debit card or bank account with a valid SEPA mandate as a funding instrument. Optionally, you can apply to extend the payment deadline by an additional 30 days (to a total of 60 days) or alternatively by 54 days (to a total of 84 days) for a fee. The amount of the fee will be displayed transparently in your PayPal account before the extension is completed. For the extension, ",
             [
-                " terms and conditions for More Time to Pay",
+                " Bedingungen für Mehr Zeit zum Bezahlen.",
                 "https://www.paypalobjects.com/marketing/web24/de/ppe/Mehr_Zeit_zum_Bezahlen_Besondere_Nutzungsbedingungen_072024_Marketing_Pages.pdf",
-                "Terms and Conditions for More Time to Pay, opens new tab"
+                "Bedingungen für Mehr Zeit zum Bezahlen, opens new tab"
             ],
-            " apply to the extension."
+            " apply."
         ],
         "navLinkPrefix": "For monthly Pay Later Options,",
         "linkToProductList": "see PayPal Ratenzahlung."
