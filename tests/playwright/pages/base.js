@@ -15,7 +15,7 @@ export const generateUrl = (baseUrl, { account, amount, offer }) => {
 };
 // Common function for running Axe accessibility scans
 const runAxeCoreScan = async (page, options = {}) => {
-    const tags = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'best-practice'];
+    const tags = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa', 'best-practice'];
     const { disableRules = [] } = options; // Optionally pass disable rules
 
     const results = await new AxeBuilder({ page })
