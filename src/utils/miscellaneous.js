@@ -215,6 +215,8 @@ export function getStandardProductOffer(offer) {
         case 'LT_SQEZ':
         case 'LT_SQEZ_RB':
         case 'LT_SQGZ':
+        case 'LONG_TERM:Q':
+        case 'LONG_TERM:NQ':
         case 'GPL:EQZ':
         case 'GPL:GTZ':
         case 'GPLQ:EQZ':
