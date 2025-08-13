@@ -3,21 +3,21 @@
 export default {
     DEV_IT_MULTI: {
         country: 'IT',
-        // modalViews: [
-        // {
-        //     template: 'v2_product_list.json',
-        //     product: 'PRODUCT_LIST'
-        // },
-        //     {
-        //         template: 'short_term.json',
-        //         product: 'PAY_LATER_SHORT_TERM'
-        //     },
-        //     {
-        //         template: 'long_term.json',
-        //         offersTemplate: 'long_term.json',
-        //         product: 'PAY_LATER_LONG_TERM'
-        //     }
-        // ],
+        modalViews: [
+            {
+                template: 'product_list.json',
+                product: 'PRODUCT_LIST'
+            },
+            {
+                template: 'short_term.json',
+                product: 'PAY_LATER_SHORT_TERM'
+            },
+            {
+                template: 'long_term.json',
+                offersTemplate: 'long_term.json',
+                product: 'PAY_LATER_LONG_TERM'
+            }
+        ],
         messageThresholds: [
             {
                 amount: 0,
@@ -121,8 +121,8 @@ export default {
         country: 'IT',
         modalViews: [
             {
-                template: 'short_term.json',
-                product: 'PAY_LATER_SHORT_TERM'
+                template: 'long_term.json',
+                product: 'PAY_LATER_LONG_TERM'
             }
         ],
         messageThresholds: [
@@ -140,10 +140,24 @@ export default {
         offers: {
             PAY_LATER_LONG_TERM: [
                 {
+                    totalPayments: 6,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 50,
+                    maxAmount: 5000
+                },
+                {
+                    totalPayments: 12,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 50,
+                    maxAmount: 5000
+                },
+                {
                     totalPayments: 24,
-                    apr: 14.99,
-                    nominalRate: 14.0491,
-                    minAmount: 240,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 50,
                     maxAmount: 5000
                 }
             ]

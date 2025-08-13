@@ -1,0 +1,45 @@
+{
+    "meta": {
+        "product": "PAY_LATER_LONG_TERM",
+        "offerCountry": "ES",
+        "language": "en-ES",
+        "useV5Design": "true",
+        "v5.1": "true",
+        "variables": {
+            "transaction_amount": "${eval(transaction_amount ? transaction_amount : '-')}",
+            "qualifying_offer": "${eval(CREDIT_OFFERS_DS.qualifying_offer ? CREDIT_OFFERS_DS.qualifying_offer : 'false')}",
+            "financing_code": "${CREDIT_OFFERS_DS.financing_code}",
+            "formattedPeriodicPayment": "${CREDIT_OFFERS_DS.formattedPeriodicPayment}",
+            "total_payments": "${CREDIT_OFFERS_DS.total_payments}",
+            "formattedMinAmount": "${CREDIT_OFFERS_DS.formattedMinAmount}",
+            "formattedMaxAmount": "${CREDIT_OFFERS_DS.formattedMaxAmount}",
+            "formattedTotalCost": "${CREDIT_OFFERS_DS.formattedTotalCost}",
+            "minAmount": "${CREDIT_OFFERS_DS.minAmount}",
+            "maxAmount": "${CREDIT_OFFERS_DS.maxAmount}",
+            "apr": "${CREDIT_OFFERS_DS.apr}",
+            "nominal_rate": "${CREDIT_OFFERS_DS.nominal_rate}",
+            "formattedNominalRatePrecision2": "${CREDIT_OFFERS_DS.formattedNominalRatePrecision2}"
+        }
+    },
+    "content": {
+        "headline": "Pay later in monthly installments",
+        "subheadline": "Buy today, with no down payment.",
+        "calculator": {
+            "title": "How much is your purchase?",
+            "inputLabel": "Value of goods",
+            "inputPlaceholder": "{formattedMinAmount} - {formattedMaxAmount}",
+            "inputCurrencySymbol": "€",
+            "genericError": "Something went wrong. Please try later."
+        },
+        "genericDisclaimer": "Terms vary based on purchase amount and your credit.",
+        "instructions": [
+            "Choose PayPal at checkout to pay later with Pay in installments.",
+            "Get a decision in seconds and complete your purchase.",
+            "Use autopay for repayments. It's easy!"
+        ],
+        "disclosure": [
+            "Subject to credit check. Lender: PayPal (Europe) S.à r.l. et Cie, S.C.A., 22-24 Boulevard Royal, L-2449 Luxemburg."
+        ],
+        "linkToProductList": "See other ways to pay later"
+    }
+}
