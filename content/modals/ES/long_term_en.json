@@ -22,14 +22,14 @@
         }
     },
     "content": {
-        "headline": "Pay later in monthly installments",
+        "headline": "Pay in 6, 12 or 24 installments",
         "subheadline": "Buy today, with no down payment.",
         "calculator": {
             "title": "How much is your purchase?",
-            "inputLabel": "Value of goods",
-            "inputPlaceholder": "{formattedMinAmount} - {formattedMaxAmount}",
-            "inputCurrencySymbol": "€",
-            "genericError": "Something went wrong. Please try later."
+            "genericTitle": "How much is your purchase?",
+            "inputLabel": "Purchase amount",
+            "inputPlaceholder": "€00,€",
+            "genericError": "Something went wrong. Please try again later."
         },
         "genericDisclaimer": "Terms vary based on purchase amount and your credit.",
         "instructions": [
