@@ -7,7 +7,7 @@
     },
     "content": {
         "headline": "<span aria-hidden='true'>Buy now, <br/>pay later</span><span class='sr-only'>Buy now, pay later</span>",
-        "disclosure": "Es gelten die Nutzungsbedingungen. Vorbehaltlich Kreditwürdigkeitsprüfung. Für weitere Informationen zur Bezahlung nach 30 Tagen oder PayPal Ratenzahlung wählen Sie eine der obigen Optionen.",
+        "disclosure": "Terms apply. Subject to approval by PayPal. For more information about PayPal installments, select one of the options above.",
         "instructions": {
             "payLater": "Select a payment option for more info."
         },

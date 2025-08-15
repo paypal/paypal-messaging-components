@@ -26,7 +26,7 @@ const TermsTable = ({
         return (
             <div className="offer__wrapper">
                 <LoadingShimmer
-                    numOffers={offerCountry !== 'DE' ? numOffers : 4}
+                    numOffers={['DE', 'ES', 'IT'].includes(offerCountry) ? 4 : numOffers}
                     offerCountry={offerCountry}
                     useNewCheckoutDesign={useNewCheckoutDesign}
                 />
@@ -37,32 +37,33 @@ const TermsTable = ({
     const qualifyingOffers = offers
         .filter(offer => offer.meta.qualifying === 'true')
         .map((offer, idx) => {
-            // Only DE uses the accordion style for presentation of offers in the modal.
-            if (offerCountry !== 'DE') {
+            // DE, ES, and IT use the accordion style for presentation of offers in the modal.
+            if (['DE', 'ES', 'IT'].includes(offerCountry)) {
+                const disclaimer =
+                    aprDisclaimer.length < offers.length
+                        ? aprDisclaimer[aprDisclaimer.length - 1].aprDisclaimer
+                        : aprDisclaimer[idx].aprDisclaimer;
                 return (
-                    <OfferCard
+                    <OfferAccordion
                         offer={offer}
                         index={idx}
-                        useV4Design={useV4Design}
+                        aprDisclaimer={disclaimer}
+                        activeSelection={activeSelection}
+                        setActiveSelection={setActiveSelection}
                         useV5Design={useV5Design}
                         use5Dot1Design={use5Dot1Design}
-                        useNewCheckoutDesign={useNewCheckoutDesign}
                     />
                 );
             }
-            const disclaimer =
-                aprDisclaimer.length < offers.length
-                    ? aprDisclaimer[aprDisclaimer.length - 1].aprDisclaimer
-                    : aprDisclaimer[idx].aprDisclaimer;
+            // All other countries use the card style
             return (
-                <OfferAccordion
+                <OfferCard
                     offer={offer}
                     index={idx}
-                    aprDisclaimer={disclaimer}
-                    activeSelection={activeSelection}
-                    setActiveSelection={setActiveSelection}
+                    useV4Design={useV4Design}
                     useV5Design={useV5Design}
                     use5Dot1Design={use5Dot1Design}
+                    useNewCheckoutDesign={useNewCheckoutDesign}
                 />
             );
         });
