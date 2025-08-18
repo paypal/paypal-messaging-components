@@ -29,6 +29,7 @@
             "genericTitle": "How much is your purchase?",
             "inputLabel": "Purchase amount",
             "inputPlaceholder": "0 €",
+            "inputCurrencySymbol": "€",
             "genericError": "Something went wrong. Please try again later."
         },
         "genericDisclaimer": "All examples are representative. Terms and rates vary based on purchase amount and the customer profile.",

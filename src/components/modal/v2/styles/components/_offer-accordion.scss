@@ -96,15 +96,22 @@
                 padding-top: 0px;
 
                 .accordion__offer-field-title {
-                    color: $light-blue;
+                    color: $text-main; // Default black color for all countries
                 }
             }
+        }
 
-            .accordion__offer-apr-disclaimer {
-                color: $gray;
-                line-height: 1.3;
-                padding-bottom: 9px;
-            }
+        .accordion__row .accordion__offer-apr-disclaimer {
+            color: $gray;
+            line-height: 1.3;
+            padding-bottom: 9px;
+        }
+    }
+
+    // Only DE gets the blue color
+    &__container.DE {
+        .accordion__collapsible .accordion__row:first-child .accordion__offer-field-title {
+            color: $light-blue;
         }
     }
 }

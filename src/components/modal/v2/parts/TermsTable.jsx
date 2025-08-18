@@ -15,6 +15,7 @@ const TermsTable = ({
     useNewCheckoutDesign
 }) => {
     const { offerCountry } = meta;
+    const offerAccordionCountries = ['DE', 'ES', 'IT'];
     /**
      * numOffers/setNumOffers is used to dynamically change the number of loading shimmers that are rendered
      * depending on the last number of offers that were displayed.
@@ -26,7 +27,7 @@ const TermsTable = ({
         return (
             <div className="offer__wrapper">
                 <LoadingShimmer
-                    numOffers={['DE', 'ES', 'IT'].includes(offerCountry) ? 4 : numOffers}
+                    numOffers={offerAccordionCountries.includes(offerCountry) ? 4 : numOffers}
                     offerCountry={offerCountry}
                     useNewCheckoutDesign={useNewCheckoutDesign}
                 />
@@ -38,7 +39,7 @@ const TermsTable = ({
         .filter(offer => offer.meta.qualifying === 'true')
         .map((offer, idx) => {
             // DE, ES, and IT use the accordion style for presentation of offers in the modal.
-            if (['DE', 'ES', 'IT'].includes(offerCountry)) {
+            if (offerAccordionCountries.includes(offerCountry)) {
                 const disclaimer =
                     aprDisclaimer.length < offers.length
                         ? aprDisclaimer[aprDisclaimer.length - 1].aprDisclaimer
@@ -52,6 +53,7 @@ const TermsTable = ({
                         setActiveSelection={setActiveSelection}
                         useV5Design={useV5Design}
                         use5Dot1Design={use5Dot1Design}
+                        offerCountry={offerCountry}
                     />
                 );
             }
