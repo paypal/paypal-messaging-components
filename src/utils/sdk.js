@@ -168,16 +168,13 @@ export function getStorage() {
 // and used to correlate with button events
 export function getOrCreateGlobalSessionID() {
     if (__MESSAGES__.__TARGET__ === 'SDK') {
-        const globalSessionID = getSDKGlobalSessionID();
-
-        if (globalSessionID) {
-            return globalSessionID;
-        } else {
-            const globalSessionIDValue = createBelterID();
-            setSDKGlobalSessionID(globalSessionIDValue);
-
-            return globalSessionIDValue;
+        let globalSessionID = getSDKGlobalSessionID();
+        if (!globalSessionID) {
+            globalSessionID = createBelterID();
+            setSDKGlobalSessionID(globalSessionID);
         }
+
+        return globalSessionID;
     } else {
         return undefined;
     }
