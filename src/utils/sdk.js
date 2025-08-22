@@ -176,7 +176,7 @@ export function getOrCreateGlobalSessionID() {
 
         return globalSessionID;
     } else {
-        return undefined;
+        return getStorage().getSessionID();
     }
 }
 
