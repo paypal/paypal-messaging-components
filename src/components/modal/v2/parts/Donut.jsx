@@ -91,7 +91,7 @@ const Donut = ({
                 <span
                     className={`${isV4OrV5Design ? 'donut__timestamp_v5' : 'donut__timestamp'} ${
                         use5Dot1Design ? 'donut__timestamp_v5Dot1' : ''
-                    }`}
+                    } ${useNewCheckoutDesign === 'true' ? 'checkout' : ''}`}
                     id={`donut__timestamp__${currentNum}`}
                     aria-hidden="true"
                 >

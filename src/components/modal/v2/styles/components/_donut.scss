@@ -112,6 +112,10 @@ $donut-text-v5: #545d68;
                 @extend .donut__timestamp;
                 color: $donut-text-v5;
             }
+            .checkout & {
+                width: 80px;
+                text-wrap: auto;
+            }
         }
     }
     &_line {
