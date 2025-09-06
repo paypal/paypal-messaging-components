@@ -1,0 +1,47 @@
+.message__disclaimer span.multi:nth-of-type(1) {
+    display: none;
+}
+
+.message__headline span.multi:nth-of-type(2) {
+    display: none;
+}
+
+.message__logo-container {
+    width: 100%;
+    margin-bottom: 12%;
+}
+
+.message__logo:nth-of-type(1) {
+    width: 29px;
+    max-width: 15%;
+    margin-right: 0px;
+}
+
+.message__logo:nth-of-type(2) {
+    width: 91px;
+    max-width: 45%;
+    margin-left: 3%;
+}
+
+.message__headline {
+    font-size: 10vw;
+    line-height: 1.55em;
+}
+
+@media (min-width: 140px) {
+    .message__headline {
+        font-size: 8.4vw;
+    }
+
+    .message__headline span.multi:nth-of-type(1) {
+        display: none;
+    }
+
+    .message__headline span.multi:nth-of-type(2) {
+        display: inline;
+    }
+
+    .message__disclaimer span.multi:nth-of-type(1) {
+        display: inline;
+    }
+}
