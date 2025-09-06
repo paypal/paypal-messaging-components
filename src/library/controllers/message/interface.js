@@ -100,6 +100,7 @@ export default (options = {}) => ({
                                     style,
                                     offer,
                                     buyerCountry,
+                                    language,
                                     ignoreCache,
                                     onClick,
                                     onRender,
@@ -120,6 +121,7 @@ export default (options = {}) => ({
                                     currency,
                                     amount,
                                     buyerCountry,
+                                    language,
                                     ignoreCache,
                                     channel,
                                     ecToken,
@@ -180,6 +182,7 @@ export default (options = {}) => ({
                                     style: ${JSON.stringify(style)},
                                     amount: ${amount},
                                     buyerCountry: ${buyerCountry},
+                                    language: ${language},
                                     pageType: ${pageType},
                     
                                     renderStart: ${new Date(renderStart).toLocaleString()},
