@@ -88,4 +88,9 @@ const accounts = [
     // 'DEV0000ITPLNA',
     // 'DEV00000ITPLQ',
     // 'DEV0000ITPLNQ'
+
+    // CA
+    // 'DEV00000CAPLQ',
+    // 'DEV0000CAPLNQ',
+    // 'DEV0000CAPLNA',
 ];
