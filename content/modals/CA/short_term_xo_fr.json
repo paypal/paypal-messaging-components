@@ -25,25 +25,25 @@
         }
     },
     "content": {
-        "headline": "French Pay in 4 interest-free payments",
-        "subheadline": "No impact on credit score and no late fees. Available for purchases of {formattedMinAmount} to {formattedMaxAmount}.",
-        "qualifyingSubheadline": "Split your purchase of {formattedTotalCost} into {total_payments} with no impact on credit score and no late fees.",
-        "donutTimestamps": ["Today", "2 weeks", "4 weeks", "6 weeks"],
+        "headline": "Payer en 4 versements sans intérêt",
+        "subheadline": "Aucun impact sur la cote de crédit et aucuns frais de retard. Disponible pour les achats de {formattedMinAmount} à {formattedMaxAmount}.",
+        "qualifyingSubheadline": "Divisez votre achat de {formattedTotalCost} en {total_payments} sans impact sur la cote de crédit et sans frais de retard.",
+        "donutTimestamps": ["Exigible aujourd'hui", "2 semaines", "4 semaines", "6 semaines"],
         "instructions": {
-            "instructionsHeadline": "How Pay in 4 works",
+            "instructionsHeadline": "Comment fonctionne le paiement en 4",
             "instructionsSubHeadline": [
-                "Choose PayPal at checkout to pay later with <strong>Pay in 4</strong><span aria-hidden='true'>.</span>",
-                "Complete your purchase with a 25% first payment.",
-                "Use autopay for the rest of your payments. It's easy!"
+                "Choisissez PayPal lors du paiement pour payer plus tard avec <strong>Pay in 4</strong><span aria-hidden='true'>.</span>",
+                "Complétez votre achat avec un premier paiement de 25%.",
+                "Utilisez le paiement automatique pour le reste de vos paiements. C'est facile!"
             ]
         },
         "cta": {
-            "buttonTextEligible": "Continue with Pay in 4",
-            "buttonTextIneligible": "Back to Checkout",
+            "buttonTextEligible": "Continuer avec Pay in 4",
+            "buttonTextIneligible": "Retour à la caisse",
             "link": "https://www.paypal.com/link/to/short-term-application"
         },
         "disclosure": [
-            "Pay in 4 is available to approved consumers for purchases of {formattedMinAmount} to {formattedMaxAmount} (CAD) for certain transaction types. Availability depends on the merchant. You must be age of majority in the province or territory where you live to apply. Any transactions in other currencies will be converted to Canadian dollars subject to applicable currency conversion charges. You may repay the amount you owe in full at any time, without any fees or charges."
+            "Paiement en 4 est offert aux consommateurs approuvés pour les achats de {formattedMinAmount} à {formattedMaxAmount} (CAD) pour certains types de transactions. La disponibilité dépend du marchand. Vous devez avoir atteint l’âge de la majorité dans la province ou le territoire où vous résidez pour présenter une demande. Toutes les transactions dans d’autres devises seront converties en dollars canadiens, sous réserve des frais de conversion de devise applicables. Vous pouvez rembourser la totalité du montant que vous devez en tout temps, sans frais."
         ]
     }
 }
