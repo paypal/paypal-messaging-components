@@ -116,6 +116,6 @@ export default {
     DEV00ENCAPLNQ: ['CA', ['short_term'], 'short_term_nq'],
     // fr-CA
     DEV00FRCAPLNA: ['CA', ['short_term_fr'], 'generic_fr'],
-    DEV00FR0CAPLQ: ['CA', ['short_term_fr'], 'short_term_q_fr'],
+    DEV000FRCAPLQ: ['CA', ['short_term_fr'], 'short_term_q_fr'],
     DEV00FRCAPLNQ: ['CA', ['short_term_fr'], 'short_term_nq_fr']
 };
