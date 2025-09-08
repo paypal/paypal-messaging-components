@@ -27,7 +27,7 @@
     "content": {
         "headline": "Payer en 4 versements sans intérêt",
         "subheadline": "Aucun impact sur la cote de crédit et aucuns frais de retard. Disponible pour les achats de {formattedMinAmount} à {formattedMaxAmount}.",
-        "qualifyingSubheadline": "Divisez votre achat de {formattedTotalCost} en {total_payments} sans impact sur la cote de crédit et sans frais de retard.",
+        "qualifyingSubheadline": "Divisez le montant de {formattedTotalCost} en {total_payments} versements sans intérêt, sans incidence sur votre cote de crédit et sans frais de retard.",
         "donutTimestamps": ["Exigible aujourd'hui", "2 semaines", "4 semaines", "6 semaines"],
         "instructions": {
             "instructionsHeadline": "Comment fonctionne le paiement en 4",
