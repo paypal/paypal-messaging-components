@@ -1,0 +1,29 @@
+{
+    "meta": {
+        "product": "PRODUCT_LIST",
+        "useV5Design": "true",
+        "v5.1": "true",
+        "offerCountry": "ES"
+    },
+    "content": {
+        "headline": "<span aria-hidden='true'>Buy now, <br/>pay later</span><span class='sr-only'>Buy now, pay later</span>",
+        "disclosure": "Terms apply. Subject to approval by PayPal. For more information about PayPal installments, select one of the options above.",
+        "instructions": {
+            "payLater": "Select a payment option for more info."
+        },
+        "productTiles": {
+            "payLater": [
+                {
+                    "header": "Pay in 3 installments",
+                    "body": "Interest-free monthly payments, starting today.",
+                    "viewName": "PAY_LATER_SHORT_TERM"
+                },
+                {
+                    "header": "Pay in 6, 12 or 24 installments",
+                    "body": "Monthly installments for larger purchases, with no down payment.",
+                    "viewName": "PAY_LATER_LONG_TERM"
+                }
+            ]
+        }
+    }
+}

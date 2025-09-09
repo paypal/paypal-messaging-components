@@ -50,6 +50,7 @@
             " and ",
             ["terms and conditions", "https://www.paypal.com/es/webapps/mpp/ua/pay-in-3-full?locale.x=es_ES"],
             " for more information. Only available to customers over the age of 18. You have 14 days to cancel your loan. The lender is PayPal (Europe) S.à rl et Cie, SCA, 22-24 Boulevard Royal, L-2449 Luxemburgo. A loan is a binding commitment that needs to be refunded and may impact your credit history. Be sure to check your repayment capacity before committing yourself. This information is provided by PayPal."
-        ]
+        ],
+        "linkToProductList": "See other ways to pay in installments"
     }
 }

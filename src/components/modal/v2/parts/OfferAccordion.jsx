@@ -9,7 +9,8 @@ const OfferAccordion = ({
     aprDisclaimer,
     index,
     activeSelection,
-    setActiveSelection
+    setActiveSelection,
+    offerCountry
 }) => {
     const [open, setOpen] = useState('');
     const { termsLabel } = content;
@@ -30,7 +31,7 @@ const OfferAccordion = ({
             id={index}
             className={`accordion__container ${activeSelection === index ? 'active' : ''} ${open} ${
                 useV5Design === 'true' ? 'v5Design' : ''
-            } ${use5Dot1Design ? 'v5Dot1Design' : ''}`}
+            } ${use5Dot1Design ? 'v5Dot1Design' : ''} ${offerCountry || ''}`}
         >
             <div className="accordion__row">
                 <button
