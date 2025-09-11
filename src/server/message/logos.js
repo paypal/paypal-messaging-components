@@ -1,22 +1,32 @@
-import { PayPalLogo, PPLogo, PPMonochrome, LOGO_COLOR } from '@paypal/sdk-logos/src';
-import { html } from '@krakenjs/jsx-pragmatic/src';
+import { LOGO_COLOR } from '@paypal/sdk-logos/src';
+import { createLogo } from '../../utils/svgData';
 
-function getSrc(component) {
-    return component
-        .render(html())
-        .match(/src="(data:image&#x2F;svg\+xml;base64,[a-zA-Z0-9=+]*)"/)[1]
-        .replace('&#x2F;', '/');
-}
+// Define dimensions for the logos
+const PAYPAL_WORDMARK_DIMS = [80, 32];
+const PP_MONOGRAM_DIMS = [12, 32];
 
 function getPPLogoBase64(logoColor) {
-    return getSrc(PayPalLogo({ logoColor }));
+    switch (logoColor) {
+        case LOGO_COLOR.WHITE:
+            return createLogo('PP White Wordmark.svg', PAYPAL_WORDMARK_DIMS).src;
+        case LOGO_COLOR.BLACK:
+        case LOGO_COLOR.MONOCHROME:
+            return createLogo('primary.svg', PAYPAL_WORDMARK_DIMS).src;
+        default:
+            return createLogo('primary.svg', PAYPAL_WORDMARK_DIMS).src;
+    }
 }
 
 function getPPMonogramBase64(logoColor) {
-    if (logoColor === 'monochrome') {
-        return getSrc(PPMonochrome({ logoColor }));
+    switch (logoColor) {
+        case LOGO_COLOR.WHITE:
+            return createLogo('WhiteMonogram.svg', PP_MONOGRAM_DIMS).src;
+        case LOGO_COLOR.BLACK:
+        case LOGO_COLOR.MONOCHROME:
+            return createLogo('BlackMonogram.svg', PP_MONOGRAM_DIMS).src;
+        default:
+            return createLogo('PayPal_Monogram_Full Color.svg', PP_MONOGRAM_DIMS).src;
     }
-    return getSrc(PPLogo({ logoColor }));
 }
 
 export default {

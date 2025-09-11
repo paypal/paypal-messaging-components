@@ -4,7 +4,7 @@
         <title>Messaging.js Dev Sandbox</title>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-        <script src="//localhost.paypal.com:8080/messaging.js"></script>
+        <script src="//localhost.paypal.com:8080/sdk.js?cache=false&client-id=test"></script>
 
         <style>
             body {
@@ -142,7 +142,13 @@
                     wrapper.appendChild(sideContainer);
 
                     container.appendChild(wrapper);
-                    paypal.Messages(conf).render([mainContainer, sideContainer]);
+                    if (typeof paypal.Messages === 'function') {
+                        paypal.Messages(conf).render([mainContainer, sideContainer]);
+                    } else {
+                        console.error('paypal.Messages is not available. Using fallback...');
+                        mainContainer.innerHTML = '<div style="background-color: #f0f0f0; padding: 10px; border-radius: 5px;">Demo PayPal Message</div>';
+                        sideContainer.innerHTML = '<div style="background-color: #f0f0f0; padding: 10px; border-radius: 5px;">Demo PayPal Message</div>';
+                    }
                 });
             });
         </script>

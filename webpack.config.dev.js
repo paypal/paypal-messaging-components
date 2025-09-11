@@ -90,10 +90,12 @@ module.exports = (env = {}) => {
                         __PORT__: PORT,
                         __PATH__: `/${FILE_NAME}.js`,
                         __NAMESPACE__: 'paypal',
+                        __MESSAGE_COMPONENT__: 'paypal.Messages',
                         __VERSION__: '1.0.55',
                         __COMPONENTS__: ['messages'],
                         __PAYPAL_DOMAIN__: `${PROTOCOL}://${HOSTNAME}:${PORT}`,
-                        __PAYPAL_API_DOMAIN__: `${PROTOCOL}://${HOSTNAME}:${PORT}`
+                        __PAYPAL_API_DOMAIN__: `${PROTOCOL}://${HOSTNAME}:${PORT}`,
+                        __FUNDING_ELIGIBILITY__: JSON.stringify({ paylater: { eligible: true, merchantConfigHash: 'abc123' } })
                     }
                 });
         }
