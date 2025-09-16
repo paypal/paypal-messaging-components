@@ -104,7 +104,6 @@ const Calculator = ({
         if (!hasInitialAmount && !hasUsedInputField) {
             setDisplayValue('');
         } else {
-            console.log('getdisplayval', getDisplayValue(value, country));
             setDisplayValue(getDisplayValue(value, country));
         }
     }, [views, value]);
@@ -219,7 +218,6 @@ const Calculator = ({
                         {renderInputLabelOnEmptyField(country)}
                     </label>
                     {inputCurrencySymbol && <div className="input__currency-symbol">{inputCurrencySymbol}</div>}
-                    {console.log('displayValue', displayValue)}
                     <input
                         id="purchase-amount"
                         aria-required="true"
