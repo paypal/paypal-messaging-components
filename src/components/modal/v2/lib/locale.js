@@ -1,12 +1,16 @@
 const getLocale = country =>
     ({
         US: 'en-US',
+        IT: 'it-IT',
+        ES: 'es-ES',
         DE: 'de-DE'
     }[country] ?? 'en-US');
 
 const setCurrency = (country, value) =>
     ({
         US: `$${value}`,
+        IT: value,
+        ES: value,
         DE: value
     }[country] ?? `$${value}`);
 
@@ -33,13 +37,14 @@ export const localize = (amount = '', country, minimumFractionDigits = 0) => {
 
 export const getDisplayValue = (value, country) => {
     const delocalizedValue = delocalize(value, country);
-
+    console.log('delocalizedValue', delocalizedValue);
     // Match all digits before the decimal and 1-2 digits after
     // eslint-disable-next-line security/detect-unsafe-regex
     const [, dollarVal, centVal = ''] = delocalizedValue.match(/^(\d+)(?:\.(\d{1,2}))?/) ?? [];
     const formattedValue = localize(dollarVal, country);
-
+    console.log('formattedValue', formattedValue);
     const locale = getLocale(country);
+    console.log('locale', locale);
     const localizedDecimalSeparator = decimalSeparator(locale);
 
     return delocalizedValue === '' || formattedValue === 'NaN'

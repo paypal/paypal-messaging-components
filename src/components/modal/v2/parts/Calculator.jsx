@@ -40,7 +40,10 @@ const getError = ({ offers, error = '' }, isLoading, calculator, amount, country
     }
 
     const replaceRegExp = {
+        // TODO convert to switch statement
         DE: /(,[0-9]*?)00/g,
+        ES: /(,[0-9]*?)00/g,
+        IT: /(,[0-9]*?)00/g,
         US: /(\.[0-9]*?)00/g
     };
     // If amount is undefined (none is passed in), return the belowThreshold error.
@@ -101,6 +104,7 @@ const Calculator = ({
         if (!hasInitialAmount && !hasUsedInputField) {
             setDisplayValue('');
         } else {
+            console.log('getdisplayval', getDisplayValue(value, country));
             setDisplayValue(getDisplayValue(value, country));
         }
     }, [views, value]);
@@ -215,6 +219,7 @@ const Calculator = ({
                         {renderInputLabelOnEmptyField(country)}
                     </label>
                     {inputCurrencySymbol && <div className="input__currency-symbol">{inputCurrencySymbol}</div>}
+                    {console.log('displayValue', displayValue)}
                     <input
                         id="purchase-amount"
                         aria-required="true"
