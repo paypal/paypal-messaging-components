@@ -143,7 +143,7 @@ export default {
                     {
                         tag: 'medium',
                         br: ['rate'],
-                        replace: [['interessi.', 'interessi']]
+                        replace: [['mensili.', 'mensili']]
                     },
                     {
                         tag: 'xsmall.2',
