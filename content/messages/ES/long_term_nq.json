@@ -1,8 +1,7 @@
 {
     "meta": {
-        "offerCountry": "IT",
+        "offerCountry": "ES",
         "offerType": "PAY_LATER_LONG_TERM",
-        "messageType": "LONG_TERM:Q",
         "offerTerm": "{total_payments}",
         "lander": "https://www.paypal.com/credit-presentment/lander/modal",
         "variables": {
@@ -15,10 +14,15 @@
         }
     },
     "headline": [
-        ["Acquista ora, paga dopo.", ["default", "xsmall"]],
-        ["Acquista ora e paga dopo.", ["xsmall.2"]],
-        [["Paga fino a {total_payments} rate mensili."], ["small", "medium", "large", "xlarge"]]
+        ["Compra ahora, paga después.", ["default", "xsmall"]],
+        ["Compra ahora y paga después.", ["xsmall.2"]],
+        [
+            "Paga a plazos para compras de {formattedMinAmount} a {formattedMaxAmount}",
+            ["small", "medium", "large", "xlarge"]
+        ]
     ],
     "subHeadline": [],
-    "disclaimer": [["Scopri di più", ["default"]]]
+    "disclaimer": [
+        ["<span aria-hidden='true'>Más información</span><span class='sr-only'>Más información</span>", ["default"]]
+    ]
 }

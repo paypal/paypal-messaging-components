@@ -32,19 +32,19 @@
     },
     "content": {
         "calculator": {
-            "belowThreshold": "Enter an amount of {formattedMinAmount} or more.",
-            "aboveThreshold": "Enter an amount of less than {formattedMaxAmount}."
+            "belowThreshold": "Inserisci un importo pari o superiore a {formattedMinAmount}.",
+            "aboveThreshold": "Inserisci un importo inferiore a {formattedMaxAmount}."
         },
         "disclaimer": {
-            "nonZeroAPR": "<strong>Nominal interest rate of {formattedNominalRatePrecision2}% <br/> Annual percentage rate of {formattedAPR}%</strong>",
-            "zeroAPR": "<strong>Nominal interest rate of 0% <br/> Annual percentage rate of 0%</strong>"
+            "nonZeroAPR": "Tasso annuo nominale fisso (TIN) {formattedNominalRatePrecision2}%*<br/><strong>Tasso annuo effettivo globale (TAEG) del {formattedAPR}%*</strong>",
+            "zeroAPR": "Tasso annuo nominale fisso dello 0% <br/> <strong>Tasso annuo effettivo globale (TAEG) dello 0%</strong>"
         },
         "termsLabel": {
-            "offerPayment": "{formattedPeriodicPayment}/month",
-            "offerNumInstallments": "{total_payments} installments",
-            "eMoney": "Credit amount",
-            "totalInterest": "Interest amount",
-            "total": "Total amount owed"
+            "offerPayment": "{formattedPeriodicPayment}/mese",
+            "offerNumInstallments": "{total_payments} rate",
+            "eMoney": "Importo totale del credito",
+            "totalInterest": "Importo degli interessi",
+            "total": "Importo totale dovuto"
         }
     }
 }

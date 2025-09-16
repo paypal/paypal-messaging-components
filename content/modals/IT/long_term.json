@@ -2,7 +2,6 @@
     "meta": {
         "product": "PAY_LATER_LONG_TERM",
         "offerCountry": "IT",
-        "language": "en-IT",
         "useV5Design": "true",
         "v5.1": "true",
         "variables": {
@@ -22,31 +21,31 @@
         }
     },
     "content": {
-        "headline": "Pay in 6, 12 or 24 installments",
-        "subheadline": "Buy today, with no down payment.",
+        "headline": "Paga in 6, 12 o 24 rate",
+        "subheadline": "Acquista oggi, senza acconto",
         "calculator": {
-            "title": "How much is your purchase?",
-            "genericTitle": "How much is your purchase?",
-            "inputLabel": "Purchase amount",
+            "title": "Qual è l'importo del tuo acquisto?",
+            "genericTitle": "Qual è l'importo del tuo acquisto?",
+            "inputLabel": "Importo dell'acquisto",
             "inputPlaceholder": "0 €",
             "inputCurrencySymbol": "€",
-            "genericError": "Something went wrong. Please try again later."
+            "genericError": "Qualcosa è andato storto. Riprova più tardi."
         },
-        "genericDisclaimer": "All examples are representative. Terms and rates vary based on purchase amount and the customer profile.",
+        "genericDisclaimer": "Tutti gli esempi hanno natura rappresentativa. Le condizioni finali e i tassi d'interesse applicati variano in base all'importo dell'acquisto e del profilo del cliente.",
         "instructions": [
-            "Choose PayPal at checkout to pay later with <strong>Pay in 6, 12 or 24 installments.</strong>",
-            "Get a decision in seconds and complete your purchase.",
-            "Use autopay for your payments. It's easy!"
+            "Scegli PayPal al checkout per pagare  più tardi con <strong>Paga in 6, 12 o 24 rate</strong>.",
+            "Ottieni una decisione in pochi secondi e completa il tuo acquisto.",
+            "Usa il pagamento automatico per i pagamenti. È facile!"
         ],
         "disclosure": [
-            "Pay in 6, 12 or 24 installments is subject to approval by PayPal and customer eligibility. For purchases of {formattedMinAmount} to {formattedMaxAmount}. You must be 18 years or older, an Italian resident and have a PayPal account in order to apply. Check the template of a ",
+            "Paga in 6, 12 o 24 rate è soggetto all'approvazione di PayPal e all'idoneità del cliente. Per acquisti da {formattedMinAmount} a {formattedMaxAmount}. Per candidarsi devi avere almeno 18 anni, essere residente in Italia e avere un conto PayPal. Per maggiori informazioni, consulta il modello di ",
             [
-                "credit agreement",
+                "contratto di finanziamento",
                 "https://www.paypal.com/it/webapps/mpp/ua/creditagreement",
-                "credit agreement, opens new tab"
+                "contratto di finanziamento, si apre in una nuova scheda"
             ],
-            " for more information. The creditor is PayPal (Europe) S.à r.l et Cie, SCA, 22-24 Boulevard Royal, L-2449 Luxembourg. Financing is a binding commitment that must be repaid. Make sure you are able to repay before committing. This information is provided by PayPal."
+            ". Il creditore è PayPal (Europe) S.à r.l et Cie, SCA, 22-24 Boulevard Royal, L-2449 Lussemburgo. Queste informazioni sono fornite da PayPal."
         ],
-        "linkToProductList": "See other ways to pay in installments"
+        "linkToProductList": "Scopri altri metodi per pagare a rate"
     }
 }

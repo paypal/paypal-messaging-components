@@ -6,21 +6,21 @@
         "offerCountry": "ES"
     },
     "content": {
-        "headline": "<span aria-hidden='true'>Buy now, <br/>pay later</span><span class='sr-only'>Buy now, pay later</span>",
-        "disclosure": "Terms apply. Subject to approval by PayPal. For more information about PayPal installments, select one of the options above.",
+        "headline": "<span aria-hidden='true'>Compra ahora, paga después</span><span class='sr-only'>Compra ahora, paga después</span>",
+        "disclosure": "Se aplican condiciones. Sujeto a la aprobación por parte de PayPal. Para obtener más información acerca de Paga a plazos de PayPal, selecciona una de las opciones anteriores.",
         "instructions": {
-            "payLater": "Select a payment option for more info."
+            "payLater": "Selecciona una opción para obtener más información."
         },
         "productTiles": {
             "payLater": [
                 {
-                    "header": "Pay in 3 installments",
-                    "body": "Interest-free monthly payments, starting today.",
+                    "header": "Paga en 3 plazos",
+                    "body": "Pagos mensuales sin intereses, TAE 0%, a partir de hoy.",
                     "viewName": "PAY_LATER_SHORT_TERM"
                 },
                 {
-                    "header": "Pay in 6, 12 or 24 installments",
-                    "body": "Monthly installments for larger purchases, with no down payment.",
+                    "header": "Paga en 6, 12 o 24 plazos",
+                    "body": "Pagos mensuales para compras más grandes, sin pago inicial.",
                     "viewName": "PAY_LATER_LONG_TERM"
                 }
             ]
