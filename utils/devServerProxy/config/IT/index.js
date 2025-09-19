@@ -144,21 +144,21 @@ export default {
                     totalPayments: 6,
                     apr: 0,
                     nominalRate: 0,
-                    minAmount: 50,
+                    minAmount: 60,
                     maxAmount: 5000
                 },
                 {
                     totalPayments: 12,
                     apr: 0,
                     nominalRate: 0,
-                    minAmount: 50,
+                    minAmount: 60,
                     maxAmount: 5000
                 },
                 {
                     totalPayments: 24,
                     apr: 0,
                     nominalRate: 0,
-                    minAmount: 50,
+                    minAmount: 60,
                     maxAmount: 5000
                 }
             ]

@@ -15,7 +15,7 @@ const headlineBreaks = [
     },
     {
         sizes: ['medium'],
-        breaks: ['rate']
+        breaks: ['a rate']
     }
 ].reduce((acc, item) => {
     const { sizes, breaks } = item;
@@ -75,7 +75,7 @@ export default {
                 headline: [
                     {
                         tag: 'medium',
-                        br: ['in', 'rate']
+                        br: ['a rate']
                     },
                     { tag: 'xsmall' }
                 ],
@@ -118,15 +118,12 @@ export default {
                 logo: false,
                 headline: [
                     {
-                        tag: 'medium.2',
-                        br: ['rate', 'in\b'],
-                        replace: [
-                            ['interessi.', 'interessi'],
-                            ['dopo.', 'dopo']
-                        ]
+                        tag: 'medium',
+                        br: ['a rate'],
+                        replace: [['mensili.', 'mensili']]
                     },
                     {
-                        tag: 'xsmall.2',
+                        tag: 'xsmall',
                         br: ['dopo.'],
                         replace: [['dopo.', 'dopo']]
                     }
@@ -141,14 +138,11 @@ export default {
                 headline: [
                     {
                         tag: 'medium.2',
-                        br: ['rate', 'in\b'],
-                        replace: [
-                            ['interessi.', 'interessi'],
-                            ['dopo.', 'dopo']
-                        ]
+                        br: ['a rate'],
+                        replace: [['mensili.', 'mensili']]
                     },
                     {
-                        tag: 'xsmall.2',
+                        tag: 'xsmall',
                         br: ['dopo.'],
                         replace: [['dopo.', 'dopo']]
                     }

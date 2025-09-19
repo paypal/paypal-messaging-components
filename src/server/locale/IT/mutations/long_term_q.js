@@ -130,7 +130,7 @@ export default {
                         br: ['rate'],
                         replace: [['mensili.', 'mensili']]
                     },
-                    { tag: 'xsmall' }
+                    { tag: 'xsmall', br: ['ora, '] }
                 ]
             })
         ],
