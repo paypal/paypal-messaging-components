@@ -3,6 +3,7 @@
         "offerCountry": "ES",
         "offerType": "PAY_LATER_LONG_TERM",
         "offerTerm": "{total_payments}",
+        "messageType": "PLLT_NQ_GZ",
         "lander": "https://www.paypal.com/credit-presentment/lander/modal",
         "variables": {
             "offer_id": "${CREDIT_OFFERS_DS.offer_id}",

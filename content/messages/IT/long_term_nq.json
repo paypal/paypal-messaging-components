@@ -2,6 +2,7 @@
     "meta": {
         "offerCountry": "IT",
         "offerType": "PAY_LATER_LONG_TERM",
+        "messageType": "PLLT_NQ_GZ",
         "offerTerm": "{total_payments}",
         "lander": "https://www.paypal.com/credit-presentment/lander/modal",
         "variables": {
