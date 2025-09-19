@@ -44,14 +44,17 @@ export const getDisplayValue = (value, country) => {
     const locale = getLocale(country);
     const localizedDecimalSeparator = decimalSeparator(locale);
 
+    // For IT and ES, avoid adding ,00
+    // For US and DE, preserve original behavior (show .00 or ,00)
+    const shouldShowDecimals =
+        (centVal !== '' && centVal !== '00') || // Show if there are meaningful cents (like 50, 25, etc.)
+        (value[value.length - 1] === localizedDecimalSeparator && centVal === '') || // Show separator when user is actively typing decimals
+        (centVal === '' && (country === 'US' || country === 'DE')); // For US/DE, show .00 or ,00 even for whole numbers
+
     return delocalizedValue === '' || formattedValue === 'NaN'
         ? ''
         : setCurrency(
               country,
-              `${formattedValue}${
-                  centVal !== '' || value[value.length - 1] === localizedDecimalSeparator
-                      ? `${localizedDecimalSeparator}${centVal.slice(0, 2)}`
-                      : ''
-              }`
+              `${formattedValue}${shouldShowDecimals ? `${localizedDecimalSeparator}${centVal.slice(0, 2)}` : ''}`
           );
 };

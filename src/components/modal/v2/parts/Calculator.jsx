@@ -40,7 +40,6 @@ const getError = ({ offers, error = '' }, isLoading, calculator, amount, country
     }
 
     const replaceRegExp = {
-        // TODO convert to switch statement
         DE: /(,[0-9]*?)00/g,
         ES: /(,[0-9]*?)00/g,
         IT: /(,[0-9]*?)00/g,
@@ -72,6 +71,7 @@ const Calculator = ({
     setExpandedState,
     calculator,
     aprDisclaimer,
+    genericDisclaimer,
     cta,
     useV4Design,
     useV5Design,
@@ -252,6 +252,11 @@ const Calculator = ({
                     } ${useV5Design === 'true' ? 'v5Design' : ''}`}
                 >
                     {aprDisclaimer[0].aprDisclaimer}
+                </div>
+            )}
+            {(country === 'ES' || country === 'IT') && (
+                <div className={`finance-terms__disclaimer ${useV5Design === 'true' ? 'v5Design' : ''}`}>
+                    {genericDisclaimer}
                 </div>
             )}
         </div>

@@ -39,7 +39,7 @@ const InlineLinks = ({ text, useNewCheckoutDesign }) => {
             }
         }
         // eslint-disable-next-line react/no-danger
-        return <span dangerouslySetInnerHTML={{ __html: textChunk }} />;
+        return <span dangerouslySetInnerHTML={{ __html: textChunk.replace(/\D00\s?(EUR|€)/g, ' €') }} />;
     });
 };
 
