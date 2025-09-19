@@ -128,19 +128,14 @@ export default {
         ],
         messageThresholds: [
             {
-                amount: 0,
-                template: 'short_term_no_amount.json',
-                product: 'PAY_LATER_SHORT_TERM'
+                amount: 60,
+                template: 'long_term_q.json',
+                product: 'PAY_LATER_LONG_TERM'
             },
             {
-                amount: 30,
-                template: 'short_term_q.json',
-                product: 'PAY_LATER_SHORT_TERM'
-            },
-            {
-                amount: 2000.01,
-                template: 'short_term_nq.json',
-                product: 'PAY_LATER_SHORT_TERM'
+                amount: 3000,
+                template: 'long_term_nq.json',
+                product: 'PAY_LATER_LONG_TERM'
             }
         ],
         offers: {
@@ -149,22 +144,22 @@ export default {
                     totalPayments: 6,
                     apr: 0,
                     nominalRate: 0,
-                    minAmount: 50,
-                    maxAmount: 5000
+                    minAmount: 60,
+                    maxAmount: 3000
                 },
                 {
                     totalPayments: 12,
                     apr: 0,
                     nominalRate: 0,
-                    minAmount: 50,
-                    maxAmount: 5000
+                    minAmount: 60,
+                    maxAmount: 3000
                 },
                 {
                     totalPayments: 24,
                     apr: 0,
                     nominalRate: 0,
-                    minAmount: 50,
-                    maxAmount: 5000
+                    minAmount: 60,
+                    maxAmount: 3000
                 }
             ]
         }
