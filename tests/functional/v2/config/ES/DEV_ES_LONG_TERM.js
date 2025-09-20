@@ -13,8 +13,7 @@ export const DEV_ES_LONG_TERM = {
                 offerHeadline: null,
                 offerFieldValues: null,
                 belowMinAmountErr: 'Introduce un importe igual o superior a 60 €.',
-                aprDisclaimer:
-                    '*Todos los ejemplos tienen carácter representativo. Las condiciones finales y los tipos de interés varían en función del importe de la compra y el perfil del cliente.'
+                aprDisclaimer: 'Tipo de interes nominal (TIN) fijo anual del 0%'
             }
         },
         {
@@ -23,10 +22,9 @@ export const DEV_ES_LONG_TERM = {
             expectedValue: 'Paga en 6, 12 o 24 plazos',
             modalContent: {
                 offerHeadline: '2.50 €/mes for 6 months',
-                updatedOfferHeadline: '$83.33/mo. for 6 months',
+                updatedOfferHeadline: '$83.33/mes for 6 months',
                 offerFieldValues: ['60,00 €', '0,00 €', '60,00 €'],
-                aprDisclaimer:
-                    '*Todos los ejemplos tienen carácter representativo. Las condiciones finales y los tipos de interés varían en función del importe de la compra y el perfil del cliente.'
+                aprDisclaimer: 'Tipo de interes nominal (TIN) fijo anual del 0%'
             }
         },
         {
@@ -37,8 +35,7 @@ export const DEV_ES_LONG_TERM = {
                 offerHeadline: null,
                 offerFieldValues: null,
                 aboveMaxAmountErr: 'Introduce un importe inferior a 2.999 €.',
-                aprDisclaimer:
-                    '*Todos los ejemplos tienen carácter representativo. Las condiciones finales y los tipos de interés varían en función del importe de la compra y el perfil del cliente.'
+                aprDisclaimer: 'Tipo de interes nominal (TIN) fijo anual del 0%'
             }
         }
     ]
