@@ -79,6 +79,8 @@ const accounts = [
     // 'DEV00000ESPLQ',
     // 'DEV0000ESPLNQ',
     // 'DEV0000ESPLNA',
+    // 'DEV0000ESPLTQ',
+    // 'DEV0000ESPLTNQ'
 
     // AU
     // 'DEV000000AUPL',
@@ -88,4 +90,6 @@ const accounts = [
     // 'DEV0000ITPLNA',
     // 'DEV00000ITPLQ',
     // 'DEV0000ITPLNQ'
+    // 'DEV0000ITPLTQ',
+    // 'DEV0000ITPLTNQ'
 ];

@@ -40,7 +40,7 @@ export default {
                 product: 'PAY_LATER_LONG_TERM'
             },
             {
-                amount: 5000.01,
+                amount: 3000,
                 template: 'long_term_nq.json',
                 product: 'PAY_LATER_LONG_TERM'
             }
@@ -61,21 +61,21 @@ export default {
                     apr: 14.99,
                     nominalRate: 14.99,
                     minAmount: 60,
-                    maxAmount: 5000
+                    maxAmount: 2999
                 },
                 {
                     totalPayments: 12,
                     apr: 14.99,
                     nominalRate: 14.99,
                     minAmount: 120,
-                    maxAmount: 5000
+                    maxAmount: 50299900
                 },
                 {
                     totalPayments: 24,
                     apr: 14.99,
                     nominalRate: 14.99,
                     minAmount: 240,
-                    maxAmount: 5000
+                    maxAmount: 2999
                 }
             ]
         }
@@ -133,7 +133,7 @@ export default {
                 product: 'PAY_LATER_LONG_TERM'
             },
             {
-                amount: 3000,
+                amount: 2999,
                 template: 'long_term_nq.json',
                 product: 'PAY_LATER_LONG_TERM'
             }
@@ -145,21 +145,21 @@ export default {
                     apr: 0,
                     nominalRate: 0,
                     minAmount: 60,
-                    maxAmount: 3000
+                    maxAmount: 2999
                 },
                 {
                     totalPayments: 12,
                     apr: 0,
                     nominalRate: 0,
                     minAmount: 60,
-                    maxAmount: 3000
+                    maxAmount: 2999
                 },
                 {
                     totalPayments: 24,
                     apr: 0,
                     nominalRate: 0,
                     minAmount: 60,
-                    maxAmount: 3000
+                    maxAmount: 2999
                 }
             ]
         }
