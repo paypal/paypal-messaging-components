@@ -20,11 +20,13 @@ const LOCALE_CONFIG = config[LOCALE];
 const ACCOUNT_CONFIG = LOCALE_CONFIG[ACCOUNT];
 const integration = 'webpage';
 const testFileName = 'longTerm';
-const ALL_DE_ACCOUNTS = [
+const ALL_ACCORDION_ACCOUNTS = [
     'DEV_DE_LONG_TERM',
     'DEV_DE_LONG_TERM_0APR',
     'DEV_DE_LONG_TERM_EN',
-    'DEV_DE_LONG_TERM_EN_0APR'
+    'DEV_DE_LONG_TERM_EN_0APR',
+    'DEV_ES_LONG_TERM',
+    'DEV_IT_LONG_TERM'
 ];
 
 const runTest = ACCOUNT_CONFIG.testFileName === testFileName;
@@ -55,7 +57,7 @@ descFn.each(filterPermutations([LOCALE_CONFIG], [ACCOUNT]))(
                     getTestName(country, integration, account, amount, viewport)
                 );
             });
-        } else if (amount >= minAmount && amount <= maxAmount && !ALL_DE_ACCOUNTS.includes(account)) {
+        } else if (amount >= minAmount && amount <= maxAmount && !ALL_ACCORDION_ACCOUNTS.includes(account)) {
             test(`Amount:${amount} - Offer cards show correct payment headline information - ${viewport}`, async () => {
                 await showCorrectOfferInfo(
                     page,
@@ -91,7 +93,10 @@ descFn.each(filterPermutations([LOCALE_CONFIG], [ACCOUNT]))(
         if (
             amount >= minAmount &&
             amount <= maxAmount &&
-            (account === 'DEV_DE_LONG_TERM' || account === 'DEV_DE_LONG_TERM_EN')
+            (account === 'DEV_DE_LONG_TERM' ||
+                account === 'DEV_DE_LONG_TERM_EN' ||
+                account === 'DEV_ES_LONG_TERM' ||
+                account === 'DEV_IT_LONG_TERM')
         ) {
             test(`Amount:${amount} - Offer accordion show correct payment headline information - ${viewport}`, async () => {
                 await showCorrectOfferInfoAccordion(
