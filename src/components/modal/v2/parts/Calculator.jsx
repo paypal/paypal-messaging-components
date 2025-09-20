@@ -173,7 +173,7 @@ const Calculator = ({
                     }`}
                 >
                     <div>
-                        {error && hasUsedInputField ? <Icon name="warning" /> : null}
+                        {error && hasEnteredAmount ? <Icon name="warning" /> : null}
                         <div>{error}</div>
                     </div>
                 </div>

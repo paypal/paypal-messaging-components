@@ -32,7 +32,7 @@
     },
     "content": {
         "calculator": {
-            "belowThreshold": "Introduce un importe igual o superior a {formattedMinAmount}",
+            "belowThreshold": "Introduce un importe igual o superior a {formattedMinAmount}.",
             "aboveThreshold": "Introduce un importe inferior a {formattedMaxAmount}."
         },
         "disclaimer": {

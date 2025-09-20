@@ -38,13 +38,13 @@
             "Usa il pagamento automatico per i pagamenti. È facile!"
         ],
         "disclosure": [
-            "Paga in 6, 12 o 24 rate è soggetto all'approvazione di PayPal e all'idoneità del cliente. Per acquisti da {formattedMinAmount} a {formattedMaxAmount}. Per candidarsi devi avere almeno 18 anni, essere residente in Italia e avere un conto PayPal. Per maggiori informazioni, consulta il modello di ",
+            "Paga in 6, 12 o 24 rate è soggetto all'approvazione di PayPal e all'idoneità del cliente. Per acquisti da {formatted_min_amount} a {formatted_max_amount}. Per poter fare richiesta devi avere almeno 18 anni, essere residente in Italia e avere un conto PayPal. Consulta la bozza di ",
             [
                 "contratto di finanziamento",
                 "https://www.paypal.com/it/webapps/mpp/ua/creditagreement",
                 "contratto di finanziamento, si apre in una nuova scheda"
             ],
-            ". Il creditore è PayPal (Europe) S.à r.l et Cie, SCA, 22-24 Boulevard Royal, L-2449 Lussemburgo. Queste informazioni sono fornite da PayPal."
+            " (contenente anche le Informazioni europee di base sul credito ai consumatori). Il creditore è PayPal (Europe) S.à r.l et Cie, SCA, 22-24 Boulevard Royal, L-2449 Lussemburgo. Queste informazioni sono fornite da PayPal."
         ],
         "linkToProductList": "Scopri altri metodi per pagare a rate"
     }

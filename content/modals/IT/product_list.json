@@ -7,7 +7,7 @@
     },
     "content": {
         "headline": "<span aria-hidden='true'>Acquista ora, paga più tardi</span><span class='sr-only'>Acquista ora, paga più tardi</span>",
-        "disclosure": "Si applicano condizioni. Soggetto ad'approvazione di PayPal. Per ulteriori informazioni su Paga a rate di PayPal, seleziona una delle opzioni riportate sopra.",
+        "disclosure": "Si applicano condizioni. Soggetto ad approvazione da parte di PayPal. Per ulteriori informazioni su Paga a rate di PayPal, seleziona una delle opzioni riportate sopra.",
         "instructions": {
             "payLater": "Seleziona un'opzione per maggiori informazioni."
         },
