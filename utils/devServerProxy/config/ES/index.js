@@ -40,7 +40,7 @@ export default {
                 product: 'PAY_LATER_LONG_TERM'
             },
             {
-                amount: 3000,
+                amount: 2999.01,
                 template: 'long_term_nq.json',
                 product: 'PAY_LATER_LONG_TERM'
             }
@@ -133,7 +133,7 @@ export default {
                 product: 'PAY_LATER_LONG_TERM'
             },
             {
-                amount: 2999,
+                amount: 2999.01,
                 template: 'long_term_nq.json',
                 product: 'PAY_LATER_LONG_TERM'
             }
