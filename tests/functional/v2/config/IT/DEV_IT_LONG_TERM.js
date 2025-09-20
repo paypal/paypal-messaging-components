@@ -24,7 +24,7 @@ export const DEV_IT_LONG_TERM = {
             modalContent: {
                 offerHeadline: '2.50 €/mIT for 6 months',
                 updatedOfferHeadline: '$83.33/mo. for 6 months',
-                offerFieldValues: ['0%', '$0.00', '$199.00'],
+                offerFieldValues: ['60,00 €', '0,00 €', '60,00 €'],
                 aprDisclaimer:
                     "*Tutti gli esempi hanno natura rappresentativa. Le condizioni finali e i tassi d'interesse applicati variano in base all'importo dell'acquisto e del profilo del cliente."
             }

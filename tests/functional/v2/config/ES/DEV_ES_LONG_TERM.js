@@ -24,7 +24,7 @@ export const DEV_ES_LONG_TERM = {
             modalContent: {
                 offerHeadline: '2.50 €/mes for 6 months',
                 updatedOfferHeadline: '$83.33/mo. for 6 months',
-                offerFieldValues: ['0%', '$0.00', '$199.00'],
+                offerFieldValues: ['60,00 €', '0,00 €', '60,00 €'],
                 aprDisclaimer:
                     '*Todos los ejemplos tienen carácter representativo. Las condiciones finales y los tipos de interés varían en función del importe de la compra y el perfil del cliente.'
             }
@@ -36,7 +36,7 @@ export const DEV_ES_LONG_TERM = {
             modalContent: {
                 offerHeadline: null,
                 offerFieldValues: null,
-                aboveMaxAmountErr: 'Introduce un importe inferior a 3.000 €.',
+                aboveMaxAmountErr: 'Introduce un importe inferior a 2.999 €.',
                 aprDisclaimer:
                     '*Todos los ejemplos tienen carácter representativo. Las condiciones finales y los tipos de interés varían en función del importe de la compra y el perfil del cliente.'
             }
