@@ -21,7 +21,7 @@ export const DEV_ES_LONG_TERM = {
             message: 'Qualifying Pay Monthly',
             expectedValue: 'Paga en 6, 12 o 24 plazos',
             modalContent: {
-                offerHeadline: '2.50 €/mes for 6 months',
+                offerHeadline: '2.50 €/mes',
                 updatedOfferHeadline: '20,83 €/mes',
                 offerFieldValues: ['60,00 €', '0,00 €', '60,00 €'],
                 aprDisclaimer: 'Tipo de interes nominal (TIN) fijo anual del 0%'
