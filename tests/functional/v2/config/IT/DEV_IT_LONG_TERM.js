@@ -22,7 +22,7 @@ export const DEV_IT_LONG_TERM = {
             expectedValue: 'Paga in 6, 12 o 24 rate',
             modalContent: {
                 offerHeadline: '2.50 €/mese for 6 months',
-                updatedOfferHeadline: '$83.33/mese for 6 months',
+                updatedOfferHeadline: '20,83 €/mese',
                 offerFieldValues: ['60,00 €', '0,00 €', '60,00 €'],
                 aprDisclaimer: 'Tasso annuo nominale fisso dello 0%'
             }
