@@ -6,9 +6,9 @@ export const DEV_IT_MULTI = {
         {
             value: '0.00',
             message: 'Product list modal functionality',
-            expectedValue: 'Paga in 6, 12 o 24 rate',
+            expectedValue: 'Acquista ora, paga più tardi',
             modalContent: {
-                headline: 'Paga in 6, 12 o 24 rate',
+                headline: 'Acquista ora, paga più tardi',
                 shortTerm: 'Paga in 3 rate',
                 longTerm: 'Paga in 6, 12 o 24 rate'
             }
