@@ -21,7 +21,7 @@ export const DEV_IT_LONG_TERM = {
             message: 'Qualifying Pay Monthly',
             expectedValue: 'Paga in 6, 12 o 24 rate',
             modalContent: {
-                offerHeadline: '2.50 €/mese',
+                offerHeadline: '2,50 €/mese',
                 updatedOfferHeadline: '20,83 €/mese',
                 offerFieldValues: ['60,00 €', '0,00 €', '60,00 €'],
                 aprDisclaimer: 'Tasso annuo nominale fisso dello 0%'
