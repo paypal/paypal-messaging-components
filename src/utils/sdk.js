@@ -54,9 +54,11 @@ export function getMerchantConfig() {
     if (__MESSAGES__.__TARGET__ === 'SDK') {
         // TODO: remove getFundingEligibility call and try catch after globals swap
         try {
-            return __MESSAGING_GLOBALS__?.merchantProfile?.hash;
+            const hash = __MESSAGING_GLOBALS__?.merchantProfile?.hash;
+            return hash || undefined;
         } catch {
-            return getFundingEligibility()?.paylater?.merchantConfigHash;
+            const hash = getFundingEligibility()?.paylater?.merchantConfigHash;
+            return hash || undefined;
         }
     } else {
         return undefined;
