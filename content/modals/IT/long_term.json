@@ -41,7 +41,7 @@
             "Paga in 6, 12 o 24 rate è soggetto all'approvazione di PayPal e all'idoneità del cliente. Per acquisti da {formatted_min_amount} a {formatted_max_amount}. Per poter fare richiesta devi avere almeno 18 anni, essere residente in Italia e avere un conto PayPal. Consulta la bozza di ",
             [
                 "contratto di finanziamento",
-                "https://www.paypal.com/it/webapps/mpp/ua/creditagreement",
+                "https://www.paypalobjects.com/marketing/web23/it/ppe/buy-now-pay-later/pay-monthly-contract-Italy.pdf",
                 "contratto di finanziamento, si apre in una nuova scheda"
             ],
             " (contenente anche le Informazioni europee di base sul credito ai consumatori). Il creditore è PayPal (Europe) S.à r.l et Cie, SCA, 22-24 Boulevard Royal, L-2449 Lussemburgo. Queste informazioni sono fornite da PayPal."

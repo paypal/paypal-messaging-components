@@ -41,7 +41,7 @@
             "Paga en 6, 12 o 24 plazos está sujeto a la aprobación por parte de PayPal y a la elegibilidad del cliente. Para compras de {formattedMinAmount} a {formattedMaxAmount}. Debes tener 18 años o más, ser residente en España y tener una cuenta PayPal para poder solicitarlo. Consulta el modelo de un ",
             [
                 "contrato de crédito",
-                "https://www.paypal.com/it/webapps/mpp/ua/creditagreement",
+                "https://www.paypalobjects.com/marketing/web23/es/ppe/buy-now-pay-later/pay-monthly-contract-spain.pdf",
                 "contrato de crédito, se abre en una pestaña nueva"
             ],
             " para obtener más información. El prestamista es PayPal (Europe) S.à r.l et Cie, SCA, 22-24 Boulevard Royal, L-2449 Luxemburg. Esta informacion es proporcionada por PayPal."
