@@ -1,0 +1,49 @@
+{
+    "meta": {
+        "product": "PAY_LATER_SHORT_TERM",
+        "periodicPayment": "{formattedPeriodicPayment}",
+        "minAmount": "{minAmount}",
+        "maxAmount": "{maxAmount}",
+        "qualifying": "{qualifying_offer}",
+        "amount": "{transaction_amount}",
+        "apr": "{apr}",
+        "useV5Design": "true",
+        "v5.1": "true",
+        "variables": {
+            "transaction_amount": "${eval(transaction_amount ? transaction_amount : '-')}",
+            "qualifying_offer": "${eval(CREDIT_OFFERS_DS.qualifying_offer ? CREDIT_OFFERS_DS.qualifying_offer : 'false')}",
+            "financing_code": "${CREDIT_OFFERS_DS.financing_code}",
+            "formattedPeriodicPayment": "${CREDIT_OFFERS_DS.formattedPeriodicPayment}",
+            "total_payments": "${CREDIT_OFFERS_DS.total_payments}",
+            "formattedMinAmount": "${CREDIT_OFFERS_DS.formattedMinAmount}",
+            "formattedMaxAmount": "${CREDIT_OFFERS_DS.formattedMaxAmount}",
+            "formattedTotalCost": "${CREDIT_OFFERS_DS.formattedTotalCost}",
+            "minAmount": "${CREDIT_OFFERS_DS.minAmount}",
+            "maxAmount": "${CREDIT_OFFERS_DS.maxAmount}",
+            "apr": "${CREDIT_OFFERS_DS.apr}",
+            "nominal_rate": "${CREDIT_OFFERS_DS.nominal_rate}"
+        }
+    },
+    "content": {
+        "headline": "Payer en 4",
+        "subheadline": "Aucun impact sur la cote de crédit et aucuns frais de retard. Disponible pour les achats de {formattedMinAmount} à {formattedMaxAmount}.",
+        "qualifyingSubheadline": "Divisez le montant de {formattedTotalCost} en {total_payments} versements sans intérêt, sans incidence sur votre cote de crédit et sans frais de retard.",
+        "donutTimestamps": ["Exigible aujourd'hui", "2 semaines", "4 semaines", "6 semaines"],
+        "instructions": {
+            "instructionsHeadline": "Comment fonctionne le Paiement en 4?",
+            "instructionsSubHeadline": [
+                "Choisissez PayPal à la caisse pour payer plus tard avec <strong>le Paiement en 4</strong>. ",
+                "Terminez votre achat avec un premier paiement de 25 %.",
+                "Utilisez le paiement préapprouvé pour le reste de vos paiements. C'est facile!"
+            ]
+        },
+        "cta": {
+            "buttonTextEligible": "Continuer avec le Paiement en 4",
+            "buttonTextIneligible": "Retour à la caisse",
+            "link": "https://www.paypal.com/link/to/short-term-application"
+        },
+        "disclosure": [
+            "Paiement en 4 est offert aux consommateurs approuvés pour les achats de {formattedMinAmount} à {formattedMaxAmount} (CAD) pour certains types de transactions. La disponibilité dépend du marchand. Vous devez avoir atteint l’âge de la majorité dans la province ou le territoire où vous résidez pour présenter une demande. Toutes les transactions dans d’autres devises seront converties en dollars canadiens, sous réserve des frais de conversion de devise applicables. Vous pouvez rembourser la totalité du montant que vous devez en tout temps, sans frais."
+        ]
+    }
+}

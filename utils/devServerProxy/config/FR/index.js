@@ -29,7 +29,7 @@ export default {
         offers: {
             PAY_LATER_SHORT_TERM: [
                 {
-                    totalPayments: 3,
+                    totalPayments: 4,
                     apr: 0,
                     nominalRate: 0,
                     minAmount: 30,

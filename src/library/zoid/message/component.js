@@ -14,6 +14,7 @@ import {
     getLibraryVersion,
     runStats,
     logger,
+    getOrCreateGlobalSessionID,
     getSessionID,
     getGlobalState,
     getCurrentTime,
@@ -107,6 +108,12 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 queryParam: 'buyer_country',
                 required: false,
                 value: validate.buyerCountry
+            },
+            language: {
+                type: 'string',
+                queryParam: true,
+                required: false,
+                value: validate.language
             },
             ignoreCache: {
                 type: 'boolean',
@@ -248,6 +255,8 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                                     // deviceID from internal iframe storage
                                     // should be populated previously by the treatments component
                                     deviceID: getOrCreateDeviceID(),
+                                    // Global Session ID allows messages to be correlated to button events
+                                    globalSessionID: getOrCreateGlobalSessionID(),
                                     // Session ID from parent local storage,
                                     sessionID: getSessionID()
                                 },
