@@ -31,7 +31,7 @@
             "inputCurrencySymbol": "€",
             "genericError": "Qualcosa è andato storto. Riprova più tardi."
         },
-        "genericDisclaimer": "*Tutti gli esempi hanno natura rappresentativa. Le condizioni finali e i tassi d'interesse applicati variano in base all'importo dell'acquisto e del profilo del cliente.",
+        "genericDisclaimer": "*Tutti gli esempi hanno natura rappresentativa. Le condizioni finali e i tassi d'interesse applicati variano in base all'importo dell'acquisto e al profilo del cliente. L’importo delle rate è arrotondato",
         "instructions": [
             "Scegli PayPal al checkout e paga dopo con <strong>Paga in 6, 12 o 24 rate</strong>.",
             "Ottieni una decisione in pochi secondi e completa il tuo acquisto.",

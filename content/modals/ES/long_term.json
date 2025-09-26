@@ -31,7 +31,7 @@
             "inputCurrencySymbol": "€",
             "genericError": "Algo salió mal. Por favor, inténtalo de nuevo más tarde."
         },
-        "genericDisclaimer": "*Todos los ejemplos tienen carácter representativo. Las condiciones finales y los tipos de interés varían en función del importe de la compra y el perfil del cliente.",
+        "genericDisclaimer": "*Todos los ejemplos tienen carácter representativo. Las condiciones finales y los tipos de interés varían en función del importe de la compra y el perfil del cliente. El importe de los plazos está redondeado",
         "instructions": [
             "Selecciona PayPal en el proceso de pago para pagar más tarde con <strong>Paga en 6, 12 o 24 plazos</strong>.",
             "Obtén una respuesta en unos segundos y completa tu compra.",

@@ -44,6 +44,7 @@ const OfferAccordion = ({
                 >
                     <div className="accordion__offer-field-header ">
                         {currencySymbolFormat(termsLabel?.offerPayment)}
+                        {offerCountry === 'IT' || offerCountry === 'ES' ? '*' : ''}
                     </div>
                     <div className="accordion__offer-field-header">{termsLabel?.offerNumInstallments}</div>
                 </button>
