@@ -36,8 +36,8 @@
             "aboveThreshold": "Introduce un importe inferior a {formattedMaxAmount}."
         },
         "disclaimer": {
-            "nonZeroAPR": "Tipo de interes nominal (TIN) fijo anual del {formattedNominalRatePrecision2}%* <br/> <strong>Tasa anual equivalente (TAE) del {formattedAPR}%*</strong>",
-            "zeroAPR": "Tipo de interes nominal (TIN) fijo anual del 0% <br/> <strong>Tasa anual equivalente (TAE) de 0%</strong>"
+            "nonZeroAPR": "TIN fijo anual del {formattedNominalRatePrecision2}%* <br/> <strong>TAE del {formattedAPR}%*</strong>",
+            "zeroAPR": "TIN fijo anual del 0% <br/> <strong>TAE de 0%</strong>"
         },
         "termsLabel": {
             "offerPayment": "{formattedPeriodicPayment}/mes",
