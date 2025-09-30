@@ -1,0 +1,51 @@
+{
+    "meta": {
+        "product": "PAY_LATER_LONG_TERM",
+        "offerCountry": "ES",
+        "useV5Design": "true",
+        "v5.1": "true",
+        "variables": {
+            "transaction_amount": "${eval(transaction_amount ? transaction_amount : '-')}",
+            "qualifying_offer": "${eval(CREDIT_OFFERS_DS.qualifying_offer ? CREDIT_OFFERS_DS.qualifying_offer : 'false')}",
+            "financing_code": "${CREDIT_OFFERS_DS.financing_code}",
+            "formattedPeriodicPayment": "${CREDIT_OFFERS_DS.formattedPeriodicPayment}",
+            "total_payments": "${CREDIT_OFFERS_DS.total_payments}",
+            "formattedMinAmount": "${CREDIT_OFFERS_DS.formattedMinAmount}",
+            "formattedMaxAmount": "${CREDIT_OFFERS_DS.formattedMaxAmount}",
+            "formattedTotalCost": "${CREDIT_OFFERS_DS.formattedTotalCost}",
+            "minAmount": "${CREDIT_OFFERS_DS.minAmount}",
+            "maxAmount": "${CREDIT_OFFERS_DS.maxAmount}",
+            "apr": "${CREDIT_OFFERS_DS.apr}",
+            "nominal_rate": "${CREDIT_OFFERS_DS.nominal_rate}",
+            "formattedNominalRatePrecision2": "${CREDIT_OFFERS_DS.formattedNominalRatePrecision2}"
+        }
+    },
+    "content": {
+        "headline": "Paga en 6, 12 o 24 plazos",
+        "subheadline": "Compra hoy, sin pago inicial.",
+        "calculator": {
+            "title": "¿Cuál es el importe tu compra?",
+            "genericTitle": "¿Cuál es el importe tu compra?",
+            "inputLabel": "Importe de compra",
+            "inputPlaceholder": "0 €",
+            "inputCurrencySymbol": "€",
+            "genericError": "Algo salió mal. Por favor, inténtalo de nuevo más tarde."
+        },
+        "genericDisclaimer": "*Todos los ejemplos tienen carácter representativo. Las condiciones finales y los tipos de interés varían en función del importe de la compra y el perfil del cliente. El importe de los plazos está redondeado.",
+        "instructions": [
+            "Selecciona PayPal en el proceso de pago para pagar más tarde con <strong>Paga en 6, 12 o 24 plazos</strong>.",
+            "Obtén una respuesta en unos segundos y completa tu compra.",
+            "Usa el pago automático para tus cuotas. ¡Es fácil!"
+        ],
+        "disclosure": [
+            "Paga en 6, 12 o 24 plazos está sujeto a la aprobación por parte de PayPal y a la elegibilidad del cliente. Para compras de {formattedMinAmount} a {formattedMaxAmount}. Debes tener 18 años o más, ser residente en España y tener una cuenta PayPal para poder solicitarlo. Consulta el modelo de un ",
+            [
+                "contrato de crédito",
+                "https://www.paypalobjects.com/marketing/web23/es/ppe/buy-now-pay-later/pay-monthly-contract-spain.pdf",
+                "contrato de crédito, se abre en una pestaña nueva"
+            ],
+            " para obtener más información. El prestamista es PayPal (Europe) S.à r.l et Cie, SCA, 22-24 Boulevard Royal, L-2449 Luxemburg. Esta informacion es proporcionada por PayPal."
+        ],
+        "linkToProductList": "Ver otras formas de pago a plazos"
+    }
+}

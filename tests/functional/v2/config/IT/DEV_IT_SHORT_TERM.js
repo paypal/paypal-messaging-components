@@ -19,7 +19,7 @@ export const DEV_IT_SHORT_TERM = {
             message: 'Pay in 3, qualifying',
             expectedValue: 'Pay in 4 interest-free payments of 10,00 €',
             modalContent: {
-                subheadline: 'Dividi in 3 il tuo acquisto di 30,00 € senza tariffe iniziali o di ritardo.',
+                subheadline: 'Dividi in 3 il tuo acquisto di 30,00 € senza spese iniziali o di ritardo.',
                 periodicPayment: '10,00 €'
             }
         },

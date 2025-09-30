@@ -1,12 +1,16 @@
 const getLocale = country =>
     ({
         US: 'en-US',
+        IT: 'it-IT',
+        ES: 'es-ES',
         DE: 'de-DE'
     }[country] ?? 'en-US');
 
 const setCurrency = (country, value) =>
     ({
         US: `$${value}`,
+        IT: value,
+        ES: value,
         DE: value
     }[country] ?? `$${value}`);
 

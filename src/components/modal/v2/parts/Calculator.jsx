@@ -41,6 +41,8 @@ const getError = ({ offers, error = '' }, isLoading, calculator, amount, country
 
     const replaceRegExp = {
         DE: /(,[0-9]*?)00/g,
+        ES: /(,[0-9]*?)00/g,
+        IT: /(,[0-9]*?)00/g,
         US: /(\.[0-9]*?)00/g
     };
     // If amount is undefined (none is passed in), return the belowThreshold error.
@@ -69,6 +71,7 @@ const Calculator = ({
     setExpandedState,
     calculator,
     aprDisclaimer,
+    genericDisclaimer,
     cta,
     useV4Design,
     useV5Design,
@@ -170,7 +173,7 @@ const Calculator = ({
                     }`}
                 >
                     <div>
-                        {error && hasUsedInputField ? <Icon name="warning" /> : null}
+                        {error && hasEnteredAmount ? <Icon name="warning" /> : null}
                         <div>{error}</div>
                     </div>
                 </div>
@@ -249,6 +252,11 @@ const Calculator = ({
                     } ${useV5Design === 'true' ? 'v5Design' : ''}`}
                 >
                     {aprDisclaimer[0].aprDisclaimer}
+                </div>
+            )}
+            {(country === 'ES' || country === 'IT') && (
+                <div className={`finance-terms__disclaimer ${useV5Design === 'true' ? 'v5Design' : ''}`}>
+                    {genericDisclaimer}
                 </div>
             )}
         </div>

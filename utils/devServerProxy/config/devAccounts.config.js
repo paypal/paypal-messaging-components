@@ -105,8 +105,21 @@ export default {
     DEV0000ESPLNA: ['ES', ['short_term'], 'short_term_no_amount'],
     DEV00000ESPLQ: ['ES', ['short_term'], 'short_term_q'],
     DEV0000ESPLNQ: ['ES', ['short_term'], 'short_term_nq'],
+    DEV0000ESPLTQ: ['ES', ['long_term'], 'long_term_q'],
+    DEV000ESPLTNQ: ['ES', ['long_term'], 'long_term_nq'],
 
     DEV0000ITPLNA: ['IT', ['short_term'], 'short_term_no_amount'],
     DEV00000ITPLQ: ['IT', ['short_term'], 'short_term_q'],
-    DEV0000ITPLNQ: ['IT', ['short_term'], 'short_term_nq']
+    DEV0000ITPLNQ: ['IT', ['short_term'], 'short_term_nq'],
+    DEV0000ITPLTQ: ['IT', ['long_term'], 'long_term_q'],
+    DEV000ITPLTNQ: ['IT', ['long_term'], 'long_term_nq'],
+
+    // en-CA
+    DEV00ENCAPLNA: ['CA', ['short_term'], 'generic'],
+    DEV000ENCAPLQ: ['CA', ['short_term'], 'short_term_q'],
+    DEV00ENCAPLNQ: ['CA', ['short_term'], 'short_term_nq'],
+    // fr-CA
+    DEV00FRCAPLNA: ['CA', ['short_term_fr'], 'generic_fr'],
+    DEV000FRCAPLQ: ['CA', ['short_term_fr'], 'short_term_q_fr'],
+    DEV00FRCAPLNQ: ['CA', ['short_term_fr'], 'short_term_nq_fr']
 };

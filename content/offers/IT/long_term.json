@@ -1,0 +1,50 @@
+{
+    "meta": {
+        "product": "PAY_LATER_LONG_TERM",
+        "offerCountry": "IT",
+        "periodicPayment": "{formattedPeriodicPayment}",
+        "minAmount": "{minAmount}",
+        "maxAmount": "{maxAmount}",
+        "qualifying": "{qualifying_offer}",
+        "amount": "{transaction_amount}",
+        "formattedMinAmount": "{formattedMinAmount}",
+        "formattedMaxAmount": "{formattedMaxAmount}",
+        "apr": "{apr}",
+        "total_payments": "{total_payments}",
+        "formattedTotalCost": "{formattedTotalCost}",
+        "formattedTotalInterest": "{formattedTotalInterest}",
+        "formattedTransactionAmount": "{formattedTransactionAmount}",
+        "variables": {
+            "transaction_amount": "${eval(transaction_amount ? transaction_amount : '-')}",
+            "qualifying_offer": "${eval(CREDIT_OFFERS_DS.qualifying_offer ? CREDIT_OFFERS_DS.qualifying_offer : 'false')}",
+            "financing_code": "${CREDIT_OFFERS_DS.financing_code}",
+            "formattedPeriodicPayment": "${CREDIT_OFFERS_DS.formattedPeriodicPayment}",
+            "total_payments": "${CREDIT_OFFERS_DS.total_payments}",
+            "formattedMinAmount": "${CREDIT_OFFERS_DS.formattedMinAmount}",
+            "formattedMaxAmount": "${CREDIT_OFFERS_DS.formattedMaxAmount}",
+            "formattedTotalCost": "${CREDIT_OFFERS_DS.formattedTotalCost}",
+            "formattedTransactionAmount": "${CREDIT_OFFERS_DS.formattedTransactionAmount}",
+            "minAmount": "${CREDIT_OFFERS_DS.minAmount}",
+            "maxAmount": "${CREDIT_OFFERS_DS.maxAmount}",
+            "apr": "${CREDIT_OFFERS_DS.apr}",
+            "nominal_rate": "${CREDIT_OFFERS_DS.nominal_rate}"
+        }
+    },
+    "content": {
+        "calculator": {
+            "belowThreshold": "Inserisci un importo pari o superiore a {formattedMinAmount}.",
+            "aboveThreshold": "Inserisci un importo inferiore a {formattedMaxAmount}."
+        },
+        "disclaimer": {
+            "nonZeroAPR": "Tasso annuo nominale fisso (TIN) {formattedNominalRatePrecision2}%*<br/><strong>Tasso annuo effettivo globale (TAEG) del {formattedAPR}%*</strong>",
+            "zeroAPR": "Tasso annuo nominale fisso dello 0% <br/> <strong>Tasso annuo effettivo globale (TAEG) dello 0%</strong>"
+        },
+        "termsLabel": {
+            "offerPayment": "{formattedPeriodicPayment}/mese",
+            "offerNumInstallments": "{total_payments} rate",
+            "eMoney": "Importo totale del credito",
+            "totalInterest": "Importo degli interessi",
+            "total": "Importo totale dovuto"
+        }
+    }
+}

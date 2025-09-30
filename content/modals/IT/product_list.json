@@ -1,0 +1,29 @@
+{
+    "meta": {
+        "product": "PRODUCT_LIST",
+        "useV5Design": "true",
+        "v5.1": "true",
+        "offerCountry": "IT"
+    },
+    "content": {
+        "headline": "<span aria-hidden='true'>Acquista ora, paga dopo</span><span class='sr-only'>Acquista ora, paga dopo</span>",
+        "disclosure": "Si applicano condizioni. Soggetto ad approvazione da parte di PayPal. Per ulteriori informazioni su Paga a rate di PayPal, seleziona una delle opzioni riportate sopra.",
+        "instructions": {
+            "payLater": "Seleziona un'opzione per maggiori informazioni."
+        },
+        "productTiles": {
+            "payLater": [
+                {
+                    "header": "Paga in 3 rate",
+                    "body": "Pagamenti mensili senza interessi, a partire da oggi.",
+                    "viewName": "PAY_LATER_SHORT_TERM"
+                },
+                {
+                    "header": "Paga in 6, 12 o 24 rate",
+                    "body": "Rate mensili per acquisti più consistenti, senza acconto.",
+                    "viewName": "PAY_LATER_LONG_TERM"
+                }
+            ]
+        }
+    }
+}

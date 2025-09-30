@@ -1,0 +1,28 @@
+{
+    "meta": {
+        "id": "",
+        "offerCountry": "CA",
+        "offerType": "GENERIC",
+        "messageType": "GENERIC",
+        "offerTerm": "${CREDIT_OFFERS_DS.total_payments}",
+        "lander": "",
+        "variables": {
+            "financing_code": "${CREDIT_OFFERS_DS.financing_code}",
+            "formattedMonthlyPayment": "${CREDIT_OFFERS_DS.formattedMonthlyPayment}",
+            "total_payments": "${CREDIT_OFFERS_DS.total_payments}",
+            "minAmount": "${CREDIT_OFFERS_DS.minAmount}",
+            "maxAmount": "${CREDIT_OFFERS_DS.maxAmount}",
+            "formattedMinAmount": "${CREDIT_OFFERS_DS.formattedMinAmount}",
+            "formattedMaxAmount": "${CREDIT_OFFERS_DS.formattedMaxAmount}",
+            "formattedTotalCost": "${CREDIT_OFFERS_DS.formattedTotalCost}"
+        }
+    },
+    "headline": [
+        ["Achetez maintenant, payez plus tard.", ["default", "xsmall"]],
+        ["Achetez maintenant et payez plus tard.", ["xsmall.2"]]
+    ],
+    "subHeadline": [],
+    "disclaimer": [
+        ["<span aria-hidden='true'>En savoir plus</span><span class='sr-only'> En savoir plus</span>", ["default"]]
+    ]
+}

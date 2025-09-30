@@ -1,0 +1,29 @@
+{
+    "meta": {
+        "product": "PRODUCT_LIST",
+        "useV5Design": "true",
+        "v5.1": "true",
+        "offerCountry": "ES"
+    },
+    "content": {
+        "headline": "<span aria-hidden='true'>Compra ahora y paga después</span><span class='sr-only'>Compra ahora y paga después</span>",
+        "disclosure": "Se aplican condiciones. Sujeto a la aprobación por parte de PayPal. Para obtener más información acerca de Paga a plazos de PayPal, selecciona una de las opciones anteriores.",
+        "instructions": {
+            "payLater": "Selecciona una opción para obtener más información."
+        },
+        "productTiles": {
+            "payLater": [
+                {
+                    "header": "Paga en 3 plazos",
+                    "body": "Pagos mensuales sin intereses, TAE 0%, a partir de hoy.",
+                    "viewName": "PAY_LATER_SHORT_TERM"
+                },
+                {
+                    "header": "Paga en 6, 12 o 24 plazos",
+                    "body": "Pagos mensuales para compras más grandes, sin pago inicial.",
+                    "viewName": "PAY_LATER_LONG_TERM"
+                }
+            ]
+        }
+    }
+}

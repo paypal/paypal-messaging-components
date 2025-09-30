@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.72.0](https://github.com/paypal/paypal-messaging-components/compare/v1.71.0...v1.72.0) (2025-09-23)
+
+
+### Features
+
+* create ca pi4 msgs and modals ([#1220](https://github.com/paypal/paypal-messaging-components/issues/1220)) ([0623927](https://github.com/paypal/paypal-messaging-components/commit/0623927be7ac9c8b76c27ed9dd6b4a7a5a1a4897))
+
 ## [1.71.0](https://github.com/paypal/paypal-messaging-components/compare/v1.70.0...v1.71.0) (2025-09-02)
 
 

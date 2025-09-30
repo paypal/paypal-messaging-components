@@ -50,6 +50,7 @@
             " y ",
             ["los términos y condiciones", "https://www.paypal.com/es/webapps/mpp/ua/pay-in-3-full?locale.x=es_ES"],
             "para más información. Disponible solo para clientes mayores de 18 años. Tienes un plazo de 14 días para desistir de tu crédito. El prestamista es PayPal (Europe) S.à rl et Cie, SCA, 22-24 Boulevard Royal, L-2449 Luxemburgo. Un crédito es un compromiso vinculante que debe ser reembolsado y puede afectar a tu historial crediticio. Asegúrate de verificar tu capacidad de reembolso antes de comprometerte. Esta información es proporcionada por PayPal."
-        ]
+        ],
+        "linkToProductList": "Ver otras formas de pago a plazos"
     }
 }

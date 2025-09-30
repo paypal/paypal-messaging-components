@@ -1,0 +1,51 @@
+{
+    "meta": {
+        "product": "PAY_LATER_LONG_TERM",
+        "offerCountry": "IT",
+        "useV5Design": "true",
+        "v5.1": "true",
+        "variables": {
+            "transaction_amount": "${eval(transaction_amount ? transaction_amount : '-')}",
+            "qualifying_offer": "${eval(CREDIT_OFFERS_DS.qualifying_offer ? CREDIT_OFFERS_DS.qualifying_offer : 'false')}",
+            "financing_code": "${CREDIT_OFFERS_DS.financing_code}",
+            "formattedPeriodicPayment": "${CREDIT_OFFERS_DS.formattedPeriodicPayment}",
+            "total_payments": "${CREDIT_OFFERS_DS.total_payments}",
+            "formattedMinAmount": "${CREDIT_OFFERS_DS.formattedMinAmount}",
+            "formattedMaxAmount": "${CREDIT_OFFERS_DS.formattedMaxAmount}",
+            "formattedTotalCost": "${CREDIT_OFFERS_DS.formattedTotalCost}",
+            "minAmount": "${CREDIT_OFFERS_DS.minAmount}",
+            "maxAmount": "${CREDIT_OFFERS_DS.maxAmount}",
+            "apr": "${CREDIT_OFFERS_DS.apr}",
+            "nominal_rate": "${CREDIT_OFFERS_DS.nominal_rate}",
+            "formattedNominalRatePrecision2": "${CREDIT_OFFERS_DS.formattedNominalRatePrecision2}"
+        }
+    },
+    "content": {
+        "headline": "Paga in 6, 12 o 24 rate",
+        "subheadline": "Acquista oggi, senza acconto",
+        "calculator": {
+            "title": "Qual è l'importo del tuo acquisto?",
+            "genericTitle": "Qual è l'importo del tuo acquisto?",
+            "inputLabel": "Importo dell'acquisto",
+            "inputPlaceholder": "0 €",
+            "inputCurrencySymbol": "€",
+            "genericError": "Qualcosa è andato storto. Riprova più tardi."
+        },
+        "genericDisclaimer": "*Tutti gli esempi hanno natura rappresentativa. Le condizioni finali e i tassi d'interesse applicati variano in base all'importo dell'acquisto e al profilo del cliente. L’importo delle rate è arrotondato.",
+        "instructions": [
+            "Scegli PayPal al checkout e paga dopo con <strong>Paga in 6, 12 o 24 rate</strong>.",
+            "Ottieni una decisione in pochi secondi e completa il tuo acquisto.",
+            "Usa il pagamento automatico per i pagamenti. È facile!"
+        ],
+        "disclosure": [
+            "Paga in 6, 12 o 24 rate è soggetto all'approvazione di PayPal e all'idoneità del cliente. Per acquisti da {formatted_min_amount} a {formatted_max_amount}. Per poter fare richiesta devi avere almeno 18 anni, essere residente in Italia e avere un conto PayPal. Consulta la bozza di ",
+            [
+                "contratto di finanziamento",
+                "https://www.paypalobjects.com/marketing/web23/it/ppe/buy-now-pay-later/pay-monthly-contract-Italy.pdf",
+                "contratto di finanziamento, si apre in una nuova scheda"
+            ],
+            " (contenente anche le Informazioni europee di base sul credito ai consumatori). Il creditore è PayPal (Europe) S.à r.l et Cie, SCA, 22-24 Boulevard Royal, L-2449 Lussemburgo. Queste informazioni sono fornite da PayPal."
+        ],
+        "linkToProductList": "Scopri altri metodi per pagare a rate"
+    }
+}

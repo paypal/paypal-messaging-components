@@ -31,7 +31,7 @@
     "content": {
         "headline": "Paga in 3 rate senza interessi",
         "subheadline": "Disponibile per acquisti tra {formattedMinAmount} e {formattedMaxAmount}. Nessuna tariffa iniziale o di ritardo.",
-        "qualifyingSubheadline": "Dividi in 3 il tuo acquisto di {formattedTransactionAmount} senza tariffe iniziali o di ritardo.",
+        "qualifyingSubheadline": "Dividi in 3 il tuo acquisto di {formattedTransactionAmount} senza spese iniziali o di ritardo.",
         "donutTimestamps": ["Oggi", "1 mese", "2 mesi"],
         "estimatedInstallments": {
             "items": [
@@ -55,6 +55,7 @@
             [
                 "per maggiori informazioni. Disponibile solo per clienti persone fisiche maggiorenni. Hai un periodo di 14 giorni per recedere dal tuo finanziamento. Il creditore è PayPal (Europe) S.à rl et Cie, SCA, 22-24 Boulevard Royal, L-2449 Lussemburgo. Un finanziamento è un impegno vincolante che deve essere rimborsato. Assicurati di essere in grado di ripagare prima di prendere un impegno. Queste informazioni sono fornite da PayPal."
             ]
-        ]
+        ],
+        "linkToProductList": "Scopri altri metodi per pagare a rate"
     }
 }

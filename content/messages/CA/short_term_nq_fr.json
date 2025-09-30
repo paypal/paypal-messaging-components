@@ -1,0 +1,28 @@
+{
+    "meta": {
+        "id": "",
+        "offerCountry": "CA",
+        "offerType": "PAY_LATER_SHORT_TERM",
+        "messageType": "PLST_NQ",
+        "offerTerm": "${CREDIT_OFFERS_DS.total_payments}",
+        "lander": "",
+        "variables": {
+            "offer_id": "${CREDIT_OFFERS_DS.offer_id}",
+            "vendor_financing_id": "${CREDIT_OFFERS_DS.vendor_financing_id}",
+            "financing_code": "${CREDIT_OFFERS_DS.financing_code}",
+            "formattedPeriodicPayment": "${CREDIT_OFFERS_DS.formattedPeriodicPayment}"
+        }
+    },
+    "headline": [
+        ["Achetez maintenant, payez plus tard.", ["default", "xsmall"]],
+        ["Achetez maintenant et payez plus tard.", ["xsmall.2"]],
+        [
+            "Payer en 4 versements sans intérêt pour les achats de {formattedMinAmount} à {formattedMaxAmount}.",
+            ["medium", "large", "xlarge"]
+        ]
+    ],
+    "subHeadline": [],
+    "disclaimer": [
+        ["<span aria-hidden='true'>En savoir plus</span><span class='sr-only'> En savoir plus</span>", ["default"]]
+    ]
+}
