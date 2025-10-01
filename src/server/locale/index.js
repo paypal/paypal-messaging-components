@@ -5,8 +5,9 @@ import FR from './FR';
 import ES from './ES';
 import AU from './AU';
 import IT from './IT';
+import CA from './CA';
 
-const getLocaleSettings = (offerCountry, offerType, contextualComponents) => {
+const getLocaleSettings = (offerCountry, offerType, contextualComponents, language) => {
     switch (offerCountry) {
         case 'DE':
             return DE(offerType);
@@ -20,6 +21,8 @@ const getLocaleSettings = (offerCountry, offerType, contextualComponents) => {
             return AU;
         case 'IT':
             return IT;
+        case 'CA':
+            return CA(language);
         case 'US':
         default:
             return US(offerType, contextualComponents);
@@ -30,8 +33,8 @@ export function getLocaleClass(locale, offerType, contextualComponents) {
     return getLocaleSettings(locale, offerType, contextualComponents).localeClass;
 }
 
-export function getLocaleProductName(locale, offerType, contextualComponents) {
-    return getLocaleSettings(locale, offerType, contextualComponents).productName;
+export function getLocaleProductName(locale, offerType, contextualComponents, language) {
+    return getLocaleSettings(locale, offerType, contextualComponents, language).productName;
 }
 
 export function getValidOptions(locale, offerType, contextualComponents) {
