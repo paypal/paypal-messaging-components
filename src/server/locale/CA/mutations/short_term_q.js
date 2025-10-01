@@ -143,11 +143,17 @@ export default {
                     {
                         tag: 'medium',
                         br: ['on'],
-                        replace: [['purchases.', 'purchases']]
+                        replace: [
+                            ['00.', '00'],
+                            ['00 $.', '00 $']
+                        ]
                     },
                     {
                         tag: 'xsmall.2',
-                        replace: [['later.', 'later']]
+                        replace: [
+                            ['later.', 'later'],
+                            ['tard.', 'tard']
+                        ]
                     }
                 ]
             })
@@ -161,11 +167,17 @@ export default {
                     {
                         tag: 'medium',
                         br: ['on'],
-                        replace: [['purchases.', 'purchases']]
+                        replace: [
+                            ['00.', '00'],
+                            ['00 $.', '00 $']
+                        ]
                     },
                     {
                         tag: 'xsmall.2',
-                        replace: [['later.', 'later']]
+                        replace: [
+                            ['later.', 'later'],
+                            ['tard.', 'tard']
+                        ]
                     }
                 ]
             })

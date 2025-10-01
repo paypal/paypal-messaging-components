@@ -46,6 +46,8 @@ const applyCascade = curry((style, flattened, type, rules) =>
 
 export default ({ options, markup, locale }) => {
     const messageType = markup?.meta?.messageType ?? markup?.meta?.offerType;
+    const language = markup?.meta?.language ?? locale;
+
     const { style, contextualComponents } = options;
 
     const { layout } = style;
@@ -86,7 +88,7 @@ export default ({ options, markup, locale }) => {
     const logoType = style.logo?.type;
     const logoEl = <Logo mutations={mutationRules.logo} />;
 
-    const [withText, productName] = getLocaleProductName(locale, messageType, contextualComponents);
+    const [withText, productName] = getLocaleProductName(locale, messageType, contextualComponents, language);
 
     const productNameEl = (
         <span>

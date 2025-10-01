@@ -53,7 +53,6 @@ const MutatedText = ({ tagData, options }) => {
                     .replace(/(\s*EUR)/g, '€')
                     .replace(/(\.|,)00(\+)/g, '+');
                 formattedStr = formattedStr.replace(foundString, filteredString);
-                console.log('filteredStr', filteredString);
             });
         }
         // replace EUR with '€' for DEFRITES qualifying messages
