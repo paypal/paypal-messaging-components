@@ -14,7 +14,7 @@ import {
     getLibraryVersion,
     runStats,
     logger,
-    getOrCreateGlobalSessionID,
+    getGlobalSessionID,
     getSessionID,
     getGlobalState,
     getCurrentTime,
@@ -256,7 +256,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                                     // should be populated previously by the treatments component
                                     deviceID: getOrCreateDeviceID(),
                                     // Global Session ID allows messages to be correlated to button events
-                                    globalSessionID: getOrCreateGlobalSessionID(),
+                                    globalSessionID: getGlobalSessionID(),
                                     // Session ID from parent local storage,
                                     sessionID: getSessionID()
                                 },
