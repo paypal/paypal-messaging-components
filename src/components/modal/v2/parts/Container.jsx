@@ -73,6 +73,7 @@ const Container = ({ children }) => {
             merchantId,
             customerId,
             buyerCountry,
+            language,
             ignoreCache,
             version,
             env,
