@@ -44,13 +44,13 @@
             }
         },
         "disclosure": [
-            "Pay Monthly is subject to consumer credit approval. Eligible purchases are available to switch within 30 days after the completed transaction. Payments may change based on shipping, taxes, updates to your purchase, or missed payments. Availability depends on the merchant and purchase type and may not be available for subscriptions or recurring payments. Pay Monthly is currently not available to residents of <span aria-hidden='true'>AK, CT, HI, NC, or NV</span><span class='sr-only'>Alaska, Connecticut, Hawaii, North Carolina, or Nevada</span>. You must be 18 years old or older to apply. Missed payments may have an impact on your credit score. The lender for Pay Monthly is WebBank. PayPal, Inc. (NMLS #910457): <span aria-hidden='true'>RI</span><span class='sr-only'>Rhode Island</span> Loan Broker Licensee. <span aria-hidden='true'>VT</span><span class='sr-only'>Vermont</span> Loan Solicitation Licensee. <span aria-hidden='true'>VT</span><span class='sr-only'>Vermont</span> residents:",
+            "Pay Monthly is subject to consumer credit approval. Eligible purchases are available to switch within 30 days after the completed transaction. Payments may change based on shipping, taxes, updates to your purchase, or missed payments. Availability depends on the merchant and purchase type and may not be available for subscriptions or recurring payments. Pay Monthly is currently not available to residents of <span aria-hidden='true'>AK, CT, HI, or WA</span><span class='sr-only'>Alaska, Connecticut, Hawaii, or Washington</span>. You must be 18 years old or older to apply. Missed payments may have an impact on your credit score. The lender for Pay Monthly is WebBank. PayPal, Inc. (NMLS #910457): <span aria-hidden='true'>RI</span><span class='sr-only'>Rhode Island</span> Loan Broker Licensee. <span aria-hidden='true'>VT</span><span class='sr-only'>Vermont</span> Loan Solicitation Licensee. <span aria-hidden='true'>VT</span><span class='sr-only'>Vermont</span> residents:",
             [
                 "Find more disclosures ",
                 "https://www.paypal.com/us/digital-wallet/ways-to-pay/buy-now-pay-later",
                 "Find more disclosures, opens new tab"
             ],
-            "by going to PayPal’s page on Pay Later."
+            "by going to PayPal's page on Pay Later."
         ]
     }
 }

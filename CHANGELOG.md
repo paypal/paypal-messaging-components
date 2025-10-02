@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.73.0](https://github.com/paypal/paypal-messaging-components/compare/v1.72.0...v1.73.0) (2025-09-30)
+
+
+### Features
+
+* create ITES LT messages and modals ([#1221](https://github.com/paypal/paypal-messaging-components/issues/1221)) ([4dc7365](https://github.com/paypal/paypal-messaging-components/commit/4dc73659b66bfbb6fb24f027fcddd40f396596af))
+
+
+### Code Refactoring
+
+* improve hash retrieval in getMerchantConfig function ([#1228](https://github.com/paypal/paypal-messaging-components/issues/1228)) ([e436a11](https://github.com/paypal/paypal-messaging-components/commit/e436a11d08dbff88f696c6dee0a28dfb19372072))
+* US modal legal disclosure updates ([#1231](https://github.com/paypal/paypal-messaging-components/issues/1231)) ([99e9be8](https://github.com/paypal/paypal-messaging-components/commit/99e9be8c2d5fbe2c2a4984844ddc7dcbf9850a2c))
+
 ## [1.72.0](https://github.com/paypal/paypal-messaging-components/compare/v1.71.0...v1.72.0) (2025-09-23)
 
 
