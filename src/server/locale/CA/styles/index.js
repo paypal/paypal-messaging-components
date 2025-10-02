@@ -1,8 +1,9 @@
-// /src/server/locale/CA/styles/index.js
-import flexStyles from './flex';
-import getTextStyles from './text'; // import as a function
+import getTextStyles from './text';
+import flex from './flex';
 
-export default language => ({
-    flex: flexStyles, // assuming flexStyles is not language-dependent
-    text: getTextStyles(language)
-});
+export default function getStyles(language) {
+    return {
+        'layout:text': getTextStyles(language),
+        'layout:flex': flex
+    };
+}

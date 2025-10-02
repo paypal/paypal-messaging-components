@@ -5,8 +5,7 @@ import {
     altNoWrap,
     setLogoTop,
     xSmallFallback,
-    logo20x1,
-    addPeriod
+    logo20x1
 } from '../../../message/mediaQueries';
 import { flexLogoMutations, textLogoMutations } from '../../../message/logoMutations';
 
@@ -75,13 +74,13 @@ export default {
                     setLogoTop(textSize * 16),
                     `.message__headline > .tag--medium > span:not(.weak):first-child {white-space: nowrap;}`,
                     `.weak { display: none}`,
-                    addPeriod()
+                    `.message__headline > .tag--medium > span::after {content: '.'}`
                 ],
                 logo: Logo.PP_PAYPAL.COLOR,
                 headline: [
                     {
                         tag: 'medium',
-                        br: ['payments']
+                        br: ['payments', 'versements']
                     },
                     { tag: 'xsmall' }
                 ],
@@ -100,7 +99,7 @@ export default {
                     setLogoTop(textSize * 32),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
                     `.weak { display: none}`,
-                    addPeriod()
+                    `.message__headline > .tag--medium > span::after {content: '.'}`
                 ]
             })
         ],
@@ -115,7 +114,7 @@ export default {
                     xSmallFallback(textSize * 10.75),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
                     `.weak { display: none}`,
-                    addPeriod()
+                    `.message__headline > .tag--medium > span::after {content: '.'}`
                 ]
             })
         ],
@@ -129,7 +128,7 @@ export default {
                     altNoWrap(textSize * 10.6),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25),
                     `.weak { display: none}`,
-                    addPeriod()
+                    `.message__headline > .tag--medium > span::after {content: '.'}`
                 ],
                 logo: Logo.PP_PAYPAL.COLOR[0]
             })
@@ -142,7 +141,7 @@ export default {
                 headline: [
                     {
                         tag: 'medium',
-                        br: ['on'],
+                        br: ['payments'],
                         replace: [
                             ['00.', '00'],
                             ['00 $.', '00 $']
@@ -166,7 +165,7 @@ export default {
                 headline: [
                     {
                         tag: 'medium',
-                        br: ['on'],
+                        br: ['payments'],
                         replace: [
                             ['00.', '00'],
                             ['00 $.', '00 $']

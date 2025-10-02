@@ -68,7 +68,7 @@ export default ({ options, markup, locale }) => {
     // Scope all locale-specific styles to the selected locale
     const localeStyleRules = applyCascadeRules(
         Array,
-        getLocaleStyles(locale, layoutProp, messageType, contextualComponents)
+        getLocaleStyles(locale, layoutProp, messageType, contextualComponents, language)
     ).map(rule => rule.replace(/\.message/g, `.${localeClass} .message`));
     const mutationStyleRules = mutationRules.styles ?? [];
     const customFontStyleRules = getFontRules(style);

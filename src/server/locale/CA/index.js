@@ -9,5 +9,5 @@ export default language => ({
     validOptions,
     getMutations,
     logos,
-    styles: getStyles(language)
+    styles: getStyles
 });
