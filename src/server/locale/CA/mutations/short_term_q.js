@@ -48,7 +48,7 @@ const flex = [
                 },
                 {
                     tag: 'medium',
-                    br: ['payments']
+                    br: ['payments', 'versements']
                 }
             ],
             styles: [
@@ -141,7 +141,7 @@ export default {
                 headline: [
                     {
                         tag: 'medium',
-                        br: ['payments'],
+                        br: ['payments', 'versements'],
                         replace: [
                             ['00.', '00'],
                             ['00 $.', '00 $']
@@ -165,7 +165,7 @@ export default {
                 headline: [
                     {
                         tag: 'medium',
-                        br: ['payments'],
+                        br: ['payments', 'versements'],
                         replace: [
                             ['00.', '00'],
                             ['00 $.', '00 $']
