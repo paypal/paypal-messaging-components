@@ -1,6 +1,7 @@
 /** @jsx h */
 import { h } from 'preact';
 import { useEffect, useState } from 'preact/hooks';
+import Icon from './Icon';
 
 const OfferAccordion = ({
     offer: { content, meta },
@@ -46,7 +47,20 @@ const OfferAccordion = ({
                         {currencySymbolFormat(termsLabel?.offerPayment)}
                         {offerCountry === 'IT' || offerCountry === 'ES' ? '*' : ''}
                     </div>
-                    <div className="accordion__offer-field-header">{termsLabel?.offerNumInstallments}</div>
+                    <div
+                        className={`accordion__offer-field-header ${
+                            offerCountry === 'IT' || offerCountry === 'ES'
+                                ? `accordion__offer-field-header-${offerCountry}`
+                                : ''
+                        }`}
+                    >
+                        {termsLabel?.offerNumInstallments}
+                        {(offerCountry === 'IT' || offerCountry === 'ES') && (
+                            <div className="accordion__chevron">
+                                <Icon name={`chevron-${open ? 'up' : 'down'}`} />
+                            </div>
+                        )}
+                    </div>
                 </button>
             </div>
             <div className="accordion__collapsible">
