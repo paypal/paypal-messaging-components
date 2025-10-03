@@ -8,6 +8,7 @@
         width: 311px;
         color: $text-main;
         margin-bottom: 10px;
+        display: flex;
 
         @include mobile {
             width: auto;
@@ -49,6 +50,26 @@
         }
     }
 
+    &__content {
+        flex: 1;
+    }
+
+    &__chevron-col {
+        display: flex;
+        align-items: flex-start;
+        padding: 25px 18px 22px 0;
+        justify-content: center;
+        background: none;
+        border: none;
+        cursor: pointer;
+    }
+
+    &__chevron {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
     &__header-container {
         font-family: $paypal-open;
         font-size: 18px;
@@ -70,11 +91,6 @@
         }
     }
     
-    &__offer-field-header-IT,
-    &__offer-field-header-ES {
-        display: flex;
-        gap: 10px;
-    }
 
     &__collapsible {
         display: flex;
