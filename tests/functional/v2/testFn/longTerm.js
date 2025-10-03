@@ -9,6 +9,7 @@ const {
             openAccordion,
             accordionHeaderContainer,
             accordionFieldHeader,
+            accordionContent,
             accordionCollapsible,
             accordionRow,
             accordionFieldValue
@@ -134,7 +135,7 @@ export const showCorrectOfferBreakdownAccordion = async (contentWindow, modalCon
     await contentWindow.waitForSelector(openAccordion);
 
     const offerValuesArr = await contentWindow.$$eval(
-        `${openAccordion} > ${accordionCollapsible} > ${accordionRow} > ${accordionFieldValue}`,
+        `${openAccordion} > ${accordionContent} > ${accordionCollapsible} > ${accordionRow} > ${accordionFieldValue}`,
         elements => Array.from(elements).map(element => element.innerText)
     );
 
