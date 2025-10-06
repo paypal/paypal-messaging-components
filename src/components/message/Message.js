@@ -227,7 +227,9 @@ const Message = function ({ markup, meta, parentStyles, warnings }) {
                                 // getRequestDuration runs in the child component (iframe/banner message),
                                 // passing a value to onReady and up to the parent component to go out with
                                 // the other stats
-                                requestDuration: getRequestDuration()
+                                requestDuration: getRequestDuration(),
+                                // Global Session ID allows messages to be correlated to button events
+                                globalSessionID: getGlobalSessionID()
                             });
                         }
 

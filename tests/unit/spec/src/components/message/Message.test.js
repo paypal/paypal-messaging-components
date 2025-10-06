@@ -154,6 +154,7 @@ describe('Message', () => {
                 messageRequestId: '23456'
             },
             messageRequestId: expect.not.stringMatching(originalMRID),
+            globalSessionID: 'uid_d31a430e8f_mtq6ndk6mjk',
             requestDuration: 123,
             ts
         });
