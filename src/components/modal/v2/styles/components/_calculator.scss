@@ -36,26 +36,31 @@
 
     &.border-checkout {
         @include tablet {
+            width: auto;
+            margin-bottom: 20px;
             border: 1px solid $checkout-border;
             background-color: $white;
-            padding: 16px 0px 16px 16px;
-            padding-left: 35px;
+            padding: 20px 20px 20px 20px;
             border-radius: 12px;
         }
 
         @include mobile {
+            width: auto;
             margin-top: 20px;
+            margin-bottom: 20px;
             border: 1px solid $checkout-border;
             background-color: $white;
-            padding: 16px 16px 16px 16px;
+            padding: 20px 20px 20px 20px;
             border-radius: 12px;
         }
 
         @include smallMobile {
+            width: auto;
             margin-top: 20px;
+            margin-bottom: 20px;
             border: 1px solid $checkout-border;
             background-color: $white;
-            padding: 16px 16px 16px 16px;
+            padding: 20px 20px 20px 20px;
             border-radius: 12px;
         }
     }
@@ -279,7 +284,6 @@
     }
 
     &.checkout {
-        width: 100%;
         margin-top: -6px;
     }
 }

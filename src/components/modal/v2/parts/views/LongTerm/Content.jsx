@@ -148,7 +148,7 @@ export const LongTerm = ({
 
     // New checkout modal designs utilize a sticky button
     const conditionalStickyButton =
-        useNewCheckoutDesign === 'true' ? (
+        useNewCheckoutDesign === 'true' && cta ? (
             <div className="button__fixed-wrapper">{renderCheckoutCtaButton()}</div>
         ) : (
             renderCheckoutCtaButton()

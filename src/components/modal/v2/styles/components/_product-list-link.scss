@@ -17,10 +17,18 @@
 
     @include tablet {
         margin: 0px 44px 20px 44px;
+
+        .checkout & {
+            margin: 0px 44px 20px 10px;
+        }
     }
 
     @include mobile {
         margin: 20px 0px 20px 0px;
+
+        .checkout & {
+            margin: 20px 0px 20px 10px;
+        }
     }
 
     &.no-interest {

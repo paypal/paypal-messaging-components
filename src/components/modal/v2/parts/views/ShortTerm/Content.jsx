@@ -173,9 +173,9 @@ export const ShortTerm = ({
                 </div>
             </div>
             <div
-                className={`content__row disclosure ${cta && useNewCheckoutDesign === 'true' ? 'checkout' : ''} ${
-                    useV5Design === 'true' ? 'v5Design' : ''
-                }`}
+                className={`content__row disclosure ${
+                    (cta && useNewCheckoutDesign === 'true') || cta ? 'checkout' : ''
+                } ${useV5Design === 'true' ? 'v5Design' : ''}`}
             >
                 <InlineLinks text={currencyFormat(disclosure)} />
                 {renderLearnMoreLink()}
