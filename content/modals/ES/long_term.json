@@ -24,8 +24,8 @@
         "headline": "Paga en 6, 12 o 24 plazos",
         "subheadline": "Compra hoy, sin pago inicial.",
         "calculator": {
-            "title": "¿Cuál es el importe tu compra?",
-            "genericTitle": "¿Cuál es el importe tu compra?",
+            "title": "¿Cuál es el importe de tu compra?",
+            "genericTitle": "¿Cuál es el importe de tu compra?",
             "inputLabel": "Importe de compra",
             "inputPlaceholder": "0 €",
             "inputCurrencySymbol": "€",
