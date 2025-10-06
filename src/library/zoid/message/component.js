@@ -256,8 +256,6 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                                     deviceID: getOrCreateDeviceID(),
                                     // Session ID from parent local storage,
                                     sessionID: getSessionID(),
-                                    // Global Session ID allows messages to be correlated to button events
-                                    // vale from inner iframe storage
                                     globalSessionID
                                 },
                                 [index]: {
