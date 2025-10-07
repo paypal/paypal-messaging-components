@@ -1,7 +1,9 @@
-import text from './text';
+import getTextStyles from './text';
 import flex from './flex';
 
-export default {
-    'layout:flex': flex,
-    'layout:text': text
-};
+export default function getStyles(language) {
+    return {
+        'layout:text': getTextStyles(language),
+        'layout:flex': flex
+    };
+}

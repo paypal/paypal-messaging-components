@@ -36,7 +36,7 @@
             "aboveThreshold": "Inserisci un importo inferiore a {formattedMaxAmount}."
         },
         "disclaimer": {
-            "nonZeroAPR": "Tasso annuo nominale fisso (TIN) {formattedNominalRatePrecision2}%*<br/><strong>Tasso annuo effettivo globale (TAEG) del {formattedAPR}%*</strong>",
+            "nonZeroAPR": "Tasso annuo nominale fisso (TAN) {formattedNominalRatePrecision2}%*<br/><strong>Tasso annuo effettivo globale (TAEG) {formattedAPR}%*</strong>",
             "zeroAPR": "Tasso annuo nominale fisso dello 0% <br/> <strong>Tasso annuo effettivo globale (TAEG) dello 0%</strong>"
         },
         "termsLabel": {

@@ -17,7 +17,7 @@
     "headline": [
         ["Acquista ora, paga dopo.", ["default", "xsmall"]],
         ["Acquista ora e paga dopo.", ["xsmall.2"]],
-        [["Paga fino a {total_payments} rate mensili."], ["small", "medium", "large", "xlarge"]]
+        [["Paga fino a {total_payments} rate."], ["small", "medium", "large", "xlarge"]]
     ],
     "subHeadline": [],
     "disclaimer": [["Scopri di più", ["default"]]]

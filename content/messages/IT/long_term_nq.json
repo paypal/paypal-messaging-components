@@ -18,7 +18,7 @@
         ["Acquista ora, paga dopo.", ["default", "xsmall"]],
         ["Acquista ora e paga dopo.", ["xsmall.2"]],
         [
-            "Paga gli acquisti tra {formattedMinAmount} e {formattedMaxAmount} a rate mensili.",
+            "Paga a rate per acquisti da {formattedMinAmount} a {formattedMaxAmount}.",
             ["small", "medium", "large", "xlarge"]
         ]
     ],

@@ -3,6 +3,7 @@
         "id": "",
         "offerCountry": "CA",
         "offerType": "PAY_LATER_SHORT_TERM",
+        "language": "fr-CA",
         "messageType": "PLST_NQ",
         "offerTerm": "${CREDIT_OFFERS_DS.total_payments}",
         "lander": "",
