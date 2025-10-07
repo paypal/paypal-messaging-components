@@ -13,6 +13,7 @@ jest.mock('src/utils', () => ({
     getActiveTags: jest.fn(),
     getTsCookieFromStorage: jest.fn(() => ts),
     getOrCreateDeviceID: jest.fn(() => 'uid_26a2522628_mtc6mjk6nti'),
+    getGlobalSessionID: jest.fn(() => 'uid_d31a430e8f_mtq6ndk6mjk'),
     request: jest.fn(() =>
         Promise.resolve({
             data: '<!--{"markup":"<div>mock</div>","meta":{"messageRequestId":"23456"},"parentStyles":"body { color: blue; }","warnings":[]}-->'
@@ -32,6 +33,7 @@ describe('Message', () => {
         payerId: 'DEV00000000NI',
         deviceID: 'uid_26a2522628_mtc6mjk6nti',
         sessionID: 'uid_fda0b4618b_mtg6ndy6mjc',
+        globalSessionID: 'uid_d31a430e8f_mtq6ndk6mjk',
         onClick: jest.fn(),
         onReady: jest.fn(),
         onHover: jest.fn(),
@@ -85,6 +87,7 @@ describe('Message', () => {
         expect(window.xprops.onReady).toHaveBeenLastCalledWith({
             meta: {},
             messageRequestId: 'uid_xxxxxxxxxx_xxxxxxxxxxx',
+            globalSessionID: 'uid_d31a430e8f_mtq6ndk6mjk',
             requestDuration: 123,
             ts
         });
@@ -123,6 +126,7 @@ describe('Message', () => {
         expect(window.xprops.onReady).toHaveBeenLastCalledWith({
             meta: {},
             messageRequestId: originalMRID,
+            globalSessionID: 'uid_d31a430e8f_mtq6ndk6mjk',
             requestDuration: 123,
             ts
         });
@@ -150,6 +154,7 @@ describe('Message', () => {
                 messageRequestId: '23456'
             },
             messageRequestId: expect.not.stringMatching(originalMRID),
+            globalSessionID: 'uid_d31a430e8f_mtq6ndk6mjk',
             requestDuration: 123,
             ts
         });
@@ -168,6 +173,7 @@ describe('Message', () => {
         expect(window.xprops.onReady).toBeCalledWith({
             meta: {},
             messageRequestId: 'uid_xxxxxxxxxx_xxxxxxxxxxx',
+            globalSessionID: 'uid_d31a430e8f_mtq6ndk6mjk',
             requestDuration: 123,
             ts
         });

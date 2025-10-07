@@ -2,6 +2,7 @@
     "meta": {
         "id": "",
         "offerCountry": "CA",
+        "language": "fr-CA",
         "offerType": "GENERIC",
         "messageType": "GENERIC",
         "offerTerm": "${CREDIT_OFFERS_DS.total_payments}",

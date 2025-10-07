@@ -77,8 +77,8 @@ export default {
                 headline: [
                     {
                         tag: 'medium',
-                        br: ['rate'],
-                        replace: [['mensili.', 'mensili']]
+                        br: ['fino a'],
+                        replace: [['rate.', 'rate']]
                     },
                     { tag: 'xsmall' }
                 ],
@@ -127,8 +127,8 @@ export default {
                 headline: [
                     {
                         tag: 'medium',
-                        br: ['rate'],
-                        replace: [['mensili.', 'mensili']]
+                        br: ['fino a'],
+                        replace: [['rate.', 'rate']]
                     },
                     { tag: 'xsmall', br: ['ora, '] }
                 ]
@@ -143,7 +143,7 @@ export default {
                     {
                         tag: 'medium',
                         br: ['rate'],
-                        replace: [['mensili.', 'mensili']]
+                        replace: [['rate.', 'rate']]
                     },
                     {
                         tag: 'xsmall.2',
@@ -161,7 +161,7 @@ export default {
                     {
                         tag: 'medium',
                         br: ['rate'],
-                        replace: [['mensili.', 'mensili']]
+                        replace: [['rate.', 'rate']]
                     },
                     {
                         tag: 'xsmall.2',
