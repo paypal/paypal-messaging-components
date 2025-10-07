@@ -67,6 +67,7 @@ export const selectors = {
             openAccordion: '.open',
             accordionHeaderContainer: '.accordion__header-container',
             accordionFieldHeader: '.accordion__offer-field-header',
+            accordionContent: '.accordion__content',
             accordionCollapsible: '.accordion__collapsible',
             accordionRow: '.accordion__row',
             accordionFieldValue: '.accordion__offer-field-value'

@@ -1,13 +1,13 @@
 import validOptions from './validOptions';
 import getMutations from './mutations';
 import logos from '../../message/logos';
-import styles from './styles';
+import getStyles from './styles';
 
-export default {
+export default language => ({
     localeClass: 'locale--CA',
-    productName: ['with', 'PayPal.'],
+    productName: language === 'fr-CA' ? ['avec', 'PayPal.'] : ['with', 'PayPal.'],
     validOptions,
     getMutations,
     logos,
-    styles
-};
+    styles: getStyles
+});

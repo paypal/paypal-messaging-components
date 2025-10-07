@@ -28,6 +28,7 @@ const Container = ({ children }) => {
         merchantId,
         customerId,
         buyerCountry,
+        language,
         ignoreCache,
         version,
         env,
@@ -72,6 +73,7 @@ const Container = ({ children }) => {
             merchantId,
             customerId,
             buyerCountry,
+            language,
             ignoreCache,
             version,
             env,
@@ -87,7 +89,7 @@ const Container = ({ children }) => {
             setServerData(data);
             setLoading(false);
         });
-    }, [currency, amount, payerId, clientId, merchantId, buyerCountry]);
+    }, [currency, amount, payerId, clientId, merchantId, buyerCountry, language]);
 
     useEffect(() => {
         setupTabTrap();

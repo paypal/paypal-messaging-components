@@ -1,6 +1,6 @@
 /* eslint-disable eslint-comments/disable-enable-pair, no-else-return */
 import arrayFrom from 'core-js-pure/stable/array/from';
-import { getStorage as getBelterStorage, uniqueID as createBelterID } from '@krakenjs/belter/src';
+import { getStorage as getBelterStorage } from '@krakenjs/belter/src';
 import { SDK_QUERY_KEYS, SDK_SETTINGS } from '@paypal/sdk-constants/src';
 import {
     getClientID,
@@ -14,8 +14,7 @@ import {
     getCSPNonce,
     getNamespace as getSDKNamespace,
     getDefaultNamespace as getDefaultSDKNamespace,
-    getGlobalSessionID as getSDKGlobalSessionID,
-    setGlobalSessionID as setSDKGlobalSessionID,
+    getPayPalSessionID as getSDKGlobalSessionID,
     getSessionID as getSDKSessionID,
     getStorageID as getSDKStorageID,
     getStorageState as getSDKStorageState,
@@ -165,18 +164,12 @@ export function getStorage() {
     return getBelterStorage({ name: getNamespace() });
 }
 
-// Uses SDK methods to get and set a global session ID
+// Uses SDK methods to get a global session ID
 // value will be passed in message_render events
 // and used to correlate with button events
-export function getOrCreateGlobalSessionID() {
+export function getGlobalSessionID() {
     if (__MESSAGES__.__TARGET__ === 'SDK') {
-        let globalSessionID = getSDKGlobalSessionID();
-        if (!globalSessionID) {
-            globalSessionID = createBelterID();
-            setSDKGlobalSessionID(globalSessionID);
-        }
-
-        return globalSessionID;
+        return getSDKGlobalSessionID();
     } else {
         return getStorage().getSessionID();
     }

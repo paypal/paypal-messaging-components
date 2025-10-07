@@ -21,7 +21,7 @@ export const DEV_CA_SHORT_TERM_FR = {
             expectedValue: 'Payer en 4 versements sans intérêt de $7.50',
             modalContent: {
                 subheadline:
-                    'Divisez le montant de $30.00 en 4 versements sans intérêt, sans incidence sur votre cote de crédit et sans frais de retard.',
+                    'Divisez votre achat de $30.00 en 4 versements, sans incidence sur votre cote de crédit et sans frais de retard.',
                 periodicPayment: '$7.50'
             }
         },

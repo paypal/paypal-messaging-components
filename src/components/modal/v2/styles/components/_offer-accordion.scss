@@ -47,7 +47,32 @@
                 outline: 3px solid #0070e0;
             }
         }
+         &.IT,
+        &.ES {
+            display: flex;
+
+            .accordion__content {
+                flex: 1;
+            }
+
+            .accordion__chevron-col {
+                display: flex;
+                align-items: flex-start;
+                padding: 25px 18px 22px 0;
+                justify-content: center;
+                background: none;
+                border: none;
+                cursor: pointer;
+            }
+
+            .accordion__chevron {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
     }
+
 
     &__header-container {
         font-family: $paypal-open;
@@ -69,6 +94,7 @@
             }
         }
     }
+    
 
     &__collapsible {
         display: flex;
