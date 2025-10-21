@@ -6,29 +6,29 @@ The following are abbreviations used in reference to various messages and files.
 
 ### **US (United States)**
 
-| messageType     | PStudio Name                     | File Name                  | Message                                                                         |
-| --------------- | -------------------------------- | -------------------------- | ------------------------------------------------------------------------------- |
-| GENERIC         | Generic Message                  | generic                    | Pay Later - No Amount Message                                                   |
-| PLST_SQ         | Short Term - Q                   | short_term_q               | Pay Later - Pay in 4, Qualifying Purchase                                       |
-| PLST_NQ         | Short Term - NQ                  | short_term_nq              | Pay Later - Pay in 4, Non-Qualifying Purchase                                   |
-| PLLT_MQ_EZ      | Long Term - MQEZ                 | long_term_multi_eqz        | Pay Later - Pay Monthly, Multiple Qualifying Offers = 0% APR                    |
-| PLLT_MQ_GZ      | Long Term - MQGZ                 | long_term_multi_gtz        | Pay Later - Pay Monthly, Multiple Qualifying Offers >0% APR                     |
-| PLLT_SQ_EZ      | Long Term - SQEZ                 | long_term_single_eqz       | Pay Later - Pay Monthly, Single Qualifying Offer = 0% APR                       |
-| PLLT_SQ_GZ      | Long Term - SQGZ                 | long_term_single_gtz       | Pay Later - Pay Monthly, Single Qualifying Offer >0% APR                        |
-| PLLT_NQ_EZ      | Long Term - NQEZ                 | long_term_nq_eqz           | Pay Later - Pay Monthly, Non-Qualifying Offers = 0% APR                         |
-| PLLT_NQ_GZ      | Long Term - NQGZ                 | long_term_nq_gtz           | Pay Later - Pay Monthly, Non-Qualifying Offers >0% APR                          |
-| PLLT_MQ_EZ_RB   | **TBD** - _Not currently in use_ | long_term_multi_eqz_mixed  | Pay Later - Pay Monthly, Multiple Qualifying Offers with risk-based pricing     |
-| PLLT_SQ_EZ_RB   | **TBD** - _Not currently in use_ | long_term_single_eqz_mixed | Pay Later - Pay Monthly, Single Qualifying Offers with risk-based pricing       |
-| PPCNI_NQ        | NI                               | ppc_ni_nq                  | PPC - No Interest, Non-Qualifying Purchase                                      |
-| PPCNI_SQ        | NIQ                              | ppc_nq_q                   | PPC - No Interest, Qualifying Purchase                                          |
-| PPCNI_NQ_XB     | NI NON-US                        | ppc_ni_nq_xb               | No Interest, Non-US, Non-Qualifying Purchase                                    |
-| PPCNI_SQ_XB     | NIQ NON-US                       | ppc_ni_q_xb                | No Interest, Non-US, Qualifying Purchase                                        |
-| EZP:ANY:EQZ     | Easy Payments - AEZ              | ppc_ezp_nq_eqz             | PPC - Easy Payments, Non-Qualifying with APR equal to zero                      |
-| EZP:ANY:GTZ     | Easy Payments - AGZ              | ppc_ezp_nq_gqz             | PPC - Easy Payments, Non-Qualifying with APR greater than zero                  |
-| PALA:SINGLE:EQZ | Easy Payments - SEZP             | ppc_ezp_single_eqz         | PayPal Credit - Easy Payments (Pay As Low As), with APR equal to zero           |
-| PALA:SINGLE:GTZ | Easy Payments - SGZP             | ppc_ezp_single_gtz         | PayPal Credit - Easy Payments (Pay As Low As), with APR greater than zero       |
-| PALA:MULTI:EQZ  | Easy Payments - MEZP             | ppc_ezp_multi_eqz          | PPC - Easy Payments (Pay As Low As), Multiple Offers with APR equal to zero     |
-| PALA:MULTI:GTZ  | Easy Payments - MGZP             | ppc_ezp_multi_gtz          | PPC - Easy Payments (Pay As Low As), Multiple Offers with APR greater than zero |
+| messageType     | PStudio Name         | File Name                  | Message                                                                         |
+| --------------- | -------------------- | -------------------------- | ------------------------------------------------------------------------------- |
+| GENERIC         | Generic Message      | generic                    | Pay Later - No Amount Message                                                   |
+| PLST_SQ         | Short Term - Q       | short_term_q               | Pay Later - Pay in 4, Qualifying Purchase                                       |
+| PLST_NQ         | Short Term - NQ      | short_term_nq              | Pay Later - Pay in 4, Non-Qualifying Purchase                                   |
+| PLLT_MQ_EZ      | Long Term - MQEZ     | long_term_multi_eqz        | Pay Later - Pay Monthly, Multiple Qualifying Offers = 0% APR                    |
+| PLLT_MQ_GZ      | Long Term - MQGZ     | long_term_multi_gtz        | Pay Later - Pay Monthly, Multiple Qualifying Offers >0% APR                     |
+| PLLT_SQ_EZ      | Long Term - SQEZ     | long_term_single_eqz       | Pay Later - Pay Monthly, Single Qualifying Offer = 0% APR                       |
+| PLLT_SQ_GZ      | Long Term - SQGZ     | long_term_single_gtz       | Pay Later - Pay Monthly, Single Qualifying Offer >0% APR                        |
+| PLLT_NQ_EZ      | Long Term - NQEZ     | long_term_nq_eqz           | Pay Later - Pay Monthly, Non-Qualifying Offers = 0% APR                         |
+| PLLT_NQ_GZ      | Long Term - NQGZ     | long_term_nq_gtz           | Pay Later - Pay Monthly, Non-Qualifying Offers >0% APR                          |
+| PLLT_MQ_EZ_RB   | Long Term - MQEZRB   | long_term_multi_eqz_mixed  | Pay Later - Pay Monthly, Multiple Qualifying Offers with risk-based pricing     |
+| PLLT_SQ_EZ_RB   | Long Term - SQEZRB   | long_term_single_eqz_mixed | Pay Later - Pay Monthly, Single Qualifying Offers with risk-based pricing       |
+| PPCNI_NQ        | NI                   | ppc_ni_nq                  | PPC - No Interest, Non-Qualifying Purchase                                      |
+| PPCNI_SQ        | NIQ                  | ppc_nq_q                   | PPC - No Interest, Qualifying Purchase                                          |
+| PPCNI_NQ_XB     | NI NON-US            | ppc_ni_nq_xb               | No Interest, Non-US, Non-Qualifying Purchase                                    |
+| PPCNI_SQ_XB     | NIQ NON-US           | ppc_ni_q_xb                | No Interest, Non-US, Qualifying Purchase                                        |
+| EZP:ANY:EQZ     | Easy Payments - AEZ  | ppc_ezp_nq_eqz             | PPC - Easy Payments, Non-Qualifying with APR equal to zero                      |
+| EZP:ANY:GTZ     | Easy Payments - AGZ  | ppc_ezp_nq_gqz             | PPC - Easy Payments, Non-Qualifying with APR greater than zero                  |
+| PALA:SINGLE:EQZ | Easy Payments - SEZP | ppc_ezp_single_eqz         | PayPal Credit - Easy Payments (Pay As Low As), with APR equal to zero           |
+| PALA:SINGLE:GTZ | Easy Payments - SGZP | ppc_ezp_single_gtz         | PayPal Credit - Easy Payments (Pay As Low As), with APR greater than zero       |
+| PALA:MULTI:EQZ  | Easy Payments - MEZP | ppc_ezp_multi_eqz          | PPC - Easy Payments (Pay As Low As), Multiple Offers with APR equal to zero     |
+| PALA:MULTI:GTZ  | Easy Payments - MGZP | ppc_ezp_multi_gtz          | PPC - Easy Payments (Pay As Low As), Multiple Offers with APR greater than zero |
 
 **Note:**
 

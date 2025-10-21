@@ -234,6 +234,8 @@ export function getStandardProductOffer(offer) {
         case 'PLLT_MQ_GZ:3MEZ':
         case 'PLLT_SQ_EZ':
         case 'PLLT_SQ_GZ':
+        case 'PLLT_MQ_EZ_RB':
+        case 'PLLT_SQ_EZ_RB':
         case OFFER.PAY_LATER_LONG_TERM:
             return OFFER.PAY_LATER_LONG_TERM;
         // TODO: Cleanup once content is updated

@@ -19,6 +19,7 @@ export default function getMutations(id, type) {
             return longTermNQGTZ[type];
         case 'LT_MQEZ':
         case 'PLLT_MQ_EZ':
+        case 'PLLT_MQ_EZ_RB':
             return longTermMultiEQZ[type];
         case 'LT_MQGZ':
         case 'PLLT_MQ_GZ':
@@ -28,6 +29,7 @@ export default function getMutations(id, type) {
             return longTermMultiGTZ3MEZ[type];
         case 'LT_SQEZ':
         case 'PLLT_SQ_EZ':
+        case 'PLLT_SQ_EZ_RB':
             return longTermSingleEQZ[type];
         case 'LT_SQGZ':
         case 'PLLT_SQ_GZ':

@@ -27,6 +27,7 @@ export default function getMutations(id, type) {
         // Long Term multiple qualifying offers at 0% APR
         case 'LT_MQEZ':
         case 'PLLT_MQ_EZ':
+        case 'PLLT_MQ_EZ_RB':
             return longTermMultiEQZ[type];
         // Long Term multiple qualifying offers non-0% APR
         case 'LT_MQGZ':
@@ -35,6 +36,7 @@ export default function getMutations(id, type) {
         // Long Term single qualifying offer at 0% APR
         case 'LT_SQEZ':
         case 'PLLT_SQ_EZ':
+        case 'PLLT_SQ_EZ_RB':
             return longTermSingleEQZ[type];
         // Long Term single qualifying offer non-0% APR
         case 'LT_SQGZ':
