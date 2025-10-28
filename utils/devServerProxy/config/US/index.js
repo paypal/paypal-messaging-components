@@ -6,6 +6,10 @@ export default {
         country: 'US',
         modalViews: [
             {
+                template: 'v2_product_list_rb.json',
+                product: 'PRODUCT_LIST'
+            },
+            {
                 template: 'v2_product_list.json',
                 product: 'PRODUCT_LIST'
             },
@@ -18,8 +22,8 @@ export default {
                 product: OFFER.PAYPAL_CREDIT_NO_INTEREST
             },
             {
-                template: 'v2_long_term.json',
-                offersTemplate: 'v2_long_term.json',
+                template: 'v2_long_term_rb.json',
+                offersTemplate: 'v2_long_term_rb.json',
                 product: OFFER.PAY_LATER_LONG_TERM
             }
         ],
@@ -317,8 +321,8 @@ export default {
         country: 'US',
         modalViews: [
             {
-                template: 'v2_long_term.json',
-                offersTemplate: 'v2_long_term.json',
+                template: 'v2_long_term_rb.json',
+                offersTemplate: 'v2_long_term_rb.json',
                 product: OFFER.PAY_LATER_LONG_TERM
             }
         ],
