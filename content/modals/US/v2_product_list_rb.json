@@ -1,0 +1,37 @@
+{
+    "meta": {
+        "product": "PRODUCT_LIST",
+        "useV5Design": "true",
+        "v5.1": "true",
+        "offerCountry": "US"
+    },
+    "content": {
+        "headline": "<span aria-hidden='true'>Buy now, <br />pay over time</span><span class='sr-only'>Buy now, pay over time</span>",
+        "disclosure": "Terms apply for each option. Offer availability may depend on consumer and merchant eligibility.",
+        "instructions": {
+            "payLater": "Get more info on Pay Later options.",
+            "credit": "Shop with a reusable credit line."
+        },
+        "productTiles": {
+            "payLater": [
+                {
+                    "header": "Pay in 4",
+                    "body": "Interest-free payments every 2 weeks, starting today.",
+                    "viewName": "PAY_LATER_SHORT_TERM"
+                },
+                {
+                    "header": "Pay Monthly",
+                    "body": "As low as 0% APR for up to 6 months.",
+                    "viewName": "PAY_LATER_LONG_TERM"
+                }
+            ],
+            "credit": [
+                {
+                    "header": "PayPal Credit Card",
+                    "body": "No Interest if paid in full in 6 months on PayPal purchases of more than $149.",
+                    "viewName": "PAYPAL_CREDIT_NO_INTEREST"
+                }
+            ]
+        }
+    }
+}
