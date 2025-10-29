@@ -1,0 +1,29 @@
+{
+    "meta": {
+        "offerCountry": "FR",
+        "offerType": "PAY_LATER_LONG_TERM",
+        "offerTerm": "{total_payments}",
+        "messageType": "PLLT_NQ_GZ",
+        "lander": "https://www.paypal.com/credit-presentment/lander/modal",
+        "variables": {
+            "offer_id": "${CREDIT_OFFERS_DS.offer_id}",
+            "vendor_financing_id": "${CREDIT_OFFERS_DS.vendor_financing_id}",
+            "financing_code": "${CREDIT_OFFERS_DS.financing_code}",
+            "formattedPeriodicPayment": "${CREDIT_OFFERS_DS.formattedPeriodicPayment}",
+            "formattedMinAmount": "${CREDIT_OFFERS_DS.formattedMinAmount}",
+            "formattedMaxAmount": "${CREDIT_OFFERS_DS.formattedMaxAmount}"
+        }
+    },
+    "headline": [
+        ["Payez en plusieurs fois.", ["default", "xsmall"]],
+        ["Payez en plusieurs fois.", ["xsmall.2"]],
+        [
+            "Payez en plusieurs échéances pour vos achats de {formatted_min_amount} à {formatted_max_amount}.",
+            ["small", "medium", "large", "xlarge"]
+        ]
+    ],
+    "subHeadline": [],
+    "disclaimer": [
+        ["<span aria-hidden='true'>En savoir plus</span><span class='sr-only'>En savoir plus</span>", ["default"]]
+    ]
+}
