@@ -1,10 +1,10 @@
 {
     "meta": {
         "offerCountry": "ES",
-        "offerType": "PAY_LATER_SHORT_TERM",
-        "messageType": "PLST_NA",
+        "offerType": "GENERIC",
+        "messageType": "GENERIC",
         "offerTerm": "{total_payments}",
-        "lander": "",
+        "lander": "https://www.paypal.com/credit-presentment/lander/modal",
         "variables": {
             "offer_id": "${CREDIT_OFFERS_DS.offer_id}",
             "vendor_financing_id": "${CREDIT_OFFERS_DS.vendor_financing_id}",
@@ -14,10 +14,7 @@
             "formattedMaxAmount": "${CREDIT_OFFERS_DS.formattedMaxAmount}"
         }
     },
-
     "headline": [["Compra ahora y paga después.", ["default"]]],
-
     "subHeadline": [],
-
     "disclaimer": [["Más información", ["default"]]]
 }
