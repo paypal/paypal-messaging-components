@@ -39,6 +39,10 @@ export default {
     DEVBTNLTSQGTZ: ['US', ['v2_long_term'], 'buttons/long_term_single_gtz'],
     // Buttons LT SQ EQZ
     DEVBTNLTSQEQZ: ['US', ['v2_long_term'], 'buttons/long_term_single_eqz'],
+    // Buttons LT SQ RB
+    DEVBTNLTSQERB: ['US', ['v2_long_term'], 'buttons/long_term_single_eqz_mixed'],
+    // Buttons LT MQ RB
+    DEVBTNLTMQERB: ['US', ['v2_long_term'], 'buttons/long_term_multi_eqz_mixed'],
     // Buttons ST NQ
     DEV00BTNSTSNQ: ['US', ['v2_short_term'], 'buttons/short_term_nq'],
     // Buttons ST Q
@@ -65,6 +69,10 @@ export default {
     DEVMRKLTSQGTZ: ['US', ['v2_long_term'], 'marks/long_term_single_gtz'],
     // Marks LT SQ EQZ
     DEVMRKLTSQEQZ: ['US', ['v2_long_term'], 'marks/long_term_single_eqz'],
+    // Marks LT SQ RB
+    DEVMRKLTSQERB: ['US', ['v2_long_term'], 'marks/long_term_single_eqz_mixed'],
+    // Marks LT MQ RB
+    DEVMRKLTMQERB: ['US', ['v2_long_term'], 'marks/long_term_multi_eqz_mixed'],
     // Marks ST NQ
     DEV00MRKSTSNQ: ['US', ['v2_short_term'], 'marks/short_term_nq'],
     // Marks ST Q
