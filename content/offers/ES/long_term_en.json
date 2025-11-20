@@ -44,6 +44,7 @@
             "offerNumInstallments": "{total_payments} installments",
             "eMoney": "Credit amount",
             "totalInterest": "Interest amount",
+            "Other costs": "Other costs",
             "total": "Total amount owed"
         }
     }

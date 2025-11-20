@@ -65,6 +65,10 @@ const OfferAccordion = ({
                         </div>
                     </div>
                     <div className="accordion__row">
+                        <div className="accordion__offer-field-title">{termsLabel?.otherCosts}</div>
+                        <div className="accordion__offer-field-value">{meta?.otherCosts}</div>
+                    </div>
+                    <div className="accordion__row">
                         <div className="accordion__offer-field-title">{termsLabel?.total}</div>
                         <div className="accordion__offer-field-value">
                             {currencySymbolFormat(meta?.formattedTotalCost)}
