@@ -4,7 +4,6 @@
         "offerCountry": "IT",
         "useV5Design": "true",
         "v5.1": "true",
-        "otherCosts": "0 €",
         "variables": {
             "transaction_amount": "${eval(transaction_amount ? transaction_amount : '-')}",
             "qualifying_offer": "${eval(CREDIT_OFFERS_DS.qualifying_offer ? CREDIT_OFFERS_DS.qualifying_offer : 'false')}",
