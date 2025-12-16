@@ -10,7 +10,7 @@ const Logos = ({ mutations }) => {
         <div className="message__logo-container" aria-hidden="true">
             {logos.map(({ src, dimensions: [width, height] }) => (
                 <div className="message__logo message__logo--svg">
-                    <img src={src} alt="" />
+                    <img src={src} alt="" role="presentation" />
                     <canvas height={height} width={width} />
                 </div>
             ))}
