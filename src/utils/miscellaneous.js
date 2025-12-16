@@ -16,7 +16,20 @@ export function createState(initialState = {}) {
     return [state, partial(Object.assign, state)];
 }
 
+/**
+ * Retrieves data by tag from an array of [data, tags] tuples.
+ * Falls back to 'default' tag if the requested tag is not found or is not a string.
+ * If tag contains a dot (e.g., 'medium.3'), will fall back to the main tag (e.g., 'medium').
+ *
+ * @param {Array<[any, string[]]>} data - Array of tuples containing [data, tags]
+ * @param {*} tag - The tag to search for (typically a string, but accepts any type)
+ * @returns {*} The data associated with the tag, or empty string if not found
+ */
 export function getDataByTag(data, tag) {
+    if (typeof tag !== 'string') {
+        const defaultData = data.find(([, tags]) => tags.includes('default'));
+        return defaultData?.[0] ?? '';
+    }
     let selected = data.find(([, tags]) => tags.includes(tag));
     if (selected) {
         return selected[0];
@@ -68,7 +81,7 @@ export function request(method, url, { data, headers, withCredentials } = {}) {
                         resolve({
                             headers: responseHeaders,
                             data:
-                                responseHeaders['content-type'] &&
+                                typeof responseHeaders['content-type'] === 'string' &&
                                 responseHeaders['content-type'].includes('application/json')
                                     ? JSON.parse(xhttp.responseText)
                                     : xhttp.responseText

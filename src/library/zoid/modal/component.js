@@ -176,7 +176,11 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                             onClick({ linkName });
                         }
 
-                        if (typeof onApply === 'function' && linkName.includes('Apply Now')) {
+                        if (
+                            typeof onApply === 'function' &&
+                            typeof linkName === 'string' &&
+                            linkName.includes('Apply Now')
+                        ) {
                             onApply();
                         }
                     };

@@ -140,6 +140,7 @@ const memoizedModal = memoizeOnProps(
                 typeof requestedProduct !== 'undefined' &&
                 requestedProduct !== 'NONE' &&
                 Array.isArray(zoidComponent.state.products) &&
+                Array.isArray(productState) &&
                 !productState.find(supportedProduct => supportedProduct === requestedProduct)
             ) {
                 logger.warn('invalid_option_value', {

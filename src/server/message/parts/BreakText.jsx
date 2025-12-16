@@ -2,6 +2,15 @@
 import { h } from 'preact';
 import Text from './Text';
 
+/**
+ * Splits text at the first occurrence of a break word.
+ * If the break word is not found, returns the original text in an array.
+ *
+ * @param {string} text - The text to be split
+ * @param {string} breakWord - The word to split by
+ * @returns {string[]} An array containing either [text] if breakWord not found,
+ *                     or [firstPart, secondPart] where firstPart ends with breakWord
+ */
 function splitText(text, breakWord) {
     const breakIndex = text.indexOf(breakWord) + breakWord.length;
     const s1 = text.slice(0, breakIndex).trim();
@@ -21,9 +30,13 @@ const BreakText = ({ textParts, options }) => {
         const spaced = idx < textParts.length - 1;
         const containedBreaks = [];
 
-        while (text.includes(availableBreaks[0])) {
+        while (availableBreaks.length > 0 && typeof text === 'string' && text.includes(availableBreaks[0])) {
             containedBreaks.push(availableBreaks[0]);
             availableBreaks.shift();
+        }
+
+        if (typeof text !== 'string') {
+            return null;
         }
 
         // Prevent unnecessary nesting if the entire span innerText would be wrapped in a single br span
