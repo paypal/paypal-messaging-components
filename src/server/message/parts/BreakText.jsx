@@ -1,6 +1,5 @@
 /** @jsx h */
 import { h } from 'preact';
-import stringIncludes from 'core-js-pure/stable/string/includes';
 import Text from './Text';
 
 function splitText(text, breakWord) {
@@ -22,7 +21,7 @@ const BreakText = ({ textParts, options }) => {
         const spaced = idx < textParts.length - 1;
         const containedBreaks = [];
 
-        while (stringIncludes(text, availableBreaks[0])) {
+        while (text.includes(availableBreaks[0])) {
             containedBreaks.push(availableBreaks[0]);
             availableBreaks.shift();
         }

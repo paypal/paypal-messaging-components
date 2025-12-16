@@ -1,4 +1,3 @@
-import arrayFind from 'core-js-pure/stable/array/find';
 import { ZalgoPromise } from '@krakenjs/zalgo-promise/src';
 
 import {
@@ -141,7 +140,7 @@ const memoizedModal = memoizeOnProps(
                 typeof requestedProduct !== 'undefined' &&
                 requestedProduct !== 'NONE' &&
                 Array.isArray(zoidComponent.state.products) &&
-                !arrayFind(productState, supportedProduct => supportedProduct === requestedProduct)
+                !productState.find(supportedProduct => supportedProduct === requestedProduct)
             ) {
                 logger.warn('invalid_option_value', {
                     location: 'offer',

@@ -1,6 +1,4 @@
-import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import { ZalgoPromise } from '@krakenjs/zalgo-promise/src';
-import arrayFrom from 'core-js-pure/stable/array/from';
 
 import { getGlobalState, createGlobalVariableGetter } from './global';
 import { dynamicImport, getCurrentTime } from './miscellaneous';
@@ -21,12 +19,12 @@ export const getInsertionObserver = createGlobalVariableGetter(
                 if (mutation.type === 'attributes' && mutation.attributeName === 'data-pp-message') {
                     newMessageContainers.push(mutation.target);
                 } else {
-                    arrayFrom(mutation.addedNodes).forEach(node => {
+                    Array.from(mutation.addedNodes).forEach(node => {
                         if (isElement(node)) {
                             if (node.hasAttribute('data-pp-message')) {
                                 newMessageContainers.push(node);
                             } else {
-                                arrayFrom(node.querySelectorAll('[data-pp-message]')).forEach(targetedChildNode =>
+                                Array.from(node.querySelectorAll('[data-pp-message]')).forEach(targetedChildNode =>
                                     newMessageContainers.push(targetedChildNode)
                                 );
                             }
@@ -49,7 +47,7 @@ export const getAttributeObserver = createGlobalVariableGetter(
         new MutationObserver(mutationList => {
             const { messagesMap } = getGlobalState();
             const containersToUpdate = mutationList.reduce((accumulator, mutation) => {
-                if (!messagesMap.has(mutation.target) || !stringStartsWith(mutation.attributeName, 'data-pp-')) {
+                if (!messagesMap.has(mutation.target) || !mutation.attributeName.startsWith('data-pp-')) {
                     return accumulator;
                 }
 

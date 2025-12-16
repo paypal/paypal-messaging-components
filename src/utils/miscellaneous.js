@@ -1,9 +1,4 @@
 /** @jsx node */
-import arrayFind from 'core-js-pure/stable/array/find';
-import arrayIncludes from 'core-js-pure/stable/array/includes';
-import stringIncludes from 'core-js-pure/stable/string/includes';
-import objectAssign from 'core-js-pure/stable/object/assign';
-import objectEntries from 'core-js-pure/stable/object/entries';
 import { node, dom } from '@krakenjs/jsx-pragmatic/src';
 import { ZalgoPromise } from '@krakenjs/zalgo-promise/src';
 
@@ -18,24 +13,24 @@ import { OFFER } from './constants';
  */
 export function createState(initialState = {}) {
     const state = { ...initialState };
-    return [state, partial(objectAssign, state)];
+    return [state, partial(Object.assign, state)];
 }
 
 export function getDataByTag(data, tag) {
-    let selected = arrayFind(data, ([, tags]) => arrayIncludes(tags, tag));
+    let selected = data.find(([, tags]) => tags.includes(tag));
     if (selected) {
         return selected[0];
     }
 
-    if (stringIncludes(tag, '.')) {
+    if (tag.includes('.')) {
         const [fallbackTag] = tag.split('.', 1);
-        selected = arrayFind(data, ([, tags]) => arrayIncludes(tags, fallbackTag));
+        selected = data.find(([, tags]) => tags.includes(fallbackTag));
         if (selected) {
             return selected[0];
         }
     }
 
-    selected = arrayFind(data, ([, tags]) => arrayIncludes(tags, 'default'));
+    selected = data.find(([, tags]) => tags.includes('default'));
     if (selected) {
         return selected[0];
     }
@@ -74,7 +69,7 @@ export function request(method, url, { data, headers, withCredentials } = {}) {
                             headers: responseHeaders,
                             data:
                                 responseHeaders['content-type'] &&
-                                stringIncludes(responseHeaders['content-type'], 'application/json')
+                                responseHeaders['content-type'].includes('application/json')
                                     ? JSON.parse(xhttp.responseText)
                                     : xhttp.responseText
                         });
@@ -91,7 +86,7 @@ export function request(method, url, { data, headers, withCredentials } = {}) {
         xhttp.open(method, url, true);
 
         if (headers) {
-            objectEntries(headers).forEach(([header, value]) => {
+            Object.entries(headers).forEach(([header, value]) => {
                 xhttp.setRequestHeader(header, value);
             });
         }
