@@ -1,8 +1,8 @@
 {
     "meta": {
         "offerCountry": "IT",
-        "offerType": "PAY_LATER_SHORT_TERM",
-        "messageType": "PLST_NA",
+        "offerType": "GENERIC",
+        "messageType": "PL_GENERIC",
         "offerTerm": "{total_payments}",
         "lander": "",
         "variables": {
