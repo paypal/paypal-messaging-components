@@ -1,7 +1,7 @@
 // mutations import here.
 import generic from './generic';
 import longTermQ from './long_term_q_gtz';
-import longTermNq from './long_term_nq';
+import longTermNq from './long_term_nq_gtz';
 import gpl from './gpl';
 import gplq from './gplq';
 

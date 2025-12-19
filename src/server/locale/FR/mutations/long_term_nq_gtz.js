@@ -68,7 +68,7 @@ export default {
             'default',
             ({ textSize }) => ({
                 styles: [
-                    textWrap(textSize * 51, textSize, 'ES'),
+                    textWrap(textSize * 51, textSize, 'FR'),
                     xSmallFallback(textSize * 19.5),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25),
                     setLogoTop(textSize * 20),
@@ -82,7 +82,7 @@ export default {
                     },
                     {
                         tag: 'xsmall',
-                        br: ['ahora, ']
+                        br: ['en, ']
                     }
                 ],
                 disclaimer: ['default']
@@ -107,7 +107,7 @@ export default {
                     },
                     {
                         tag: 'xsmall',
-                        br: ['ahora, ']
+                        br: ['en, ']
                     }
                 ]
             })
@@ -130,7 +130,7 @@ export default {
                     },
                     {
                         tag: 'xsmall',
-                        br: ['ahora, ']
+                        br: ['en, ']
                     }
                 ]
             })
@@ -140,7 +140,7 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     `@media screen and (max-width: ${textSize * 10.6}px) { .message__content { white-space: nowrap; }}`,
-                    textWrap(textSize * 46, textSize, 'ES'),
+                    textWrap(textSize * 46, textSize, 'FR'),
                     xSmallFallback(textSize * 19),
                     altNoWrap(textSize * 10.6),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25),
@@ -154,7 +154,7 @@ export default {
                     },
                     {
                         tag: 'xsmall',
-                        br: ['ahora, ']
+                        br: ['en, ']
                     }
                 ]
             })
@@ -176,8 +176,8 @@ export default {
                     },
                     {
                         tag: 'xsmall',
-                        br: ['después.'],
-                        replace: [['después.', 'después']]
+                        br: ['fois.'],
+                        replace: [['fois.', 'fois']]
                     }
                 ]
             })
@@ -200,8 +200,8 @@ export default {
                     },
                     {
                         tag: 'xsmall',
-                        br: ['después.'],
-                        replace: [['después.', 'después']]
+                        br: ['fois.'],
+                        replace: [['fois.', 'fois']]
                     }
                 ]
             })

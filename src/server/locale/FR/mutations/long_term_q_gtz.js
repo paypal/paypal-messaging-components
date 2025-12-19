@@ -16,7 +16,7 @@ const headlineBreaks = [
     },
     {
         sizes: ['medium'],
-        breaks: ['hasta']
+        breaks: ["jusqu'à"]
     }
 ].reduce((acc, item) => {
     const { sizes, breaks } = item;
@@ -68,7 +68,7 @@ export default {
             'default',
             ({ textSize }) => ({
                 styles: [
-                    textWrap(textSize * 42, textSize, 'ES'),
+                    textWrap(textSize * 42, textSize, 'FR'),
                     xSmallFallback(textSize * 16),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25),
                     setLogoTop(textSize * 16),
@@ -78,11 +78,11 @@ export default {
                 headline: [
                     {
                         tag: 'medium',
-                        br: ['hasta']
+                        br: ["jusqu'à"]
                     },
                     {
                         tag: 'xsmall',
-                        br: ['ahora, ']
+                        br: ['en, ']
                     }
                 ],
                 disclaimer: ['default']
@@ -122,11 +122,11 @@ export default {
                 headline: [
                     {
                         tag: 'medium',
-                        br: ['hasta']
+                        br: ["jusqu'à"]
                     },
                     {
                         tag: 'xsmall',
-                        br: ['ahora, ']
+                        br: ['en, ']
                     }
                 ]
             })
@@ -136,7 +136,7 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     `@media screen and (max-width: ${textSize * 10.6}px) { .message__content { white-space: nowrap; }}`,
-                    textWrap(textSize * 34, textSize, 'ES'),
+                    textWrap(textSize * 34, textSize, 'FR'),
                     xSmallFallback(textSize * 11.5),
                     altNoWrap(textSize * 10.6),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25),
@@ -146,11 +146,11 @@ export default {
                 headline: [
                     {
                         tag: 'medium',
-                        br: ['hasta']
+                        br: ["jusqu'à"]
                     },
                     {
                         tag: 'xsmall',
-                        br: ['ahora,']
+                        br: ['en,']
                     }
                 ]
             })
@@ -168,13 +168,13 @@ export default {
                 headline: [
                     {
                         tag: 'medium',
-                        br: ['plazos'],
-                        replace: [['plazos.', 'plazos ']]
+                        br: ['échéances'],
+                        replace: [['échéances.', 'échéances ']]
                     },
                     {
                         tag: 'xsmall',
-                        br: ['después.'],
-                        replace: [['después.', 'después']]
+                        br: ['fois.'],
+                        replace: [['fois.', 'fois']]
                     }
                 ]
             })
@@ -193,13 +193,13 @@ export default {
                 headline: [
                     {
                         tag: 'medium',
-                        br: ['plazos'],
-                        replace: [['plazos.', 'plazos ']]
+                        br: ['échéances'],
+                        replace: [['échéances.', 'échéances ']]
                     },
                     {
                         tag: 'xsmall',
-                        replace: [['después.', 'después']],
-                        br: ['después']
+                        replace: [['fois.', 'fois']],
+                        br: ['fois']
                     }
                 ]
             })

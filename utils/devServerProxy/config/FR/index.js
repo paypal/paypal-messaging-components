@@ -41,7 +41,7 @@ export default {
             },
             {
                 amount: 2999.01,
-                template: 'long_term_nq.json',
+                template: 'long_term_nq_gtz.json',
                 product: 'PAY_LATER_LONG_TERM'
             }
         ],
@@ -134,7 +134,7 @@ export default {
             },
             {
                 amount: 2999.01,
-                template: 'long_term_nq.json',
+                template: 'long_term_nq_gtz.json',
                 product: 'PAY_LATER_LONG_TERM'
             }
         ],
