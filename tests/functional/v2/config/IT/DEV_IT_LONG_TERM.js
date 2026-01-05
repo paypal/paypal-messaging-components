@@ -23,7 +23,7 @@ export const DEV_IT_LONG_TERM = {
             modalContent: {
                 offerHeadline: '2,50 €/mese',
                 updatedOfferHeadline: '20,83 €/mese',
-                offerFieldValues: ['60,00 €', '0,00 €', '60,00 €'],
+                offerFieldValues: ['60,00 €', '0,00 €', '0,00 €', '60,00 €'],
                 aprDisclaimer: 'Tasso annuo nominale fisso dello 0%'
             }
         },

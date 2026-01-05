@@ -23,7 +23,7 @@ export const DEV_ES_LONG_TERM = {
             modalContent: {
                 offerHeadline: '2,50 €/mes',
                 updatedOfferHeadline: '20,83 €/mes',
-                offerFieldValues: ['60,00 €', '0,00 €', '60,00 €'],
+                offerFieldValues: ['60,00 €', '0,00 €', '0,00 €', '60,00 €'],
                 aprDisclaimer: 'Tipo de interes nominal (TIN) fijo anual del 0%'
             }
         },
