@@ -1,15 +1,17 @@
-@import '../globals/mixins';
+@use '../globals/mixins';
+@use "../globals/colors";
+@use "../globals/variables";
 
 .accordion {
     &__container {
-        border: 1px solid $light-gray;
+        border: 1px solid colors.$light-gray;
         border-radius: 12px;
         font-size: 13px;
         width: 311px;
-        color: $text-main;
+        color: colors.$text-main;
         margin-bottom: 10px;
 
-        @include mobile {
+        @include mixins.mobile {
             width: auto;
             margin-right: -25px;
         }
@@ -21,7 +23,7 @@
             margin-top: 35px;
         }
         &.active {
-            outline: 3px solid $light-blue;
+            outline: 3px solid colors.$light-blue;
             border-color: transparent;
         }
         &.v5Design {
@@ -39,8 +41,8 @@
 
         &.open {
             &.v5Design {
-                background-color: $white;
-                outline: 3px solid $black;
+                background-color: colors.$white;
+                outline: 3px solid colors.$black;
                 border-color: transparent;
             }
             &.v5Dot1Design {
@@ -75,9 +77,9 @@
 
 
     &__header-container {
-        font-family: $paypal-open;
+        font-family: variables.$paypal-open;
         font-size: 18px;
-        color: $text-main;
+        color: colors.$text-main;
         display: flex;
         justify-content: space-between;
         padding: 25px 18px 22px 13px;
@@ -108,7 +110,7 @@
             transition: height 0.2s linear;
             margin-bottom: inherit;
 
-            @include smallMobile {
+            @include mixins.smallMobile {
                 min-height: 190px;
             }
         }
@@ -122,13 +124,13 @@
                 padding-top: 0px;
 
                 .accordion__offer-field-title {
-                    color: $text-main; // Default black color for all countries
+                    color: colors.$text-main; // Default black color for all countries
                 }
             }
         }
 
         .accordion__row .accordion__offer-apr-disclaimer {
-            color: $gray;
+            color: colors.$gray;
             line-height: 1.3;
             padding-bottom: 9px;
         }
@@ -137,7 +139,7 @@
     // Only DE gets the blue color
     &__container.DE {
         .accordion__collapsible .accordion__row:first-child .accordion__offer-field-title {
-            color: $light-blue;
+            color: colors.$light-blue;
         }
     }
 }
