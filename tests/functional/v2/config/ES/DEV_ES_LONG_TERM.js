@@ -34,7 +34,7 @@ export const DEV_ES_LONG_TERM = {
             modalContent: {
                 offerHeadline: null,
                 offerFieldValues: null,
-                aboveMaxAmountErr: 'Introduce un importe inferior a 2.999 €.',
+                aboveMaxAmountErr: 'Introduce un importe inferior a 5.000 €.',
                 aprDisclaimer: 'Tipo de interes nominal (TIN) fijo anual del 0%'
             }
         }
