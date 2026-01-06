@@ -323,7 +323,7 @@
             }
 
             &.headline-gb-preapproved {
-                max-width: 50%;
+                max-width: 70%;
                 @include mobile {
                     max-width: 75%;
                 }
@@ -411,13 +411,28 @@
                 color: #0066f5;
                 border-radius: 6px;
                 padding: 2px 8px;
-                margin: 0px 0px -20px 10px;
+                margin: 3px 0px -50px -130px;
 
                 @include mobile {
-                    margin: 10px 0px -10px 10px;
+                    margin: 3px 0px -50px -130px;
                 }
+                @include smallMobile {
+                    margin: 3px 0px -50px -60px;
+                }
+
+                @include lander {
+                    margin: 30px 0px -50px -70px;
+
+                    @include mobile {
+                        margin: 5px 0px -50px -130px;
+                    }
+
+                    @include smallMobile {
+                        margin: 5px 0px -50px -60px;
+                    }
             }
         }
+    }
 
         &.checkout {
             background-color: $white;
