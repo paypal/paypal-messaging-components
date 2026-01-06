@@ -3,7 +3,7 @@ export const DEV_ES_LONG_TERM = {
     country: 'ES',
     description: 'ES merchant eligible for long term only',
     minAmount: 60,
-    maxAmount: 2999,
+    maxAmount: 5000,
     amounts: [
         {
             value: '0.00',
@@ -28,7 +28,7 @@ export const DEV_ES_LONG_TERM = {
             }
         },
         {
-            value: '2999.01',
+            value: '5000.01',
             message: 'Non-qualifying Pay Monthly',
             expectedValue: 'Paga en 6, 12 o 24 plazos',
             modalContent: {
