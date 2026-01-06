@@ -114,6 +114,12 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 required: false,
                 value: validate.language
             },
+            locale: {
+                type: 'string',
+                queryParam: true,
+                required: false,
+                value: validate.locale
+            },
             ignoreCache: {
                 type: 'boolean',
                 queryParam: 'ignore_cache',
