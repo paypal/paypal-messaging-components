@@ -45,7 +45,8 @@ function generateLogPayload(account, { meta, events: bizEvents, tracking }) {
 
             // partner_attribution_id does not live in stats for standalone modal
             partner_attribution_id =
-                partner_attribution_id ?? componentEvents.find(event => event.partner_attribution_id !== undefined)?.partner_attribution_id;
+                partner_attribution_id ?? 
+                componentEvents.find(event => event.partner_attribution_id !== undefined)?.partner_attribution_id;
 
             // Stats payload
             const { render_duration, request_duration } = stats;
