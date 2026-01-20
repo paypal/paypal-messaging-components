@@ -28,7 +28,7 @@ export function getDisableSetCookie() {
     if (__MESSAGES__.__TARGET__ === 'SDK') {
         return getSDKDisableCookie();
     } else {
-        return false;
+        return true;
     }
 }
 
