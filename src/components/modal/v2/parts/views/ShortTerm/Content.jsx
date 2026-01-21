@@ -38,6 +38,7 @@ export const ShortTerm = ({
 
     const preapprovalDisclaimerHeadline = preapproval?.preapprovalDisclaimerHeadline;
     const preapprovalDisclaimerBody = preapproval?.preapprovalDisclaimerBody;
+    const preapprovalOptOutMessage = preapproval?.preapprovalOptOutMessage;
     const countryClassName = country?.toLowerCase();
 
     const renderCheckoutCtaButton = () => {
@@ -146,6 +147,7 @@ export const ShortTerm = ({
                             <PreapprovalDisclaimer
                                 preapprovalDisclaimerBody={preapprovalDisclaimerBody}
                                 preapprovalDisclaimerHeadline={preapprovalDisclaimerHeadline}
+                                preapprovalOptOutMessage={preapprovalOptOutMessage}
                                 country={country}
                                 useNewCheckoutDesign={useNewCheckoutDesign}
                             />

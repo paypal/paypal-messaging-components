@@ -1,10 +1,12 @@
 /** @jsx h */
 import { h } from 'preact';
 import { currencyFormat, formatDateByCountry } from '../lib';
+import InlineLinks from './InlineLinks';
 
 const PreapprovalDisclaimer = ({
     preapprovalDisclaimerHeadline,
     preapprovalDisclaimerBody,
+    preapprovalOptOutMessage,
     country,
     useNewCheckoutDesign
 }) => {
@@ -33,6 +35,11 @@ const PreapprovalDisclaimer = ({
                         // eslint-disable-next-line react/no-danger
                         dangerouslySetInnerHTML={{ __html: preapprovalDisclaimerBody }}
                     />
+                </div>
+            )}
+            {preapprovalOptOutMessage && (
+                <div className="preapproval-opt-out">
+                    <InlineLinks text={preapprovalOptOutMessage} />
                 </div>
             )}
         </div>
