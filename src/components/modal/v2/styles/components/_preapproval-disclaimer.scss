@@ -150,4 +150,15 @@
             }
         }
     }
+    &__privacy {
+        font-size: 14px;
+        line-height: 16px;
+        color: $black;
+        margin-top: 12px;
+        margin-bottom: 20px;
+
+        span:nth-child(2) {
+            font-weight: 600;
+        }
+    }
 }

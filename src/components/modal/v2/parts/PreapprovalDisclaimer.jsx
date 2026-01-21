@@ -6,7 +6,7 @@ import InlineLinks from './InlineLinks';
 const PreapprovalDisclaimer = ({
     preapprovalDisclaimerHeadline,
     preapprovalDisclaimerBody,
-    preapprovalOptOutMessage,
+    preapprovalPrivacyDisclaimer,
     country,
     useNewCheckoutDesign
 }) => {
@@ -37,9 +37,9 @@ const PreapprovalDisclaimer = ({
                     />
                 </div>
             )}
-            {preapprovalOptOutMessage && (
-                <div className="preapproval-opt-out">
-                    <InlineLinks text={preapprovalOptOutMessage} />
+            {preapprovalPrivacyDisclaimer && (
+                <div className="preapproval-disclaimer__privacy">
+                    <InlineLinks text={preapprovalPrivacyDisclaimer} />
                 </div>
             )}
         </div>

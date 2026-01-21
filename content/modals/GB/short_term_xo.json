@@ -55,11 +55,15 @@
                 "You should consider if the purchase is affordable and how you will make repayments.",
                 "Missing payments may make other borrowing more difficult or expensive for you."
             ],
-            "preapprovalOptOutMessage": [
+            "preapprovalPrivacyDisclaimer": [
                 "To stop seeing the Pay in 3 ",
-                "Pre-approved",
+                "'Pre-approved'",
                 " badge in PayPal checkout, go to Data & Privacy in your settings and ",
-                ["turn off permission", "https://placeholder-url.com", "turn off permission, opens new tab"],
+                [
+                    "turn off permission",
+                    "https://www.paypal.com/myaccount/privacy/settings/personalization/paypal",
+                    "turn off permission, opens new tab"
+                ],
                 " for interest-based marketing."
             ]
         },
