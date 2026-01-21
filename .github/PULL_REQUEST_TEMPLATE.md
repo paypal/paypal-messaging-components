@@ -14,9 +14,9 @@
 
 <!-- Describe your changes and what problem they solve -->
 
-## Screenshots
+## Screenshots / Videos
 
-<!-- Add any relevant screenshots of the change or fix -->
+<!-- Add any relevant screenshots, GIFs, or a short video demo. For non-UI changes, write "N/A". -->
 
 ## Testing instructions
 
