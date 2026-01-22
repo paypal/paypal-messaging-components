@@ -8,6 +8,7 @@
         "amount": "{transaction_amount}",
         "useV5Design": "true",
         "apr": "{apr}",
+        "preapproved": "false",
         "variables": {
             "transaction_amount": "${eval(transaction_amount ? transaction_amount : '-')}",
             "qualifying_offer": "${eval(CREDIT_OFFERS_DS.qualifying_offer ? CREDIT_OFFERS_DS.qualifying_offer : 'false')}",
