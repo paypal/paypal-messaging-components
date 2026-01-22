@@ -47,7 +47,7 @@
         "preapproval": {
             "preapprovalHeadline": "Pay in 3 interest-free payments",
             "preapprovalLabel": "Pre-approved",
-            "preapprovalSubHeadline": "Pay {formattedTotalCost} in {total_payments} interest-free payments.",
+            "preapprovalSubHeadline": "Split your purchase of {formattedTotalCost} into {total_payments} with no sign-up fees or late fees.",
             "preapprovalDisclaimerHeadline": "What does pre-approval mean?",
             "preapprovalDisclaimerBody": [
                 "Pre-approval applies to this purchase only. It is based on a recent assessment of PayPal internal data that includes your account status, payment history and other factors. We use this data to assess if this loan is affordable to you.",
