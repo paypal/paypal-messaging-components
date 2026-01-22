@@ -71,17 +71,13 @@ export default createGlobalVariableGetter('__paypal_credit_treatments__', () =>
                     // 15 minutes in milliseconds
                     const TREATMENTS_MAX_AGE = 1000 * 60 * 15;
 
-                    return ({ treatmentsHash, deviceID }) => {
+                    return ({ treatmentsHash }) => {
                         updateStorage({
                             experiments: {
                                 treatmentsHash,
                                 // Experiments can only be maintained for 15 minutes
                                 expiration: Date.now() + TREATMENTS_MAX_AGE
-                            },
-                            // Write deviceID from paypal.com localStorage to merchant domain localStorage
-                            // This should be the only place that we write to the storage.id
-                            // to prevent it getting out of sync with treatmentsHash
-                            id: deviceID
+                            }
                         });
 
                         globalEvent.trigger('treatments');
