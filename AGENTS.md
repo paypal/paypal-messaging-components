@@ -14,7 +14,12 @@
 
 ## Subagents
 
--   Spawn subagents in parallel for as many as you can handle. Give each one crisp context, the exact files it needs, and clear instructions.
+-   Always wait for all subagents to complete before yielding.
+-   Spawn subagents automatically when:
+    -   Parallelizable work (e.g., `npm run lint` + `npm test`, snapshot review + content scan).
+    -   Long-running or blocked tasks where a worker can run independently (e.g., functional suites, build validation).
+    -   Isolation for risky changes or checks (e.g., content/i18n, modal rendering, build/release scripts).
+-   Give each subagent crisp context, the exact files it needs, and clear instructions with expected output format.
 -   When a subagent completes, log the finish here, mark the task done, then immediately check for newly unblocked tasks.
 -   Repeat the cycle until the entire plan is complete.
 
