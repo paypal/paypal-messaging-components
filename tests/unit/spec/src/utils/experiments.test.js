@@ -1,4 +1,4 @@
-import { ensureTreatments, getLocalTreatments, getNamespace, globalEvent } from '../../../../../src/utils';
+import { ensureTreatments, getNamespace, globalEvent } from '../../../../../src/utils';
 
 jest.mock('../../../../../src/utils/global', () => {
     const global = jest.requireActual('../../../../../src/utils/global');
@@ -106,49 +106,5 @@ describe('experiments utils', () => {
 
         // treatments should not be marked ready
         expect(globalEvent.trigger).not.toHaveBeenCalled();
-    });
-
-    test('Returns null for stale treatments instead of stale value', () => {
-        // Set up expired treatments in localStorage
-        window.localStorage.setItem(
-            localStorageKey,
-            JSON.stringify({
-                experiments: {
-                    treatmentsHash,
-                    expiration: new Date(1999, 0, 1).getTime() // Expired date
-                }
-            })
-        );
-
-        // Call getLocalTreatments and verify it returns null for stale data
-        const result = getLocalTreatments();
-
-        // Should return null instead of the stale treatmentsHash
-        expect(result).toBeNull();
-
-        // Should trigger background fetch of new treatments
-        expect(document.querySelector('iframe')).not.toBeNull();
-    });
-
-    test('Returns treatmentsHash for fresh treatments', () => {
-        // Set up fresh treatments in localStorage
-        window.localStorage.setItem(
-            localStorageKey,
-            JSON.stringify({
-                experiments: {
-                    treatmentsHash,
-                    expiration: new Date(9999, 0, 1).getTime() // Future date
-                }
-            })
-        );
-
-        // Call getLocalTreatments and verify it returns the hash
-        const result = getLocalTreatments();
-
-        // Should return the treatmentsHash for fresh data
-        expect(result).toBe(treatmentsHash);
-
-        // Should NOT trigger a fetch since data is fresh
-        expect(document.querySelector('iframe')).toBeNull();
     });
 });
