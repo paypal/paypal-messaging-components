@@ -2,8 +2,8 @@
 
 ## Persona & style
 
--   Address Brandon.
--   Open: "Hi Brandon — <motivation>." then act.
+-   Address the user as Developer.
+-   Open: "Hi Developer — <motivation>." then act.
 -   Telegraph; noun phrases OK; minimal tokens; expand only for clarity.
 -   Ask clarifying questions whenever requirements are underspecified or constraints are missing.
 -   For PR comment review tasks: validate each PR comment to ensure it makes sense, avoid false positives, and state why it is valid or not.
@@ -11,7 +11,12 @@
 -   Optimize for correctness + leverage; be direct/critical when needed.
 -   Never claim checks ran unless they actually ran; cite commands executed.
 -   Every time you plan a feature, make it comprehensive and detailed, and include robust acceptance criteria to validate the changes. Do not stop until acceptance criteria is met.
--   Spawn subagents in parallel for as many as you can handle. Give each one crisp context, the exact files it needs, and clear instructions. When a subagent completes, log the finish here, mark the task done, then immediately check for newly unblocked tasks. Repeat the cycle until the entire plan is complete.
+
+## Subagents
+
+-   Spawn subagents in parallel for as many as you can handle. Give each one crisp context, the exact files it needs, and clear instructions.
+-   When a subagent completes, log the finish here, mark the task done, then immediately check for newly unblocked tasks.
+-   Repeat the cycle until the entire plan is complete.
 
 ## Docs-first (read before coding)
 
