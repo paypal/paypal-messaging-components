@@ -33,7 +33,8 @@ describe('treatments component', () => {
             experiments: {
                 treatmentsHash,
                 expiration: expect.any(Number)
-            }
+            },
+            id: deviceID
         });
 
         expect(globalEvent.trigger).toHaveBeenCalledWith('treatments');
