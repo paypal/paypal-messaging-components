@@ -1,0 +1,24 @@
+{
+    "meta": {
+        "offerCountry": "AT",
+        "offerType": "PAY_LATER_PAY_IN_1",
+        "messageType": "PLP1_SQ_XB",
+        "offerTerm": "{total_payments}",
+        "lander": "",
+        "variables": {
+            "offer_id": "${CREDIT_OFFERS_DS.offer_id}",
+            "vendor_financing_id": "${CREDIT_OFFERS_DS.vendor_financing_id}",
+            "financing_code": "${CREDIT_OFFERS_DS.financing_code}",
+            "total_payments": "${CREDIT_OFFERS_DS.total_payments}"
+        }
+    },
+    "headline": [
+        ["Buy now, pay later.", ["default", "xsmall"]],
+        [["Pay in 30 days."], ["medium", "large", "xlarge"]]
+    ],
+    "subHeadline": [],
+    "disclaimer": [
+        ["Learn more", ["default"]],
+        ["With Austrian PayPal account only.", ["extra"]]
+    ]
+}

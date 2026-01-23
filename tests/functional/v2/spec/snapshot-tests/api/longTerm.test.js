@@ -21,14 +21,26 @@ const LOCALE_CONFIG = config[LOCALE];
 const ACCOUNT_CONFIG = LOCALE_CONFIG[ACCOUNT];
 const integration = 'api';
 const testFileName = 'longTerm';
-const ALL_ACCORDION_ACCOUNTS = [
+// Regular APR accordion accounts (DE, AT, ES, IT)
+const REGULAR_APR_ACCORDION_ACCOUNTS = [
     'DEV_DE_LONG_TERM',
-    'DEV_DE_LONG_TERM_0APR',
     'DEV_DE_LONG_TERM_EN',
-    'DEV_DE_LONG_TERM_EN_0APR',
+    'DEV_AT_LONG_TERM',
+    'DEV_AT_LONG_TERM_EN',
     'DEV_ES_LONG_TERM',
     'DEV_IT_LONG_TERM'
 ];
+
+// 0% APR accordion accounts (DE, AT)
+const ZERO_APR_ACCORDION_ACCOUNTS = [
+    'DEV_DE_LONG_TERM_0APR',
+    'DEV_DE_LONG_TERM_EN_0APR',
+    'DEV_AT_LONG_TERM_0APR',
+    'DEV_AT_LONG_TERM_EN_0APR'
+];
+
+// Combined list for exclusion from offer cards tests
+const ALL_ACCORDION_ACCOUNTS = [...REGULAR_APR_ACCORDION_ACCOUNTS, ...ZERO_APR_ACCORDION_ACCOUNTS];
 
 const runTest = ACCOUNT_CONFIG.testFileName === testFileName;
 const descFn = runTest ? describe : describe.skip;
@@ -91,14 +103,7 @@ descFn.each(filterPermutations([LOCALE_CONFIG], [ACCOUNT]))(
                 );
             });
         }
-        if (
-            amount >= minAmount &&
-            amount <= maxAmount &&
-            (account === 'DEV_DE_LONG_TERM' ||
-                account === 'DEV_DE_LONG_TERM_EN' ||
-                account === 'DEV_ES_LONG_TERM' ||
-                account === 'DEV_IT_LONG_TERM')
-        ) {
+        if (amount >= minAmount && amount <= maxAmount && REGULAR_APR_ACCORDION_ACCOUNTS.includes(account)) {
             test(`Amount:${amount} - Offer accordion show correct payment headline information - ${viewport}`, async () => {
                 await showCorrectOfferInfoAccordion(
                     modalFrame,
@@ -124,11 +129,7 @@ descFn.each(filterPermutations([LOCALE_CONFIG], [ACCOUNT]))(
             });
         }
 
-        if (
-            amount >= minAmount &&
-            amount <= maxAmount &&
-            (account === 'DEV_DE_LONG_TERM_0APR' || account === 'DEV_DE_LONG_TERM_EN_0APR')
-        ) {
+        if (amount >= minAmount && amount <= maxAmount && ZERO_APR_ACCORDION_ACCOUNTS.includes(account)) {
             test(`Amount:${amount} - Offer accordion show correct payment headline information - ${viewport}`, async () => {
                 await showCorrectOfferInfoAccordion(
                     modalFrame,

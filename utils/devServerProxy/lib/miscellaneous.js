@@ -22,6 +22,7 @@ export const localizeNumber =
 
         switch (country) {
             case 'DE':
+            case 'AT':
             case 'FR':
             case 'ES':
             case 'IT':
@@ -45,6 +46,7 @@ export const localizeCurrency =
 
         switch (country) {
             case 'DE':
+            case 'AT':
                 return `${localizedAmount}€`;
             case 'GB':
                 return `£${localizedAmount}`;

@@ -6,4 +6,5 @@ export * as ES from './ES';
 export * as IT from './IT';
 export * as FR from './FR';
 export * as DE from './DE';
+export * as AT from './AT';
 export * as CA from './CA';

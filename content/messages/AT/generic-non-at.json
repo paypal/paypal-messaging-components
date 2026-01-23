@@ -1,0 +1,25 @@
+{
+    "meta": {
+        "offerCountry": "AT",
+        "offerType": "GENERIC",
+        "messageType": "GENERIC_XB",
+        "offerTerm": "{total_payments}",
+        "lander": "",
+        "variables": {
+            "financing_code": "${CREDIT_OFFERS_DS.financing_code}",
+            "formattedMonthlyPayment": "${CREDIT_OFFERS_DS.formattedMonthlyPayment}",
+            "total_payments": "${CREDIT_OFFERS_DS.total_payments}",
+            "formattedMinAmount": "${CREDIT_OFFERS_DS.formattedMinAmount}",
+            "formattedTotalCost": "${CREDIT_OFFERS_DS.formattedTotalCost}"
+        }
+    },
+
+    "headline": [["Buy now, pay later.", ["default", "xsmall"]]],
+
+    "subHeadline": [],
+
+    "disclaimer": [
+        ["Learn more", ["default"]],
+        ["With Austrian PayPal account only.", ["extra"]]
+    ]
+}

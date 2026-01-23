@@ -29,6 +29,12 @@ export const openProductListView = async (contentWindow, modalContent, testName)
     await modalSnapshot(testName, contentWindow);
 };
 
+// Multi-product accounts grouped by product tile configuration
+// Pay In 1 + Long Term tiles (DE, AT)
+const PAY_IN_1_LONG_TERM_ACCOUNTS = ['DEV_DE_MULTI', 'DEV_AT_MULTI'];
+// Short Term + Long Term tiles (ES, IT)
+const SHORT_TERM_LONG_TERM_ACCOUNTS = ['DEV_ES_MULTI', 'DEV_IT_MULTI'];
+
 /**
  * Ensures each product tile in the product list modal takes user to correct view.
  */
@@ -48,25 +54,19 @@ export const clickProductListTiles = async (contentWindow, modalContent, account
         await page.waitFor(2 * 1000);
     };
 
-    if (account !== 'DEV_DE_MULTI' && account !== 'DEV_ES_MULTI' && account !== 'DEV_IT_MULTI') {
-        // Switch to long term view
+    if (PAY_IN_1_LONG_TERM_ACCOUNTS.includes(account)) {
+        // DE/AT: Pay In 1 + Long Term tiles
+        await switchViews(2, 'payIn1');
+    } else if (SHORT_TERM_LONG_TERM_ACCOUNTS.includes(account)) {
+        // ES/IT: Short Term + Long Term tiles
         await switchViews(2, 'shortTerm');
-
-        // Switch to short term view
-        await switchViews(3, 'longTerm');
-
-        // Switch to no interest view.
-        // NOTE: PPC NI tile is separated from the pay later tiles as a means to distinguish product categories in the product list modal.
-        await switchViews(5, 'noInterest');
-    } else if (account === 'DEV_ES_MULTI' || account === 'DEV_IT_MULTI') {
-        // Switch to long term view
-        await switchViews(2, 'shortTerm');
-
-        // Switch to short term view
         await switchViews(3, 'longTerm');
     } else {
-        // Switch to pay in 1 view
-        await switchViews(2, 'payIn1');
+        // US and other locales: Short Term + Long Term + No Interest tiles
+        await switchViews(2, 'shortTerm');
+        await switchViews(3, 'longTerm');
+        // NOTE: PPC NI tile is separated from the pay later tiles as a means to distinguish product categories in the product list modal.
+        await switchViews(5, 'noInterest');
     }
 };
 

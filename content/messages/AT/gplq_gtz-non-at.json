@@ -1,0 +1,31 @@
+{
+    "meta": {
+        "offerCountry": "AT",
+        "offerType": "PAY_LATER_LONG_TERM",
+        "messageType": "PLLT_MQ_GZ_XB",
+        "offerTerm": "{total_payments}",
+        "lander": "",
+        "variables": {
+            "offer_id": "${CREDIT_OFFERS_DS.offer_id}",
+            "vendor_financing_id": "${CREDIT_OFFERS_DS.vendor_financing_id}",
+            "financing_code": "${CREDIT_OFFERS_DS.financing_code}",
+            "formattedPeriodicPayment": "${CREDIT_OFFERS_DS.formattedPeriodicPayment}",
+            "total_payments": "${CREDIT_OFFERS_DS.total_payments}",
+            "formattedMinAmount": "${CREDIT_OFFERS_DS.formattedMinAmount}",
+            "formattedMaxAmount": "${CREDIT_OFFERS_DS.formattedMaxAmount}",
+            "formattedTotalCost": "${CREDIT_OFFERS_DS.formattedTotalCost}"
+        }
+    },
+
+    "headline": [
+        ["Pay later in monthly installments.", ["default", "xsmall"]],
+        [["Pay in up to 24 monthly installments."], ["medium", "large", "xlarge"]]
+    ],
+
+    "subHeadline": [],
+
+    "disclaimer": [
+        ["Learn more", ["default"]],
+        ["With Austrian PayPal account only.", ["extra"]]
+    ]
+}
