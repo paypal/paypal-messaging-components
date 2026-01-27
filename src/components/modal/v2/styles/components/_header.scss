@@ -429,7 +429,7 @@
                     margin: 3px 0px -50px -60px;
                 }
 
-                @mixin lander {
+                @include mixins.lander {
                     margin: 30px 0px -50px -70px;
 
                     @include mixins.mobile {

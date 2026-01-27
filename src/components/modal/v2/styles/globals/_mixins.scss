@@ -31,7 +31,7 @@
     }
 }
 
-@mixin lander {
+@include mixins.lander {
     .lander & {
         @content;
     }
@@ -78,7 +78,7 @@
         visibility: hidden;
         overflow-y: scroll;
 
-        @mixin lander {
+        @include mixins.lander {
             content: none; // Disable on lander since scrollbar exists at a different element
         }
     }
