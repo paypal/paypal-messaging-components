@@ -1,5 +1,20 @@
 # Changelog
 
+### [1.76.1](https://github.com/paypal/paypal-messaging-components/compare/v1.76.0...v1.76.1) (2026-01-27)
+
+
+### Bug Fixes
+
+* header component scss ([#1265](https://github.com/paypal/paypal-messaging-components/issues/1265)) ([61ea1b3](https://github.com/paypal/paypal-messaging-components/commit/61ea1b3aa7c6c19b78c9a6955ecf4089406c64d1))
+
+
+### Code Refactoring
+
+* fetch new treatments on expiration ([#1262](https://github.com/paypal/paypal-messaging-components/issues/1262)) ([ff6ddbf](https://github.com/paypal/paypal-messaging-components/commit/ff6ddbf87de96e5335f45e836314155fbfbee18f))
+* migrate deprecated Sass [@import](https://github.com/import) to [@use](https://github.com/use) statements ([#1254](https://github.com/paypal/paypal-messaging-components/issues/1254)) ([89adcf5](https://github.com/paypal/paypal-messaging-components/commit/89adcf5bd23811921615f464ffdbf593c003fd7d))
+* remove core-js-pure dependency ([#1253](https://github.com/paypal/paypal-messaging-components/issues/1253)) ([181a8b7](https://github.com/paypal/paypal-messaging-components/commit/181a8b708b3f409f0531f835ff97f275f88b5495))
+* UK Pi3 Preapproval ModXO changes ([#1259](https://github.com/paypal/paypal-messaging-components/issues/1259)) ([95ed87c](https://github.com/paypal/paypal-messaging-components/commit/95ed87c17016d6ace42f2bf9ec4d058892b94177))
+
 ## [1.76.0](https://github.com/paypal/paypal-messaging-components/compare/v1.75.0...v1.76.0) (2026-01-20)
 
 
