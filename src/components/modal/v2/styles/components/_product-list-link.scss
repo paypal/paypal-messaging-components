@@ -1,21 +1,25 @@
+@use "../globals/colors";
+@use "../globals/mixins";
+@use "../globals/variables";
+
 .product-list-link {
     display: flex;
     border: none;
     background: transparent;
     min-width: 315px;
     text-decoration: underline;
-    color: $light-blue;
-    font-family: $paypal-open;
+    color: colors.$light-blue;
+    font-family: variables.$paypal-open;
     font-size: 14px;
     font-weight: 600;
     cursor: pointer;
     padding: 0;
 
-    @include desktop {
+    @include mixins.desktop {
         margin: 0px 0px 20px 30px;
     }
 
-    @include tablet {
+    @include mixins.tablet {
         margin: 0px 44px 20px 44px;
 
         .checkout & {
@@ -23,7 +27,7 @@
         }
     }
 
-    @include mobile {
+    @include mixins.mobile {
         margin: 20px 0px 20px 0px;
 
         .checkout & {
@@ -36,7 +40,7 @@
     }
 
     &.de {
-        @include mobile {
+        @include mixins.mobile {
             margin-top: 0px;
         }
     }

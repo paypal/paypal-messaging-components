@@ -93,9 +93,9 @@ describe('experiments utils', () => {
 
         ensureTreatments();
 
-        expect(globalEvent.trigger).toHaveBeenCalledWith('treatments');
+        expect(globalEvent.trigger).not.toHaveBeenCalledWith('treatments');
 
-        // treatment refresh should be triggered in the background
+        // treatment refresh should be triggered to get fresh data
         expect(document.querySelector('iframe')).not.toBeNull();
     });
 

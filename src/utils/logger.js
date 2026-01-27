@@ -1,7 +1,5 @@
 /* eslint-disable eslint-comments/disable-enable-pair */
 /* eslint-disable camelcase */
-import objectKeys from 'core-js-pure/stable/object/keys';
-import arrayIncludes from 'core-js-pure/stable/array/includes';
 import { Logger, LOG_LEVEL } from '@krakenjs/beaver-logger/src';
 import { ZalgoPromise } from '@krakenjs/zalgo-promise/src';
 
@@ -157,8 +155,8 @@ export const logger = Logger({
 
         const activeIndexes = eventsIndexes.concat(trackingIndexes);
 
-        const trimmedMeta = objectKeys(json.meta)
-            .filter(index => arrayIncludes(activeIndexes, index) || index === 'global')
+        const trimmedMeta = Object.keys(json.meta)
+            .filter(index => activeIndexes.includes(index) || index === 'global')
             .reduce(
                 (accumulator, index) => ({
                     ...accumulator,

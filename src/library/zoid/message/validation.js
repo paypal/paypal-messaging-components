@@ -1,6 +1,3 @@
-import arrayIncludes from 'core-js-pure/stable/array/includes';
-import numberIsNaN from 'core-js-pure/stable/number/is-nan';
-import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import { logger, memoize, getEnv } from '../../../utils';
 import { OFFER } from '../../../utils/constants';
 
@@ -21,7 +18,7 @@ export function validateType(expectedType, val) {
         case Types.BOOLEAN:
             return typeof val === 'boolean';
         case Types.NUMBER:
-            return typeof val === 'number' && !numberIsNaN(val);
+            return typeof val === 'number' && !Number.isNaN(val);
         case Types.FUNCTION:
             return typeof val === 'function';
         case Types.ARRAY:
@@ -69,9 +66,9 @@ export default {
     account: ({ props: { account } }) => {
         if (!validateType(Types.STRING, account)) {
             logInvalidType('account', Types.STRING, account);
-        } else if (getEnv() === 'local' && stringStartsWith(account, 'DEV_')) {
+        } else if (getEnv() === 'local' && account.startsWith('DEV_')) {
             return account;
-        } else if (account.length !== 13 && account.length !== 10 && !stringStartsWith(account, 'client-id:')) {
+        } else if (account.length !== 13 && account.length !== 10 && !account.startsWith('client-id:')) {
             logInvalid('account', 'Ensure the correct Merchant Account ID has been entered.');
         } else {
             return account;
@@ -206,7 +203,7 @@ export default {
 
             if (!validateType(Types.STRING, pageType)) {
                 logInvalidType('pageType', Types.STRING, pageType);
-            } else if (!arrayIncludes(options, pageType)) {
+            } else if (!options.includes(pageType)) {
                 logInvalidOption('pageType', options, pageType);
             } else {
                 return pageType;
