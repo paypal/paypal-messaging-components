@@ -1,6 +1,6 @@
-@use "../globals/colors";
-@use "../globals/mixins";
-@use "../globals/variables";
+@use '../globals/colors';
+@use '../globals/mixins';
+@use '../globals/variables';
 
 .header {
     &__container {
@@ -91,7 +91,12 @@
                     black variables.$sticky-header-height-mobile,
                     transparent 100px
                 );
-                mask-image: linear-gradient(to bottom, black, black variables.$sticky-header-height-mobile, transparent 100px);
+                mask-image: linear-gradient(
+                    to bottom,
+                    black,
+                    black variables.$sticky-header-height-mobile,
+                    transparent 100px
+                );
             }
         }
 
@@ -328,7 +333,7 @@
 
             &.headline-gb-preapproved {
                 max-width: 70%;
-                @include @include mixins.mobile {
+                @include mixins.mobile {
                     max-width: 75%;
                 }
             }
@@ -434,9 +439,9 @@
                     @include smallMobile {
                         margin: 5px 0px -50px -60px;
                     }
+                }
             }
         }
-    }
 
         &.checkout {
             background-color: colors.$white;
