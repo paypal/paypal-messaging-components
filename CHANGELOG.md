@@ -1,5 +1,24 @@
 # Changelog
 
+## [1.76.0](https://github.com/paypal/paypal-messaging-components/compare/v1.75.0...v1.76.0) (2026-01-20)
+
+
+### Features
+
+* add otherCosts for modal ES/IT ([#1247](https://github.com/paypal/paypal-messaging-components/issues/1247)) ([c2907b2](https://github.com/paypal/paypal-messaging-components/commit/c2907b2d85e1cdc91648793420ab0de7934eed8d))
+
+
+### Bug Fixes
+
+* Assigned true value for disableSetCookie query parameters for non-sdk integrations ([42f2333](https://github.com/paypal/paypal-messaging-components/commit/42f233341f51caa6bb0b99c994f2d44bb8f2ac50))
+
+
+### Code Refactoring
+
+* DE Pi30 modal - Updated URLs for terms ([#1250](https://github.com/paypal/paypal-messaging-components/issues/1250)) ([8520372](https://github.com/paypal/paypal-messaging-components/commit/8520372dd25dcf343f20f8f7f29a52999899b07c))
+* PPC 180-day Updates 11/1/25 ([#1246](https://github.com/paypal/paypal-messaging-components/issues/1246)) ([3058784](https://github.com/paypal/paypal-messaging-components/commit/305878452607dafa3b41b121dd55622d3691db17))
+* update es lt max threshold ([#1256](https://github.com/paypal/paypal-messaging-components/issues/1256)) ([1c9754b](https://github.com/paypal/paypal-messaging-components/commit/1c9754b0bddbb0468188bf399dd1256d95cecb6a))
+
 ## [1.75.0](https://github.com/paypal/paypal-messaging-components/compare/v1.74.0...v1.75.0) (2025-11-04)
 
 

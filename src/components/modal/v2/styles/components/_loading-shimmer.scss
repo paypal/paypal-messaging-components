@@ -1,3 +1,5 @@
+@use "../globals/mixins";
+
 @keyframes shimmer {
     0% {
         background-position: -2000px 0;
@@ -20,12 +22,12 @@
                 margin-top: 25px;
                 margin-bottom: 25px;
 
-                @include mobile {
+                @include mixins.mobile {
                     margin-top: 20px;
                     margin-bottom: 5px;
                 }
             }
-            @include tablet {
+            @include mixins.tablet {
                 &:first-child {
                     margin-top: 35px;
                 }
@@ -77,7 +79,7 @@
             &.shimmer {
                 margin-top: 25px;
 
-                @include mobile {
+                @include mixins.mobile {
                     margin-top: 8px;
                 }
             }

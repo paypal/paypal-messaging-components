@@ -1,7 +1,6 @@
 /** @jsx h */
 /** @jsxFrag Fragment */
 import { h, Fragment } from 'preact';
-import arrayIncludes from 'core-js-pure/stable/array/includes';
 import { objectMerge, objectFlattenToArray, curry } from '../../utils/server';
 import { getMutations, getLocaleStyles, getLocaleClass, getLocaleProductName } from '../locale';
 import allStyles from './styles';
@@ -25,7 +24,7 @@ const applyCascade = curry((style, flattened, type, rules) =>
     rules.reduce(
         (accumulator, [key, val]) => {
             const split = key.split(' && ');
-            if (key === 'default' || split.every(k => arrayIncludes(flattened, k))) {
+            if (key === 'default' || split.every(k => flattened.includes(k))) {
                 // after numerous tests, Helvetica and Arial are 98.2% smaller than PayPal Sans font
                 // but 0.983 is used here to provide a slight buffer
                 const BASIC_FONT_FACTOR = 0.983;
