@@ -153,8 +153,18 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                     const { onClick } = props;
 
                     return ({ meta }) => {
-                        const { modal, index, account, merchantId, currency, amount, buyerCountry, language, onApply } =
-                            props;
+                        const {
+                            modal,
+                            index,
+                            account,
+                            merchantId,
+                            currency,
+                            amount,
+                            buyerCountry,
+                            language,
+                            locale,
+                            onApply
+                        } = props;
                         const { offerType, offerCountry, messageRequestId, lander } = meta;
                         if (offerType === 'PURCHASE_PROTECTION') {
                             if (getURIPopup(lander, offerType) == null) {
@@ -170,6 +180,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                                 amount,
                                 buyerCountry,
                                 language,
+                                locale,
                                 onApply,
                                 offer: offerType,
                                 offerCountry,
