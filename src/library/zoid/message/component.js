@@ -1,4 +1,3 @@
-import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import { SDK_SETTINGS } from '@paypal/sdk-constants/src';
 import { ZalgoPromise } from '@krakenjs/zalgo-promise/src';
 import { uniqueID, getCurrentScriptUID } from '@krakenjs/belter/src';
@@ -357,7 +356,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
             payerId: {
                 type: 'string',
                 queryParam: 'payer_id',
-                decorate: ({ props }) => (!stringStartsWith(props.account, 'client-id:') ? props.account : null),
+                decorate: ({ props }) => (!props.account.startsWith('client-id:') ? props.account : null),
                 default: () => '',
                 required: false
             },
@@ -365,7 +364,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 type: 'string',
                 queryParam: 'client_id',
                 decorate: ({ props }) => {
-                    return stringStartsWith(props.account, 'client-id:') ? props.account.slice(10) : null;
+                    return props.account.startsWith('client-id:') ? props.account.slice(10) : null;
                 },
                 default: () => '',
                 required: false

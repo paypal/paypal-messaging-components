@@ -1,4 +1,3 @@
-import objectEntries from 'core-js-pure/stable/object/entries';
 import { ZalgoPromise } from '@krakenjs/zalgo-promise/src';
 
 import {
@@ -210,7 +209,7 @@ export default (options = {}) => ({
                                 }
 
                                 // Filter out undefined to prevent overwriting previous values
-                                const updatedMessageProps = objectEntries(messageProps).reduce(
+                                const updatedMessageProps = Object.entries(messageProps).reduce(
                                     (acc, [key, val]) =>
                                         typeof val === 'undefined' ? acc : Object.assign(acc, { [key]: val }),
                                     {}
