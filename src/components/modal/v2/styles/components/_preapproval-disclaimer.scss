@@ -1,5 +1,5 @@
-@use "../globals/colors";
-@use "../globals/mixins";
+@use '../globals/colors';
+@use '../globals/mixins';
 
 .preapproval-disclaimer {
     text-align: left;
@@ -144,11 +144,11 @@
         border-radius: 12px;
         margin-bottom: 1rem;
         padding: 6px 16px 6px 16px;
-         @include lander {
+        @include mixins.lander {
             width: 430px;
             margin-bottom: 0;
 
-            @include mobile {
+            @include mixins.mobile {
                 width: auto;
             }
         }
@@ -156,7 +156,7 @@
     &__privacy {
         font-size: 14px;
         line-height: 16px;
-        color: $black;
+        color: colors.$black;
         margin-top: 12px;
         margin-bottom: 20px;
 
