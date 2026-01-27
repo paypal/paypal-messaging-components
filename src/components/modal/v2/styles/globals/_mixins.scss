@@ -1,4 +1,4 @@
-@use "variables";
+@use 'variables';
 
 // TODO: until PPUI has images for the universal modals, we will be using the tablet view for desktops.
 @mixin desktop {
@@ -78,7 +78,7 @@
         visibility: hidden;
         overflow-y: scroll;
 
-        @include lander {
+        @mixin lander {
             content: none; // Disable on lander since scrollbar exists at a different element
         }
     }
