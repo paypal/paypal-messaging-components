@@ -148,7 +148,7 @@
             width: 430px;
             margin-bottom: 0;
 
-            @include mobile {
+            @include mixins.mobile {
                 width: auto;
             }
         }
