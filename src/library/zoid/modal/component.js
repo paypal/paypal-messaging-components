@@ -346,7 +346,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                             event_type: 'modal_rendered',
                             modal: `${products.join('_').toLowerCase()}:${offer ? offer.toLowerCase() : products[0]}`,
                             // For standalone modal the stats event does not run, so we duplicate some data here
-                            bn_code: getScriptAttributes()[SDK_SETTINGS.PARTNER_ATTRIBUTION_ID],
+                            partner_attribution_id: getScriptAttributes()[SDK_SETTINGS.PARTNER_ATTRIBUTION_ID],
                             first_modal_render_delay: Math.round(firstModalRenderDelay).toString(),
                             render_duration: Math.round(getCurrentTime() - renderStart).toString()
                         });
