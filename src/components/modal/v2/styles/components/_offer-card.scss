@@ -1,6 +1,10 @@
+@use "../globals/colors";
+@use "../globals/mixins";
+@use "../globals/variables";
+
 strong {
-    font-family: $paypal-open;
-    color: $text-main;
+    font-family: variables.$paypal-open;
+    color: colors.$text-main;
 }
 
 .offer {
@@ -11,7 +15,7 @@ strong {
 
         &:not(:last-child)::after {
             content: '';
-            border-bottom: 1px solid $offer-border-gray;
+            border-bottom: 1px solid colors.$offer-border-gray;
             display: block;
             margin-top: 20px;
             margin-bottom: 20px;
@@ -20,7 +24,7 @@ strong {
                 margin-top: 15px;
             }
 
-            @include mobile {
+            @include mixins.mobile {
                 margin-top: 20px;
                 margin-bottom: 5px;
             }
@@ -32,13 +36,13 @@ strong {
             }
         }
 
-        @include desktop {
+        @include mixins.desktop {
             &:last-child {
                 margin-bottom: 20px;
             }
         }
 
-        @include tablet {
+        @include mixins.tablet {
             &:first-child {
                 margin-top: 35px;
 
@@ -55,7 +59,7 @@ strong {
             }
         }
 
-        @include mobile {
+        @include mixins.mobile {
             &:last-child {
                 margin-bottom: 20px;
 
@@ -72,7 +76,7 @@ strong {
             padding-bottom: 10px;
         }
 
-        @include mobile {
+        @include mixins.mobile {
             &:first-child {
                 padding-bottom: 10px;
             }
@@ -84,16 +88,16 @@ strong {
     }
     &__field-header {
         font-size: 18px;
-        @include mobile {
+        @include mixins.mobile {
             font-size: 18px;
             margin-top: 16px;
         }
-        @include smallMobile {
+        @include mixins.smallMobile {
             font-size: 1rem;
         }
 
         &.v5Dot1Design {
-            color: $text-main !important;
+            color: colors.$text-main !important;
             font-weight: bold !important;
         }
 
@@ -114,45 +118,45 @@ strong {
     &__field-title {
         display: flex;
         font-size: 18px;
-        color: $gray;
+        color: colors.$gray;
         margin: 0px;
-        @include smallMobile {
+        @include mixins.smallMobile {
             font-size: 18px;
         }
 
         &:is(strong) {
-            color: $text-main;
+            color: colors.$text-main;
         }
 
         &.v5Dot1Design {
-            color: $text-main !important;
+            color: colors.$text-main !important;
             font-weight: bold !important;
         }
         .checkout & {
             font-size: 16px;
             & :last-of-type {
-                color: $text-main !important;
+                color: colors.$text-main !important;
             }
         }
     }
 
     &__field-value {
         font-size: 18px;
-        color: $gray;
+        color: colors.$gray;
         margin: 0px;
-        @include mobile {
+        @include mixins.mobile {
             font-size: 18px;
         }
-        @include smallMobile {
+        @include mixins.smallMobile {
             font-size: 0.9rem;
         }
 
         &:is(strong) {
-            color: $text-main;
+            color: colors.$text-main;
         }
 
         &.v5Dot1Design {
-            color: $text-main !important;
+            color: colors.$text-main !important;
             font-weight: bold !important;
         }
 

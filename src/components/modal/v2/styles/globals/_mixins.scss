@@ -1,3 +1,5 @@
+@use "variables";
+
 // TODO: until PPUI has images for the universal modals, we will be using the tablet view for desktops.
 @mixin desktop {
     @media (min-width: 99999999px) /* min-width: 1366px */ {
@@ -54,15 +56,15 @@
     pointer-events: none;
 
     @include tablet {
-        max-width: $content-wrapper-max-width-tablet;
+        max-width: variables.$content-wrapper-max-width-tablet;
     }
 
     @include desktop {
-        max-width: $content-wrapper-max-width-desktop;
+        max-width: variables.$content-wrapper-max-width-desktop;
     }
 
     @include apiIframe {
-        max-width: $content-wrapper-max-width-api-iframe;
+        max-width: variables.$content-wrapper-max-width-api-iframe;
     }
 
     :first-child {

@@ -1,27 +1,30 @@
+@use "../globals/colors";
+@use "../globals/mixins";
+
 .preapproval-disclaimer {
     text-align: left;
     box-sizing: border-box;
 
-    @include desktop {
+    @include mixins.desktop {
         padding-left: 30px;
     }
 
-    @include tablet {
+    @include mixins.tablet {
         width: 100%;
         justify-content: center;
     }
 
     ul {
         list-style: disc;
-        @include desktop {
+        @include mixins.desktop {
             padding: 0px;
         }
 
-        @include mobile {
+        @include mixins.mobile {
             padding: 0px;
         }
         &.ppc {
-            @include mobile {
+            @include mixins.mobile {
                 margin-top: -11px;
                 margin-bottom: 0px;
             }
@@ -32,10 +35,10 @@
         li {
             margin-left: 0.6rem;
 
-            @include desktop {
+            @include mixins.desktop {
                 margin-left: 0.6rem;
             }
-            @include mobile {
+            @include mixins.mobile {
                 margin-left: 1.2rem;
             }
 
@@ -46,7 +49,7 @@
     }
 
     li {
-        color: $black;
+        color: colors.$black;
         line-height: 20px;
         font-size: 14px;
         padding-bottom: 16px;
@@ -56,11 +59,11 @@
         font-weight: 700;
         line-height: 24px;
         text-align: left;
-        color: $text-main;
+        color: colors.$text-main;
         margin-left: 42px;
         margin-top: 22px;
 
-        @include desktop {
+        @include mixins.desktop {
             margin-bottom: 10px;
 
             br {
@@ -68,9 +71,9 @@
             }
         }
 
-        @include tablet {
+        @include mixins.tablet {
             margin-left: 32px;
-            @include lander {
+            @include mixins.lander {
                 max-width: 100%;
             }
 
@@ -79,12 +82,12 @@
             }
         }
 
-        @include mobile {
+        @include mixins.mobile {
             margin-bottom: 5px;
             margin-left: 0px;
         }
 
-        @include smallMobile {
+        @include mixins.smallMobile {
             font-size: 1rem;
         }
     }
@@ -93,25 +96,25 @@
         line-height: 20px;
         font-weight: 400;
         text-align: left;
-        color: $dark-gray;
+        color: colors.$dark-gray;
         margin: 0px;
 
-        @include desktop {
+        @include mixins.desktop {
             margin-top: 0px;
             margin-left: 32px;
             margin-bottom: 30px;
         }
 
-        @include tablet {
+        @include mixins.tablet {
             margin-left: 32px;
             margin-bottom: 30px;
         }
 
-        @include mobile {
+        @include mixins.mobile {
             padding-bottom: 20px;
         }
 
-        @include smallMobile {
+        @include mixins.smallMobile {
             max-width: 67%;
         }
 
@@ -120,11 +123,11 @@
         }
     }
 
-    @include lander {
-        @include tablet {
+    @include mixins.lander {
+        @include mixins.tablet {
             margin: 0px;
         }
-        @include mobile {
+        @include mixins.mobile {
             margin: 0px;
         }
     }
@@ -137,7 +140,7 @@
             padding-left: 5px;
         }
 
-        border: 1px solid $checkout-border;
+        border: 1px solid colors.$checkout-border;
         border-radius: 12px;
         margin-bottom: 1rem;
         padding: 6px 16px 6px 16px;
