@@ -159,12 +159,6 @@ $donut-text-v5: #545d68;
                     max-width: 35px;
                 }
             }
-
-            .gb.checkout & {
-                &::after {
-                    display: none;
-                }
-            }
         }
         .v5Design {
             &.svg::after {
