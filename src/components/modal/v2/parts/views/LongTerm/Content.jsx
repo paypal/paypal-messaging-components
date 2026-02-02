@@ -154,6 +154,19 @@ export const LongTerm = ({
             renderCheckoutCtaButton()
         );
 
+    // Determine disclosure content based on type
+    const getDisclosure = disclosureContent => {
+        if (typeof disclosureContent === 'string' || Array.isArray(disclosureContent)) {
+            return <InlineLinks text={disclosureContent} useNewCheckoutDesign={useNewCheckoutDesign} />;
+        }
+        if (Array.isArray(disclosureContent?.[offerAPRDisclaimers[0].aprType])) {
+            return <InlineLinks text={disclosureContent?.[offerAPRDisclaimers[0].aprType]} />;
+        }
+        return (
+            <InlineLinks text={(disclosure?.[offerAPRDisclaimers[0].aprType] ?? '').replace(/\D00\s?(EUR|€)/g, ' €')} />
+        );
+    };
+
     return (
         <Fragment>
             <style>{styles._getCss()}</style>
@@ -190,13 +203,7 @@ export const LongTerm = ({
                     useNewCheckoutDesign === 'true' ? 'checkout' : ''
                 } ${useV5Design === 'true' ? 'v5Design' : ''} ${country === 'DE' ? 'DE' : ''}`}
             >
-                {typeof disclosure === 'string' || Array.isArray(disclosure) ? (
-                    <InlineLinks text={disclosure} useNewCheckoutDesign={useNewCheckoutDesign} />
-                ) : (
-                    <InlineLinks
-                        text={(disclosure?.[offerAPRDisclaimers[0].aprType] ?? '').replace(/\D00\s?(EUR|€)/g, ' €')}
-                    />
-                )}
+                {getDisclosure(disclosure)}
             </div>
             {conditionalStickyButton}
         </Fragment>

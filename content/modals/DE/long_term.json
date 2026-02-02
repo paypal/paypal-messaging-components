@@ -36,8 +36,22 @@
             "Das war’s! Falls Sie möchten, können Sie auch früher bezahlen. Ohne Zusatzkosten."
         ],
         "disclosure": {
-            "nonZeroAPR": "Vorbehaltlich Kreditwürdigkeitsprüfung. Ab {formattedMaxAmount} und bis zu {formattedMaxAmount} Bestellwert. Laufzeiten von 3, 6, 12 oder 24 Monaten. Bei Beträgen über 5.000 € stehen nur Laufzeiten von 12 oder 24 Monaten zur Verfügung. Der Kreditgeber ist PayPal (Europe) S.à r.l. et Cie, S.C.A., 22-24 Boulevard Royal, L-2449 Luxembourg. Nutzungsvoraussetzung ist ein deutsches PayPal-Privatkonto mit einer verknüpften Debitkarte oder einem Bankkonto mit gültigem SEPA-Lastschriftmandat als Zahlungsquelle.",
-            "zeroAPR": "* Vorbehaltlich Kreditwürdigkeitsprüfung. Laufzeiten von 3, 6, 12 oder 24 Monaten. Ab {formattedMinAmount} und bis zu {formattedMaxAmount} Bestellwert, mit einem effektiven Jahreszins von {formattedAPR}% p.a. und einem festen Sollzinssatz von {formattedNominalRatePrecision2}% p.a. Gilt für Darlehensverträge, die im Aktionszeitraum abgeschlossen werden. Der Kreditgeber ist PayPal (Europe) S.à r.l. et Cie, S.C.A., 22-24 Boulevard Royal, L-2449 Luxembourg. Als Verbraucher steht Ihnen gemäß § 514 BGB bei unentgeltlichen Darlehensverträgen ab einem Finanzierungsbetrag von 200 Euro ein Widerrufsrecht zu. Nutzungsvoraussetzung ist ein deutsches PayPal-Privatkonto mit einer verknüpften Debitkarte oder einem Bankkonto mit gültigem SEPA-Lastschriftmandat als Zahlungsquelle. Die Verfügbarkeit der Laufzeiten kann in bestimmten Anwendungsfällen abweichen."
+            "nonZeroAPR": [
+                "Vorbehaltlich Kreditwürdigkeitsprüfung. Ab {formattedMinAmount} und bis zu {formattedMaxAmount} Bestellwert. Laufzeiten von 3, 6, 12 oder 24 Monaten. Bei Beträgen über 5.000 € stehen nur Laufzeiten von 12 oder 24 Monaten zur Verfügung. Der Kreditgeber ist PayPal (Europe) S.à r.l. et Cie, S.C.A., 22-24 Boulevard Royal, L-2449 Luxembourg. Nutzungsvoraussetzung ist ein deutsches PayPal-Privatkonto mit einer verknüpften Debitkarte oder einem Bankkonto mit gültigem SEPA-Lastschriftmandat als Zahlungsquelle.",
+                [
+                    "Es gelten die Bedingungen.",
+                    "https://www.paypal.com/de/digital-wallet/ratenzahlung/terms",
+                    "Es gelten die Bedingungen, opens new tab"
+                ]
+            ],
+            "zeroAPR": [
+                "* Vorbehaltlich Kreditwürdigkeitsprüfung. Laufzeiten von 3, 6, 12 oder 24 Monaten. Ab {formattedMinAmount} und bis zu {formattedMaxAmount} Bestellwert, mit einem effektiven Jahreszins von {formattedAPR}% p.a. und einem festen Sollzinssatz von {formattedNominalRatePrecision2}% p.a. Gilt für Darlehensverträge, die im Aktionszeitraum abgeschlossen werden. Der Kreditgeber ist PayPal (Europe) S.à r.l. et Cie, S.C.A., 22-24 Boulevard Royal, L-2449 Luxembourg. Als Verbraucher steht Ihnen gemäß § 514 BGB bei unentgeltlichen Darlehensverträgen ab einem Finanzierungsbetrag von 200 Euro ein Widerrufsrecht zu. Nutzungsvoraussetzung ist ein deutsches PayPal-Privatkonto mit einer verknüpften Debitkarte oder einem Bankkonto mit gültigem SEPA-Lastschriftmandat als Zahlungsquelle. Die Verfügbarkeit der Laufzeiten kann in bestimmten Anwendungsfällen abweichen.",
+                [
+                    "Es gelten die Bedingungen.",
+                    "https://www.paypal.com/de/digital-wallet/ratenzahlung/terms",
+                    "Es gelten die Bedingungen, opens new tab"
+                ]
+            ]
         },
         "navLinkPrefix": "Für andere Später Bezahlen Optionen wählen Sie",
         "linkToProductList": "Bezahlung nach 30 Tagen."
