@@ -13,7 +13,8 @@ import {
     addPerformanceMeasure,
     PERFORMANCE_MEASURE_KEYS,
     globalEvent,
-    getTopWindow
+    getTopWindow,
+    getFaqUrl
 } from '../../../utils';
 import { getModalComponent } from '../../zoid/modal';
 
@@ -147,7 +148,8 @@ const memoizedModal = memoizeOnProps(
                     location: 'offer',
                     description: `Expected one of ["${zoidComponent.state.products.join('", "')}"] but received "${
                         options.offer
-                    }".`
+                    }".`,
+                    help_url: getFaqUrl('INVALID_OPTIONS')
                 });
                 return ZalgoPromise.resolve();
             }

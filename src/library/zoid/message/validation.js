@@ -1,4 +1,4 @@
-import { logger, memoize, getEnv } from '../../../utils';
+import { logger, memoize, getEnv, getFaqUrl } from '../../../utils';
 import { OFFER } from '../../../utils/constants';
 
 export const Types = {
@@ -36,7 +36,8 @@ export function validateType(expectedType, val) {
 const logInvalid = memoize((location, message) =>
     logger.warn('invalid_option_value', {
         description: message,
-        location
+        location,
+        help_url: getFaqUrl('INVALID_OPTIONS')
     })
 );
 const logInvalidType = (location, expectedType, val) => {

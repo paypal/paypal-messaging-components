@@ -28,7 +28,8 @@ import {
     getMerchantConfig,
     getLocalTreatments,
     getTsCookieFromStorage,
-    getURIPopup
+    getURIPopup,
+    getFaqUrl
 } from '../../../utils';
 import validate from './validation';
 import containerTemplate from './containerTemplate';
@@ -306,7 +307,8 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                             warnings.forEach(warning => {
                                 logger.warn('render_warning', {
                                     description: warning,
-                                    container: getContainer()
+                                    container: getContainer(),
+                                    help_url: getFaqUrl('RENDER_WARNING')
                                 });
                             });
                         }
