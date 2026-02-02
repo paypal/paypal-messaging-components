@@ -35,7 +35,7 @@ const CheckoutHeader = ({
     const countryClassName = country?.toLowerCase();
 
     // Only show preapproved badge if user is preapproved AND in the treatment group
-    const showBadge = isPreapproved === 'true' && shouldShowPreapprovedBadge === 'true';
+    const showPreapprovalContent = isPreapproved === 'true' && shouldShowPreapprovedBadge === 'true';
 
     // IMPORTANT: These elements cannot be nested inside of other elements.
     // They are using very precise CSS position sticky rules that require this
@@ -76,12 +76,14 @@ const CheckoutHeader = ({
                         // id used for aria-labelleby on modal container element
                         id="header__headline"
                         className={
-                            showBadge ? `headline-${countryClassName}-preapproved` : `headline-${countryClassName}`
+                            showPreapprovalContent
+                                ? `headline-${countryClassName}-preapproved`
+                                : `headline-${countryClassName}`
                         }
                         // eslint-disable-next-line react/no-danger
-                        dangerouslySetInnerHTML={{ __html: showBadge ? preapprovalHeadline : headline }}
+                        dangerouslySetInnerHTML={{ __html: showPreapprovalContent ? preapprovalHeadline : headline }}
                     />
-                    {showBadge ? (
+                    {showPreapprovalContent ? (
                         <span className={`preapproved-label ${countryClassName}`}>{preapprovalLabel}</span>
                     ) : (
                         ''
@@ -89,14 +91,16 @@ const CheckoutHeader = ({
                 </div>
                 {isQualifying === 'true' && qualifyingSubheadline !== '' ? (
                     <p className={`subheadline_p subheadline-${countryClassName} qualifying checkout`}>
-                        {showBadge ? preapprovalSubHeadline : qualifyingSubheadline.replace(/(\s?EUR)/g, ' €')}
+                        {showPreapprovalContent
+                            ? preapprovalSubHeadline
+                            : qualifyingSubheadline.replace(/(\s?EUR)/g, ' €')}
                     </p>
                 ) : (
                     <p
                         className={`subheadline_p subheadline-${countryClassName} checkout`}
                         // eslint-disable-next-line react/no-danger
                         dangerouslySetInnerHTML={{
-                            __html: currencyFormat(showBadge ? preapprovalSubHeadline : subheadline) ?? ''
+                            __html: currencyFormat(showPreapprovalContent ? preapprovalSubHeadline : subheadline) ?? ''
                         }}
                     />
                 )}
