@@ -1,11 +1,11 @@
-@import '../../../styles/globals/colors';
-@import '../../../styles/globals/mixins';
+@use '../../../styles/globals/colors';
+@use '../../../styles/globals/mixins';
 
 .content__body {
     .content__row {
         padding-right: 50px;
 
-        @include mobile {
+        @include mixins.mobile {
             padding: 0px;
         }
 
@@ -14,15 +14,15 @@
             padding: 0px;
             font-size: 14px;
             margin: 0px;
-            @include tablet {
+            @include mixins.tablet {
                 margin: 0px 44px 0px 44px;
             }
 
-            @include desktop {
+            @include mixins.desktop {
                 margin-left: 30px;
             }
 
-            @include mobile {
+            @include mixins.mobile {
                 margin-left: 0px;
             }
         }

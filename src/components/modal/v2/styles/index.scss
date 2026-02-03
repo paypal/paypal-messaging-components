@@ -1,24 +1,24 @@
 // Global stylesheets
-@import './globals/colors';
-@import './globals/variables';
-@import './globals/fonts';
-@import './globals/mixins';
-@import './globals/common';
+@use 'globals/colors';
+@use 'globals/variables';
+@use 'globals/fonts';
+@use 'globals/mixins';
+@use 'globals/common';
 
 // Component stylesheets
-@import './components/button';
-@import './components/calculator';
-@import './components/body-content';
-@import './components/content';
-@import './components/header';
-@import './components/instructions';
-@import './components/preapproval-disclaimer';
-@import './components/inline-links';
-@import './components/loading-shimmer';
-@import './components/modal-frame';
-@import './components/offer-card';
-@import './components/overlay';
-@import './components/product-list-link';
-@import './components/donut';
-@import './components/tile';
-@import './components/offer-accordion';
+@use 'components/button';
+@use 'components/calculator';
+@use 'components/body-content';
+@use 'components/content';
+@use 'components/header';
+@use 'components/instructions';
+@use 'components/preapproval-disclaimer';
+@use 'components/inline-links';
+@use 'components/loading-shimmer';
+@use 'components/modal-frame';
+@use 'components/offer-card';
+@use 'components/overlay';
+@use 'components/product-list-link';
+@use 'components/donut';
+@use 'components/tile';
+@use 'components/offer-accordion';

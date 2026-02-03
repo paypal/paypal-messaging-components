@@ -1,6 +1,4 @@
-import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import { ZalgoPromise } from '@krakenjs/zalgo-promise/src';
-import arrayFrom from 'core-js-pure/stable/array/from';
 
 import { getGlobalState, createGlobalVariableGetter } from './global';
 import { dynamicImport, getCurrentTime } from './miscellaneous';
@@ -21,12 +19,12 @@ export const getInsertionObserver = createGlobalVariableGetter(
                 if (mutation.type === 'attributes' && mutation.attributeName === 'data-pp-message') {
                     newMessageContainers.push(mutation.target);
                 } else {
-                    arrayFrom(mutation.addedNodes).forEach(node => {
+                    Array.from(mutation.addedNodes).forEach(node => {
                         if (isElement(node)) {
                             if (node.hasAttribute('data-pp-message')) {
                                 newMessageContainers.push(node);
                             } else {
-                                arrayFrom(node.querySelectorAll('[data-pp-message]')).forEach(targetedChildNode =>
+                                Array.from(node.querySelectorAll('[data-pp-message]')).forEach(targetedChildNode =>
                                     newMessageContainers.push(targetedChildNode)
                                 );
                             }
@@ -43,27 +41,45 @@ export const getInsertionObserver = createGlobalVariableGetter(
         })
 );
 
-export const getAttributeObserver = createGlobalVariableGetter(
-    '__attribute_observer__',
-    () =>
-        new MutationObserver(mutationList => {
-            const { messagesMap } = getGlobalState();
-            const containersToUpdate = mutationList.reduce((accumulator, mutation) => {
-                if (!messagesMap.has(mutation.target) || !stringStartsWith(mutation.attributeName, 'data-pp-')) {
-                    return accumulator;
-                }
+/**
+ * Filters mutation list to find containers that need to be updated.
+ * Only processes mutations where:
+ *     - The target is in the messagesMap
+ *     - The attributeName starts with `data-pp-`
+ *
+ * @param {Map} messagesMap - Map of containers to their message instances
+ * @param {MutationRecord[]} mutationList - Array of DOM mutations to process
+ * @returns {Element[]} Array of containers that need to be re-rendered
+ */
+export const getContainersToUpdate = (messagesMap, mutationList) =>
+    mutationList.reduce((accumulator, mutation) => {
+        if (!messagesMap.has(mutation.target) || !mutation.attributeName?.startsWith('data-pp-')) {
+            return accumulator;
+        }
+        accumulator.push(mutation.target);
+        return accumulator;
+    }, []);
 
-                accumulator.push(mutation.target);
+/**
+ * Processes a list of DOM mutations and re-renders affected message containers.
+ * Filters mutations to only process data-pp-* attribute changes on registered containers.
+ * Skips rendering if the script is being destroyed.
+ *
+ * @param {MutationRecord[]} mutationList - Array of DOM mutations from MutationObserver
+ */
+export const processMutationList = mutationList => {
+    const { messagesMap } = getGlobalState();
+    const containersToUpdate = getContainersToUpdate(messagesMap, mutationList);
 
-                return accumulator;
-            }, []);
+    if (containersToUpdate.length > 0 && !isScriptBeingDestroyed()) {
+        // Re-render each container without options because the render will scan for all inline attributes
+        containersToUpdate.forEach(container => window[getNamespace()]?.Messages().render(container));
+    }
+};
 
-            if (containersToUpdate.length > 0 && !isScriptBeingDestroyed()) {
-                // Re-render each container without options because the render will scan for all inline attributes
-                containersToUpdate.forEach(container => window[getNamespace()]?.Messages().render(container));
-            }
-        })
-);
+export const getAttributeObserver = createGlobalVariableGetter('__attribute_observer__', () => {
+    return new MutationObserver(processMutationList);
+});
 
 export const getIntersectionObserverPolyfill = () => {
     return ZalgoPromise.resolve(

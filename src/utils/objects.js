@@ -1,6 +1,3 @@
-import arrayIncludes from 'core-js-pure/stable/array/includes';
-import objectEntries from 'core-js-pure/stable/object/entries';
-
 /**
  * One way diff that returns an object with key/values
  * that are different from original to updated
@@ -9,7 +6,7 @@ import objectEntries from 'core-js-pure/stable/object/entries';
  * @returns {Object} Diff object
  */
 export function objectDiff(original, updated) {
-    return objectEntries(updated).reduce((accumulator, [key, val]) => {
+    return Object.entries(updated).reduce((accumulator, [key, val]) => {
         // If key does not exist on original object and check against key with value of undefined or null
         if (!original[key] && original[key] !== val) {
             return {
@@ -28,7 +25,7 @@ export function objectDiff(original, updated) {
         }
         if (Array.isArray(val)) {
             if (Array.isArray(original[key])) {
-                const diff = val.filter(x => !arrayIncludes(original[key], x));
+                const diff = val.filter(x => !original[key].includes(x));
                 if (diff.length > 0) {
                     return {
                         ...accumulator,
@@ -61,7 +58,7 @@ export function objectDiff(original, updated) {
  * @returns {Object} Cloned object
  */
 export function objectClone(a) {
-    return objectEntries(a).reduce((accumulator, [key, val]) => {
+    return Object.entries(a).reduce((accumulator, [key, val]) => {
         if (Array.isArray(val)) {
             return {
                 ...accumulator,
@@ -92,7 +89,7 @@ export function objectMerge(a, b) {
     const clone = objectClone(a);
 
     return (function deepMerge(targetObject, mergingObject) {
-        return objectEntries(mergingObject).reduce((accumulator, [key, val]) => {
+        return Object.entries(mergingObject).reduce((accumulator, [key, val]) => {
             // Just overwrite if val is an array
             if (Array.isArray(val)) {
                 return {
@@ -137,7 +134,7 @@ export function objectMerge(a, b) {
  * @returns {Array<String>} Array of options as string
  */
 export function objectFlattenToArray(options, prefix = '', delimiter = ':') {
-    return objectEntries(options).reduce((accumulator, [key, val]) => {
+    return Object.entries(options).reduce((accumulator, [key, val]) => {
         switch (typeof val) {
             case 'object': {
                 return [...accumulator, ...objectFlattenToArray(val, `${prefix}${key}.`)];
