@@ -8,7 +8,7 @@ The following are abbreviations used in reference to various messages and files.
 
 | messageType     | PStudio Name         | File Name                  | Message                                                                         |
 | --------------- | -------------------- | -------------------------- | ------------------------------------------------------------------------------- |
-| GENERIC         | Generic Message      | generic                    | Pay Later - No Amount Message                                                   |
+| PL_GENERIC      | Generic Message      | generic                    | Pay Later - No Amount Message                                                   |
 | PLST_SQ         | Short Term - Q       | short_term_q               | Pay Later - Pay in 4, Qualifying Purchase                                       |
 | PLST_NQ         | Short Term - NQ      | short_term_nq              | Pay Later - Pay in 4, Non-Qualifying Purchase                                   |
 | PLLT_MQ_EZ      | Long Term - MQEZ     | long_term_multi_eqz        | Pay Later - Pay Monthly, Multiple Qualifying Offers = 0% APR                    |
@@ -44,8 +44,8 @@ The following are abbreviations used in reference to various messages and files.
 | PLLT_MQ_GZ    | DE Long Term - Q GTZ              | gplq_gtz        | Pay Later - Ratenzahlung, Non-Qualifying Offers, >0% APR                                     |
 | PLP1_SQ_XB    | DE Pay In 1 - Q NON-DE            | pi30q-non-de    | Pay Later - Pay in 1, Non-DE, Qualifying Purchase                                            |
 | PIP1_SQ       | DE Pay In 1 - Q                   | pi30q           | Pay Later - Pay in 1, Qualifying Purchase                                                    |
-| GENERIC_XB    | DE Generic Message - NON-DE       | generic-non-de  | Pay Later - Non-DE, No Amount Message                                                        |
-| GENERIC       | DE Generic Message                | generic         | Pay Later - No Amount Message                                                                |
+| PL_GENERIC_XB | DE Generic Message - NON-DE       | generic-non-de  | Pay Later - Non-DE, No Amount Message                                                        |
+| PL_GENERIC    | DE Generic Message                | generic         | Pay Later - No Amount Message                                                                |
 | PLP1_NQ_XB    | DE Pay In 1 - NQ NON-DE           | pi30nq-non-de   | Pay Later - Pay in 1, Non-DE, Non-Qualifying Purchase                                        |
 | PLP1_NQ       | DE Pay In 1 - NQ                  | pi30nq          | Pay Later - Pay in 1, Non-Qualifying Purchase                                                |
 | PLLT_NQ_EZ_XB | DE Long Term - NQ EQZ NON-DE      | gpl_eqz-non-de  | Pay Later - Ratenzahlung, Non-DE, Non-Qualifying Purchase, 0% APR                            |
@@ -85,7 +85,7 @@ The following are abbreviations used in reference to various messages and files.
 
 | messageType | PStudio Name       | File Name            | Message                                      |
 | ----------- | ------------------ | -------------------- | -------------------------------------------- |
-| PLST_NA     | IT Short Term - NA | short_term_no_amount | Pay Later, Pay in 3, No Amount               |
+| PL_GENERIC  | IT Short Term - NA | short_term_no_amount | Pay Later, Pay in 3, No Amount               |
 | PLST_SQ     | IT Short Term - Q  | short_term_q         | Pay Later, Pay in 3, Qualifying Purchase     |
 | PLST_NQ     | IT Short Term - NQ | short_term_nq        | Pay Later, Pay in 3, Non-Qualifying Purchase |
 
@@ -93,7 +93,7 @@ The following are abbreviations used in reference to various messages and files.
 
 | messageType | PStudio Name       | File Name            | Message                                      |
 | ----------- | ------------------ | -------------------- | -------------------------------------------- |
-| PLST_NA     | ES Short Term - NA | short_term_no_amount | Pay Later, Pay in 3, No Amount               |
+| PL_GENERIC  | ES Short Term - NA | short_term_no_amount | Pay Later, Pay in 3, No Amount               |
 | PLST_SQ     | ES Short Term - Q  | short_term_q         | Pay Later, Pay in 3, Qualifying Purchase     |
 | PLST_NQ     | ES Short Term - NQ | short_term_nq        | Pay Later, Pay in 3, Non-Qualifying Purchase |
 

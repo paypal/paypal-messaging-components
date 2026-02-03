@@ -54,15 +54,18 @@ export default function getMutations(id, type) {
         // Generic Messages
         // Generic Pay Later message
         case 'GENERIC_PL':
+        case 'PP:PL_GENERIC':
             return genericPayLater[type];
         // // Generic Pay Later - Buy now, Pay Later message
         case 'GENERIC_PL_BNPL':
         case 'GENERIC':
+        case 'PL_GENERIC':
             return genericPayLaterBNPL[type];
         case 'PURCHASE_PROTECTION':
             return purchaseProtection[type];
         // // Generic PayPal message
         case 'GENERIC_PAYPAL':
+        case 'PP_GENERIC':
         default:
             return genericPayPal[type];
     }
