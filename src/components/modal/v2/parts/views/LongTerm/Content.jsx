@@ -156,15 +156,15 @@ export const LongTerm = ({
 
     // Determine disclosure content based on type
     const getDisclosure = disclosureContent => {
-        if (typeof disclosureContent === 'string' || Array.isArray(disclosureContent)) {
-            return <InlineLinks text={disclosureContent} useNewCheckoutDesign={useNewCheckoutDesign} />;
+        const aprType = offerAPRDisclaimers?.[0]?.aprType;
+
+        let text = disclosureContent;
+        if (typeof disclosureContent !== 'string' && !Array.isArray(disclosureContent)) {
+            const aprText = disclosureContent?.[aprType];
+            text = Array.isArray(aprText) ? aprText : (aprText ?? '').replace(/\D00\s?(EUR|€)/g, ' €');
         }
-        if (Array.isArray(disclosureContent?.[offerAPRDisclaimers[0].aprType])) {
-            return <InlineLinks text={disclosureContent?.[offerAPRDisclaimers[0].aprType]} />;
-        }
-        return (
-            <InlineLinks text={(disclosure?.[offerAPRDisclaimers[0].aprType] ?? '').replace(/\D00\s?(EUR|€)/g, ' €')} />
-        );
+
+        return <InlineLinks text={text} useNewCheckoutDesign={useNewCheckoutDesign} />;
     };
 
     return (
