@@ -24,7 +24,7 @@ export const ShortTerm = ({
         learnMoreLink,
         cta
     },
-    productMeta: { qualifying, periodicPayment, useV4Design, useV5Design, preapproved },
+    productMeta: { qualifying, periodicPayment, useV4Design, useV5Design, preapproved, showPreapprovedBadge },
     openProductList,
     useNewCheckoutDesign,
     use5Dot1Design
@@ -35,6 +35,8 @@ export const ShortTerm = ({
     const isQualifying = qualifying === 'true';
 
     const isPreapproved = preapproved === 'true';
+    const shouldShowPreapprovedBadge = showPreapprovedBadge === 'true';
+    const showPreapprovalContent = isPreapproved && shouldShowPreapprovedBadge;
 
     const preapprovalDisclaimerHeadline = preapproval?.preapprovalDisclaimerHeadline;
     const preapprovalDisclaimerBody = preapproval?.preapprovalDisclaimerBody;
@@ -143,7 +145,7 @@ export const ShortTerm = ({
                                 ))}
                             </div>
                         </div>
-                        {isPreapproved && (
+                        {showPreapprovalContent && (
                             <PreapprovalDisclaimer
                                 preapprovalDisclaimerBody={preapprovalDisclaimerBody}
                                 preapprovalDisclaimerHeadline={preapprovalDisclaimerHeadline}
