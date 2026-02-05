@@ -1,4 +1,4 @@
-import { formatDateByCountry, validateProps } from 'src/components/modal/v2/lib/utils';
+import { formatDateByCountry, validateProps, getEuroStyleClass } from 'src/components/modal/v2/lib/utils';
 
 describe('Date function should return correct date format based on country', () => {
     it('US country date should be formatted MM/DD/YYYY', () => {
@@ -35,5 +35,27 @@ describe('validateProps', () => {
             contextualComponents: 'PAYPAL_BUTTON'
         };
         expect(output).toMatchObject({ ...fixedPropOutputValues, ...propsToPreserve });
+    });
+});
+
+describe('getEuroStyleClass', () => {
+    it('returns DE class for DE country', () => {
+        expect(getEuroStyleClass('DE')).toBe('DE');
+    });
+
+    it('returns DE class for AT country (shares same styling as DE)', () => {
+        expect(getEuroStyleClass('AT')).toBe('DE');
+    });
+
+    it('returns empty string for US country', () => {
+        expect(getEuroStyleClass('US')).toBe('');
+    });
+
+    it('returns empty string for other countries', () => {
+        expect(getEuroStyleClass('GB')).toBe('');
+        expect(getEuroStyleClass('FR')).toBe('');
+        expect(getEuroStyleClass('ES')).toBe('');
+        expect(getEuroStyleClass('IT')).toBe('');
+        expect(getEuroStyleClass('AU')).toBe('');
     });
 });

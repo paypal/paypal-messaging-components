@@ -1,7 +1,7 @@
 /** @jsx h */
 import { Fragment, h } from 'preact';
 import { useState } from 'preact/hooks';
-import { isLander, useServerData, useTransitionState, useScroll, currencyFormat } from '../lib';
+import { isLander, useServerData, useTransitionState, useScroll, currencyFormat, getEuroStyleClass } from '../lib';
 import Icon from './Icon';
 
 const Header = ({
@@ -107,9 +107,9 @@ const Header = ({
                     </p>
                 ) : (
                     <p
-                        className={`subheadline_p subheadline-${countryClassName} ${useV5Design ? 'v5Design' : ''} ${
-                            country === 'DE' ? 'DE' : ''
-                        }`}
+                        className={`subheadline_p subheadline-${countryClassName} ${
+                            useV5Design ? 'v5Design' : ''
+                        } ${getEuroStyleClass(country)}`}
                         // eslint-disable-next-line react/no-danger
                         dangerouslySetInnerHTML={{
                             __html: currencyFormat(subheadline) ?? ''

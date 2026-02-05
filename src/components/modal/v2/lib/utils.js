@@ -114,6 +114,18 @@ export function formatDateByCountry(country) {
     return currentDate.toLocaleDateString('en-GB', options);
 }
 
+/**
+ * Returns the Euro-style CSS class for countries that share the same modal styling.
+ * DE and AT use identical styling (German language, Euro currency, same layout adjustments).
+ * Returns 'DE' class for backward compatibility with existing CSS rules.
+ * @param {string} country - The country code (e.g., 'DE', 'AT', 'US')
+ * @returns {string} - CSS class name ('DE') or empty string
+ */
+export function getEuroStyleClass(country) {
+    const euroStyleCountries = ['DE', 'AT'];
+    return euroStyleCountries.includes(country) ? 'DE' : '';
+}
+
 export function validateProps(updatedProps) {
     const validatedProps = {};
     Object.entries(updatedProps).forEach(entry => {

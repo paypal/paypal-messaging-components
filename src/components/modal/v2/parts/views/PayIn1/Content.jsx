@@ -8,6 +8,7 @@ import styles from './styles.scss';
 
 import { useServerData } from '../../../lib/providers';
 import { currencyFormat } from '../../../lib/hooks/currency'; // Remove .00 cents from formated min and max
+import { getEuroStyleClass } from '../../../lib';
 
 export const PayIn1 = ({
     productMeta: { useV5Design },
@@ -43,7 +44,7 @@ export const PayIn1 = ({
                     </div>
                 </div>
             </div>
-            <div className={`content__row disclosure ${useV5Design ? 'v5Design' : ''} ${country === 'DE' ? 'DE' : ''}`}>
+            <div className={`content__row disclosure ${useV5Design ? 'v5Design' : ''} ${getEuroStyleClass(country)}`}>
                 <InlineLinks text={currencyFormat(disclosure)} />
             </div>
             <div className="content__row productLink">

@@ -40,6 +40,7 @@ const getError = ({ offers, error = '' }, isLoading, calculator, amount, country
     }
 
     const replaceRegExp = {
+        AT: /(,[0-9]*?)00/g,
         DE: /(,[0-9]*?)00/g,
         ES: /(,[0-9]*?)00/g,
         IT: /(,[0-9]*?)00/g,

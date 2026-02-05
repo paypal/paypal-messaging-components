@@ -179,9 +179,16 @@ export const logger = Logger({
             headers.Authorization = `Basic ${encodedClientId}`;
         }
         if (__MESSAGES__.__TARGET__ === 'STANDALONE' || __MESSAGES__.__TARGET__ === 'STANDALONE_MODAL') {
-            const encodedPayerId = btoa(trimmedMeta['1'].account);
-            // eslint-disable-next-line no-param-reassign
-            headers.Authorization = `Basic ${encodedPayerId}`;
+            // Find the first component metadata with an account (may not be index '1' if logger flushes early)
+            const componentMeta = Object.entries(trimmedMeta).find(
+                ([key, value]) => key !== 'global' && value?.account
+            )?.[1];
+
+            if (componentMeta?.account) {
+                const encodedPayerId = btoa(componentMeta.account);
+                // eslint-disable-next-line no-param-reassign
+                headers.Authorization = `Basic ${encodedPayerId}`;
+            }
         }
 
         return ZalgoPromise.all(
