@@ -22,6 +22,10 @@
 -   Give each subagent crisp context, the exact files it needs, and clear instructions with expected output format.
 -   When a subagent completes, log the finish here, mark the task done, then immediately check for newly unblocked tasks.
 -   Repeat the cycle until the entire plan is complete.
+- Use subagents liberally to keep the main context window clean for long-running work.
+- Offload research, exploration, and parallel analysis to subagents whenever tasks are independent.
+- Keep one task per subagent for focused execution and easier validation handoff.
+
 
 ## Docs-first (read before coding)
 
@@ -97,6 +101,10 @@ Run additional suites when you touched related areas:
 -   If you change snapshot-relevant rendering, use snapshot pages (`demo/snapshot/*.html`) and run the snapshot suite.
 -   If tests fail: reproduce → fix root cause → re-run the same suite(s) until green.
 -   When fixing bugs: reproduce first → fix → verify the fix via the most relevant demo/tests.
+- Never mark work complete without proving behavior with relevant tests, logs, or runtime checks.
+- When relevant, compare behavior between base/main and your changes to confirm intended deltas.
+- Apply a staff-level quality bar: ask whether the result is robust, observable, and review-ready.
+
 
 ## Tests (what to run and when)
 
@@ -193,6 +201,43 @@ Use Playwright’s interactive modes when tests fail or when implementing a comp
 -   Keep changes aligned with repo patterns (webpack targets, demo verification, test suites).
 -   Run the most relevant local gates for the impacted area(s) and cite the commands you executed.
 
+## Plan Mode Default
+
+- Enter plan mode for any non-trivial task (3+ steps or architectural decisions).
+- If execution goes sideways, stop and re-plan immediately before continuing.
+- Include verification steps in the plan, not only implementation steps.
+- Write detailed specs up front to reduce ambiguity and rework.
+
+## Demand Elegance (Balanced)
+
+- For non-trivial changes, pause and ask whether there is a more elegant path before implementation.
+- If a fix feels hacky, prefer the cleaner approach you would choose with full context.
+- Skip elegance over-optimization for obvious small fixes; do not over-engineer.
+
+## Autonomous Bug Fixing
+
+- When given a bug report, own the full path: reproduce, identify root cause, fix, and verify.
+- Start from logs, errors, and failing tests; resolve issues with minimal user context switching.
+- If CI checks fail in scope, investigate and fix them without waiting for step-by-step instructions.
+
+## Task Management (Portable)
+
+- For non-trivial work, maintain a checkable plan in tasks/todo.md.
+- Track progress as items are completed and include brief review notes for key decisions.
+- Capture recurring corrections and preventions in tasks/lessons.md.
+- If tasks/todo.md or tasks/lessons.md does not exist, create it on demand for active work.
+
+## Core Principles
+
+- Simplicity first: keep each change as small as possible while solving the right problem.
+- No laziness: find and fix root causes, not temporary patches.
+- Minimal impact: touch only what is necessary and avoid introducing regressions.
+
 ## Self-improvement
+
+- After any user correction, update portable task notes (tasks/lessons.md) with mistake-prevention rules.
+- Review relevant lessons at the start of related tasks and apply them proactively.
+- Iterate on these lessons until repeat mistakes materially drop.
+
 
 -   If we hit the same correction twice, codify it in `AGENTS.md` so future work stays aligned.
