@@ -209,11 +209,6 @@ logger.addMetaBuilder(() => {
 });
 
 logger.addPayloadBuilder(payload => {
-    // Append help URL to description for better console visibility
-    if (payload.help_url && payload.description) {
-        payload.description = `${payload.description}\n\nFor help, see: ${payload.help_url}`; // eslint-disable-line no-param-reassign
-    }
-
     // Remove properties holding DOM element references that are
     // only useful in the context of the browser console window
     delete payload.container; // eslint-disable-line no-param-reassign

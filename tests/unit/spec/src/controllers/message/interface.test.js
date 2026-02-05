@@ -105,7 +105,8 @@ describe('message interface', () => {
         expect(logger.warn).toHaveBeenLastCalledWith(
             expect.stringContaining('invalid_selector'),
             expect.objectContaining({
-                selector: '.invalid'
+                selector: '.invalid',
+                help_url: expect.stringContaining('troubleshooting')
             })
         );
     });
@@ -120,7 +121,8 @@ describe('message interface', () => {
             expect.stringContaining('not_in_document'),
             expect.objectContaining({
                 // Passing the container as a ref here causes some jest/babel compiling issue
-                container: expect.any(Object)
+                container: expect.any(Object),
+                help_url: expect.stringContaining('troubleshooting')
             })
         );
 
@@ -344,5 +346,38 @@ describe('message interface', () => {
 
         expect(onApply).toHaveBeenCalledTimes(1);
         expect(onApply).toHaveBeenLastCalledWith({ meta: { messageRequestId: '12345' } });
+    });
+
+    describe('help_url in warnings', () => {
+        test('Includes help_url in invalid selector warning', async () => {
+            await Messages({}).render('.nonexistent-selector');
+
+            expect(logger.warn).toHaveBeenCalledTimes(1);
+            const [, payload] = logger.warn.mock.calls[0];
+            expect(payload.help_url).toBeDefined();
+            expect(payload.help_url).toContain('troubleshooting');
+            expect(payload.help_url).toContain('integration');
+        });
+
+        test('Includes help_url in not in document warning', async () => {
+            const detachedContainer = document.createElement('div');
+
+            await Messages({}).render(detachedContainer);
+
+            expect(logger.warn).toHaveBeenCalledTimes(1);
+            const [, payload] = logger.warn.mock.calls[0];
+            expect(payload.help_url).toBeDefined();
+            expect(payload.help_url).toContain('troubleshooting');
+            expect(payload.help_url).toContain('integration');
+        });
+
+        test('help_url points to valid FAQ URL format', async () => {
+            await Messages({}).render('.invalid');
+
+            const [, payload] = logger.warn.mock.calls[0];
+            expect(payload.help_url).toMatch(
+                /^https:\/\/developer\.paypal\.com\/docs\/business\/pay-later\/troubleshooting\/#/
+            );
+        });
     });
 });

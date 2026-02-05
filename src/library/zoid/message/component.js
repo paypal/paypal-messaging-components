@@ -152,7 +152,10 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                         const { offerType, offerCountry, messageRequestId, lander } = meta;
                         if (offerType === 'PURCHASE_PROTECTION') {
                             if (getURIPopup(lander, offerType) == null) {
-                                logger.warn('Blocked unsafe lander URL', { lander });
+                                logger.warn('Blocked unsafe lander URL', {
+                                    lander,
+                                    help_url: getFaqUrl('UNSAFE_LANDER')
+                                });
                             }
                         } else {
                             // Avoid spreading message props because both message and modal

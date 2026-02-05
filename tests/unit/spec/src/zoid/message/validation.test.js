@@ -28,7 +28,10 @@ describe('validate', () => {
         expect(console.warn).toHaveBeenCalledTimes(1);
         expect(console.warn).toHaveBeenLastCalledWith(
             expect.stringContaining('invalid_option_value'),
-            expect.objectContaining({ location: 'account' })
+            expect.objectContaining({
+                location: 'account',
+                help_url: expect.stringContaining('troubleshooting')
+            })
         );
 
         account = validate.account({ props: { account: undefined } });
@@ -37,7 +40,10 @@ describe('validate', () => {
         expect(console.warn).toHaveBeenCalledTimes(2);
         expect(console.warn).toHaveBeenLastCalledWith(
             expect.stringContaining('invalid_option_value'),
-            expect.objectContaining({ location: 'account' })
+            expect.objectContaining({
+                location: 'account',
+                help_url: expect.stringContaining('troubleshooting')
+            })
         );
 
         account = validate.account({ props: { account: 12345 } });
@@ -46,7 +52,10 @@ describe('validate', () => {
         expect(console.warn).toHaveBeenCalledTimes(3);
         expect(console.warn).toHaveBeenLastCalledWith(
             expect.stringContaining('invalid_option_value'),
-            expect.objectContaining({ location: 'account' })
+            expect.objectContaining({
+                location: 'account',
+                help_url: expect.stringContaining('troubleshooting')
+            })
         );
     });
 
@@ -115,7 +124,10 @@ describe('validate', () => {
             expect(console.warn).toHaveBeenCalledTimes(index + 1);
             expect(console.warn).toHaveBeenLastCalledWith(
                 expect.stringContaining('invalid_option_value'),
-                expect.objectContaining({ location: 'amount' })
+                expect.objectContaining({
+                    location: 'amount',
+                    help_url: expect.stringContaining('troubleshooting')
+                })
             );
         });
     });
