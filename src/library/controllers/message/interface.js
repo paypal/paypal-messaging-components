@@ -51,7 +51,7 @@ export default (options = {}) => ({
                 logger.warn('invalid_selector', {
                     description: `No elements were found with the following selector: "${selector}"`,
                     selector,
-                    help_url: getFaqUrl('INVALID_SELECTOR')
+                    help_url: getFaqUrl('INTEGRATION')
                 });
             }
 
@@ -64,7 +64,7 @@ export default (options = {}) => ({
                 logger.warn('not_in_document', {
                     description: 'Container must be in the document.',
                     container,
-                    help_url: getFaqUrl('NOT_IN_DOCUMENT')
+                    help_url: getFaqUrl('INTEGRATION')
                 });
 
                 return false;

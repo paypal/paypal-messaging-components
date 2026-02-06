@@ -12,24 +12,14 @@ describe('utils/faq', () => {
             expect(url).toBe('https://developer.paypal.com/docs/business/pay-later/troubleshooting/#invalid-options');
         });
 
-        test('returns correct URL for INVALID_SELECTOR topic', () => {
-            const url = getFaqUrl('INVALID_SELECTOR');
-            expect(url).toBe('https://developer.paypal.com/docs/business/pay-later/troubleshooting/#integration');
-        });
-
-        test('returns correct URL for NOT_IN_DOCUMENT topic', () => {
-            const url = getFaqUrl('NOT_IN_DOCUMENT');
+        test('returns correct URL for INTEGRATION topic', () => {
+            const url = getFaqUrl('INTEGRATION');
             expect(url).toBe('https://developer.paypal.com/docs/business/pay-later/troubleshooting/#integration');
         });
 
         test('returns correct URL for RENDER_WARNING topic', () => {
             const url = getFaqUrl('RENDER_WARNING');
             expect(url).toBe('https://developer.paypal.com/docs/business/pay-later/troubleshooting/#rendering');
-        });
-
-        test('returns correct URL for UNSAFE_LANDER topic', () => {
-            const url = getFaqUrl('UNSAFE_LANDER');
-            expect(url).toBe('https://developer.paypal.com/docs/business/pay-later/troubleshooting/#invalid-options');
         });
 
         test('falls back to GENERAL for unknown topics', () => {

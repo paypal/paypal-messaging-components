@@ -43,7 +43,7 @@ module.exports = (env = { TARGET: 'sdk' }) => ({
             __CREDIT_APPLY__: '/credit-application/paypal-credit-card/da/us/billing'
         },
         __FAQ__: {
-            __BASE_URL__: env.FAQ_BASE_URL || 'https://developer.paypal.com/docs/business/pay-later'
+            __BASE_URL__: 'https://developer.paypal.com/docs/business/pay-later'
         }
     }
 });

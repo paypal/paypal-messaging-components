@@ -7,10 +7,8 @@
 const FAQ_PATHS = {
     MESSAGE_HIDDEN: '/troubleshooting/#message-hidden',
     INVALID_OPTIONS: '/troubleshooting/#invalid-options',
-    INVALID_SELECTOR: '/troubleshooting/#integration',
-    NOT_IN_DOCUMENT: '/troubleshooting/#integration',
+    INTEGRATION: '/troubleshooting/#integration',
     RENDER_WARNING: '/troubleshooting/#rendering',
-    UNSAFE_LANDER: '/troubleshooting/#invalid-options',
     GENERAL: '/troubleshooting/'
 };
 

@@ -154,7 +154,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                             if (getURIPopup(lander, offerType) == null) {
                                 logger.warn('Blocked unsafe lander URL', {
                                     lander,
-                                    help_url: getFaqUrl('UNSAFE_LANDER')
+                                    help_url: getFaqUrl('INVALID_OPTIONS')
                                 });
                             }
                         } else {
