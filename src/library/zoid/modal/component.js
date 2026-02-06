@@ -300,7 +300,8 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                     const { onReady, buttonSessionId } = props;
                     // Fired anytime we fetch new content (e.g. amount change)
                     return ({ products, meta, ts }) => {
-                        const { index, offer, merchantId, account, refIndex, messageRequestId, language } = props;
+                        const { index, offer, merchantId, account, refIndex, messageRequestId, language, locale } =
+                            props;
                         const { renderStart, show, hide } = state;
                         const { trackingDetails, ppDebugId } = meta;
                         const partnerClientId = merchantId && account.slice(10); // slice is to remove the characters 'client-id:' from account name
@@ -335,7 +336,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                                     account: merchantId || account,
                                     partnerClientId,
                                     trackingDetails,
-                                    language_requested: language
+                                    language_requested: locale || language
                                 }
                             };
                         });
