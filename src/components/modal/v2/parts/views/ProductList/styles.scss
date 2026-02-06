@@ -1,16 +1,16 @@
-@import '../../../styles/globals/colors';
-@import '../../../styles/globals/mixins';
+@use '../../../styles/globals/colors';
+@use '../../../styles/globals/mixins';
 
 p {
-    color: $text-main;
+    color: colors.$text-main;
     font-size: 18px;
     width: 100%;
 
-    @include mobile {
+    @include mixins.mobile {
         width: auto;
     }
 
-    @include lander {
+    @include mixins.lander {
         margin-top: 30px;
     }
 

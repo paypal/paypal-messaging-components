@@ -61,7 +61,7 @@ export function buildStatsPayload({ container, activeTags, index, requestDuratio
             index,
             ad_blocker: detected.toString(),
             blocked: isHidden(container).toString(),
-            bn_code: sdkMetaAttributes[SDK_SETTINGS.PARTNER_ATTRIBUTION_ID],
+            partner_attribution_id: sdkMetaAttributes[SDK_SETTINGS.PARTNER_ATTRIBUTION_ID],
             // Beaver logger filters payload props based on Boolean conversion value
             // so everything must be converted to a string to prevent unintended filtering
             position_in_page_x: Math.round(containerRect.left).toString(),

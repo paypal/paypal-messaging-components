@@ -31,6 +31,7 @@ export function getLocalTreatments() {
         } else {
             fetchTreatments();
         }
+        return null;
     }
 
     return experiments.treatmentsHash;

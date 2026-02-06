@@ -1,4 +1,6 @@
-@import '../globals/mixins';
+@use '../globals/mixins';
+@use "../globals/colors";
+@use "../globals/variables";
 
 $webpage: 1640px;
 $green500: #388c00;
@@ -13,7 +15,7 @@ $donut-text-v5: #545d68;
     flex-direction: column;
     align-items: center;
 
-    @include mobile {
+    @include mixins.mobile {
         width: 70px;
     }
 
@@ -22,7 +24,7 @@ $donut-text-v5: #545d68;
     &.donut__qualifying_payment {
         svg {
             text {
-                color: $text-main;
+                color: colors.$text-main;
                 transform: translate(1px, 3px);
             }
         }
@@ -31,10 +33,10 @@ $donut-text-v5: #545d68;
     &:first-of-type {
         .donut__ {
             &payment {
-                font-family: $paypal-open;
+                font-family: variables.$paypal-open;
             }
             &timestamp {
-                font-family: $paypal-open;
+                font-family: variables.$paypal-open;
             }
         }
     }
@@ -46,9 +48,9 @@ $donut-text-v5: #545d68;
         text {
             font-size: 0.5rem;
             line-height: 20px;
-            font-family: $paypal-open;
+            font-family: variables.$paypal-open;
             font-weight: 600;
-            color: $gray;
+            color: colors.$gray;
         }
 
         .donut__background {
@@ -61,7 +63,7 @@ $donut-text-v5: #545d68;
         .donut__background__line {
             stroke: none;
         }
-        @include smallHeightMobile {
+        @include mixins.smallHeightMobile {
             max-width: 60px;
         }
     }
@@ -82,8 +84,8 @@ $donut-text-v5: #545d68;
         }
 
         &.donut__payment {
-            font-family: $paypal-open;
-            color: $text-main;
+            font-family: variables.$paypal-open;
+            color: colors.$text-main;
             font-size: 0.9rem;
             margin-top: 0.3rem;
 
@@ -101,10 +103,10 @@ $donut-text-v5: #545d68;
         }
 
         &.donut__timestamp {
-            color: $text-main;
-            font-family: $paypal-open;
+            color: colors.$text-main;
+            font-family: variables.$paypal-open;
             font-size: 0.9rem;
-            @include desktop {
+            @include mixins.desktop {
                 line-height: 22px;
             }
             white-space: nowrap;
@@ -125,12 +127,12 @@ $donut-text-v5: #545d68;
             }
             span.donut__timestamp_v5,
             span.donut__payment_v5 {
-                color: $text-main;
+                color: colors.$text-main;
             }
         }
         span.donut__timestamp_v5Dot1,
         span.donut__payment_v5Dot1 {
-            color: $v5-gray;
+            color: colors.$v5-gray;
         }
         .svg {
             display: flex;
@@ -140,27 +142,21 @@ $donut-text-v5: #545d68;
             &::after {
                 content: '';
                 flex-grow: 1;
-                border-top: 1px dashed $dark-gray;
+                border-top: 1px dashed colors.$dark-gray;
                 width: 100%;
                 max-width: 50px;
                 transform: translateX((97%));
                 margin-top: -50%;
                 margin-bottom: 50%;
 
-                @include smallHeightMobile {
+                @include mixins.smallHeightMobile {
                     transform: translateX((100%));
                 }
-                @include mobile {
+                @include mixins.mobile {
                     max-width: 45px;
                 }
-                @include smallMobile {
+                @include mixins.smallMobile {
                     max-width: 35px;
-                }
-            }
-
-            .gb.checkout & {
-                &::after {
-                    display: none;
                 }
             }
         }
@@ -173,7 +169,7 @@ $donut-text-v5: #545d68;
         &__3 {
             @extend .donut__single_payment_line;
             .svg {
-                @include mobile {
+                @include mixins.mobile {
                     position: relative;
                 }
 
@@ -182,14 +178,14 @@ $donut-text-v5: #545d68;
                     transform: translateX((100%));
                     margin-left: 50%;
 
-                    @include smallHeightMobile {
+                    @include mixins.smallHeightMobile {
                         transform: translateX((75%));
                     }
-                    @include mobile {
+                    @include mixins.mobile {
                         max-width: none;
                         padding-left: 2px;
                     }
-                    @include smallMobile {
+                    @include mixins.smallMobile {
                         max-width: min(55px, calc(100vw * 0.3));
                         transform: translateX((57%));
                     }

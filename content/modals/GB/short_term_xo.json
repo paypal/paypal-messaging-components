@@ -8,6 +8,8 @@
         "amount": "{transaction_amount}",
         "useV5Design": "true",
         "apr": "{apr}",
+        "preapproved": "false",
+        "showPreapprovedBadge": "false",
         "variables": {
             "transaction_amount": "${eval(transaction_amount ? transaction_amount : '-')}",
             "qualifying_offer": "${eval(CREDIT_OFFERS_DS.qualifying_offer ? CREDIT_OFFERS_DS.qualifying_offer : 'false')}",
@@ -46,9 +48,25 @@
         "preapproval": {
             "preapprovalHeadline": "Pay in 3 interest-free payments",
             "preapprovalLabel": "Pre-approved",
-            "preapprovalSubHeadline": "Pay {formattedTotalCost} in {total_payments} interest-free payments.",
-            "preapprovalDisclaimerHeadline": "What to know about pre-approval",
-            "preapprovalDisclaimerBody": "Pre-approval may not be valid if you make another Pay in 3 purchase before the session expires."
+            "preapprovalSubHeadline": "Split your purchase of {formattedTotalCost} into {total_payments} with no sign-up fees or late fees.",
+            "preapprovalDisclaimerHeadline": "What does pre-approval mean?",
+            "preapprovalDisclaimerBody": [
+                "Pre-approval applies to this purchase only. It is based on a recent assessment of PayPal internal data that includes your account status, payment history and other factors. We use this data to assess if this loan is affordable to you.",
+                "If this data changes in the period between showing pre-approval and the completion of your purchase and after completion of final identity and fraud checks, there is a small risk that this may result in a decline.",
+                "You should consider if the purchase is affordable and how you will make repayments.",
+                "Missing payments may make other borrowing more difficult or expensive for you."
+            ],
+            "preapprovalPrivacyDisclaimer": [
+                "To stop seeing the Pay in 3 ",
+                "'Pre-approved'",
+                " badge in PayPal checkout, go to Data & Privacy in your settings and ",
+                [
+                    "turn off permission",
+                    "https://www.paypal.com/myaccount/privacy/settings/personalization/paypal",
+                    "turn off permission, opens new tab"
+                ],
+                " for interest-based marketing."
+            ]
         },
         "cta": {
             "buttonTextEligible": "Continue",

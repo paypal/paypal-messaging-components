@@ -1,5 +1,57 @@
 # Changelog
 
+## [1.77.0](https://github.com/paypal/paypal-messaging-components/compare/v1.76.1...v1.77.0) (2026-02-03)
+
+
+### Features
+
+* add experiment gating for US and GB preapproval badge ([#1270](https://github.com/paypal/paypal-messaging-components/issues/1270)) ([237fe7e](https://github.com/paypal/paypal-messaging-components/commit/237fe7e7ba6d2dc4e6fdcda5290928f73a5225f9))
+
+
+### Bug Fixes
+
+* country-specific margins for preapproval label in checkout header ([#1266](https://github.com/paypal/paypal-messaging-components/issues/1266)) ([aed68db](https://github.com/paypal/paypal-messaging-components/commit/aed68db786b3f1783ac4ed2fbf143fdde7560310))
+
+
+### Code Refactoring
+
+* Feature/payloadfields ([#1260](https://github.com/paypal/paypal-messaging-components/issues/1260)) ([cae48fe](https://github.com/paypal/paypal-messaging-components/commit/cae48fea0cedad1676b421091b11a502a4406157))
+* finalize message type values ([#1252](https://github.com/paypal/paypal-messaging-components/issues/1252)) ([49d63d7](https://github.com/paypal/paypal-messaging-components/commit/49d63d78f8125ea3b8d63da4233f3e7a1a701154))
+
+### [1.76.1](https://github.com/paypal/paypal-messaging-components/compare/v1.76.0...v1.76.1) (2026-01-27)
+
+
+### Bug Fixes
+
+* header component scss ([#1265](https://github.com/paypal/paypal-messaging-components/issues/1265)) ([61ea1b3](https://github.com/paypal/paypal-messaging-components/commit/61ea1b3aa7c6c19b78c9a6955ecf4089406c64d1))
+
+
+### Code Refactoring
+
+* fetch new treatments on expiration ([#1262](https://github.com/paypal/paypal-messaging-components/issues/1262)) ([ff6ddbf](https://github.com/paypal/paypal-messaging-components/commit/ff6ddbf87de96e5335f45e836314155fbfbee18f))
+* migrate deprecated Sass [@import](https://github.com/import) to [@use](https://github.com/use) statements ([#1254](https://github.com/paypal/paypal-messaging-components/issues/1254)) ([89adcf5](https://github.com/paypal/paypal-messaging-components/commit/89adcf5bd23811921615f464ffdbf593c003fd7d))
+* remove core-js-pure dependency ([#1253](https://github.com/paypal/paypal-messaging-components/issues/1253)) ([181a8b7](https://github.com/paypal/paypal-messaging-components/commit/181a8b708b3f409f0531f835ff97f275f88b5495))
+* UK Pi3 Preapproval ModXO changes ([#1259](https://github.com/paypal/paypal-messaging-components/issues/1259)) ([95ed87c](https://github.com/paypal/paypal-messaging-components/commit/95ed87c17016d6ace42f2bf9ec4d058892b94177))
+
+## [1.76.0](https://github.com/paypal/paypal-messaging-components/compare/v1.75.0...v1.76.0) (2026-01-20)
+
+
+### Features
+
+* add otherCosts for modal ES/IT ([#1247](https://github.com/paypal/paypal-messaging-components/issues/1247)) ([c2907b2](https://github.com/paypal/paypal-messaging-components/commit/c2907b2d85e1cdc91648793420ab0de7934eed8d))
+
+
+### Bug Fixes
+
+* Assigned true value for disableSetCookie query parameters for non-sdk integrations ([42f2333](https://github.com/paypal/paypal-messaging-components/commit/42f233341f51caa6bb0b99c994f2d44bb8f2ac50))
+
+
+### Code Refactoring
+
+* DE Pi30 modal - Updated URLs for terms ([#1250](https://github.com/paypal/paypal-messaging-components/issues/1250)) ([8520372](https://github.com/paypal/paypal-messaging-components/commit/8520372dd25dcf343f20f8f7f29a52999899b07c))
+* PPC 180-day Updates 11/1/25 ([#1246](https://github.com/paypal/paypal-messaging-components/issues/1246)) ([3058784](https://github.com/paypal/paypal-messaging-components/commit/305878452607dafa3b41b121dd55622d3691db17))
+* update es lt max threshold ([#1256](https://github.com/paypal/paypal-messaging-components/issues/1256)) ([1c9754b](https://github.com/paypal/paypal-messaging-components/commit/1c9754b0bddbb0468188bf399dd1256d95cecb6a))
+
 ## [1.75.0](https://github.com/paypal/paypal-messaging-components/compare/v1.74.0...v1.75.0) (2025-11-04)
 
 

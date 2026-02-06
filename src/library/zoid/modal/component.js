@@ -1,5 +1,3 @@
-import stringIncludes from 'core-js-pure/stable/string/includes';
-import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import { SDK_SETTINGS } from '@paypal/sdk-constants';
 import { create } from '@krakenjs/zoid/src';
 import { uniqueID, getCurrentScriptUID } from '@krakenjs/belter/src';
@@ -178,7 +176,11 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                             onClick({ linkName });
                         }
 
-                        if (typeof onApply === 'function' && stringIncludes(linkName, 'Apply Now')) {
+                        if (
+                            typeof onApply === 'function' &&
+                            typeof linkName === 'string' &&
+                            linkName.includes('Apply Now')
+                        ) {
                             onApply();
                         }
                     };
@@ -347,7 +349,7 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                             event_type: 'modal_rendered',
                             modal: `${products.join('_').toLowerCase()}:${offer ? offer.toLowerCase() : products[0]}`,
                             // For standalone modal the stats event does not run, so we duplicate some data here
-                            bn_code: getScriptAttributes()[SDK_SETTINGS.PARTNER_ATTRIBUTION_ID],
+                            partner_attribution_id: getScriptAttributes()[SDK_SETTINGS.PARTNER_ATTRIBUTION_ID],
                             first_modal_render_delay: Math.round(firstModalRenderDelay).toString(),
                             render_duration: Math.round(getCurrentTime() - renderStart).toString()
                         });
@@ -386,15 +388,14 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
             payerId: {
                 type: 'string',
                 queryParam: 'payer_id',
-                decorate: ({ props }) => (!stringStartsWith(props.account, 'client-id:') ? props.account : null),
+                decorate: ({ props }) => (!props.account.startsWith('client-id:') ? props.account : null),
                 default: () => '',
                 required: false
             },
             clientId: {
                 type: 'string',
                 queryParam: 'client_id',
-                decorate: ({ props }) =>
-                    stringStartsWith(props.account, 'client-id:') ? props.account.slice(10) : null,
+                decorate: ({ props }) => (props.account.startsWith('client-id:') ? props.account.slice(10) : null),
                 default: () => '',
                 required: false
             },

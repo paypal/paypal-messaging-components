@@ -75,6 +75,7 @@ const BodyContent = () => {
         document.documentElement.className = `${documentClassName} v5Design`;
     }
     const isPreapproved = productMeta?.preapproved;
+    const shouldShowPreapprovedBadge = productMeta?.showPreapprovedBadge;
     const preapprovalHeadline = content?.preapproval?.preapprovalHeadline;
     const preapprovalSubHeadline = content?.preapproval?.preapprovalSubHeadline;
     const preapprovalLabel = content?.preapproval?.preapprovalLabel;
@@ -154,6 +155,7 @@ const BodyContent = () => {
                     preapprovalLabel={preapprovalLabel}
                     // toggles preapproval content
                     isPreapproved={isPreapproved ?? 'false'}
+                    shouldShowPreapprovedBadge={shouldShowPreapprovedBadge ?? 'false'}
                 />
             ) : (
                 <Header

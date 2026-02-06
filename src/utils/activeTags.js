@@ -1,6 +1,3 @@
-import arrayFind from 'core-js-pure/stable/array/find';
-import arrayFrom from 'core-js-pure/stable/array/from';
-
 import { getWindowFromElement } from './elements';
 
 // Map class name of visible element to size tag.
@@ -8,7 +5,7 @@ const toTagSize = classList => {
     const sizes = ['xsmall', 'small', 'medium', 'large', 'xlarge'];
 
     // Match on first tag contained in classList, ignoring other values.
-    const tag = arrayFind(sizes, size => classList.contains(`tag--${size}`)) || 'NONE';
+    const tag = sizes.find(size => classList.contains(`tag--${size}`)) || 'NONE';
 
     return tag.toUpperCase();
 };
@@ -19,8 +16,7 @@ const getTagSize = node => {
         return 'NONE';
     }
 
-    const visibleElement = arrayFind(
-        arrayFrom(node.children),
+    const visibleElement = Array.from(node.children).find(
         element => getWindowFromElement(node).getComputedStyle(element).getPropertyValue('display') !== 'none'
     );
 
