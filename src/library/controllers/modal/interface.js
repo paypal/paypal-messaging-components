@@ -28,6 +28,7 @@ const memoizedModal = memoizeOnProps(
         amount,
         buyerCountry,
         language,
+        locale,
         ignoreCache,
         offer,
         onReady,
@@ -55,6 +56,7 @@ const memoizedModal = memoizeOnProps(
             amount,
             buyerCountry,
             language,
+            locale,
             ignoreCache,
             offer,
             onReady,
@@ -184,7 +186,7 @@ const memoizedModal = memoizeOnProps(
             updateProps: updateModal
         };
     },
-    ['account', 'merchantId', 'buyerCountry']
+    ['account', 'merchantId', 'buyerCountry', 'language', 'locale']
 );
 
 export default options => memoizedModal(objectMerge(getGlobalState().config, options));
