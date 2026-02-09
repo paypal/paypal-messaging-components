@@ -282,7 +282,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                                     account: merchantId || account,
                                     partnerClientId,
                                     trackingDetails,
-                                    language_requested: locale || language
+                                    language_requested: locale?.replace('_', '-') || language
                                 }
                             };
                         });
