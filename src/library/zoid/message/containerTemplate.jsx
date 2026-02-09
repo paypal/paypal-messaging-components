@@ -9,7 +9,7 @@ const DEFAULT_TEXT_SIZE_PX = 14;
 const MIN_TEXT_SIZE_PX = 10;
 const MAX_TEXT_SIZE_PX = 16;
 const TEXT_LINE_HEIGHT = 1.3;
-const TEXT_LINE_COUNT = 2;
+const TEXT_LINE_COUNT = 1;
 
 const getPlaceholderHeightPx = style => {
     if (style?.layout !== 'text') {

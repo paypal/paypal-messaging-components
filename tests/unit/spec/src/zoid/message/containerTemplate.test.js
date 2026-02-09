@@ -56,14 +56,27 @@ describe('zoid/message/containerTemplate', () => {
 
     test('Sets placeholder min-height for text layout', () => {
         const { container } = renderTemplate({ layout: 'text', text: { size: 12 } });
-        expect(container.style.minHeight).toBe('31.2px');
+        expect(container.style.minHeight).toBe('15.6px');
     });
 
-    test('Clears placeholder min-height on first resize', () => {
+    test('Uses default text size when style text size is invalid', () => {
+        const { container } = renderTemplate({ layout: 'text', text: { size: 99 } });
+        expect(container.style.minHeight).toBe('18.2px');
+    });
+
+    test('Clears placeholder min-height on first resize with rendered content dimensions', () => {
         const { event, container } = renderTemplate({ layout: 'text', text: { size: 12 } });
-        expect(container.style.minHeight).toBe('31.2px');
+        expect(container.style.minHeight).toBe('15.6px');
 
         event.trigger(EVENT.RESIZE, { width: 100, height: 0 });
+        expect(container.style.minHeight).toBe('');
+    });
+
+    test('Clears placeholder min-height on first resize with no-message dimensions (0x0)', () => {
+        const { event, container } = renderTemplate({ layout: 'text', text: { size: 12 } });
+        expect(container.style.minHeight).toBe('15.6px');
+
+        event.trigger(EVENT.RESIZE, { width: 0, height: 0 });
         expect(container.style.minHeight).toBe('');
     });
 
