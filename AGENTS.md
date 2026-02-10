@@ -247,7 +247,7 @@ Use Playwright’s interactive modes when tests fail or when implementing a comp
 
 ## Service Dependencies (Deep Dive Aligned)
 
-Source alignment: Confluence `2. Deep Dives` page (`V5 Messages (4 hours)` and `V6 Messages (2 hours)`).
+Source alignment: Confluence `2. Deep Dives` page (V5 and V6 messaging tracks).
 
 ### This Repo Role
 - V5 public JS messaging rendering/component layer.
