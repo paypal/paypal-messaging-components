@@ -38,3 +38,12 @@ npm run test:func
 # Build
 npm run build:production
 ```
+
+
+
+
+## Service Dependencies (Deep Dive Aligned)
+
+See `AGENTS.md` section `Service Dependencies (Deep Dive Aligned)` for full mappings and impact rules.
+
+This repo's role: V5 public UI component layer, backed by CPNW runtime endpoints and CPNS/MORS content chain.

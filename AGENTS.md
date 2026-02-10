@@ -241,3 +241,53 @@ Use Playwright’s interactive modes when tests fail or when implementing a comp
 
 
 -   If we hit the same correction twice, codify it in `AGENTS.md` so future work stays aligned.
+
+
+
+
+## Service Dependencies (Deep Dive Aligned)
+
+Source alignment: Confluence `2. Deep Dives` page (`V5 Messages (4 hours)` and `V6 Messages (2 hours)`).
+
+### This Repo Role
+- V5 public JS messaging rendering/component layer.
+- Bundled into JS SDK and routed to CPNW/CPNS-backed data sources.
+
+### Upstream Consumers
+- Merchant integrations loading messaging components through JS SDK interfaces.
+
+### Downstream Services
+- Runtime endpoint dependency on CPNW (`/credit-presentment/smart/message`, modal/lander endpoints).
+- CPNW then depends on CPNS -> MORS -> PStudio-backed content.
+
+### Version Applicability
+- V5: primary UI/runtime component.
+- V6: separate stack (`core-web-sdk`), include for parity awareness only.
+
+### Critical Interfaces
+- CPNW-facing message and modal routes under `/credit-presentment/*`.
+
+### Change Impact Rules
+- If message/meta contract changes, validate CPNW payload shape and CPNS-produced content assumptions.
+- If modal/action URL behavior changes, validate lander/modal endpoint compatibility and tracking URL handling.
+- If content keys/touchpoint-specific rendering changes, validate upstream-message-content mappings and snapshots.
+
+### Cross-Service Dependency Diagrams
+
+```mermaid
+flowchart LR
+  UMC["upstream-message-content"] --> PST["PStudio Interactions"]
+  PST --> MORS["marketingofferreadserv (MORS)"]
+
+  PMC["paypal-messaging-components"] --> CPNW["crcpresentmentnodeweb (CPNW)"]
+  CPNW --> CPNS["crcpresentmentnodeserv (CPNS)"]
+  CPNS --> MORS
+
+  CWS["core-web-sdk (web-sdk-messages)"] --> CPS["creditpresentmentserv (CPS) /v2/credit/fetch-presentment-messages"]
+  CPNS -."v2 proxy route (middleware)".-> CPS
+
+  CPS --> CROS["crcoffersserv"]
+  CPS --> RPS["rpsreadserv"]
+  CPS --> ELMO["elmoserv"]
+  CPS --> MORS
+```
