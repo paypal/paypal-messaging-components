@@ -1,5 +1,12 @@
 # Changelog
 
+### [1.77.1](https://github.com/paypal/paypal-messaging-components/compare/v1.77.0...v1.77.1) (2026-02-10)
+
+
+### Code Refactoring
+
+* add de lt modal terms link ([#1269](https://github.com/paypal/paypal-messaging-components/issues/1269)) ([822d877](https://github.com/paypal/paypal-messaging-components/commit/822d877a18183449ec8b95f13cf77ef5f55cf72e))
+
 ## [1.77.0](https://github.com/paypal/paypal-messaging-components/compare/v1.76.1...v1.77.0) (2026-02-03)
 
 
