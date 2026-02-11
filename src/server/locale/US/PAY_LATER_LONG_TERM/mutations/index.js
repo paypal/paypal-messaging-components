@@ -26,6 +26,7 @@ export default function getMutations(id, type) {
             return longTermMultiGTZ[type];
         case 'LT_MQGZ:3MEZ':
         case 'PLLT_MQGZ:3MEZ':
+        case 'PLLT_MQ_GZ:PLLT_SQ_EZ':
             return longTermMultiGTZ3MEZ[type];
         case 'LT_SQEZ':
         case 'PLLT_SQ_EZ':

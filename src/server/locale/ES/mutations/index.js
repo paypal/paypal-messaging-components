@@ -19,6 +19,7 @@ export default function getMutations(id, type) {
             return shortTermNq[type];
         case 'SHORT_TERM:NO_AMOUNT':
         case 'PLST_NA':
+        case 'PL_GENERIC':
         default:
             return shortTermNoAmount[type];
     }

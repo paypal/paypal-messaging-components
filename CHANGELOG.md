@@ -1,5 +1,23 @@
 # Changelog
 
+## [1.77.0](https://github.com/paypal/paypal-messaging-components/compare/v1.76.1...v1.77.0) (2026-02-03)
+
+
+### Features
+
+* add experiment gating for US and GB preapproval badge ([#1270](https://github.com/paypal/paypal-messaging-components/issues/1270)) ([237fe7e](https://github.com/paypal/paypal-messaging-components/commit/237fe7e7ba6d2dc4e6fdcda5290928f73a5225f9))
+
+
+### Bug Fixes
+
+* country-specific margins for preapproval label in checkout header ([#1266](https://github.com/paypal/paypal-messaging-components/issues/1266)) ([aed68db](https://github.com/paypal/paypal-messaging-components/commit/aed68db786b3f1783ac4ed2fbf143fdde7560310))
+
+
+### Code Refactoring
+
+* Feature/payloadfields ([#1260](https://github.com/paypal/paypal-messaging-components/issues/1260)) ([cae48fe](https://github.com/paypal/paypal-messaging-components/commit/cae48fea0cedad1676b421091b11a502a4406157))
+* finalize message type values ([#1252](https://github.com/paypal/paypal-messaging-components/issues/1252)) ([49d63d7](https://github.com/paypal/paypal-messaging-components/commit/49d63d78f8125ea3b8d63da4233f3e7a1a701154))
+
 ### [1.76.1](https://github.com/paypal/paypal-messaging-components/compare/v1.76.0...v1.76.1) (2026-01-27)
 
 

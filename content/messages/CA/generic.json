@@ -3,7 +3,7 @@
         "id": "",
         "offerCountry": "CA",
         "offerType": "GENERIC",
-        "messageType": "GENERIC",
+        "messageType": "PL_GENERIC",
         "offerTerm": "${CREDIT_OFFERS_DS.total_payments}",
         "lander": "",
         "variables": {
