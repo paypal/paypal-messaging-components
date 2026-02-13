@@ -286,7 +286,7 @@ flowchart LR
   CWS["core-web-sdk (web-sdk-messages)"] --> CPS["creditpresentmentserv (CPS) /v2/credit/fetch-presentment-messages"]
   CPNS -."v2 proxy route (middleware)".-> CPS
 
-  CPS --> CROS["crcoffersserv"]
+  CPS --> CRCO["crcoffersserv"]
   CPS --> RPS["rpsreadserv"]
   CPS --> ELMO["elmoserv"]
   CPS --> MORS
