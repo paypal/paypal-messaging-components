@@ -18,14 +18,14 @@
     },
 
     "headline": [
-        ["Pay later in monthly installments.", ["default", "xsmall"]],
-        [["Pay in up to 24 monthly installments."], ["medium", "large", "xlarge"]]
+        ["Später bezahlen mit Ratenzahlung.", ["default", "xsmall"]],
+        [["Bezahlen Sie in 3-24 monatlichen Raten."], ["medium", "large", "xlarge"]]
     ],
 
     "subHeadline": [],
 
     "disclaimer": [
-        ["Learn more", ["default"]],
-        ["With Austrian PayPal account only.", ["extra"]]
+        ["Mehr erfahren", ["default"]],
+        ["Nur mit österr. PayPal Konto.", ["extra"]]
     ]
 }

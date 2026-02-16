@@ -18,14 +18,14 @@
     },
 
     "headline": [
-        ["0% APR installments available.", ["default", "xsmall"]],
-        [["0% APR: from {formattedPeriodicPayment} per month."], ["medium", "large", "xlarge"]]
+        ["0% Ratenzahlung verfügbar.", ["default", "xsmall"]],
+        [["0% eff. Jahreszins: ab {formattedPeriodicPayment} pro Monat."], ["medium", "large", "xlarge"]]
     ],
 
     "subHeadline": [],
 
     "disclaimer": [
-        ["Learn more", ["default"]],
-        ["With Austrian PayPal account only.", ["extra"]]
+        ["Mehr erfahren", ["default"]],
+        ["Nur mit österr. PayPal Konto.", ["extra"]]
     ]
 }

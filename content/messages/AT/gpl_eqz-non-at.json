@@ -18,9 +18,11 @@
     },
 
     "headline": [
-        ["0% APR installments available.", ["default", "xsmall"]],
+        ["0% Ratenzahlung verfügbar.", ["default", "xsmall"]],
         [
-            ["0% APR: Pay in 3-24 installments for purchases of {formattedMinAmount}-{formattedMaxAmount}."],
+            [
+                "0% eff. Jahreszins: Bezahlen Sie in 3-24 Raten bei Einkäufen i.H.v. {formattedMinAmount}-{formattedMaxAmount}"
+            ],
             ["medium", "large", "xlarge"]
         ]
     ],
@@ -28,7 +30,7 @@
     "subHeadline": [],
 
     "disclaimer": [
-        ["Learn more", ["default"]],
-        ["With Austrian PayPal account only.", ["extra"]]
+        ["Mehr erfahren", ["default"]],
+        ["Nur mit österr. PayPal Konto.", ["extra"]]
     ]
 }

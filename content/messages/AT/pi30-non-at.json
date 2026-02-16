@@ -14,12 +14,12 @@
         }
     },
 
-    "headline": [["Buy now, pay later.", ["default", "xsmall"]]],
+    "headline": [["Jetzt kaufen, später bezahlen.", ["default", "xsmall"]]],
 
     "subHeadline": [],
 
     "disclaimer": [
-        ["Learn more", ["default"]],
-        ["With Austrian PayPal account only.", ["extra"]]
+        ["Mehr erfahren", ["default"]],
+        ["Nur mit österr. PayPal Konto.", ["extra"]]
     ]
 }

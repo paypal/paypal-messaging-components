@@ -15,15 +15,15 @@
         }
     },
     "headline": [
-        ["Buy now, pay later.", ["default", "xsmall"]],
+        ["Jetzt kaufen, später bezahlen.", ["default", "xsmall"]],
         [
-            ["Pay in 30 days for purchases of {formattedMinAmount} to {formattedMaxAmount}."],
+            ["Bezahlen Sie bei Einkäufen von {formattedMinAmount} bis {formattedMaxAmount} erst nach 30 Tagen"],
             ["medium", "large", "xlarge"]
         ]
     ],
     "subHeadline": [],
     "disclaimer": [
-        ["Learn more", ["default"]],
-        ["With Austrian PayPal account only.", ["extra"]]
+        ["Mehr erfahren", ["default"]],
+        ["Nur mit österr. PayPal Konto.", ["extra"]]
     ]
 }
