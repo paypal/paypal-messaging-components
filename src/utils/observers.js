@@ -188,7 +188,7 @@ export const getOverflowObserver = createGlobalVariableGetter('__intersection_ob
                                 container,
                                 index,
                                 duration,
-                                help_url: getFaqUrl('MESSAGE_HIDDEN')
+                                help_url: getFaqUrl('RENDERING')
                             });
                             logger.track({
                                 index,

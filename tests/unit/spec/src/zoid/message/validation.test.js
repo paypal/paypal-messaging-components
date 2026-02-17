@@ -30,7 +30,7 @@ describe('validate', () => {
             expect.stringContaining('invalid_option_value'),
             expect.objectContaining({
                 location: 'account',
-                help_url: expect.stringContaining('troubleshooting')
+                help_url: expect.stringContaining('integrate')
             })
         );
 
@@ -42,7 +42,7 @@ describe('validate', () => {
             expect.stringContaining('invalid_option_value'),
             expect.objectContaining({
                 location: 'account',
-                help_url: expect.stringContaining('troubleshooting')
+                help_url: expect.stringContaining('integrate')
             })
         );
 
@@ -54,7 +54,7 @@ describe('validate', () => {
             expect.stringContaining('invalid_option_value'),
             expect.objectContaining({
                 location: 'account',
-                help_url: expect.stringContaining('troubleshooting')
+                help_url: expect.stringContaining('integrate')
             })
         );
     });
@@ -126,7 +126,7 @@ describe('validate', () => {
                 expect.stringContaining('invalid_option_value'),
                 expect.objectContaining({
                     location: 'amount',
-                    help_url: expect.stringContaining('troubleshooting')
+                    help_url: expect.stringContaining('integrate')
                 })
             );
         });

@@ -2,48 +2,42 @@ import { getFaqUrl } from 'src/utils/faq';
 
 describe('utils/faq', () => {
     describe('getFaqUrl', () => {
-        test('returns correct URL for MESSAGE_HIDDEN topic', () => {
-            const url = getFaqUrl('MESSAGE_HIDDEN');
-            expect(url).toBe('https://developer.paypal.com/docs/business/pay-later/troubleshooting/#message-hidden');
+        test('returns correct URL for RENDERING topic', () => {
+            const url = getFaqUrl('RENDERING');
+            expect(url).toBe(
+                'https://developer.paypal.com/docs/checkout/pay-later/us/integrate/#enable-pay-later-messaging-on-your-website'
+            );
         });
 
-        test('returns correct URL for INVALID_OPTIONS topic', () => {
-            const url = getFaqUrl('INVALID_OPTIONS');
-            expect(url).toBe('https://developer.paypal.com/docs/business/pay-later/troubleshooting/#invalid-options');
-        });
-
-        test('returns correct URL for INTEGRATION topic', () => {
-            const url = getFaqUrl('INTEGRATION');
-            expect(url).toBe('https://developer.paypal.com/docs/business/pay-later/troubleshooting/#integration');
-        });
-
-        test('returns correct URL for RENDER_WARNING topic', () => {
-            const url = getFaqUrl('RENDER_WARNING');
-            expect(url).toBe('https://developer.paypal.com/docs/business/pay-later/troubleshooting/#rendering');
+        test('returns correct URL for GENERAL topic', () => {
+            const url = getFaqUrl('GENERAL');
+            expect(url).toBe('https://developer.paypal.com/docs/checkout/pay-later/us/integrate/reference/');
         });
 
         test('falls back to GENERAL for unknown topics', () => {
             const url = getFaqUrl('UNKNOWN_TOPIC');
-            expect(url).toBe('https://developer.paypal.com/docs/business/pay-later/troubleshooting/');
+            expect(url).toBe('https://developer.paypal.com/docs/checkout/pay-later/us/integrate/reference/');
         });
 
         test('handles undefined topic', () => {
             const url = getFaqUrl(undefined);
-            expect(url).toBe('https://developer.paypal.com/docs/business/pay-later/troubleshooting/');
+            expect(url).toBe('https://developer.paypal.com/docs/checkout/pay-later/us/integrate/reference/');
         });
 
         test('normalizes base URL with trailing slash', () => {
             // Mock __MESSAGES__ with trailing slash
             global.__MESSAGES__ = {
                 __FAQ__: {
-                    __BASE_URL__: 'https://developer.paypal.com/docs/business/pay-later/'
+                    __BASE_URL__: 'https://developer.paypal.com/docs/checkout/pay-later/us/'
                 }
             };
 
-            const url = getFaqUrl('MESSAGE_HIDDEN');
+            const url = getFaqUrl('RENDERING');
             // Should not have double slashes
-            expect(url).toBe('https://developer.paypal.com/docs/business/pay-later/troubleshooting/#message-hidden');
-            expect(url).not.toContain('//troubleshooting');
+            expect(url).toBe(
+                'https://developer.paypal.com/docs/checkout/pay-later/us/integrate/#enable-pay-later-messaging-on-your-website'
+            );
+            expect(url).not.toContain('//integrate');
 
             // Clean up
             delete global.__MESSAGES__;

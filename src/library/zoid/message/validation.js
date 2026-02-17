@@ -37,7 +37,7 @@ const logInvalid = memoize((location, message) =>
     logger.warn('invalid_option_value', {
         description: message,
         location,
-        help_url: getFaqUrl('INVALID_OPTIONS')
+        help_url: getFaqUrl('GENERAL')
     })
 );
 const logInvalidType = (location, expectedType, val) => {

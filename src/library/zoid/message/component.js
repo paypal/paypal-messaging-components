@@ -154,7 +154,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                             if (getURIPopup(lander, offerType) == null) {
                                 logger.warn('Blocked unsafe lander URL', {
                                     lander,
-                                    help_url: getFaqUrl('INVALID_OPTIONS')
+                                    help_url: getFaqUrl('GENERAL')
                                 });
                             }
                         } else {
@@ -311,7 +311,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                                 logger.warn('render_warning', {
                                     description: warning,
                                     container: getContainer(),
-                                    help_url: getFaqUrl('RENDER_WARNING')
+                                    help_url: getFaqUrl('RENDERING')
                                 });
                             });
                         }

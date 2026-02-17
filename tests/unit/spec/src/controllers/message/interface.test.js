@@ -106,7 +106,7 @@ describe('message interface', () => {
             expect.stringContaining('invalid_selector'),
             expect.objectContaining({
                 selector: '.invalid',
-                help_url: expect.stringContaining('troubleshooting')
+                help_url: expect.stringContaining('integrate')
             })
         );
     });
@@ -122,7 +122,7 @@ describe('message interface', () => {
             expect.objectContaining({
                 // Passing the container as a ref here causes some jest/babel compiling issue
                 container: expect.any(Object),
-                help_url: expect.stringContaining('troubleshooting')
+                help_url: expect.stringContaining('integrate')
             })
         );
 
@@ -355,8 +355,7 @@ describe('message interface', () => {
             expect(logger.warn).toHaveBeenCalledTimes(1);
             const [, payload] = logger.warn.mock.calls[0];
             expect(payload.help_url).toBeDefined();
-            expect(payload.help_url).toContain('troubleshooting');
-            expect(payload.help_url).toContain('integration');
+            expect(payload.help_url).toContain('integrate');
         });
 
         test('Includes help_url in not in document warning', async () => {
@@ -367,8 +366,7 @@ describe('message interface', () => {
             expect(logger.warn).toHaveBeenCalledTimes(1);
             const [, payload] = logger.warn.mock.calls[0];
             expect(payload.help_url).toBeDefined();
-            expect(payload.help_url).toContain('troubleshooting');
-            expect(payload.help_url).toContain('integration');
+            expect(payload.help_url).toContain('integrate');
         });
 
         test('help_url points to valid FAQ URL format', async () => {
@@ -376,7 +374,7 @@ describe('message interface', () => {
 
             const [, payload] = logger.warn.mock.calls[0];
             expect(payload.help_url).toMatch(
-                /^https:\/\/developer\.paypal\.com\/docs\/business\/pay-later\/troubleshooting\/#/
+                /^https:\/\/developer\.paypal\.com\/docs\/checkout\/pay-later\/us\/integrate\/#/
             );
         });
     });

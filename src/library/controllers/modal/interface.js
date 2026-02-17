@@ -149,7 +149,7 @@ const memoizedModal = memoizeOnProps(
                     description: `Expected one of ["${zoidComponent.state.products.join('", "')}"] but received "${
                         options.offer
                     }".`,
-                    help_url: getFaqUrl('INVALID_OPTIONS')
+                    help_url: getFaqUrl('GENERAL')
                 });
                 return ZalgoPromise.resolve();
             }
