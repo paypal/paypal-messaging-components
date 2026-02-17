@@ -71,8 +71,7 @@ export default createGlobalVariableGetter('__paypal_credit_treatments__', () =>
                     // 15 minutes in milliseconds
                     const TREATMENTS_MAX_AGE = 1000 * 60 * 15;
 
-                    // eslint-disable-next-line no-unused-vars
-                    return ({ treatmentsHash, deviceID }) => {
+                    return ({ treatmentsHash }) => {
                         updateStorage({
                             experiments: {
                                 treatmentsHash,
