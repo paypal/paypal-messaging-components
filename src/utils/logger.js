@@ -27,7 +27,15 @@ function generateLogPayload(account, { meta, events: bizEvents, tracking }) {
         .filter(([, component]) => component.account === account)
         .map(([index, component]) => {
             // buttonSessionId could be undefined here
-            const { type, partnerClientId, buttonSessionId, messageRequestId, stats = {}, trackingDetails } = component;
+            const {
+                type,
+                partnerClientId,
+                buttonSessionId,
+                messageRequestId,
+                stats = {},
+                trackingDetails,
+                language_requested
+            } = component;
             const { clickUrl } = trackingDetails;
             delete trackingDetails.clickUrl;
 
@@ -61,6 +69,7 @@ function generateLogPayload(account, { meta, events: bizEvents, tracking }) {
                 instance_id: messageRequestId,
                 button_session_id: buttonSessionId,
                 fdata,
+                language_requested: language_requested ?? 'undefined',
                 merchant_events: bizEvents.filter(event => event.payload?.index === index),
                 ...trackingDetails,
                 ...stats,

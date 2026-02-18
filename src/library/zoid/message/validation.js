@@ -233,6 +233,17 @@ export default {
 
         return undefined;
     },
+    locale: ({ props: { locale } }) => {
+        if (typeof locale !== 'undefined') {
+            if (!validateType(Types.STRING, locale)) {
+                logInvalidType('locale', Types.STRING, locale);
+            } else {
+                return locale;
+            }
+        }
+
+        return undefined;
+    },
     ignoreCache: ({ props: { ignoreCache } }) => {
         if (typeof ignoreCache !== 'undefined') {
             if (!validateType(Types.BOOLEAN, ignoreCache)) {

@@ -100,6 +100,7 @@ export default (options = {}) => ({
                                     offer,
                                     buyerCountry,
                                     language,
+                                    locale,
                                     ignoreCache,
                                     onClick,
                                     onRender,
@@ -121,6 +122,7 @@ export default (options = {}) => ({
                                     amount,
                                     buyerCountry,
                                     language,
+                                    locale,
                                     ignoreCache,
                                     channel,
                                     ecToken,
@@ -182,6 +184,7 @@ export default (options = {}) => ({
                                     amount: ${amount},
                                     buyerCountry: ${buyerCountry},
                                     language: ${language},
+                                    locale: ${locale},
                                     pageType: ${pageType},
                     
                                     renderStart: ${new Date(renderStart).toLocaleString()},

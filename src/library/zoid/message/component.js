@@ -113,6 +113,12 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 required: false,
                 value: validate.language
             },
+            locale: {
+                type: 'string',
+                queryParam: true,
+                required: false,
+                value: validate.locale
+            },
             ignoreCache: {
                 type: 'boolean',
                 queryParam: 'ignore_cache',
@@ -146,8 +152,18 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                     const { onClick } = props;
 
                     return ({ meta }) => {
-                        const { modal, index, account, merchantId, currency, amount, buyerCountry, language, onApply } =
-                            props;
+                        const {
+                            modal,
+                            index,
+                            account,
+                            merchantId,
+                            currency,
+                            amount,
+                            buyerCountry,
+                            language,
+                            locale,
+                            onApply
+                        } = props;
                         const { offerType, offerCountry, messageRequestId, lander } = meta;
                         if (offerType === 'PURCHASE_PROTECTION') {
                             if (getURIPopup(lander, offerType) == null) {
@@ -163,6 +179,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                                 amount,
                                 buyerCountry,
                                 language,
+                                locale,
                                 onApply,
                                 offer: offerType,
                                 offerCountry,
@@ -220,7 +237,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 value: ({ props }) => {
                     const { onReady } = props;
                     return ({ meta, activeTags, ts, requestDuration, messageRequestId, globalSessionID }) => {
-                        const { account, merchantId, index, modal, getContainer, pageType } = props;
+                        const { account, merchantId, index, modal, getContainer, pageType, language, locale } = props;
                         const { trackingDetails, offerType, ppDebugId } = meta;
                         const partnerClientId = merchantId && account.slice(10); // slice is to remove the characters 'client-id:' from account name
 
@@ -264,7 +281,8 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                                     messageRequestId,
                                     account: merchantId || account,
                                     partnerClientId,
-                                    trackingDetails
+                                    trackingDetails,
+                                    language_requested: locale?.replace('_', '-') || language
                                 }
                             };
                         });
