@@ -14,3 +14,4 @@ export * from './events';
 export * from './debug';
 export * from './performance';
 export * from './experiments';
+export * from './faq';

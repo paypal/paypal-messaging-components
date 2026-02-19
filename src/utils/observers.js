@@ -7,6 +7,7 @@ import { logger } from './logger';
 import { getNamespace, isScriptBeingDestroyed } from './sdk';
 import { getRoot, elementContains, isElement, elementOutside } from './elements';
 import { ppDebug } from './debug';
+import { getFaqUrl } from './faq';
 
 export const getInsertionObserver = createGlobalVariableGetter(
     '__insertion_observer__',
@@ -186,7 +187,8 @@ export const getOverflowObserver = createGlobalVariableGetter('__intersection_ob
                                 description: `PayPal Message has been hidden. Message must be visible and requires minimum dimensions of ${minWidth}px x ${minHeight}px. Current container is ${entry.intersectionRect.width}px x ${entry.intersectionRect.height}px.`,
                                 container,
                                 index,
-                                duration
+                                duration,
+                                help_url: getFaqUrl('RENDERING')
                             });
                             logger.track({
                                 index,

@@ -28,7 +28,8 @@ import {
     getMerchantConfig,
     getLocalTreatments,
     getTsCookieFromStorage,
-    getURIPopup
+    getURIPopup,
+    getFaqUrl
 } from '../../../utils';
 import validate from './validation';
 import containerTemplate from './containerTemplate';
@@ -167,7 +168,10 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                         const { offerType, offerCountry, messageRequestId, lander } = meta;
                         if (offerType === 'PURCHASE_PROTECTION') {
                             if (getURIPopup(lander, offerType) == null) {
-                                logger.warn('Blocked unsafe lander URL', { lander });
+                                logger.warn('Blocked unsafe lander URL', {
+                                    lander,
+                                    help_url: getFaqUrl('GENERAL')
+                                });
                             }
                         } else {
                             // Avoid spreading message props because both message and modal
@@ -324,7 +328,8 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                             warnings.forEach(warning => {
                                 logger.warn('render_warning', {
                                     description: warning,
-                                    container: getContainer()
+                                    container: getContainer(),
+                                    help_url: getFaqUrl('RENDERING')
                                 });
                             });
                         }
