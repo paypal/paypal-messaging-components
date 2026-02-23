@@ -19,8 +19,11 @@ describe('treatments component', () => {
 
     test('handles treatment data', () => {
         const {
-            props: { onReady }
+            props: { onReady, namespace, deviceID: canonicalDeviceID }
         } = getTreatmentsComponent();
+
+        expect(namespace).toBe(getNamespace());
+        expect(canonicalDeviceID).toEqual(expect.any(String));
 
         onReady({
             treatmentsHash,

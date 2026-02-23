@@ -13,7 +13,8 @@ import {
     updateStorage,
     getDisableSetCookie,
     getFeatures,
-    getDefaultNamespace
+    getNamespace,
+    getOrCreateDeviceID
 } from '../../../utils/sdk';
 import { getGlobalUrl, createGlobalVariableGetter, globalEvent } from '../../../utils/global';
 import { ppDebug } from '../../../utils/debug';
@@ -61,7 +62,12 @@ export default createGlobalVariableGetter('__paypal_credit_treatments__', () =>
             namespace: {
                 type: 'string',
                 queryParam: false,
-                value: getDefaultNamespace
+                value: getNamespace
+            },
+            deviceID: {
+                type: 'string',
+                queryParam: false,
+                value: getOrCreateDeviceID
             },
 
             onReady: {
