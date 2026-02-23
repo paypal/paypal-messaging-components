@@ -273,9 +273,9 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                                 global: {
                                     ...existingGlobal,
                                     ts: tsCookie,
-                                    // deviceID from internal iframe storage
-                                    // should be populated previously by the treatments component
-                                    deviceID: getOrCreateDeviceID(),
+                                    // Prefer the request-scoped deviceID so logging stays aligned
+                                    // with the same identifier used in this message request.
+                                    deviceID: props.deviceID || getOrCreateDeviceID(),
                                     // Session ID from parent local storage,
                                     sessionID: getSessionID(),
                                     globalSessionID
