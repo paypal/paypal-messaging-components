@@ -1,5 +1,26 @@
 # Changelog
 
+## [1.78.0](https://github.com/paypal/paypal-messaging-components/compare/v1.77.1...v1.78.0) (2026-02-24)
+
+
+### Features
+
+* add FAQ links to warning messages for merchant troubleshooting ([#1268](https://github.com/paypal/paypal-messaging-components/issues/1268)) ([3a7d6b5](https://github.com/paypal/paypal-messaging-components/commit/3a7d6b50e3ea721458f60db2d27f0b7879a225d2))
+* Add language_requested field to fpti ([#1249](https://github.com/paypal/paypal-messaging-components/issues/1249)) ([2866ae0](https://github.com/paypal/paypal-messaging-components/commit/2866ae086917067b337f015cabd42efebfc00d2d))
+* add locale param ([#1255](https://github.com/paypal/paypal-messaging-components/issues/1255)) ([df4bde6](https://github.com/paypal/paypal-messaging-components/commit/df4bde6e3961c47f2cb138aa47555dd60ef9be92))
+
+
+### Documentation
+
+* add subagents section and update persona (DTCRCMERC-4677) ([dcf9202](https://github.com/paypal/paypal-messaging-components/commit/dcf92028de219872ec6cffc24749cf9000874b48))
+* add v5/v6 service dependency map for agents ([bf44bb2](https://github.com/paypal/paypal-messaging-components/commit/bf44bb2209e9aa410b336bde4676c022c45f3676))
+* align crcoffersserv abbreviation to CRCO in AGENTS diagram ([068ec29](https://github.com/paypal/paypal-messaging-components/commit/068ec2991b8f1bf83ad0375303542b0ab7f1590a))
+* expand subagents guidance (DTCRCMERC-4677) ([845449f](https://github.com/paypal/paypal-messaging-components/commit/845449fd8576e6256146431d36f56f26d574dd29))
+* normalize deep-dive dependency wording ([37a2bd0](https://github.com/paypal/paypal-messaging-components/commit/37a2bd0971c998149337185dd5760e775f650790))
+* remove deep internal service details from public AGENTS ([a60e77a](https://github.com/paypal/paypal-messaging-components/commit/a60e77abbea6e573d602ff5b71fe3ba1f48ce103))
+* strengthen workflow orchestration in AGENTS.md (DTCRCMERC-4677) ([b2ddef2](https://github.com/paypal/paypal-messaging-components/commit/b2ddef2a200df1f9e297266752105a3d9a25a80a))
+* update PR template and agent docs (DTCRCMERC-4677) ([9689af5](https://github.com/paypal/paypal-messaging-components/commit/9689af5544a970b249f0a0f38484698abdc20876))
+
 ### [1.77.1](https://github.com/paypal/paypal-messaging-components/compare/v1.77.0...v1.77.1) (2026-02-10)
 
 
