@@ -115,12 +115,16 @@ export default {
     DEV0000ESPLNQ: ['ES', ['short_term'], 'short_term_nq'],
     DEV0000ESPLTQ: ['ES', ['long_term'], 'long_term_q'],
     DEV000ESPLTNQ: ['ES', ['long_term'], 'long_term_nq'],
+    DEV000ESPLEQZ: ['ES', ['long_term'], 'long_term_nq_eqz'],
+    DEV00ESPLQEQZ: ['ES', ['long_term'], 'long_term_q_eqz'],
 
     DEV0000ITPLNA: ['IT', ['short_term'], 'short_term_no_amount'],
     DEV00000ITPLQ: ['IT', ['short_term'], 'short_term_q'],
     DEV0000ITPLNQ: ['IT', ['short_term'], 'short_term_nq'],
     DEV0000ITPLTQ: ['IT', ['long_term'], 'long_term_q'],
     DEV000ITPLTNQ: ['IT', ['long_term'], 'long_term_nq'],
+    DEV000ITPLEQZ: ['IT', ['long_term'], 'long_term_nq_eqz'],
+    DEV00ITPLQEQZ: ['IT', ['long_term'], 'long_term_q_eqz'],
 
     // en-CA
     DEV00ENCAPLNA: ['CA', ['short_term'], 'generic'],
