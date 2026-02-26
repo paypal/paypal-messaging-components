@@ -15,7 +15,6 @@ jest.mock('../../../../../../src/utils/global', () => {
 
 describe('treatments component', () => {
     const treatmentsHash = '1daf92517fb7620b02add6943517ae0a5ca8f0a0';
-    const deviceID = 'device_id';
 
     test('handles treatment data', () => {
         const {
@@ -23,8 +22,7 @@ describe('treatments component', () => {
         } = getTreatmentsComponent();
 
         onReady({
-            treatmentsHash,
-            deviceID
+            treatmentsHash
         });
 
         const localStorageKey = `__${getNamespace()}_storage__`;
