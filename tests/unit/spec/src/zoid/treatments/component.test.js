@@ -15,6 +15,7 @@ jest.mock('../../../../../../src/utils/global', () => {
 
 describe('treatments component', () => {
     const treatmentsHash = '1daf92517fb7620b02add6943517ae0a5ca8f0a0';
+    const deviceID = 'device_id';
 
     test('handles treatment data', () => {
         const {
@@ -22,7 +23,8 @@ describe('treatments component', () => {
         } = getTreatmentsComponent();
 
         onReady({
-            treatmentsHash
+            treatmentsHash,
+            deviceID
         });
 
         const localStorageKey = `__${getNamespace()}_storage__`;
@@ -31,7 +33,8 @@ describe('treatments component', () => {
             experiments: {
                 treatmentsHash,
                 expiration: expect.any(Number)
-            }
+            },
+            id: deviceID
         });
 
         expect(globalEvent.trigger).toHaveBeenCalledWith('treatments');
