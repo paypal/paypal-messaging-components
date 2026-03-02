@@ -5,4 +5,3 @@ export { DEV_AT_LONG_TERM_EN } from './DEV_AT_LONG_TERM_EN';
 export { DEV_AT_MULTI } from './DEV_AT_MULTI';
 export { DEV_AT_LONG_TERM_0APR } from './DEV_AT_LONG_TERM_0APR';
 export { DEV_AT_LONG_TERM_EN_0APR } from './DEV_AT_LONG_TERM_EN_0APR';
-export { DEV_AT_XB_MULTI_LT } from './DEV_AT_XB_MULTI_LT';
