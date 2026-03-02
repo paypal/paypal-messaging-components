@@ -270,9 +270,6 @@ export function getStandardProductOffer(offer) {
         case 'PI30:NON-DE':
         case 'PI30Q:NON-DE':
         case 'PI30NQ:NON-DE':
-        case 'PI30:NON-AT':
-        case 'PI30Q:NON-AT':
-        case 'PI30NQ:NON-AT':
         case 'PLP1_NA_XB':
         case 'PLP1_NA':
         case 'PLP1_NQ_XB':
