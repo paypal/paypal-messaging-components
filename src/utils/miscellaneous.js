@@ -232,6 +232,10 @@ export function getStandardProductOffer(offer) {
         case 'GPL:GTZ:NON-DE':
         case 'GPLQ:EQZ:NON-DE':
         case 'GPLQ:GTZ:NON-DE':
+        case 'GPL:EQZ:NON-AT':
+        case 'GPL:GTZ:NON-AT':
+        case 'GPLQ:EQZ:NON-AT':
+        case 'GPLQ:GTZ:NON-AT':
         case 'PLLT_NQ_EZ_XB':
         case 'PLLT_NQ_GZ_XB':
         case 'PLLT_MQ_EZ_XB':
