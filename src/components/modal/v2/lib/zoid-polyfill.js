@@ -1,7 +1,7 @@
 /* global Android */
 import { isAndroidWebview, isIosWebview, getPerformance } from '@krakenjs/belter/src';
 import { getOrCreateDeviceID, logger } from '../../../../utils';
-import { validateProps, isIframe } from './utils';
+import { validateProps } from './utils';
 import { sendEvent, createPostMessengerEvent, POSTMESSENGER_EVENT_NAMES } from './postMessage';
 
 const IOS_INTERFACE_NAME = 'paypalMessageModalCallbackHandler';
@@ -66,15 +66,28 @@ const getAccount = (merchantId, clientId, payerId) => {
 
 const setupBrowser = props => {
     const propListeners = new Set();
+    const handshakeEventNames = new Set(['PROPS_UPDATE', 'MODAL_CLOSED']);
+    let trustedOrigin = '';
 
-    let trustedOrigin = decodeURIComponent(props.origin || '');
-    if (isIframe && document.referrer && !process.env.NODE_ENV === 'test') {
-        trustedOrigin = new window.URL(document.referrer).origin;
+    if (document.referrer) {
+        try {
+            trustedOrigin = new window.URL(document.referrer).origin;
+        } catch (error) {
+            trustedOrigin = '';
+        }
     }
 
     window.addEventListener(
         'message',
         event => {
+            if (
+                !trustedOrigin &&
+                event?.origin &&
+                event?.data?.eventName &&
+                handshakeEventNames.has(event.data.eventName)
+            ) {
+                trustedOrigin = event.origin;
+            }
             handleBrowserEvents(trustedOrigin, propListeners, event);
         },
         false
@@ -286,8 +299,10 @@ export default function polyfillZoid() {
         }, {});
 
     const { userAgent } = window.navigator;
+    const isWebview = isIosWebview(userAgent) || isAndroidWebview(userAgent);
+    const isEmbedded = window.parent !== window || Boolean(window.opener);
 
-    if (isIosWebview(userAgent) || isAndroidWebview(userAgent)) {
+    if (isWebview && !isEmbedded) {
         setupWebview(props);
     } else {
         setupBrowser(props);
