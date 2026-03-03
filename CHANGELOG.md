@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.79.0](https://github.com/paypal/paypal-messaging-components/compare/v1.78.0...v1.79.0) (2026-03-03)
+
+
+### Features
+
+* enhance zoid-polyfill to support trusted origin detection from postMessage events ([f22ea2e](https://github.com/paypal/paypal-messaging-components/commit/f22ea2ece6ee1edaa7aebdf9a2c4af0ce80c1645))
+
+
+### Code Refactoring
+
+* send id to treatments component and accept deviceID, if sent ([49f6fe8](https://github.com/paypal/paypal-messaging-components/commit/49f6fe855019eed822797cba1617e9a68b991855))
+
 ## [1.78.0](https://github.com/paypal/paypal-messaging-components/compare/v1.77.1...v1.78.0) (2026-02-24)
 
 
