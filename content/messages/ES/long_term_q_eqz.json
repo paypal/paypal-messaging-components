@@ -17,7 +17,7 @@
     "headline": [
         ["Compra ahora, paga después.", ["default", "xsmall"]],
         ["Compra ahora y paga después.", ["xsmall.2"]],
-        [["Desde {total_payments} al mes al 0% TAE."], ["small", "medium", "large", "xlarge"]]
+        [["Desde {formattedPeriodicPayment} al mes al 0% TAE."], ["small", "medium", "large", "xlarge"]]
     ],
     "subHeadline": [],
     "disclaimer": [["Más información", ["default"]]]

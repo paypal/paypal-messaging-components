@@ -28,7 +28,9 @@ const ALL_ACCORDION_ACCOUNTS = [
     'DEV_DE_LONG_TERM_EN',
     'DEV_DE_LONG_TERM_EN_0APR',
     'DEV_ES_LONG_TERM',
-    'DEV_IT_LONG_TERM'
+    'DEV_ES_LONG_TERM_0APR',
+    'DEV_IT_LONG_TERM',
+    'DEV_IT_LONG_TERM_0APR'
 ];
 
 // includes allows for longTermCheckout
