@@ -69,13 +69,16 @@ export default {
                     textWrap(textSize * 48.5, textSize, 'IT'),
                     xSmallFallback(textSize * 23),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25),
-                    setLogoTop(textSize * 20)
+                    setLogoTop(textSize * 20),
+                    `.message__headline .br:nth-child(3) {
+    font-weight: bold;
+}`
                 ],
                 logo: Logo.PP_PAYPAL.COLOR,
                 headline: [
                     {
                         tag: 'medium',
-                        br: ['acquisti']
+                        br: ['acquisti', '€, ']
                     },
                     { tag: 'xsmall' }
                 ],
@@ -88,14 +91,37 @@ export default {
                 styles: [
                     xSmallFallback(textSize * 17.4),
                     setLogoTop(textSize * 49),
-                    messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
+                    messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
+                    `.message__headline .br:nth-child(3) {
+    font-weight: bold;
+}`
+                ],
+                headline: [
+                    {
+                        tag: 'medium',
+                        br: ['acquisti', '€, ']
+                    },
+                    { tag: 'xsmall' }
                 ]
             })
         ],
         [
             'logo.type:primary && logo.position:top',
             ({ textSize }) => ({
-                styles: [xSmallFallback(textSize * 21), messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)]
+                styles: [
+                    xSmallFallback(textSize * 21),
+                    messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
+                    `.message__headline .br:nth-child(3) {
+    font-weight: bold;
+}`
+                ],
+                headline: [
+                    {
+                        tag: 'medium',
+                        br: ['acquisti', '€, ']
+                    },
+                    { tag: 'xsmall' }
+                ]
             })
         ],
         [
@@ -106,7 +132,10 @@ export default {
                     textWrap(textSize * 44, textSize, 'IT'),
                     xSmallFallback(textSize * 19),
                     altNoWrap(textSize * 14),
-                    messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25)
+                    messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25),
+                    `.message__headline .br:nth-child(3) {
+    font-weight: bold;
+}`
                 ],
                 logo: Logo.PP_PAYPAL.COLOR[0]
             })
@@ -114,13 +143,18 @@ export default {
         [
             'logo.type:none',
             ({ textSize }) => ({
-                styles: [xSmallFallback(textSize * 24)],
+                styles: [
+                    xSmallFallback(textSize * 24),
+                    `.message__headline .br:nth-child(3) {
+    font-weight: bold;
+}`
+                ],
                 logo: false,
                 headline: [
                     {
                         tag: 'medium',
-                        br: ['acquisti'],
-                        replace: [['€.', '€']]
+                        br: ['acquisti', '€, '],
+                        replace: [['0%.', '0%']]
                     },
                     {
                         tag: 'xsmall',
@@ -133,13 +167,19 @@ export default {
         [
             'logo.type:inline',
             ({ textSize }) => ({
-                styles: [xSmallFallback(textSize * 24), `.message__logo { width: ${textSize * 4}px }`],
+                styles: [
+                    xSmallFallback(textSize * 24),
+                    `.message__logo { width: ${textSize * 4}px }`,
+                    `.message__headline .br:nth-child(3) {
+    font-weight: bold;
+}`
+                ],
                 logo: Logo.NO_PP_MONOGRAM.COLOR,
                 headline: [
                     {
                         tag: 'medium.2',
-                        br: ['acquisti'],
-                        replace: [['€.', '€']]
+                        br: ['acquisti', '€, '],
+                        replace: [['0%.', '0%']]
                     },
                     {
                         tag: 'xsmall',

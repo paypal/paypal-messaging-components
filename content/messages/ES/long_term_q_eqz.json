@@ -2,7 +2,7 @@
     "meta": {
         "offerCountry": "ES",
         "offerType": "PAY_LATER_LONG_TERM",
-        "messageType": "PLLT_MQ_GZ",
+        "messageType": "PLLT_MQ_EZ",
         "offerTerm": "{total_payments}",
         "lander": "https://www.paypal.com/credit-presentment/lander/modal",
         "variables": {
@@ -17,7 +17,7 @@
     "headline": [
         ["Compra ahora, paga después.", ["default", "xsmall"]],
         ["Compra ahora y paga después.", ["xsmall.2"]],
-        [["Desde {total_payments} al mes con TAE 0%"], ["small", "medium", "large", "xlarge"]]
+        [["Desde {total_payments} al mes al 0% TAE."], ["small", "medium", "large", "xlarge"]]
     ],
     "subHeadline": [],
     "disclaimer": [["Más información", ["default"]]]

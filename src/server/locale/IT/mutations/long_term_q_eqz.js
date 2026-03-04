@@ -1,7 +1,6 @@
 import { flexLogoMutations, textLogoMutations } from '../../../message/logoMutations';
 import Logo from '../../../message/logos';
 import {
-    addPeriod,
     altNoWrap,
     logo20x1,
     messageLogoWidth,
@@ -16,7 +15,7 @@ const headlineBreaks = [
     },
     {
         sizes: ['medium'],
-        breaks: ['rate']
+        breaks: ['al mese']
     }
 ].reduce((acc, item) => {
     const { sizes, breaks } = item;
@@ -71,14 +70,15 @@ export default {
                     xSmallFallback(textSize * 18),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25),
                     setLogoTop(textSize * 16),
-                    addPeriod()
+                    `.message__headline .br:nth-child(2) {
+    font-weight: bold;
+}`
                 ],
                 logo: Logo.PP_PAYPAL.COLOR,
                 headline: [
                     {
                         tag: 'medium',
-                        br: ['fino a'],
-                        replace: [['rate.', 'rate']]
+                        br: ['con']
                     },
                     { tag: 'xsmall' }
                 ],
@@ -95,7 +95,16 @@ export default {
                     xSmallFallback(textSize * 16),
                     setLogoTop(textSize * 37),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
-                    addPeriod()
+                    `.message__headline .br:nth-child(2) {
+    font-weight: bold;
+}`
+                ],
+                headline: [
+                    {
+                        tag: 'medium',
+                        br: ['con']
+                    },
+                    { tag: 'xsmall' }
                 ]
             })
         ],
@@ -108,7 +117,16 @@ export default {
                     }px) { .message__headline > .tag--medium > span > span:first-child { white-space: normal; } }`,
                     xSmallFallback(textSize * 16),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
-                    addPeriod()
+                    `.message__headline .br:nth-child(2) {
+    font-weight: bold;
+}`
+                ],
+                headline: [
+                    {
+                        tag: 'medium',
+                        br: ['con']
+                    },
+                    { tag: 'xsmall' }
                 ]
             })
         ],
@@ -121,29 +139,35 @@ export default {
                     xSmallFallback(textSize * 14),
                     altNoWrap(textSize * 14),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25),
-                    addPeriod()
+                    `.message__headline .br:nth-child(2) {
+    font-weight: bold;
+}`
                 ],
                 logo: Logo.PP_PAYPAL.COLOR[0],
                 headline: [
                     {
                         tag: 'medium',
-                        br: ['fino a'],
-                        replace: [['rate.', 'rate']]
+                        br: ['con']
                     },
-                    { tag: 'xsmall', br: ['ora, '] }
+                    { tag: 'xsmall' }
                 ]
             })
         ],
         [
             'logo.type:none',
             ({ textSize }) => ({
-                styles: [xSmallFallback(textSize * 19)],
+                styles: [
+                    xSmallFallback(textSize * 19),
+                    `.message__headline .br:nth-child(2) {
+    font-weight: bold;
+}`
+                ],
                 logo: false,
                 headline: [
                     {
                         tag: 'medium',
-                        br: ['rate'],
-                        replace: [['rate.', 'rate']]
+                        br: ['con'],
+                        replace: [['0%.', '0%']]
                     },
                     {
                         tag: 'xsmall.2',
@@ -155,13 +179,19 @@ export default {
         [
             'logo.type:inline',
             ({ textSize }) => ({
-                styles: [xSmallFallback(textSize * 19), `.message__logo { width: ${textSize * 4}px }`],
+                styles: [
+                    xSmallFallback(textSize * 19),
+                    `.message__logo { width: ${textSize * 4}px }`,
+                    `.message__headline .br:nth-child(3) {
+    font-weight: bold;
+}`
+                ],
                 logo: Logo.NO_PP_MONOGRAM.COLOR,
                 headline: [
                     {
                         tag: 'medium',
-                        br: ['rate'],
-                        replace: [['rate.', 'rate']]
+                        br: ['al mese', 'con'],
+                        replace: [['0%.', '0%']]
                     },
                     {
                         tag: 'xsmall.2',
