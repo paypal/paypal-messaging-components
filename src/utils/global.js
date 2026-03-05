@@ -1,6 +1,3 @@
-import objectKeys from 'core-js-pure/stable/object/keys';
-import objectAssign from 'core-js-pure/stable/object/assign';
-import Map from 'core-js-pure/stable/map';
 import { eventEmitter } from '@krakenjs/belter/src';
 
 import {
@@ -41,8 +38,8 @@ export const createGlobalState = () => {
 };
 export const destroyGlobalState = () => {
     if (window[NAMESPACE]) {
-        objectKeys(window[NAMESPACE]).forEach(key => delete window[NAMESPACE][key]);
-        objectAssign(window[NAMESPACE], createDefaultState());
+        Object.keys(window[NAMESPACE]).forEach(key => delete window[NAMESPACE][key]);
+        Object.assign(window[NAMESPACE], createDefaultState());
 
         delete window[NAMESPACE];
     }

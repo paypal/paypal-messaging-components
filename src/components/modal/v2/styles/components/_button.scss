@@ -1,14 +1,17 @@
+@use "../globals/colors";
+@use "../globals/variables";
+
 .button__container {
     margin-top: 20px;
     margin-bottom: 10px;
     display: flex;
     justify-content: center;
     .button {
-        font-family: $paypal-pro;
+        font-family: variables.$paypal-pro;
         display: inline-block;
-        background: $black;
+        background: colors.$black;
         border: none;
-        color: $white;
+        color: colors.$white;
         border-radius: 3rem;
         padding: 0.7em 2.5em;
         font-size: 1rem;
@@ -18,25 +21,25 @@
 
         &:hover,
         &:focus {
-            background: $black;
+            background: colors.$black;
         }
 
         &:focus {
             text-decoration: underline;
-            outline: 3px solid $black;
+            outline: 3px solid colors.$black;
         }
 
         .v5Design & {
-            font-family: $paypal-pro;
+            font-family: variables.$paypal-pro;
         }
 
         .v5Dot1Design & {
-            background: $black;
+            background: colors.$black;
         }
     }
 
     &.checkout {
-        border-top: 1px solid $ql-dark-gray;
-        box-shadow: 0px 0px 2px $ql-dark-gray;
+        border-top: 1px solid colors.$ql-dark-gray;
+        box-shadow: 0px 0px 2px colors.$ql-dark-gray;
     }
 }

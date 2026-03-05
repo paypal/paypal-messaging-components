@@ -1,8 +1,3 @@
-import arrayFind from 'core-js-pure/stable/array/find';
-import arrayFrom from 'core-js-pure/stable/array/from';
-import arrayFlatMap from 'core-js-pure/stable/array/flat-map';
-import arrayIncludes from 'core-js-pure/stable/array/includes';
-import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import { ZalgoPromise } from '@krakenjs/zalgo-promise/src';
 
 import { curry } from './functional';
@@ -58,7 +53,7 @@ export function getInlineOptions(container) {
     const inlineEventHandlers = ['onclick', 'onapply', 'onrender'];
 
     const getOptionValue = (name, value) => {
-        if (stringStartsWith(value, '[')) {
+        if (typeof value === 'string' && value.startsWith('[')) {
             try {
                 return flattenedToObject(name, JSON.parse(value.replace(/'/g, '"')));
             } catch (err) {} // eslint-disable-line no-empty
@@ -66,12 +61,12 @@ export function getInlineOptions(container) {
         return flattenedToObject(name, value);
     };
 
-    const dataOptions = arrayFrom(container.attributes)
-        .filter(({ nodeName }) => stringStartsWith(nodeName, 'data-pp-'))
+    const dataOptions = Array.from(container.attributes)
+        .filter(({ nodeName }) => nodeName.startsWith('data-pp-'))
         .reduce((accumulator, { nodeName, nodeValue }) => {
             if (nodeValue) {
                 const attributeName = nodeName.replace('data-pp-', '');
-                const value = arrayIncludes(inlineEventHandlers, attributeName)
+                const value = inlineEventHandlers.includes(attributeName)
                     ? // eslint-disable-next-line no-new-func
                       new Function(nodeValue)
                     : nodeValue;
@@ -278,7 +273,7 @@ export function isHidden(container) {
 
 export function getAllBySelector(selector) {
     if (typeof selector === 'string') {
-        return arrayFrom(document.querySelectorAll(selector));
+        return Array.from(document.querySelectorAll(selector));
     }
 
     if (isElement(selector)) {
@@ -286,7 +281,7 @@ export function getAllBySelector(selector) {
     }
 
     if (Array.isArray(selector) && selector.every(isElement)) {
-        return arrayFlatMap(selector, getAllBySelector);
+        return selector.flatMap(getAllBySelector);
     }
 
     return [];
@@ -385,7 +380,7 @@ export const getRoot = baseElement => {
     domPath.reverse();
     let biggestEl = domPath[0];
 
-    const computedRoot = arrayFind(domPath, (el, index, elements) => {
+    const computedRoot = domPath.find((el, index, elements) => {
         // We are searching for the element that contains the page scrolling.
         // Some merchant sites will use height 100% on elements such as html and body
         // that cause the intersection observer to hide elements below the fold.

@@ -1,5 +1,6 @@
-@import '../globals/colors';
-@import '../globals/mixins';
+@use '../globals/colors';
+@use '../globals/mixins';
+@use "../globals/variables";
 
 .tile {
     // normalize button before styling it
@@ -17,7 +18,7 @@
     padding: 12px 12px 15px 20px;
     border-radius: 12px;
     margin-bottom: 31px;
-    background: $white;
+    background: colors.$white;
     box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.04), 0px 1px 12px rgba(0, 0, 0, 0.08);
     cursor: pointer;
 
@@ -35,13 +36,13 @@
         margin-bottom: 16px;
     }
 
-    @include mobile {
+    @include mixins.mobile {
         height: 119px;
         min-width: 295px;
         max-width: 100%;
     }
 
-    @include smallMobile {
+    @include mixins.smallMobile {
         min-width: auto;
     }
 
@@ -50,31 +51,31 @@
 
         .tile__col {
             .tile__header {
-                font-family: $paypal-pro;
+                font-family: variables.$paypal-pro;
                 display: flex;
                 font-size: 18px;
                 font-weight: 600;
                 line-height: 24px;
                 align-items: center;
-                color: $text-main;
+                color: colors.$text-main;
             }
 
             .tile__body {
-                font-family: $paypal-open;
+                font-family: variables.$paypal-open;
                 margin-top: 5px;
                 font-size: 18px;
                 font-weight: 400;
                 line-height: 24px;
                 display: flex;
                 align-items: center;
-                color: $text-main;
+                color: colors.$text-main;
 
                 &.v5Design {
                     font-size: 100%;
                 }
 
                 &.v5Dot1Design {
-                    color: $v5-gray;
+                    color: colors.$v5-gray;
                 }
             }
         }

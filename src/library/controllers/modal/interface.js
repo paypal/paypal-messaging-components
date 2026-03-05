@@ -1,4 +1,3 @@
-import arrayFind from 'core-js-pure/stable/array/find';
 import { ZalgoPromise } from '@krakenjs/zalgo-promise/src';
 
 import {
@@ -14,7 +13,8 @@ import {
     addPerformanceMeasure,
     PERFORMANCE_MEASURE_KEYS,
     globalEvent,
-    getTopWindow
+    getTopWindow,
+    getFaqUrl
 } from '../../../utils';
 import { getModalComponent } from '../../zoid/modal';
 
@@ -29,6 +29,7 @@ const memoizedModal = memoizeOnProps(
         amount,
         buyerCountry,
         language,
+        locale,
         ignoreCache,
         offer,
         onReady,
@@ -56,6 +57,7 @@ const memoizedModal = memoizeOnProps(
             amount,
             buyerCountry,
             language,
+            locale,
             ignoreCache,
             offer,
             onReady,
@@ -141,13 +143,15 @@ const memoizedModal = memoizeOnProps(
                 typeof requestedProduct !== 'undefined' &&
                 requestedProduct !== 'NONE' &&
                 Array.isArray(zoidComponent.state.products) &&
-                !arrayFind(productState, supportedProduct => supportedProduct === requestedProduct)
+                Array.isArray(productState) &&
+                !productState.find(supportedProduct => supportedProduct === requestedProduct)
             ) {
                 logger.warn('invalid_option_value', {
                     location: 'offer',
                     description: `Expected one of ["${zoidComponent.state.products.join('", "')}"] but received "${
                         options.offer
-                    }".`
+                    }".`,
+                    help_url: getFaqUrl('GENERAL')
                 });
                 return ZalgoPromise.resolve();
             }
@@ -184,7 +188,7 @@ const memoizedModal = memoizeOnProps(
             updateProps: updateModal
         };
     },
-    ['account', 'merchantId', 'buyerCountry']
+    ['account', 'merchantId', 'buyerCountry', 'language', 'locale']
 );
 
 export default options => memoizedModal(objectMerge(getGlobalState().config, options));

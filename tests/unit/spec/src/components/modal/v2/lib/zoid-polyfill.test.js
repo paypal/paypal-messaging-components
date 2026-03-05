@@ -87,6 +87,18 @@ const mockLoadUrl = (url, { platform = 'web' } = {}) => {
         })()
     };
 };
+const setDocumentReferrer = value => {
+    Object.defineProperty(window.document, 'referrer', {
+        configurable: true,
+        get: () => value
+    });
+};
+const setWindowParent = value => {
+    Object.defineProperty(window, 'parent', {
+        configurable: true,
+        value
+    });
+};
 
 describe('zoidPollyfill', () => {
     beforeAll(() => {
@@ -408,31 +420,61 @@ describe('zoidPollyfill', () => {
             expect(postMessage).toHaveBeenCalledTimes(1);
             expect(postMessage.mock.calls[0][0]).toEqual(expect.any(String));
             expect(JSON.parse(postMessage.mock.calls[0][0])).toMatchInlineSnapshot(`
+            Object {
+              "args": Array [
                 Object {
-                  "args": Array [
-                    Object {
-                      "__shared__": Object {
-                        "credit_product_identifiers": Array [
-                          "PAY_LATER_LONG_TERM_US",
-                        ],
-                        "fdata": "123abc",
-                        "offer_country_code": "US",
-                      },
-                      "event_type": "modal_rendered",
-                      "render_duration": "50",
-                      "request_duration": "100",
-                    },
-                  ],
-                  "name": "onReady",
-                }
-            `);
+                  "__shared__": Object {
+                    "credit_product_identifiers": Array [
+                      "PAY_LATER_LONG_TERM_US",
+                    ],
+                    "fdata": "123abc",
+                    "offer_country_code": "US",
+                  },
+                  "event_type": "modal_rendered",
+                  "render_duration": "50",
+                  "request_duration": "100",
+                },
+              ],
+              "name": "onReady",
+            }
+        `);
             postMessage.mockClear();
+        });
+        test('uses browser flow for webview when embedded in iframe', () => {
+            addEventListenerSpy.mockClear();
+            const parentWindow = { postMessage: jest.fn() };
+            setWindowParent(parentWindow);
+            mockLoadUrl(
+                'https://localhost.paypal.com:8080/credit-presentment/native/modal?client_id=client_1&logo_type=inline&amount=500&dev_touchpoint=true',
+                {
+                    platform: 'ios'
+                }
+            );
+            setDocumentReferrer('http://example.com/lander');
+
+            zoidPolyfill();
+
+            expect(window.actions).toBeUndefined();
+            expect(window.xprops).toEqual(
+                expect.objectContaining({
+                    onProps: expect.any(Function),
+                    onReady: expect.any(Function),
+                    onClick: expect.any(Function),
+                    onCalculate: expect.any(Function),
+                    onShow: expect.any(Function),
+                    onClose: expect.any(Function)
+                })
+            );
+
+            setWindowParent(window);
+            addEventListenerSpy.mockClear();
         });
         describe('browser', () => {
             beforeAll(() => {
                 mockLoadUrl(
-                    'https://localhost.paypal.com:8080/credit-presentment/lander/modal?client_id=client_1&logo_type=inline&amount=500&devTouchpoint=true&origin=http://example.com'
+                    'https://localhost.paypal.com:8080/credit-presentment/lander/modal?client_id=client_1&logo_type=inline&amount=500&devTouchpoint=true'
                 );
+                setDocumentReferrer('http://example.com/lander');
                 zoidPolyfill();
             });
             afterEach(() => {
@@ -523,13 +565,40 @@ describe('zoidPollyfill', () => {
                 expect(onPropsCallback).toHaveBeenCalledTimes(0);
             });
         });
+        describe('browser without referrer', () => {
+            beforeAll(() => {
+                mockLoadUrl(
+                    'https://localhost.paypal.com:8080/credit-presentment/lander/modal?client_id=client_1&logo_type=inline&amount=500&devTouchpoint=true'
+                );
+                setDocumentReferrer('');
+                zoidPolyfill();
+            });
+            afterEach(() => {
+                addEventListenerSpy.mockClear();
+            });
+            test('sets trusted origin from first valid postMessage', () => {
+                const postMessageEvent = new MessageEvent('message', {
+                    origin: 'http://example.com',
+                    data: {
+                        eventName: 'PROPS_UPDATE',
+                        id: 'event-1',
+                        eventPayload: { amount: 1000 }
+                    }
+                });
+
+                window.dispatchEvent(postMessageEvent);
+
+                expect(window.parent.postMessage).toHaveBeenCalledWith(expect.any(Object), 'http://example.com');
+            });
+        });
     });
 
     describe('communication with parent window on modal events ', () => {
         beforeAll(() => {
             mockLoadUrl(
-                'https://localhost.paypal.com:8080/credit-presentment/lander/modal?client_id=client_1&logo_type=inline&amount=500&devTouchpoint=true&origin=http://localhost.paypal.com:8080'
+                'https://localhost.paypal.com:8080/credit-presentment/lander/modal?client_id=client_1&logo_type=inline&amount=500&devTouchpoint=true'
             );
+            setDocumentReferrer('http://localhost.paypal.com:8080/lander');
             zoidPolyfill();
         });
         afterEach(() => {

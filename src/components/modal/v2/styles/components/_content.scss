@@ -1,16 +1,20 @@
+@use "../globals/colors";
+@use "../globals/mixins";
+@use "../globals/variables";
+
 .content__container {
     position: relative;
     background: transparent;
     box-sizing: border-box;
     padding-top: 0;
-    background: $beige;
+    background: colors.$beige;
     padding-bottom: 1.5rem;
     flex-grow: 1;
-    margin-top: -$sticky-header-radius;
+    margin-top: -(variables.$sticky-header-radius);
     z-index: 1000;
 
     main {
-        color: $gray;
+        color: colors.$gray;
         padding-top: 0;
         height: 100%;
         box-sizing: border-box;
@@ -25,8 +29,8 @@
         flex-direction: column;
         padding: 0 20px;
 
-        @include lander {
-            @include mobile {
+        @include mixins.lander {
+            @include mixins.mobile {
                 padding: 0px 20px 100px 20px;
             }
         }
@@ -37,13 +41,13 @@
             display: flex;
             flex-direction: column;
             margin: 0 -20px;
-            background: $white;
+            background: colors.$white;
             padding-top: 1.5rem;
             padding-left: 25px;
             padding-right: 25px;
 
             &.product-list {
-                @include tablet {
+                @include mixins.tablet {
                     padding-left: 65px;
                     padding-right: 65px;
                 }
@@ -56,20 +60,20 @@
 
                 &.v5Dot1Design {
                     button {
-                        background-color: $white;
+                        background-color: colors.$white;
                     }
                 }
             }
 
-            @include lander {
+            @include mixins.lander {
                 &.no-interest {
-                    @include mobile {
+                    @include mixins.mobile {
                         padding-top: 0rem;
                     }
                 }
             }
 
-            @include desktop {
+            @include mixins.desktop {
                 height: 100%;
 
                 .content__col {
@@ -79,7 +83,7 @@
         }
 
         &.checkout {
-            background-color: $white;
+            background-color: colors.$white;
         }
 
         .content__col {
@@ -87,13 +91,13 @@
             display: flex;
             flex-direction: column;
 
-            @include mobile {
+            @include mixins.mobile {
                 width: 100%;
             }
 
             &.collapsed {
                 &:last-child {
-                    @include desktop {
+                    @include mixins.desktop {
                         position: absolute;
                         right: 0;
                     }
@@ -101,14 +105,14 @@
             }
 
             &:first-child {
-                @include tablet {
+                @include mixins.tablet {
                     align-items: center;
                     width: 100%;
                 }
 
-                @include lander {
+                @include mixins.lander {
                     &.no-interest {
-                        @include mobile {
+                        @include mixins.mobile {
                             padding-top: 1.5rem;
                         }
                     }
@@ -116,13 +120,13 @@
             }
 
             &:last-child {
-                @include tablet {
+                @include mixins.tablet {
                     display: none;
                 }
-                @include mobile {
+                @include mixins.mobile {
                     display: none;
                 }
-                @include smallMobile {
+                @include mixins.smallMobile {
                     display: none;
                 }
             }
@@ -137,20 +141,20 @@
             font-size: 14px;
             line-height: 20px;
 
-            @include desktop {
+            @include mixins.desktop {
                 margin: 42px 30px 23px 30px;
             }
 
-            @include tablet {
+            @include mixins.tablet {
                 margin: 42px 44px 20px 44px;
             }
 
-            @include mobile {
+            @include mixins.mobile {
                 margin-top: 10px;
             }
 
             &.v5Design {
-                color: $v5-gray;
+                color: colors.$v5-gray;
                 margin-top: 20px;
                 &.DE {
                     margin-top: auto;
@@ -158,7 +162,7 @@
             }
 
             &.checkout {
-                @include mobile {
+                @include mixins.mobile {
                     margin-bottom: 60px;
                 }
             }
@@ -166,11 +170,11 @@
 
         &.checkout {
             &.disclosure {
-                @include desktop {
+                @include mixins.desktop {
                     margin: 0px 30px 23px 30px;
                 }
 
-                @include tablet {
+                @include mixins.tablet {
                     margin: 20px 10px 70px 10px;
                 }
             }
@@ -178,13 +182,13 @@
     }
 
     &.v4Design {
-        background: $v4-gray;
+        background: colors.$v4-gray;
     }
     &.v5Design {
-        background: $v5-white;
+        background: colors.$v5-white;
     }
 
     &.checkout {
-        background-color: $white;
+        background-color: colors.$white;
     }
 }

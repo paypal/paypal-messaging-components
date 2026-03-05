@@ -58,6 +58,15 @@ describe('utils/miscellaneous', () => {
         test('Returns empty string when no default provided', () => {
             expect(getDataByTag([['Message one', ['small']]], 'large')).toBe('');
         });
+
+        test('Handles non-string tag values gracefully', () => {
+            expect(getDataByTag(data, null)).toBe('Message one');
+            expect(getDataByTag(data, undefined)).toBe('Message one');
+            expect(getDataByTag(data, true)).toBe('Message one');
+            expect(getDataByTag(data, 42)).toBe('Message one');
+            expect(getDataByTag(data, [])).toBe('Message one');
+            expect(getDataByTag(data, {})).toBe('Message one');
+        });
     });
 
     describe('createEvent', () => {

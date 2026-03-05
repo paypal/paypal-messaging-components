@@ -24,7 +24,7 @@ export const ShortTerm = ({
         learnMoreLink,
         cta
     },
-    productMeta: { qualifying, periodicPayment, useV4Design, useV5Design, preapproved },
+    productMeta: { qualifying, periodicPayment, useV4Design, useV5Design, preapproved, showPreapprovedBadge },
     openProductList,
     useNewCheckoutDesign,
     use5Dot1Design
@@ -35,9 +35,12 @@ export const ShortTerm = ({
     const isQualifying = qualifying === 'true';
 
     const isPreapproved = preapproved === 'true';
+    const shouldShowPreapprovedBadge = showPreapprovedBadge === 'true';
+    const showPreapprovalContent = isPreapproved && shouldShowPreapprovedBadge;
 
     const preapprovalDisclaimerHeadline = preapproval?.preapprovalDisclaimerHeadline;
     const preapprovalDisclaimerBody = preapproval?.preapprovalDisclaimerBody;
+    const preapprovalPrivacyDisclaimer = preapproval?.preapprovalPrivacyDisclaimer;
     const countryClassName = country?.toLowerCase();
 
     const renderCheckoutCtaButton = () => {
@@ -122,37 +125,31 @@ export const ShortTerm = ({
                         <div className={`content__row donuts ${useNewCheckoutDesign === 'true' ? 'checkout' : ''}`}>
                             <div className="donuts__container">
                                 {elements.map((installment, index) => (
-                                    <Fragment>
-                                        <Donut
-                                            key={index}
-                                            useV4Design={useV4Design}
-                                            useV5Design={useV5Design}
-                                            use5Dot1Design={use5Dot1Design}
-                                            useNewCheckoutDesign={useNewCheckoutDesign}
-                                            qualifying={qualifying}
-                                            // regex replaces EUR with the euro symbol €
-                                            periodicPayment={
-                                                installment?.total_payment
-                                                    ? installment.total_payment.replace(/(\s?EUR)/g, ' €')
-                                                    : localeFormattedPayment
-                                            }
-                                            currentNum={index + 1}
-                                            timeStamp={installment?.payment_date ?? donutTimestamps[index]}
-                                            numOfPayments={elements.length}
-                                        />
-                                        {country === 'GB' &&
-                                            useV5Design === 'true' &&
-                                            useNewCheckoutDesign === 'true' && (
-                                                <span className={`dashed-line-${index}`} />
-                                            )}
-                                    </Fragment>
+                                    <Donut
+                                        key={index}
+                                        useV4Design={useV4Design}
+                                        useV5Design={useV5Design}
+                                        use5Dot1Design={use5Dot1Design}
+                                        useNewCheckoutDesign={useNewCheckoutDesign}
+                                        qualifying={qualifying}
+                                        // regex replaces EUR with the euro symbol €
+                                        periodicPayment={
+                                            installment?.total_payment
+                                                ? installment.total_payment.replace(/(\s?EUR)/g, ' €')
+                                                : localeFormattedPayment
+                                        }
+                                        currentNum={index + 1}
+                                        timeStamp={installment?.payment_date ?? donutTimestamps[index]}
+                                        numOfPayments={elements.length}
+                                    />
                                 ))}
                             </div>
                         </div>
-                        {isPreapproved && (
+                        {showPreapprovalContent && (
                             <PreapprovalDisclaimer
                                 preapprovalDisclaimerBody={preapprovalDisclaimerBody}
                                 preapprovalDisclaimerHeadline={preapprovalDisclaimerHeadline}
+                                preapprovalPrivacyDisclaimer={preapprovalPrivacyDisclaimer}
                                 country={country}
                                 useNewCheckoutDesign={useNewCheckoutDesign}
                             />
