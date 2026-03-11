@@ -11,6 +11,7 @@ export default function getMutations(id, type) {
     switch (id) {
         case 'PLLT_MQ_EZ':
             return longTermQEqz[type];
+        case 'LT_NQEZ':
         case 'PLLT_NQ_EZ':
             return longTermNqEqz[type];
         case 'PLLT_MQ_GZ':
