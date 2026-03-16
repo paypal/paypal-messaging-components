@@ -39,8 +39,14 @@
                 "A minimum monthly payment is required, which may not pay off the purchase by the end of the 6 month period."
             ],
             [
-                "Individual items less than {formattedMinAmount} qualify for special financing when combined for a total of {formattedMinAmount} or more in a single transaction. However, separate transactions cannot be combined to meet the minimum purchase amount."
+                "Special financing is available when an individual item or multiple items in a single purchase total {formattedMinAmount} or more. If the amount that posts to your account for such a purchase is {formattedMinAmount} or more, special financing will apply."
             ],
+            [
+                "Some merchants may charge you separately if there are multiple items in a single purchase, such as when those items ship separately. If that happens, and a charge that posts to your account does not meet the minimum purchase threshold of {formattedMinAmount} or more, special financing maybe not be automatically applied. Please visit the ",
+                [["FAQs", "https://www.paypal.com/us/campaign/paypal-credit-card/faq"]],
+                "for information on how to apply special financing for this purchase."
+            ],
+            ["Separate transactions cannot be combined to meet the minimum purchase amount."],
             "All PayPal Credit Card and PayPal Credit purchases",
             [
                 [
