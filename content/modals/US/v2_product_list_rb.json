@@ -28,7 +28,7 @@
             "credit": [
                 {
                     "header": "PayPal Credit Card",
-                    "body": "No Interest if paid in full in 6 months on PayPal purchases of more than $149.",
+                    "body": "No Interest if paid in full in 6 months on all purchases of $149 or more.",
                     "viewName": "PAYPAL_CREDIT_NO_INTEREST"
                 }
             ]
