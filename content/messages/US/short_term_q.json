@@ -22,5 +22,10 @@
         ]
     ],
     "subHeadline": [],
-    "disclaimer": [["<span aria-hidden='true'>Learn more</span><span class='sr-only'> Learn more</span>", ["default"]]]
+    "disclaimer": [
+        [
+            "<span aria-hidden='true'>Check Spending Power</span><span class='sr-only'> Check Spending Power</span>",
+            ["default"]
+        ]
+    ]
 }
