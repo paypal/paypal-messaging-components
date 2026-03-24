@@ -17,6 +17,7 @@ export const textLogoMutations = [
 export const flexLogoMutations = [
     ['color:gray', { logo: Logo.PP_PAYPAL.COLOR }],
     ['color:white', { logo: Logo.PP_PAYPAL.COLOR }],
+    ['color:white-no-border', { logo: Logo.PP_PAYPAL.COLOR }],
     ['color:monochrome', { logo: Logo.PP_PAYPAL.MONOCHROME }],
     ['color:grayscale', { logo: Logo.PP_PAYPAL.GRAYSCALE }]
 ];

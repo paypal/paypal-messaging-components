@@ -1,12 +1,18 @@
 // mutations import here.
 import longTermQ from './long_term_q';
 import longTermNq from './long_term_nq';
+import longTermQEqz from './long_term_q_eqz';
+import longTermNqEqz from './long_term_nq_eqz';
 import shortTermQ from './short_term_q';
 import shortTermNq from './short_term_nq';
 import shortTermNoAmount from './short_term_no_amount';
 
 export default function getMutations(id, type) {
     switch (id) {
+        case 'PLLT_MQ_EZ':
+            return longTermQEqz[type];
+        case 'PLLT_NQ_EZ':
+            return longTermNqEqz[type];
         case 'PLLT_MQ_GZ':
             return longTermQ[type];
         case 'PLLT_NQ_GZ':

@@ -34,7 +34,8 @@ function generateLogPayload(account, { meta, events: bizEvents, tracking }) {
                 messageRequestId,
                 stats = {},
                 trackingDetails,
-                language_requested
+                language_requested,
+                language_rendered
             } = component;
             const { clickUrl } = trackingDetails;
             delete trackingDetails.clickUrl;
@@ -70,6 +71,7 @@ function generateLogPayload(account, { meta, events: bizEvents, tracking }) {
                 button_session_id: buttonSessionId,
                 fdata,
                 language_requested: language_requested ?? 'undefined',
+                language_rendered: language_rendered ?? 'undefined',
                 merchant_events: bizEvents.filter(event => event.payload?.index === index),
                 ...trackingDetails,
                 ...stats,
