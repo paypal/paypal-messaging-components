@@ -11,6 +11,7 @@ export default function getMutations(id, type) {
         case 'PLST_NQ':
             return shortTermNQ[type];
         case 'GENERIC':
+        case 'PL_GENERIC':
         default:
             return generic[type];
     }

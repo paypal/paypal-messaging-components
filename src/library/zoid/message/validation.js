@@ -1,4 +1,4 @@
-import { logger, memoize, getEnv } from '../../../utils';
+import { logger, memoize, getEnv, getFaqUrl } from '../../../utils';
 import { OFFER } from '../../../utils/constants';
 
 export const Types = {
@@ -36,7 +36,8 @@ export function validateType(expectedType, val) {
 const logInvalid = memoize((location, message) =>
     logger.warn('invalid_option_value', {
         description: message,
-        location
+        location,
+        help_url: getFaqUrl('GENERAL')
     })
 );
 const logInvalidType = (location, expectedType, val) => {
@@ -228,6 +229,17 @@ export default {
                 logInvalidType('language', Types.STRING, language);
             } else {
                 return language;
+            }
+        }
+
+        return undefined;
+    },
+    locale: ({ props: { locale } }) => {
+        if (typeof locale !== 'undefined') {
+            if (!validateType(Types.STRING, locale)) {
+                logInvalidType('locale', Types.STRING, locale);
+            } else {
+                return locale;
             }
         }
 

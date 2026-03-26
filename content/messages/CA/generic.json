@@ -2,8 +2,9 @@
     "meta": {
         "id": "",
         "offerCountry": "CA",
+        "language": "en-CA",
         "offerType": "GENERIC",
-        "messageType": "GENERIC",
+        "messageType": "PL_GENERIC",
         "offerTerm": "${CREDIT_OFFERS_DS.total_payments}",
         "lander": "",
         "variables": {

@@ -10,6 +10,7 @@ import {
     getEnv,
     getLibraryVersion,
     getStageTag,
+    getOrCreateDeviceID,
     updateStorage,
     getDisableSetCookie,
     getFeatures,
@@ -63,6 +64,11 @@ export default createGlobalVariableGetter('__paypal_credit_treatments__', () =>
                 queryParam: false,
                 value: getDefaultNamespace
             },
+            deviceID: {
+                type: 'string',
+                queryParam: true,
+                value: getOrCreateDeviceID
+            },
 
             onReady: {
                 type: 'function',
@@ -78,10 +84,11 @@ export default createGlobalVariableGetter('__paypal_credit_treatments__', () =>
                                 // Experiments can only be maintained for 15 minutes
                                 expiration: Date.now() + TREATMENTS_MAX_AGE
                             },
+                            // TODO: remove id sync once treatments no longer uses iframe localStorage.
                             // Write deviceID from paypal.com localStorage to merchant domain localStorage
                             // This should be the only place that we write to the storage.id
                             // to prevent it getting out of sync with treatmentsHash
-                            id: deviceID
+                            ...(deviceID ? { id: deviceID } : {})
                         });
 
                         globalEvent.trigger('treatments');

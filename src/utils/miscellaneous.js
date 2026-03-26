@@ -220,6 +220,7 @@ export function getStandardProductOffer(offer) {
         case 'LT_MQEZ_RB':
         case 'LT_MQGZ':
         case 'LT_MQGZ:3MEZ':
+        case 'PLLT_MQ_GZ:PLLT_SQ_EZ':
         case 'LT_SQEZ':
         case 'LT_SQEZ_RB':
         case 'LT_SQGZ':
