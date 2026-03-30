@@ -2,6 +2,7 @@
     "meta": {
         "id": "",
         "offerCountry": "CA",
+        "language": "en-CA",
         "offerType": "PAY_LATER_SHORT_TERM",
         "messageType": "PLST_NQ",
         "offerTerm": "${CREDIT_OFFERS_DS.total_payments}",

@@ -1,5 +1,21 @@
 # Changelog
 
+## [1.80.0](https://github.com/paypal/paypal-messaging-components/compare/v1.79.0...v1.80.0) (2026-03-24)
+
+
+### Features
+
+* add white-no-border flex color for non-US countries ([adc33d7](https://github.com/paypal/paypal-messaging-components/commit/adc33d772cd444f567e67d380fe6808ccee520f6))
+* add white-no-border flex color for non-US countries [#1275](https://github.com/paypal/paypal-messaging-components/issues/1275) ([f06e4f4](https://github.com/paypal/paypal-messaging-components/commit/f06e4f483a2b265754bb53990fdb6459b6699c5f))
+* added language_rendered tracking for message and modal for v5 sdk ([#1283](https://github.com/paypal/paypal-messaging-components/issues/1283)) ([564c817](https://github.com/paypal/paypal-messaging-components/commit/564c8173fb856018d9397982f3382de9dd9dd8ef))
+* Ites eqz msgs ([#1285](https://github.com/paypal/paypal-messaging-components/issues/1285)) ([42886d0](https://github.com/paypal/paypal-messaging-components/commit/42886d0d8208b4deb264379305412a29364f4f57))
+* Pay Later Modals to PPUI 6.0 Design System ([#1284](https://github.com/paypal/paypal-messaging-components/issues/1284)) ([9946391](https://github.com/paypal/paypal-messaging-components/commit/9946391787ccf58e33c05a56cb6f15cb8910b367))
+
+
+### Code Refactoring
+
+* update ppcc nq msgs and modals ([#1286](https://github.com/paypal/paypal-messaging-components/issues/1286)) ([fc444c4](https://github.com/paypal/paypal-messaging-components/commit/fc444c4e0328e2e9ea152e0cd6b672d52cc15232))
+
 ## [1.79.0](https://github.com/paypal/paypal-messaging-components/compare/v1.78.0...v1.79.0) (2026-03-03)
 
 

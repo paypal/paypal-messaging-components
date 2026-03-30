@@ -82,10 +82,10 @@
     .form {
         .title {
             color: colors.$text-main;
-            font-weight: 400;
+            font-weight: 500;
             font-size: 18px;
             margin-top: 0;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
 
             @include mixins.desktop {
                 @include mixins.lander {
@@ -128,14 +128,14 @@
                 font-family: variables.$paypal-open;
                 background: white;
                 border: 1px solid colors.$checkout-border;
-                border-radius: 3px;
+                border-radius: 16px;
                 color: colors.$text-main;
                 font-size: 18px;
                 padding: 1.75rem 0.5rem 0.25rem;
 
                 &.empty-input {
-                    padding-top: 16px;
-                    padding-bottom: 16px;
+                    padding-top: 18px;
+                    padding-bottom: 18px;
                     &::placeholder {
                         font-family: variables.$paypal-open;
                         font-size: 14px;
@@ -206,7 +206,7 @@
         }
 
         .calculator__error {
-            color: colors.$text-main;
+            color: colors.$v5-gray;
             font-size: 14px;
             margin-top: 10px;
 

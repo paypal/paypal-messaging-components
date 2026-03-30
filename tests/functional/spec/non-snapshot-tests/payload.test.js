@@ -122,7 +122,7 @@ const runTest = async ({
 describe('payload testing', () => {
     const config = {
         account: 'DEV_US_NO_INTEREST',
-        amount: 500,
+        amount: 100,
         style: bannerStyles[0]
     };
 
