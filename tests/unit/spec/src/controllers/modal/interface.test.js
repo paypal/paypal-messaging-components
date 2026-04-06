@@ -205,6 +205,22 @@ describe('modal interface', () => {
         expect(onClose).toHaveBeenLastCalledWith({ linkName: 'Close Button' });
     });
 
+    test('Renders as popup when prequalExperience is true', async () => {
+        await Modal({ account: 'prequal-popup' }).show({ prequalExperience: 'true' });
+
+        expect(getModalComponent()).toHaveBeenCalledTimes(1);
+        expect(getModalComponent()().render).toHaveBeenCalledTimes(1);
+        expect(getModalComponent()().render).toHaveBeenLastCalledWith('body', 'popup');
+    });
+
+    test('Renders as iframe when prequalExperience is not set', async () => {
+        await Modal({ account: 'no-prequal' }).show({ index: '1' });
+
+        expect(getModalComponent()).toHaveBeenCalledTimes(1);
+        expect(getModalComponent()().render).toHaveBeenCalledTimes(1);
+        expect(getModalComponent()().render).toHaveBeenLastCalledWith('body', 'iframe');
+    });
+
     describe('help_url in warnings', () => {
         test('Verifies help_url would be included in invalid offer warnings', () => {
             // Note: Testing the actual invalid offer warning requires complex mocking of
