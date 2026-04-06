@@ -17,7 +17,7 @@
     "headline": [
         ["Payez en plusieurs fois.", ["default", "xsmall"]],
         ["Payez en plusieurs fois.", ["xsmall.2"]],
-        [["Payez jusqu'à {total_payments} échéances"], ["small", "medium", "large", "xlarge"]]
+        [["Payez en plusieurs fois, jusqu’à {total_payments} mensualités"], ["small", "medium", "large", "xlarge"]]
     ],
     "subHeadline": [],
     "disclaimer": [
