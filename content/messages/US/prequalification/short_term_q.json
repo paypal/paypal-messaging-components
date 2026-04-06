@@ -6,6 +6,7 @@
         "messageType": "PLST_SQ",
         "offerTerm": "${CREDIT_OFFERS_DS.total_payments}",
         "lander": "",
+        "prequalExperience": "false",
         "variables": {
             "offer_id": "${CREDIT_OFFERS_DS.offer_id}",
             "vendor_financing_id": "${CREDIT_OFFERS_DS.vendor_financing_id}",
@@ -22,5 +23,10 @@
         ]
     ],
     "subHeadline": [],
-    "disclaimer": [["<span aria-hidden='true'>Learn more</span><span class='sr-only'> Learn more</span>", ["default"]]]
+    "disclaimer": [
+        [
+            "<span aria-hidden='true'>Check Spending Power</span><span class='sr-only'> Check Spending Power</span>",
+            ["default"]
+        ]
+    ]
 }
