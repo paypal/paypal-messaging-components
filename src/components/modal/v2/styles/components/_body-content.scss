@@ -1,10 +1,14 @@
+@use "../globals/colors";
+@use "../globals/mixins";
+@use "../globals/variables";
+
 // Windows does not clip scrollbars with overflow hidden
 // and border radius so we wrap a div around the scrollable
 // section and can clip from there
 .content__wrapper-overflow {
     margin: auto;
     overflow: hidden;
-    border-radius: $content-wrapper-border-radius;
+    border-radius: variables.$content-wrapper-border-radius;
     width: 100%;
     // This forces all nested elements that use "position: fixed" to position relative
     // to this element instead of the normal browser window. We use this element since
@@ -12,7 +16,7 @@
     // elements would scroll as well.
     transform: translate(0, 0);
 
-    @include lander {
+    @include mixins.lander {
         // Remove the transform since the lander layout is a traditional full page with scrolling
         transform: none;
         // The hierarchy of elements on the lander variant requires that we set overflow-y to scroll and add a set height,
@@ -20,34 +24,34 @@
         overflow-y: scroll;
         height: 100vh;
 
-        @include tablet {
+        @include mixins.tablet {
             border-radius: 0;
-            background-color: $beige;
+            background-color: colors.$beige;
         }
     }
 
-    @include mobile {
+    @include mixins.mobile {
         border-radius: 0;
     }
 
-    @include tablet {
-        max-width: $content-wrapper-max-width-tablet;
+    @include mixins.tablet {
+        max-width: variables.$content-wrapper-max-width-tablet;
     }
 
-    @include desktop {
-        max-width: $content-wrapper-max-width-desktop;
+    @include mixins.desktop {
+        max-width: variables.$content-wrapper-max-width-desktop;
     }
 
-    @include apiIframe {
-        max-width: $content-wrapper-max-width-api-iframe;
+    @include mixins.apiIframe {
+        max-width: variables.$content-wrapper-max-width-api-iframe;
         border-radius: 0;
     }
 
     &.checkout {
-        @include tablet {
-            border: 1px solid $ql-dark-gray;
-            border-radius: $content-wrapper-border-radius-checkout;
-            max-width: $content-wrapper-max-width-tablet-checkout;
+        @include mixins.tablet {
+            border: 1px solid colors.$ql-dark-gray;
+            border-radius: variables.$content-wrapper-border-radius-checkout;
+            max-width: variables.$content-wrapper-max-width-tablet-checkout;
         }
     }
 }
@@ -67,20 +71,20 @@
     z-index: 1;
     // TODO: There appears to be a small 1px space below the content__container in windows
     // where it's background color is not showing. Is this specific to browserstack?
-    background: $beige;
+    background: colors.$beige;
 
-    @include tablet {
+    @include mixins.tablet {
         max-height: 90vh;
     }
 
-    @include desktop {
+    @include mixins.desktop {
         max-height: 90vh;
     }
-    @include mobile {
+    @include mixins.mobile {
         min-width: 285px;
     }
 
-    @include lander {
+    @include mixins.lander {
         height: auto;
         max-height: none;
         margin-bottom: 4rem;
@@ -88,13 +92,13 @@
         background: transparent;
         overflow: visible;
 
-        @include mobile {
+        @include mixins.mobile {
             min-height: 100vh;
             margin-bottom: 0;
         }
     }
 
-    @include apiIframe {
+    @include mixins.apiIframe {
         max-height: 100%;
     }
 }

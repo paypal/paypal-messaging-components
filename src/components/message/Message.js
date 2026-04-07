@@ -1,4 +1,3 @@
-import objectEntries from 'core-js-pure/stable/object/entries';
 import { uniqueID } from '@krakenjs/belter/src';
 
 import {
@@ -119,6 +118,7 @@ const Message = function ({ markup, meta, parentStyles, warnings }) {
                     currency,
                     buyerCountry,
                     language,
+                    locale,
                     ignoreCache,
                     offer,
                     payerId,
@@ -159,12 +159,13 @@ const Message = function ({ markup, meta, parentStyles, warnings }) {
                 // Generate new MRID on message update.
                 const newMessageRequestId = uniqueID();
 
-                const query = objectEntries({
+                const query = Object.entries({
                     message_request_id: newMessageRequestId,
                     amount,
                     currency,
                     buyer_country: buyerCountry,
                     language,
+                    locale,
                     ignore_cache: ignoreCache,
                     style,
                     credit_type: offer,

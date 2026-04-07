@@ -1,26 +1,29 @@
+@use "../globals/colors";
+@use "../globals/mixins";
+
 .instructions {
     text-align: left;
     box-sizing: border-box;
 
-    @include desktop {
+    @include mixins.desktop {
         padding-left: 30px;
     }
 
-    @include tablet {
+    @include mixins.tablet {
         width: 100%;
         justify-content: center;
     }
 
     ol {
-        @include desktop {
+        @include mixins.desktop {
             padding: 0px;
         }
 
-        @include mobile {
+        @include mixins.mobile {
             padding: 0px;
         }
         &.ppc {
-            @include mobile {
+            @include mixins.mobile {
                 margin-top: -11px;
                 margin-bottom: 0px;
             }
@@ -28,7 +31,7 @@
     }
 
     li {
-        color: $text-main;
+        color: colors.$text-main;
         list-style: none;
         line-height: 24px;
         font-size: 18px;
@@ -39,7 +42,7 @@
         font-weight: 700;
         line-height: 24px;
         text-align: left;
-        color: $text-main;
+        color: colors.$text-main;
         margin-left: 42px;
         margin-top: 10px;
 
@@ -47,7 +50,7 @@
             margin-top: 22px;
         }
 
-        @include desktop {
+        @include mixins.desktop {
             margin-bottom: 10px;
 
             br {
@@ -55,9 +58,9 @@
             }
         }
 
-        @include tablet {
+        @include mixins.tablet {
             margin-left: 32px;
-            @include lander {
+            @include mixins.lander {
                 max-width: 100%;
             }
 
@@ -66,13 +69,13 @@
             }
         }
 
-        @include mobile {
+        @include mixins.mobile {
             margin-bottom: 5px;
             margin-left: 0px;
             max-width: 84%;
         }
 
-        @include smallMobile {
+        @include mixins.smallMobile {
             max-width: 81%;
         }
     }
@@ -81,25 +84,25 @@
         font-weight: 400;
         line-height: 20px;
         text-align: left;
-        color: $text-main;
+        color: colors.$text-main;
         margin: 0px;
 
-        @include desktop {
+        @include mixins.desktop {
             margin-top: 0px;
             margin-left: 32px;
             margin-bottom: 30px;
         }
 
-        @include tablet {
+        @include mixins.tablet {
             margin-top: 10px;
             margin-left: 32px;
             margin-bottom: 10px;
         }
 
-        @include mobile {
+        @include mixins.mobile {
             padding-bottom: 10px;
         }
-        @include smallMobile {
+        @include mixins.smallMobile {
             font-size: 1rem;
         }
     }
@@ -109,10 +112,10 @@
 
         &:last-child {
             li {
-                @include tablet {
+                @include mixins.tablet {
                     padding-bottom: 0px;
                 }
-                @include mobile {
+                @include mixins.mobile {
                     padding-bottom: 0px;
                 }
             }
@@ -133,7 +136,7 @@
 
     .instructions__bullet {
         font-size: 18px;
-        color: $text-main;
+        color: colors.$text-main;
         margin-right: 0.7rem;
 
         span {
@@ -153,33 +156,33 @@
         margin-top: 5px;
     }
 
-    @include lander {
-        @include tablet {
+    @include mixins.lander {
+        @include mixins.tablet {
             margin: 0px;
         }
-        @include mobile {
+        @include mixins.mobile {
             margin: 0px;
         }
     }
 
     &__border-checkout {
-        @include tablet {
-            border: 1px solid $checkout-border;
-            background-color: $white;
+        @include mixins.tablet {
+            border: 1px solid colors.$checkout-border;
+            background-color: colors.$white;
             padding: 6px 16px 6px 16px;
             border-radius: 12px;
         }
 
-        @include mobile {
-            border: 1px solid $checkout-border;
-            background-color: $white;
+        @include mixins.mobile {
+            border: 1px solid colors.$checkout-border;
+            background-color: colors.$white;
             padding: 6px 16px 6px 16px;
             border-radius: 12px;
         }
 
-        @include smallMobile {
-            border: 1px solid $checkout-border;
-            background-color: $white;
+        @include mixins.smallMobile {
+            border: 1px solid colors.$checkout-border;
+            background-color: colors.$white;
             padding: 6px 16px 6px 16px;
             border-radius: 12px;
         }
@@ -199,33 +202,33 @@
         }
 
         ol {
-            @include tablet {
+            @include mixins.tablet {
                 width: 88%;
             }
         }
 
         .instructions__border-checkout {
             ol {
-                @include tablet {
+                @include mixins.tablet {
                     padding-left: 20px;
                 }
             }
 
             h2 {
-                @include tablet {
+                @include mixins.tablet {
                     margin-left: 20px;
                 }
             }
 
             .checkout & {
                 ol {
-                    @include tablet {
+                    @include mixins.tablet {
                         padding-left: 0px;
                     }
                 }
 
                 h2 {
-                    @include tablet {
+                    @include mixins.tablet {
                         margin-left: 0px;
                     }
                 }
@@ -235,13 +238,13 @@
 
     &.checkout {
         h2 {
-            @include tablet {
+            @include mixins.tablet {
                 margin-left: 0px;
             }
         }
 
         ol {
-            @include tablet {
+            @include mixins.tablet {
                 padding-left: 5px;
             }
         }

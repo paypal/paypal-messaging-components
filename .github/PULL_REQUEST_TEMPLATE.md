@@ -14,9 +14,9 @@
 
 <!-- Describe your changes and what problem they solve -->
 
-## Screenshots
+## Screenshots / Videos
 
-<!-- Add any relevant screenshots of the change or fix -->
+<!-- Add any relevant screenshots, GIFs, or a short video demo. For non-UI changes, write "N/A". -->
 
 ## Testing instructions
 
@@ -24,3 +24,26 @@
     Include any useful information that will help with testing this change specifically, if applicable
     General testing setup can be omitted - this should focus on setup unique to this PR
 -->
+
+## Review
+
+<!-- SLA: Please give us 3 days to engage with your PR. We will be notified when it is created. -->
+
+The expected SLA for reviews in this repo is days.
+
+All pull requests require an initial review from your team followed by code owner approval.
+
+While initial review is ongoing, please add the following label to your PR `Needs initial review`. This initial review process should ensure that:
+
+-   Code follows team standards and best practices
+-   Changes are thoroughly tested and verified
+-   The PR template is filled out
+-   Documentation is complete and accurate
+-   The PR is ready for official code owner review
+
+Once you have received initial approval, please do the following:
+
+-   Remove the label `Needs initial review`
+-   Add the label `Needs codeowner review`
+
+Code owners will then review the PR in accordance with our SLA. This process helps maintain code quality and reduces review cycles.

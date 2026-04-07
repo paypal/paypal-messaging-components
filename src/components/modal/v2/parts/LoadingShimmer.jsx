@@ -1,7 +1,6 @@
 /* eslint-disable eslint-comments/disable-enable-pair */
 /** @jsx h */
 import { Fragment, h } from 'preact';
-import arrayFrom from 'core-js-pure/stable/array/from';
 
 const LoadingShimmer = ({ numOffers = 3, offerCountry, useNewCheckoutDesign }) => {
     /**
@@ -11,7 +10,7 @@ const LoadingShimmer = ({ numOffers = 3, offerCountry, useNewCheckoutDesign }) =
 
     return (
         <Fragment>
-            {arrayFrom({ length: numOffers }).map((_, index) => {
+            {Array.from({ length: numOffers }).map((_, index) => {
                 if (offerCountry === 'DE') {
                     return (
                         <div id={index} className="accordion__container shimmer">

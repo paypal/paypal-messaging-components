@@ -1,4 +1,3 @@
-import stringStartsWith from 'core-js-pure/stable/string/starts-with';
 import { SDK_SETTINGS } from '@paypal/sdk-constants/src';
 import { ZalgoPromise } from '@krakenjs/zalgo-promise/src';
 import { uniqueID, getCurrentScriptUID } from '@krakenjs/belter/src';
@@ -29,7 +28,8 @@ import {
     getMerchantConfig,
     getLocalTreatments,
     getTsCookieFromStorage,
-    getURIPopup
+    getURIPopup,
+    getFaqUrl
 } from '../../../utils';
 import validate from './validation';
 import containerTemplate from './containerTemplate';
@@ -114,6 +114,12 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 required: false,
                 value: validate.language
             },
+            locale: {
+                type: 'string',
+                queryParam: true,
+                required: false,
+                value: validate.locale
+            },
             ignoreCache: {
                 type: 'boolean',
                 queryParam: 'ignore_cache',
@@ -147,12 +153,25 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                     const { onClick } = props;
 
                     return ({ meta }) => {
-                        const { modal, index, account, merchantId, currency, amount, buyerCountry, language, onApply } =
-                            props;
+                        const {
+                            modal,
+                            index,
+                            account,
+                            merchantId,
+                            currency,
+                            amount,
+                            buyerCountry,
+                            language,
+                            locale,
+                            onApply
+                        } = props;
                         const { offerType, offerCountry, messageRequestId, lander } = meta;
                         if (offerType === 'PURCHASE_PROTECTION') {
                             if (getURIPopup(lander, offerType) == null) {
-                                logger.warn('Blocked unsafe lander URL', { lander });
+                                logger.warn('Blocked unsafe lander URL', {
+                                    lander,
+                                    help_url: getFaqUrl('GENERAL')
+                                });
                             }
                         } else {
                             // Avoid spreading message props because both message and modal
@@ -164,6 +183,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                                 amount,
                                 buyerCountry,
                                 language,
+                                locale,
                                 onApply,
                                 offer: offerType,
                                 offerCountry,
@@ -221,8 +241,8 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 value: ({ props }) => {
                     const { onReady } = props;
                     return ({ meta, activeTags, ts, requestDuration, messageRequestId, globalSessionID }) => {
-                        const { account, merchantId, index, modal, getContainer, pageType } = props;
-                        const { trackingDetails, offerType, ppDebugId } = meta;
+                        const { account, merchantId, index, modal, getContainer, pageType, language, locale } = props;
+                        const { trackingDetails, offerType, ppDebugId, language: renderedLanguage } = meta;
                         const partnerClientId = merchantId && account.slice(10); // slice is to remove the characters 'client-id:' from account name
 
                         // overwrites potentially poisoned PAGE_TYPE value from cached trackingDetails
@@ -265,7 +285,9 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                                     messageRequestId,
                                     account: merchantId || account,
                                     partnerClientId,
-                                    trackingDetails
+                                    trackingDetails,
+                                    language_requested: locale?.replace('_', '-') || language,
+                                    language_rendered: renderedLanguage ?? 'undefined'
                                 }
                             };
                         });
@@ -307,7 +329,8 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                             warnings.forEach(warning => {
                                 logger.warn('render_warning', {
                                     description: warning,
-                                    container: getContainer()
+                                    container: getContainer(),
+                                    help_url: getFaqUrl('RENDERING')
                                 });
                             });
                         }
@@ -357,7 +380,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
             payerId: {
                 type: 'string',
                 queryParam: 'payer_id',
-                decorate: ({ props }) => (!stringStartsWith(props.account, 'client-id:') ? props.account : null),
+                decorate: ({ props }) => (!props.account.startsWith('client-id:') ? props.account : null),
                 default: () => '',
                 required: false
             },
@@ -365,7 +388,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 type: 'string',
                 queryParam: 'client_id',
                 decorate: ({ props }) => {
-                    return stringStartsWith(props.account, 'client-id:') ? props.account.slice(10) : null;
+                    return props.account.startsWith('client-id:') ? props.account.slice(10) : null;
                 },
                 default: () => '',
                 required: false

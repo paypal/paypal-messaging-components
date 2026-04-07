@@ -1,5 +1,3 @@
-import objectEntries from 'core-js-pure/stable/object/entries';
-import arrayFrom from 'core-js-pure/stable/array/from';
 import { isIosWebview, isAndroidWebview } from '@krakenjs/belter/src';
 import { request, memoize, ppDebug } from '../../../../utils';
 import validate from '../../../../library/zoid/message/validation';
@@ -14,6 +12,7 @@ export const getContent = memoize(
         customerId,
         buyerCountry,
         language,
+        locale,
         ignoreCache,
         deviceID,
         version,
@@ -28,7 +27,7 @@ export const getContent = memoize(
         buttonSessionId,
         integrationIdentifier
     }) => {
-        const query = objectEntries({
+        const query = Object.entries({
             currency,
             amount,
             payer_id: payerId,
@@ -37,6 +36,7 @@ export const getContent = memoize(
             customer_id: customerId,
             buyer_country: buyerCountry,
             language,
+            locale,
             ignore_cache: ignoreCache,
             deviceID,
             version,
@@ -87,7 +87,7 @@ export function setupTabTrap() {
     function trapTabKey(e) {
         // Check for TAB key press
         if (e.keyCode === 9 && !document.querySelector('.modal-closed')) {
-            const tabArray = arrayFrom(document.querySelectorAll(focusableElementsString)).filter(
+            const tabArray = Array.from(document.querySelectorAll(focusableElementsString)).filter(
                 node => window.getComputedStyle(node).visibility === 'visible'
             );
             // SHIFT + TAB

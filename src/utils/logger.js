@@ -1,7 +1,5 @@
 /* eslint-disable eslint-comments/disable-enable-pair */
 /* eslint-disable camelcase */
-import objectKeys from 'core-js-pure/stable/object/keys';
-import arrayIncludes from 'core-js-pure/stable/array/includes';
 import { Logger, LOG_LEVEL } from '@krakenjs/beaver-logger/src';
 import { ZalgoPromise } from '@krakenjs/zalgo-promise/src';
 
@@ -11,7 +9,7 @@ import { request } from './miscellaneous';
 import { getLibraryVersion, getDisableSetCookie, getClientId } from './sdk';
 
 function generateLogPayload(account, { meta, events: bizEvents, tracking }) {
-    const { deviceID, sessionID, integration_type, messaging_version, globalSessionID } = meta.global ?? {};
+    const { deviceID, sessionID, integration_type, integration_version, globalSessionID } = meta.global ?? {};
 
     let clientID;
     if (account.startsWith('client-id:')) {
@@ -29,7 +27,16 @@ function generateLogPayload(account, { meta, events: bizEvents, tracking }) {
         .filter(([, component]) => component.account === account)
         .map(([index, component]) => {
             // buttonSessionId could be undefined here
-            const { type, partnerClientId, buttonSessionId, messageRequestId, stats = {}, trackingDetails } = component;
+            const {
+                type,
+                partnerClientId,
+                buttonSessionId,
+                messageRequestId,
+                stats = {},
+                trackingDetails,
+                language_requested,
+                language_rendered
+            } = component;
             const { clickUrl } = trackingDetails;
             delete trackingDetails.clickUrl;
 
@@ -39,13 +46,14 @@ function generateLogPayload(account, { meta, events: bizEvents, tracking }) {
             merchant_profile_valid = merchant_profile_valid ?? trackingDetails.MERCHANT_PROFILE_VALID;
             buyer_profile_hash = buyer_profile_hash ?? trackingDetails.BUYER_PROFILE_HASH;
             buyer_profile_valid = buyer_profile_valid ?? trackingDetails.BUYER_PROFILE_VALID;
-            partner_attribution_id = partner_attribution_id ?? stats.bn_code;
+            partner_attribution_id = partner_attribution_id ?? stats.partner_attribution_id;
 
             const componentEvents = tracking.filter(event => event.index === index);
 
-            // bn_code does not live in stats for standalone modal
+            // partner_attribution_id does not live in stats for standalone modal
             partner_attribution_id =
-                partner_attribution_id ?? componentEvents.find(event => event.bn_code !== undefined)?.bn_code;
+                partner_attribution_id ??
+                componentEvents.find(event => event.partner_attribution_id !== undefined)?.partner_attribution_id;
 
             // Stats payload
             const { render_duration, request_duration } = stats;
@@ -62,6 +70,8 @@ function generateLogPayload(account, { meta, events: bizEvents, tracking }) {
                 instance_id: messageRequestId,
                 button_session_id: buttonSessionId,
                 fdata,
+                language_requested: language_requested ?? 'undefined',
+                language_rendered: language_rendered ?? 'undefined',
                 merchant_events: bizEvents.filter(event => event.payload?.index === index),
                 ...trackingDetails,
                 ...stats,
@@ -101,7 +111,7 @@ function generateLogPayload(account, { meta, events: bizEvents, tracking }) {
             global_session_id: globalSessionID,
             session_id: sessionID,
             integration_type,
-            integration_version: messaging_version,
+            integration_version,
             components
         }
     };
@@ -157,8 +167,8 @@ export const logger = Logger({
 
         const activeIndexes = eventsIndexes.concat(trackingIndexes);
 
-        const trimmedMeta = objectKeys(json.meta)
-            .filter(index => arrayIncludes(activeIndexes, index) || index === 'global')
+        const trimmedMeta = Object.keys(json.meta)
+            .filter(index => activeIndexes.includes(index) || index === 'global')
             .reduce(
                 (accumulator, index) => ({
                     ...accumulator,
@@ -205,7 +215,7 @@ logger.addMetaBuilder(() => {
     return {
         global: {
             integration_type: __MESSAGES__.__TARGET__,
-            messaging_version: getLibraryVersion()
+            integration_version: getLibraryVersion()
         }
     };
 });
