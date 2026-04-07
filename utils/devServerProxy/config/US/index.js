@@ -323,16 +323,16 @@ export default {
             }
         ],
         messageThresholds: [
-            // {
-            //     amount: 0,
-            //     template: 'generic.json',
-            //     product: 'PRODUCT_LIST'
-            // },
-            // {
-            //     amount: 0.01,
-            //     template: 'long_term_nq_eqz.json',
-            //     product: OFFER.PAY_LATER_LONG_TERM
-            // },
+            {
+                amount: 0,
+                template: 'generic.json',
+                product: 'PRODUCT_LIST'
+            },
+            {
+                amount: 0.01,
+                template: 'long_term_nq_eqz.json',
+                product: OFFER.PAY_LATER_LONG_TERM
+            },
             {
                 amount: 199,
                 template: 'long_term_single_eqz.json',
@@ -1853,16 +1853,16 @@ export default {
             }
         ],
         messageThresholds: [
-            // {
-            //     amount: 0,
-            //     template: 'generic.json',
-            //     product: 'PRODUCT_LIST'
-            // },
-            // {
-            //     amount: 0.01,
-            //     template: 'long_term_nq_eqz.json',
-            //     product: OFFER.PAY_LATER_LONG_TERM
-            // },
+            {
+                amount: 0,
+                template: 'generic.json',
+                product: 'PRODUCT_LIST'
+            },
+            {
+                amount: 0.01,
+                template: 'long_term_nq_eqz.json',
+                product: OFFER.PAY_LATER_LONG_TERM
+            },
             {
                 amount: 199,
                 template: 'long_term_single_eqz.json',
@@ -1930,26 +1930,26 @@ export default {
             }
         ],
         messageThresholds: [
-            // {
-            //     amount: 0,
-            //     template: 'generic.json',
-            //     product: 'PRODUCT_LIST'
-            // },
-            // {
-            //     amount: 0.01,
-            //     template: 'short_term_nq.json',
-            //     product: OFFER.PAY_LATER_SHORT_TERM
-            // },
-            // {
-            //     amount: 30,
-            //     template: 'short_term_q.json',
-            //     product: OFFER.PAY_LATER_SHORT_TERM
-            // },
-            // {
-            //     amount: 1500.01,
-            //     template: 'ppc_ni_q.json',
-            //     product: OFFER.PAYPAL_CREDIT_NO_INTEREST
-            // },
+            {
+                amount: 0,
+                template: 'generic.json',
+                product: 'PRODUCT_LIST'
+            },
+            {
+                amount: 0.01,
+                template: 'short_term_nq.json',
+                product: OFFER.PAY_LATER_SHORT_TERM
+            },
+            {
+                amount: 30,
+                template: 'short_term_q.json',
+                product: OFFER.PAY_LATER_SHORT_TERM
+            },
+            {
+                amount: 1500.01,
+                template: 'ppc_ni_q.json',
+                product: OFFER.PAYPAL_CREDIT_NO_INTEREST
+            },
             {
                 amount: 10000,
                 template: '/prequalification/long_term_multi_gtz.json',
@@ -2022,16 +2022,16 @@ export default {
             }
         ],
         messageThresholds: [
-            // {
-            //     amount: 0,
-            //     template: 'generic.json',
-            //     product: 'PRODUCT_LIST'
-            // },
-            // {
-            //     amount: 0.01,
-            //     template: 'long_term_nq_gtz.json',
-            //     product: OFFER.PAY_LATER_LONG_TERM
-            // },
+            {
+                amount: 0,
+                template: 'generic.json',
+                product: 'PRODUCT_LIST'
+            },
+            {
+                amount: 0.01,
+                template: 'long_term_nq_gtz.json',
+                product: OFFER.PAY_LATER_LONG_TERM
+            },
             {
                 amount: 199,
                 template: '/prequalification/long_term_single_gtz.json',
@@ -2098,26 +2098,26 @@ export default {
             }
         ],
         messageThresholds: [
-            // {
-            //     amount: 0,
-            //     template: 'generic.json',
-            //     product: 'PRODUCT_LIST'
-            // },
-            // {
-            //     amount: 0.01,
-            //     template: 'short_term_nq.json',
-            //     product: OFFER.PAY_LATER_SHORT_TERM
-            // },
-            // {
-            //     amount: 30,
-            //     template: 'short_term_q.json',
-            //     product: OFFER.PAY_LATER_SHORT_TERM
-            // },
-            // {
-            //     amount: 1500.01,
-            //     template: 'ppc_ni_q.json',
-            //     product: OFFER.PAYPAL_CREDIT_NO_INTEREST
-            // },
+            {
+                amount: 0,
+                template: 'generic.json',
+                product: 'PRODUCT_LIST'
+            },
+            {
+                amount: 0.01,
+                template: 'short_term_nq.json',
+                product: OFFER.PAY_LATER_SHORT_TERM
+            },
+            {
+                amount: 30,
+                template: 'short_term_q.json',
+                product: OFFER.PAY_LATER_SHORT_TERM
+            },
+            {
+                amount: 1500.01,
+                template: 'ppc_ni_q.json',
+                product: OFFER.PAYPAL_CREDIT_NO_INTEREST
+            },
             {
                 amount: 10000,
                 template: '/prequalification/long_term_multi_eqz.json',
@@ -2190,16 +2190,16 @@ export default {
             }
         ],
         messageThresholds: [
-            // {
-            //     amount: 0,
-            //     template: 'generic.json',
-            //     product: 'PRODUCT_LIST'
-            // },
-            // {
-            //     amount: 0.01,
-            //     template: 'long_term_nq_eqz.json',
-            //     product: OFFER.PAY_LATER_LONG_TERM
-            // },
+            {
+                amount: 0,
+                template: 'generic.json',
+                product: 'PRODUCT_LIST'
+            },
+            {
+                amount: 0.01,
+                template: 'long_term_nq_eqz.json',
+                product: OFFER.PAY_LATER_LONG_TERM
+            },
             {
                 amount: 199,
                 template: '/prequalification/long_term_single_eqz.json',
@@ -2266,26 +2266,26 @@ export default {
             }
         ],
         messageThresholds: [
-            // {
-            //     amount: 0,
-            //     template: 'generic.json',
-            //     product: 'PRODUCT_LIST'
-            // },
-            // {
-            //     amount: 0.01,
-            //     template: 'short_term_nq.json',
-            //     product: OFFER.PAY_LATER_SHORT_TERM
-            // },
-            // {
-            //     amount: 30,
-            //     template: 'short_term_q.json',
-            //     product: OFFER.PAY_LATER_SHORT_TERM
-            // },
-            // {
-            //     amount: 1500.01,
-            //     template: 'ppc_ni_q.json',
-            //     product: OFFER.PAYPAL_CREDIT_NO_INTEREST
-            // },
+            {
+                amount: 0,
+                template: 'generic.json',
+                product: 'PRODUCT_LIST'
+            },
+            {
+                amount: 0.01,
+                template: 'short_term_nq.json',
+                product: OFFER.PAY_LATER_SHORT_TERM
+            },
+            {
+                amount: 30,
+                template: 'short_term_q.json',
+                product: OFFER.PAY_LATER_SHORT_TERM
+            },
+            {
+                amount: 1500.01,
+                template: 'ppc_ni_q.json',
+                product: OFFER.PAYPAL_CREDIT_NO_INTEREST
+            },
             {
                 amount: 10000,
                 template: '/prequalification/long_term_multi_eqz_mixed.json',
@@ -2358,16 +2358,16 @@ export default {
             }
         ],
         messageThresholds: [
-            // {
-            //     amount: 0,
-            //     template: 'generic.json',
-            //     product: 'PRODUCT_LIST'
-            // },
-            // {
-            //     amount: 0.01,
-            //     template: 'long_term_nq_eqz.json',
-            //     product: OFFER.PAY_LATER_LONG_TERM
-            // },
+            {
+                amount: 0,
+                template: 'generic.json',
+                product: 'PRODUCT_LIST'
+            },
+            {
+                amount: 0.01,
+                template: 'long_term_nq_eqz.json',
+                product: OFFER.PAY_LATER_LONG_TERM
+            },
             {
                 amount: 199,
                 template: '/prequalification/long_term_single_eqz_mixed.json',
