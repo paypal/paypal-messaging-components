@@ -213,6 +213,14 @@ describe('modal interface', () => {
         expect(getModalComponent()().render).toHaveBeenLastCalledWith('body', 'popup');
     });
 
+    test('Renders as iframe when prequalExperience is false', async () => {
+        await Modal({ account: 'prequal-false' }).show({ prequalExperience: 'false' });
+
+        expect(getModalComponent()).toHaveBeenCalledTimes(1);
+        expect(getModalComponent()().render).toHaveBeenCalledTimes(1);
+        expect(getModalComponent()().render).toHaveBeenLastCalledWith('body', 'iframe');
+    });
+
     test('Renders as iframe when prequalExperience is not set', async () => {
         await Modal({ account: 'no-prequal' }).show({ index: '1' });
 
