@@ -26,7 +26,15 @@ export const ShortTerm = ({
         cta,
         spendingPowerSubtext
     },
-    productMeta: { qualifying, periodicPayment, useV4Design, useV5Design, preapproved, showPreapprovedBadge, prequalExperience },
+    productMeta: {
+        qualifying,
+        periodicPayment,
+        useV4Design,
+        useV5Design,
+        preapproved,
+        showPreapprovedBadge,
+        prequalExperience
+    },
     openProductList,
     useNewCheckoutDesign,
     use5Dot1Design

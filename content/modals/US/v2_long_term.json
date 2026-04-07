@@ -1,11 +1,12 @@
 {
     "meta": {
         "product": "PAY_LATER_LONG_TERM",
-        "prequalExperience": "true",
+        "prequalExperience": "{show_prequal_experience}",
         "useV5Design": "true",
         "v5.1": "true",
         "offerCountry": "US",
         "variables": {
+            "show_prequal_experience": "${eval('Trmt_credit_upstream_check_spending_power' =~ EXPERIMENTATION_DS.treatment_name ? 'true' : 'false')}",
             "transaction_amount": "${eval(transaction_amount ? transaction_amount : '-')}",
             "qualifying_offer": "${eval(CREDIT_OFFERS_DS.qualifying_offer ? CREDIT_OFFERS_DS.qualifying_offer : 'false')}",
             "financing_code": "${CREDIT_OFFERS_DS.financing_code}",

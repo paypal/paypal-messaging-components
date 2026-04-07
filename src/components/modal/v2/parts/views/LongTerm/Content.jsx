@@ -227,7 +227,9 @@ export const LongTerm = ({
             <div
                 className={`content__row disclosure ${expandedState ? '' : 'collapsed'} ${
                     useNewCheckoutDesign === 'true' ? 'checkout' : ''
-                } ${useV5Design === 'true' ? 'v5Design' : ''} ${country === 'DE' ? 'DE' : ''} ${isPrequalExperience ? 'prequal-fixed-offset' : ''}`}
+                } ${useV5Design === 'true' ? 'v5Design' : ''} ${country === 'DE' ? 'DE' : ''} ${
+                    isPrequalExperience ? 'prequal-fixed-offset' : ''
+                }`}
             >
                 {getDisclosure(disclosure)}
             </div>
