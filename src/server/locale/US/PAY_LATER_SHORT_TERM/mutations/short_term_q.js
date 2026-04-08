@@ -69,7 +69,7 @@ export default {
             'default',
             ({ textSize }) => ({
                 styles: [
-                    textWrap(textSize * 32, textSize, 'US'),
+                    textWrap(textSize * 36, textSize, 'US'),
                     xSmallFallback(textSize * 16),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25),
                     setLogoTop(textSize * 16),
@@ -97,7 +97,7 @@ export default {
                     }px) { .message__headline > .tag--medium > span > span:first-child { white-space: normal; } }
                     .message__headline > .tag--medium > span:not(.weak):first-child {white-space: nowrap;}`,
                     xSmallFallback(textSize * 10.75),
-                    setLogoTop(textSize * 32),
+                    setLogoTop(textSize * 36),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
                     `.weak { display: none}`,
                     addPeriod()
