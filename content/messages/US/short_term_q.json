@@ -6,7 +6,6 @@
         "messageType": "PLST_SQ",
         "offerTerm": "${CREDIT_OFFERS_DS.total_payments}",
         "lander": "",
-        "prequalExperience": "false",
         "variables": {
             "offer_id": "${CREDIT_OFFERS_DS.offer_id}",
             "vendor_financing_id": "${CREDIT_OFFERS_DS.vendor_financing_id}",
