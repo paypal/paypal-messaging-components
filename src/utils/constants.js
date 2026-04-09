@@ -10,5 +10,7 @@ export const OFFER = {
 export const TAG = {
     MESSAGE: 'paypal-message',
     MODAL: 'paypal-credit-modal',
-    TREATEMENTS: 'paypal-credit-treatments'
+    TREATEMENTS: 'paypal-credit-treatments',
+    // Prevent messaging treatments from running inside buttons iframe (avoids duplicate /experiments/local + /hash)
+    BUTTONS: 'paypal-buttons'
 };
