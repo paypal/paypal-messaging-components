@@ -1,5 +1,4 @@
 /* eslint-disable eslint-comments/disable-enable-pair, no-else-return */
-import arrayFrom from 'core-js-pure/stable/array/from';
 import { getStorage as getBelterStorage } from '@krakenjs/belter/src';
 import { SDK_QUERY_KEYS, SDK_SETTINGS } from '@paypal/sdk-constants/src';
 import {
@@ -28,7 +27,7 @@ export function getDisableSetCookie() {
     if (__MESSAGES__.__TARGET__ === 'SDK') {
         return getSDKDisableCookie();
     } else {
-        return false;
+        return true;
     }
 }
 
@@ -72,6 +71,15 @@ export function getAccount() {
         return undefined;
     }
 }
+
+export function getClientId() {
+    if (__MESSAGES__.__TARGET__ === 'SDK') {
+        return getClientID();
+    } else {
+        return undefined;
+    }
+}
+
 export function getPageType() {
     if (__MESSAGES__.__TARGET__ === 'SDK') {
         return getSDKPageType();
@@ -212,7 +220,7 @@ export const isScriptBeingDestroyed = () => {
         location.href = currentSdkScript.src;
 
         // Ensure that there are currently no other SDK scripts that might be in the process of destroying this script
-        return arrayFrom(document.querySelectorAll(`script[src*="${location.host}/sdk/js"]`)).some(
+        return Array.from(document.querySelectorAll(`script[src*="${location.host}/sdk/js"]`)).some(
             script =>
                 script !== currentSdkScript &&
                 script.getAttribute(SDK_SETTINGS.NAMESPACE) === currentSdkScript.getAttribute(SDK_SETTINGS.NAMESPACE)

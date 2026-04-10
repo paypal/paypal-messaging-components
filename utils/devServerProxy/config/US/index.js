@@ -133,6 +133,43 @@ export default {
             ]
         }
     },
+    DEV_US_SHORT_TERM_CYSP: {
+        country: 'US',
+        modalViews: [
+            {
+                template: 'v2_short_term.json',
+                product: OFFER.PAY_LATER_SHORT_TERM
+            }
+        ],
+        messageThresholds: [
+            {
+                amount: 0,
+                template: 'short_term_nq.json',
+                product: OFFER.PAY_LATER_SHORT_TERM
+            },
+            {
+                amount: 30,
+                template: '/prequalification/short_term_q.json',
+                product: OFFER.PAY_LATER_SHORT_TERM
+            },
+            {
+                amount: 1500.01,
+                template: 'short_term_nq.json',
+                product: OFFER.PAY_LATER_SHORT_TERM
+            }
+        ],
+        offers: {
+            [OFFER.PAY_LATER_SHORT_TERM]: [
+                {
+                    totalPayments: 4,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 30,
+                    maxAmount: 1500
+                }
+            ]
+        }
+    },
     DEV_US_SHORT_TERM_CHECKOUT: {
         country: 'US',
         modalViews: [
@@ -1712,6 +1749,165 @@ export default {
             {
                 amount: 10000.01,
                 template: '/marks/long_term_nq_gtz.json',
+                product: OFFER.PAY_LATER_LONG_TERM
+            }
+        ],
+        offers: {
+            [OFFER.PAY_LATER_LONG_TERM]: [
+                {
+                    totalPayments: 6,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 199,
+                    maxAmount: 2999.99
+                },
+                {
+                    totalPayments: 12,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 199,
+                    maxAmount: 20000
+                },
+                {
+                    totalPayments: 24,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 500,
+                    maxAmount: 20000
+                },
+                {
+                    totalPayments: 36,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 3000,
+                    maxAmount: 20000
+                }
+            ]
+        }
+    },
+    // Risk-based (RB) accounts
+    DEV_US_MULTI_RB: {
+        country: 'US',
+        modalViews: [
+            {
+                template: 'v2_product_list_rb.json',
+                product: 'PRODUCT_LIST'
+            },
+            {
+                template: 'v2_short_term.json',
+                product: OFFER.PAY_LATER_SHORT_TERM
+            },
+            {
+                template: 'v2_ppc_ni.json',
+                product: OFFER.PAYPAL_CREDIT_NO_INTEREST
+            },
+            {
+                template: 'v2_long_term_rb.json',
+                offersTemplate: 'v2_long_term_rb.json',
+                product: OFFER.PAY_LATER_LONG_TERM
+            }
+        ],
+        messageThresholds: [
+            {
+                amount: 0,
+                template: 'generic.json',
+                product: 'PRODUCT_LIST'
+            },
+            {
+                amount: 0.01,
+                template: 'short_term_nq.json',
+                product: OFFER.PAY_LATER_SHORT_TERM
+            },
+            {
+                amount: 30,
+                template: 'short_term_q.json',
+                product: OFFER.PAY_LATER_SHORT_TERM
+            },
+            {
+                amount: 1500.01,
+                template: 'ppc_ni_q.json',
+                product: OFFER.PAYPAL_CREDIT_NO_INTEREST
+            }
+        ],
+        offers: {
+            [OFFER.PAY_LATER_SHORT_TERM]: [
+                {
+                    totalPayments: 4,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 30,
+                    maxAmount: 1500
+                }
+            ],
+            [OFFER.PAYPAL_CREDIT_NO_INTEREST]: [
+                {
+                    totalPayments: 6,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 149,
+                    maxAmount: 9999.99
+                }
+            ],
+            [OFFER.PAY_LATER_LONG_TERM]: [
+                {
+                    totalPayments: 6,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 199,
+                    maxAmount: 2999.99
+                },
+                {
+                    totalPayments: 12,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 199,
+                    maxAmount: 20000
+                },
+                {
+                    totalPayments: 24,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 500,
+                    maxAmount: 20000
+                },
+                {
+                    totalPayments: 36,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 3000,
+                    maxAmount: 20000
+                }
+            ]
+        }
+    },
+    DEV_US_LONG_TERM_RB: {
+        country: 'US',
+        modalViews: [
+            {
+                template: 'v2_long_term_rb.json',
+                offersTemplate: 'v2_long_term_rb.json',
+                product: OFFER.PAY_LATER_LONG_TERM
+            }
+        ],
+        messageThresholds: [
+            {
+                amount: 0,
+                template: 'generic.json',
+                product: 'PRODUCT_LIST'
+            },
+            {
+                amount: 0.01,
+                template: 'long_term_nq_eqz.json',
+                product: OFFER.PAY_LATER_LONG_TERM
+            },
+            {
+                amount: 199,
+                template: 'long_term_single_eqz.json',
+                product: OFFER.PAY_LATER_LONG_TERM
+            },
+            {
+                amount: 10000.01,
+                template: 'long_term_nq_eqz.json',
                 product: OFFER.PAY_LATER_LONG_TERM
             }
         ],

@@ -1,5 +1,138 @@
 # Changelog
 
+## [1.80.0](https://github.com/paypal/paypal-messaging-components/compare/v1.79.0...v1.80.0) (2026-03-24)
+
+
+### Features
+
+* add white-no-border flex color for non-US countries ([adc33d7](https://github.com/paypal/paypal-messaging-components/commit/adc33d772cd444f567e67d380fe6808ccee520f6))
+* add white-no-border flex color for non-US countries [#1275](https://github.com/paypal/paypal-messaging-components/issues/1275) ([f06e4f4](https://github.com/paypal/paypal-messaging-components/commit/f06e4f483a2b265754bb53990fdb6459b6699c5f))
+* added language_rendered tracking for message and modal for v5 sdk ([#1283](https://github.com/paypal/paypal-messaging-components/issues/1283)) ([564c817](https://github.com/paypal/paypal-messaging-components/commit/564c8173fb856018d9397982f3382de9dd9dd8ef))
+* Ites eqz msgs ([#1285](https://github.com/paypal/paypal-messaging-components/issues/1285)) ([42886d0](https://github.com/paypal/paypal-messaging-components/commit/42886d0d8208b4deb264379305412a29364f4f57))
+* Pay Later Modals to PPUI 6.0 Design System ([#1284](https://github.com/paypal/paypal-messaging-components/issues/1284)) ([9946391](https://github.com/paypal/paypal-messaging-components/commit/9946391787ccf58e33c05a56cb6f15cb8910b367))
+
+
+### Code Refactoring
+
+* update ppcc nq msgs and modals ([#1286](https://github.com/paypal/paypal-messaging-components/issues/1286)) ([fc444c4](https://github.com/paypal/paypal-messaging-components/commit/fc444c4e0328e2e9ea152e0cd6b672d52cc15232))
+
+## [1.79.0](https://github.com/paypal/paypal-messaging-components/compare/v1.78.0...v1.79.0) (2026-03-03)
+
+
+### Features
+
+* enhance zoid-polyfill to support trusted origin detection from postMessage events ([f22ea2e](https://github.com/paypal/paypal-messaging-components/commit/f22ea2ece6ee1edaa7aebdf9a2c4af0ce80c1645))
+
+
+### Code Refactoring
+
+* send id to treatments component and accept deviceID, if sent ([49f6fe8](https://github.com/paypal/paypal-messaging-components/commit/49f6fe855019eed822797cba1617e9a68b991855))
+
+## [1.78.0](https://github.com/paypal/paypal-messaging-components/compare/v1.77.1...v1.78.0) (2026-02-24)
+
+
+### Features
+
+* add FAQ links to warning messages for merchant troubleshooting ([#1268](https://github.com/paypal/paypal-messaging-components/issues/1268)) ([3a7d6b5](https://github.com/paypal/paypal-messaging-components/commit/3a7d6b50e3ea721458f60db2d27f0b7879a225d2))
+* Add language_requested field to fpti ([#1249](https://github.com/paypal/paypal-messaging-components/issues/1249)) ([2866ae0](https://github.com/paypal/paypal-messaging-components/commit/2866ae086917067b337f015cabd42efebfc00d2d))
+* add locale param ([#1255](https://github.com/paypal/paypal-messaging-components/issues/1255)) ([df4bde6](https://github.com/paypal/paypal-messaging-components/commit/df4bde6e3961c47f2cb138aa47555dd60ef9be92))
+
+
+### Documentation
+
+* add subagents section and update persona (DTCRCMERC-4677) ([dcf9202](https://github.com/paypal/paypal-messaging-components/commit/dcf92028de219872ec6cffc24749cf9000874b48))
+* add v5/v6 service dependency map for agents ([bf44bb2](https://github.com/paypal/paypal-messaging-components/commit/bf44bb2209e9aa410b336bde4676c022c45f3676))
+* align crcoffersserv abbreviation to CRCO in AGENTS diagram ([068ec29](https://github.com/paypal/paypal-messaging-components/commit/068ec2991b8f1bf83ad0375303542b0ab7f1590a))
+* expand subagents guidance (DTCRCMERC-4677) ([845449f](https://github.com/paypal/paypal-messaging-components/commit/845449fd8576e6256146431d36f56f26d574dd29))
+* normalize deep-dive dependency wording ([37a2bd0](https://github.com/paypal/paypal-messaging-components/commit/37a2bd0971c998149337185dd5760e775f650790))
+* remove deep internal service details from public AGENTS ([a60e77a](https://github.com/paypal/paypal-messaging-components/commit/a60e77abbea6e573d602ff5b71fe3ba1f48ce103))
+* strengthen workflow orchestration in AGENTS.md (DTCRCMERC-4677) ([b2ddef2](https://github.com/paypal/paypal-messaging-components/commit/b2ddef2a200df1f9e297266752105a3d9a25a80a))
+* update PR template and agent docs (DTCRCMERC-4677) ([9689af5](https://github.com/paypal/paypal-messaging-components/commit/9689af5544a970b249f0a0f38484698abdc20876))
+
+### [1.77.1](https://github.com/paypal/paypal-messaging-components/compare/v1.77.0...v1.77.1) (2026-02-10)
+
+
+### Code Refactoring
+
+* add de lt modal terms link ([#1269](https://github.com/paypal/paypal-messaging-components/issues/1269)) ([822d877](https://github.com/paypal/paypal-messaging-components/commit/822d877a18183449ec8b95f13cf77ef5f55cf72e))
+
+## [1.77.0](https://github.com/paypal/paypal-messaging-components/compare/v1.76.1...v1.77.0) (2026-02-03)
+
+
+### Features
+
+* add experiment gating for US and GB preapproval badge ([#1270](https://github.com/paypal/paypal-messaging-components/issues/1270)) ([237fe7e](https://github.com/paypal/paypal-messaging-components/commit/237fe7e7ba6d2dc4e6fdcda5290928f73a5225f9))
+
+
+### Bug Fixes
+
+* country-specific margins for preapproval label in checkout header ([#1266](https://github.com/paypal/paypal-messaging-components/issues/1266)) ([aed68db](https://github.com/paypal/paypal-messaging-components/commit/aed68db786b3f1783ac4ed2fbf143fdde7560310))
+
+
+### Code Refactoring
+
+* Feature/payloadfields ([#1260](https://github.com/paypal/paypal-messaging-components/issues/1260)) ([cae48fe](https://github.com/paypal/paypal-messaging-components/commit/cae48fea0cedad1676b421091b11a502a4406157))
+* finalize message type values ([#1252](https://github.com/paypal/paypal-messaging-components/issues/1252)) ([49d63d7](https://github.com/paypal/paypal-messaging-components/commit/49d63d78f8125ea3b8d63da4233f3e7a1a701154))
+
+### [1.76.1](https://github.com/paypal/paypal-messaging-components/compare/v1.76.0...v1.76.1) (2026-01-27)
+
+
+### Bug Fixes
+
+* header component scss ([#1265](https://github.com/paypal/paypal-messaging-components/issues/1265)) ([61ea1b3](https://github.com/paypal/paypal-messaging-components/commit/61ea1b3aa7c6c19b78c9a6955ecf4089406c64d1))
+
+
+### Code Refactoring
+
+* fetch new treatments on expiration ([#1262](https://github.com/paypal/paypal-messaging-components/issues/1262)) ([ff6ddbf](https://github.com/paypal/paypal-messaging-components/commit/ff6ddbf87de96e5335f45e836314155fbfbee18f))
+* migrate deprecated Sass [@import](https://github.com/import) to [@use](https://github.com/use) statements ([#1254](https://github.com/paypal/paypal-messaging-components/issues/1254)) ([89adcf5](https://github.com/paypal/paypal-messaging-components/commit/89adcf5bd23811921615f464ffdbf593c003fd7d))
+* remove core-js-pure dependency ([#1253](https://github.com/paypal/paypal-messaging-components/issues/1253)) ([181a8b7](https://github.com/paypal/paypal-messaging-components/commit/181a8b708b3f409f0531f835ff97f275f88b5495))
+* UK Pi3 Preapproval ModXO changes ([#1259](https://github.com/paypal/paypal-messaging-components/issues/1259)) ([95ed87c](https://github.com/paypal/paypal-messaging-components/commit/95ed87c17016d6ace42f2bf9ec4d058892b94177))
+
+## [1.76.0](https://github.com/paypal/paypal-messaging-components/compare/v1.75.0...v1.76.0) (2026-01-20)
+
+
+### Features
+
+* add otherCosts for modal ES/IT ([#1247](https://github.com/paypal/paypal-messaging-components/issues/1247)) ([c2907b2](https://github.com/paypal/paypal-messaging-components/commit/c2907b2d85e1cdc91648793420ab0de7934eed8d))
+
+
+### Bug Fixes
+
+* Assigned true value for disableSetCookie query parameters for non-sdk integrations ([42f2333](https://github.com/paypal/paypal-messaging-components/commit/42f233341f51caa6bb0b99c994f2d44bb8f2ac50))
+
+
+### Code Refactoring
+
+* DE Pi30 modal - Updated URLs for terms ([#1250](https://github.com/paypal/paypal-messaging-components/issues/1250)) ([8520372](https://github.com/paypal/paypal-messaging-components/commit/8520372dd25dcf343f20f8f7f29a52999899b07c))
+* PPC 180-day Updates 11/1/25 ([#1246](https://github.com/paypal/paypal-messaging-components/issues/1246)) ([3058784](https://github.com/paypal/paypal-messaging-components/commit/305878452607dafa3b41b121dd55622d3691db17))
+* update es lt max threshold ([#1256](https://github.com/paypal/paypal-messaging-components/issues/1256)) ([1c9754b](https://github.com/paypal/paypal-messaging-components/commit/1c9754b0bddbb0468188bf399dd1256d95cecb6a))
+
+## [1.75.0](https://github.com/paypal/paypal-messaging-components/compare/v1.74.0...v1.75.0) (2025-11-04)
+
+
+### Features
+
+* add sdk log auth header ([#1175](https://github.com/paypal/paypal-messaging-components/issues/1175)) ([47baea4](https://github.com/paypal/paypal-messaging-components/commit/47baea404b14cf5e7afc6f3d2ecfae01bd182e6d))
+* adds risk-based APR US message types and content ([#1240](https://github.com/paypal/paypal-messaging-components/issues/1240)) ([b926b46](https://github.com/paypal/paypal-messaging-components/commit/b926b46c7894f2b79e4e3ef744ffa2972bf5eb7e))
+* adds risk-based APR US modals content ([#1243](https://github.com/paypal/paypal-messaging-components/issues/1243)) ([0a95422](https://github.com/paypal/paypal-messaging-components/commit/0a95422f353e3aa52e7b6be5d864ed1aea55e1a0))
+
+
+### Bug Fixes
+
+* FRIT ST disclosure ([17b7c71](https://github.com/paypal/paypal-messaging-components/commit/17b7c710c05f84317e57c2ec3abe8ced6e254ae2))
+
+
+### Documentation
+
+* Update ActionsHowTo.md and publish.yml for npm Trusted Publishing setup ([#1241](https://github.com/paypal/paypal-messaging-components/issues/1241)) ([eced3a2](https://github.com/paypal/paypal-messaging-components/commit/eced3a24718a8060449d1432c3413233df4783b9))
+
+
+### Code Refactoring
+
+* update ppc nq ([#1211](https://github.com/paypal/paypal-messaging-components/issues/1211)) ([d1bffe7](https://github.com/paypal/paypal-messaging-components/commit/d1bffe76eeff44a38d82b4d420b1a9be74406ac0))
+* update ppcc uri ([#1244](https://github.com/paypal/paypal-messaging-components/issues/1244)) ([0bd7fd1](https://github.com/paypal/paypal-messaging-components/commit/0bd7fd145684d3d24fb14a1334fafd489f4c9a63))
+
 ## [1.74.0](https://github.com/paypal/paypal-messaging-components/compare/v1.73.0...v1.74.0) (2025-10-07)
 
 

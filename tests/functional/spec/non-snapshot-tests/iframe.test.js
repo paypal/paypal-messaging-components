@@ -20,7 +20,7 @@ describe('message inside another iframe', () => {
         });
 
         const { bannerElement } = await setupTestPage({
-            config: { account: 'DEV_US_MULTI' },
+            config: { account: 'DEV_US_MULTI', amount: 100 },
             testPage: 'iframe.html',
             frameName: 'message iframe'
         });

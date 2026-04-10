@@ -28,7 +28,8 @@ jest.mock('@paypal/sdk-client/src', () => ({
     getDisableSetCookie: () => 'true',
     getDefaultNamespace: () => 'paypal',
     getPageType: () => 'home',
-    getNativeModal: () => 'true'
+    getNativeModal: () => 'true',
+    getStorageID: () => 'device_id'
 }));
 
 describe('experiments utils', () => {
@@ -93,9 +94,9 @@ describe('experiments utils', () => {
 
         ensureTreatments();
 
-        expect(globalEvent.trigger).toHaveBeenCalledWith('treatments');
+        expect(globalEvent.trigger).not.toHaveBeenCalledWith('treatments');
 
-        // treatment refresh should be triggered in the background
+        // treatment refresh should be triggered to get fresh data
         expect(document.querySelector('iframe')).not.toBeNull();
     });
 

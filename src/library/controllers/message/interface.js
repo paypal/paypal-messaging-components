@@ -1,4 +1,3 @@
-import objectEntries from 'core-js-pure/stable/object/entries';
 import { ZalgoPromise } from '@krakenjs/zalgo-promise/src';
 
 import {
@@ -14,7 +13,8 @@ import {
     PERFORMANCE_MEASURE_KEYS,
     globalEvent,
     ppDebug,
-    awaitTreatments
+    awaitTreatments,
+    getFaqUrl
 } from '../../../utils';
 
 import { getMessageComponent } from '../../zoid/message';
@@ -50,7 +50,8 @@ export default (options = {}) => ({
             if (!options._auto) {
                 logger.warn('invalid_selector', {
                     description: `No elements were found with the following selector: "${selector}"`,
-                    selector
+                    selector,
+                    help_url: getFaqUrl('RENDERING')
                 });
             }
 
@@ -62,7 +63,8 @@ export default (options = {}) => ({
             if (!container.ownerDocument.body.contains(container)) {
                 logger.warn('not_in_document', {
                     description: 'Container must be in the document.',
-                    container
+                    container,
+                    help_url: getFaqUrl('RENDERING')
                 });
 
                 return false;
@@ -101,6 +103,7 @@ export default (options = {}) => ({
                                     offer,
                                     buyerCountry,
                                     language,
+                                    locale,
                                     ignoreCache,
                                     onClick,
                                     onRender,
@@ -122,6 +125,7 @@ export default (options = {}) => ({
                                     amount,
                                     buyerCountry,
                                     language,
+                                    locale,
                                     ignoreCache,
                                     channel,
                                     ecToken,
@@ -183,6 +187,7 @@ export default (options = {}) => ({
                                     amount: ${amount},
                                     buyerCountry: ${buyerCountry},
                                     language: ${language},
+                                    locale: ${locale},
                                     pageType: ${pageType},
                     
                                     renderStart: ${new Date(renderStart).toLocaleString()},
@@ -210,7 +215,7 @@ export default (options = {}) => ({
                                 }
 
                                 // Filter out undefined to prevent overwriting previous values
-                                const updatedMessageProps = objectEntries(messageProps).reduce(
+                                const updatedMessageProps = Object.entries(messageProps).reduce(
                                     (acc, [key, val]) =>
                                         typeof val === 'undefined' ? acc : Object.assign(acc, { [key]: val }),
                                     {}

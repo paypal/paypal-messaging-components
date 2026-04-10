@@ -1,0 +1,29 @@
+{
+    "meta": {
+        "offerCountry": "ES",
+        "offerType": "PAY_LATER_LONG_TERM",
+        "offerTerm": "{total_payments}",
+        "messageType": "PLLT_NQ_EZ",
+        "lander": "https://www.paypal.com/credit-presentment/lander/modal",
+        "variables": {
+            "offer_id": "${CREDIT_OFFERS_DS.offer_id}",
+            "vendor_financing_id": "${CREDIT_OFFERS_DS.vendor_financing_id}",
+            "financing_code": "${CREDIT_OFFERS_DS.financing_code}",
+            "formattedPeriodicPayment": "${CREDIT_OFFERS_DS.formattedPeriodicPayment}",
+            "formattedMinAmount": "${CREDIT_OFFERS_DS.formattedMinAmount}",
+            "formattedMaxAmount": "${CREDIT_OFFERS_DS.formattedMaxAmount}"
+        }
+    },
+    "headline": [
+        ["Compra ahora, paga después.", ["default", "xsmall"]],
+        ["Compra ahora y paga después.", ["xsmall.2"]],
+        [
+            "Paga en hasta {total_payments} plazos para compras de {formattedMinAmount} a {formattedMaxAmount}, desde 0% TAE.",
+            ["small", "medium", "large", "xlarge"]
+        ]
+    ],
+    "subHeadline": [],
+    "disclaimer": [
+        ["<span aria-hidden='true'>Más información</span><span class='sr-only'>Más información</span>", ["default"]]
+    ]
+}

@@ -1,3 +1,7 @@
+@use "../globals/colors";
+@use "../globals/mixins";
+@use "../globals/variables";
+
 .calculator {
     .loading & {
         .content__wrapper-overflow & {
@@ -11,80 +15,80 @@
     padding-right: 25px;
     padding-bottom: 10px;
 
-    @include desktop {
+    @include mixins.desktop {
         margin-top: 25px;
         margin-bottom: 10px;
         padding-left: 30px;
         padding-right: 60px;
     }
 
-    @include tablet {
+    @include mixins.tablet {
         margin-top: 20px;
         margin-bottom: 10px;
         padding-right: 0px;
         width: 315px;
     }
 
-    @include mobile {
+    @include mixins.mobile {
         margin-top: 20px;
         margin-bottom: 10px;
     }
 
-    @include smallMobile {
+    @include mixins.smallMobile {
         margin-top: 15px;
     }
 
     &.border-checkout {
-        @include tablet {
+        @include mixins.tablet {
             width: auto;
             margin-bottom: 20px;
-            border: 1px solid $checkout-border;
-            background-color: $white;
+            border: 1px solid colors.$checkout-border;
+            background-color: colors.$white;
             padding: 20px 20px 20px 20px;
             border-radius: 12px;
         }
 
-        @include mobile {
+        @include mixins.mobile {
             width: auto;
             margin-top: 20px;
             margin-bottom: 20px;
-            border: 1px solid $checkout-border;
-            background-color: $white;
+            border: 1px solid colors.$checkout-border;
+            background-color: colors.$white;
             padding: 20px 20px 20px 20px;
             border-radius: 12px;
         }
 
-        @include smallMobile {
+        @include mixins.smallMobile {
             width: auto;
             margin-top: 20px;
             margin-bottom: 20px;
-            border: 1px solid $checkout-border;
-            background-color: $white;
+            border: 1px solid colors.$checkout-border;
+            background-color: colors.$white;
             padding: 20px 20px 20px 20px;
             border-radius: 12px;
         }
     }
 
     .checkout & {
-        @include tablet {
+        @include mixins.tablet {
             margin-bottom: 0px;
         }
 
-        @include mobile {
+        @include mixins.mobile {
             margin-bottom: 0px;
         }
     }
 
     .form {
         .title {
-            color: $text-main;
-            font-weight: 400;
+            color: colors.$text-main;
+            font-weight: 500;
             font-size: 18px;
             margin-top: 0;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
 
-            @include desktop {
-                @include lander {
+            @include mixins.desktop {
+                @include mixins.lander {
                     margin-top: 20px;
                 }
             }
@@ -121,19 +125,19 @@
             }
 
             .input {
-                font-family: $paypal-open;
+                font-family: variables.$paypal-open;
                 background: white;
-                border: 1px solid $checkout-border;
-                border-radius: 3px;
-                color: $text-main;
+                border: 1px solid colors.$checkout-border;
+                border-radius: 16px;
+                color: colors.$text-main;
                 font-size: 18px;
                 padding: 1.75rem 0.5rem 0.25rem;
 
                 &.empty-input {
-                    padding-top: 16px;
-                    padding-bottom: 16px;
+                    padding-top: 18px;
+                    padding-bottom: 18px;
                     &::placeholder {
-                        font-family: $paypal-open;
+                        font-family: variables.$paypal-open;
                         font-size: 14px;
                     }
                 }
@@ -145,7 +149,7 @@
             }
 
             &.v5Design {
-                @include tablet {
+                @include mixins.tablet {
                     margin-right: 15px;
                 }
                 .input__label {
@@ -156,7 +160,7 @@
                     width: 100%;
                     padding-left: 12px;
                     padding-bottom: 8px;
-                    @include mobile {
+                    @include mixins.mobile {
                         padding-right: 0px;
                     }
                 }
@@ -172,10 +176,10 @@
                 font-weight: 700;
             }
             label {
-                color: $v5-gray;
+                color: colors.$v5-gray;
             }
             input {
-                border: 1px solid $v5-gray;
+                border: 1px solid colors.$v5-gray;
             }
             // @include tablet {
             display: flex;
@@ -202,11 +206,11 @@
         }
 
         .calculator__error {
-            color: $text-main;
+            color: colors.$v5-gray;
             font-size: 14px;
             margin-top: 10px;
 
-            @include tablet {
+            @include mixins.tablet {
                 display: flex;
             }
 
@@ -216,11 +220,11 @@
                 align-items: flex-start;
                 max-width: 317px;
 
-                @include desktop {
+                @include mixins.desktop {
                     margin: auto;
                 }
 
-                @include mobile {
+                @include mixins.mobile {
                     margin: auto;
                 }
             }
@@ -241,29 +245,29 @@
     }
 
     .finance-terms__disclaimer {
-        color: $gray;
+        color: colors.$gray;
         font-size: 14px;
         line-height: 1.5;
 
-        @include mobile {
+        @include mixins.mobile {
             margin-top: 0px;
         }
-        @include smallMobile {
+        @include mixins.smallMobile {
             margin-top: 0px;
         }
 
         &.v5Design {
-            color: $v5-gray;
+            color: colors.$v5-gray;
             padding-top: 16px;
         }
     }
 
     &.v5Design {
         text-align: left;
-        @include tablet {
+        @include mixins.tablet {
             width: 88%;
         }
-        @include mobile {
+        @include mixins.mobile {
             width: 100%;
             padding-right: 0px;
         }

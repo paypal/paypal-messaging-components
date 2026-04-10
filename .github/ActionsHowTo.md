@@ -84,6 +84,27 @@ This workflow runs three jobs.
 
 1. Runs semantic-release to create a new release
 
+## Publishing to npm with Trusted Publishers (publish.yml)
+
+We publish using npm Trusted Publishing (OIDC) instead of long-lived tokens. This removes the need to store `NPM_TOKEN` and improves security.
+
+One-time setup on npmjs.com (per package):
+
+-   In your package's Settings → Publishing access, add a Trusted Publisher for GitHub Actions.
+-   Select the repository and enter the workflow filename exactly as `.github/workflows/publish.yml`.
+-   Optionally, in Settings → Publishing access, enable “Require two-factor authentication and disallow tokens”. This blocks traditional tokens but still allows OIDC.
+
+Workflow requirements already configured in `publish.yml`:
+
+-   Top-level permissions include `id-token: write` and `contents: read`.
+-   `actions/setup-node@v4` configures the npm registry.
+-   npm is updated to latest to ensure npm 11.5.1+ for OIDC publish.
+-   `npm publish` runs without `NODE_AUTH_TOKEN`.
+
+If you need to install private dependencies during publish, use a read-only token just for install and keep `npm publish` without a token. See npm docs for guidance.
+
+References: npm Trusted Publishers docs: https://docs.npmjs.com/trusted-publishers
+
 ## Workflow Triggers
 
 Triggers are what causes a workflow to run. These are the current triggers for each of our workflows.

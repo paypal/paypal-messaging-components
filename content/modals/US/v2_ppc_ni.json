@@ -39,12 +39,18 @@
                 "A minimum monthly payment is required, which may not pay off the purchase by the end of the 6 month period."
             ],
             [
-                "Individual items less than {formattedMinAmount} qualify for special financing when combined for a total of {formattedMinAmount} or more in a single transaction. However, separate transactions cannot be combined to meet the minimum purchase amount."
+                "Special financing is available when an individual item or multiple items in a single purchase total {formattedMinAmount} or more. If the amount that posts to your account for such a purchase is {formattedMinAmount} or more, special financing will apply."
             ],
+            [
+                "Some merchants may charge you separately if there are multiple items in a single purchase, such as when those items ship separately. If that happens, and a charge that posts to your account does not meet the minimum purchase threshold of {formattedMinAmount} or more, special financing may not be automatically applied. Please visit the ",
+                [["FAQs", "https://www.paypal.com/us/campaign/paypal-credit-card/faq"]],
+                "for information on how to apply special financing for this purchase."
+            ],
+            ["Separate transactions cannot be combined to meet the minimum purchase amount."],
             "All PayPal Credit Card and PayPal Credit purchases",
             [
                 [
-                    "New Accounts as of 3/1/2025: Variable Purchase and Cash APR 30.39%. Variable Penalty APR 34.99%. APRs will vary with the market based on the Prime Rate. Min interest charge $2. PayPal Credit Mastercard: Cash Advance Fee 5% ($10 min). Foreign Trans Fee 3%. For current APRs, see account",
+                    "New Accounts as of 11/1/2025: Variable Purchase and Cash APR 29.89%. Variable Penalty APR 34.49%. APRs will vary with the market based on the Prime Rate. Min interest charge $2. PayPal Credit Mastercard: Cash Advance Fee 5% ($10 min). Foreign Trans Fee 3%. For current APRs, see account",
                     [
                         "Terms and Conditions",
                         "https://www.synchronycredit.com/syfterms/html/PayPalCreditApplyTerms_combo.html",

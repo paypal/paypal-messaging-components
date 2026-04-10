@@ -1,6 +1,6 @@
 {
     "name": "@paypal/messaging-components",
-    "version": "1.74.0",
+    "version": "1.80.0",
     "description": "PayPal messaging library for integrating PayPal Credit messaging on merchant websites",
     "homepage": "https://github.com/paypal/paypal-messaging-components",
     "repository": {
@@ -50,8 +50,7 @@
         "@paypal/common-components": "^1.0.33",
         "@paypal/sdk-client": "^4.0.166",
         "@paypal/sdk-constants": "^1.0.118",
-        "@paypal/sdk-logos": "^2.0.0",
-        "core-js-pure": "3.31.1"
+        "@paypal/sdk-logos": "^2.0.0"
     },
     "devDependencies": {
         "@axe-core/playwright": "^4.10.1",

@@ -2,7 +2,7 @@
     "meta": {
         "offerCountry": "ES",
         "offerType": "GENERIC",
-        "messageType": "GENERIC",
+        "messageType": "PL_GENERIC",
         "offerTerm": "{total_payments}",
         "lander": "https://www.paypal.com/credit-presentment/lander/modal",
         "variables": {

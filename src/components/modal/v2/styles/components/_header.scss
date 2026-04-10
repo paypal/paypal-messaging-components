@@ -1,47 +1,51 @@
+@use '../globals/colors';
+@use '../globals/mixins';
+@use '../globals/variables';
+
 .header {
     &__container {
         position: relative;
 
-        @include desktop {
+        @include mixins.desktop {
             padding-bottom: 30px;
         }
-        @include tablet {
+        @include mixins.tablet {
             padding-bottom: 40px;
         }
-        @include mobile {
+        @include mixins.mobile {
             padding-bottom: 40px;
         }
     }
 
     &__fixed-wrapper {
-        @include fixedWrapper;
+        @include mixins.fixedWrapper;
 
         z-index: 0;
         top: 0;
         overflow: hidden;
-        border-radius: $content-wrapper-border-radius $content-wrapper-border-radius 0 0;
+        border-radius: variables.$content-wrapper-border-radius variables.$content-wrapper-border-radius 0 0;
 
         &--front {
             z-index: 1;
         }
 
-        @include mobile {
+        @include mixins.mobile {
             border-radius: 0;
         }
 
-        @include apiIframe {
+        @include mixins.apiIframe {
             border-radius: 0;
         }
 
-        @include lander {
+        @include mixins.lander {
             border-radius: 0;
         }
 
         .v4Design {
-            background-color: $v4-gray;
+            background-color: colors.$v4-gray;
         }
         .v5Design {
-            background-color: $v5-white;
+            background-color: colors.$v5-white;
         }
     }
 
@@ -49,17 +53,17 @@
         overflow: hidden;
         height: 25rem; // Needs to be tall enough to seamlessly flow behind the main body content
         max-height: 85vh; // Prevent it from bleeding below on small height tablet views
-        background-color: $beige;
+        background-color: colors.$beige;
 
         // We have multiple backgrounds to give the appearance of
         // reserving space at the top of the modal when scrolling.
         // This requires having a portion of the background with a
         // higher z-index so that the content scrolls underneath
         &--sticky {
-            height: $sticky-header-height-tablet-desktop;
+            height: variables.$sticky-header-height-tablet-desktop;
 
-            @include mobile {
-                height: $sticky-header-height-mobile;
+            @include mixins.mobile {
+                height: variables.$sticky-header-height-mobile;
             }
         }
 
@@ -70,29 +74,34 @@
             -webkit-mask-image: linear-gradient(
                 to bottom,
                 black,
-                black $sticky-header-height-tablet-desktop,
+                black variables.$sticky-header-height-tablet-desktop,
                 transparent 100px
             );
             mask-image: linear-gradient(
                 to bottom,
                 black,
-                black $sticky-header-height-tablet-desktop,
+                black variables.$sticky-header-height-tablet-desktop,
                 transparent 100px
             );
 
-            @include mobile {
+            @include mixins.mobile {
                 -webkit-mask-image: linear-gradient(
                     to bottom,
                     black,
-                    black $sticky-header-height-mobile,
+                    black variables.$sticky-header-height-mobile,
                     transparent 100px
                 );
-                mask-image: linear-gradient(to bottom, black, black $sticky-header-height-mobile, transparent 100px);
+                mask-image: linear-gradient(
+                    to bottom,
+                    black,
+                    black variables.$sticky-header-height-mobile,
+                    transparent 100px
+                );
             }
         }
 
         &.checkout {
-            background-color: $white;
+            background-color: colors.$white;
         }
     }
 
@@ -108,10 +117,10 @@
         position: sticky;
         top: 0;
         width: 100%;
-        flex: 0 0 $sticky-header-height-tablet-desktop;
+        flex: 0 0 variables.$sticky-header-height-tablet-desktop;
 
-        @include mobile {
-            flex: 0 0 $sticky-header-height-mobile;
+        @include mixins.mobile {
+            flex: 0 0 variables.$sticky-header-height-mobile;
         }
 
         .logo {
@@ -121,19 +130,19 @@
                 transition: transform 0.2s ease-out;
                 padding: 0 20px;
 
-                @include desktop {
+                @include mixins.desktop {
                     padding: 0px;
                     margin-left: 48px;
                 }
 
-                @include tablet {
+                @include mixins.tablet {
                     padding: 0px;
                     margin-left: 56px;
                 }
 
                 &--scroll {
                     transform: translate(-3rem, 0);
-                    @include mobile {
+                    @include mixins.mobile {
                         transform: translate(0, 0);
                     }
                 }
@@ -155,17 +164,17 @@
                 outline: -webkit-focus-ring-color solid 2px;
             }
 
-            @include desktop {
+            @include mixins.desktop {
                 margin-left: auto;
                 margin-right: 2px;
             }
 
-            @include tablet {
+            @include mixins.tablet {
                 margin-left: auto;
                 margin-right: 2px;
             }
 
-            @include mobile {
+            @include mixins.mobile {
                 margin-top: 1px;
                 margin-right: 2px;
             }
@@ -175,11 +184,11 @@
                 width: 48px;
                 pointer-events: none;
 
-                @include desktop {
+                @include mixins.desktop {
                     margin: 0px;
                 }
 
-                @include tablet {
+                @include mixins.tablet {
                     margin: 0px;
                 }
 
@@ -210,7 +219,7 @@
                 margin: 10px auto 10px 10px;
                 padding-left: 0px;
 
-                @include mobile {
+                @include mixins.mobile {
                     margin-left: 15px;
                 }
             }
@@ -221,16 +230,16 @@
         padding-top: 2rem;
         position: relative;
 
-        @include desktop {
+        @include mixins.desktop {
             padding-bottom: 40px;
         }
-        @include tablet {
+        @include mixins.tablet {
             width: 100%;
             padding-bottom: 40px;
         }
 
         .checkout & {
-            @include tablet {
+            @include mixins.tablet {
                 padding-bottom: 44px;
             }
         }
@@ -241,19 +250,19 @@
             bottom: 36px;
             pointer-events: none;
 
-            @include desktop {
+            @include mixins.desktop {
                 &.background-mobile {
                     display: none;
                 }
             }
 
-            @include tablet {
+            @include mixins.tablet {
                 &.background-mobile {
                     display: none;
                 }
             }
 
-            @include mobile {
+            @include mixins.mobile {
                 &.background-desktop {
                     display: none;
                 }
@@ -265,11 +274,11 @@
             font-weight: 400;
             line-height: 36px;
             text-align: left;
-            color: $text-main;
+            color: colors.$text-main;
             margin-left: 52px;
             margin-top: 10px;
 
-            @include desktop {
+            @include mixins.desktop {
                 margin-bottom: 10px;
 
                 br {
@@ -277,9 +286,9 @@
                 }
             }
 
-            @include tablet {
+            @include mixins.tablet {
                 margin-left: 62px;
-                @include lander {
+                @include mixins.lander {
                     max-width: 100%;
                 }
 
@@ -291,54 +300,54 @@
                 }
             }
 
-            @include mobile {
+            @include mixins.mobile {
                 margin-bottom: 5px;
                 margin-left: 22px;
                 max-width: 84%;
             }
 
-            @include smallMobile {
+            @include mixins.smallMobile {
                 font-size: 1.7rem;
                 max-width: 81%;
             }
 
             &.headline-de {
-                @include tablet {
+                @include mixins.tablet {
                     margin-right: 102px;
                 }
 
-                @include mobile {
+                @include mixins.mobile {
                     line-height: 30px;
                     margin-right: 50px;
                     margin-left: 0px;
                     padding: 10px 25px 0px;
                 }
 
-                @include apiIframe {
+                @include mixins.apiIframe {
                     max-width: 500px;
-                    @include mobile {
+                    @include mixins.mobile {
                         max-width: 279px;
                     }
                 }
             }
 
             &.headline-gb-preapproved {
-                max-width: 50%;
-                @include mobile {
+                max-width: 70%;
+                @include mixins.mobile {
                     max-width: 75%;
                 }
             }
 
             &.headline-us-preapproved {
-                @include smallMobile {
+                @include mixins.smallMobile {
                     max-width: 75%;
                 }
             }
 
             &.v5Design {
-                font-family: $paypal-pro;
+                font-family: variables.$paypal-pro;
                 font-weight: bold;
-                font-size: 32px;
+                font-size: 40px;
                 line-height: 36px;
             }
         }
@@ -348,28 +357,28 @@
             font-weight: 400;
             line-height: 24px;
             text-align: left;
-            color: $text-main;
+            color: colors.$text-main;
             margin: 0px;
 
-            @include desktop {
+            @include mixins.desktop {
                 margin-left: 52px;
                 margin-top: 0px;
                 margin-bottom: 80px;
             }
 
-            @include tablet {
+            @include mixins.tablet {
                 max-width: 380px;
                 margin-left: 62px;
                 margin-bottom: 60px;
             }
 
-            @include mobile {
+            @include mixins.mobile {
                 max-width: 75%;
                 padding: 10px 22px 100px;
                 line-height: 20px;
             }
 
-            @include smallMobile {
+            @include mixins.smallMobile {
                 max-width: 67%;
             }
 
@@ -380,7 +389,7 @@
             &.v5Design {
                 max-width: 503px;
                 margin-bottom: 0px;
-                @include mobile {
+                @include mixins.mobile {
                     padding: 10px 22px 40px;
                 }
                 &.DE {
@@ -392,7 +401,7 @@
                 margin-left: 42px;
                 padding-right: 10px;
 
-                @include mobile {
+                @include mixins.mobile {
                     margin-left: 0px;
                 }
             }
@@ -411,16 +420,42 @@
                 color: #0066f5;
                 border-radius: 6px;
                 padding: 2px 8px;
-                margin: 0px 0px -20px 10px;
 
-                @include mobile {
-                    margin: 10px 0px -10px 10px;
+                &.us {
+                    margin: 0px 0px -20px 10px;
+
+                    @include mixins.mobile {
+                        margin: 10px 0px -10px 10px;
+                    }
+                }
+
+                &.gb {
+                    margin: 3px 0px -50px -140px;
+
+                    @include mixins.mobile {
+                        margin: 3px 0px -50px -140px;
+                    }
+                    @include mixins.smallMobile {
+                        margin: 3px 0px -50px -60px;
+                    }
+
+                    @include mixins.lander {
+                        margin: 30px 0px -50px -70px;
+
+                        @include mixins.mobile {
+                            margin: 5px 0px -50px -140px;
+                        }
+
+                        @include mixins.smallMobile {
+                            margin: 5px 0px -50px -60px;
+                        }
+                    }
                 }
             }
         }
 
         &.checkout {
-            background-color: $white;
+            background-color: colors.$white;
 
             // logo icons
             svg {
@@ -428,18 +463,18 @@
                 bottom: 0px;
                 right: -20px;
 
-                @include mobile {
+                @include mixins.mobile {
                     right: -22px;
                 }
             }
 
             h2 {
-                font-family: $paypal-pro;
+                font-family: variables.$paypal-pro;
                 font-weight: bold;
                 margin-bottom: 5px;
                 margin-top: 20px;
 
-                @include tablet {
+                @include mixins.tablet {
                     margin-left: 20px;
                 }
             }
@@ -448,15 +483,15 @@
                 max-width: 400px;
                 margin-top: -1px;
 
-                @include desktop {
+                @include mixins.desktop {
                     margin-bottom: 0px;
                 }
-                @include tablet {
+                @include mixins.tablet {
                     margin-bottom: 10px;
                     margin-left: 20px;
                     padding: 0px 10px 0px 0px;
                 }
-                @include mobile {
+                @include mixins.mobile {
                     padding: 10px 22px 50px;
                 }
             }

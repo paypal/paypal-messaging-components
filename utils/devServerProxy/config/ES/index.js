@@ -40,7 +40,7 @@ export default {
                 product: 'PAY_LATER_LONG_TERM'
             },
             {
-                amount: 2999.01,
+                amount: 5000.01,
                 template: 'long_term_nq.json',
                 product: 'PAY_LATER_LONG_TERM'
             }
@@ -61,21 +61,21 @@ export default {
                     apr: 14.99,
                     nominalRate: 14.99,
                     minAmount: 60,
-                    maxAmount: 2999
+                    maxAmount: 5000
                 },
                 {
                     totalPayments: 12,
                     apr: 14.99,
                     nominalRate: 14.99,
                     minAmount: 120,
-                    maxAmount: 50299900
+                    maxAmount: 5000
                 },
                 {
                     totalPayments: 24,
                     apr: 14.99,
                     nominalRate: 14.99,
                     minAmount: 240,
-                    maxAmount: 2999
+                    maxAmount: 5000
                 }
             ]
         }
@@ -133,7 +133,7 @@ export default {
                 product: 'PAY_LATER_LONG_TERM'
             },
             {
-                amount: 2999.01,
+                amount: 5000.01,
                 template: 'long_term_nq.json',
                 product: 'PAY_LATER_LONG_TERM'
             }
@@ -145,21 +145,80 @@ export default {
                     apr: 0,
                     nominalRate: 0,
                     minAmount: 60,
-                    maxAmount: 2999
+                    maxAmount: 5000
                 },
                 {
                     totalPayments: 12,
                     apr: 0,
                     nominalRate: 0,
                     minAmount: 60,
-                    maxAmount: 2999
+                    maxAmount: 5000
                 },
                 {
                     totalPayments: 24,
                     apr: 0,
                     nominalRate: 0,
                     minAmount: 60,
-                    maxAmount: 2999
+                    maxAmount: 5000
+                }
+            ]
+        }
+    },
+    DEV_ES_LONG_TERM_0APR: {
+        country: 'ES',
+        modalViews: [
+            {
+                template: 'long_term.json',
+                offersTemplate: 'long_term.json',
+                product: 'PAY_LATER_LONG_TERM'
+            }
+        ],
+        messageThresholds: [
+            {
+                amount: 0,
+                template: 'long_term_nq_eqz.json',
+                product: 'PAY_LATER_LONG_TERM'
+            },
+            {
+                amount: 120,
+                template: 'long_term_q_eqz.json',
+                product: 'PAY_LATER_LONG_TERM'
+            },
+            {
+                amount: 5000.01,
+                template: 'long_term_nq_eqz.json',
+                product: 'PAY_LATER_LONG_TERM'
+            }
+        ],
+        offers: {
+            PAY_LATER_LONG_TERM: [
+                {
+                    totalPayments: 3,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 120,
+                    maxAmount: 5000
+                },
+                {
+                    totalPayments: 6,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 120,
+                    maxAmount: 5000
+                },
+                {
+                    totalPayments: 12,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 120,
+                    maxAmount: 5000
+                },
+                {
+                    totalPayments: 24,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 120,
+                    maxAmount: 5000
                 }
             ]
         }

@@ -40,7 +40,10 @@ module.exports = (env = { TARGET: 'sdk' }) => ({
             __TREATMENTS__: '/credit-presentment/experiments/local',
             __MODAL__: '/credit-presentment/smart/modal',
             __LOGGER__: '/credit-presentment/glog',
-            __CREDIT_APPLY__: '/ppcreditapply/da/us'
+            __CREDIT_APPLY__: '/credit-application/paypal-credit-card/da/us/billing'
+        },
+        __FAQ__: {
+            __BASE_URL__: 'https://developer.paypal.com/docs/checkout/pay-later/us'
         }
     }
 });

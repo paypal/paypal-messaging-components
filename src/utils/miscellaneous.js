@@ -1,9 +1,4 @@
 /** @jsx node */
-import arrayFind from 'core-js-pure/stable/array/find';
-import arrayIncludes from 'core-js-pure/stable/array/includes';
-import stringIncludes from 'core-js-pure/stable/string/includes';
-import objectAssign from 'core-js-pure/stable/object/assign';
-import objectEntries from 'core-js-pure/stable/object/entries';
 import { node, dom } from '@krakenjs/jsx-pragmatic/src';
 import { ZalgoPromise } from '@krakenjs/zalgo-promise/src';
 
@@ -18,24 +13,37 @@ import { OFFER } from './constants';
  */
 export function createState(initialState = {}) {
     const state = { ...initialState };
-    return [state, partial(objectAssign, state)];
+    return [state, partial(Object.assign, state)];
 }
 
+/**
+ * Retrieves data by tag from an array of [data, tags] tuples.
+ * Falls back to 'default' tag if the requested tag is not found or is not a string.
+ * If tag contains a dot (e.g., 'medium.3'), will fall back to the main tag (e.g., 'medium').
+ *
+ * @param {Array<[any, string[]]>} data - Array of tuples containing [data, tags]
+ * @param {*} tag - The tag to search for (typically a string, but accepts any type)
+ * @returns {*} The data associated with the tag, or empty string if not found
+ */
 export function getDataByTag(data, tag) {
-    let selected = arrayFind(data, ([, tags]) => arrayIncludes(tags, tag));
+    if (typeof tag !== 'string') {
+        const defaultData = data.find(([, tags]) => tags.includes('default'));
+        return defaultData?.[0] ?? '';
+    }
+    let selected = data.find(([, tags]) => tags.includes(tag));
     if (selected) {
         return selected[0];
     }
 
-    if (stringIncludes(tag, '.')) {
+    if (tag.includes('.')) {
         const [fallbackTag] = tag.split('.', 1);
-        selected = arrayFind(data, ([, tags]) => arrayIncludes(tags, fallbackTag));
+        selected = data.find(([, tags]) => tags.includes(fallbackTag));
         if (selected) {
             return selected[0];
         }
     }
 
-    selected = arrayFind(data, ([, tags]) => arrayIncludes(tags, 'default'));
+    selected = data.find(([, tags]) => tags.includes('default'));
     if (selected) {
         return selected[0];
     }
@@ -73,8 +81,8 @@ export function request(method, url, { data, headers, withCredentials } = {}) {
                         resolve({
                             headers: responseHeaders,
                             data:
-                                responseHeaders['content-type'] &&
-                                stringIncludes(responseHeaders['content-type'], 'application/json')
+                                typeof responseHeaders['content-type'] === 'string' &&
+                                responseHeaders['content-type'].includes('application/json')
                                     ? JSON.parse(xhttp.responseText)
                                     : xhttp.responseText
                         });
@@ -91,7 +99,7 @@ export function request(method, url, { data, headers, withCredentials } = {}) {
         xhttp.open(method, url, true);
 
         if (headers) {
-            objectEntries(headers).forEach(([header, value]) => {
+            Object.entries(headers).forEach(([header, value]) => {
                 xhttp.setRequestHeader(header, value);
             });
         }
@@ -212,6 +220,7 @@ export function getStandardProductOffer(offer) {
         case 'LT_MQEZ_RB':
         case 'LT_MQGZ':
         case 'LT_MQGZ:3MEZ':
+        case 'PLLT_MQ_GZ:PLLT_SQ_EZ':
         case 'LT_SQEZ':
         case 'LT_SQEZ_RB':
         case 'LT_SQGZ':
@@ -234,6 +243,8 @@ export function getStandardProductOffer(offer) {
         case 'PLLT_MQ_GZ:3MEZ':
         case 'PLLT_SQ_EZ':
         case 'PLLT_SQ_GZ':
+        case 'PLLT_MQ_EZ_RB':
+        case 'PLLT_SQ_EZ_RB':
         case OFFER.PAY_LATER_LONG_TERM:
             return OFFER.PAY_LATER_LONG_TERM;
         // TODO: Cleanup once content is updated

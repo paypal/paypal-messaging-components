@@ -5,14 +5,49 @@ import { EVENT } from '@krakenjs/zoid/src';
 import { getOverflowObserver, createTitleGenerator } from '../../../utils';
 
 const getTitle = createTitleGenerator();
+const DEFAULT_TEXT_SIZE_PX = 14;
+const MIN_TEXT_SIZE_PX = 10;
+const MAX_TEXT_SIZE_PX = 16;
+const TEXT_LINE_HEIGHT = 1.3;
+const TEXT_LINE_COUNT = 1;
+
+const getPlaceholderHeightPx = style => {
+    if (style?.layout !== 'text') {
+        return null;
+    }
+
+    const rawSize = style?.text?.size;
+    const parsedSize = typeof rawSize === 'number' ? rawSize : Number(rawSize);
+    const size =
+        Number.isFinite(parsedSize) && parsedSize >= MIN_TEXT_SIZE_PX && parsedSize <= MAX_TEXT_SIZE_PX
+            ? parsedSize
+            : DEFAULT_TEXT_SIZE_PX;
+
+    return Math.round(size * TEXT_LINE_HEIGHT * TEXT_LINE_COUNT * 10) / 10;
+};
 
 export default ({ uid, frame, prerenderFrame, doc, event, props, container }) => {
+    const host = container;
+    const placeholderHeightPx = getPlaceholderHeightPx(props.style);
+
+    if (placeholderHeightPx && host?.style && !host.dataset?.ppPlaceholderApplied) {
+        host.dataset.ppPlaceholderMinHeight = host.style.minHeight || '';
+        host.dataset.ppPlaceholderApplied = 'true';
+        host.style.minHeight = `${placeholderHeightPx}px`;
+    }
+
     event.on(EVENT.RENDERED, () => {
         prerenderFrame.parentNode.removeChild(prerenderFrame);
     });
 
     const setupAutoResize = el => {
         event.on(EVENT.RESIZE, ({ width, height }) => {
+            if (host?.dataset?.ppPlaceholderApplied) {
+                host.style.minHeight = host.dataset.ppPlaceholderMinHeight || '';
+                delete host.dataset.ppPlaceholderMinHeight;
+                delete host.dataset.ppPlaceholderApplied;
+            }
+
             if (width !== 0 || height !== 0) {
                 if (props.style.layout === 'flex') {
                     // Ensure height property does not exist for flex especially when swapping from text to flex
