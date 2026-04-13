@@ -3,6 +3,7 @@
         "product": "PAY_LATER_LONG_TERM",
         "useV5Design": "true",
         "offerCountry": "US",
+        "offerExperimentId": "true",
         "variables": {
             "transaction_amount": "${eval(transaction_amount ? transaction_amount : '-')}",
             "qualifying_offer": "${eval(CREDIT_OFFERS_DS.qualifying_offer ? CREDIT_OFFERS_DS.qualifying_offer : 'false')}",
@@ -40,6 +41,16 @@
             "buttonTextEligible": "Continue with Pay Monthly",
             "buttonTextIneligible": "Back to Checkout",
             "link": "https://www.paypal.com/link/to/long-term-application"
+        },
+        "offerTerms": {
+            "headline": "Earn 15% back in PayPal rewards on your 1st Pay Later purchase!",
+            "bullets": [
+                "Up to 3,000 points ($30 max redemption value)",
+                "Reward delivered as PayPal rewards points",
+                "Offer ends 5/31/26"
+            ],
+            "footer": "Limitations apply.",
+            "seeTermsLink": "https://www.paypal.com/summerpromo"
         },
         "disclosure": [
             "Pay Monthly is subject to consumer credit approval and eligibility. Payments may change based on shipping, taxes, updates to your purchase, or missed payments. Availability depends on the merchant and may not be available for subscriptions or recurring payments. Pay Monthly is currently not available to residents of <span aria-hidden='true'>AK, CT, HI, or WA</span><span class='sr-only'>Alaska, Connecticut, Hawaii, or Washington</span>. You must be 18 years old or older to apply. Missed payments may have an impact on your credit score. The lender for Pay Monthly is WebBank. PayPal, Inc. (NMLS #910457): <span aria-hidden='true'>RI</span><span class='sr-only'>Rhode Island</span> Loan Broker Licensee. <span aria-hidden='true'>VT</span><span class='sr-only'>Vermont</span> Loan Solicitation Licensee. <span aria-hidden='true'>VT</span><span class='sr-only'>Vermont</span> residents:",

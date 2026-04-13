@@ -7,6 +7,7 @@ import ProductListLink from '../../ProductListLink';
 import Instructions from '../../Instructions';
 import InlineLinks from '../../InlineLinks';
 import Button from '../../Button';
+import OfferTerms from '../../OfferTerms';
 import styles from './styles.scss';
 
 /**
@@ -76,9 +77,10 @@ export const LongTerm = ({
         disclosure,
         navLinkPrefix,
         linkToProductList,
-        cta
+        cta,
+        offerTerms
     },
-    productMeta: { useV4Design, useV5Design },
+    productMeta: { useV4Design, useV5Design, offerExperimentId },
     openProductList,
     useNewCheckoutDesign,
     use5Dot1Design
@@ -91,6 +93,7 @@ export const LongTerm = ({
     const offerAPRDisclaimers = getAPRDetails({ offers, disclaimer, genericDisclaimer });
 
     const isQualifyingAmount = amount >= minAmount && amount <= maxAmount;
+    const showOfferTerms = offerExperimentId === 'true';
 
     /**
      * The presence of "cta" in the content means the channel is checkout and the checkout-specific
@@ -183,6 +186,14 @@ export const LongTerm = ({
                         use5Dot1Design={use5Dot1Design}
                         useNewCheckoutDesign={useNewCheckoutDesign}
                     />
+                    {showOfferTerms && offerTerms && (
+                        <OfferTerms
+                            headline={offerTerms.headline}
+                            bullets={offerTerms.bullets}
+                            footer={offerTerms.footer}
+                            seeTermsLink={offerTerms.seeTermsLink}
+                        />
+                    )}
                     <div className={`content__col ${expandedState ? '' : 'collapsed'}`}>
                         <div className="branded-image">
                             {/* TODO: include Icon component when desktop images are final */}
