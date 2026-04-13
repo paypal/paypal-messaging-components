@@ -9,6 +9,7 @@ import InlineLinks from '../../InlineLinks';
 import Button from '../../Button';
 import Icon from '../../Icon';
 import styles from './styles.scss';
+import { getGlobalUrl, getURIPopup } from '../../../../../../utils';
 
 /**
  * Checks qualifying offer APRs in order to determine which APR disclaimer to render.
@@ -80,14 +81,15 @@ export const LongTerm = ({
         cta,
         spendingPowerSubtext
     },
-    productMeta: { useV4Design, useV5Design, prequalExperience },
+    productMeta: { useV4Design, useV5Design, prequalExperience, product },
     openProductList,
     useNewCheckoutDesign,
     use5Dot1Design
 }) => {
     const [expandedState, setExpandedState] = useState(false);
-    const { amount, onClick, onClose } = useXProps();
+    const { amount, onClick, onClose, ecToken } = useXProps();
     const { views, country } = useServerData();
+    const offer = product ?? 'PAY_LATER_LONG_TERM';
     const { offers } = views.find(view => view.offers);
     const { minAmount, maxAmount } = getComputedVariables(offers);
     const offerAPRDisclaimers = getAPRDetails({ offers, disclaimer, genericDisclaimer });
@@ -118,7 +120,15 @@ export const LongTerm = ({
                         <Button
                             onClick={() => {
                                 onClick({ linkName: spendingPowerClickTitle });
-                                onClose({ linkName: spendingPowerClickTitle });
+                                // TODO (CYSP): Decide behavior after feedback.
+                                // Option A: close modal now, then open CAP_s popup (current).
+                                // Option B: keep modal open until CAP_s popup closes (watch window).
+                                // Option C: reuse the popup window and set window.location instead of opening a new one.
+                                // onClose({ linkName: spendingPowerClickTitle });
+                                const url = `${getGlobalUrl('PREQUALIFICATION')}?token=${encodeURIComponent(
+                                    ecToken ?? ''
+                                )}&offer=${encodeURIComponent(offer)}`;
+                                getURIPopup(url, 'PREQUALIFICATION');
                             }}
                             className="cta"
                         >

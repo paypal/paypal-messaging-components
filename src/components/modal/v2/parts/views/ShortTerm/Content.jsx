@@ -13,6 +13,7 @@ import styles from './styles.scss';
 
 import { useServerData, useXProps } from '../../../lib/providers';
 import { currencyFormat } from '../../../lib/hooks/currency'; // Remove .00 cents from formated min and max
+import { getGlobalUrl, getURIPopup } from '../../../../../../utils';
 
 export const ShortTerm = ({
     content: {
@@ -33,14 +34,16 @@ export const ShortTerm = ({
         useV5Design,
         preapproved,
         showPreapprovedBadge,
-        prequalExperience
+        prequalExperience,
+        product
     },
     openProductList,
     useNewCheckoutDesign,
     use5Dot1Design
 }) => {
     const { views, country } = useServerData();
-    const { onClick, onClose } = useXProps();
+    const { onClick, onClose, ecToken } = useXProps();
+    const offer = product ?? 'PAY_LATER_SHORT_TERM';
 
     const isQualifying = qualifying === 'true';
 
@@ -75,7 +78,15 @@ export const ShortTerm = ({
                         <Button
                             onClick={() => {
                                 onClick({ linkName: spendingPowerClickTitle });
-                                onClose({ linkName: spendingPowerClickTitle });
+                                // TODO (CYSP): Decide behavior after feedback.
+                                // Option A: close modal now, then open CAP_s popup (current).
+                                // Option B: keep modal open until CAP_s popup closes (watch window).
+                                // Option C: reuse the popup window and set window.location instead of opening a new one.
+                                // onClose({ linkName: spendingPowerClickTitle });
+                                const url = `${getGlobalUrl('PREQUALIFICATION')}?token=${encodeURIComponent(
+                                    ecToken ?? ''
+                                )}&offer=${encodeURIComponent(offer)}`;
+                                getURIPopup(url, 'PREQUALIFICATION');
                             }}
                             className="cta"
                         >
