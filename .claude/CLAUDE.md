@@ -39,9 +39,6 @@ npm run test:func
 npm run build:production
 ```
 
-
-
-
 ## Service Dependencies (Deep Dive Aligned)
 
 See `AGENTS.md` section `Service Dependencies (Deep Dive Aligned)` for full mappings and impact rules.
