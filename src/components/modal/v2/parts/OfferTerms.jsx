@@ -20,12 +20,7 @@ const OfferTerms = ({ headline, bullets, footer, seeTermsLink }) => {
                 <div className="offer-terms__footer">
                     {footer}{' '}
                     {seeTermsLink && (
-                        <a
-                            className="offer-terms__link"
-                            href={seeTermsLink}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
+                        <a className="offer-terms__link" href={seeTermsLink} target="_blank" rel="noopener noreferrer">
                             See terms
                         </a>
                     )}
