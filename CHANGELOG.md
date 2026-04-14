@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.81.0](https://github.com/paypal/paypal-messaging-components/compare/v1.80.0...v1.81.0) (2026-04-14)
+
+
+### Features
+
+* add Check Your Spending Power mini-browser support ([#1294](https://github.com/paypal/paypal-messaging-components/issues/1294)) ([f855832](https://github.com/paypal/paypal-messaging-components/commit/f855832ead6020f1f121cf281eb98a1a8bac7ac2))
+
+
+### Bug Fixes
+
+* dev account content selection based on amount ([#1290](https://github.com/paypal/paypal-messaging-components/issues/1290)) ([7b5f588](https://github.com/paypal/paypal-messaging-components/commit/7b5f58860edff115726779267ae5145c9b64b58a))
+
+
+### Code Refactoring
+
+* add buttons zoid component in TAG ([#1295](https://github.com/paypal/paypal-messaging-components/issues/1295)) ([f9e9bf4](https://github.com/paypal/paypal-messaging-components/commit/f9e9bf4184f15c1e8d0a7e0a73e10e9e74435503))
+
 ## [1.80.0](https://github.com/paypal/paypal-messaging-components/compare/v1.79.0...v1.80.0) (2026-03-24)
 
 
