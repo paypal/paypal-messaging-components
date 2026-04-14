@@ -13,7 +13,7 @@ import styles from './styles.scss';
 
 import { useServerData, useXProps } from '../../../lib/providers';
 import { currencyFormat } from '../../../lib/hooks/currency'; // Remove .00 cents from formated min and max
-import { getGlobalUrl, getURIPopup } from '../../../../../../utils';
+import { openPrequalification } from '../../../lib';
 
 export const ShortTerm = ({
     content: {
@@ -78,15 +78,7 @@ export const ShortTerm = ({
                         <Button
                             onClick={() => {
                                 onClick({ linkName: spendingPowerClickTitle });
-                                // TODO (CYSP): Decide behavior after feedback.
-                                // Option A: close modal now, then open CAP_s popup (current).
-                                // Option B: keep modal open until CAP_s popup closes (watch window).
-                                // Option C: reuse the popup window and set window.location instead of opening a new one.
-                                // onClose({ linkName: spendingPowerClickTitle });
-                                const url = `${getGlobalUrl('PREQUALIFICATION')}?token=${encodeURIComponent(
-                                    ecToken ?? ''
-                                )}&offer=${encodeURIComponent(offer)}`;
-                                getURIPopup(url, 'PREQUALIFICATION');
+                                openPrequalification({ token: ecToken, offer });
                             }}
                             className="cta"
                         >

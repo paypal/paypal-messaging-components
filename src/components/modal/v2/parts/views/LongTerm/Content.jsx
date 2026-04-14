@@ -1,7 +1,7 @@
 /** @jsx h */
 import { h, Fragment } from 'preact';
 import { useState } from 'preact/hooks';
-import { useXProps, useServerData, getComputedVariables } from '../../../lib';
+import { useXProps, useServerData, getComputedVariables, openPrequalification } from '../../../lib';
 import Calculator from '../../Calculator';
 import ProductListLink from '../../ProductListLink';
 import Instructions from '../../Instructions';
@@ -9,7 +9,6 @@ import InlineLinks from '../../InlineLinks';
 import Button from '../../Button';
 import Icon from '../../Icon';
 import styles from './styles.scss';
-import { getGlobalUrl, getURIPopup } from '../../../../../../utils';
 
 /**
  * Checks qualifying offer APRs in order to determine which APR disclaimer to render.
@@ -120,15 +119,7 @@ export const LongTerm = ({
                         <Button
                             onClick={() => {
                                 onClick({ linkName: spendingPowerClickTitle });
-                                // TODO (CYSP): Decide behavior after feedback.
-                                // Option A: close modal now, then open CAP_s popup (current).
-                                // Option B: keep modal open until CAP_s popup closes (watch window).
-                                // Option C: reuse the popup window and set window.location instead of opening a new one.
-                                // onClose({ linkName: spendingPowerClickTitle });
-                                const url = `${getGlobalUrl('PREQUALIFICATION')}?token=${encodeURIComponent(
-                                    ecToken ?? ''
-                                )}&offer=${encodeURIComponent(offer)}`;
-                                getURIPopup(url, 'PREQUALIFICATION');
+                                openPrequalification({ token: ecToken, offer });
                             }}
                             className="cta"
                         >

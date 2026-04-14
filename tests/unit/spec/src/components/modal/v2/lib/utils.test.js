@@ -1,4 +1,28 @@
-import { formatDateByCountry, validateProps } from 'src/components/modal/v2/lib/utils';
+import { formatDateByCountry, openPrequalification, validateProps } from 'src/components/modal/v2/lib/utils';
+
+jest.mock('src/utils', () => {
+    const original = jest.requireActual('src/utils');
+    return {
+        ...original,
+        getGlobalUrl: jest.fn(() => 'https://www.paypal.com/paylateracq/prequalify')
+    };
+});
+
+const originalLocation = window.location;
+
+beforeEach(() => {
+    Object.defineProperty(window, 'location', {
+        value: { assign: jest.fn() },
+        writable: true
+    });
+});
+
+afterEach(() => {
+    Object.defineProperty(window, 'location', {
+        value: originalLocation,
+        writable: true
+    });
+});
 
 describe('Date function should return correct date format based on country', () => {
     it('US country date should be formatted MM/DD/YYYY', () => {
@@ -35,5 +59,23 @@ describe('validateProps', () => {
             contextualComponents: 'PAYPAL_BUTTON'
         };
         expect(output).toMatchObject({ ...fixedPropOutputValues, ...propsToPreserve });
+    });
+});
+
+describe('openPrequalification', () => {
+    it('redirects with token and offer params', () => {
+        openPrequalification({ token: 'ec-token-123', offer: 'PAY_LATER_SHORT_TERM' });
+
+        expect(window.location.assign).toHaveBeenCalledWith(
+            'https://www.paypal.com/paylateracq/prequalify?token=ec-token-123&offer=PAY_LATER_SHORT_TERM'
+        );
+    });
+
+    it('skips empty offer value', () => {
+        openPrequalification({ token: 'ec-token-123', offer: '' });
+
+        expect(window.location.assign).toHaveBeenCalledWith(
+            'https://www.paypal.com/paylateracq/prequalify?token=ec-token-123'
+        );
     });
 });
