@@ -80,7 +80,7 @@ export const LongTerm = ({
         cta,
         offerTerms
     },
-    productMeta: { useV4Design, useV5Design, offerExperimentId },
+    productMeta: { useV4Design, useV5Design, showPromoContent },
     openProductList,
     useNewCheckoutDesign,
     use5Dot1Design
@@ -93,7 +93,7 @@ export const LongTerm = ({
     const offerAPRDisclaimers = getAPRDetails({ offers, disclaimer, genericDisclaimer });
 
     const isQualifyingAmount = amount >= minAmount && amount <= maxAmount;
-    const showOfferTerms = offerExperimentId === 'true';
+    const showOfferTerms = showPromoContent === 'true';
 
     /**
      * The presence of "cta" in the content means the channel is checkout and the checkout-specific
