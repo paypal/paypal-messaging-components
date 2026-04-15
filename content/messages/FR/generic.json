@@ -2,7 +2,7 @@
     "meta": {
         "offerCountry": "FR",
         "offerType": "GENERIC",
-        "messageType": "GENERIC",
+        "messageType": "PL_GENERIC",
         "offerTerm": "{total_payments}",
         "lander": "https://www.paypal.com/credit-presentment/lander/modal",
         "experiment_id": "{experiment_id}",

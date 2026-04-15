@@ -168,8 +168,8 @@ export default {
                 headline: [
                     {
                         tag: 'medium',
-                        br: ['échéances'],
-                        replace: [['échéances.', 'échéances ']]
+                        br: ['mensualités'],
+                        replace: [['mensualités.', 'mensualités ']]
                     },
                     {
                         tag: 'xsmall',
@@ -193,8 +193,8 @@ export default {
                 headline: [
                     {
                         tag: 'medium',
-                        br: ['échéances'],
-                        replace: [['échéances.', 'échéances ']]
+                        br: ['mensualités'],
+                        replace: [['mensualités.', 'mensualités ']]
                     },
                     {
                         tag: 'xsmall',

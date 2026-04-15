@@ -18,7 +18,7 @@
         ["Payez en plusieurs fois.", ["default", "xsmall"]],
         ["Payez en plusieurs fois.", ["xsmall.2"]],
         [
-            "Payez en plusieurs échéances pour vos achats de {formatted_min_amount} à {formatted_max_amount}",
+            "Payez en plusieurs échéances pour vos achats de {formattedMinAmount} à {formattedMaxAmount}",
             ["small", "medium", "large", "xlarge"]
         ]
     ],
