@@ -25,7 +25,9 @@ export const getContent = memoize(
         disableSetCookie,
         features,
         buttonSessionId,
-        integrationIdentifier
+        integrationIdentifier,
+        experimentExperience,
+        experimentName
     }) => {
         const query = Object.entries({
             currency,
@@ -49,7 +51,9 @@ export const getContent = memoize(
             disableSetCookie,
             features,
             buttonSessionId,
-            integrationIdentifier
+            integrationIdentifier,
+            experiment_experience: experimentExperience,
+            experiment_name: experimentName
         })
             .filter(([, val]) => Boolean(val))
             .reduce(
