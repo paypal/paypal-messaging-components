@@ -165,7 +165,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                             locale,
                             onApply
                         } = props;
-                        const { offerType, offerCountry, messageRequestId, lander } = meta;
+                        const { offerType, offerCountry, messageRequestId, lander, prequalExperience } = meta;
                         if (offerType === 'PURCHASE_PROTECTION') {
                             if (getURIPopup(lander, offerType) == null) {
                                 logger.warn('Blocked unsafe lander URL', {
@@ -187,6 +187,7 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                                 onApply,
                                 offer: offerType,
                                 offerCountry,
+                                prequalExperience,
                                 refId: messageRequestId,
                                 refIndex: index,
                                 page_view_link_source: 'message_click'

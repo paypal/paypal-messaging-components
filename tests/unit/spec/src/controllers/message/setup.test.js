@@ -23,7 +23,18 @@ jest.mock('src/utils/experiments', () => {
 });
 
 describe('message setup', () => {
+    let originalWindowName;
+    let ensureTreatmentsMock;
+
+    beforeEach(() => {
+        originalWindowName = window.name;
+        // eslint-disable-next-line global-require
+        ensureTreatmentsMock = require('src/utils/experiments').ensureTreatments;
+        ensureTreatmentsMock.mockReset();
+    });
+
     afterEach(() => {
+        window.name = originalWindowName;
         Messages.mockClear();
         Messages().render.mockClear();
         destroy();
@@ -55,6 +66,18 @@ describe('message setup', () => {
 
         setup();
 
+        expect(Messages().render).not.toHaveBeenCalled();
+
+        removeMockScript();
+    });
+
+    test('Does not run treatments or auto-render in buttons zoid iframe', () => {
+        const removeMockScript = insertMockScript({ account: 'DEV00000000NI' });
+        window.name = '__zoid__paypal_buttons__test';
+
+        setup();
+
+        expect(ensureTreatmentsMock).not.toHaveBeenCalled();
         expect(Messages().render).not.toHaveBeenCalled();
 
         removeMockScript();
