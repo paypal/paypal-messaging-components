@@ -26,21 +26,21 @@ export default {
             },
             {
                 amount: 0.01,
-                template: 'short_term_nq.json',
+                template: 'gpl.json',
                 product: 'PAY_LATER_SHORT_TERM'
             },
             {
                 amount: 30,
-                template: 'short_term_q.json',
+                template: 'gplq.json',
                 product: 'PAY_LATER_SHORT_TERM'
             },
             {
                 amount: 500,
-                template: 'long_term_q.json',
+                template: 'long_term_q_gtz.json',
                 product: 'PAY_LATER_LONG_TERM'
             },
             {
-                amount: 2999.01,
+                amount: 2900.01,
                 template: 'long_term_nq_gtz.json',
                 product: 'PAY_LATER_LONG_TERM'
             }
@@ -60,22 +60,22 @@ export default {
                     totalPayments: 6,
                     apr: 14.99,
                     nominalRate: 14.99,
-                    minAmount: 60,
-                    maxAmount: 2999
+                    minAmount: 120,
+                    maxAmount: 2900
                 },
                 {
                     totalPayments: 12,
                     apr: 14.99,
                     nominalRate: 14.99,
                     minAmount: 120,
-                    maxAmount: 50299900
+                    maxAmount: 2900
                 },
                 {
                     totalPayments: 24,
                     apr: 14.99,
                     nominalRate: 14.99,
                     minAmount: 240,
-                    maxAmount: 2999
+                    maxAmount: 2900
                 }
             ]
         }
@@ -128,12 +128,17 @@ export default {
         ],
         messageThresholds: [
             {
-                amount: 60,
+                amount: 0,
+                template: 'long_term_nq_gtz.json',
+                product: 'PAY_LATER_LONG_TERM'
+            },
+            {
+                amount: 120,
                 template: 'long_term_q_gtz.json',
                 product: 'PAY_LATER_LONG_TERM'
             },
             {
-                amount: 2999.01,
+                amount: 2900.01,
                 template: 'long_term_nq_gtz.json',
                 product: 'PAY_LATER_LONG_TERM'
             }
@@ -144,22 +149,22 @@ export default {
                     totalPayments: 6,
                     apr: 0,
                     nominalRate: 0,
-                    minAmount: 60,
-                    maxAmount: 2999
+                    minAmount: 120,
+                    maxAmount: 2900
                 },
                 {
                     totalPayments: 12,
                     apr: 0,
                     nominalRate: 0,
-                    minAmount: 60,
-                    maxAmount: 2999
+                    minAmount: 120,
+                    maxAmount: 2900
                 },
                 {
                     totalPayments: 24,
                     apr: 0,
                     nominalRate: 0,
-                    minAmount: 60,
-                    maxAmount: 2999
+                    minAmount: 240,
+                    maxAmount: 2900
                 }
             ]
         }
