@@ -1,0 +1,62 @@
+name: Remove Snapshots
+
+on:
+    pull_request:
+        types: [labeled]
+
+jobs:
+    removeSnapshots:
+        if: github.event.label.name == 'remove-snapshots'
+        runs-on: ubuntu-24.04
+        permissions:
+            contents: write
+            issues: write
+        steps:
+            - name: Checkout PR branch
+              uses: actions/checkout@v4
+              with:
+                  ref: ${{ github.event.pull_request.head.ref }}
+                  repository: ${{ github.event.pull_request.head.repo.full_name }}
+                  persist-credentials: true
+
+            - name: Reset snapshots to base
+              run: |
+                  git remote add base https://github.com/${{ github.event.pull_request.base.repo.full_name }}.git
+                  git fetch base ${{ github.event.pull_request.base.sha }}
+                  git checkout ${{ github.event.pull_request.base.sha }} -- tests/functional/snapshots tests/functional/v2/snapshots
+
+            - name: Detect snapshot changes
+              id: changes
+              run: |
+                  if [ -z "$(git status --porcelain)" ]; then
+                      echo "hasChanges=false" >> $GITHUB_OUTPUT
+                  else
+                      echo "hasChanges=true" >> $GITHUB_OUTPUT
+                  fi
+
+            - name: Commit reverted snapshots
+              if: steps.changes.outputs.hasChanges == 'true'
+              uses: stefanzweifel/git-auto-commit-action@v4
+              with:
+                  commit_message: 'chore(snapshots): remove snapshots [skip ci]'
+                  commit_options: '--no-verify --quiet'
+                  file_pattern: tests/functional/snapshots tests/functional/v2/snapshots
+                  push_options: '-v'
+
+            - name: Remove labels
+              uses: actions/github-script@v7
+              with:
+                  script: |
+                      const labels = ['remove-snapshots', 'snapshots'];
+                      await Promise.all(
+                        labels.map(name =>
+                          github.rest.issues.removeLabel({
+                            owner: context.repo.owner,
+                            repo: context.repo.repo,
+                            issue_number: context.payload.pull_request.number,
+                            name
+                          }).catch(() => {
+                            console.log(`${name} label already removed`);
+                          })
+                        )
+                      );

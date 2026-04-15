@@ -22,9 +22,10 @@ export const ShortTerm = ({
         disclosure,
         donutTimestamps,
         learnMoreLink,
-        cta
+        cta,
+        testButtonText
     },
-    productMeta: { qualifying, periodicPayment, useV4Design, useV5Design, preapproved, showPreapprovedBadge },
+    productMeta: { qualifying, periodicPayment, useV4Design, useV5Design, preapproved, showPreapprovedBadge, testVal },
     openProductList,
     useNewCheckoutDesign,
     use5Dot1Design
@@ -37,11 +38,40 @@ export const ShortTerm = ({
     const isPreapproved = preapproved === 'true';
     const shouldShowPreapprovedBadge = showPreapprovedBadge === 'true';
     const showPreapprovalContent = isPreapproved && shouldShowPreapprovedBadge;
+    const isTestVal = testVal === 'true';
 
     const preapprovalDisclaimerHeadline = preapproval?.preapprovalDisclaimerHeadline;
     const preapprovalDisclaimerBody = preapproval?.preapprovalDisclaimerBody;
     const preapprovalPrivacyDisclaimer = preapproval?.preapprovalPrivacyDisclaimer;
     const countryClassName = country?.toLowerCase();
+
+    const renderTestCtaButton = () => {
+        if (!isTestVal) {
+            return null;
+        }
+
+        const testClickTitle = 'Test CTA';
+
+        return (
+            <div className="button__fixed-wrapper">
+                <div
+                    className={`button__container ${
+                        useNewCheckoutDesign === 'true' ? 'checkout' : ''
+                    } ${countryClassName}`}
+                >
+                    <Button
+                        onClick={() => {
+                            onClick({ linkName: testClickTitle });
+                            onClose({ linkName: testClickTitle });
+                        }}
+                        className="cta"
+                    >
+                        {testButtonText}
+                    </Button>
+                </div>
+            </div>
+        );
+    };
 
     const renderCheckoutCtaButton = () => {
         /**
@@ -180,6 +210,7 @@ export const ShortTerm = ({
             <div className="content__row productLink">
                 <div className="productLink__container">{renderProductListLink()}</div>
             </div>
+            <div className="content__row">{renderTestCtaButton()}</div>
             <div className="content__row">{renderCheckoutCtaButton()}</div>
         </Fragment>
     );
