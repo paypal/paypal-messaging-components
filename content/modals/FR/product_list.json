@@ -1,0 +1,29 @@
+{
+    "meta": {
+        "product": "PRODUCT_LIST",
+        "useV5Design": "true",
+        "v5.1": "true",
+        "offerCountry": "FR"
+    },
+    "content": {
+        "headline": "<span aria-hidden='true'>Achetez maintenant, payez plus tard</span><span class='sr-only'>Achetez maintenant, payez plus tard</span>",
+        "disclosure": "Soumis a conditions. Sous réserve d'acceptation par PayPal. Pour en savoir plus sur le Paiement en plusieurs fois de PayPal, sélectionnez l'une des options ci-dessus. ",
+        "instructions": {
+            "payLater": "Sélectionnez une option pour en savoir plus."
+        },
+        "productTiles": {
+            "payLater": [
+                {
+                    "header": "Paiement en 4X",
+                    "body": "Paiements mensuels sans frais, à compter d'aujourd'hui.",
+                    "viewName": "PAY_LATER_SHORT_TERM"
+                },
+                {
+                    "header": "Paiement en 6, 12 ou 24X",
+                    "body": "Paiements mensuels avec intérêts. Sans acompte.",
+                    "viewName": "PAY_LATER_LONG_TERM"
+                }
+            ]
+        }
+    }
+}
