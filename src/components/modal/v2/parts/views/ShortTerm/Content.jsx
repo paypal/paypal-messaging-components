@@ -8,6 +8,7 @@ import Donut from '../../Donut';
 import ProductListLink from '../../ProductListLink';
 import InlineLinks from '../../InlineLinks';
 import Button from '../../Button';
+import OfferTerms from '../../OfferTerms';
 import styles from './styles.scss';
 
 import { useServerData, useXProps } from '../../../lib/providers';
@@ -22,9 +23,18 @@ export const ShortTerm = ({
         disclosure,
         donutTimestamps,
         learnMoreLink,
-        cta
+        cta,
+        offerTerms
     },
-    productMeta: { qualifying, periodicPayment, useV4Design, useV5Design, preapproved, showPreapprovedBadge },
+    productMeta: {
+        qualifying,
+        periodicPayment,
+        useV4Design,
+        useV5Design,
+        preapproved,
+        showPreapprovedBadge,
+        showPromoContent
+    },
     openProductList,
     useNewCheckoutDesign,
     use5Dot1Design
@@ -33,6 +43,8 @@ export const ShortTerm = ({
     const { onClick, onClose } = useXProps();
 
     const isQualifying = qualifying === 'true';
+
+    const showOfferTerms = showPromoContent === 'true';
 
     const isPreapproved = preapproved === 'true';
     const shouldShowPreapprovedBadge = showPreapprovedBadge === 'true';
@@ -161,6 +173,14 @@ export const ShortTerm = ({
                             useV5Design={useV5Design}
                             useNewCheckoutDesign={useNewCheckoutDesign}
                         />
+                        {showOfferTerms && offerTerms && (
+                            <OfferTerms
+                                headline={offerTerms.headline}
+                                bullets={offerTerms.bullets}
+                                footer={offerTerms.footer}
+                                seeTermsLink={offerTerms.seeTermsLink}
+                            />
+                        )}
                     </div>
                     <div className="content__col">
                         <div className="branded-image">

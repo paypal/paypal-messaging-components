@@ -10,6 +10,7 @@
         "useV5Design": "true",
         "preapproved": "false",
         "showPreapprovedBadge": "false",
+        "showPromoContent": "false",
         "variables": {
             "transaction_amount": "${eval(transaction_amount ? transaction_amount : '-')}",
             "qualifying_offer": "${eval(CREDIT_OFFERS_DS.qualifying_offer ? CREDIT_OFFERS_DS.qualifying_offer : 'false')}",
@@ -53,6 +54,16 @@
             "buttonTextEligible": "Continue with Pay in 4",
             "buttonTextIneligible": "Back to Checkout",
             "link": "https://www.paypal.com/link/to/short-term-application"
+        },
+        "offerTerms": {
+            "headline": "Earn 15% back in PayPal rewards on your 1st Pay Later purchase!",
+            "bullets": [
+                "Up to 3,000 points ($30 max redemption value)",
+                "Reward delivered as PayPal rewards points",
+                "Offer ends 5/31/26"
+            ],
+            "footer": "Limitations apply.",
+            "seeTermsLink": "https://www.paypal.com/summerpromo"
         },
         "disclosure": [
             "Pay in 4 is available to consumers upon approval for purchases of {formattedMinAmount} to {formattedMaxAmount}. Pay in 4 is currently not available to residents of <span aria-hidden='true'>MO</span><span class='sr-only'>Missouri</span>. Offer availability depends on the merchant and also may not be available for certain recurring, subscription services. When applying, a soft credit check may be needed, but will not affect your credit score. You must be 18 years old or older to apply. PayPal, Inc.: Loans to <span aria-hidden='true'>CA</span><span class='sr-only'>California</span> residents are made or arranged pursuant to a <span aria-hidden='true'>CA</span><span class='sr-only'>California</span> Financing Law License. <span aria-hidden='true'>GA</span><span class='sr-only'>Georgia</span> Installment Lender Licensee, NMLS #910457. <span aria-hidden='true'>RI</span><span class='sr-only'>Rhode Island</span> Small Loan Lender Licensee. <span aria-hidden='true'>NM</span><span class='sr-only'>New Mexico</span> residents:",
