@@ -71,7 +71,9 @@ export default function useCalculator({ autoSubmit = false } = {}) {
         disableSetCookie,
         features,
         language,
-        integrationIdentifier
+        integrationIdentifier,
+        experimentExperience,
+        experimentName
     } = useXProps();
 
     const [state, dispatch] = useReducer(reducer, {
@@ -103,7 +105,9 @@ export default function useCalculator({ autoSubmit = false } = {}) {
             disableSetCookie,
             features,
             language,
-            integrationIdentifier
+            integrationIdentifier,
+            experimentExperience,
+            experimentName
         })
             .then(data => {
                 setServerData(data);
