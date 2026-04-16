@@ -13,16 +13,25 @@ const OfferTerms = ({ headline, bullets, footer, seeTermsLink }) => {
                 {Array.isArray(bullets) && (
                     <ul className="offer-terms__bullets">
                         {bullets.map(bullet => (
-                            <li>{bullet}</li>
+                            // eslint-disable-next-line react/no-danger
+                            <li dangerouslySetInnerHTML={{ __html: bullet }} />
                         ))}
                     </ul>
                 )}
                 <div className="offer-terms__footer">
                     {footer}{' '}
                     {seeTermsLink && (
-                        <a className="offer-terms__link" href={seeTermsLink} target="_blank" rel="noopener noreferrer">
-                            See terms
-                        </a>
+                        <span>
+                            <a
+                                className="offer-terms__link"
+                                href={seeTermsLink}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                See terms
+                            </a>
+                            <sup>*</sup>
+                        </span>
                     )}
                 </div>
             </div>

@@ -10,7 +10,7 @@
         "useV5Design": "true",
         "preapproved": "false",
         "showPreapprovedBadge": "false",
-        "showPromoContent": "false",
+        "showPromoContent": "true",
         "variables": {
             "transaction_amount": "${eval(transaction_amount ? transaction_amount : '-')}",
             "qualifying_offer": "${eval(CREDIT_OFFERS_DS.qualifying_offer ? CREDIT_OFFERS_DS.qualifying_offer : 'false')}",
@@ -58,7 +58,7 @@
         "offerTerms": {
             "headline": "Earn 15% back in PayPal rewards on your 1st Pay Later purchase!",
             "bullets": [
-                "Up to 3,000 points ($30 max redemption value)",
+                "Up to 3,000 points ($30 redemption value<sup>*</sup> at checkout)",
                 "Reward delivered as PayPal rewards points",
                 "Offer ends 5/31/26"
             ],
