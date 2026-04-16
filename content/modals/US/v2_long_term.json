@@ -1,6 +1,7 @@
 {
     "meta": {
         "product": "PAY_LATER_LONG_TERM",
+        "prequalExperience": "false",
         "useV5Design": "true",
         "v5.1": "true",
         "offerCountry": "US",
@@ -39,6 +40,7 @@
             ["Find more disclosures ", "https://www.paypal.com/us/digital-wallet/ways-to-pay/buy-now-pay-later"],
             "by going to PayPal's page on Pay Later."
         ],
-        "linkToProductList": "See other ways to pay over time"
+        "linkToProductList": "See other ways to pay over time",
+        "spendingPowerSubtext": "Get an estimate of how much you qualify for — across all eligible Pay Later offers."
     }
 }

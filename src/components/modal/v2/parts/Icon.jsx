@@ -438,6 +438,22 @@ const Icon = ({ name = '', content }) => {
                     />
                 </svg>
             );
+        case 'lightning-bolt':
+            return (
+                <svg
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 20 20"
+                    fill="none"
+                >
+                    <path
+                        d="M12.5 7.50293H17.373L10.3154 18.3359H7.5L7.50098 12.5029H2.5752L10.0859 1.66895H12.5V7.50293ZM5.75879 10.8359H9.16699V17.0459L14.2979 9.16895H10.833V3.5166L5.75879 10.8359Z"
+                        fill="white"
+                    />
+                </svg>
+            );
         default:
             return null;
     }
