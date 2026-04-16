@@ -154,11 +154,22 @@
         flex-direction: column;
         align-items: center;
 
+        .button.cta {
+            padding: 12px 0;
+        }
+
+        .cta__content {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+
         @include mixins.tablet {
             background: white;
             margin-bottom: 0;
             max-width: variables.$content-wrapper-max-width-tablet;
-            padding: 15px 0;
+            padding: 0 0 22px 0;
             .button {
                 width: calc(80%);
             }
@@ -168,7 +179,7 @@
             background: white;
             margin-bottom: 0;
             max-width: variables.$content-wrapper-max-width-tablet;
-            padding: 15px 0;
+            padding: 0 0 22px 0;
             .button {
                 width: calc(80%);
             }
@@ -185,6 +196,16 @@
                 }
             }
         }
+    }
+
+    .prequal-fixed-offset {
+        padding-bottom: 100px;
+    }
+
+    .spending-power__subtext {
+        width: 80%;
+        text-align: center;
+        margin: 20px 0 8px 0;
     }
 
     .checkout {
