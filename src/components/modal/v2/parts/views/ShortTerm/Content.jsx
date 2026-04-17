@@ -8,6 +8,7 @@ import Donut from '../../Donut';
 import ProductListLink from '../../ProductListLink';
 import InlineLinks from '../../InlineLinks';
 import Button from '../../Button';
+import OfferTerms from '../../OfferTerms';
 import Icon from '../../Icon';
 import styles from './styles.scss';
 
@@ -24,6 +25,7 @@ export const ShortTerm = ({
         donutTimestamps,
         learnMoreLink,
         cta,
+        offerTerms,
         spendingPowerSubtext
     },
     productMeta: {
@@ -33,6 +35,7 @@ export const ShortTerm = ({
         useV5Design,
         preapproved,
         showPreapprovedBadge,
+        showPromoContent,
         prequalExperience
     },
     openProductList,
@@ -43,6 +46,8 @@ export const ShortTerm = ({
     const { onClick, onClose } = useXProps();
 
     const isQualifying = qualifying === 'true';
+
+    const showOfferTerms = showPromoContent === 'true';
 
     const isPreapproved = preapproved === 'true';
     const shouldShowPreapprovedBadge = showPreapprovedBadge === 'true';
@@ -199,6 +204,14 @@ export const ShortTerm = ({
                             useV5Design={useV5Design}
                             useNewCheckoutDesign={useNewCheckoutDesign}
                         />
+                        {showOfferTerms && offerTerms && (
+                            <OfferTerms
+                                headline={offerTerms.headline}
+                                bullets={offerTerms.bullets}
+                                footer={offerTerms.footer}
+                                seeTermsLink={offerTerms.seeTermsLink}
+                            />
+                        )}
                     </div>
                     <div className="content__col">
                         <div className="branded-image">
