@@ -107,3 +107,46 @@
 .checkout {
     background: colors.$white;
 }
+
+.offer-terms {
+    color: colors.$text-main;
+    background-color: #E3F7FF;
+    border-radius: 12px;
+    padding: 16px;
+    margin: 12px 0;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    align-items: baseline;
+
+    &__icon {
+        flex-shrink: 0;
+    }
+
+    &__content {
+        flex: 1;
+    }
+
+    &__headline {
+        font-size: 18px;
+        line-height: 24px;
+        text-align: left;
+        margin-top: 0;
+    }
+
+    &__bullets {
+        margin: 24px 0;
+        padding-left: 24px;
+
+        li {
+            margin-bottom: 4px;
+        }
+    }
+
+    &__link {
+        color: colors.$light-blue;
+        text-decoration: underline;
+    }
+}

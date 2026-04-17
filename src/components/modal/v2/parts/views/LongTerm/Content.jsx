@@ -7,6 +7,7 @@ import ProductListLink from '../../ProductListLink';
 import Instructions from '../../Instructions';
 import InlineLinks from '../../InlineLinks';
 import Button from '../../Button';
+import OfferTerms from '../../OfferTerms';
 import Icon from '../../Icon';
 import styles from './styles.scss';
 
@@ -78,9 +79,10 @@ export const LongTerm = ({
         navLinkPrefix,
         linkToProductList,
         cta,
+        offerTerms,
         spendingPowerSubtext
     },
-    productMeta: { useV4Design, useV5Design, prequalExperience },
+    productMeta: { useV4Design, useV5Design, showPromoContent, prequalExperience },
     openProductList,
     useNewCheckoutDesign,
     use5Dot1Design
@@ -93,6 +95,7 @@ export const LongTerm = ({
     const offerAPRDisclaimers = getAPRDetails({ offers, disclaimer, genericDisclaimer });
 
     const isQualifyingAmount = amount >= minAmount && amount <= maxAmount;
+    const showOfferTerms = showPromoContent === 'true';
     const isPrequalExperience = prequalExperience === 'true';
 
     /**
@@ -209,6 +212,14 @@ export const LongTerm = ({
                         use5Dot1Design={use5Dot1Design}
                         useNewCheckoutDesign={useNewCheckoutDesign}
                     />
+                    {showOfferTerms && offerTerms && (
+                        <OfferTerms
+                            headline={offerTerms.headline}
+                            bullets={offerTerms.bullets}
+                            footer={offerTerms.footer}
+                            seeTermsLink={offerTerms.seeTermsLink}
+                        />
+                    )}
                     <div className={`content__col ${expandedState ? '' : 'collapsed'}`}>
                         <div className="branded-image">
                             {/* TODO: include Icon component when desktop images are final */}
