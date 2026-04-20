@@ -489,6 +489,16 @@ export default createGlobalVariableGetter('__paypal_credit_modal__', () =>
                 queryParam: 'features',
                 required: false,
                 value: ({ props }) => getFeatures(validate.features({ props }))
+            },
+            experimentExperience: {
+                type: 'string',
+                queryParam: 'experiment_experience',
+                required: false
+            },
+            experimentName: {
+                type: 'string',
+                queryParam: 'experiment_name',
+                required: false
             }
         }
     })

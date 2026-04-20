@@ -39,7 +39,9 @@ const Container = ({ children }) => {
         contextualComponents,
         disableSetCookie,
         features,
-        integrationIdentifier
+        integrationIdentifier,
+        experimentExperience,
+        experimentName
     } = useXProps();
     const [transitionState] = useTransitionState();
     const [loading, setLoading] = useState(false);
@@ -86,7 +88,9 @@ const Container = ({ children }) => {
             deviceID: getOrCreateDeviceID(),
             disableSetCookie,
             features,
-            integrationIdentifier
+            integrationIdentifier,
+            experimentExperience,
+            experimentName
         }).then(data => {
             setServerData(data);
             setLoading(false);

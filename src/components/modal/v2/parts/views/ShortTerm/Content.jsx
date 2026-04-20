@@ -8,6 +8,8 @@ import Donut from '../../Donut';
 import ProductListLink from '../../ProductListLink';
 import InlineLinks from '../../InlineLinks';
 import Button from '../../Button';
+import OfferTerms from '../../OfferTerms';
+import Icon from '../../Icon';
 import styles from './styles.scss';
 
 import { useServerData, useXProps } from '../../../lib/providers';
@@ -22,9 +24,20 @@ export const ShortTerm = ({
         disclosure,
         donutTimestamps,
         learnMoreLink,
-        cta
+        cta,
+        offerTerms,
+        spendingPowerSubtext
     },
-    productMeta: { qualifying, periodicPayment, useV4Design, useV5Design, preapproved, showPreapprovedBadge },
+    productMeta: {
+        qualifying,
+        periodicPayment,
+        useV4Design,
+        useV5Design,
+        preapproved,
+        showPreapprovedBadge,
+        showPromoContent,
+        prequalExperience
+    },
     openProductList,
     useNewCheckoutDesign,
     use5Dot1Design
@@ -34,9 +47,12 @@ export const ShortTerm = ({
 
     const isQualifying = qualifying === 'true';
 
+    const showOfferTerms = showPromoContent === 'true';
+
     const isPreapproved = preapproved === 'true';
     const shouldShowPreapprovedBadge = showPreapprovedBadge === 'true';
     const showPreapprovalContent = isPreapproved && shouldShowPreapprovedBadge;
+    const isPrequalExperience = prequalExperience === 'true';
 
     const preapprovalDisclaimerHeadline = preapproval?.preapprovalDisclaimerHeadline;
     const preapprovalDisclaimerBody = preapproval?.preapprovalDisclaimerBody;
@@ -50,6 +66,33 @@ export const ShortTerm = ({
          */
         const eligibleClickTitle = 'Short Term Continue';
         const ineligibleClickTitle = 'Back to Checkout';
+
+        if (isQualifying && isPrequalExperience) {
+            const spendingPowerClickTitle = 'Check Spending Power';
+            return (
+                <div className="button__fixed-wrapper">
+                    <div
+                        className={`button__container ${
+                            useNewCheckoutDesign === 'true' ? 'checkout' : ''
+                        } ${countryClassName}`}
+                    >
+                        <p className="spending-power__subtext">{spendingPowerSubtext}</p>
+                        <Button
+                            onClick={() => {
+                                onClick({ linkName: spendingPowerClickTitle });
+                                onClose({ linkName: spendingPowerClickTitle });
+                            }}
+                            className="cta"
+                        >
+                            <span className="cta__content">
+                                {cta?.buttonTextSpendingPower ?? 'Check your Spending Power'}
+                                <Icon name="lightning-bolt" />
+                            </span>
+                        </Button>
+                    </div>
+                </div>
+            );
+        }
 
         if (typeof cta !== 'undefined') {
             return (
@@ -161,6 +204,14 @@ export const ShortTerm = ({
                             useV5Design={useV5Design}
                             useNewCheckoutDesign={useNewCheckoutDesign}
                         />
+                        {showOfferTerms && offerTerms && (
+                            <OfferTerms
+                                headline={offerTerms.headline}
+                                bullets={offerTerms.bullets}
+                                footer={offerTerms.footer}
+                                seeTermsLink={offerTerms.seeTermsLink}
+                            />
+                        )}
                     </div>
                     <div className="content__col">
                         <div className="branded-image">
@@ -177,7 +228,7 @@ export const ShortTerm = ({
                 <InlineLinks text={currencyFormat(disclosure)} />
                 {renderLearnMoreLink()}
             </div>
-            <div className="content__row productLink">
+            <div className={`content__row productLink${isPrequalExperience ? ' prequal-fixed-offset' : ''}`}>
                 <div className="productLink__container">{renderProductListLink()}</div>
             </div>
             <div className="content__row">{renderCheckoutCtaButton()}</div>

@@ -7,6 +7,8 @@ import ProductListLink from '../../ProductListLink';
 import Instructions from '../../Instructions';
 import InlineLinks from '../../InlineLinks';
 import Button from '../../Button';
+import OfferTerms from '../../OfferTerms';
+import Icon from '../../Icon';
 import styles from './styles.scss';
 
 /**
@@ -76,9 +78,11 @@ export const LongTerm = ({
         disclosure,
         navLinkPrefix,
         linkToProductList,
-        cta
+        cta,
+        offerTerms,
+        spendingPowerSubtext
     },
-    productMeta: { useV4Design, useV5Design },
+    productMeta: { useV4Design, useV5Design, showPromoContent, prequalExperience },
     openProductList,
     useNewCheckoutDesign,
     use5Dot1Design
@@ -91,6 +95,8 @@ export const LongTerm = ({
     const offerAPRDisclaimers = getAPRDetails({ offers, disclaimer, genericDisclaimer });
 
     const isQualifyingAmount = amount >= minAmount && amount <= maxAmount;
+    const showOfferTerms = showPromoContent === 'true';
+    const isPrequalExperience = prequalExperience === 'true';
 
     /**
      * The presence of "cta" in the content means the channel is checkout and the checkout-specific
@@ -105,6 +111,29 @@ export const LongTerm = ({
          */
         const eligibleClickTitle = 'Pay Monthly Continue';
         const ineligibleClickTitle = 'Back to Checkout';
+
+        if (isQualifyingAmount && isPrequalExperience) {
+            const spendingPowerClickTitle = 'Check Spending Power';
+            return (
+                <div className="button__fixed-wrapper">
+                    <div className={`button__container ${useNewCheckoutDesign === 'true' ? 'checkout' : ''}`}>
+                        <p className="spending-power__subtext">{spendingPowerSubtext}</p>
+                        <Button
+                            onClick={() => {
+                                onClick({ linkName: spendingPowerClickTitle });
+                                onClose({ linkName: spendingPowerClickTitle });
+                            }}
+                            className="cta"
+                        >
+                            <span className="cta__content">
+                                {cta?.buttonTextSpendingPower ?? 'Check your Spending Power'}
+                                <Icon name="lightning-bolt" />
+                            </span>
+                        </Button>
+                    </div>
+                </div>
+            );
+        }
 
         if (typeof cta !== 'undefined') {
             return (
@@ -183,6 +212,14 @@ export const LongTerm = ({
                         use5Dot1Design={use5Dot1Design}
                         useNewCheckoutDesign={useNewCheckoutDesign}
                     />
+                    {showOfferTerms && offerTerms && (
+                        <OfferTerms
+                            headline={offerTerms.headline}
+                            bullets={offerTerms.bullets}
+                            footer={offerTerms.footer}
+                            seeTermsLink={offerTerms.seeTermsLink}
+                        />
+                    )}
                     <div className={`content__col ${expandedState ? '' : 'collapsed'}`}>
                         <div className="branded-image">
                             {/* TODO: include Icon component when desktop images are final */}
@@ -201,7 +238,9 @@ export const LongTerm = ({
             <div
                 className={`content__row disclosure ${expandedState ? '' : 'collapsed'} ${
                     useNewCheckoutDesign === 'true' ? 'checkout' : ''
-                } ${useV5Design === 'true' ? 'v5Design' : ''} ${country === 'DE' ? 'DE' : ''}`}
+                } ${useV5Design === 'true' ? 'v5Design' : ''} ${country === 'DE' ? 'DE' : ''} ${
+                    isPrequalExperience ? 'prequal-fixed-offset' : ''
+                }`}
             >
                 {getDisclosure(disclosure)}
             </div>
