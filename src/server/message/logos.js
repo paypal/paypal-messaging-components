@@ -1,11 +1,19 @@
-import { PayPalLogo, PPLogo, PPMonochrome, LOGO_COLOR } from '@paypal/sdk-logos/src';
+import {
+    PayPalLogo,
+    PPLogo,
+    PPMonochrome,
+    PayPalRebrandBadge,
+    PPRebrandLogo,
+    PayPalRebrandLogo,
+    LOGO_COLOR
+} from '@paypal/sdk-logos/src';
 import { html } from '@krakenjs/jsx-pragmatic/src';
 
 function getSrc(component) {
     return component
         .render(html())
-        .match(/src="(data:image&#x2F;svg\+xml;base64,[a-zA-Z0-9=+]*)"/)[1]
-        .replace('&#x2F;', '/');
+        .match(/src="(data:image&#x2F;svg\+xml;base64,[a-zA-Z0-9=+&#x2F;]*)"/)[1]
+        .replaceAll('&#x2F;', '/');
 }
 
 function getPPLogoBase64(logoColor) {
@@ -19,7 +27,35 @@ function getPPMonogramBase64(logoColor) {
     return getSrc(PPLogo({ logoColor }));
 }
 
+function getBadgeSrc(logoColor) {
+    return getSrc(PayPalRebrandBadge({ logoColor }));
+}
+
+function getPPRebrandSrc(logoColor) {
+    return getSrc(PPRebrandLogo({ logoColor }));
+}
+
+function getWordmarkSrc(logoColor) {
+    return getSrc(PayPalRebrandLogo({ logoColor }));
+}
+
 export default {
+    WORDMARK: {
+        BLACK: { src: getWordmarkSrc(LOGO_COLOR.BLACK), dimensions: [108, 45] },
+        WHITE: { src: getWordmarkSrc(LOGO_COLOR.WHITE), dimensions: [108, 45] }
+    },
+    PP_MONOGRAM: {
+        COLOR: { src: getPPRebrandSrc(LOGO_COLOR.DEFAULT), dimensions: [20, 34] },
+        WHITE: { src: getPPRebrandSrc(LOGO_COLOR.WHITE), dimensions: [20, 34] },
+        GRAYSCALE: { src: getPPRebrandSrc(LOGO_COLOR.BLACK), dimensions: [20, 34] },
+        MONOCHROME: { src: getPPRebrandSrc(LOGO_COLOR.BLACK), dimensions: [20, 34] }
+    },
+    PAYPAL_BADGE: {
+        COLOR: { src: getBadgeSrc(LOGO_COLOR.DEFAULT), dimensions: [178, 70] },
+        WHITE: { src: getBadgeSrc(LOGO_COLOR.WHITE), dimensions: [178, 70] },
+        GRAYSCALE: { src: getBadgeSrc(LOGO_COLOR.BLACK), dimensions: [178, 70] },
+        MONOCHROME: { src: getBadgeSrc(LOGO_COLOR.BLACK), dimensions: [178, 70] }
+    },
     PP_PAYPAL: {
         COLOR: [
             {

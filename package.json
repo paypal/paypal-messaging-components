@@ -50,7 +50,7 @@
         "@paypal/common-components": "^1.0.33",
         "@paypal/sdk-client": "^4.0.166",
         "@paypal/sdk-constants": "^1.0.118",
-        "@paypal/sdk-logos": "^2.0.0"
+        "@paypal/sdk-logos": "^2.3.4"
     },
     "devDependencies": {
         "@axe-core/playwright": "^4.10.1",

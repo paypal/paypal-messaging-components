@@ -13,7 +13,7 @@ const flex = [
     [
         'default',
         {
-            logo: Logo.PP_PAYPAL.WHITE,
+            logo: Logo.WORDMARK.WHITE,
             headline: [
                 {
                     tag: 'xsmall'
@@ -53,7 +53,7 @@ const flex = [
             ]
         }
     ],
-    ['color:white-no-border', { logo: Logo.PP_PAYPAL.COLOR }],
+    ['color:white-no-border', { logo: Logo.WORDMARK.BLACK }],
     ...flexLogoMutations
 ];
 
@@ -66,10 +66,10 @@ export default {
                 styles: [
                     textWrap(textSize * 39.5, textSize, 'US'),
                     xSmallFallback(textSize * 16),
-                    messageLogoWidth(false, textSize * 4, textSize * 1.25),
+                    messageLogoWidth(false, textSize * 5.1),
                     setLogoTop(textSize * 20)
                 ],
-                logo: Logo.PP_PAYPAL.COLOR,
+                logo: Logo.WORDMARK.BLACK,
                 headline: [
                     {
                         tag: 'medium',
@@ -86,17 +86,14 @@ export default {
                 styles: [
                     xSmallFallback(textSize * 16),
                     setLogoTop(textSize * 40),
-                    messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
+                    messageLogoWidth(textSize * 6, textSize * 5.1)
                 ]
             })
         ],
         [
             'logo.type:primary && logo.position:top',
             ({ textSize }) => ({
-                styles: [
-                    xSmallFallback(textSize * 14.75 + 10),
-                    messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
-                ]
+                styles: [xSmallFallback(textSize * 14.75 + 10), messageLogoWidth(textSize * 6, textSize * 5.1)]
             })
         ],
         [
@@ -107,13 +104,13 @@ export default {
                     textWrap(textSize * 37, textSize, 'US'),
                     xSmallFallback(textSize * 15.4),
                     altNoWrap(textSize * 10.6),
-                    messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25),
+                    messageLogoWidth(textSize * 1.75, textSize * 1.35),
                     `.locale--US .message__headline > .tag--medium > span { white-space: normal }`,
                     `@media screen and (max-width: ${
                         textSize * 12.5
                     }px) {.locale--US .message__headline > .tag--xsmall > span { white-space: normal }}`
                 ],
-                logo: Logo.PP_PAYPAL.COLOR[0]
+                logo: Logo.PP_MONOGRAM.COLOR
             })
         ],
         [
@@ -137,8 +134,8 @@ export default {
         [
             'logo.type:inline',
             ({ textSize }) => ({
-                styles: [xSmallFallback(textSize * 18), `.message__logo { width: ${textSize * 4}px }`],
-                logo: Logo.NO_PP_MONOGRAM.COLOR,
+                styles: [xSmallFallback(textSize * 18), `.message__logo { width: ${textSize * 2}px }`],
+                logo: Logo.WORDMARK.BLACK,
                 headline: [
                     {
                         tag: 'medium',

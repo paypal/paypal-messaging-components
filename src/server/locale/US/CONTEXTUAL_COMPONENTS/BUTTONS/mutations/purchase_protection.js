@@ -17,12 +17,12 @@ export default {
                 styles: [
                     xSmallFallback(textSize * 10.5),
                     textWrap(textSize * 32, textSize, 'US'),
-                    messageLogoWidth(false, textSize * 4, textSize * 1.25),
+                    messageLogoWidth(false, textSize * 5.1),
                     setLogoTop(textSize * 10.5),
                     hideDisclaimer(textSize * 10.5),
                     `.message__headline .tag--xsmall > span {display: inline-block;}`
                 ],
-                logo: Logo.PP_PAYPAL.COLOR,
+                logo: Logo.WORDMARK.BLACK,
                 headline: [
                     {
                         tag: 'medium',
@@ -43,7 +43,7 @@ export default {
                     setLogoTop(textSize * 28.5),
                     xSmallFallback(textSize * 10.5),
                     setLogoTop(textSize * 18),
-                    messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
+                    messageLogoWidth(textSize * 6, textSize * 5.1),
                     hideDisclaimer(textSize * 10.5),
                     `.locale--US .message__messaging {padding-right: 0.4rem;}`,
                     `.message__headline .tag--xsmall > span {white-space: normal;}`
@@ -56,7 +56,7 @@ export default {
                 styles: [
                     xSmallFallback(textSize * 10.5),
                     setLogoTop(textSize * 28.5),
-                    messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
+                    messageLogoWidth(textSize * 6, textSize * 5.1),
                     hideDisclaimer(textSize * 10.5),
                     `.locale--US .message__logo-container {margin-left: 0.4rem;} `,
                     `.message__headline .tag--xsmall > span {white-space: normal;}`
@@ -68,7 +68,7 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     xSmallFallback(textSize * 10.5),
-                    messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
+                    messageLogoWidth(textSize * 6, textSize * 5.1),
                     hideDisclaimer(textSize * 10.5),
                     `.message__headline .tag--xsmall > span {white-space: normal;}`
                 ]
@@ -81,12 +81,12 @@ export default {
                     xSmallFallback(textSize * 10.5),
                     textWrap(textSize * 32, textSize, 'US'),
                     altNoWrap(textSize * 10.6),
-                    messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25),
+                    messageLogoWidth(textSize * 1.75, textSize * 1.35),
                     `.message__headline .tag--xsmall > span {white-space: normal;}
                     `,
                     hideDisclaimer(textSize * 10.5)
                 ],
-                logo: Logo.PP_PAYPAL.COLOR[0]
+                logo: Logo.PP_MONOGRAM.COLOR
             })
         ],
         [
@@ -123,12 +123,12 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     xSmallFallback(textSize * 10.5),
-                    `.message__logo { width: ${textSize * 4}px }`,
+                    `.message__logo { width: ${textSize * 2}px }`,
                     hideDisclaimer(textSize * 10.5),
                     `.message__headline .tag--xsmall > span {white-space: normal;}
                     `
                 ],
-                logo: Logo.NO_PP_MONOGRAM.COLOR,
+                logo: Logo.WORDMARK.BLACK,
                 headline: [
                     {
                         tag: 'medium',

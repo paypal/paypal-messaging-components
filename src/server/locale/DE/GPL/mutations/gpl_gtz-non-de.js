@@ -41,7 +41,7 @@ const flex = [
     [
         'default',
         {
-            logo: Logo.PP_PAYPAL.WHITE,
+            logo: Logo.WORDMARK.WHITE,
             headline: [
                 {
                     tag: 'xsmall'
@@ -146,14 +146,14 @@ export default {
                 styles: [
                     textWrap(textSize * 58.5, textSize, 'DE'),
                     crossBorderDisclaimerWrap(textSize * 21.4, textSize * 30.4, textSize * 21.4, textSize * 15),
-                    messageLogoWidth(false, textSize * 4, textSize * 1.25),
+                    messageLogoWidth(false, textSize * 5.1),
                     setLogoTop(textSize * 20),
                     addPeriod(),
                     xSmallFallback(textSize * 16.5),
                     xSmallNoWrap(textSize * 16.5),
                     primaryWrap(textSize * 15.4)
                 ],
-                logo: Logo.PP_PAYPAL.COLOR,
+                logo: Logo.WORDMARK.BLACK,
                 headline: [
                     {
                         tag: 'medium',
@@ -171,7 +171,7 @@ export default {
                     crossBorderDisclaimerWrap(textSize * 21.4, textSize * 30.2, textSize * 21.4, textSize * 15),
                     xSmallFallback(textSize * 19.08),
                     setLogoTop(textSize * 59.2),
-                    messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
+                    messageLogoWidth(textSize * 6, textSize * 5.1),
                     addPeriod()
                 ]
             })
@@ -181,7 +181,7 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     crossBorderDisclaimerWrap(textSize * 25.2, textSize * 29, textSize * 20.5, textSize * 15),
-                    messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
+                    messageLogoWidth(textSize * 6, textSize * 5.1),
                     addPeriod(),
                     xSmallFallback(textSize * 19)
                 ]
@@ -197,12 +197,12 @@ export default {
                     }px) { .message__headline > .tag--xsmall > span:first-child { white-space: normal;}}`,
                     textWrap(textSize * 55, textSize, 'DE'),
                     altNoWrap(textSize * 10.6),
-                    messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25),
+                    messageLogoWidth(textSize * 1.75, textSize * 1.35),
                     addPeriod(),
                     xSmallFallback(textSize * 14)
                 ],
                 headline: [{ tag: 'medium', br: ['Einkäufen'] }, { tag: 'xsmall' }],
-                logo: Logo.PP_PAYPAL.COLOR[0]
+                logo: Logo.PP_MONOGRAM.COLOR
             })
         ],
         [
@@ -229,7 +229,7 @@ export default {
             'logo.type:inline',
             ({ textSize }) => ({
                 styles: [
-                    `.message__logo { width: ${textSize * 4}px }`,
+                    `.message__logo { width: ${textSize * 2}px }`,
                     logoInlineAddRatenzahlungAfterPayPal(textSize * 18),
                     xSmallFallback(textSize * 18),
                     `@media screen and (min-width: ${textSize * 18.08}px) {
@@ -240,7 +240,7 @@ export default {
                     `.message__disclaimer > span.multi:first-of-type { white-space: normal;}`,
                     `.message__messaging span.br { white-space: normal;}`
                 ],
-                logo: Logo.NO_PP_MONOGRAM.COLOR,
+                logo: Logo.WORDMARK.BLACK,
                 headline: [
                     {
                         tag: 'medium',

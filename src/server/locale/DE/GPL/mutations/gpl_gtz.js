@@ -39,7 +39,7 @@ const flex = [
     [
         'default',
         {
-            logo: Logo.PP_PAYPAL.WHITE,
+            logo: Logo.WORDMARK.WHITE,
             headline: [
                 {
                     tag: 'xsmall'
@@ -102,14 +102,14 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     textWrap(textSize * 55, textSize, 'DE'),
-                    messageLogoWidth(false, textSize * 4, textSize * 1.25),
+                    messageLogoWidth(false, textSize * 5.1),
                     setLogoTop(textSize * 20),
                     addPeriod(),
                     xSmallFallback(textSize * 16.5),
                     xSmallNoWrap(textSize * 16.5),
                     primaryWrap(textSize * 15.4)
                 ],
-                logo: Logo.PP_PAYPAL.COLOR,
+                logo: Logo.WORDMARK.BLACK,
                 headline: [
                     {
                         tag: 'medium',
@@ -126,7 +126,7 @@ export default {
                 styles: [
                     xSmallFallback(textSize * 20),
                     setLogoTop(textSize * 48),
-                    messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
+                    messageLogoWidth(textSize * 6, textSize * 5.1),
                     addPeriod()
                 ]
             })
@@ -134,11 +134,7 @@ export default {
         [
             'logo.type:primary && logo.position:top',
             ({ textSize }) => ({
-                styles: [
-                    messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
-                    addPeriod(),
-                    xSmallFallback(textSize * 20)
-                ]
+                styles: [messageLogoWidth(textSize * 6, textSize * 5.1), addPeriod(), xSmallFallback(textSize * 20)]
             })
         ],
         [
@@ -150,12 +146,12 @@ export default {
                     }px) { .message__headline > .tag--xsmall > span:first-child { white-space: normal;}}`,
                     textWrap(textSize * 55, textSize, 'DE'),
                     altNoWrap(textSize * 10.6),
-                    messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25),
+                    messageLogoWidth(textSize * 1.75, textSize * 1.35),
                     addPeriod(),
                     xSmallFallback(textSize * 14)
                 ],
                 headline: [{ tag: 'medium', br: ['Einkäufen'] }, { tag: 'xsmall' }],
-                logo: Logo.PP_PAYPAL.COLOR[0]
+                logo: Logo.PP_MONOGRAM.COLOR
             })
         ],
         [
@@ -183,7 +179,7 @@ export default {
             'logo.type:inline',
             ({ textSize }) => ({
                 styles: [
-                    `.message__logo { width: ${textSize * 4}px }`,
+                    `.message__logo { width: ${textSize * 2}px }`,
                     logoInlineAddRatenzahlungAfterPayPal(textSize * 18),
                     xSmallFallback(textSize * 18),
                     `@media screen and (min-width: ${textSize * 18.08}px) {
@@ -192,7 +188,7 @@ export default {
                         }
                     }`
                 ],
-                logo: Logo.NO_PP_MONOGRAM.COLOR,
+                logo: Logo.WORDMARK.BLACK,
                 headline: [
                     {
                         tag: 'medium',

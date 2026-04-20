@@ -15,10 +15,6 @@
     margin-right: 0.4rem;
 }
 
-.message__logo:first-child {
-    margin-right: 5px;
-}
-
 .message__logo:last-child {
     margin-top: -1.05px;
 }

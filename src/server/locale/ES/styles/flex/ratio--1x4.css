@@ -4,6 +4,10 @@
     margin-bottom: 0;
 }
 
+.message__logo {
+    width: 55%;
+}
+
 .message__messaging {
     height: 100%;
     transform: translateY(-80px);
@@ -17,7 +21,7 @@
 }
 
 .message__headline {
-    font-size: 1.1rem;
+    font-size: 1rem;
     margin-bottom: 10%;
 }
 

@@ -9,6 +9,9 @@ jest.mock('@paypal/sdk-logos/src', () => {
         PayPalLogo: mock,
         PPLogo: mock,
         PPMonochrome: mock,
+        PayPalRebrandBadge: mock,
+        PPRebrandLogo: mock,
+        PayPalRebrandLogo: mock,
         LOGO_COLOR: {
             DEFAULT: '',
             WHITE: '',

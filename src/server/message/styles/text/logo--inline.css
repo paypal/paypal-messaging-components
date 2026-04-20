@@ -19,6 +19,7 @@
     display: inline-block;
     width: 7rem;
     vertical-align: middle;
+    margin-top: -2.5px;
 }
 
 .message__headline .em {

@@ -19,15 +19,9 @@
 .message__logo-container {
     width: 100%;
 }
-.message__logo:nth-of-type(1) {
-    width: 29px;
-    max-width: 15%;
+.message__logo {
+    max-width: 30%;
     margin-right: 0px;
-}
-.message__logo:nth-of-type(2) {
-    width: 91px;
-    max-width: 45%;
-    margin-left: 3%;
 }
 @media (max-aspect-ratio: 11/10) and (max-width: 260px) {
     .message__headline {
