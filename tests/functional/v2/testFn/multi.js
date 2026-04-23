@@ -73,7 +73,7 @@ export const clickProductListTiles = async (contentWindow, modalContent, account
 /**
  * Ensures that the starting amount is shared between views.
  */
-export const viewsShareAmount = async (contentWindow, testName) => {
+export const viewsShareAmount = async (contentWindow, testName, account) => {
     await contentWindow.waitForSelector(contentWrapper);
     await contentWindow.waitForSelector(`${tile}:nth-child(2)`);
     await contentWindow.click(`${tile}:nth-child(2)`);
@@ -91,10 +91,12 @@ export const viewsShareAmount = async (contentWindow, testName) => {
     await contentWindow.click(`${tile}:nth-child(3)`);
     await page.waitFor(3 * 1000);
 
-    await contentWindow.waitForSelector(input);
-    const inputFieldVal = await contentWindow.$eval(input, element => element.value);
-
-    expect(subheadline).not.toContain(inputFieldVal);
+    // FR long term modal does not have a calculator
+    if (account !== 'DEV_FR_MULTI') {
+        await contentWindow.waitForSelector(input);
+        const inputFieldVal = await contentWindow.$eval(input, element => element.value);
+        expect(subheadline).not.toContain(inputFieldVal);
+    }
     await modalSnapshot(testName, contentWindow);
 };
 

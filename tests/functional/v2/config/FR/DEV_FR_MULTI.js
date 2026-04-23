@@ -9,7 +9,7 @@ export const DEV_FR_MULTI = {
             expectedValue: 'Achetez maintenant, payez plus tard',
             modalContent: {
                 headline: 'Achetez maintenant, payez plus tard',
-                shortTerm: 'Paiement en 4X',
+                shortTerm: 'Payez en 4X sans frais',
                 longTerm: 'Paiement en 6, 12 ou 24X'
             }
         }
