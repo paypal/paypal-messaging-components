@@ -108,7 +108,7 @@ export default {
     DEV000000FRPL: ['FR', ['short_term'], 'gpl'],
     DEV00000FRPLQ: ['FR', ['short_term'], 'gplq'],
     DEV0000FRPLTQ: ['FR', ['long_term'], 'long_term_q_gtz'],
-    DEV000FRPLTNQ: ['FR', ['long_term'], 'long_term_nq'],
+    DEV000FRPLTNQ: ['FR', ['long_term'], 'long_term_nq_gtz'],
 
     DEV000000AUPL: ['AU', ['short_term'], 'gpl'],
     DEV00000AUPLQ: ['AU', ['short_term'], 'gplq'],
