@@ -29,7 +29,13 @@
             "Utilisez le paiement automatique pour les remboursements. C'est facile !"
         ],
         "disclosure": [
-            "Uniquement pour les particuliers résidents en France. Compte PayPal français obligatoire. Le Paiement en 6, 12 ou 24X est disponible sous réserve d'acceptation, pour les achats de {formattedMinAmount} € à {formattedMaxAmount}  €. Un crédit est un engagement contraignant et doit être remboursé, vérifiez votre capacité de remboursement. Pour en savoir plus, consultez [https://www.paypal.com/fr/digital-wallet/ways-to-pay/buy-now-pay-later]. Crédit proposé par PayPal (Europe) S.à r.l. et Cie, S.C.A., 22-24 Boulevard Royal, L-2449, Luxembourg, R.C.S. Luxembourg B 118 349, qui est dûment licencié en tant qu'établissement de crédit du Luxembourg et est sous le contrôle prudentiel de l'autorité de surveillance du Luxembourg, la Commission de Surveillance du Secteur Financier. Cette information est fournie par PayPal."
+            "Uniquement pour les particuliers résidents en France. Compte PayPal français obligatoire. Le Paiement en 6, 12 ou 24X est disponible sous réserve d'acceptation, pour les achats de {formattedMinAmount} € à {formattedMaxAmount}  €. Un crédit est un engagement contraignant et doit être remboursé, vérifiez votre capacité de remboursement. Pour en savoir plus, consultez les ",
+            [
+                "Conditions générales.",
+                "https://www.paypal.com/fr/digital-wallet/ways-to-pay/buy-now-pay-later",
+                "Conditions générales, se ouvre dans une nouvelle fenêtre"
+            ],
+            " Crédit proposé par PayPal (Europe) S.à r.l. et Cie, S.C.A., 22-24 Boulevard Royal, L-2449, Luxembourg, R.C.S. Luxembourg B 118 349, qui est dûment licencié en tant qu'établissement de crédit du Luxembourg et est sous le contrôle prudentiel de l'autorité de surveillance du Luxembourg, la Commission de Surveillance du Secteur Financier. Cette information est fournie par PayPal."
         ],
         "linkToProductList": "Découvrir les autres options de paiement en plusieurs fois"
     }
