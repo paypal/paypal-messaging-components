@@ -6,11 +6,11 @@ export const DEV_FR_MULTI = {
         {
             value: '0.00',
             message: 'Product list modal functionality',
-            expectedValue: 'Compra ahora y paga después',
+            expectedValue: 'Achetez maintenant, payez plus tard',
             modalContent: {
-                headline: 'Compra ahora y paga después',
-                shortTerm: 'Paga en 3 plazos',
-                longTerm: 'Paga en 6, 12 o 24 plazos'
+                headline: 'Achetez maintenant, payez plus tard',
+                shortTerm: 'Paiement en 4X',
+                longTerm: 'Paiement en 6, 12 ou 24X'
             }
         }
     ]
