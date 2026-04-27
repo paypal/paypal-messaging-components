@@ -10,11 +10,10 @@ describe('modal/v2/lib/hooks/prequalification', () => {
         jest.clearAllMocks();
     });
 
-    test('calls onClick, openPrequalification, and onClose on success', async () => {
+    test('calls onClick and opens prequalification on success', async () => {
         const onClick = jest.fn();
-        const onClose = jest.fn();
         openPrequalification.mockResolvedValue({});
-        const handler = usePrequalification('Check Spending Power', onClick, onClose, {
+        const handler = usePrequalification('Check Spending Power', onClick, {
             offer: 'PAY_LATER_SHORT_TERM',
             token: 'ec-token-123'
         });
@@ -24,23 +23,11 @@ describe('modal/v2/lib/hooks/prequalification', () => {
 
         expect(onClick).toHaveBeenCalledWith({ linkName: 'Check Spending Power' });
         expect(openPrequalification).toHaveBeenCalledWith({ offer: 'PAY_LATER_SHORT_TERM', token: 'ec-token-123' });
-        expect(onClose).toHaveBeenCalledWith({ linkName: 'Check Spending Power' });
     });
 
-    test('does not call onClose when prequalify fails', async () => {
-        openPrequalification.mockRejectedValue(new Error('fail'));
-        const onClose = jest.fn();
-        const handler = usePrequalification('Check Spending Power', undefined, onClose, { token: 'ec-token-123' });
-
-        handler();
-        await Promise.resolve();
-
-        expect(onClose).not.toHaveBeenCalled();
-    });
-
-    test('handles missing callbacks', async () => {
+    test('handles missing onClick callback', async () => {
         openPrequalification.mockResolvedValue({});
-        const handler = usePrequalification('Check Spending Power', undefined, undefined, { token: 'ec-token-123' });
+        const handler = usePrequalification('Check Spending Power', undefined, { token: 'ec-token-123' });
 
         handler();
         await Promise.resolve();

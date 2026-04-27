@@ -143,16 +143,14 @@ export function validateProps(updatedProps) {
  */
 export function openPrequalification(params = {}) {
     const { token, offer } = params;
+    const baseUrl = getGlobalUrl('PREQUALIFICATION');
     const query = Object.entries({ offer })
         .filter(([, val]) => typeof val !== 'undefined' && val !== null && val !== '')
         // Encode values to keep URL valid; keys are expected to be safe identifiers.
         .map(([key, val]) => `${key}=${encodeURIComponent(val)}`)
         .join('&');
     // TODO: sessionIdentifier is being discussed; currently using ecToken.
-    // Base URL comes from globals.js: __PREQUALIFICATION__.
-    const url = `${getGlobalUrl('PREQUALIFICATION')}?token=${encodeURIComponent(token ?? '')}${
-        query ? `&${query}` : ''
-    }`;
+    const url = `${baseUrl}?token=${encodeURIComponent(token ?? '')}${query ? `&${query}` : ''}`;
 
     // Preflight the route to avoid navigating away from the modal if prequalify is unavailable.
     return request('GET', url).then(() => {

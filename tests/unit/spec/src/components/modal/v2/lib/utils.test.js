@@ -1,4 +1,5 @@
 import { formatDateByCountry, validateProps, openPrequalification } from 'src/components/modal/v2/lib/utils';
+import { request } from 'src/utils';
 
 jest.mock('src/utils', () => {
     const original = jest.requireActual('src/utils');
@@ -79,5 +80,12 @@ describe('openPrequalification', () => {
         expect(window.location.assign).toHaveBeenCalledWith(
             'https://www.paypal.com/paylateracq/prequalify?token=ec-token-123'
         );
+    });
+
+    it('does not redirect when preflight request fails', async () => {
+        request.mockRejectedValueOnce(new Error('preflight failed'));
+        await openPrequalification({ token: 'ec-token-123' }).catch(() => {});
+
+        expect(window.location.assign).not.toHaveBeenCalled();
     });
 });
