@@ -44,6 +44,7 @@ export const ShortTerm = ({
     use5Dot1Design
 }) => {
     const { views, country } = useServerData();
+    // todo: follow up ticket to utilize a different session identifier than (ecToken)
     const { onClick, onClose, ecToken } = useXProps();
     const spendingPowerClickTitle = 'Check Spending Power';
     const handlePrequalification = usePrequalification(spendingPowerClickTitle, onClick, {
