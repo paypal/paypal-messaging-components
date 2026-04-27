@@ -1,5 +1,6 @@
 @use '../../../styles/globals/colors';
 @use '../../../styles/globals/mixins';
+@use '../../../styles/globals/variables';
 
 .content__body {
     .content__row {
@@ -26,5 +27,100 @@
                 margin-left: 0px;
             }
         }
+    }
+
+    .learnMoreLink__container {
+        font-size: 14px;
+
+        @include mixins.tablet {
+            margin-top: 10px;
+        }
+
+        @include mixins.mobile {
+            margin-top: 20px;
+            margin-left: 0px;
+        }
+    }
+    .button {
+        padding: 15px 100px 15px 100px;
+
+        @include mixins.mobile {
+            padding: 15px 70px 15px 70px;
+            width: 100%;
+        }
+    }
+    .button__fixed-wrapper {
+        @include mixins.fixedWrapper;
+        bottom: 0;
+        z-index: 1;
+
+        @include mixins.tablet {
+            border-radius: 0 0 variables.$content-wrapper-border-radius variables.$content-wrapper-border-radius;
+            overflow: hidden;
+
+            @include mixins.lander {
+                border-radius: 0;
+            }
+        }
+    }
+
+    .button__container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .button.cta {
+            padding: 12px 0;
+        }
+
+        .cta__content {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+
+        @include mixins.tablet {
+            background: white;
+            margin-bottom: 0;
+            max-width: variables.$content-wrapper-max-width-tablet;
+            padding: 0 0 22px 0;
+            .button {
+                width: calc(80%);
+            }
+        }
+
+        @include mixins.mobile {
+            background: white;
+            margin-bottom: 0;
+            max-width: variables.$content-wrapper-max-width-tablet;
+            padding: 0 0 22px 0;
+            .button {
+                width: calc(80%);
+            }
+        }
+
+        @include mixins.apiIframe {
+            max-width: variables.$content-wrapper-max-width-api-iframe;
+        }
+
+        &.checkout {
+            .button {
+                @include mixins.tablet {
+                    width: auto;
+                }
+            }
+        }
+    }
+
+    .button,
+    .content__disclaimer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .content__disclaimer {
+        margin-top: 10px;
     }
 }
