@@ -1,12 +1,10 @@
 import { formatDateByCountry, validateProps, openPrequalification } from 'src/components/modal/v2/lib/utils';
-import { request } from 'src/utils';
 
 jest.mock('src/utils', () => {
     const original = jest.requireActual('src/utils');
     return {
         ...original,
-        getGlobalUrl: jest.fn(() => 'https://www.paypal.com/paylateracq/prequalify'),
-        request: jest.fn(() => Promise.resolve({}))
+        getGlobalUrl: jest.fn(() => 'https://www.paypal.com/paylateracq/prequalify')
     };
 });
 
@@ -66,26 +64,35 @@ describe('validateProps', () => {
 });
 
 describe('openPrequalification', () => {
-    it('redirects with token and offer params', async () => {
-        await openPrequalification({ token: 'ec-token-123', offer: 'PAY_LATER_SHORT_TERM' });
+    it('redirects with token and offer params', () => {
+        openPrequalification({ token: 'ec-token-123', offer: 'PAY_LATER_SHORT_TERM' });
 
         expect(window.location.assign).toHaveBeenCalledWith(
             'https://www.paypal.com/paylateracq/prequalify?token=ec-token-123&offer=PAY_LATER_SHORT_TERM'
         );
     });
 
-    it('omits offer when not provided', async () => {
-        await openPrequalification({ token: 'ec-token-123' });
+    it('omits offer when not provided', () => {
+        openPrequalification({ token: 'ec-token-123' });
 
         expect(window.location.assign).toHaveBeenCalledWith(
             'https://www.paypal.com/paylateracq/prequalify?token=ec-token-123'
         );
     });
 
-    it('does not redirect when preflight request fails', async () => {
-        request.mockRejectedValueOnce(new Error('preflight failed'));
-        await openPrequalification({ token: 'ec-token-123' }).catch(() => {});
+    it('omits offer when offer is explicitly undefined', () => {
+        openPrequalification({ token: 'ec-token-123', offer: undefined });
 
-        expect(window.location.assign).not.toHaveBeenCalled();
+        expect(window.location.assign).toHaveBeenCalledWith(
+            'https://www.paypal.com/paylateracq/prequalify?token=ec-token-123'
+        );
+    });
+
+    it('uses empty string when token is not provided', () => {
+        openPrequalification({ offer: 'PAY_LATER_SHORT_TERM' });
+
+        expect(window.location.assign).toHaveBeenCalledWith(
+            'https://www.paypal.com/paylateracq/prequalify?token=&offer=PAY_LATER_SHORT_TERM'
+        );
     });
 });

@@ -152,8 +152,5 @@ export function openPrequalification(params = {}) {
     // TODO: sessionIdentifier is being discussed; currently using ecToken.
     const url = `${baseUrl}?token=${encodeURIComponent(token ?? '')}${query ? `&${query}` : ''}`;
 
-    // Preflight the route to avoid navigating away from the modal if prequalify is unavailable.
-    return request('GET', url).then(() => {
-        window.location.assign(url);
-    });
+    window.location.assign(url);
 }

@@ -6,8 +6,6 @@ export default (clickTitle, onClick, queryParams = {}) => {
             onClick({ linkName: clickTitle });
         }
         // Open to prequalification route.
-        openPrequalification(queryParams).catch(() => {
-            // If prequalify is down or unreachable, keep the upstream modal open.
-        });
+        openPrequalification(queryParams);
     };
 };

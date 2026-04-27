@@ -90,10 +90,9 @@ export const LongTerm = ({
     const [expandedState, setExpandedState] = useState(false);
     const { amount, onClick, onClose, ecToken } = useXProps();
     const { views, country } = useServerData();
-    const offer = product || 'PAY_LATER_LONG_TERM';
     const spendingPowerClickTitle = 'Check Spending Power';
     const handlePrequalification = usePrequalification(spendingPowerClickTitle, onClick, {
-        offer,
+        offer: product,
         token: ecToken
     });
     const { offers } = views.find(view => view.offers);

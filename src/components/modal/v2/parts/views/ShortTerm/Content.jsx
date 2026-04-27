@@ -45,10 +45,9 @@ export const ShortTerm = ({
 }) => {
     const { views, country } = useServerData();
     const { onClick, onClose, ecToken } = useXProps();
-    const offer = product || 'PAY_LATER_SHORT_TERM';
     const spendingPowerClickTitle = 'Check Spending Power';
     const handlePrequalification = usePrequalification(spendingPowerClickTitle, onClick, {
-        offer,
+        offer: product,
         token: ecToken
     });
 
