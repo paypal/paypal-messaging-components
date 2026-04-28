@@ -58,7 +58,7 @@
     flex-direction: column;
     align-items: center;
 
-    .button.cta {
+    .button .cta:not(.checkout) {
         padding: 12px 0;
     }
 
@@ -98,6 +98,12 @@
     @include mixins.apiIframe {
         max-width: variables.$content-wrapper-max-width-api-iframe;
     }
+
+    &.checkout {
+        .button.cta {
+            margin-top: 10px;
+        }
+    }
 }
 
 .prequal-fixed-offset {
@@ -110,7 +116,7 @@
 
 .offer-terms {
     color: colors.$text-main;
-    background-color: #E3F7FF;
+    background-color: #e3f7ff;
     border-radius: 12px;
     padding: 16px;
     margin: 12px 0;
