@@ -52,16 +52,8 @@
                     padding-right: 65px;
                 }
 
-                &.v5Design {
-                    button {
-                        background-color: #f5f7fb;
-                    }
-                }
-
-                &.v5Dot1Design {
-                    button {
-                        background-color: colors.$white;
-                    }
+                button {
+                    background-color: colors.$white;
                 }
             }
 
@@ -153,12 +145,11 @@
                 margin-top: 10px;
             }
 
-            &.v5Design {
-                color: colors.$v5-gray;
-                margin-top: 20px;
-                &.DE {
-                    margin-top: auto;
-                }
+            color: colors.$v5-gray;
+            margin-top: 20px;
+
+            &.DE {
+                margin-top: auto;
             }
 
             &.checkout {
@@ -181,12 +172,7 @@
         }
     }
 
-    &.v4Design {
-        background: colors.$v4-gray;
-    }
-    &.v5Design {
-        background: colors.$v5-white;
-    }
+    background: colors.$v5-white;
 
     &.checkout {
         background-color: colors.$white;

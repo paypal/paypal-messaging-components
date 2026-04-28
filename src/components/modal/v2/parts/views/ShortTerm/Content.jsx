@@ -223,7 +223,7 @@ export const ShortTerm = ({
             <div
                 className={`content__row disclosure ${
                     (cta && useNewCheckoutDesign === 'true') || cta ? 'checkout' : ''
-                } ${useV5Design === 'true' ? 'v5Design' : ''}`}
+                }`}
             >
                 <InlineLinks text={currencyFormat(disclosure)} />
                 {renderLearnMoreLink()}

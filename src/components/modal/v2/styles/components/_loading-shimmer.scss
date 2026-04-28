@@ -71,9 +71,7 @@
     }
     &__container {
         &.shimmer {
-            .v5Design & {
-                width: 100%;
-            }
+            width: 100%;
         }
         &:first-child {
             &.shimmer {

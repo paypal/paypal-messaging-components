@@ -71,11 +71,9 @@
                 justify-content: space-between;
             }
 
-            .v5Design & {
-                @include mixins.tablet {
-                    margin-top: 20px;
-                    margin-bottom: 20px;
-                }
+            @include mixins.tablet {
+                margin-top: 20px;
+                margin-bottom: 20px;
             }
         }
     }
@@ -305,10 +303,8 @@
     }
 
     .disclosure {
-        &.v5Design {
-            color: colors.$v5-gray;
-            padding-top: 24px;
-        }
+        color: colors.$v5-gray;
+        padding-top: 24px;
 
         &.checkout {
             padding-bottom: 60px;

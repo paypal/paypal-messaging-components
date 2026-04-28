@@ -30,10 +30,8 @@ strong {
             }
         }
 
-        &.v5Design {
-            &:last-child {
-                margin-bottom: 0px;
-            }
+        &:last-child {
+            margin-bottom: 0px;
         }
 
         @include mixins.desktop {
@@ -88,17 +86,14 @@ strong {
     }
     &__field-header {
         font-size: 18px;
+        color: colors.$text-main;
+        font-weight: bold;
         @include mixins.mobile {
             font-size: 18px;
             margin-top: 16px;
         }
         @include mixins.smallMobile {
             font-size: 1rem;
-        }
-
-        &.v5Dot1Design {
-            color: colors.$text-main !important;
-            font-weight: bold !important;
         }
 
         .checkout & {
@@ -118,7 +113,7 @@ strong {
     &__field-title {
         display: flex;
         font-size: 18px;
-        color: colors.$gray;
+        color: colors.$v5-gray;
         margin: 0px;
         @include mixins.smallMobile {
             font-size: 18px;
@@ -126,23 +121,19 @@ strong {
 
         &:is(strong) {
             color: colors.$text-main;
+            font-weight: bold;
         }
 
-        &.v5Dot1Design {
-            color: colors.$text-main !important;
-            font-weight: bold !important;
-        }
         .checkout & {
             font-size: 16px;
-            & :last-of-type {
-                color: colors.$text-main !important;
-            }
+            color: colors.$text-main;
+            font-weight: bold;
         }
     }
 
     &__field-value {
         font-size: 18px;
-        color: colors.$gray;
+        color: colors.$v5-gray;
         margin: 0px;
         @include mixins.mobile {
             font-size: 18px;
@@ -153,15 +144,13 @@ strong {
 
         &:is(strong) {
             color: colors.$text-main;
-        }
-
-        &.v5Dot1Design {
-            color: colors.$text-main !important;
-            font-weight: bold !important;
+            font-weight: bold;
         }
 
         .checkout & {
             font-size: 16px;
+            color: colors.$text-main;
+            font-weight: bold;
         }
     }
 }

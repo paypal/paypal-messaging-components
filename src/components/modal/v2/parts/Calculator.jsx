@@ -197,23 +197,14 @@ const Calculator = ({
     return (
         <div
             className={`calculator ${useNewCheckoutDesign === 'true' ? 'checkout' : ''} ${
-                useV5Design === 'true' ? 'v5Design' : ''
-            } ${cta ? 'border-checkout' : ''}`}
+                cta ? 'border-checkout' : ''
+            }`}
         >
-            <form
-                className={`form ${useV4Design === 'true' ? 'v4Design' : ''} ${
-                    useV5Design === 'true' ? 'v5Design' : ''
-                } ${useNewCheckoutDesign === 'true' ? 'checkout' : ''}`}
-                onSubmit={submit}
-            >
+            <form className={`form ${useNewCheckoutDesign === 'true' ? 'checkout' : ''}`} onSubmit={submit}>
                 <h3 className={`title ${cta ? 'checkout-title' : ''}`}>
                     {!hasInitialAmount ? genericTitle || title : title}
                 </h3>
-                <div
-                    className={`input__wrapper transitional ${useV5Design === 'true' ? 'v5Design' : ''} ${
-                        cta ? 'checkout' : ''
-                    }`}
-                >
+                <div className={`input__wrapper transitional ${cta ? 'checkout' : ''}`}>
                     <label htmlFor="purchase-amount" className={`input__label ${country}`}>
                         {renderInputLabelOnEmptyField(country)}
                     </label>
@@ -249,15 +240,13 @@ const Calculator = ({
                 <div
                     className={`finance-terms__disclaimer ${
                         !(hasInitialAmount || hasUsedInputField) || error ? 'no-amount' : ''
-                    } ${useV5Design === 'true' ? 'v5Design' : ''}`}
+                    }`}
                 >
                     {aprDisclaimer[0].aprDisclaimer}
                 </div>
             )}
             {(country === 'ES' || country === 'IT') && (
-                <div className={`finance-terms__disclaimer ${useV5Design === 'true' ? 'v5Design' : ''}`}>
-                    {genericDisclaimer}
-                </div>
+                <div className="finance-terms__disclaimer">{genericDisclaimer}</div>
             )}
         </div>
     );

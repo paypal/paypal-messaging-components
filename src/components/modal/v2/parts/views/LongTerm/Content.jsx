@@ -104,6 +104,20 @@ export const LongTerm = ({
      * we make sure "cta" is not in the content. If "cta" is not undefined, return the Checkout-specific cta button.
      * Otherwise, render the Product List link.
      */
+    const renderProductListLink = () => {
+        if (views?.length > 2 && typeof cta === 'undefined') {
+            return (
+                <Fragment>
+                    {navLinkPrefix && <div className="content__row nav__link-prefix">{navLinkPrefix}</div>}
+                    <ProductListLink openProductList={openProductList} className={country?.toLowerCase()}>
+                        {linkToProductList}
+                    </ProductListLink>
+                </Fragment>
+            );
+        }
+        return null;
+    };
+
     const renderCheckoutCtaButton = () => {
         /**
          * Event link name used in Pay Monthly XO version of the modal.
@@ -162,16 +176,7 @@ export const LongTerm = ({
                 </div>
             );
         }
-        if (views?.length > 2) {
-            return (
-                <Fragment>
-                    {navLinkPrefix && <div className="content__row nav__link-prefix">{navLinkPrefix}</div>}
-                    <ProductListLink openProductList={openProductList} className={country?.toLowerCase()}>
-                        {linkToProductList}
-                    </ProductListLink>
-                </Fragment>
-            );
-        }
+
         return null;
     };
 
@@ -238,11 +243,12 @@ export const LongTerm = ({
             <div
                 className={`content__row disclosure ${expandedState ? '' : 'collapsed'} ${
                     useNewCheckoutDesign === 'true' ? 'checkout' : ''
-                } ${useV5Design === 'true' ? 'v5Design' : ''} ${country === 'DE' ? 'DE' : ''} ${
-                    isPrequalExperience ? 'prequal-fixed-offset' : ''
-                }`}
+                } ${country === 'DE' ? 'DE' : ''}`}
             >
                 {getDisclosure(disclosure)}
+            </div>
+            <div className={`content__row productLink${isPrequalExperience ? ' prequal-fixed-offset' : ''}`}>
+                <div className="productLink__container">{renderProductListLink()}</div>
             </div>
             {conditionalStickyButton}
         </Fragment>
