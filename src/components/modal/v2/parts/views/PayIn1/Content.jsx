@@ -12,10 +12,20 @@ import { getEuroStyleClass } from '../../../lib';
 
 export const PayIn1 = ({
     productMeta: { useV5Design },
-    content: { instructions, linkToProductList, disclosure, navLinkPrefix },
+    content: { instructions, linkToProductList, disclosure, navLinkPrefix, learnMoreLink },
     openProductList
 }) => {
     const { views, country } = useServerData();
+
+    const renderLearnMoreLink = () => {
+        return (
+            learnMoreLink && (
+                <div className="learnMoreLink__container">
+                    <InlineLinks text={learnMoreLink} />
+                </div>
+            )
+        );
+    };
 
     const renderProductListLink = () => {
         if (views?.length > 2) {
@@ -46,6 +56,7 @@ export const PayIn1 = ({
             </div>
             <div className={`content__row disclosure ${useV5Design ? 'v5Design' : ''} ${getEuroStyleClass(country)}`}>
                 <InlineLinks text={currencyFormat(disclosure)} />
+                {renderLearnMoreLink()}
             </div>
             <div className="content__row productLink">
                 <div className="productLink__container">{renderProductListLink()}</div>

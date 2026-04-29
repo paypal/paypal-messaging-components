@@ -47,17 +47,17 @@ export default {
         messageThresholds: [
             {
                 amount: 0,
-                template: 'pi30nq.json',
+                template: 'pl.json',
                 product: 'PAY_LATER_PAY_IN_1'
             },
             {
                 amount: 1,
-                template: 'pi30q.json',
+                template: 'plq.json',
                 product: 'PAY_LATER_PAY_IN_1'
             },
             {
                 amount: 900.01,
-                template: 'pi30nq.json',
+                template: 'pl.json',
                 product: 'PAY_LATER_PAY_IN_1'
             }
         ],

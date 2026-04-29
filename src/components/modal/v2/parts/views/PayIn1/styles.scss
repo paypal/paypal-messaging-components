@@ -9,6 +9,19 @@
             padding: 0px;
         }
 
+        .learnMoreLink__container {
+            font-size: 14px;
+
+            @include mixins.tablet {
+                margin-top: 10px;
+            }
+
+            @include mixins.mobile {
+                margin-top: 20px;
+                margin-left: 0px;
+            }
+        }
+
         &.nav__link-prefix {
             min-width: 315px;
             padding: 0px;
