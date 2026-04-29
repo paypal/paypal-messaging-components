@@ -1,2 +1,4 @@
 export { DEV_GB_SHORT_TERM } from './DEV_GB_SHORT_TERM';
 export { DEV_GB_SHORT_TERM_CHECKOUT } from './DEV_GB_SHORT_TERM_CHECKOUT';
+export { DEV_GB_PAY_IN_1 } from './DEV_GB_PAY_IN_1';
+export { DEV_GB_MULTI } from './DEV_GB_MULTI';

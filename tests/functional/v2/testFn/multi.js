@@ -48,7 +48,13 @@ export const clickProductListTiles = async (contentWindow, modalContent, account
         await page.waitFor(2 * 1000);
     };
 
-    if (account === 'DEV_US_MULTI') {
+    if (account === 'DEV_GB_MULTI') {
+        // Switch to Pay in 3 view
+        await switchViews(2, 'shortTerm');
+
+        // Switch to Pay in 30 Days view
+        await switchViews(3, 'payIn1');
+    } else if (account !== 'DEV_DE_MULTI' && account !== 'DEV_ES_MULTI' && account !== 'DEV_IT_MULTI') {
         // Switch to long term view
         await switchViews(2, 'shortTerm');
 
