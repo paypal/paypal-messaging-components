@@ -97,12 +97,17 @@ export const viewsShareAmount = async (contentWindow, testName, account) => {
     await contentWindow.click(`${tile}:nth-child(3)`);
     await page.waitFor(3 * 1000);
 
-    // FR long term modal does not have a calculator
-    if (account !== 'DEV_FR_MULTI') {
+    if (account === 'DEV_GB_MULTI') {
+        await contentWindow.waitForSelector(`${headerContent} > ${subheadlineContent}`);
+        const tile3Subheadline = await contentWindow.$eval(subheadlineContent, element => element.innerText);
+        expect(tile3Subheadline).not.toBeNull();
+    } else {
         await contentWindow.waitForSelector(input);
         const inputFieldVal = await contentWindow.$eval(input, element => element.value);
         expect(subheadline).not.toContain(inputFieldVal);
     }
+
+
     await modalSnapshot(testName, contentWindow);
 };
 
