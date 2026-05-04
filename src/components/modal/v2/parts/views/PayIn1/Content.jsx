@@ -13,6 +13,7 @@ import { currencyFormat } from '../../../lib/hooks/currency'; // Remove .00 cent
 export const PayIn1 = ({
     productMeta: { useV5Design, qualifying },
     content: { instructions, linkToProductList, disclosure, navLinkPrefix, learnMoreLink, cta },
+    useNewCheckoutDesign,
     openProductList
 }) => {
     const { views, country } = useServerData();
@@ -91,7 +92,12 @@ export const PayIn1 = ({
             <style>{styles._getCss()}</style>
             <div className="content__row dynamic">
                 <div className="content__col">
-                    <Instructions instructions={instructions} country={country} useV5Design={useV5Design} />
+                    <Instructions
+                        instructions={instructions}
+                        country={country}
+                        useV5Design={useV5Design}
+                        useNewCheckoutDesign={useNewCheckoutDesign}
+                    />
                 </div>
                 <div className="content__col">
                     <div className="branded-image">
@@ -99,7 +105,11 @@ export const PayIn1 = ({
                     </div>
                 </div>
             </div>
-            <div className={`content__row disclosure ${useV5Design ? 'v5Design' : ''} ${country === 'DE' ? 'DE' : ''}`}>
+            <div
+                className={`content__row disclosure ${country === 'DE' ? 'DE' : ''} ${
+                    useNewCheckoutDesign === 'true' ? 'checkout' : ''
+                }`}
+            >
                 <InlineLinks text={currencyFormat(disclosure)} />
                 {renderLearnMoreLink()}
             </div>

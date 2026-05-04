@@ -116,7 +116,12 @@ const BodyContent = () => {
             />
         ),
         [VIEW_IDS.PAY_LATER_PAY_IN_1]: (
-            <PayIn1 productMeta={productMeta} content={content} openProductList={openProductList} />
+            <PayIn1
+                productMeta={productMeta}
+                content={content}
+                useNewCheckoutDesign={useNewCheckoutDesign}
+                openProductList={openProductList}
+            />
         ),
         [VIEW_IDS.PAY_LATER_SHORT_TERM]: (
             <ShortTerm
