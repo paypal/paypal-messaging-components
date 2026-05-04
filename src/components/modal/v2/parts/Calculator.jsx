@@ -40,6 +40,7 @@ const getError = ({ offers, error = '' }, isLoading, calculator, amount, country
     }
 
     const replaceRegExp = {
+        AT: /(,[0-9]*?)00/g,
         DE: /(,[0-9]*?)00/g,
         ES: /(,[0-9]*?)00/g,
         IT: /(,[0-9]*?)00/g,
@@ -222,7 +223,9 @@ const Calculator = ({
                         id="purchase-amount"
                         aria-required="true"
                         className={`input ${displayValue === '' && country === 'US' ? 'empty-input' : ''}`}
-                        placeholder={currencyFormat(inputPlaceholder).replace(/(\s?€)/g, '')}
+                        placeholder={currencyFormat(inputPlaceholder)
+                            .replace(/(\s?€)/g, '')
+                            .replace(/\$/g, '')}
                         type="text"
                         value={displayValue}
                         onInput={onInput}

@@ -1,6 +1,6 @@
 /** @jsx h */
 import { h, Fragment } from 'preact';
-import { useServerData } from '../../../lib';
+import { useServerData, getEuroStyleClass } from '../../../lib';
 import Tile from '../../Tile';
 import { currencyFormat } from '../../../lib/hooks/currency';
 import styles from './styles.scss';
@@ -67,9 +67,9 @@ export const ProductList = ({
                 </div>
             </div>
             <div
-                className={`content__row disclosure collapsed ${useV5Design ? 'v5Design' : ''} ${
-                    country === 'DE' ? 'DE' : ''
-                }`}
+                className={`content__row disclosure collapsed ${useV5Design ? 'v5Design' : ''} ${getEuroStyleClass(
+                    country
+                )}`}
             >
                 {disclosure}
             </div>

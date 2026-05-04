@@ -232,6 +232,10 @@ export function getStandardProductOffer(offer) {
         case 'GPL:GTZ:NON-DE':
         case 'GPLQ:EQZ:NON-DE':
         case 'GPLQ:GTZ:NON-DE':
+        case 'GPL:EQZ:NON-AT':
+        case 'GPL:GTZ:NON-AT':
+        case 'GPLQ:EQZ:NON-AT':
+        case 'GPLQ:GTZ:NON-AT':
         case 'PLLT_NQ_EZ_XB':
         case 'PLLT_NQ_GZ_XB':
         case 'PLLT_MQ_EZ_XB':
@@ -270,6 +274,9 @@ export function getStandardProductOffer(offer) {
         case 'PI30:NON-DE':
         case 'PI30Q:NON-DE':
         case 'PI30NQ:NON-DE':
+        case 'PI30:NON-AT':
+        case 'PI30Q:NON-AT':
+        case 'PI30NQ:NON-AT':
         case 'PLP1_NA_XB':
         case 'PLP1_NA':
         case 'PLP1_NQ_XB':

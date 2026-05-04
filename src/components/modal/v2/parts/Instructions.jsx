@@ -1,6 +1,6 @@
 /** @jsx h */
 import { Fragment, h } from 'preact';
-import { currencyFormat } from '../lib';
+import { currencyFormat, getEuroStyleClass } from '../lib';
 
 const Instructions = ({
     instructions,
@@ -43,9 +43,9 @@ const Instructions = ({
                 >
                     {instructions.map((instruction, index) => (
                         <li
-                            className={`instructions__item-wrapper ${useV5Design ? 'v5Design' : ''} ${
-                                country === 'DE' ? 'DE' : ''
-                            }`}
+                            className={`instructions__item-wrapper ${useV5Design ? 'v5Design' : ''} ${getEuroStyleClass(
+                                country
+                            )}`}
                         >
                             {renderBullet(index + 1, useNewCheckoutDesign)}
                             <div
@@ -62,9 +62,9 @@ const Instructions = ({
             return (
                 <Fragment>
                     <h2
-                        className={`instructions__item-wrapper ${useV5Design ? 'v5Design' : ''} ${
-                            country === 'DE' ? 'DE' : ''
-                        }`}
+                        className={`instructions__item-wrapper ${useV5Design ? 'v5Design' : ''} ${getEuroStyleClass(
+                            country
+                        )}`}
                         // eslint-disable-next-line react/no-danger
                         dangerouslySetInnerHTML={{ __html: instructions.instructionsHeadline }}
                     />

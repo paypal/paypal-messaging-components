@@ -3,7 +3,8 @@ const getLocale = country =>
         US: 'en-US',
         IT: 'it-IT',
         ES: 'es-ES',
-        DE: 'de-DE'
+        DE: 'de-DE',
+        AT: 'de-AT'
     }[country] ?? 'en-US');
 
 const setCurrency = (country, value) =>
@@ -11,7 +12,8 @@ const setCurrency = (country, value) =>
         US: `$${value}`,
         IT: value,
         ES: value,
-        DE: value
+        DE: value,
+        AT: value
     }[country] ?? `$${value}`);
 
 const decimalSeparator = locale => (1.1).toLocaleString(locale).replace(/\d/g, '');
