@@ -223,9 +223,7 @@ const Calculator = ({
                         id="purchase-amount"
                         aria-required="true"
                         className={`input ${displayValue === '' && country === 'US' ? 'empty-input' : ''}`}
-                        placeholder={currencyFormat(inputPlaceholder)
-                            .replace(/(\s?€)/g, '')
-                            .replace(/\$/g, '')}
+                        placeholder={currencyFormat(inputPlaceholder).replace(/(\s?€)/g, '')}
                         type="text"
                         value={displayValue}
                         onInput={onInput}
