@@ -1,0 +1,109 @@
+@media (min-aspect-ratio: 200/11) {
+    .message__logo-container {
+        width: 20%;
+        max-width: 50%;
+    }
+
+    .message__logo {
+        width: 30%;
+    }
+
+    .message__promo-container {
+        width: unset;
+    }
+
+    .message__messaging {
+        display: inline;
+    }
+
+    .message__content {
+        justify-content: center;
+    }
+
+    .message__headline {
+        font-size: 2vw;
+        margin-right: 7px;
+    }
+
+    .message__sub-headline {
+        margin-left: 0;
+    }
+}
+
+@media (min-aspect-ratio: 200/11) and (min-width: 351px) {
+    .message__disclaimer {
+        font-size: 0.8rem;
+    }
+}
+@media (min-aspect-ratio: 200/11) and (min-width: 903px) {
+}
+@media (min-aspect-ratio: 200/11) and (min-width: 400px) {
+    .message__headline {
+        font-size: 2vw;
+    }
+
+    .message__headline > span:nth-of-type(3) {
+        display: inline;
+    }
+
+    .message__logo {
+        width: 30%;
+    }
+}
+
+@media (min-aspect-ratio: 200/11) and (min-width: 523px) {
+    .message__headline span.multi:nth-of-type(1) {
+        display: none;
+    }
+
+    .message__headline span.multi:nth-of-type(2) {
+        display: inline;
+    }
+}
+
+@media (min-aspect-ratio: 200/11) and (max-width: 600px) {
+    .message__logo-container {
+        max-width: 50%;
+    }
+
+    .message__logo {
+        width: 30%;
+    }
+}
+
+@media (min-aspect-ratio: 200/11) and (min-width: 401px) and (max-width: 522px) {
+    .message__logo-container {
+        max-width: 50%;
+    }
+
+    .message__headline {
+        font-size: 2.75vw;
+    }
+
+    .message__headline > span:nth-of-type(3) {
+        display: none;
+    }
+}
+
+@media (min-aspect-ratio: 200/11) and (max-width: 350px) {
+    .message__headline {
+        font-size: 10px;
+    }
+}
+
+@media (min-aspect-ratio: 200/11) {
+    .message__logo-container {
+        justify-content: flex-end;
+    }
+
+    .message__logo {
+        width: 35%;
+        margin-right: 15px;
+    }
+}
+
+@media (min-aspect-ratio: 200/11) and (min-width: 600px) {
+    .message__headline {
+        line-height: normal;
+    }
+}

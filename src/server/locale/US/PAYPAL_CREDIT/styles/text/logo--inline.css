@@ -1,7 +1,6 @@
 .message__logo {
-    top: -0.15px;
+    margin-top: 0px;
 }
-
 .message__logo-container:after {
     content: '.';
 }

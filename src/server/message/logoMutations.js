@@ -1,6 +1,7 @@
 import Logo from './logos';
 
 export const textLogoMutations = [
+    ['logo.type:primary', { logo: Logo.PAYPAL_BADGE.COLOR }],
     ['text.color:white && logo.type:primary', { logo: Logo.PAYPAL_BADGE.WHITE }],
     ['text.color:grayscale && logo.type:primary', { logo: Logo.PAYPAL_BADGE.GRAYSCALE }],
     ['text.color:monochrome && logo.type:primary', { logo: Logo.PAYPAL_BADGE.MONOCHROME }],

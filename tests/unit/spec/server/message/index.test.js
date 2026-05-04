@@ -333,22 +333,6 @@ describe('SSR message', () => {
         expect(miscStyles.textContent).toContain('.message__messaging { width: 11.796px }');
     });
 
-    test('handles message width range', () => {
-        getMutations.mockReturnValue(
-            defaultMutations({
-                messageWidth: [0, 100]
-            })
-        );
-
-        const { container } = render(
-            <Message locale="US" addLog={mockLogger} options={options} markup={defaultMarkup()} />
-        );
-
-        const miscStyles = Array.from(container.querySelectorAll('style')).find(el => el.className === 'styles__misc');
-
-        expect(miscStyles.textContent).toContain('.message__messaging { min-width: 0px; max-width: 100px }');
-    });
-
     test('handles locale styles', () => {
         getLocaleStyles.mockReturnValue([
             ['default', style1],

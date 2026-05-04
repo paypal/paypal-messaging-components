@@ -77,10 +77,6 @@ export default ({ options, markup, locale }) => {
     if (mutationRules.messageWidth) {
         if (typeof mutationRules.messageWidth === 'number') {
             miscStyleRules.push(`.message__messaging { width: ${mutationRules.messageWidth}px }`);
-        } else if (Array.isArray(mutationRules.messageWidth)) {
-            miscStyleRules.push(
-                `.message__messaging { min-width: ${mutationRules.messageWidth[0]}px; max-width: ${mutationRules.messageWidth[1]}px }`
-            );
         }
     }
 

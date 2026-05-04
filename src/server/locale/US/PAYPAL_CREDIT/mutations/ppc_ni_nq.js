@@ -1,18 +1,13 @@
 import Logo from '../logos';
-import {
-    basicMediaQuery,
-    altContentMediaQuery,
-    primaryContentMediaQuery,
-    messageDisclaimerMediaQuery,
-    textWrap
-} from './mediaQueries';
+import { basicMediaQuery, altContentMediaQuery, messageDisclaimerMediaQuery } from './mediaQueries';
+import { messageLogoWidth, setLogoTop, xSmallFallback, textWrap } from '../../../../message/mediaQueries';
 import { textLogoMutations, flexLogoMutations } from './common';
 
 export const flex = [
     [
         'default',
         {
-            logo: Logo.STACKED.WHITE,
+            logo: Logo.CREDIT_WORDMARK.WHITE,
             headline: ['xsmall', { tag: 'medium', br: ['months'] }],
             disclaimer: 'xsmall'
         }
@@ -45,10 +40,14 @@ export default {
         [
             'default',
             ({ textSize }) => {
-                const breakpointCalc = textSize * 19 + 70;
                 return {
-                    styles: [messageDisclaimerMediaQuery(breakpointCalc - 1), [basicMediaQuery(breakpointCalc)]],
-                    logo: Logo.SINGLE_LINE.COLOR,
+                    styles: [
+                        textWrap(textSize * 39.5, textSize, 'US'),
+                        xSmallFallback(textSize * 16),
+                        messageLogoWidth(false, textSize * 5.1),
+                        setLogoTop(textSize * 20)
+                    ],
+                    logo: Logo.CREDIT_REBRAND_BADGE.COLOR,
                     headline: [
                         { tag: 'xsmall', br: ['time.'] },
                         { tag: 'medium', br: ['months'] }
@@ -63,18 +62,9 @@ export default {
                 messageWidth: [textSize * 13, textSize * 34],
                 styles: [
                     basicMediaQuery(textSize * 17),
-                    `
-                    .message__logo-container {
-                        width: ${textSize * 9}px;
-                    }
-                    .message__content {
-                        display: inline-block;
-                    }
-                    .message__disclaimer {
-                        display: inline;
-                    }
-                    `,
-                    altContentMediaQuery(textSize * 43.5)
+                    textWrap(textSize * 42, textSize, 'US'),
+                    `.locale--US .message__logo-container { width: ${textSize * 7.4}px; }`,
+                    `.message__disclaimer { display: inline; }`
                 ]
             })
         ],
@@ -82,27 +72,23 @@ export default {
             'logo.type:primary && logo.position:left',
             ({ textSize }) => ({
                 messageWidth: [textSize * 13, textSize * 33],
-                logo: [Logo.SINGLE_LINE_NO_PAYPAL.COLOR, Logo.SINGLE_LINE.COLOR],
+                logo: Logo.CREDIT_REBRAND_BADGE.COLOR,
                 headline: [
                     { tag: 'xsmall', br: ['time.'] },
                     { tag: 'medium', br: ['on ', 'months'] }
                 ],
                 styles: [
                     basicMediaQuery(textSize * 18),
-                    primaryContentMediaQuery({
-                        logoContainerBP: textSize * 21,
-                        width: { smallLogo: textSize * 5, largeLogo: textSize * 9 },
-                        logoSvgBP: textSize * 41.75,
-                        whiteSpaceBP: textSize * 27
-                    })
+                    textWrap(textSize * 40, textSize, 'US'),
+                    `.locale--US .message__logo-container { width: ${textSize * 7.4}px; }`
                 ]
             })
         ],
         [
             'logo.type:inline',
             ({ textSize }) => ({
-                styles: [basicMediaQuery(textSize * 15 + 80), `.message__logo { width: ${textSize * 7}px }`],
-                logo: Logo.SINGLE_LINE_NO_PP.COLOR,
+                styles: [basicMediaQuery(textSize * 15 + 80), `.message__logo { width: ${textSize * 6.8}px }`],
+                logo: Logo.CREDIT_WORDMARK.COLOR,
                 headline: [
                     {
                         tag: 'xsmall',
@@ -141,10 +127,16 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     basicMediaQuery(textSize * 18),
-                    `.message__logo-container { width: ${textSize * 5}px }`,
-                    textWrap(textSize * 39, textSize, 'US')
+                    `.locale--US .message__logo-container { width: ${textSize * 5}px; }`,
+                    textWrap(textSize * 39, textSize, 'US'),
+                    `@media screen and (max-width: ${textSize * 39}px) {
+                        .locale--US .message__content {
+                        display: block;
+                        margin-top: 0;
+                    }
+                    }`
                 ],
-                logo: Logo.SINGLE_LINE_NO_PAYPAL.COLOR
+                logo: Logo.CREDIT_REBRAND_PP_BADGE.COLOR
             })
         ],
         [
@@ -153,13 +145,16 @@ export default {
                 styles: [
                     basicMediaQuery(textSize * 18),
                     altContentMediaQuery(textSize * 42),
-                    `.message__logo-container { width: ${textSize * 5}px }`,
+                    `.locale--US .message__logo-container { width: ${textSize * 5}px; }`,
                     `@media screen and (max-width: ${
                         textSize * 42
                     }px) { .locale--US .message__logo > img { top:2.3px; }}`,
-                    textWrap(textSize * 39, textSize, 'US')
+                    textWrap(textSize * 39, textSize, 'US'),
+                    `@media screen and (max-width: ${
+                        textSize * 39
+                    }px) { .locale--US .message__logo-container { margin-bottom: 8px; } }`
                 ],
-                logo: Logo.SINGLE_LINE_NO_PAYPAL.COLOR
+                logo: Logo.CREDIT_REBRAND_PP_BADGE.COLOR
             })
         ],
         [
@@ -170,12 +165,8 @@ export default {
                     styles: [
                         messageDisclaimerMediaQuery(breakpointCalc - 1),
                         basicMediaQuery(breakpointCalc),
-                        `
-                        .message__disclaimer {
-                            display:block;
-                        }
-                        `,
-                        `.message__logo-container { width: ${textSize * 9}px }`
+                        `.message__disclaimer { display: block; }`,
+                        `.locale--US .message__logo-container { width: ${textSize * 7.4}px; }`
                     ]
                 };
             }
@@ -183,7 +174,10 @@ export default {
         [
             'logo.type:alternative && logo.position:top',
             ({ textSize }) => ({
-                styles: [basicMediaQuery(textSize * 18.5), `.message__logo-container { width: ${textSize * 5}px }`]
+                styles: [
+                    basicMediaQuery(textSize * 18.5),
+                    `.locale--US .message__logo-container { width: ${textSize * 5}px; }`
+                ]
             })
         ],
         ...textLogoMutations

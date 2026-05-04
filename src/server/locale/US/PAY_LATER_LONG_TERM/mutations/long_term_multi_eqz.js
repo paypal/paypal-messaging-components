@@ -139,7 +139,7 @@ export default {
         [
             'logo.type:inline',
             ({ textSize }) => ({
-                styles: [xSmallFallback(textSize * 16), `.message__logo { width: ${textSize * 2}px }`],
+                styles: [xSmallFallback(textSize * 16), `.message__logo { width: ${textSize * 4.1}px }`],
                 logo: Logo.WORDMARK.BLACK,
                 headline: [
                     {
