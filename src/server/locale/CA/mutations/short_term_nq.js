@@ -64,7 +64,7 @@ export default {
             'default',
             ({ textSize }) => ({
                 styles: [
-                    textWrap(textSize * 39.5, textSize, 'CA'),
+                    textWrap(textSize * 48, textSize, 'CA'),
                     xSmallFallback(textSize * 16),
                     messageLogoWidth(false, textSize * 5.1),
                     setLogoTop(textSize * 20)
@@ -101,7 +101,7 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     `@media screen and (max-width: ${textSize * 10.6}px) { .message__content { white-space: nowrap; }}`,
-                    textWrap(textSize * 37, textSize, 'CA'),
+                    textWrap(textSize * 45, textSize, 'CA'),
                     xSmallFallback(textSize * 15.4),
                     altNoWrap(textSize * 10.6),
                     messageLogoWidth(textSize * 1.75, textSize * 1.35),
