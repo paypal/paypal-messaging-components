@@ -21,7 +21,7 @@
     }
 
     .message__headline {
-        font-size: 2vw;
+        font-size: 1.8vw;
         margin-right: 7px;
     }
 
@@ -32,14 +32,14 @@
 
 @media (min-aspect-ratio: 200/11) and (min-width: 351px) {
     .message__disclaimer {
-        font-size: 0.8rem;
+        font-size: 0.5rem;
     }
 }
 @media (min-aspect-ratio: 200/11) and (min-width: 903px) {
 }
 @media (min-aspect-ratio: 200/11) and (min-width: 400px) {
     .message__headline {
-        font-size: 2vw;
+        font-size: 1.8vw;
     }
 
     .message__headline > span:nth-of-type(3) {

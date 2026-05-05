@@ -76,7 +76,7 @@
     }
 
     .message__headline {
-        font-size: 2.75vw;
+        font-size: 2.5vw;
     }
 
     .message__headline > span:nth-of-type(3) {

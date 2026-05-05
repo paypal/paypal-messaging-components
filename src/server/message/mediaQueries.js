@@ -162,7 +162,7 @@ export function logo20x1() {
         .message__logo {
             width: 22%;
             margin-right: 15px;
-            margin-top: -3px;
+            margin-top: -1px;
         }
     }
     `;

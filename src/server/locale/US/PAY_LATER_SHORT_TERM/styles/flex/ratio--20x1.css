@@ -38,7 +38,7 @@
 }
 @media (min-aspect-ratio: 200/11) and (min-width: 400px) {
     .message__headline {
-        font-size: 2vw;
+        font-size: 1.8vw;
     }
 
     .message__headline > span:nth-of-type(3) {
@@ -99,7 +99,7 @@
     .message__logo {
         width: 22%;
         margin-right: 15px;
-        margin-top: -3px;
+        margin-top: -1px;
     }
 }
 

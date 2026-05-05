@@ -24,8 +24,8 @@
         margin-left: 0;
     }
 
-    .message__disclaimer {
-        margin-left: 4px;
+    .message__headline {
+        margin-right: 4px;
     }
 }
 
@@ -38,7 +38,7 @@
 }
 @media (min-aspect-ratio: 200/11) and (min-width: 400px) {
     .message__headline {
-        font-size: 1.5vw;
+        font-size: 1.8vw;
     }
 
     .message__headline > span:nth-of-type(3) {

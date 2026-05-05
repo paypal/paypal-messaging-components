@@ -24,14 +24,14 @@
         margin-left: 0;
     }
 
-    .message__disclaimer {
-        margin-left: 4px;
+    .message__headline {
+        margin-right: 4px;
     }
 }
 
 @media (min-aspect-ratio: 200/11) and (min-width: 351px) {
     .message__disclaimer {
-        font-size: 0.9rem;
+        font-size: 0.6rem;
     }
 }
 
@@ -40,7 +40,7 @@
 
 @media (min-aspect-ratio: 200/11) and (min-width: 400px) {
     .message__headline {
-        font-size: 2vw;
+        font-size: 1.5vw;
     }
 
     .message__headline > span:nth-of-type(3) {

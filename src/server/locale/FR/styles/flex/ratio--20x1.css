@@ -24,12 +24,15 @@
         justify-content: center;
     }
 
+    .message__headline {
+        margin-right: 4px;
+    }
+
     .message__sub-headline {
         margin-left: 5px;
     }
 
     .message__disclaimer {
-        margin-left: 4px;
         vertical-align: super;
     }
 }
