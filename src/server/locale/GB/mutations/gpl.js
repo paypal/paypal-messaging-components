@@ -91,7 +91,7 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     xSmallFallback(textSize * 16),
-                    `.message__logo { width: ${textSize * 2}px }`,
+                    `.message__logo { width: ${textSize * 4.1}px }`,
                     `@media screen and (max-width: ${textSize * 21}px) {
                         .message__messaging span.br { white-space: normal }
                     }`

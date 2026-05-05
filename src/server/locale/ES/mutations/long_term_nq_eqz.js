@@ -169,7 +169,7 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     xSmallFallback(textSize * 24),
-                    `.message__logo { width: ${textSize * 2}px }`,
+                    `.message__logo { width: ${textSize * 4.1}px }`,
                     `.message__headline .br:nth-child(3) {
     font-weight: bold;
 }`

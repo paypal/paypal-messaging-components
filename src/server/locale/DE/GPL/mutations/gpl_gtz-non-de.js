@@ -229,7 +229,7 @@ export default {
             'logo.type:inline',
             ({ textSize }) => ({
                 styles: [
-                    `.message__logo { width: ${textSize * 2}px }`,
+                    `.message__logo { width: ${textSize * 4.1}px }`,
                     logoInlineAddRatenzahlungAfterPayPal(textSize * 18),
                     xSmallFallback(textSize * 18),
                     `@media screen and (min-width: ${textSize * 18.08}px) {

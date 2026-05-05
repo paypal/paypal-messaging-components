@@ -224,7 +224,7 @@ export default {
                 styles: [
                     `.message__disclaimer > span.multi:first-of-type { white-space: normal;}`,
                     xSmallFallback(textSize * 16.5),
-                    `.message__logo { width: ${textSize * 2}px }`,
+                    `.message__logo { width: ${textSize * 4.1}px }`,
                     `.message__logo-container::after {
                         content: '.';
                     }`,

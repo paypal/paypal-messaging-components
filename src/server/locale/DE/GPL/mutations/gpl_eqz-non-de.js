@@ -245,7 +245,7 @@ export default {
                 styles: [
                     xSmallFallback(textSize * 16),
                     xSmallNoWrap(textSize * 13.8),
-                    `.message__logo { width: ${textSize * 2}px }`,
+                    `.message__logo { width: ${textSize * 4.1}px }`,
                     `.message__logo-container::after { content: '.'; }`,
                     `.locale--DE .message__messaging .tag--medium span.br {white-space:normal;}`,
                     `.message__disclaimer > span.multi:first-of-type { white-space: normal;}`

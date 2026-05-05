@@ -123,7 +123,7 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     xSmallFallback(textSize * 10.5),
-                    `.message__logo { width: ${textSize * 2}px }`,
+                    `.message__logo { width: ${textSize * 4.1}px }`,
                     hideDisclaimer(textSize * 10.5),
                     `.message__headline .tag--xsmall > span {white-space: normal;}
                     `
