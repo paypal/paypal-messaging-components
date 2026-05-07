@@ -42,7 +42,7 @@
         "termsLabel": {
             "offerPayment": "{formattedPeriodicPayment}/Monat",
             "offerNumInstallments": "{total_payments} Raten",
-            "eMoney": "E-Geld-Transaktionsbetrag",
+            "eMoney": "Nettokreditbetrag",
             "totalInterest": "Zinsbetrag",
             "total": "Gesamtbetrag"
         }
