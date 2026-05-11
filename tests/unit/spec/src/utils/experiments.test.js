@@ -21,6 +21,7 @@ jest.mock('../../../../../src/utils/functional', () => {
 });
 
 jest.mock('@paypal/sdk-client/src', () => ({
+    getClientID: () => 'client_id',
     getNamespace: () => 'paypal',
     getPayPalDomain: () => 'localhost.paypal.com',
     getSDKMeta: () => 'meta',

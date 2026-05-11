@@ -14,7 +14,8 @@ import {
     updateStorage,
     getDisableSetCookie,
     getFeatures,
-    getDefaultNamespace
+    getDefaultNamespace,
+    getClientId
 } from '../../../utils/sdk';
 import { getGlobalUrl, createGlobalVariableGetter, globalEvent } from '../../../utils/global';
 import { ppDebug } from '../../../utils/debug';
@@ -68,6 +69,12 @@ export default createGlobalVariableGetter('__paypal_credit_treatments__', () =>
                 type: 'string',
                 queryParam: true,
                 value: getOrCreateDeviceID
+            },
+            clientId: {
+                type: 'string',
+                queryParam: 'client_id',
+                required: false,
+                value: getClientId
             },
 
             onReady: {

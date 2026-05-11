@@ -7,6 +7,7 @@ jest.mock('@krakenjs/zoid/src', () => {
         ...actual,
         create: config => {
             const mockComponent = {
+                config,
                 state: {},
                 close: jest.fn(),
                 focus: jest.fn(),

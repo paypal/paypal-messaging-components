@@ -3,6 +3,16 @@ import '../../../../utils/mockZoidCreate';
 import { getTreatmentsComponent } from '../../../../../../src/library/zoid/treatments';
 import { getNamespace, globalEvent } from '../../../../../../src/utils';
 
+jest.mock('@paypal/sdk-client/src', () => ({
+    getClientID: () => 'test-client-id',
+    getDefaultNamespace: () => 'paypal',
+    getDisableSetCookie: () => false,
+    getEnv: () => 'stage',
+    getPayPalDomain: () => 'https://www.paypal.com',
+    getSDKMeta: () => 'sdk-meta',
+    getStorageID: () => 'test-device-id'
+}));
+
 jest.mock('../../../../../../src/utils/global', () => {
     const global = jest.requireActual('../../../../../../src/utils/global');
     return {
@@ -15,6 +25,34 @@ jest.mock('../../../../../../src/utils/global', () => {
 
 describe('treatments component', () => {
     const treatmentsHash = '1daf92517fb7620b02add6943517ae0a5ca8f0a0';
+    let target;
+
+    beforeEach(() => {
+        target = window.__MESSAGES__.__TARGET__;
+    });
+
+    afterEach(() => {
+        window.__MESSAGES__.__TARGET__ = target;
+    });
+
+    test('sends client_id and deviceID query props for SDK treatments', () => {
+        window.__MESSAGES__.__TARGET__ = 'SDK';
+
+        const treatmentsComponent = getTreatmentsComponent();
+
+        expect(treatmentsComponent.config.props.clientId).toMatchObject({
+            type: 'string',
+            queryParam: 'client_id',
+            required: false
+        });
+        expect(treatmentsComponent.props.clientId).toBe('test-client-id');
+        expect(treatmentsComponent.config.props.deviceID).toMatchObject({
+            type: 'string',
+            queryParam: true
+        });
+        expect(treatmentsComponent.props.deviceID).toBe('test-device-id');
+    });
+
     test('handles treatment data', () => {
         const {
             props: { onReady }
