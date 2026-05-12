@@ -55,18 +55,13 @@ describe('treatments component', () => {
         expect(treatmentsComponent.props.deviceID).toBe('test-device-id');
     });
 
-    test('sends payer_id from global config for standalone payer account treatments', () => {
+    test('does not send experiment credentials for standalone payer account treatments', () => {
         window.__MESSAGES__.__TARGET__ = 'STANDALONE';
         setGlobalState({ config: { account: 'DEV00000000NI' } });
 
         const treatmentsComponent = getTreatmentsComponent();
 
-        expect(treatmentsComponent.config.props.payerId).toMatchObject({
-            type: 'string',
-            queryParam: 'payer_id',
-            required: false
-        });
-        expect(treatmentsComponent.props.payerId).toBe('DEV00000000NI');
+        expect(treatmentsComponent.config.props.payerId).toBeUndefined();
         expect(treatmentsComponent.props.clientId).toBeUndefined();
     });
 
@@ -77,7 +72,7 @@ describe('treatments component', () => {
         const treatmentsComponent = getTreatmentsComponent();
 
         expect(treatmentsComponent.props.clientId).toBe('test-standalone-client-id');
-        expect(treatmentsComponent.props.payerId).toBeUndefined();
+        expect(treatmentsComponent.config.props.payerId).toBeUndefined();
     });
 
     test('handles treatment data', () => {

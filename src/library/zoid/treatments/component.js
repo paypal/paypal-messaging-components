@@ -38,16 +38,6 @@ function getTreatmentClientId() {
     return account?.startsWith(CLIENT_ID_ACCOUNT_PREFIX) ? account.slice(CLIENT_ID_ACCOUNT_PREFIX.length) : undefined;
 }
 
-function getTreatmentPayerId() {
-    if (__MESSAGES__.__TARGET__ === 'SDK') {
-        return undefined;
-    }
-
-    const account = getGlobalConfigAccount();
-
-    return account && !account.startsWith(CLIENT_ID_ACCOUNT_PREFIX) ? account : undefined;
-}
-
 export default createGlobalVariableGetter('__paypal_credit_treatments__', () =>
     create({
         tag: TAG.TREATEMENTS,
@@ -103,12 +93,6 @@ export default createGlobalVariableGetter('__paypal_credit_treatments__', () =>
                 queryParam: 'client_id',
                 required: false,
                 value: getTreatmentClientId
-            },
-            payerId: {
-                type: 'string',
-                queryParam: 'payer_id',
-                required: false,
-                value: getTreatmentPayerId
             },
 
             onReady: {
