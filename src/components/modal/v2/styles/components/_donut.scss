@@ -1,6 +1,6 @@
 @use '../globals/mixins';
-@use "../globals/colors";
-@use "../globals/variables";
+@use '../globals/colors';
+@use '../globals/variables';
 
 $webpage: 1640px;
 $green500: #388c00;
@@ -42,6 +42,7 @@ $donut-text-v5: #545d68;
     }
 
     svg {
+        background-color: white;
         max-width: 50px;
         width: 100%;
 
