@@ -48,7 +48,7 @@ export const clickProductListTiles = async (contentWindow, modalContent, account
         await page.waitFor(2 * 1000);
     };
 
-    if (account !== 'DEV_DE_MULTI' && account !== 'DEV_ES_MULTI' && account !== 'DEV_IT_MULTI') {
+    if (account === 'DEV_US_MULTI') {
         // Switch to long term view
         await switchViews(2, 'shortTerm');
 
@@ -58,7 +58,7 @@ export const clickProductListTiles = async (contentWindow, modalContent, account
         // Switch to no interest view.
         // NOTE: PPC NI tile is separated from the pay later tiles as a means to distinguish product categories in the product list modal.
         await switchViews(5, 'noInterest');
-    } else if (account === 'DEV_ES_MULTI' || account === 'DEV_IT_MULTI') {
+    } else if (account === 'DEV_ES_MULTI' || account === 'DEV_IT_MULTI' || account === 'DEV_FR_MULTI') {
         // Switch to long term view
         await switchViews(2, 'shortTerm');
 
@@ -73,7 +73,7 @@ export const clickProductListTiles = async (contentWindow, modalContent, account
 /**
  * Ensures that the starting amount is shared between views.
  */
-export const viewsShareAmount = async (contentWindow, testName) => {
+export const viewsShareAmount = async (contentWindow, testName, account) => {
     await contentWindow.waitForSelector(contentWrapper);
     await contentWindow.waitForSelector(`${tile}:nth-child(2)`);
     await contentWindow.click(`${tile}:nth-child(2)`);
@@ -91,10 +91,12 @@ export const viewsShareAmount = async (contentWindow, testName) => {
     await contentWindow.click(`${tile}:nth-child(3)`);
     await page.waitFor(3 * 1000);
 
-    await contentWindow.waitForSelector(input);
-    const inputFieldVal = await contentWindow.$eval(input, element => element.value);
-
-    expect(subheadline).not.toContain(inputFieldVal);
+    // FR long term modal does not have a calculator
+    if (account !== 'DEV_FR_MULTI') {
+        await contentWindow.waitForSelector(input);
+        const inputFieldVal = await contentWindow.$eval(input, element => element.value);
+        expect(subheadline).not.toContain(inputFieldVal);
+    }
     await modalSnapshot(testName, contentWindow);
 };
 
