@@ -37,7 +37,7 @@
         ],
         "disclosure": {
             "nonZeroAPR": [
-                "* Vorbehaltlich Kreditwürdigkeitsprüfung. Ab {formatted_min_amount} und bis zu {formatted_max_amount} Bestellwert. Laufzeiten von 3, 6, 12 oder 24 Monaten. Bei Beträgen über 5.000 € stehen Laufzeiten von 12 oder 24 Monaten zur Verfügung. Der Kreditgeber ist PayPal (Europe) S.à r.l. et Cie, S.C.A., 22-24 Boulevard Royal, L-2449 Luxembourg. Nutzungsvoraussetzung ist ein deutsches PayPal-Privatkonto mit einer verknüpften Debitkarte oder einem Bankkonto mit gültigem SEPA-Lastschriftmandat als Zahlungsquelle. Es gelten die ",
+                "* Vorbehaltlich Kreditwürdigkeitsprüfung. Ab {formattedMinAmount} und bis zu {formattedMaxAmount} Bestellwert. Laufzeiten von 3, 6, 12 oder 24 Monaten. Bei Beträgen über 5.000 € stehen Laufzeiten von 12 oder 24 Monaten zur Verfügung. Der Kreditgeber ist PayPal (Europe) S.à r.l. et Cie, S.C.A., 22-24 Boulevard Royal, L-2449 Luxembourg. Nutzungsvoraussetzung ist ein deutsches PayPal-Privatkonto mit einer verknüpften Debitkarte oder einem Bankkonto mit gültigem SEPA-Lastschriftmandat als Zahlungsquelle. Es gelten die ",
                 [
                     "Bedingungen.",
                     "https://www.paypal.com/de/digital-wallet/ratenzahlung/terms",
