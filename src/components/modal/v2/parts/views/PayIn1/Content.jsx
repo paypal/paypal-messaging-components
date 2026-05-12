@@ -43,7 +43,7 @@ export const PayIn1 = ({
                     </div>
                 </div>
             </div>
-            <div className={`content__row disclosure ${useV5Design ? 'v5Design' : ''} ${country === 'DE' ? 'DE' : ''}`}>
+            <div className={`content__row disclosure ${country === 'DE' ? 'DE' : ''}`}>
                 <InlineLinks text={currencyFormat(disclosure)} />
             </div>
             <div className="content__row productLink">

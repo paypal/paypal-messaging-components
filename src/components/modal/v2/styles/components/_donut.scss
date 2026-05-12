@@ -1,6 +1,6 @@
 @use '../globals/mixins';
-@use "../globals/colors";
-@use "../globals/variables";
+@use '../globals/colors';
+@use '../globals/variables';
 
 $webpage: 1640px;
 $green500: #388c00;
@@ -42,6 +42,7 @@ $donut-text-v5: #545d68;
     }
 
     svg {
+        background-color: white;
         max-width: 50px;
         width: 100%;
 
@@ -85,16 +86,12 @@ $donut-text-v5: #545d68;
 
         &.donut__payment {
             font-family: variables.$paypal-open;
-            color: colors.$text-main;
+            color: colors.$v5-gray;
             font-size: 0.9rem;
             margin-top: 0.3rem;
 
             @media all and (min-width: $webpage) {
                 margin-top: 0.25rem;
-            }
-            &_v5 {
-                @extend .donut__payment;
-                color: $donut-text-v5;
             }
 
             .checkout & {
@@ -103,17 +100,13 @@ $donut-text-v5: #545d68;
         }
 
         &.donut__timestamp {
-            color: colors.$text-main;
+            color: colors.$v5-gray;
             font-family: variables.$paypal-open;
             font-size: 0.9rem;
             @include mixins.desktop {
                 line-height: 22px;
             }
             white-space: nowrap;
-            &_v5 {
-                @extend .donut__timestamp;
-                color: $donut-text-v5;
-            }
             .checkout & {
                 width: 80px;
                 text-wrap: auto;
@@ -125,14 +118,6 @@ $donut-text-v5: #545d68;
             svg g {
                 fill: $donut-background;
             }
-            span.donut__timestamp_v5,
-            span.donut__payment_v5 {
-                color: colors.$text-main;
-            }
-        }
-        span.donut__timestamp_v5Dot1,
-        span.donut__payment_v5Dot1 {
-            color: colors.$v5-gray;
         }
         .svg {
             display: flex;

@@ -12,7 +12,7 @@ import OfferTerms from '../../OfferTerms';
 import Icon from '../../Icon';
 import styles from './styles.scss';
 
-import { useServerData, useXProps } from '../../../lib/providers';
+import { useXProps, useServerData, usePrequalification } from '../../../lib';
 import { currencyFormat } from '../../../lib/hooks/currency'; // Remove .00 cents from formated min and max
 
 export const ShortTerm = ({
@@ -36,14 +36,21 @@ export const ShortTerm = ({
         preapproved,
         showPreapprovedBadge,
         showPromoContent,
-        prequalExperience
+        prequalExperience,
+        product
     },
     openProductList,
     useNewCheckoutDesign,
     use5Dot1Design
 }) => {
     const { views, country } = useServerData();
-    const { onClick, onClose } = useXProps();
+    // todo: follow up ticket to utilize a different session identifier than (ecToken)
+    const { onClick, onClose, ecToken } = useXProps();
+    const spendingPowerClickTitle = 'Check Spending Power';
+    const handlePrequalification = usePrequalification(spendingPowerClickTitle, onClick, {
+        offer: product,
+        token: ecToken
+    });
 
     const isQualifying = qualifying === 'true';
 
@@ -68,7 +75,6 @@ export const ShortTerm = ({
         const ineligibleClickTitle = 'Back to Checkout';
 
         if (isQualifying && isPrequalExperience) {
-            const spendingPowerClickTitle = 'Check Spending Power';
             return (
                 <div className="button__fixed-wrapper">
                     <div
@@ -77,13 +83,7 @@ export const ShortTerm = ({
                         } ${countryClassName}`}
                     >
                         <p className="spending-power__subtext">{spendingPowerSubtext}</p>
-                        <Button
-                            onClick={() => {
-                                onClick({ linkName: spendingPowerClickTitle });
-                                onClose({ linkName: spendingPowerClickTitle });
-                            }}
-                            className="cta"
-                        >
+                        <Button onClick={handlePrequalification} className="cta">
                             <span className="cta__content">
                                 {cta?.buttonTextSpendingPower ?? 'Check your Spending Power'}
                                 <Icon name="lightning-bolt" />
@@ -223,7 +223,7 @@ export const ShortTerm = ({
             <div
                 className={`content__row disclosure ${
                     (cta && useNewCheckoutDesign === 'true') || cta ? 'checkout' : ''
-                } ${useV5Design === 'true' ? 'v5Design' : ''}`}
+                }`}
             >
                 <InlineLinks text={currencyFormat(disclosure)} />
                 {renderLearnMoreLink()}

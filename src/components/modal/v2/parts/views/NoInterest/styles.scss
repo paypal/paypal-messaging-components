@@ -119,15 +119,11 @@
             }
 
             &-item {
-                color: colors.$gray;
+                color: colors.$v5-gray;
                 margin-bottom: 20px;
                 font-size: 14px;
                 display: flex;
                 margin-left: unset;
-
-                &.v5Dot1Design {
-                    color: colors.$v5-gray;
-                }
 
                 @include mixins.mobile {
                     margin-bottom: 10px;
@@ -171,13 +167,10 @@
                     font-weight: bold;
                     font-size: large;
                 }
-                &.v5Dot1Design::before {
+                &::before {
                     color: colors.$v5-gray;
                 }
             }
-            // &-content {
-                
-            // }
         }
 
         &-item {
@@ -206,11 +199,7 @@
             list-style: none;
             font-size: 14px;
             margin: 0 0 20px 0;
-            color: colors.$gray;
-
-            &.v5Dot1Design {
-                color: colors.$v5-gray;
-            }
+            color: colors.$v5-gray;
         }
     }
 }

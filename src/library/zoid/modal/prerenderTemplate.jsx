@@ -22,6 +22,9 @@ export default ({ doc, props: { cspNonce, features, onError, onClose }, event, s
         .modal{
             overflow-y: scroll;
         }
+        .spinnerImage{
+           display: none;
+        }
         ${
             useNewCheckoutDesign === 'true'
                 ? ` @media screen and (min-width: 640px) {

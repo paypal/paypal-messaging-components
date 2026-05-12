@@ -148,21 +148,19 @@
                 }
             }
 
-            &.v5Design {
-                @include mixins.tablet {
-                    margin-right: 15px;
-                }
-                .input__label {
-                    left: 12px;
-                    top: 8px;
-                }
-                input {
-                    width: 100%;
-                    padding-left: 12px;
-                    padding-bottom: 8px;
-                    @include mixins.mobile {
-                        padding-right: 0px;
-                    }
+            @include mixins.tablet {
+                margin-right: 15px;
+            }
+            .input__label {
+                left: 12px;
+                top: 8px;
+            }
+            input {
+                width: 100%;
+                padding-left: 12px;
+                padding-bottom: 8px;
+                @include mixins.mobile {
+                    padding-right: 0px;
                 }
             }
 
@@ -171,23 +169,18 @@
             }
         }
 
-        &.v5Design {
-            h4 {
-                font-weight: 700;
-            }
-            label {
-                color: colors.$v5-gray;
-            }
-            input {
-                border: 1px solid colors.$v5-gray;
-            }
-            // @include tablet {
-            display: flex;
-            flex-direction: column;
-            // }
+        h4 {
+            font-weight: 700;
         }
+        label {
+            color: colors.$v5-gray;
+        }
+        input {
+            border: 1px solid colors.$v5-gray;
+        }
+        display: flex;
+        flex-direction: column;
 
-        &.v4Design,
         &.checkout {
             h3 {
                 font-weight: 700;
@@ -256,34 +249,30 @@
             margin-top: 0px;
         }
 
-        &.v5Design {
-            color: colors.$v5-gray;
-            padding-top: 16px;
-        }
+        color: colors.$v5-gray;
+        padding-top: 16px;
     }
 
-    &.v5Design {
-        text-align: left;
-        @include mixins.tablet {
-            width: 88%;
-        }
-        @include mixins.mobile {
-            width: 100%;
-            padding-right: 0px;
-        }
+    text-align: left;
+    @include mixins.tablet {
+        width: 88%;
+    }
+    @include mixins.mobile {
+        width: 100%;
+        padding-right: 0px;
+    }
 
-        .offer__wrapper {
-            display: flex;
-            flex-direction: column;
-        }
+    .offer__wrapper {
+        display: flex;
+        flex-direction: column;
+    }
 
-        &.border-checkout {
-            width: auto;
-            padding-right: 35px;
+    &.border-checkout {
+        width: auto;
+        padding-right: 35px;
 
-            &.checkout {
-                padding-left: 20px;
-            }
+        &.checkout {
+            padding-left: 20px;
         }
     }
 

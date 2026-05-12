@@ -40,20 +40,13 @@
         @include mixins.lander {
             border-radius: 0;
         }
-
-        .v4Design {
-            background-color: colors.$v4-gray;
-        }
-        .v5Design {
-            background-color: colors.$v5-white;
-        }
     }
 
     &__background-wrapper {
         overflow: hidden;
         height: 25rem; // Needs to be tall enough to seamlessly flow behind the main body content
         max-height: 85vh; // Prevent it from bleeding below on small height tablet views
-        background-color: colors.$beige;
+        background-color: colors.$v5-white;
 
         // We have multiple backgrounds to give the appearance of
         // reserving space at the top of the modal when scrolling.
@@ -179,9 +172,12 @@
                 margin-right: 2px;
             }
 
+            height: 50px;
+            width: 50px;
+
             svg {
-                height: 48px;
-                width: 48px;
+                height: 30px;
+                width: 30px;
                 pointer-events: none;
 
                 @include mixins.desktop {
@@ -196,16 +192,6 @@
                     stroke-width: 2.2;
                 }
             }
-
-            &.v5Design {
-                height: 50px;
-                width: 50px;
-
-                svg {
-                    height: 30px;
-                    width: 30px;
-                }
-            }
         }
 
         &.checkout {
@@ -218,6 +204,11 @@
                 height: 48px;
                 margin: 10px auto 10px 10px;
                 padding-left: 0px;
+
+                svg {
+                    height: 48px;
+                    width: 48px;
+                }
 
                 @include mixins.mobile {
                     margin-left: 15px;
@@ -270,8 +261,9 @@
         }
 
         h2 {
-            font-size: 28px;
-            font-weight: 400;
+            font-family: variables.$paypal-pro;
+            font-size: 40px;
+            font-weight: bold;
             line-height: 36px;
             text-align: left;
             color: colors.$text-main;
@@ -288,6 +280,7 @@
 
             @include mixins.tablet {
                 margin-left: 62px;
+                max-width: 500px;
                 @include mixins.lander {
                     max-width: 100%;
                 }
@@ -343,13 +336,6 @@
                     max-width: 75%;
                 }
             }
-
-            &.v5Design {
-                font-family: variables.$paypal-pro;
-                font-weight: bold;
-                font-size: 40px;
-                line-height: 36px;
-            }
         }
 
         .subheadline_p {
@@ -359,22 +345,21 @@
             text-align: left;
             color: colors.$text-main;
             margin: 0px;
+            max-width: 503px;
+            margin-bottom: 0px;
 
             @include mixins.desktop {
                 margin-left: 52px;
                 margin-top: 0px;
-                margin-bottom: 80px;
             }
 
             @include mixins.tablet {
-                max-width: 380px;
                 margin-left: 62px;
-                margin-bottom: 60px;
             }
 
             @include mixins.mobile {
                 max-width: 75%;
-                padding: 10px 22px 100px;
+                padding: 10px 22px 40px;
                 line-height: 20px;
             }
 
@@ -386,15 +371,8 @@
                 white-space: nowrap;
             }
 
-            &.v5Design {
-                max-width: 503px;
-                margin-bottom: 0px;
-                @include mixins.mobile {
-                    padding: 10px 22px 40px;
-                }
-                &.DE {
-                    margin-bottom: 20px;
-                }
+            &.DE {
+                margin-bottom: 20px;
             }
 
             .checkout & {

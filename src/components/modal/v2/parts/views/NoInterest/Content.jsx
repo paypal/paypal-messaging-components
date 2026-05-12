@@ -10,8 +10,7 @@ import { useServerData, useApplyNow } from '../../../lib';
 
 export const NoInterest = ({
     content: { headline, instructions, terms, buttonText, disclaimer, footer, linkToProductList },
-    openProductList,
-    use5Dot1Design
+    openProductList
 }) => {
     const { views } = useServerData();
     const buttonRef = useRef();
@@ -48,10 +47,8 @@ export const NoInterest = ({
                 <div className="content__footer">
                     <div className="content__row terms">
                         {terms.map(item => (
-                            <p className={`terms-item ppcc ${use5Dot1Design ? 'v5Dot1Design' : ''}`}>
-                                {Array.isArray(item) && (
-                                    <span className={`terms-bullet ${use5Dot1Design ? 'v5Dot1Design' : ''}`} />
-                                )}
+                            <p className="terms-item ppcc">
+                                {Array.isArray(item) && <span className="terms-bullet" />}
                                 <span className="terms-content">
                                     {Array.isArray(item) ? (
                                         item.map(subItem => <InlineLinks text={subItem} />)
@@ -64,7 +61,7 @@ export const NoInterest = ({
                     </div>
                     <div className="content__row terms">
                         {footer.map(lineContent => (
-                            <p className={`content__footer-item ${use5Dot1Design ? 'v5Dot1Design' : ''}`}>
+                            <p className="content__footer-item">
                                 <InlineLinks text={lineContent} />
                             </p>
                         ))}
@@ -75,15 +72,15 @@ export const NoInterest = ({
                 <div className="content__footer">
                     <div className="content__row terms">
                         {terms.map(item => (
-                            <p className={`terms-item ${use5Dot1Design ? 'v5Dot1Design' : ''}`}>
-                                <span className={`terms-bullet ${use5Dot1Design ? 'v5Dot1Design' : ''}`} />
+                            <p className="terms-item">
+                                <span className="terms-bullet" />
                                 <span className="terms-content">{item}</span>
                             </p>
                         ))}
                     </div>
                     <div className="terms">
                         {footer.map(lineContent => (
-                            <p className={`content__footer-item  ${use5Dot1Design ? 'v5Dot1Design' : ''}`}>
+                            <p className="content__footer-item">
                                 <InlineLinks text={lineContent} />
                             </p>
                         ))}
@@ -94,11 +91,7 @@ export const NoInterest = ({
             <div className="content__row dynamic no-interest">
                 <div className="button__fixed-wrapper">
                     <div className="button__container">
-                        <Button
-                            className={`content__row ${use5Dot1Design ? 'v5Dot1Design' : ''}`}
-                            onClick={handleApplyNowClick}
-                            ref={buttonRef}
-                        >
+                        <Button className="content__row" onClick={handleApplyNowClick} ref={buttonRef}>
                             {buttonText}
                         </Button>
                         <div aria-describedby="Subject to Credit Approval" className="content__row content__disclaimer">

@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.83.0](https://github.com/paypal/paypal-messaging-components/compare/v1.82.0...v1.83.0) (2026-05-07)
+
+
+### Features
+
+* add prequalification route to CYSP CTA button ([#1304](https://github.com/paypal/paypal-messaging-components/issues/1304)) ([87c27b0](https://github.com/paypal/paypal-messaging-components/commit/87c27b0069e62c6be348b7d63b6601e39c1a9102))
+
 ## [1.82.0](https://github.com/paypal/paypal-messaging-components/compare/v1.81.0...v1.82.0) (2026-04-20)
 
 

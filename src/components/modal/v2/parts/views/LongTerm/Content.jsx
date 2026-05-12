@@ -1,7 +1,7 @@
 /** @jsx h */
 import { h, Fragment } from 'preact';
 import { useState } from 'preact/hooks';
-import { useXProps, useServerData, getComputedVariables } from '../../../lib';
+import { useXProps, useServerData, getComputedVariables, usePrequalification } from '../../../lib';
 import Calculator from '../../Calculator';
 import ProductListLink from '../../ProductListLink';
 import Instructions from '../../Instructions';
@@ -82,14 +82,20 @@ export const LongTerm = ({
         offerTerms,
         spendingPowerSubtext
     },
-    productMeta: { useV4Design, useV5Design, showPromoContent, prequalExperience },
+    productMeta: { useV4Design, useV5Design, showPromoContent, prequalExperience, product },
     openProductList,
     useNewCheckoutDesign,
     use5Dot1Design
 }) => {
     const [expandedState, setExpandedState] = useState(false);
-    const { amount, onClick, onClose } = useXProps();
+    // todo: follow up ticket to utilize a different session identifier than (ecToken)
+    const { amount, onClick, onClose, ecToken } = useXProps();
     const { views, country } = useServerData();
+    const spendingPowerClickTitle = 'Check Spending Power';
+    const handlePrequalification = usePrequalification(spendingPowerClickTitle, onClick, {
+        offer: product,
+        token: ecToken
+    });
     const { offers } = views.find(view => view.offers);
     const { minAmount, maxAmount } = getComputedVariables(offers);
     const offerAPRDisclaimers = getAPRDetails({ offers, disclaimer, genericDisclaimer });
@@ -104,6 +110,20 @@ export const LongTerm = ({
      * we make sure "cta" is not in the content. If "cta" is not undefined, return the Checkout-specific cta button.
      * Otherwise, render the Product List link.
      */
+    const renderProductListLink = () => {
+        if (views?.length > 2 && typeof cta === 'undefined') {
+            return (
+                <Fragment>
+                    {navLinkPrefix && <div className="content__row nav__link-prefix">{navLinkPrefix}</div>}
+                    <ProductListLink openProductList={openProductList} className={country?.toLowerCase()}>
+                        {linkToProductList}
+                    </ProductListLink>
+                </Fragment>
+            );
+        }
+        return null;
+    };
+
     const renderCheckoutCtaButton = () => {
         /**
          * Event link name used in Pay Monthly XO version of the modal.
@@ -113,18 +133,11 @@ export const LongTerm = ({
         const ineligibleClickTitle = 'Back to Checkout';
 
         if (isQualifyingAmount && isPrequalExperience) {
-            const spendingPowerClickTitle = 'Check Spending Power';
             return (
                 <div className="button__fixed-wrapper">
                     <div className={`button__container ${useNewCheckoutDesign === 'true' ? 'checkout' : ''}`}>
                         <p className="spending-power__subtext">{spendingPowerSubtext}</p>
-                        <Button
-                            onClick={() => {
-                                onClick({ linkName: spendingPowerClickTitle });
-                                onClose({ linkName: spendingPowerClickTitle });
-                            }}
-                            className="cta"
-                        >
+                        <Button onClick={handlePrequalification} className="cta">
                             <span className="cta__content">
                                 {cta?.buttonTextSpendingPower ?? 'Check your Spending Power'}
                                 <Icon name="lightning-bolt" />
@@ -162,16 +175,7 @@ export const LongTerm = ({
                 </div>
             );
         }
-        if (views?.length > 2) {
-            return (
-                <Fragment>
-                    {navLinkPrefix && <div className="content__row nav__link-prefix">{navLinkPrefix}</div>}
-                    <ProductListLink openProductList={openProductList} className={country?.toLowerCase()}>
-                        {linkToProductList}
-                    </ProductListLink>
-                </Fragment>
-            );
-        }
+
         return null;
     };
 
@@ -238,11 +242,12 @@ export const LongTerm = ({
             <div
                 className={`content__row disclosure ${expandedState ? '' : 'collapsed'} ${
                     useNewCheckoutDesign === 'true' ? 'checkout' : ''
-                } ${useV5Design === 'true' ? 'v5Design' : ''} ${country === 'DE' ? 'DE' : ''} ${
-                    isPrequalExperience ? 'prequal-fixed-offset' : ''
-                }`}
+                } ${country === 'DE' ? 'DE' : ''}`}
             >
                 {getDisclosure(disclosure)}
+            </div>
+            <div className={`content__row productLink${isPrequalExperience ? ' prequal-fixed-offset' : ''}`}>
+                <div className="productLink__container">{renderProductListLink()}</div>
             </div>
             {conditionalStickyButton}
         </Fragment>

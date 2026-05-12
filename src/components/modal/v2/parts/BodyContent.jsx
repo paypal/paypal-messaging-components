@@ -8,8 +8,7 @@ import {
     useXProps,
     useScroll,
     useDidUpdateEffect,
-    useTransitionState,
-    isLander
+    useTransitionState
 } from '../lib';
 import Header from './Header';
 import { LongTerm, ShortTerm, NoInterest, ProductList, PayIn1 } from './views';
@@ -66,14 +65,6 @@ const BodyContent = () => {
     const use5Dot1Design = productMeta?.['v5.1'];
     const useNewCheckoutDesign = features?.includes('new-checkout-design') ? 'true' : 'false';
 
-    // add v4Design or v5Design class to root html to update lander specific styles to v4 or v5 respectively
-    const documentClassName = document.documentElement.className;
-    if (useV4Design && isLander) {
-        document.documentElement.className = `${documentClassName} v4Design`;
-    }
-    if (useV5Design && isLander) {
-        document.documentElement.className = `${documentClassName} v5Design`;
-    }
     const isPreapproved = productMeta?.preapproved;
     const shouldShowPreapprovedBadge = productMeta?.showPreapprovedBadge;
     const preapprovalHeadline = content?.preapproval?.preapprovalHeadline;
@@ -127,14 +118,7 @@ const BodyContent = () => {
                 openProductList={openProductList}
             />
         ),
-        [VIEW_IDS.PRODUCT_LIST]: (
-            <ProductList
-                content={content}
-                useV5Design={useV5Design}
-                use5Dot1Design={use5Dot1Design}
-                setViewName={setViewName}
-            />
-        )
+        [VIEW_IDS.PRODUCT_LIST]: <ProductList content={content} setViewName={setViewName} />
     };
 
     // IMPORTANT: These elements cannot be nested inside of other elements.
@@ -171,11 +155,7 @@ const BodyContent = () => {
                     use5Dot1Design={use5Dot1Design}
                 />
             )}
-            <div
-                className={`content__container ${useV4Design ? 'v4Design' : ''} ${useV5Design ? 'v5Design' : ''} ${
-                    useNewCheckoutDesign === 'true' ? 'checkout' : ''
-                } ${use5Dot1Design ? 'v5Dot1Design' : ''} `}
-            >
+            <div className={`content__container ${useNewCheckoutDesign === 'true' ? 'checkout' : ''}`}>
                 <main className="main">
                     <div className="content__body">{viewComponents[viewName]}</div>
                 </main>
