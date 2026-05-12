@@ -148,12 +148,6 @@
                 }
             }
 
-            &.input__wrapper--error {
-                .input {
-                    border-color: colors.$error-red;
-                }
-            }
-
             &.v5Design {
                 @include mixins.tablet {
                     margin-right: 15px;
@@ -192,16 +186,15 @@
             flex-direction: column;
             // }
 
-            &.at {
-                .calculator__error {
-                    & > div {
-                        max-width: none;
-                    }
+            .calculator__error {
+                & > div {
+                    max-width: none;
+                }
+            }
 
-                    svg {
-                        margin: 2.25px 0.3rem 0 1.5px;
-                        flex-shrink: 0;
-                    }
+            .input__wrapper--error {
+                .input {
+                    border-color: colors.$error-red;
                 }
             }
         }

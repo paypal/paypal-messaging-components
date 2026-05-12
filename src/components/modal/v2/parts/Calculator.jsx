@@ -204,7 +204,7 @@ const Calculator = ({
             <form
                 className={`form ${useV4Design === 'true' ? 'v4Design' : ''} ${
                     useV5Design === 'true' ? 'v5Design' : ''
-                } ${useNewCheckoutDesign === 'true' ? 'checkout' : ''} ${country?.toLowerCase() || ''}`}
+                } ${useNewCheckoutDesign === 'true' ? 'checkout' : ''}`}
                 onSubmit={submit}
             >
                 <h3 className={`title ${cta ? 'checkout-title' : ''}`}>
