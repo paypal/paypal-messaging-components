@@ -17,8 +17,36 @@ import {
     getDefaultNamespace,
     getClientId
 } from '../../../utils/sdk';
-import { getGlobalUrl, createGlobalVariableGetter, globalEvent } from '../../../utils/global';
+import { getGlobalUrl, createGlobalVariableGetter, globalEvent, getGlobalState } from '../../../utils/global';
 import { ppDebug } from '../../../utils/debug';
+
+const CLIENT_ID_ACCOUNT_PREFIX = 'client-id:';
+
+function getGlobalConfigAccount() {
+    const { account } = getGlobalState().config;
+
+    return typeof account === 'string' ? account : undefined;
+}
+
+function getTreatmentClientId() {
+    if (__MESSAGES__.__TARGET__ === 'SDK') {
+        return getClientId();
+    }
+
+    const account = getGlobalConfigAccount();
+
+    return account?.startsWith(CLIENT_ID_ACCOUNT_PREFIX) ? account.slice(CLIENT_ID_ACCOUNT_PREFIX.length) : undefined;
+}
+
+function getTreatmentPayerId() {
+    if (__MESSAGES__.__TARGET__ === 'SDK') {
+        return undefined;
+    }
+
+    const account = getGlobalConfigAccount();
+
+    return account && !account.startsWith(CLIENT_ID_ACCOUNT_PREFIX) ? account : undefined;
+}
 
 export default createGlobalVariableGetter('__paypal_credit_treatments__', () =>
     create({
@@ -74,7 +102,13 @@ export default createGlobalVariableGetter('__paypal_credit_treatments__', () =>
                 type: 'string',
                 queryParam: 'client_id',
                 required: false,
-                value: getClientId
+                value: getTreatmentClientId
+            },
+            payerId: {
+                type: 'string',
+                queryParam: 'payer_id',
+                required: false,
+                value: getTreatmentPayerId
             },
 
             onReady: {

@@ -1,7 +1,7 @@
 import '../../../../utils/mockZoidCreate';
 
 import { getTreatmentsComponent } from '../../../../../../src/library/zoid/treatments';
-import { getNamespace, globalEvent } from '../../../../../../src/utils';
+import { destroyGlobalState, getNamespace, globalEvent, setGlobalState } from '../../../../../../src/utils';
 
 jest.mock('@paypal/sdk-client/src', () => ({
     getClientID: () => 'test-client-id',
@@ -29,10 +29,12 @@ describe('treatments component', () => {
 
     beforeEach(() => {
         target = window.__MESSAGES__.__TARGET__;
+        destroyGlobalState();
     });
 
     afterEach(() => {
         window.__MESSAGES__.__TARGET__ = target;
+        destroyGlobalState();
     });
 
     test('sends client_id and deviceID query props for SDK treatments', () => {
@@ -51,6 +53,31 @@ describe('treatments component', () => {
             queryParam: true
         });
         expect(treatmentsComponent.props.deviceID).toBe('test-device-id');
+    });
+
+    test('sends payer_id from global config for standalone payer account treatments', () => {
+        window.__MESSAGES__.__TARGET__ = 'STANDALONE';
+        setGlobalState({ config: { account: 'DEV00000000NI' } });
+
+        const treatmentsComponent = getTreatmentsComponent();
+
+        expect(treatmentsComponent.config.props.payerId).toMatchObject({
+            type: 'string',
+            queryParam: 'payer_id',
+            required: false
+        });
+        expect(treatmentsComponent.props.payerId).toBe('DEV00000000NI');
+        expect(treatmentsComponent.props.clientId).toBeUndefined();
+    });
+
+    test('sends client_id from global config for standalone client-id account treatments', () => {
+        window.__MESSAGES__.__TARGET__ = 'STANDALONE';
+        setGlobalState({ config: { account: 'client-id:test-standalone-client-id' } });
+
+        const treatmentsComponent = getTreatmentsComponent();
+
+        expect(treatmentsComponent.props.clientId).toBe('test-standalone-client-id');
+        expect(treatmentsComponent.props.payerId).toBeUndefined();
     });
 
     test('handles treatment data', () => {
