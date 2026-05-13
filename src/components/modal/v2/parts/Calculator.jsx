@@ -40,6 +40,7 @@ const getError = ({ offers, error = '' }, isLoading, calculator, amount, country
     }
 
     const replaceRegExp = {
+        AT: /(,[0-9]*?)00/g,
         DE: /(,[0-9]*?)00/g,
         ES: /(,[0-9]*?)00/g,
         IT: /(,[0-9]*?)00/g,
@@ -173,7 +174,7 @@ const Calculator = ({
                     }`}
                 >
                     <div>
-                        {error && hasEnteredAmount ? <Icon name="warning" /> : null}
+                        {error && hasEnteredAmount ? <Icon name={country === 'AT' ? 'warning-v5' : 'warning'} /> : null}
                         <div>{error}</div>
                     </div>
                 </div>
@@ -212,6 +213,10 @@ const Calculator = ({
                 <div
                     className={`input__wrapper transitional ${useV5Design === 'true' ? 'v5Design' : ''} ${
                         cta ? 'checkout' : ''
+                    } ${
+                        country === 'AT' && error && (hasEnteredAmount || hasInitialAmount)
+                            ? 'input__wrapper--error'
+                            : ''
                     }`}
                 >
                     <label htmlFor="purchase-amount" className={`input__label ${country}`}>

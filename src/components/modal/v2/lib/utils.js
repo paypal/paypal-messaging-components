@@ -120,6 +120,13 @@ export function formatDateByCountry(country) {
     return currentDate.toLocaleDateString('en-GB', options);
 }
 
+const EURO_STYLE_CLASS = 'DE';
+const EURO_STYLE_COUNTRIES = new Set(['DE', 'AT']);
+
+export function getEuroStyleClass(country) {
+    return EURO_STYLE_COUNTRIES.has(country) ? EURO_STYLE_CLASS : '';
+}
+
 export function validateProps(updatedProps) {
     const validatedProps = {};
     Object.entries(updatedProps).forEach(entry => {
