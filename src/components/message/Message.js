@@ -7,8 +7,8 @@ import {
     createState,
     getRequestDuration,
     getTsCookieFromStorage,
-    getOrCreateDeviceID,
-    getGlobalSessionID
+    getGlobalSessionID,
+    getOrCreateDeviceID
 } from '../../utils';
 
 const Message = function ({ markup, meta, parentStyles, warnings }) {

@@ -4,20 +4,47 @@
         <title>Messages Dev Sandbox</title>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-        <script src="//localhost.paypal.com:8080/sdk/js?client-id=DEV_US_MULTI&components=messages"></script>
+        <script src="https://www.paypal.com/sdk/js?client-id=AdSCvWUTxBifIHg5Mq3RHGyQ2SIJAPYi_kA6IYqQa7-m7mf6TyDgzrfoBxqToKN2nDoEfNXy8T3OwgOv&components=messages"></script>
     </head>
     <body>
-        <div class="messages" data-pp-message></div>
+        <h2>DeviceID Drift Demo</h2>
+        <p>
+            Open DevTools Network tab and filter by <code>smart/message</code>. Watch the <code>deviceID</code> query
+            param change after the initial render.
+        </p>
+        <div id="amount-display" style="font-size: 18px; margin: 10px 0"></div>
+        <div class="messages"></div>
+        <div id="log" style="margin-top: 20px; font-family: monospace; font-size: 13px; white-space: pre-wrap"></div>
+
         <script>
-            // paypal
-            //     .Messages({
-            //         style: {
-            //             layout: 'flex',
-            //             ratio: '8x1',
-            //             color: 'blue'
-            //         }
-            //     })
-            //     .render('.messages');
+            var log = document.getElementById('log');
+            var amountDisplay = document.getElementById('amount-display');
+
+            function addLog(msg) {
+                log.textContent += new Date().toLocaleTimeString() + ' — ' + msg + '\n';
+            }
+
+            amountDisplay.textContent = 'Amount: $100';
+            addLog('Initial render with amount: $100');
+
+            paypal
+                .Messages({
+                    amount: 100,
+                    style: { layout: 'text' }
+                })
+                .render('.messages');
+
+            setTimeout(function () {
+                amountDisplay.textContent = 'Amount: $19.19';
+                addLog('Prop update — re-rendering with amount: $19.19');
+
+                paypal
+                    .Messages({
+                        amount: 19.19,
+                        style: { layout: 'text' }
+                    })
+                    .render('.messages');
+            }, 120000);
         </script>
     </body>
 </html>
