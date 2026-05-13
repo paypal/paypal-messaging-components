@@ -2,6 +2,9 @@
 /** @jsx h */
 import { Fragment, h } from 'preact';
 
+// Countries that use accordion-style loading shimmer (DE and AT share the same styling)
+const accordionShimmerCountries = ['DE', 'AT'];
+
 const LoadingShimmer = ({ numOffers = 3, offerCountry, useNewCheckoutDesign }) => {
     /**
      * Takes the number of offers returned from numOffers and renders the correct
@@ -11,7 +14,7 @@ const LoadingShimmer = ({ numOffers = 3, offerCountry, useNewCheckoutDesign }) =
     return (
         <Fragment>
             {Array.from({ length: numOffers }).map((_, index) => {
-                if (offerCountry === 'DE') {
+                if (accordionShimmerCountries.includes(offerCountry)) {
                     return (
                         <div id={index} className="accordion__container shimmer">
                             <div className="accordion__row">

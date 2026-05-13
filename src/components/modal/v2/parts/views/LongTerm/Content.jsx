@@ -1,7 +1,7 @@
 /** @jsx h */
 import { h, Fragment } from 'preact';
 import { useState } from 'preact/hooks';
-import { useXProps, useServerData, getComputedVariables, usePrequalification } from '../../../lib';
+import { useXProps, useServerData, getComputedVariables, usePrequalification, getEuroStyleClass } from '../../../lib';
 import Calculator from '../../Calculator';
 import ProductListLink from '../../ProductListLink';
 import Instructions from '../../Instructions';
@@ -237,7 +237,7 @@ export const LongTerm = ({
             <div
                 className={`content__row disclosure ${expandedState ? '' : 'collapsed'} ${
                     useNewCheckoutDesign === 'true' ? 'checkout' : ''
-                } ${useV5Design === 'true' ? 'v5Design' : ''} ${country === 'DE' ? 'DE' : ''} ${
+                } ${useV5Design === 'true' ? 'v5Design' : ''} ${getEuroStyleClass(country)} ${
                     isPrequalExperience ? 'prequal-fixed-offset' : ''
                 }`}
             >

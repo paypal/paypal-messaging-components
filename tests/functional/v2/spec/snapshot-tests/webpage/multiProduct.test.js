@@ -32,7 +32,7 @@ descFn.each(filterPermutations([LOCALE_CONFIG], [ACCOUNT]))(
         });
 
         test(`Amount:${amount} - Amount persists between views - ${viewport}`, async () => {
-            await viewsShareAmount(page, getTestName(country, integration, account, amount, viewport));
+            await viewsShareAmount(page, getTestName(country, integration, account, amount, viewport), account);
         });
     }
 );

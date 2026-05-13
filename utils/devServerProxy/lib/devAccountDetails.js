@@ -20,6 +20,24 @@ const selectBestOffer = (offers = [], amount) =>
         undefined
     );
 
+const selectMessageThreshold = (messageThresholds, amount) => {
+    const numberAmount = Number(amount);
+
+    if (amount === undefined || amount === '' || Number.isNaN(numberAmount)) {
+        return messageThresholds.find(({ amount: minAmount }) => minAmount === 0) ?? messageThresholds[0];
+    }
+
+    return (
+        messageThresholds.reduce(
+            (selected, threshold) =>
+                threshold.amount <= numberAmount && (!selected || threshold.amount > selected.amount)
+                    ? threshold
+                    : selected,
+            undefined
+        ) ?? messageThresholds[0]
+    );
+};
+
 /**
  * @description Get labels based on country
  * @param {string} country
@@ -121,10 +139,7 @@ export default function getDevAccountDetails({ account, amount, buyerCountry }) 
 
     if (devAccountMapV2[account]) {
         const { country, modalViews, messageThresholds, offers } = devAccountMapV2[account];
-        const selectedMessage =
-            messageThresholds.findLast(
-                ({ amount: minAmount }) => (amount === undefined && amount === minAmount) || minAmount <= amount
-            ) ?? messageThresholds[0];
+        const selectedMessage = selectMessageThreshold(messageThresholds, amount);
 
         const messageTemplate =
             buyerCountry && buyerCountry !== country && selectedMessage.templateXB

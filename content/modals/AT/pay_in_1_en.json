@@ -1,0 +1,52 @@
+{
+    "meta": {
+        "offerCountry": "AT",
+        "language": "en-AT",
+        "useV5Design": "true",
+        "v5.1": "true",
+        "periodicPayment": "{formattedPeriodicPayment}",
+        "product": "PAY_LATER_PAY_IN_1",
+        "minAmount": "{minAmount}",
+        "maxAmount": "{maxAmount}",
+        "qualifying": "{qualifying_offer}",
+        "amount": "{transaction_amount}",
+        "variables": {
+            "transaction_amount": "${eval(transaction_amount ? transaction_amount : '-')}",
+            "qualifying_offer": "${eval(CREDIT_OFFERS_DS.qualifying_offer ? CREDIT_OFFERS_DS.qualifying_offer : 'false')}",
+            "financing_code": "${CREDIT_OFFERS_DS.financing_code}",
+            "formattedPeriodicPayment": "${CREDIT_OFFERS_DS.formattedPeriodicPayment}",
+            "total_payments": "${CREDIT_OFFERS_DS.total_payments}",
+            "formattedMinAmount": "${CREDIT_OFFERS_DS.formattedMinAmount}",
+            "formattedMaxAmount": "${CREDIT_OFFERS_DS.formattedMaxAmount}",
+            "formattedTotalCost": "${CREDIT_OFFERS_DS.formattedTotalCost}",
+            "minAmount": "${CREDIT_OFFERS_DS.minAmount}",
+            "maxAmount": "${CREDIT_OFFERS_DS.maxAmount}"
+        }
+    },
+    "content": {
+        "headline": "Buy what you love now. Pay in 30 Days.",
+        "subheadline": "Available for purchases of <span>{formattedMinAmount} - {formattedMaxAmount}.</span>",
+        "instructions": [
+            "Choose PayPal at checkout to use <strong> Pay in 30 Days.</strong>",
+            "Complete your purchase in a few quick steps.",
+            "Need more than 30 days? Optionally, you can apply to extend the payment deadline for a fee by an additional 30 days or alternatively by 54 days."
+        ],
+        "disclosure": [
+            "Subject to credit check. For purchases between {formattedMinAmount} - {formattedMaxAmount}. ",
+            [
+                "Terms for Pay in 30 Days",
+                "https://www.paypal.com/at/digital-wallet/payin30/terms",
+                " Terms for Pay in 30 Days, opens new tab"
+            ],
+            " apply. Eligible customers must have an Austrian PayPal account with a linked debit card or a bank account with a valid SEPA mandate as a funding instrument. PayPal offers similar products to consumers in other European markets. Product features differ by market. See relevant product terms for more details. Optionally, you can apply to extend the payment deadline by an additional 30 days (to a total of 60 days) or alternatively by 54 days (to a total of 84 days) for a fee. The amount of the fee will be displayed transparently in your PayPal account before the extension is completed. For the extension, ",
+            [
+                " Bedingungen für Mehr Zeit zum Bezahlen",
+                "https://www.paypal.com/at/digital-wallet/mttp/terms",
+                "Bedingungen für Mehr Zeit zum Bezahlen, opens new tab"
+            ],
+            " apply."
+        ],
+        "navLinkPrefix": "For monthly Pay Later Options,",
+        "linkToProductList": "see PayPal Ratenzahlung."
+    }
+}
