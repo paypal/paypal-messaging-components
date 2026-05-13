@@ -179,7 +179,7 @@ describe('Message', () => {
         });
     });
 
-    test.skip('Prop update uses xprops.deviceID instead of getOrCreateDeviceID', async () => {
+    test('Prop update uses xprops.deviceID instead of getOrCreateDeviceID', async () => {
         const MERCHANT_DEVICE_ID = 'uid_3ee89db893_mdm6mdu6mtk';
         const PAYPAL_DEVICE_ID = 'uid_1521da4bd8_mtc6mjk6nti';
 
