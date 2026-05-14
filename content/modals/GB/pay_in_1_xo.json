@@ -44,7 +44,11 @@
             ". PayPal Pay in 30 Days is a trading name of PayPal UK Ltd, 5 Fleet Place, London, United Kingdom, EC4M 7RD."
         ],
         "learnMoreLink": [
-            ["Learn more about Pay in 30 Days", ["PLACEHOLDER"], "Learn more about Pay in 30 Days, opens new tab"]
+            [
+                "Learn more about Pay in 30 Days",
+                ["https://www.paypal.com/uk/digital-wallet/ways-to-pay/buy-now-pay-later"],
+                "Learn more about Pay in 30 Days, opens new tab"
+            ]
         ]
     }
 }
