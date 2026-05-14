@@ -1,5 +1,12 @@
 # Changelog
 
+### [1.84.1](https://github.com/paypal/paypal-messaging-components/compare/v1.84.0...v1.84.1) (2026-05-14)
+
+
+### Code Refactoring
+
+* update deviceID in updateProps to use xprops deviceID and not getOrCreateDeviceID ([5893800](https://github.com/paypal/paypal-messaging-components/commit/5893800e6560fd5166cc1fa48387ce2e327db163))
+
 ## [1.84.0](https://github.com/paypal/paypal-messaging-components/compare/v1.83.0...v1.84.0) (2026-05-13)
 
 
