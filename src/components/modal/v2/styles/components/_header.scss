@@ -206,6 +206,32 @@
                     width: 30px;
                 }
             }
+
+            &.v5Dot1Design {
+                height: 18px;
+                width: 18px;
+                padding: 0;
+                margin-left: auto;
+
+                svg {
+                    height: 18px;
+                    width: 18px;
+
+                    path {
+                        fill: #000000;
+                    }
+                }
+            }
+        }
+
+        &.v5Dot1Design {
+            flex: 0 0 38px;
+            padding: 10px;
+            justify-content: flex-end;
+
+            @include mixins.mobile {
+                flex: 0 0 38px;
+            }
         }
 
         &.checkout {
@@ -451,6 +477,116 @@
                             margin: 5px 0px -50px -60px;
                         }
                     }
+                }
+            }
+        }
+
+        &--upstream-pay-in-30-gb {
+            padding-top: 0;
+            padding-bottom: 0;
+
+            @include mixins.desktop {
+                padding-bottom: 0;
+            }
+
+            @include mixins.tablet {
+                padding-bottom: 0;
+            }
+
+            .header__upstream-brand {
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+                margin-top: 12px;
+                padding: 0 24px;
+                box-sizing: border-box;
+            }
+
+            .header__upstream-logo {
+                svg {
+                    display: block;
+                    height: auto;
+                    max-width: 100%;
+                }
+            }
+
+            .header__upstream-titles {
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            h2.headline--upstream-pay-in-30-gb {
+                box-sizing: border-box;
+                color: colors.$black;
+                font-family: variables.$paypal-pro;
+                font-size: 32px;
+                font-weight: 900;
+                letter-spacing: -0.64px;
+                line-height: 36px;
+                margin: 0;
+                max-width: 100%;
+                padding: 0;
+
+                @include mixins.desktop {
+                    margin-left: 0;
+                }
+
+                @include mixins.tablet {
+                    margin-left: 0;
+                }
+
+                @include mixins.mobile {
+                    margin-left: 0;
+                    max-width: 100%;
+                }
+
+                &.v5Design {
+                    font-size: 32px;
+                    line-height: 36px;
+                }
+            }
+
+            .subheadline_p.subheadline--upstream-pay-in-30-gb {
+                box-sizing: border-box;
+                color: colors.$black;
+                font-size: 14px;
+                line-height: 18px;
+                margin: 0;
+                max-width: 100%;
+                padding: 0;
+
+                @include mixins.desktop {
+                    margin-bottom: 0;
+                    margin-left: 0;
+                }
+
+                @include mixins.tablet {
+                    margin-bottom: 0;
+                    margin-left: 0;
+                    max-width: 100%;
+                    padding: 0;
+                }
+
+                @include mixins.mobile {
+                    line-height: 18px;
+                    margin-left: 0;
+                    max-width: 100%;
+                    padding: 0;
+                }
+
+                &.v5Design {
+                    margin-bottom: 0;
+                    max-width: 100%;
+                    padding: 0;
+
+                    @include mixins.mobile {
+                        padding: 0;
+                    }
+                }
+
+                span {
+                    white-space: normal;
                 }
             }
         }

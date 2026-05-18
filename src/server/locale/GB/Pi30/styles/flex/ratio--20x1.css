@@ -1,0 +1,113 @@
+@media (min-aspect-ratio: 200/11) {
+    .message__logo-container {
+        margin-bottom: -3px;
+        max-width: 12%;
+        margin-right: 1.5vw;
+    }
+
+    .message__logo:nth-of-type(1) {
+        width: 15%;
+        margin-right: 3%;
+    }
+
+    .message__logo:nth-of-type(2) {
+        width: 55%;
+    }
+
+    .message__promo-container {
+        width: unset;
+    }
+
+    .message__messaging {
+        flex: none;
+        display: inline;
+    }
+
+    .message__content {
+        justify-content: center;
+    }
+
+    .message__sub-headline {
+        margin-left: 0;
+    }
+
+    .message__disclaimer {
+        margin-left: 4px;
+    }
+}
+
+@media (min-aspect-ratio: 200/11) and (min-width: 351px) {
+    .message__disclaimer {
+        font-size: 0.9rem;
+    }
+}
+
+@media (min-aspect-ratio: 200/11) and (min-width: 903px) {
+    .message__logo-container {
+        margin-bottom: -6px;
+    }
+}
+
+@media (min-aspect-ratio: 200/11) and (min-width: 400px) {
+    .message__headline {
+        font-size: 2vw;
+    }
+
+    .message__headline > span:nth-of-type(3) {
+        display: inline;
+    }
+
+    .message__logo:nth-of-type(1) {
+        width: 20%;
+        margin-right: 5%;
+    }
+
+    .message__logo:nth-of-type(2) {
+        display: inline-block;
+        width: 60%;
+    }
+}
+
+@media (min-aspect-ratio: 200/11) and (min-width: 523px) {
+    .message__headline span.multi:nth-of-type(1) {
+        display: none;
+    }
+
+    .message__headline span.multi:nth-of-type(2) {
+        display: inline;
+    }
+}
+
+@media (min-aspect-ratio: 200/11) and (max-width: 600px) {
+    .message__logo:nth-of-type(2) {
+        display: none;
+    }
+
+    .message__logo:nth-of-type(1) {
+        width: auto;
+    }
+
+    .message__logo-container {
+        max-width: 18%;
+    }
+}
+
+@media (min-aspect-ratio: 200/11) and (min-width: 401px) and (max-width: 522px) {
+    .message__logo-container {
+        max-width: 18%;
+    }
+
+    .message__headline {
+        font-size: 2.75vw;
+    }
+
+    .message__headline > span:nth-of-type(3) {
+        display: none;
+    }
+}
+
+@media (min-aspect-ratio: 200/11) and (max-width: 350px) {
+    .message__headline {
+        font-size: 10px;
+    }
+}

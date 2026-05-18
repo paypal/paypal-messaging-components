@@ -1,4 +1,4 @@
-import Logo from '../../../message/logos';
+import Logo from '../../../../message/logos';
 import {
     textWrap,
     messageLogoWidth,
@@ -6,8 +6,8 @@ import {
     logo20x1,
     altNoWrap,
     setLogoTop
-} from '../../../message/mediaQueries';
-import { textLogoMutations, flexLogoMutations } from '../../../message/logoMutations';
+} from '../../../../message/mediaQueries';
+import { textLogoMutations, flexLogoMutations } from '../../../../message/logoMutations';
 
 export default {
     'layout:text': [
@@ -23,7 +23,7 @@ export default {
                 headline: [
                     {
                         tag: 'medium',
-                        br: ['from']
+                        br: ['Credit']
                     },
                     { tag: 'xsmall' }
                 ],
@@ -72,15 +72,11 @@ export default {
                 headline: [
                     {
                         tag: 'medium',
-                        br: ['purchases'],
-                        replace: [
-                            ['0.', '0'],
-                            ['later.', 'later']
-                        ]
+                        br: ['Credit'],
+                        replace: [['option.', 'option']]
                     },
                     {
                         tag: 'xsmall.2',
-                        br: ['later.'],
                         replace: [['later.', 'later']]
                     }
                 ]
@@ -100,15 +96,11 @@ export default {
                 headline: [
                     {
                         tag: 'medium',
-                        br: ['purchases'],
-                        replace: [
-                            ['0.', '0'],
-                            ['later.', 'later']
-                        ]
+                        br: ['Credit'],
+                        replace: [['option.', 'option']]
                     },
                     {
                         tag: 'xsmall.2',
-                        br: ['later.'],
                         replace: [['later.', 'later']]
                     }
                 ]

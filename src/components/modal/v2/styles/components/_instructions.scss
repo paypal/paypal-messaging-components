@@ -253,4 +253,55 @@
             display: flex;
         }
     }
+
+    &.instructions--upstream-pay-in-30-gb {
+        @include mixins.desktop {
+            padding-left: 0;
+        }
+
+        @include mixins.tablet {
+            justify-content: flex-start;
+        }
+
+        &.v5Design {
+            margin-bottom: 0;
+            padding-top: 0;
+        }
+
+        li {
+            font-size: 14px;
+            line-height: 18px;
+            padding-bottom: 0;
+        }
+
+        ol {
+            margin: 0;
+            width: 100%;
+        }
+
+        .instructions__item-wrapper {
+            margin-bottom: 24px;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+
+            > div {
+                flex: 1 1 auto;
+                font-size: 14px;
+                line-height: 18px;
+                min-width: 0;
+            }
+        }
+
+        .instructions__bullet {
+            box-sizing: border-box;
+            flex-shrink: 0;
+            font-size: 14px;
+            line-height: 18px;
+            margin-right: 12px;
+            text-align: center;
+            width: 28px;
+        }
+    }
 }

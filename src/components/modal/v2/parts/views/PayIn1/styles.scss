@@ -40,4 +40,93 @@
             }
         }
     }
+
+    .pay-in-1-upstream-gb {
+        .content__row.dynamic {
+            background-color: colors.$white;
+            box-sizing: border-box;
+            flex-direction: column;
+            height: auto;
+            margin: 0 -20px;
+            padding: 24px 20px 32px;
+
+            @include mixins.desktop {
+                .content__col {
+                    width: 100%;
+                }
+            }
+
+            .content__col:last-child {
+                display: none;
+            }
+        }
+
+        .content__row.disclosure.v5Design {
+            box-sizing: border-box;
+            color: #696969;
+            font-size: 12px;
+            line-height: 16px;
+            margin: 0 -20px;
+            padding: 32px 20px 0;
+
+            @include mixins.desktop {
+                margin: 0 -20px;
+            }
+
+            @include mixins.tablet {
+                margin: 0 -20px;
+            }
+
+            @include mixins.mobile {
+                margin: 0 -20px;
+            }
+
+            .inline-link {
+                font-size: 12px;
+                line-height: 16px;
+            }
+        }
+
+        .learnMoreLink__container {
+            font-size: 12px;
+            line-height: 16px;
+            margin-top: 16px;
+
+            @include mixins.tablet {
+                margin-top: 16px;
+            }
+
+            @include mixins.mobile {
+                margin-left: 0;
+                margin-top: 16px;
+            }
+
+            .inline-link {
+                font-size: 12px;
+                line-height: 16px;
+            }
+        }
+
+        .content__row.productLink {
+            padding-right: 0;
+        }
+
+        .product-list-link.gb {
+            font-size: 12px;
+            line-height: 16px;
+            margin: 16px 20px 20px;
+
+            @include mixins.desktop {
+                margin: 16px 20px 24px;
+            }
+
+            @include mixins.tablet {
+                margin: 16px 20px 24px;
+            }
+
+            @include mixins.mobile {
+                margin: 16px 20px 24px;
+            }
+        }
+    }
 }

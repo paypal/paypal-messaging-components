@@ -1,0 +1,97 @@
+/* Not a valid style option ratio, but used as the mobile base for 8x1 and 20x1 */
+
+.message__logo:nth-of-type(2) {
+    display: none;
+}
+
+.message__headline {
+    font-size: 4vw;
+}
+
+/* remove extra "with Flex" */
+.message__headline > span:nth-of-type(3) {
+    display: none;
+}
+
+.message__disclaimer {
+    font-size: 0.7rem;
+}
+
+@media (max-aspect-ratio: 61/10) and (min-width: 375px) {
+    .message__headline span.multi:nth-of-type(2) {
+        display: inline;
+    }
+    .message__headline span.multi:nth-of-type(1) {
+        display: none;
+    }
+    .message__headline > span:nth-of-type(3) {
+        display: inline;
+    }
+    .message__headline .tag--medium .br:first-child {
+        display: block;
+    }
+    .message__logo:nth-of-type(1) {
+        width: 45%;
+    }
+}
+
+@media (max-aspect-ratio: 61/10) {
+    .message__headline {
+        font-size: 5vw;
+        line-height: 1.3em;
+        display: inline;
+    }
+    .message__logo-container {
+        flex-basis: 12%;
+        margin-bottom: -6px;
+        justify-content: flex-start;
+        margin-left: 5px;
+    }
+    .message__logo:nth-of-type(1) {
+        margin-left: 10px;
+        margin-right: 0;
+    }
+}
+
+@media (max-aspect-ratio: 61/10) and (max-width: 374px) {
+    .message__logo:nth-of-type(1) {
+        width: 50%;
+    }
+}
+
+@media (max-width: 374px) {
+    .message__headline {
+        font-size: 5vw;
+    }
+
+    .message__logo:nth-of-type(1) {
+        width: 55%;
+    }
+
+    .message__logo-container {
+        margin-right: 2.5%;
+    }
+
+    .weak {
+        margin-left: -1.6%;
+    }
+}
+
+@media (max-aspect-ratio: 61/10) and (max-width: 767px) {
+    .message__headline::after {
+        content: ' ';
+    }
+}
+
+@media (max-aspect-ratio: 61/10) and (max-width: 323px) {
+    .message__logo-container {
+        margin-right: 7%;
+    }
+    .message__logo:nth-of-type(1) {
+        margin: 0 5px;
+        width: 30%;
+    }
+    .message__logo:nth-of-type(2) {
+        display: inline;
+    }
+}

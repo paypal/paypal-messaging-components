@@ -1,0 +1,61 @@
+.message__logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.message__headline {
+    font-size: 8.4vw;
+    font-weight: 500;
+    line-height: 1.6em;
+}
+
+.message__disclaimer {
+    position: static;
+}
+
+.message__disclaimer > span {
+    font-weight: 400;
+    text-decoration: none;
+    white-space: normal;
+}
+
+.message__disclaimer > span > span {
+    white-space: nowrap;
+}
+
+.message__disclaimer > span > span:only-child,
+.message__disclaimer > span > span.em {
+    text-decoration: underline;
+}
+
+.message__logo:nth-of-type(1) {
+    width: 27px;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.message__logo:nth-of-type(2) {
+    width: 89px;
+    display: inline-block;
+}
+
+.message__headline strong::after {
+    content: '.';
+    color: white;
+    font-style: normal;
+    font-weight: normal;
+}
+
+.message__headline > span:nth-child(2) > strong {
+    font-weight: 500;
+}
+
+.message__headline > span:nth-child(3) > strong {
+    font-weight: 500;
+}
+
+@media (min-width: 220px) {
+    .message__disclaimer {
+        font-size: 0.9rem;
+    }
+}

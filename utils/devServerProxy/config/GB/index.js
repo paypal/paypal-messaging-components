@@ -14,12 +14,12 @@ export default {
                 product: 'PAY_LATER_SHORT_TERM'
             },
             {
-                amount: 30,
+                amount: 20,
                 template: 'plq.json',
                 product: 'PAY_LATER_SHORT_TERM'
             },
             {
-                amount: 2000.01,
+                amount: 3000.01,
                 template: 'pl.json',
                 product: 'PAY_LATER_SHORT_TERM'
             }
@@ -30,8 +30,8 @@ export default {
                     totalPayments: 3,
                     apr: 0,
                     nominalRate: 0,
-                    minAmount: 30,
-                    maxAmount: 2000
+                    minAmount: 20,
+                    maxAmount: 3000
                 }
             ]
         }
@@ -47,17 +47,17 @@ export default {
         messageThresholds: [
             {
                 amount: 0,
-                template: 'pl.json',
+                template: 'pay30nq.json',
                 product: 'PAY_LATER_PAY_IN_1'
             },
             {
                 amount: 1,
-                template: 'plq.json',
+                template: 'pay30q.json',
                 product: 'PAY_LATER_PAY_IN_1'
             },
             {
                 amount: 900.01,
-                template: 'pl.json',
+                template: 'pay30nq.json',
                 product: 'PAY_LATER_PAY_IN_1'
             }
         ],
@@ -92,8 +92,23 @@ export default {
         messageThresholds: [
             {
                 amount: 0,
+                template: 'pay30nq.json',
+                product: 'PAY_LATER_PAY_IN_1'
+            },
+            {
+                amount: 1,
+                template: 'pay30q.json',
+                product: 'PAY_LATER_PAY_IN_1'
+            },
+            {
+                amount: 150,
+                template: 'plq.json',
+                product: 'PAY_LATER_SHORT_TERM'
+            },
+            {
+                amount: 3000.01,
                 template: 'pl.json',
-                product: 'PRODUCT_LIST'
+                product: 'PAY_LATER_SHORT_TERM'
             }
         ],
         offers: {
@@ -111,8 +126,8 @@ export default {
                     totalPayments: 3,
                     apr: 0,
                     nominalRate: 0,
-                    minAmount: 30,
-                    maxAmount: 2000
+                    minAmount: 20,
+                    maxAmount: 3000
                 }
             ]
         }
@@ -132,12 +147,12 @@ export default {
                 product: 'PAY_LATER_SHORT_TERM'
             },
             {
-                amount: 30,
+                amount: 20,
                 template: 'plq.json',
                 product: 'PAY_LATER_SHORT_TERM'
             },
             {
-                amount: 2000.01,
+                amount: 3000.01,
                 template: 'pl.json',
                 product: 'PAY_LATER_SHORT_TERM'
             }
@@ -148,8 +163,8 @@ export default {
                     totalPayments: 3,
                     apr: 0,
                     nominalRate: 0,
-                    minAmount: 30,
-                    maxAmount: 2000
+                    minAmount: 20,
+                    maxAmount: 3000
                 }
             ]
         }

@@ -1,0 +1,29 @@
+{
+    "meta": {
+        "offerCountry": "GB",
+        "offerType": "PAY_LATER_PAY_IN_1_GB",
+        "messageType": "PLP1_NQ",
+        "offerTerm": "{total_payments}",
+        "lander": "",
+        "variables": {
+            "offer_id": "${CREDIT_OFFERS_DS.offer_id}",
+            "vendor_financing_id": "${CREDIT_OFFERS_DS.vendor_financing_id}",
+            "financing_code": "${CREDIT_OFFERS_DS.financing_code}",
+            "total_payments": "${CREDIT_OFFERS_DS.total_payments}",
+            "formattedMinAmount": "${CREDIT_OFFERS_DS.formattedMinAmount}",
+            "formattedMaxAmount": "${CREDIT_OFFERS_DS.formattedMaxAmount}"
+        }
+    },
+
+    "headline": [
+        [["Buy now, pay later."], ["default", "xsmall"]],
+        ["Buy now and pay later.", ["xsmall.2"]],
+        [
+            "Pay in 30 days for purchases of {formattedMinAmount} to {formattedMaxAmount}. Credit option.",
+            ["medium", "large", "xlarge"]
+        ]
+    ],
+    "subHeadline": [],
+
+    "disclaimer": [["Learn more", ["default"]]]
+}

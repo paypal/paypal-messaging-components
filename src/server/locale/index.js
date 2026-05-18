@@ -12,7 +12,7 @@ const getLocaleSettings = (offerCountry, offerType, contextualComponents, langua
         case 'DE':
             return DE(offerType);
         case 'GB':
-            return GB;
+            return GB(offerType);
         case 'ES':
             return ES;
         case 'FR':
