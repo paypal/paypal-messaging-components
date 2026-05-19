@@ -140,7 +140,7 @@ export default {
             'logo.type:inline',
             ({ textSize }) => ({
                 styles: [
-                    `.message__logo { width: ${textSize * 4.1}px }`,
+                    `.message__logo { width: ${textSize * 3.5}px }`,
                     `.message__logo-container::after { content: '.'; }`
                 ],
                 logo: Logo.WORDMARK.BLACK,

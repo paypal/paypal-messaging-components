@@ -57,14 +57,14 @@ export function textWrap(breakpoint, textSize, locale) {
     return `@media screen and (max-width: ${breakpoint}px) {
         .locale--${locale} .message__content {
             display: block;
-            margin-top: -${textSize / 2}px;
         }
         .locale--${locale} .message__logo-container {
             display: inline-flex;
-            transform: translateY(${textSize / 2}px);
+            vertical-align: middle;
         }
         .locale--${locale} .message__messaging {
             display: inline;
+            vertical-align: middle;
         }
         .locale--${locale} .message__messaging span.br:first-child {
             white-space: normal;

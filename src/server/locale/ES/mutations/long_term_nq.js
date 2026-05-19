@@ -187,7 +187,7 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     xSmallFallback(textSize * 21.6),
-                    `.message__logo { width: ${textSize * 4.1}px }`,
+                    `.message__logo { width: ${textSize * 3.5}px }`,
                     `@media screen and (max-width: ${
                         textSize * 14.5
                     }px) { .message__headline > .tag--xsmall > span { white-space: normal;} }`

@@ -181,7 +181,7 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     xSmallFallback(textSize * 16),
-                    `.message__logo { width: ${textSize * 4.1}px }`,
+                    `.message__logo { width: ${textSize * 3.5}px }`,
                     `.message__logo-container::after { content: '.'; }`,
                     `.message__disclaimer { white-space: normal; }`,
                     `.message__headline .tag--xsmall > span { white-space: nowrap }`

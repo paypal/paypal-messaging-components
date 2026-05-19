@@ -111,7 +111,7 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     xSmallFallback(textSize * 18),
-                    `.message__logo { width: ${textSize * 4.1}px }`,
+                    `.message__logo { width: ${textSize * 3.5}px }`,
                     hideDisclaimer(textSize * 18),
                     removeInlinePeriod(textSize * 18)
                 ],

@@ -215,7 +215,7 @@ export default {
                 styles: [
                     xSmallFallback(textSize * 16),
                     xSmallNoWrap(textSize * 13.8),
-                    `.message__logo { width: ${textSize * 4.1}px }`,
+                    `.message__logo { width: ${textSize * 3.5}px }`,
                     `.message__logo-container::after {
                         content: '.';
                     }`,

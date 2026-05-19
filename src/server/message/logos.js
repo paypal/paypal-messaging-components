@@ -51,10 +51,10 @@ export default {
         MONOCHROME: { src: getPPRebrandSrc(LOGO_COLOR.BLACK), dimensions: [20, 34] }
     },
     PAYPAL_BADGE: {
-        COLOR: { src: getBadgeSrc(LOGO_COLOR.DEFAULT), dimensions: [178, 70] },
-        WHITE: { src: getBadgeSrc(LOGO_COLOR.WHITE), dimensions: [178, 70] },
-        GRAYSCALE: { src: getBadgeSrc(LOGO_COLOR.BLACK), dimensions: [178, 70] },
-        MONOCHROME: { src: getBadgeSrc(LOGO_COLOR.BLACK), dimensions: [178, 70] }
+        COLOR: { src: getBadgeSrc(LOGO_COLOR.DEFAULT), dimensions: [178, 75] },
+        WHITE: { src: getBadgeSrc(LOGO_COLOR.WHITE), dimensions: [178, 75] },
+        GRAYSCALE: { src: getBadgeSrc(LOGO_COLOR.BLACK), dimensions: [178, 75] },
+        MONOCHROME: { src: getBadgeSrc(LOGO_COLOR.BLACK), dimensions: [178, 75] }
     },
     PP_PAYPAL: {
         COLOR: [

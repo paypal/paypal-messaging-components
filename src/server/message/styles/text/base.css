@@ -28,7 +28,6 @@ button:focus .message__content span.br {
 .message__messaging {
     white-space: normal;
     position: relative;
-    top: -0.05em;
     line-height: 1.3;
 }
 

@@ -87,7 +87,7 @@ export default {
         [
             'logo.type:inline',
             ({ textSize }) => ({
-                styles: [basicMediaQuery(textSize * 15 + 80), `.message__logo { width: ${textSize * 6.8}px }`],
+                styles: [basicMediaQuery(textSize * 15 + 80), `.message__logo { width: ${textSize * 6.3}px }`],
                 logo: Logo.CREDIT_WORDMARK.COLOR,
                 headline: [
                     {
