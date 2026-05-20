@@ -22,7 +22,7 @@ export default {
             {
                 amount: 0,
                 template: 'short_term_no_amount.json',
-                product: 'PAY_LATER_SHORT_TERM'
+                product: 'GENERIC'
             },
             {
                 amount: 0.01,

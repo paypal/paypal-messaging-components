@@ -15,7 +15,7 @@ const TermsTable = ({
     useNewCheckoutDesign
 }) => {
     const { offerCountry } = meta;
-    const offerAccordionCountries = ['DE', 'ES', 'IT'];
+    const offerAccordionCountries = ['AT', 'DE', 'ES', 'IT'];
     /**
      * numOffers/setNumOffers is used to dynamically change the number of loading shimmers that are rendered
      * depending on the last number of offers that were displayed.

@@ -1,6 +1,6 @@
-@use "../globals/colors";
-@use "../globals/mixins";
-@use "../globals/variables";
+@use '../globals/colors';
+@use '../globals/mixins';
+@use '../globals/variables';
 
 .calculator {
     .loading & {
@@ -177,6 +177,18 @@
         }
         input {
             border: 1px solid colors.$v5-gray;
+        }
+
+        .calculator__error {
+            & > div {
+                max-width: none;
+            }
+        }
+
+        .input__wrapper--error {
+            .input {
+                border-color: colors.$error-red;
+            }
         }
         display: flex;
         flex-direction: column;

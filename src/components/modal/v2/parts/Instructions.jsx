@@ -1,6 +1,6 @@
 /** @jsx h */
 import { Fragment, h } from 'preact';
-import { currencyFormat } from '../lib';
+import { currencyFormat, getEuroStyleClass } from '../lib';
 
 const Instructions = ({ instructions, cta, expandedState = false, className = '', country, useNewCheckoutDesign }) => {
     const renderBullet = (index, design) => {
@@ -29,7 +29,7 @@ const Instructions = ({ instructions, cta, expandedState = false, className = ''
             return (
                 <ol className={`${expandedState ? '' : 'collapsed'} ${className}`}>
                     {instructions.map((instruction, index) => (
-                        <li className={`instructions__item-wrapper ${country === 'DE' ? 'DE' : ''}`}>
+                        <li className={`instructions__item-wrapper ${getEuroStyleClass(country)}`}>
                             {renderBullet(index + 1, useNewCheckoutDesign)}
                             <div
                                 // eslint-disable-next-line react/no-danger
@@ -45,7 +45,7 @@ const Instructions = ({ instructions, cta, expandedState = false, className = ''
             return (
                 <Fragment>
                     <h2
-                        className={`instructions__item-wrapper ${country === 'DE' ? 'DE' : ''}`}
+                        className={`instructions__item-wrapper ${getEuroStyleClass(country)}`}
                         // eslint-disable-next-line react/no-danger
                         dangerouslySetInnerHTML={{ __html: instructions.instructionsHeadline }}
                     />

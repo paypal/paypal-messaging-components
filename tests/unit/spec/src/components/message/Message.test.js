@@ -1,7 +1,7 @@
 import { getByText, fireEvent, queryByText } from '@testing-library/dom';
 
 import Message from 'src/components/message/Message';
-import { request, createState } from 'src/utils';
+import { request, createState, getOrCreateDeviceID } from 'src/utils';
 import xPropsMock from 'utils/xPropsMock';
 
 const ts = {
@@ -177,5 +177,31 @@ describe('Message', () => {
             requestDuration: 123,
             ts
         });
+    });
+
+    test('Prop update uses xprops.deviceID instead of getOrCreateDeviceID', async () => {
+        const MERCHANT_DEVICE_ID = 'uid_3ee89db893_mdm6mdu6mtk';
+        const PAYPAL_DEVICE_ID = 'uid_1521da4bd8_mtc6mjk6nti';
+
+        window.xprops.amount = 100;
+        window.xprops.deviceID = MERCHANT_DEVICE_ID;
+
+        const messageDocument = document.body.appendChild(Message(serverData));
+
+        expect(getByText(messageDocument, /test/i)).toBeInTheDocument();
+        expect(window.xprops.onReady).toHaveBeenCalledTimes(1);
+
+        getOrCreateDeviceID.mockReturnValue(PAYPAL_DEVICE_ID);
+
+        updateProps({ amount: 500 });
+
+        await new Promise(resolve => setTimeout(resolve, 0));
+
+        expect(request).toHaveBeenCalledTimes(1);
+
+        const requestUrl = request.mock.calls[0][1];
+
+        expect(requestUrl).toContain(`deviceID=${MERCHANT_DEVICE_ID}`);
+        expect(requestUrl).not.toContain(PAYPAL_DEVICE_ID);
     });
 });
