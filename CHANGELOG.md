@@ -1,5 +1,47 @@
 # Changelog
 
+### [1.84.1](https://github.com/paypal/paypal-messaging-components/compare/v1.84.0...v1.84.1) (2026-05-14)
+
+
+### Code Refactoring
+
+* update deviceID in updateProps to use xprops deviceID and not getOrCreateDeviceID ([5893800](https://github.com/paypal/paypal-messaging-components/commit/5893800e6560fd5166cc1fa48387ce2e327db163))
+
+## [1.84.0](https://github.com/paypal/paypal-messaging-components/compare/v1.83.0...v1.84.0) (2026-05-13)
+
+
+### Features
+
+* **AT:** Modal added for AT for Pay Later Hub and DE modal content changes ([#1305](https://github.com/paypal/paypal-messaging-components/issues/1305)) ([fb50820](https://github.com/paypal/paypal-messaging-components/commit/fb5082036df9ade2e272274d693ef7e432add8ae))
+* create fr lt msgs ([#1242](https://github.com/paypal/paypal-messaging-components/issues/1242)) ([9090048](https://github.com/paypal/paypal-messaging-components/commit/9090048492aed745da622839b8c0b7bbd725a2f5))
+
+
+### Bug Fixes
+
+* **ca:** fix pix qualifying mutations ([#1312](https://github.com/paypal/paypal-messaging-components/issues/1312)) ([ccc1911](https://github.com/paypal/paypal-messaging-components/commit/ccc19116b8971267546568fce48acfc364714907))
+
+## [1.83.0](https://github.com/paypal/paypal-messaging-components/compare/v1.82.0...v1.83.0) (2026-05-07)
+
+
+### Features
+
+* add prequalification route to CYSP CTA button ([#1304](https://github.com/paypal/paypal-messaging-components/issues/1304)) ([87c27b0](https://github.com/paypal/paypal-messaging-components/commit/87c27b0069e62c6be348b7d63b6601e39c1a9102))
+
+## [1.82.0](https://github.com/paypal/paypal-messaging-components/compare/v1.81.0...v1.82.0) (2026-04-20)
+
+
+### Features
+
+* add offer terms box to Pay in 4 XO checkout modal ([#1301](https://github.com/paypal/paypal-messaging-components/issues/1301)) ([7454782](https://github.com/paypal/paypal-messaging-components/commit/745478274a8257e0e9a0cdd5aef6d73695b52ca5))
+* add prequal spending power CTA to Pain in 4 and Pay Later modals ([#1293](https://github.com/paypal/paypal-messaging-components/issues/1293)) ([1834197](https://github.com/paypal/paypal-messaging-components/commit/1834197d428b48077f8d86ca1e626e8ecb86c6cc))
+* added offer terms for pay monthly modal ([#1296](https://github.com/paypal/paypal-messaging-components/issues/1296)) ([9a81eb0](https://github.com/paypal/paypal-messaging-components/commit/9a81eb0fd5c70805af0e0764948d356f7c140ab7))
+* Cysp pm msg disclaimer ([#1289](https://github.com/paypal/paypal-messaging-components/issues/1289)) ([1ee7a1f](https://github.com/paypal/paypal-messaging-components/commit/1ee7a1fafbef3f070422616c8ba28ee726badf9f))
+
+
+### Bug Fixes
+
+* pass modal experiment info in modalContent request ([#1300](https://github.com/paypal/paypal-messaging-components/issues/1300)) ([38f32f4](https://github.com/paypal/paypal-messaging-components/commit/38f32f410c330c4d1349ece109c42b257856315e))
+
 ## [1.81.0](https://github.com/paypal/paypal-messaging-components/compare/v1.80.0...v1.81.0) (2026-04-14)
 
 

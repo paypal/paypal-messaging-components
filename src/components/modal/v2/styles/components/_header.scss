@@ -311,6 +311,7 @@
                 max-width: 81%;
             }
 
+            &.headline-at,
             &.headline-de {
                 @include mixins.tablet {
                     margin-right: 102px;

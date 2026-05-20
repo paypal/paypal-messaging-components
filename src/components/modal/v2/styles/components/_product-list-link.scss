@@ -39,7 +39,8 @@
         margin: 0px;
     }
 
-    &.de {
+    &.de,
+    &.at {
         @include mixins.mobile {
             margin-top: 0px;
         }
