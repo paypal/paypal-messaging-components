@@ -8,14 +8,14 @@ export default ({ doc, props: { cspNonce, features, onError, onClose }, event, s
     const useNewCheckoutDesign = features?.includes('new-checkout-design') ? 'true' : 'false';
     const styles = `
          @font-face {
-            font-family: 'PayPalOpen';
-            src: url(https://www.paypalobjects.com/paypal-ui/fonts/PayPalOpen-Regular.woff2) format('woff');
+            font-family: 'PayPalPro';
+            src: url(https://www.paypalobjects.com/marketing/pp-com-components/fonts/SupremeLLTestSubWeb-Book.woff) format('woff');
             font-weight: normal;
             font-style: normal;
         }
         html {
             color: #2d2d2d;
-            font-family: PayPalOpen, Helvetica, Arial, sans-serif;
+            font-family: PayPalPro, Helvetica, Arial, sans-serif;
             font-size: 14px;
             font-weight: 400;
         }
@@ -66,6 +66,13 @@ export default ({ doc, props: { cspNonce, features, onError, onClose }, event, s
             border-top-right-radius: 10px;
             border-top-left-radius: 10px;
         }
+
+          .loader {
+            border-left: 3px solid #cbcbca !important;
+            border-right: 3px solid #cbcbca !important;
+            border-bottom: 3px solid #cbcbca !important;
+            border-top: 3px solid #0070E0 !important;
+        }
         ${
             useNewCheckoutDesign === 'true' &&
             `
@@ -107,6 +114,7 @@ export default ({ doc, props: { cspNonce, features, onError, onClose }, event, s
                     }
             `
         }
+        
         .spinner{
             position: relative !important;
         }
