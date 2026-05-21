@@ -9,6 +9,7 @@ import styles from './styles.scss';
 
 import { useServerData, useXProps } from '../../../lib/providers';
 import { currencyFormat } from '../../../lib/hooks/currency'; // Remove .00 cents from formated min and max
+import { getEuroStyleClass } from '../../../lib';
 
 export const PayIn1 = ({
     productMeta: { useV5Design, qualifying },
@@ -105,11 +106,7 @@ export const PayIn1 = ({
                     </div>
                 </div>
             </div>
-            <div
-                className={`content__row disclosure ${country === 'DE' ? 'DE' : ''} ${
-                    useNewCheckoutDesign === 'true' ? 'checkout' : ''
-                }`}
-            >
+            <div className={`content__row disclosure ${useV5Design ? 'v5Design' : ''} ${getEuroStyleClass(country)}`}>
                 <InlineLinks text={currencyFormat(disclosure)} />
                 {renderLearnMoreLink()}
             </div>

@@ -185,6 +185,18 @@
             display: flex;
             flex-direction: column;
             // }
+
+            .calculator__error {
+                & > div {
+                    max-width: none;
+                }
+            }
+
+            .input__wrapper--error {
+                .input {
+                    border-color: colors.$error-red;
+                }
+            }
         }
 
         &.v4Design,

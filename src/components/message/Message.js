@@ -7,7 +7,6 @@ import {
     createState,
     getRequestDuration,
     getTsCookieFromStorage,
-    getOrCreateDeviceID,
     getGlobalSessionID
 } from '../../utils';
 
@@ -132,6 +131,7 @@ const Message = function ({ markup, meta, parentStyles, warnings }) {
                     channel,
                     contextualComponents,
                     treatmentsHash,
+                    deviceID,
                     disableSetCookie,
                     features,
                     pageType
@@ -178,7 +178,7 @@ const Message = function ({ markup, meta, parentStyles, warnings }) {
                     merchant_config: merchantConfigHash,
                     channel,
                     contextual_components: contextualComponents,
-                    deviceID: getOrCreateDeviceID(),
+                    deviceID,
                     treatments: treatmentsHash,
                     disableSetCookie,
                     features,

@@ -67,13 +67,34 @@ const accounts = [
     // 'DEV00XBDEPI30',
     // 'DEV0XBDEMULTI',
 
+    // AT
+    // 'DEV000ATPLEQZ',
+    // 'DEV000ATPLGTZ',
+    // 'DEV00ATPLQEQZ',
+    // 'DEV00ATPLQGTZ',
+    // 'DEVXBATPLQEQZ',
+    // 'DEVXBATPLQGTZ',
+    // 'DEV00ATPI30NQ',
+    // 'DEV000ATPI30Q',
+    // 'DEV0000ATPI30',
+    // 'DEVXBATPI30NQ',
+    // 'DEV0XBATPI30Q',
+    // 'DEV00XBATPI30',
+    // 'DEV000ATMULTI',
+    // 'DEV0XBATMULTI',
+    // 'DEV0ATGENERIC',
+    // 'DEV000XBATGEN',
+
     // GB
     // 'DEV000000GBPL',
     // 'DEV00000GBPLQ',
 
     // FR
-    // 'DEV000000FRPL',
-    // 'DEV00000FRPLQ'
+    // DEV0FRGENERIC
+    // DEV000000FRPL
+    // DEV00000FRPLQ
+    // DEV0000FRPLTQ
+    // DEV000FRPLTNQ
 
     // ES
     // 'DEV00000ESPLQ',

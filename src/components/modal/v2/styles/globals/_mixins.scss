@@ -7,6 +7,7 @@
     }
 }
 
+// Main modal view
 @mixin tablet {
     @media (min-width: 640px) /*and (max-width: 1365px) */ {
         @content;

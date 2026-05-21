@@ -19,7 +19,7 @@ const {
 } = selectors;
 
 /**
- * Ensures the below threshold calcultor warning displays for amounts below the minimum qualifying amount.
+ * Ensures the below threshold calculator warning displays for amounts below the minimum qualifying amount.
  */
 export const belowThresholdErr = async (contentWindow, modalContent, testName) => {
     await contentWindow.waitForSelector(contentWrapper);
@@ -30,7 +30,7 @@ export const belowThresholdErr = async (contentWindow, modalContent, testName) =
 };
 
 /**
- * Ensures the above threshold calcultor warning displays for amounts above the maximum qualifying amount.
+ * Ensures the above threshold calculator warning displays for amounts above the maximum qualifying amount.
  */
 export const aboveThresholdErr = async (contentWindow, modalContent, testName) => {
     await contentWindow.waitForSelector(contentWrapper);

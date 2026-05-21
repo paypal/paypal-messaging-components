@@ -141,11 +141,7 @@ export default {
                 headline: [
                     {
                         tag: 'medium',
-                        br: ['payments', 'versements'],
-                        replace: [
-                            ['00.', '00'],
-                            ['00 $.', '00 $']
-                        ]
+                        br: ['payments', 'versements']
                     },
                     {
                         tag: 'xsmall.2',
@@ -165,11 +161,7 @@ export default {
                 headline: [
                     {
                         tag: 'medium',
-                        br: ['payments', 'versements'],
-                        replace: [
-                            ['00.', '00'],
-                            ['00 $.', '00 $']
-                        ]
+                        br: ['payments', 'versements']
                     },
                     {
                         tag: 'xsmall.2',

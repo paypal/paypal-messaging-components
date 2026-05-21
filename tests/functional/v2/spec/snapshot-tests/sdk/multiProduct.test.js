@@ -51,7 +51,7 @@ descFn.each(filterPermutations([LOCALE_CONFIG], [ACCOUNT]))(
         });
 
         test.skip(`Amount:${amount} - Amount persists between views - ${viewport}`, async () => {
-            await viewsShareAmount(modalFrame, getTestName(country, integration, account, amount, viewport));
+            await viewsShareAmount(modalFrame, getTestName(country, integration, account, amount, viewport), account);
         });
 
         test(`Amount:${amount} - X button closes modal - ${viewport}`, async () => {
