@@ -12,7 +12,7 @@ jobs:
         if: github.event.workflow_run.conclusion == 'success'
         runs-on: ubuntu-24.04
         permissions:
-          contents: write
+            contents: write
         steps:
             - name: Checkout repo
               uses: actions/checkout@v4
@@ -30,8 +30,7 @@ jobs:
                       const artifacts = await github.rest.actions.listWorkflowRunArtifacts({
                         owner: context.repo.owner,
                         repo: context.repo.repo,
-                        run_id: context.payload.workflow_run.id,
-                        per_page: 100
+                        run_id: context.payload.workflow_run.id
                       });
 
                       await Promise.all(
@@ -65,14 +64,6 @@ jobs:
               run: |
                   git status --porcelain
 
-            - name: Commit Updated Snapshots
-              uses: stefanzweifel/git-auto-commit-action@v4
-              with:
-                  commit_message: 'chore(snapshots): ${{ github.event.workflow.name }} [skip ci]'
-                  commit_options: '--no-verify --quiet'
-                  file_pattern: tests/functional/snapshots tests/functional/v2/snapshots
-                  push_options: '-v'
-
             - name: Reset Label
               if: github.event.workflow_run.event == 'pull_request'
               uses: actions/github-script@v7
@@ -92,3 +83,11 @@ jobs:
                       }).catch(() => {
                         console.log('snapshots label has already been removed');
                       });
+
+            - name: Commit Updated Snapshots
+              uses: stefanzweifel/git-auto-commit-action@v4
+              with:
+                  commit_message: 'chore(snapshots): ${{ github.event.workflow.name }} [skip ci]'
+                  commit_options: '--no-verify --quiet'
+                  file_pattern: tests/functional/snapshots tests/functional/v2/snapshots
+                  push_options: '-v'
