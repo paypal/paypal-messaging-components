@@ -1,5 +1,25 @@
 # Changelog
 
+### [1.84.1](https://github.com/paypal/paypal-messaging-components/compare/v1.84.0...v1.84.1) (2026-05-14)
+
+
+### Code Refactoring
+
+* update deviceID in updateProps to use xprops deviceID and not getOrCreateDeviceID ([5893800](https://github.com/paypal/paypal-messaging-components/commit/5893800e6560fd5166cc1fa48387ce2e327db163))
+
+## [1.84.0](https://github.com/paypal/paypal-messaging-components/compare/v1.83.0...v1.84.0) (2026-05-13)
+
+
+### Features
+
+* **AT:** Modal added for AT for Pay Later Hub and DE modal content changes ([#1305](https://github.com/paypal/paypal-messaging-components/issues/1305)) ([fb50820](https://github.com/paypal/paypal-messaging-components/commit/fb5082036df9ade2e272274d693ef7e432add8ae))
+* create fr lt msgs ([#1242](https://github.com/paypal/paypal-messaging-components/issues/1242)) ([9090048](https://github.com/paypal/paypal-messaging-components/commit/9090048492aed745da622839b8c0b7bbd725a2f5))
+
+
+### Bug Fixes
+
+* **ca:** fix pix qualifying mutations ([#1312](https://github.com/paypal/paypal-messaging-components/issues/1312)) ([ccc1911](https://github.com/paypal/paypal-messaging-components/commit/ccc19116b8971267546568fce48acfc364714907))
+
 ## [1.83.0](https://github.com/paypal/paypal-messaging-components/compare/v1.82.0...v1.83.0) (2026-05-07)
 
 
