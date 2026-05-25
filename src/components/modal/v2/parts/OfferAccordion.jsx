@@ -16,7 +16,14 @@ const OfferAccordion = ({
     const [open, setOpen] = useState('');
     const { termsLabel } = content;
     const currencySymbolFormat = str => {
-        return str.replace(/(\s?EUR)/g, ' €');
+        let result = str?.replace(/(\s?EUR)/g, ' €') ?? '';
+        if (offerCountry === 'AT') {
+            // MORS provides currency-formatted strings (e.g. "1.000,00 EUR") where period is the
+            // thousands separator for de-AT currency style. The input field uses de-AT number style
+            // (narrow no-break space U+202F as thousands separator). Reformat to match.
+            result = result.replace(/(\d)\.(\d{3})/g, '$1 $2');
+        }
+        return result;
     };
 
     useEffect(() => {
