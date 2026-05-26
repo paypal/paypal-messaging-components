@@ -101,7 +101,7 @@ export default {
         offers: {
             PAY_LATER_PAY_IN_1: [
                 {
-                    totalPayents: 1,
+                    totalPayments: 1,
                     apr: 9.99,
                     nominalRate: 0,
                     minAmount: 1,
