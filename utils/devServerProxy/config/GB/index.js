@@ -72,5 +72,42 @@ export default {
                 }
             ]
         }
+    },
+    DEV_GB_PAY_IN_1_CHECKOUT: {
+        country: 'GB',
+        modalViews: [
+            {
+                template: 'pay_in_1_xo.json',
+                product: 'PAY_LATER_PAY_IN_1'
+            }
+        ],
+        messageThresholds: [
+            {
+                amount: 0,
+                template: 'pl.json',
+                product: 'PAY_LATER_SHORT_TERM'
+            },
+            {
+                amount: 1,
+                template: 'plq.json',
+                product: 'PAY_LATER_SHORT_TERM'
+            },
+            {
+                amount: 900.01,
+                template: 'pl.json',
+                product: 'PAY_LATER_SHORT_TERM'
+            }
+        ],
+        offers: {
+            PAY_LATER_PAY_IN_1: [
+                {
+                    totalPayments: 1,
+                    apr: 9.99,
+                    nominalRate: 0,
+                    minAmount: 1,
+                    maxAmount: 900
+                }
+            ]
+        }
     }
 };
