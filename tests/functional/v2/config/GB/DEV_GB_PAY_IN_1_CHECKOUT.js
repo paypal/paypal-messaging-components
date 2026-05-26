@@ -10,7 +10,7 @@ export const DEV_GB_PAY_IN_1_CHECKOUT = {
             message: 'Non-qualifying Pay in 1',
             expectedValue: 'Buy now. Pay in 30 Days.',
             modalContent: {
-                subheadline: 'Available for purchases of £1 to £900. Eligibility subject to status.',
+                subheadline: 'Available for purchases of £1 - £900. Eligibility subject to status.',
                 periodicPayment: null
             }
         },
@@ -19,7 +19,7 @@ export const DEV_GB_PAY_IN_1_CHECKOUT = {
             message: 'Qualifying Pay in 1',
             expectedValue: 'Buy now. Pay in 30 Days.',
             modalContent: {
-                subheadline: 'Available for purchases of £1 to £900. Eligibility subject to status.',
+                subheadline: 'Available for purchases of £1 - £900. Eligibility subject to status.',
                 periodicPayment: null
             }
         },
@@ -28,7 +28,7 @@ export const DEV_GB_PAY_IN_1_CHECKOUT = {
             message: 'Non-qualifying Pay in 1',
             expectedValue: 'Buy now. Pay in 30 Days.',
             modalContent: {
-                subheadline: 'Available for purchases of £1 to £900. Eligibility subject to status.',
+                subheadline: 'Available for purchases of £1 - £900. Eligibility subject to status.',
                 periodicPayment: null
             }
         }

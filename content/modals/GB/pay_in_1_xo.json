@@ -27,7 +27,7 @@
     },
     "content": {
         "headline": "Buy now. Pay in 30 Days.",
-        "subheadline": "Available for purchases of {formattedMinAmount} to {formattedMaxAmount}. Eligibility subject to status.",
+        "subheadline": "Available for purchases of {formattedMinAmount} - {formattedMaxAmount}. Eligibility subject to status.",
         "instructions": [
             "Apply for Pay in 30 Days.",
             "If approved, complete your purchase.",
