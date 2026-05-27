@@ -30,7 +30,7 @@ export default {
                 product: 'PAY_LATER_SHORT_TERM'
             },
             {
-                amount: 30,
+                amount: 20,
                 template: 'gplq.json',
                 product: 'PAY_LATER_SHORT_TERM'
             },
@@ -100,7 +100,7 @@ export default {
                 product: 'PAY_LATER_SHORT_TERM'
             },
             {
-                amount: 30,
+                amount: 20,
                 template: 'gplq.json',
                 product: 'PAY_LATER_SHORT_TERM'
             },
