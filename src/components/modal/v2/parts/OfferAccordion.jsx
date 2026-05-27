@@ -1,6 +1,7 @@
 /** @jsx h */
 import { h } from 'preact';
 import { useEffect, useState } from 'preact/hooks';
+import { delocalize, localize } from '../lib';
 import Icon from './Icon';
 
 const OfferAccordion = ({
@@ -17,11 +18,15 @@ const OfferAccordion = ({
     const { termsLabel } = content;
     const currencySymbolFormat = str => {
         let result = str?.replace(/(\s?EUR)/g, ' €') ?? '';
-        if (offerCountry === 'AT') {
-            // MORS provides currency-formatted strings (e.g. "1.000,00 EUR") where period is the
-            // thousands separator for de-AT currency style. The input field uses de-AT number style
-            // (narrow no-break space U+202F as thousands separator). Reformat to match.
-            result = result.replace(/(\d)\.(\d{3})/g, '$1 $2');
+        if (offerCountry === 'AT' && result) {
+            // Reformat the numeric part using the locale's number style so the thousands separator
+            // matches what the calculator input field displays (de-AT number format uses narrow
+            // no-break space, whereas de-AT currency format uses period).
+            const withoutSymbol = result.replace(/\s*€/, '').trim();
+            const numericValue = parseFloat(delocalize(withoutSymbol, offerCountry));
+            if (!Number.isNaN(numericValue)) {
+                result = `${localize(numericValue, offerCountry, 2)} €`;
+            }
         }
         return result;
     };
