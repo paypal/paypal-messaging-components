@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.85.0](https://github.com/paypal/paypal-messaging-components/compare/v1.84.1...v1.85.0) (2026-05-28)
+
+
+### Features
+
+* create uk xo pi30 modal ([#1310](https://github.com/paypal/paypal-messaging-components/issues/1310)) ([eb1186d](https://github.com/paypal/paypal-messaging-components/commit/eb1186dc9b774f802c545e64aeccc88c4e3bf231))
+
 ### [1.84.1](https://github.com/paypal/paypal-messaging-components/compare/v1.84.0...v1.84.1) (2026-05-14)
 
 
