@@ -111,6 +111,12 @@ describe('createPrequalToken', () => {
 
         expect(token1).not.toEqual(token2);
     });
+
+    it('produces a token within the 36-char limit', () => {
+        const token = createPrequalToken();
+
+        expect(token.length).toBeLessThanOrEqual(36);
+    });
 });
 
 describe('openPrequalification', () => {
