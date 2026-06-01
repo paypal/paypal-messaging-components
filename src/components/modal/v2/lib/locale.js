@@ -1,11 +1,17 @@
-const getLocale = country =>
-    ({
-        US: 'en-US',
-        IT: 'it-IT',
-        ES: 'es-ES',
-        DE: 'de-DE',
-        AT: 'de-AT'
-    }[country] ?? 'en-US');
+const getLocale = (country, language) => {
+    if (country === 'CA') {
+        return language === 'fr-CA' ? 'fr-CA' : 'en-US';
+    }
+    return (
+        {
+            US: 'en-US',
+            IT: 'it-IT',
+            ES: 'es-ES',
+            DE: 'de-DE',
+            AT: 'de-AT'
+        }[country] ?? 'en-US'
+    );
+};
 
 const setCurrency = (country, value) =>
     ({
@@ -19,8 +25,8 @@ const setCurrency = (country, value) =>
 const decimalSeparator = locale => (1.1).toLocaleString(locale).replace(/\d/g, '');
 
 // eslint-disable-next-line default-param-last
-export const delocalize = (amount = '', country) => {
-    const locale = getLocale(country);
+export const delocalize = (amount = '', country, language) => {
+    const locale = getLocale(country, language);
     const localizedDecimalSeparator = decimalSeparator(locale);
     const delocalizedString = `${amount}`.replace(/\D/g, separator =>
         separator === localizedDecimalSeparator ? '.' : ''
@@ -30,22 +36,22 @@ export const delocalize = (amount = '', country) => {
 };
 
 // eslint-disable-next-line default-param-last
-export const localize = (amount = '', country, minimumFractionDigits = 0) => {
+export const localize = (amount = '', country, minimumFractionDigits = 0, language) => {
     const number = Number(amount) || 0;
-    const locale = getLocale(country);
+    const locale = getLocale(country, language);
 
     return number.toLocaleString(locale, { minimumFractionDigits, maximumFractionDigits: 2 });
 };
 
-export const getDisplayValue = (value, country) => {
-    const delocalizedValue = delocalize(value, country);
+export const getDisplayValue = (value, country, language) => {
+    const delocalizedValue = delocalize(value, country, language);
 
     // Match all digits before the decimal and 1-2 digits after
     // eslint-disable-next-line security/detect-unsafe-regex
     const [, dollarVal, centVal = ''] = delocalizedValue.match(/^(\d+)(?:\.(\d{1,2}))?/) ?? [];
-    const formattedValue = localize(dollarVal, country);
+    const formattedValue = localize(dollarVal, country, 0, language);
 
-    const locale = getLocale(country);
+    const locale = getLocale(country, language);
     const localizedDecimalSeparator = decimalSeparator(locale);
 
     return delocalizedValue === '' || formattedValue === 'NaN'

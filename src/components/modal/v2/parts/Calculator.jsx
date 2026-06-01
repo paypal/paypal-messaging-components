@@ -250,7 +250,7 @@ const Calculator = ({
                     />
                 </div>
             ) : null}
-            {country === 'US' && (
+            {(country === 'US' || country === 'CA') && (
                 <div
                     className={`finance-terms__disclaimer ${
                         !(hasInitialAmount || hasUsedInputField) || error ? 'no-amount' : ''
