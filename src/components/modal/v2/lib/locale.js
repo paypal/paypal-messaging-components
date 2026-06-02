@@ -1,6 +1,6 @@
 const getLocale = (country, language) => {
     if (country === 'CA') {
-        return language === 'fr-CA' ? 'fr-CA' : 'en-US';
+        return language === 'fr-CA' ? 'fr-CA' : 'en-CA';
     }
     return (
         {
@@ -13,14 +13,20 @@ const getLocale = (country, language) => {
     );
 };
 
-const setCurrency = (country, value) =>
-    ({
-        US: `$${value}`,
-        IT: value,
-        ES: value,
-        DE: value,
-        AT: value
-    }[country] ?? `$${value}`);
+const setCurrency = (country, value, language) => {
+    if (country === 'CA') {
+        return language === 'fr-CA' ? `${value} $ CAD` : `$${value}`;
+    }
+    return (
+        {
+            US: `$${value}`,
+            IT: value,
+            ES: value,
+            DE: value,
+            AT: value
+        }[country] ?? `$${value}`
+    );
+};
 
 const decimalSeparator = locale => (1.1).toLocaleString(locale).replace(/\d/g, '');
 
@@ -62,6 +68,7 @@ export const getDisplayValue = (value, country, language) => {
                   centVal !== '' || value[value.length - 1] === localizedDecimalSeparator
                       ? `${localizedDecimalSeparator}${centVal.slice(0, 2)}`
                       : ''
-              }`
+              }`,
+              language
           );
 };

@@ -82,6 +82,7 @@ const Calculator = ({
     const { view, value, isLoading, submit, changeInput } = useCalculator({ autoSubmit: true });
     const { amount } = useXProps();
     const { country, views } = useServerData();
+    const { language } = views[0].meta;
     const { title, genericTitle, inputLabel, inputPlaceholder, inputCurrencySymbol } = calculator;
 
     // Set hasUsedInputField to true if someone has typed in the input field at any point.
@@ -91,7 +92,7 @@ const Calculator = ({
     const hasInitialAmount = typeof amount !== 'undefined';
 
     // If the person entered an amount in the calc and it is not 0.
-    const hasEnteredAmount = !(parseInt(delocalize(value || '0', country), 10) === 0);
+    const hasEnteredAmount = !(parseInt(delocalize(value || '0', country, language), 10) === 0);
 
     // If no initial amount is passed in (amount is undefined) and they have not entered any amount at all (aka empty input field).
     const emptyState = !hasInitialAmount && !hasEnteredAmount;
@@ -99,13 +100,13 @@ const Calculator = ({
     const [displayValue, setDisplayValue] = useState(hasInitialAmount ? value : '');
 
     // Pass view, isLoading state, and calculator props into getError to get the appropriate error, if any. Could return as 'null'.
-    const error = getError(view, isLoading, calculator, delocalize(displayValue ?? '0', country), country);
+    const error = getError(view, isLoading, calculator, delocalize(displayValue ?? '0', country, language), country);
 
     useEffect(() => {
         if (!hasInitialAmount && !hasUsedInputField) {
             setDisplayValue('');
         } else {
-            setDisplayValue(getDisplayValue(value, country));
+            setDisplayValue(getDisplayValue(value, country, language));
         }
     }, [views, value]);
 
@@ -147,8 +148,8 @@ const Calculator = ({
         setHasUsedInputField(true);
 
         const { selectionStart, selectionEnd, value: targetValue } = evt.target;
-        const onInputValue = delocalize(targetValue, country);
-        const newDisplayValue = getDisplayValue(targetValue, country);
+        const onInputValue = delocalize(targetValue, country, language);
+        const newDisplayValue = getDisplayValue(targetValue, country, language);
 
         const finalValue = parseFloat(Number(onInputValue).toFixed(2)) < 1000000 ? newDisplayValue : displayValue;
 
