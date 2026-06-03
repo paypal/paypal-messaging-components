@@ -39,7 +39,7 @@
         ],
         "cta": {
             "buttonTextEligible": "Continuer avec Payer par mois",
-            "buttonTextIneligible": "Back to Checkout",
+            "buttonTextIneligible": "Revenir au paiement",
             "link": "https://www.paypal.com/link/to/long-term-application"
         }
     }
