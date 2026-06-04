@@ -24,7 +24,7 @@
         "calculator": {
             "title": "How much is your purchase?",
             "inputLabel": "Purchase amount",
-            "inputPlaceholder": "0.00 CAD",
+            "inputPlaceholder": "0 CAD",
             "genericError": "Something went wrong. Please try again later."
         },
         "genericDisclaimer": "Terms vary based on purchase amount and your credit.",
@@ -34,7 +34,7 @@
             "Use autopay for your payments. It's easy!"
         ],
         "disclosure": [
-            "Pay Monthly is available to approved consumers for purchases of {formattedMinAmount} to {formattedMaxAmount} (CAD) for certain transaction types. Availability depends on the merchant. You must be age of majority in the province or territory where you live to apply. Any transactions in other currencies will be converted to Canadian dollars subject to applicable currency conversion charges. You may repay the amount you owe in full at any time, without any fees or charges."
+            "Pay Monthly is available to approved consumers for purchases of $49.00 to $10,000.00 (CAD) for certain transaction types. Availability depends on the merchant. You must be age of majority in the province or territory where you live to apply. Any transactions in other currencies will be converted to Canadian dollars subject to applicable currency conversion charges. You may repay the amount you owe in full at any time, without any fees or charges."
         ],
         "cta": {
             "buttonTextEligible": "Continue with Pay Monthly",

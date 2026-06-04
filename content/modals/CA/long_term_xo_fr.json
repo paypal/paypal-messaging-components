@@ -25,7 +25,7 @@
         "calculator": {
             "title": "Quel est le montant de votre achat?",
             "inputLabel": "Montant de l'achat",
-            "inputPlaceholder": "0,00 CAD",
+            "inputPlaceholder": "0 CAD",
             "genericError": "Une erreur s’est produite. Veuillez réessayer plus tard."
         },
         "genericDisclaimer": "Les conditions varient en fonction du montant de l'achat et de votre crédit.",
@@ -35,7 +35,7 @@
             "Utilisez le paiement automatique pour vos paiements. C'est facile !"
         ],
         "disclosure": [
-            "Le Paiement mensuel est offert aux consommateurs approuvés pour des achats de {formattedMinAmount} à {formattedMaxAmount} (CAD) pour certains types de transactions. La disponibilité dépend du marchand. Vous devez avoir l'âge de la majorité dans la province ou le territoire où vous résidez pour faire une demande. Toutes les transactions effectuées dans d'autres devises seront converties en dollars canadiens, sous réserve des frais de conversion de devises applicables. Vous pouvez rembourser le montant dû en totalité à tout moment, sans frais ni pénalités."
+            "Le Paiement mensuel est offert aux consommateurs approuvés pour des achats de 49,00 $ à 10 000,00 $ (CAD) pour certains types de transactions. La disponibilité dépend du marchand. Vous devez avoir l'âge de la majorité dans la province ou le territoire où vous résidez pour faire une demande. Toutes les transactions effectuées dans d'autres devises seront converties en dollars canadiens, sous réserve des frais de conversion de devises applicables. Vous pouvez rembourser le montant dû en totalité à tout moment, sans frais ni pénalités."
         ],
         "cta": {
             "buttonTextEligible": "Continuer avec Payer par mois",
