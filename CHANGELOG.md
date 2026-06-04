@@ -1,5 +1,26 @@
 # Changelog
 
+## [1.86.0](https://github.com/paypal/paypal-messaging-components/compare/v1.85.0...v1.86.0) (2026-06-04)
+
+
+### Features
+
+* **DTCRCMERC-5257:** add renderV2Message SSR module ([ad50e6a](https://github.com/paypal/paypal-messaging-components/commit/ad50e6aa659536167c994d99e95e9af40e77169c))
+
+
+### Bug Fixes
+
+* **DTCRCMERC-5257:** address braluna PR review comments ([20b0888](https://github.com/paypal/paypal-messaging-components/commit/20b08886c80745d54ec589a4616cecfa5cefa5a2))
+* **DTCRCMERC-5257:** address jeremy and braluna PR review comments ([0d0208c](https://github.com/paypal/paypal-messaging-components/commit/0d0208cf07e4263fc1716bed4fe814f11b0c97a8))
+* **DTCRCMERC-5257:** code review fixes for renderV2Message module ([bcbe1da](https://github.com/paypal/paypal-messaging-components/commit/bcbe1da08f112f5d6cb6369277d324351379280a))
+* **DTCRCMERC-5257:** parameterize fontFamily and textAlign in styles ([9534613](https://github.com/paypal/paypal-messaging-components/commit/9534613c8bdc0c9dc0e91a4e785fa3673e8bc3a4))
+
+
+### Code Refactoring
+
+* **DTCRCMERC-5257:** rework renderV2Message to v6 template architecture ([bf98240](https://github.com/paypal/paypal-messaging-components/commit/bf9824066c29551231ae966356ce96189b8271f6))
+* update fr msg thresholds ([#1324](https://github.com/paypal/paypal-messaging-components/issues/1324)) ([ec5fd84](https://github.com/paypal/paypal-messaging-components/commit/ec5fd84d4034440417f1cb201a0b9b46e5fc2a55))
+
 ## [1.85.0](https://github.com/paypal/paypal-messaging-components/compare/v1.84.1...v1.85.0) (2026-05-28)
 
 
