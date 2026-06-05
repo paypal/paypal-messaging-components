@@ -30,8 +30,8 @@
     },
     "content": {
         "calculator": {
-            "belowThreshold": "Indiquez un montant de {formattedMinAmount} CAD ou plus",
-            "aboveThreshold": "Indiquez un montant de {formattedMaxAmount} CAD ou moins"
+            "belowThreshold": "Indiquez un montant de {formattedMinAmount} CAD ou plus.",
+            "aboveThreshold": "Indiquez un montant de {formattedMaxAmount} CAD ou moins."
         },
         "disclaimer": {
             "zeroAPR": "Les conditions varient en fonction du montant de l'achat et de votre crédit.",
@@ -40,7 +40,7 @@
         "termsLabel": {
             "offerHeader": "{formattedPeriodicPayment} CAD/<span aria-hidden='true'>mois</span> pendant {total_payments} mois",
             "nonZeroApr": "<span aria-hidden='true'>TAEG estimé*</span><span class='sr-only'>TAEG estimé, voir l'astérisque pour plus de détails ci-dessous.</span>",
-            "totalInterest": "Intérêts",
+            "totalInterest": "Intérêts (CAD)",
             "total": "Total (CAD)"
         }
     }

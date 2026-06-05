@@ -24,7 +24,7 @@
         "calculator": {
             "title": "How much is your purchase?",
             "inputLabel": "Purchase amount",
-            "inputPlaceholder": "0 CAD",
+            "inputPlaceholder": "$0",
             "genericError": "Something went wrong. Please try again later."
         },
         "genericDisclaimer": "Terms vary based on purchase amount and your credit.",
