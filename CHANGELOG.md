@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.87.0](https://github.com/paypal/paypal-messaging-components/compare/v1.86.0...v1.87.0) (2026-06-11)
+
+
+### Features
+
+* CA PM XO modal ([#1327](https://github.com/paypal/paypal-messaging-components/issues/1327)) ([5cda868](https://github.com/paypal/paypal-messaging-components/commit/5cda868f3bab8c291c8c095e774b4903954478a1))
+
 ## [1.86.0](https://github.com/paypal/paypal-messaging-components/compare/v1.85.0...v1.86.0) (2026-06-04)
 
 
