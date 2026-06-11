@@ -48,6 +48,10 @@ function getTreatmentPayerId() {
     return account && !account.startsWith(CLIENT_ID_ACCOUNT_PREFIX) ? account : undefined;
 }
 
+function getTreatmentFeatures({ props = {} }) {
+    return getFeatures(typeof props.features === 'string' ? props.features : undefined);
+}
+
 export default createGlobalVariableGetter('__paypal_credit_treatments__', () =>
     create({
         tag: TAG.TREATEMENTS,
@@ -86,7 +90,7 @@ export default createGlobalVariableGetter('__paypal_credit_treatments__', () =>
                 type: 'string',
                 queryParam: 'features',
                 required: false,
-                value: getFeatures
+                value: getTreatmentFeatures
             },
             namespace: {
                 type: 'string',

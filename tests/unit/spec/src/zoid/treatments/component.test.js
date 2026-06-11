@@ -104,6 +104,15 @@ describe('treatments component', () => {
         expect(treatmentsComponent.props.payerId).toBeUndefined();
     });
 
+    test('does not stringify zoid value options into features', () => {
+        const treatmentsComponent = getTreatmentsComponent();
+
+        expect(treatmentsComponent.props.features).toBe('native-modal');
+        expect(treatmentsComponent.config.props.features.value({ props: { features: 'test-feature' } })).toBe(
+            'test-feature,native-modal'
+        );
+    });
+
     test('handles treatment data', () => {
         const {
             props: { onReady }
