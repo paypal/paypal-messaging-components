@@ -1,4 +1,4 @@
-import { isIosWebview, isAndroidWebview } from '@krakenjs/belter/src';
+import { isIosWebview, isAndroidWebview, uniqueID } from '@krakenjs/belter/src';
 import { request, memoize, ppDebug, getGlobalUrl } from '../../../../utils';
 import validate from '../../../../library/zoid/message/validation';
 
@@ -142,22 +142,27 @@ export function validateProps(updatedProps) {
     return validatedProps;
 }
 
+export function createPrequalToken() {
+    // Reformat belter's uniqueID (e.g. "uid_a1b2c3d4e5_mte3mja") into a compact
+    // uppercase token prefixed with UM- for traceability across downstream applications.
+    return uniqueID().replace(/_/g, '').replace(/^uid/i, 'UM-').toUpperCase();
+}
+
 /**
  * Redirect the modal window to the CAP_s prequalification route.
- * Accepts query params (e.g., token, offer).
  *
  * @param {Object} params - query parameters to append to the URL
  */
 export function openPrequalification(params = {}) {
-    const { token, offer } = params;
+    const { offer } = params;
+    const token = createPrequalToken();
     const baseUrl = getGlobalUrl('PREQUALIFICATION');
     const query = Object.entries({ offer })
         .filter(([, val]) => typeof val !== 'undefined' && val !== null && val !== '')
         // Encode values to keep URL valid; keys are expected to be safe identifiers.
         .map(([key, val]) => `${key}=${encodeURIComponent(val)}`)
         .join('&');
-    // TODO: sessionIdentifier is being discussed; currently using ecToken.
-    const url = `${baseUrl}?token=${encodeURIComponent(token ?? '')}${query ? `&${query}` : ''}`;
+    const url = `${baseUrl}?token=${encodeURIComponent(token)}${query ? `&${query}` : ''}`;
 
     window.location.assign(url);
 }

@@ -35,8 +35,9 @@ const TermsTable = ({
         );
     }
 
-    // ES and IT countries offer accordion should display in ascending order (6, 12, 24 months)
-    const processedOffers = offerCountry === 'ES' || offerCountry === 'IT' ? [...offers].reverse() : offers;
+    // ES, IT, and CA countries offer accordion should display in ascending order (6, 12, 24 months)
+    const processedOffers =
+        offerCountry === 'ES' || offerCountry === 'IT' || offerCountry === 'CA' ? [...offers].reverse() : offers;
 
     const qualifyingOffers = processedOffers
         .filter(offer => offer.meta.qualifying === 'true')
