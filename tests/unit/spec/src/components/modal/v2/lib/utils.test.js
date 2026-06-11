@@ -1,4 +1,18 @@
-import { formatDateByCountry, validateProps, openPrequalification } from 'src/components/modal/v2/lib/utils';
+import {
+    formatDateByCountry,
+    validateProps,
+    openPrequalification,
+    createPrequalToken
+} from 'src/components/modal/v2/lib/utils';
+import { uniqueID } from '@krakenjs/belter/src';
+
+jest.mock('@krakenjs/belter/src', () => {
+    const original = jest.requireActual('@krakenjs/belter/src');
+    return {
+        ...original,
+        uniqueID: jest.fn(() => 'uid_a1b2c3d4e5_mte3mja')
+    };
+});
 
 jest.mock('src/utils', () => {
     const original = jest.requireActual('src/utils');
@@ -22,7 +36,8 @@ afterEach(() => {
         value: originalLocation,
         writable: true
     });
-    jest.clearAllMocks();
+    jest.restoreAllMocks();
+    uniqueID.mockReturnValue('uid_a1b2c3d4e5_mte3mja');
 });
 
 describe('Date function should return correct date format based on country', () => {
@@ -63,36 +78,96 @@ describe('validateProps', () => {
     });
 });
 
+describe('createPrequalToken', () => {
+    it('returns a token with UM- prefix', () => {
+        const token = createPrequalToken();
+
+        expect(token.startsWith('UM-')).toBe(true);
+    });
+
+    it('returns an uppercase token with no underscores', () => {
+        const token = createPrequalToken();
+
+        expect(token).toMatch(/^UM-[A-Z0-9]+$/);
+    });
+
+    it('strips uid prefix and replaces with UM-', () => {
+        uniqueID.mockReturnValue('uid_a1b2c3d4e5_mte3mja');
+
+        const token = createPrequalToken();
+
+        expect(token).toBe('UM-A1B2C3D4E5MTE3MJA');
+    });
+
+    it('produces unique tokens on each call', () => {
+        let callCount = 0;
+        uniqueID.mockImplementation(() => {
+            callCount += 1;
+            return `uid_${callCount}abcdef01_mte3mja`;
+        });
+
+        const token1 = createPrequalToken();
+        const token2 = createPrequalToken();
+
+        expect(token1).not.toEqual(token2);
+    });
+
+    it('produces a token within the 36-char limit', () => {
+        const token = createPrequalToken();
+
+        expect(token.length).toBeLessThanOrEqual(36);
+    });
+});
+
 describe('openPrequalification', () => {
-    it('redirects with token and offer params', () => {
-        openPrequalification({ token: 'ec-token-123', offer: 'PAY_LATER_SHORT_TERM' });
+    it('redirects with auto-generated UM token and offer param', () => {
+        openPrequalification({ offer: 'PAY_LATER_SHORT_TERM' });
 
         expect(window.location.assign).toHaveBeenCalledWith(
-            'https://www.paypal.com/paylateracq/prequalify?token=ec-token-123&offer=PAY_LATER_SHORT_TERM'
+            'https://www.paypal.com/paylateracq/prequalify?token=UM-A1B2C3D4E5MTE3MJA&offer=PAY_LATER_SHORT_TERM'
         );
     });
 
-    it('omits offer when not provided', () => {
-        openPrequalification({ token: 'ec-token-123' });
+    it('redirects with auto-generated UM token when no params provided', () => {
+        openPrequalification();
 
         expect(window.location.assign).toHaveBeenCalledWith(
-            'https://www.paypal.com/paylateracq/prequalify?token=ec-token-123'
+            'https://www.paypal.com/paylateracq/prequalify?token=UM-A1B2C3D4E5MTE3MJA'
         );
     });
 
     it('omits offer when offer is explicitly undefined', () => {
-        openPrequalification({ token: 'ec-token-123', offer: undefined });
+        openPrequalification({ offer: undefined });
 
         expect(window.location.assign).toHaveBeenCalledWith(
-            'https://www.paypal.com/paylateracq/prequalify?token=ec-token-123'
+            'https://www.paypal.com/paylateracq/prequalify?token=UM-A1B2C3D4E5MTE3MJA'
         );
     });
 
-    it('uses empty string when token is not provided', () => {
+    it('generates a token with UM- prefix and uppercase characters', () => {
         openPrequalification({ offer: 'PAY_LATER_SHORT_TERM' });
 
-        expect(window.location.assign).toHaveBeenCalledWith(
-            'https://www.paypal.com/paylateracq/prequalify?token=&offer=PAY_LATER_SHORT_TERM'
-        );
+        const url = window.location.assign.mock.calls[0][0];
+        const token = new URL(url).searchParams.get('token');
+
+        expect(token).toMatch(/^UM-[A-Z0-9]+$/);
+    });
+
+    it('generates unique tokens across multiple CTA clicks', () => {
+        let callCount = 0;
+        uniqueID.mockImplementation(() => {
+            callCount += 1;
+            return `uid_${callCount}abcdef01_mte3mja`;
+        });
+
+        openPrequalification({ offer: 'PAY_LATER_SHORT_TERM' });
+        const url1 = window.location.assign.mock.calls[0][0];
+        const token1 = new URL(url1).searchParams.get('token');
+
+        openPrequalification({ offer: 'PAY_LATER_SHORT_TERM' });
+        const url2 = window.location.assign.mock.calls[1][0];
+        const token2 = new URL(url2).searchParams.get('token');
+
+        expect(token1).not.toEqual(token2);
     });
 });
