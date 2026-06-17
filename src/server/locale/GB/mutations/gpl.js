@@ -27,7 +27,7 @@ export default {
                     },
                     { tag: 'xsmall' }
                 ],
-                disclaimer: ['credit-option', 'default']
+                disclaimer: ['extra', 'default']
             })
         ],
         [
@@ -130,7 +130,7 @@ export default {
                         tag: 'medium'
                     }
                 ],
-                disclaimer: ['credit-option', 'default']
+                disclaimer: ['extra', 'default']
             }
         ],
         [

@@ -26,7 +26,7 @@
     "subHeadline": [],
 
     "disclaimer": [
-        ["Credit option. ", ["credit-option"]],
+        ["Credit option. ", ["extra"]],
         ["Learn more", ["default"]]
     ]
 }

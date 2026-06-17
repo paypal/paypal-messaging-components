@@ -30,7 +30,7 @@ export default {
                     },
                     { tag: 'xsmall' }
                 ],
-                disclaimer: ['credit-option', 'default']
+                disclaimer: ['extra', 'default']
             })
         ],
         [
@@ -129,7 +129,7 @@ export default {
                         tag: 'medium'
                     }
                 ],
-                disclaimer: ['credit-option', 'default'],
+                disclaimer: ['extra', 'default'],
                 styles: [
                     '.message__headline .tag--medium > span:first-child:after { content: "."; }',
                     '.message__headline .tag--medium .weak { display: none; }'
