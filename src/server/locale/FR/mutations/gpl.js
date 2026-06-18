@@ -9,7 +9,7 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     textWrap(textSize * 43, textSize, 'FR'),
-                    messageLogoWidth(false, textSize * 4, textSize * 1.25),
+                    messageLogoWidth(false, textSize * 5.1),
                     setLogoTop(textSize * 20),
                     `@media screen and (min-width: ${textSize * 11.5}px) {
                         .message__messaging span.br {
@@ -17,7 +17,7 @@ export default {
                         }
                     }`
                 ],
-                logo: Logo.PP_PAYPAL.COLOR,
+                logo: Logo.WORDMARK.BLACK,
                 headline: [
                     {
                         tag: 'default',
@@ -33,7 +33,7 @@ export default {
                 styles: [
                     textWrap(textSize * 43, textSize, 'FR'),
                     setLogoTop(textSize * 40),
-                    messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
+                    messageLogoWidth(textSize * 6, textSize * 5.1),
                     `@media screen and (min-width: ${textSize * 11.5}px) {
                         .message__messaging span.br {
                             white-space: normal;
@@ -53,7 +53,7 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     // textWrap(textSize * 43, textSize, 'FR'),
-                    messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
+                    messageLogoWidth(textSize * 6, textSize * 5.1),
                     `@media screen and (min-width: ${textSize * 11.5}px) {
                         .message__messaging span.br {
                             white-space: normal;
@@ -74,9 +74,9 @@ export default {
                 styles: [
                     textWrap(textSize * 39, textSize, 'FR'),
                     altNoWrap(textSize * 10.6),
-                    messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25)
+                    messageLogoWidth(textSize * 1.75, textSize * 1.35)
                 ],
-                logo: Logo.PP_PAYPAL.COLOR[0],
+                logo: Logo.PP_MONOGRAM.COLOR,
                 headline: [
                     {
                         tag: 'default',
@@ -112,14 +112,14 @@ export default {
             'logo.type:inline',
             ({ textSize }) => ({
                 styles: [
-                    `.message__logo { width: ${textSize * 4}px }`,
+                    `.message__logo { width: ${textSize * 3.5}px }`,
                     `@media screen and (min-width: ${textSize * 11.5}px) {
                     .message__messaging span.br {
                         white-space: normal;
                     }
                 }`
                 ],
-                logo: Logo.NO_PP_MONOGRAM.COLOR,
+                logo: Logo.WORDMARK.BLACK,
                 headline: [
                     {
                         tag: 'default',
@@ -138,7 +138,7 @@ export default {
         [
             'default',
             {
-                logo: Logo.PP_PAYPAL.WHITE,
+                logo: Logo.WORDMARK.WHITE,
                 headline: [
                     {
                         tag: 'xsmall'

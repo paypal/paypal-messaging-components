@@ -1,3 +1,8 @@
-.message__logo > img {
-    top: 2.9px;
+.message__logo-container {
+    margin-right: 0.4rem;
+}
+
+.message__logo {
+    margin-top: 2px;
+    margin-bottom: 5px !important;
 }

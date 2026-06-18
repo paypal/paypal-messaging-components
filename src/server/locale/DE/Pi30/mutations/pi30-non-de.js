@@ -30,7 +30,7 @@ const flex = [
     [
         'default',
         {
-            logo: Logo.PP_PAYPAL.WHITE,
+            logo: Logo.WORDMARK.WHITE,
             headline: [
                 {
                     tag: 'xsmall'
@@ -76,13 +76,13 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     textWrap(textSize * 39, textSize, 'DE'),
-                    messageLogoWidth(false, textSize * 4, textSize * 1.25),
+                    messageLogoWidth(false, textSize * 5.1),
                     setLogoTop(textSize * 20),
                     xSmallNoWrap(textSize * 7.7),
                     primaryWrap(textSize * 12.4),
                     crossBorderDisclaimerWrap(textSize * 21.4, textSize * 30.4, textSize * 21.4, textSize * 15)
                 ],
-                logo: Logo.PP_PAYPAL.COLOR,
+                logo: Logo.WORDMARK.BLACK,
                 headline: [{ tag: 'xsmall', br: [','] }],
                 disclaimer: ['extra', 'default']
             })
@@ -92,7 +92,7 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     setLogoTop(textSize * 39),
-                    messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
+                    messageLogoWidth(textSize * 6, textSize * 5.1),
                     crossBorderDisclaimerWrap(textSize * 21.4, textSize * 30.4, textSize * 21.4, textSize * 15),
                     `@media screen and 
                     (max-width: ${textSize * 29}px) {
@@ -105,7 +105,7 @@ export default {
             'logo.type:primary && logo.position:top',
             ({ textSize }) => ({
                 styles: [
-                    messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
+                    messageLogoWidth(textSize * 6, textSize * 5.1),
                     crossBorderDisclaimerWrap(textSize * 21.4, textSize * 30.4, textSize * 21.4, textSize * 15),
                     `@media screen and 
                     (max-width: ${textSize * 29}px) {
@@ -120,12 +120,12 @@ export default {
                 styles: [
                     crossBorderDisclaimerWrap(textSize * 21.4, textSize * 30.4, textSize * 21.4, textSize * 15),
                     textWrap(textSize * 39, textSize, 'DE'),
-                    messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25),
+                    messageLogoWidth(textSize * 1.75, textSize * 1.35),
                     xSmallNoWrap(textSize * 8),
                     altNoWrap(textSize * 15.5)
                 ],
                 headline: [{ tag: 'xsmall', br: ['später'] }],
-                logo: Logo.PP_PAYPAL.COLOR[0]
+                logo: Logo.PP_MONOGRAM.COLOR
             })
         ],
         [
@@ -150,12 +150,12 @@ export default {
             'logo.type:inline',
             ({ textSize }) => ({
                 styles: [
-                    `.message__logo { width: ${textSize * 4}px }`,
+                    `.message__logo { width: ${textSize * 3.5}px }`,
                     `.message__logo-container::after { content: '.'; }`,
                     `.message__disclaimer { white-space: normal; }`,
                     `.message__headline .tag--xsmall > span { white-space: nowrap }`
                 ],
-                logo: Logo.NO_PP_MONOGRAM.COLOR,
+                logo: Logo.WORDMARK.BLACK,
                 headline: [
                     {
                         tag: 'xsmall',

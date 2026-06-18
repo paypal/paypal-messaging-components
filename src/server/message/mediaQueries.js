@@ -57,14 +57,14 @@ export function textWrap(breakpoint, textSize, locale) {
     return `@media screen and (max-width: ${breakpoint}px) {
         .locale--${locale} .message__content {
             display: block;
-            margin-top: -${textSize / 2}px;
         }
         .locale--${locale} .message__logo-container {
             display: inline-flex;
-            transform: translateY(${textSize / 2}px);
+            vertical-align: middle;
         }
         .locale--${locale} .message__messaging {
             display: inline;
+            vertical-align: middle;
         }
         .locale--${locale} .message__messaging span.br:first-child {
             white-space: normal;
@@ -106,15 +106,12 @@ export function setLogoTop(breakpoint) {
  * Used for message logo width configurations.
  * @param {number} logoContainerWidth Changes message logo container width.
  * @param {number} logoWidth Changes overall logo width.
- * @param {number} monogramWidth Changes width of the first-child of message__logo. In this case, the PP monogram.
  */
-export function messageLogoWidth(logoContainerWidth, logoWidth, monogramWidth) {
+export function messageLogoWidth(logoContainerWidth, logoWidth) {
     const messageLogoContainer =
         typeof logoContainerWidth === 'number' ? `.message__logo-container { width: ${logoContainerWidth}px; }` : '';
     const messageLogo = typeof logoWidth === 'number' ? `.message__logo { width: ${logoWidth}px; }` : '';
-    const messageLogoFirstChild =
-        typeof monogramWidth === 'number' ? `.message__logo:first-child { width: ${monogramWidth}px; }` : '';
-    return [messageLogoContainer, messageLogo, messageLogoFirstChild].join('');
+    return [messageLogoContainer, messageLogo].join('');
 }
 
 /**
@@ -158,18 +155,14 @@ export function removePeriodFromProductName(breakpoint) {
 export function logo20x1() {
     return `
     @media (min-aspect-ratio: 200/11) {
-        .message__logo:nth-of-type(1) {
-            width: 18%;
-            margin-right: 5%;
-        }
-
-        .message__logo:nth-of-type(2) {
-            display: inline;
-        }
-    }
-    @media (min-aspect-ratio: 200/11) and (min-width: 523px) {
         .message__logo-container {
-            max-width: 12%;
+            width: 20%;
+            justify-content: flex-end;
+        }
+        .message__logo {
+            width: 22%;
+            margin-right: 15px;
+            margin-top: -1px;
         }
     }
     `;

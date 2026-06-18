@@ -12,10 +12,6 @@
         font-size: 8.5vw;
     }
 
-    .message__disclaimer {
-        font-size: 6.5vw;
-    }
-
     .message__headline span.multi:nth-of-type(2) {
         display: inline;
     }

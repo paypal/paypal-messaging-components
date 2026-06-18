@@ -1,24 +1,24 @@
 // prettier-ignore
 const accounts = [
     // US
-    'DEV00000000NI',
-    'DEV0000000NIQ',
-    'DEV000NINONUS',
-    'DEV00NINONUSQ',
+    // 'DEV00000000NI',
+    // 'DEV0000000NIQ',
+    // 'DEV000NINONUS',
+    // 'DEV00NINONUSQ',
     // pay later short term
     'DEV0000000GPL',
     'DEV00000GPLNQ',
     'DEV000000GPLQ',
     // pay later long term
-    // 'DEV0USGENERIC',
-    // 'DEV00USLTNQEZ',
-    // 'DEV00USLTNQGZ',
-    // 'DEV00USLTMQEZ',
-    // 'DEVUSLTMQEZRB',
-    // 'DEV00USLTMQGZ',
-    // 'DEV00USLTSQEZ',
-    // 'DEVUSLTSQEZRB',
-    // 'DEV00USLTSQGZ',
+    'DEV0USGENERIC',
+    'DEV00USLTNQEZ',
+    'DEV00USLTNQGZ',
+    'DEV00USLTMQEZ',
+    'DEVUSLTMQEZRB',
+    'DEV00USLTMQGZ',
+    'DEV00USLTSQEZ',
+    'DEVUSLTSQEZRB',
+    'DEV00USLTSQGZ',
 
 
     // US Buttons Messages

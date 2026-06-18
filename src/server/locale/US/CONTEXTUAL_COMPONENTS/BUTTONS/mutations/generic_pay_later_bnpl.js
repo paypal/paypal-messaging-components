@@ -9,11 +9,11 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     textWrap(textSize * 15, textSize, 'US'),
-                    messageLogoWidth(false, textSize * 4, textSize * 1.25),
+                    messageLogoWidth(false, textSize * 5.1),
                     setLogoTop(textSize * 15),
                     `button { pointer-events: none; }`
                 ],
-                logo: Logo.PP_PAYPAL.COLOR,
+                logo: Logo.WORDMARK.BLACK,
                 headline: [{ tag: 'xsmall' }],
                 disclaimer: ['default']
             })
@@ -23,7 +23,7 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     setLogoTop(textSize * 15),
-                    messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
+                    messageLogoWidth(textSize * 6, textSize * 5.1),
                     `.locale--US .message__messaging {padding-right: 0.4rem;}`,
                     `button { pointer-events: none; }`
                 ]
@@ -34,7 +34,7 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     setLogoTop(textSize * 15),
-                    messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
+                    messageLogoWidth(textSize * 6, textSize * 5.1),
 
                     `.locale--US .message__logo-container {margin-left: 0.4rem;}`,
                     `button { pointer-events: none; }`
@@ -44,10 +44,7 @@ export default {
         [
             'logo.type:primary && logo.position:top',
             ({ textSize }) => ({
-                styles: [
-                    messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
-                    `button { pointer-events: none; }`
-                ]
+                styles: [messageLogoWidth(textSize * 6, textSize * 5.1), `button { pointer-events: none; }`]
             })
         ],
         [
@@ -57,11 +54,11 @@ export default {
                     `@media screen and (max-width: ${textSize * 10.5}px) { .message__content { white-space: nowrap; }}`,
                     textWrap(textSize * 32, textSize, 'US'),
                     altNoWrap(textSize * 10.6),
-                    messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25),
+                    messageLogoWidth(textSize * 1.75, textSize * 1.35),
                     `.message__headline .tag--xsmall > span {white-space: normal;}`,
                     `button { pointer-events: none; }`
                 ],
-                logo: Logo.PP_PAYPAL.COLOR[0]
+                logo: Logo.PP_MONOGRAM.COLOR
             })
         ],
         [
@@ -94,14 +91,14 @@ export default {
             'logo.type:inline',
             ({ textSize }) => ({
                 styles: [
-                    `.message__logo { width: ${textSize * 4}px }`,
+                    `.message__logo { width: ${textSize * 3.5}px }`,
                     `.locale--US .message__logo-container::after  {
                         content: '';
                     }
                     button { pointer-events: none; }
                     `
                 ],
-                logo: Logo.NO_PP_MONOGRAM.COLOR,
+                logo: Logo.WORDMARK.BLACK,
                 headline: [
                     {
                         tag: 'xsmall.2',

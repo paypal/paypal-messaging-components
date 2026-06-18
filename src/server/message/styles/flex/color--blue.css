@@ -3,5 +3,14 @@
 }
 
 .message__background {
-    background: #023188;
+    background: #0057d9;
+}
+
+.message__headline,
+.message__sub-headline {
+    font-weight: 700;
+}
+
+.message__disclaimer {
+    font-weight: 400;
 }

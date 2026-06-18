@@ -36,19 +36,24 @@ button:focus .message__content span.br {
 }
 
 .message__headline,
-.message__sub-headline,
+.message__sub-headline {
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: 700;
+    line-height: 32px;
+}
+
 .message__disclaimer {
     font-family: Helvetica, Arial, sans-serif;
-    font-weight: 300;
+    font-weight: 400;
 }
 
 .message__headline {
     font-family: Helvetica, Arial, sans-serif;
-    font-weight: 400;
+    font-weight: 700;
 }
 .message__headline .weak {
     font-family: Helvetica, Arial, sans-serif;
-    font-weight: 300;
+    font-weight: 700;
 }
 
 .message__disclaimer > span:not(.multi),

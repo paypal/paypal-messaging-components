@@ -11,24 +11,17 @@
     margin-bottom: 12%;
 }
 
-.message__logo:nth-of-type(1) {
-    width: 29px;
-    max-width: 15%;
+.message__logo {
+    max-width: 30%;
     margin-right: 0px;
-}
-
-.message__logo:nth-of-type(2) {
-    width: 91px;
-    max-width: 45%;
-    margin-left: 3%;
 }
 
 .message__headline {
     font-size: 10vw;
-    line-height: 1.55em;
+    line-height: normal !important;
 }
 
-@media (min-width: 140px) {
+@media (min-width: 200px) {
     .message__headline {
         font-size: 7.7vw;
     }

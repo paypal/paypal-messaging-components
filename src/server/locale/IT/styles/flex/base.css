@@ -5,8 +5,8 @@
 
 .message__headline {
     font-size: 8.4vw;
-    font-weight: 500;
-    line-height: 1.6em;
+    font-weight: 700;
+    line-height: 32px;
 }
 
 .message__disclaimer {
@@ -15,7 +15,7 @@
 
 .message__disclaimer > span {
     font-weight: 400;
-    text-decoration: none;
+    text-decoration: underline;
     white-space: normal;
 }
 
@@ -23,14 +23,7 @@
     white-space: nowrap;
 }
 
-.message__logo:nth-of-type(1) {
-    width: 27px;
-    display: inline-block;
-    margin-right: 10px;
-}
-
-.message__logo:nth-of-type(2) {
-    width: 89px;
+.message__logo {
     display: inline-block;
 }
 
@@ -42,11 +35,11 @@
 }
 
 .message__headline > span:nth-child(2) > strong {
-    font-weight: 500;
+    font-weight: 700;
 }
 
 .message__headline > span:nth-child(3) > strong {
-    font-weight: 500;
+    font-weight: 700;
 }
 
 @media (min-width: 220px) {

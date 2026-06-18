@@ -22,11 +22,11 @@ export default {
                     }`,
                     textWrap(textSize * 34, textSize, 'US'),
                     xSmallFallback(textSize * 16),
-                    messageLogoWidth(false, textSize * 4, textSize * 1.25),
+                    messageLogoWidth(false, textSize * 5.1),
                     setLogoTop(textSize * 16),
                     hideDisclaimer(textSize * 16)
                 ],
-                logo: Logo.PP_PAYPAL.COLOR,
+                logo: Logo.WORDMARK.BLACK,
                 headline: [
                     {
                         tag: 'medium',
@@ -48,7 +48,7 @@ export default {
                     }`,
                     xSmallFallback(textSize * 10.75),
                     setLogoTop(textSize * 34.2),
-                    messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
+                    messageLogoWidth(textSize * 6, textSize * 5.1),
                     hideDisclaimer(textSize * 10.75)
                 ]
             })
@@ -61,7 +61,7 @@ export default {
                         .message__headline > .tag--medium { white-space: normal; } 
                     }`,
                     xSmallFallback(textSize * 10.75),
-                    messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
+                    messageLogoWidth(textSize * 6, textSize * 5.1),
                     hideDisclaimer(textSize * 10.75)
                 ]
             })
@@ -74,11 +74,11 @@ export default {
                     xSmallFallback(textSize * 11.5),
                     altNoWrap(textSize * 10.6),
                     textWrap(textSize * 32, textSize, 'US'),
-                    messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25),
+                    messageLogoWidth(textSize * 1.75, textSize * 1.35),
                     `.message__headline .tag--xsmall > span {white-space: normal;}`,
                     hideDisclaimer(textSize * 11.5)
                 ],
-                logo: Logo.PP_PAYPAL.COLOR[0]
+                logo: Logo.PP_MONOGRAM.COLOR
             })
         ],
         [
@@ -111,11 +111,11 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     xSmallFallback(textSize * 12.5),
-                    `.message__logo { width: ${textSize * 4}px }`,
+                    `.message__logo { width: ${textSize * 3.5}px }`,
                     hideDisclaimer(textSize * 12.5),
                     removeInlinePeriod(textSize * 12.5)
                 ],
-                logo: Logo.NO_PP_MONOGRAM.COLOR,
+                logo: Logo.WORDMARK.BLACK,
                 headline: [
                     {
                         tag: 'medium',

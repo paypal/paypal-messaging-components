@@ -7,20 +7,19 @@
     }
 
     .message__logo-container {
-        flex-basis: 12%;
-        margin-bottom: -6px;
+        flex-basis: 20%;
         justify-content: flex-start;
         margin-left: 5px;
     }
 
-    .message__logo:nth-of-type(1) {
-        width: 50%;
+    .message__logo {
+        width: 55%;
         margin-left: 10px;
         margin-right: 0;
     }
 
-    .message__disclaimer {
-        margin-left: 4px;
+    .message__headline {
+        margin-right: 4px;
     }
 }
 
@@ -54,17 +53,12 @@
 
 @media (min-aspect-ratio: 80/11) and (min-width: 501px) {
     .message__logo-container {
-        flex-basis: 22%;
+        flex-basis: 20%;
     }
 
-    .message__logo:nth-of-type(1) {
-        width: 18%;
-        margin-right: 5%;
-    }
-
-    .message__logo:nth-of-type(2) {
-        display: inline-block;
+    .message__logo {
         width: 55%;
+        margin-right: 5%;
     }
 
     .message__disclaimer {

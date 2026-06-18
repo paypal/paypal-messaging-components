@@ -1,7 +1,18 @@
 .message__content {
-    border: 1px solid #b7bcbf;
+    color: #000000;
+    border: 1px solid #999999;
 }
 
 .message__background {
     background: #ffffff;
+}
+
+.message__headline,
+.message__sub-headline {
+    font-weight: 700;
+}
+
+.message__disclaimer {
+    font-weight: 400;
+    color: #000000;
 }

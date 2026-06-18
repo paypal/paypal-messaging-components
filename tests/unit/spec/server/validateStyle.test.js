@@ -15,6 +15,25 @@ jest.mock('server/message/logos.js', () => ({
             WHITE: {},
             GRAYSCALE: {},
             MONOCHROME: {}
+        },
+        PAYPAL_BADGE: {
+            COLOR: {},
+            WHITE: {},
+            GRAYSCALE: {},
+            MONOCHROME: {}
+        },
+        WORDMARK: {
+            COLOR: {},
+            WHITE: {},
+            BLACK: {},
+            GRAYSCALE: {},
+            MONOCHROME: {}
+        },
+        PP_MONOGRAM: {
+            COLOR: {},
+            WHITE: {},
+            GRAYSCALE: {},
+            MONOCHROME: {}
         }
     }
 }));

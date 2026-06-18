@@ -10,10 +10,6 @@
     content: '.';
 }
 
-.message__logo:last-child {
-    margin-top: -1px;
-}
-
 .weak {
     display: none;
 }

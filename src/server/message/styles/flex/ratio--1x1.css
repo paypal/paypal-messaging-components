@@ -19,7 +19,6 @@
 .message__disclaimer {
     position: absolute;
     width: 80%;
-    bottom: 7%;
     font-size: 9.5px;
 }
 
@@ -37,6 +36,7 @@
 
     .message__disclaimer {
         font-size: 5.5vw;
+        margin-top: 25px;
     }
 }
 
