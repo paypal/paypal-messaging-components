@@ -67,8 +67,25 @@ export function getInlineOptions(container) {
             if (nodeValue) {
                 const attributeName = nodeName.replace('data-pp-', '');
                 const value = inlineEventHandlers.includes(attributeName)
-                    ? // eslint-disable-next-line no-new-func
-                      new Function(nodeValue)
+                    ? (...args) => {
+                          // Resolve handler by global name (e.g. "myFn" or "MyApp.onClick").
+                          // Supports optional trailing "()" for convenience (e.g. "myFn()").
+                          // Does not use new Function / eval so script-src stays free of 'unsafe-eval'.
+                          const fnPath = nodeValue.trim().replace(/\(\s*\)$/, '');
+                          // Warn if the value looks like an expression with arguments rather than a plain identifier.
+                          // e.g. data-pp-onclick="trackEvent('click', 42)" won't work — wrap it in a named global function.
+                          if (/\(/.test(fnPath)) {
+                              // eslint-disable-next-line no-console
+                              console.error(
+                                  `PayPal Messages: "${nodeName}" value "${nodeValue}" looks like a JS expression and cannot be evaluated for CSP compliance. Use a global function name instead, e.g. data-${nodeName}="myHandler" where window.myHandler calls your logic.`
+                              );
+                              return;
+                          }
+                          const fn = fnPath.split('.').reduce((obj, key) => obj?.[key.trim()], window);
+                          if (typeof fn === 'function') {
+                              fn(...args);
+                          }
+                      }
                     : nodeValue;
 
                 return objectMerge(

@@ -41,10 +41,14 @@ describe('elements utils', () => {
         });
 
         test('Handles inline event hooks', () => {
+            window.testOnClick = jest.fn();
+            window.testOnRender = jest.fn();
+            window.testOnApply = jest.fn();
+
             const div = document.createElement('div');
-            div.setAttribute('data-pp-onclick', 'console.log("onClick")');
-            div.setAttribute('data-pp-onrender', 'console.log("onRender")');
-            div.setAttribute('data-pp-onapply', 'console.log("onApply")');
+            div.setAttribute('data-pp-onclick', 'testOnClick');
+            div.setAttribute('data-pp-onrender', 'testOnRender()');
+            div.setAttribute('data-pp-onapply', 'testOnApply');
 
             const options = getInlineOptions(div);
 
@@ -55,9 +59,51 @@ describe('elements utils', () => {
                 onApply: expect.any(Function)
             });
 
-            expect(options.onClick.toString()).toContain('console.log("onClick")');
-            expect(options.onRender.toString()).toContain('console.log("onRender")');
-            expect(options.onApply.toString()).toContain('console.log("onApply")');
+            options.onClick('arg1');
+            options.onRender();
+            options.onApply();
+
+            expect(window.testOnClick).toHaveBeenCalledTimes(1);
+            expect(window.testOnClick).toHaveBeenCalledWith('arg1');
+            expect(window.testOnRender).toHaveBeenCalledTimes(1);
+            expect(window.testOnApply).toHaveBeenCalledTimes(1);
+
+            delete window.testOnClick;
+            delete window.testOnRender;
+            delete window.testOnApply;
+        });
+
+        test('Handles dot-notation inline event hooks', () => {
+            window.testNs = { onClick: jest.fn() };
+
+            const div = document.createElement('div');
+            div.setAttribute('data-pp-onclick', 'testNs.onClick');
+
+            const options = getInlineOptions(div);
+
+            options.onClick();
+
+            expect(window.testNs.onClick).toHaveBeenCalledTimes(1);
+
+            delete window.testNs;
+        });
+
+        test('Logs a console error for expression-style values instead of silently no-oping', () => {
+            const errorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+            window.testFn = jest.fn();
+
+            const div = document.createElement('div');
+            div.setAttribute('data-pp-onclick', "testFn('arg', 42)");
+
+            const options = getInlineOptions(div);
+            options.onClick();
+
+            expect(window.testFn).not.toHaveBeenCalled();
+            expect(errorSpy).toHaveBeenCalledTimes(1);
+            expect(errorSpy.mock.calls[0][0]).toContain('data-pp-onclick');
+
+            errorSpy.mockRestore();
+            delete window.testFn;
         });
     });
 });
