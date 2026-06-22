@@ -25,5 +25,8 @@
     ],
     "subHeadline": [],
 
-    "disclaimer": [["Learn more", ["default"]]]
+    "disclaimer": [
+        ["Credit option. ", ["extra"]],
+        ["Learn more", ["default"]]
+    ]
 }
