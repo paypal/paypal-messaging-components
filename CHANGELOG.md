@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.88.0](https://github.com/paypal/paypal-messaging-components/compare/v1.87.0...v1.88.0) (2026-06-22)
+
+
+### Features
+
+* Adjust UK Pi3 for regulatory changes ([#1330](https://github.com/paypal/paypal-messaging-components/issues/1330)) ([#1334](https://github.com/paypal/paypal-messaging-components/issues/1334)) ([d0cf9f0](https://github.com/paypal/paypal-messaging-components/commit/d0cf9f0fe3a2401836acbea8f48db93fac1ac16d))
+
 ## [1.87.0](https://github.com/paypal/paypal-messaging-components/compare/v1.86.0...v1.87.0) (2026-06-11)
 
 
