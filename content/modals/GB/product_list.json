@@ -7,7 +7,7 @@
     },
     "content": {
         "headline": "<span aria-hidden='true'>Buy now, <br />pay later</span><span class='sr-only'>Buy now, pay later</span>",
-        "disclosure": "Pay in 3 and Pay in 30 Days are unregulated credit agreements. Missing payments can impact future borrowing. Eligibility subject to status. Terms and conditions apply.",
+        "disclosure": "Pay in 3 and Pay in 30 Days are credit agreements. Missing payments can impact future borrowing. Eligibility subject to status. Terms and conditions apply.",
         "instructions": {
             "payLater": "Get more info on Pay Later options."
         },

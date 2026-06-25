@@ -29,7 +29,7 @@
             "One repayment is taken automatically 30 days after your order is processed."
         ],
         "disclosure": [
-            "Pay in 30 Days is an unregulated credit agreement, so you will have fewer protections than under a regulated credit agreement. Carefully consider whether the purchase is affordable and how you will repay. Missing payment may affect your ability to use us in the future, and you may find it more difficult and/or more expensive to obtain credit. Eligibility is subject to status and approval. 18+ UK residents only. Available for purchases {formattedMinAmount} - {formattedMaxAmount}. ",
+            "Pay in 30 Days is a credit agreement. Carefully consider whether the purchase is affordable and how you will repay. Missing payment may affect your ability to use us in the future, and you may find it more difficult and/or more expensive to obtain credit. Eligibility is subject to status and approval. 18+ UK residents only. Available for purchases {formattedMinAmount} - {formattedMaxAmount}. ",
             ["Terms and conditions apply", "https://www.paypal.com/uk/webapps/mpp/ua/pay-in-30-full"],
             ". PayPal Pay in 30 Days is a trading name of PayPal UK Ltd, 5 Fleet Place, London, United Kingdom, EC4M 7RD."
         ],
