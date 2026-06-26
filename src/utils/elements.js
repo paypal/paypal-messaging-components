@@ -52,6 +52,408 @@ export function getInlineOptions(container) {
 
     const inlineEventHandlers = ['onclick', 'onapply', 'onrender'];
 
+    const inlineHandlerNamespace = '__paypal_messages_inline_handlers__';
+
+    const getGlobalByPath = (root, path) => path.split('.').reduce((obj, key) => obj?.[key.trim()], root);
+
+    const isValidIdentifier = value => /^[A-Za-z_$][A-Za-z0-9_$]*$/.test(value);
+
+    const trimTrailingSemicolon = value =>
+        value.trim().endsWith(';') ? value.trim().slice(0, -1).trim() : value.trim();
+
+    const attachInlineSource = (handler, source) => {
+        try {
+            Object.defineProperty(handler, 'toString', {
+                value: () => source,
+                configurable: true
+            });
+        } catch (err) {
+            // If defineProperty fails, fallback behavior is the native function toString.
+        }
+
+        return handler;
+    };
+
+    const parseCalleePath = value => {
+        const parts = value.split('.');
+        if (!parts.length || !parts.every(part => part && isValidIdentifier(part))) {
+            return undefined;
+        }
+        return parts.join('.');
+    };
+
+    const splitCallArguments = argsSource => {
+        const args = [];
+        let current = '';
+        let depth = 0;
+        let quote;
+
+        for (let i = 0; i < argsSource.length; i += 1) {
+            const char = argsSource[i];
+            const previous = argsSource[i - 1];
+
+            if (quote) {
+                current += char;
+                if (char === quote && previous !== '\\') {
+                    quote = undefined;
+                }
+            } else if (char === '"' || char === "'") {
+                quote = char;
+                current += char;
+            } else if (char === '(' || char === '[' || char === '{') {
+                depth += 1;
+                current += char;
+            } else if (char === ')' || char === ']' || char === '}') {
+                depth -= 1;
+                current += char;
+            } else if (char === ',' && depth === 0) {
+                args.push(current.trim());
+                current = '';
+            } else {
+                current += char;
+            }
+        }
+
+        if (current.trim()) {
+            args.push(current.trim());
+        }
+
+        return args;
+    };
+
+    const resolveExpressionArg = (token, runtimeArgs) => {
+        const value = token.trim();
+
+        const isIdentifierStart = char => /[A-Za-z_$]/.test(char);
+        const isIdentifierBody = char => /[A-Za-z0-9_$]/.test(char);
+        const isGlobalPath = path => {
+            if (!path || !isIdentifierStart(path[0])) {
+                return false;
+            }
+
+            for (let i = 1; i < path.length; i += 1) {
+                const char = path[i];
+                const previous = path[i - 1];
+
+                if (char === '.') {
+                    if (previous === '.' || i === path.length - 1) {
+                        return false;
+                    }
+                } else if (!isIdentifierBody(char)) {
+                    return false;
+                }
+            }
+
+            return path[path.length - 1] !== '.';
+        };
+
+        if (!value) {
+            return undefined;
+        }
+
+        if (value === '$event' || value === '$arg0') {
+            return runtimeArgs[0];
+        }
+
+        if (value.startsWith('$arg') && value.length > 4) {
+            const argIndex = Number(value.slice(4));
+            if (Number.isInteger(argIndex)) {
+                return runtimeArgs[argIndex];
+            }
+        }
+
+        if (value === 'true') {
+            return true;
+        }
+        if (value === 'false') {
+            return false;
+        }
+        if (value === 'null') {
+            return null;
+        }
+        if (value === 'undefined') {
+            return undefined;
+        }
+
+        if (!Number.isNaN(Number(value)) && value !== '') {
+            return Number(value);
+        }
+
+        if ((value.startsWith('"') && value.endsWith('"')) || (value.startsWith("'") && value.endsWith("'"))) {
+            return value.slice(1, -1);
+        }
+
+        if (isGlobalPath(value)) {
+            return getGlobalByPath(window, value);
+        }
+
+        return undefined;
+    };
+
+    const createGeneratedGlobalHandler = (nodeName, nodeValue) => {
+        const parseCallExpression = value => {
+            const expression = trimTrailingSemicolon(value);
+            const openParenIndex = expression.indexOf('(');
+
+            const findMatchingParenIndex = (source, openIndex) => {
+                let quote;
+                let depth = 0;
+
+                for (let i = openIndex; i < source.length; i += 1) {
+                    const char = source[i];
+                    const previous = source[i - 1];
+
+                    if (quote) {
+                        if (char === quote && previous !== '\\') {
+                            quote = undefined;
+                        }
+                    } else if (char === '"' || char === "'") {
+                        quote = char;
+                    } else if (char === '(') {
+                        depth += 1;
+                    } else if (char === ')') {
+                        depth -= 1;
+                        if (depth === 0) {
+                            return i;
+                        }
+                    }
+                }
+
+                return -1;
+            };
+
+            const closeParenIndex = openParenIndex === -1 ? -1 : findMatchingParenIndex(expression, openParenIndex);
+
+            if (openParenIndex < 1 || closeParenIndex !== expression.length - 1) {
+                return undefined;
+            }
+
+            const calleePath = parseCalleePath(expression.slice(0, openParenIndex).trim());
+            if (!calleePath) {
+                return undefined;
+            }
+
+            return {
+                calleePath,
+                argTokens: splitCallArguments(expression.slice(openParenIndex + 1, closeParenIndex)),
+                paramIndexByName: {}
+            };
+        };
+
+        const findTopLevelArrowIndex = value => {
+            let quote;
+            let parenDepth = 0;
+            let bracketDepth = 0;
+            let braceDepth = 0;
+
+            for (let i = 0; i < value.length - 1; i += 1) {
+                const char = value[i];
+                const next = value[i + 1];
+                const previous = value[i - 1];
+
+                if (quote) {
+                    if (char === quote && previous !== '\\') {
+                        quote = undefined;
+                    }
+                } else if (char === '"' || char === "'") {
+                    quote = char;
+                } else if (char === '(') {
+                    parenDepth += 1;
+                } else if (char === ')') {
+                    parenDepth -= 1;
+                } else if (char === '[') {
+                    bracketDepth += 1;
+                } else if (char === ']') {
+                    bracketDepth -= 1;
+                } else if (char === '{') {
+                    braceDepth += 1;
+                } else if (char === '}') {
+                    braceDepth -= 1;
+                }
+
+                if (
+                    char === '=' &&
+                    next === '>' &&
+                    !quote &&
+                    parenDepth === 0 &&
+                    bracketDepth === 0 &&
+                    braceDepth === 0
+                ) {
+                    return i;
+                }
+            }
+
+            return -1;
+        };
+
+        const parseArrowFunctionExpression = value => {
+            const expression = trimTrailingSemicolon(value);
+            const arrowIndex = findTopLevelArrowIndex(expression);
+
+            if (arrowIndex === -1) {
+                return undefined;
+            }
+
+            const paramsSource = expression.slice(0, arrowIndex).trim();
+            const bodySource = expression.slice(arrowIndex + 2).trim();
+
+            const parseParams = source => {
+                if (!source) {
+                    return undefined;
+                }
+
+                if (source.startsWith('(') && source.endsWith(')')) {
+                    const inner = source.slice(1, -1).trim();
+                    if (!inner) {
+                        return [];
+                    }
+                    const values = inner.split(',').map(param => param.trim());
+                    return values.every(isValidIdentifier) ? values : undefined;
+                }
+
+                return isValidIdentifier(source) ? [source] : undefined;
+            };
+
+            const params = parseParams(paramsSource);
+            if (!params) {
+                return undefined;
+            }
+
+            const parseArrowBodyCall = source => {
+                if (!source) {
+                    return undefined;
+                }
+
+                if (source.startsWith('{') && source.endsWith('}')) {
+                    const inner = source.slice(1, -1).trim();
+                    if (!inner) {
+                        return undefined;
+                    }
+
+                    if (inner.startsWith('return ')) {
+                        return parseCallExpression(inner.slice(7).trim());
+                    }
+
+                    return parseCallExpression(inner);
+                }
+
+                return parseCallExpression(source);
+            };
+
+            const parsedCall = parseArrowBodyCall(bodySource);
+            if (!parsedCall) {
+                return undefined;
+            }
+
+            return {
+                ...parsedCall,
+                paramIndexByName: params.reduce((accumulator, param, index) => {
+                    accumulator[param] = index;
+                    return accumulator;
+                }, {})
+            };
+        };
+
+        const parsedExpression = parseCallExpression(nodeValue) || parseArrowFunctionExpression(nodeValue);
+
+        if (!parsedExpression) {
+            return undefined;
+        }
+
+        const { calleePath, argTokens, paramIndexByName } = parsedExpression;
+
+        const generatedHandler = (...runtimeArgs) => {
+            const target = getGlobalByPath(window, calleePath);
+            if (typeof target !== 'function') {
+                return;
+            }
+
+            const resolvedArgs = argTokens.map(token => {
+                const tokenValue = token.trim();
+                if (Object.prototype.hasOwnProperty.call(paramIndexByName, tokenValue)) {
+                    return runtimeArgs[paramIndexByName[tokenValue]];
+                }
+                return resolveExpressionArg(token, runtimeArgs);
+            });
+            target(...resolvedArgs);
+        };
+
+        const existingNamespace = window[inlineHandlerNamespace];
+        const handlerStore =
+            existingNamespace && typeof existingNamespace === 'object'
+                ? existingNamespace
+                : (window[inlineHandlerNamespace] = {});
+
+        const handlerBase = Array.from(nodeName)
+            .map(char => (/^[a-z0-9_]$/i.test(char) ? char : '_'))
+            .join('');
+        const handlerName = `${handlerBase}_${Object.keys(handlerStore).length + 1}`;
+        handlerStore[handlerName] = generatedHandler;
+
+        return handlerStore[handlerName];
+    };
+
+    const getInlineHandlerUnsupportedReason = value => {
+        const expression = trimTrailingSemicolon(value);
+
+        if (
+            expression.includes('if ') ||
+            expression.includes('if(') ||
+            expression.includes('for ') ||
+            expression.includes('for(') ||
+            expression.includes('while ') ||
+            expression.includes('while(') ||
+            expression.includes('switch ') ||
+            expression.includes('switch(') ||
+            expression.includes('try ') ||
+            expression.includes('catch ') ||
+            expression.includes('finally')
+        ) {
+            return 'Control-flow statements are not supported in inline handlers without unsafe-eval.';
+        }
+
+        if (expression.includes('function ')) {
+            return 'Function declarations/expressions are not supported in inline handlers without unsafe-eval.';
+        }
+
+        if (
+            expression
+                .split(';')
+                .map(part => part.trim())
+                .filter(Boolean).length > 1
+        ) {
+            return 'Multiple statements are not supported; use a single function call expression or a global function name.';
+        }
+
+        if (expression.includes('=>')) {
+            return 'Unsupported arrow syntax. Supported forms are function-call wrappers like "() => fn()" or "(event) => fn(event)".';
+        }
+
+        return 'Only global function names, direct call expressions, and call-wrapping arrow functions are supported.';
+    };
+
+    const resolveInlineEventHandler = (nodeName, nodeValue) => {
+        const fnPath = nodeValue.trim().replace(/\(\s*\)$/, '');
+        const globalFn = getGlobalByPath(window, fnPath);
+
+        if (typeof globalFn === 'function') {
+            return attachInlineSource((...args) => globalFn(...args), nodeValue);
+        }
+
+        const generatedHandler = createGeneratedGlobalHandler(nodeName, nodeValue);
+        if (typeof generatedHandler === 'function') {
+            return attachInlineSource((...args) => generatedHandler(...args), nodeValue);
+        }
+
+        const unsupportedReason = getInlineHandlerUnsupportedReason(nodeValue);
+
+        // eslint-disable-next-line no-console
+        console.error(
+            `PayPal Messages: "${nodeName}" value "${nodeValue}" is unsupported. ${unsupportedReason} Use a global function name instead, e.g. ${nodeName}="myHandler" where window.myHandler calls your logic.`
+        );
+        return () => undefined;
+    };
+
     const getOptionValue = (name, value) => {
         if (typeof value === 'string' && value.startsWith('[')) {
             try {
@@ -67,25 +469,7 @@ export function getInlineOptions(container) {
             if (nodeValue) {
                 const attributeName = nodeName.replace('data-pp-', '');
                 const value = inlineEventHandlers.includes(attributeName)
-                    ? (...args) => {
-                          // Resolve handler by global name (e.g. "myFn" or "MyApp.onClick").
-                          // Supports optional trailing "()" for convenience (e.g. "myFn()").
-                          // Does not use new Function / eval so script-src stays free of 'unsafe-eval'.
-                          const fnPath = nodeValue.trim().replace(/\(\s*\)$/, '');
-                          // Warn if the value looks like an expression with arguments rather than a plain identifier.
-                          // e.g. data-pp-onclick="trackEvent('click', 42)" won't work — wrap it in a named global function.
-                          if (/\(/.test(fnPath)) {
-                              // eslint-disable-next-line no-console
-                              console.error(
-                                  `PayPal Messages: "${nodeName}" value "${nodeValue}" looks like a JS expression and cannot be evaluated for CSP compliance. Use a global function name instead, e.g. data-${nodeName}="myHandler" where window.myHandler calls your logic.`
-                              );
-                              return;
-                          }
-                          const fn = fnPath.split('.').reduce((obj, key) => obj?.[key.trim()], window);
-                          if (typeof fn === 'function') {
-                              fn(...args);
-                          }
-                      }
+                    ? resolveInlineEventHandler(nodeName, nodeValue)
                     : nodeValue;
 
                 return objectMerge(
