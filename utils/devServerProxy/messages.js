@@ -22,6 +22,10 @@ const parseJSONParam = (val, fallbackValue = {}) => {
 };
 
 const shouldUseV2Renderer = req => {
+    if (process.env.RENDER_V2_MESSAGE === 'true') {
+        return true;
+    }
+
     const { features } = req.query;
     const parsedFeatures = parseJSONParam(features, null);
     const featureTokens = typeof features === 'string' ? features.split(',').map(token => token.trim()) : [];
@@ -157,6 +161,7 @@ const getV2MessageData = (req, compiler) => {
     const { render, validateStyle, getParentStyles } = eval(memoryFS.readFileSync(renderPath, 'utf8'));
 
     const validatedStyle = validateStyle(warnings.push.bind(warnings), parsedStyle);
+    let v2Template;
     let v2Content;
     let country;
     let message;
@@ -168,7 +173,8 @@ const getV2MessageData = (req, compiler) => {
             throw new Error(`Missing account-specific v2 content for account ${account ?? 'unknown'}`);
         }
 
-        v2Content = JSON.parse(message.template);
+        v2Template = JSON.parse(message.template);
+        v2Content = v2Template?.content ?? v2Template;
     } catch (err) {
         return {
             markup: `<div class="message__container"><div class="message__messaging" data-test-v2-renderer-error="missing-v2-message" data-test-v2-account="${
@@ -206,9 +212,9 @@ const getV2MessageData = (req, compiler) => {
     const parentStyles = getParentStyles(validatedStyle);
 
     const normalizedMeta = {
-        offerCountry: v2Content?.meta?.offerCountry ?? country ?? buyerCountry ?? 'US',
-        offerType: v2Content?.meta?.offerType ?? v2Content?.offer_types?.[0] ?? 'PAY_LATER_V2_TEST',
-        messageType: v2Content?.meta?.messageType ?? v2Content?.type ?? 'CPS_V2_FIXTURE'
+        offerCountry: v2Template?.meta?.offerCountry ?? country ?? buyerCountry ?? 'US',
+        offerType: v2Template?.meta?.offerType ?? v2Template?.offer_types?.[0] ?? 'PAY_LATER_V2_TEST',
+        messageType: v2Template?.meta?.messageType ?? v2Template?.type ?? 'CPS_V2_FIXTURE'
     };
 
     const styleMarker = {

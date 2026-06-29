@@ -9,6 +9,8 @@ const HOSTNAME = 'localhost.paypal.com';
 const PORT = process.env.PORT || 8080;
 
 module.exports = (env = {}) => {
+    process.env.RENDER_V2_MESSAGE = env.RENDER_V2_MESSAGE ? 'true' : '';
+
     const WEBPACK_DEV_SERVER_CONFIG = {
         contentBase: './demo',
         publicPath: '/',
@@ -16,9 +18,11 @@ module.exports = (env = {}) => {
         // otherwise opens default browser if not set
         open: process.env.DEV_BROWSER || false,
         openPage: (() => {
+            const query = env.OPEN_PAGE_QUERY ? `?${env.OPEN_PAGE_QUERY}` : '';
+
             switch (env.TARGET) {
                 case 'standalone':
-                    return 'standalone.html';
+                    return `standalone.html${query}`;
                 case 'standalone-modal':
                     return 'standalone-modal.html';
                 case 'sdk':
