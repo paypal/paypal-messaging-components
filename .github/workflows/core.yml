@@ -54,8 +54,75 @@ jobs:
               with:
                   useLockFile: false
 
-            - name: Run server
-              run: ./.github/scripts/runServer.sh
+            - name: Functional Non-Snapshot Tests (legacy + v2)
+              run: |
+                set +e
 
-            - name: Functional Non-Snapshot Tests
-              run: npm run test:func:nosnaps
+                ensure_hosts() {
+                  if ! grep -q "localhost.paypal.com" /etc/hosts; then
+                    echo "127.0.0.1 localhost.paypal.com" | sudo tee -a /etc/hosts >/dev/null
+                  fi
+                }
+
+                start_server() {
+                  local mode="$1"
+                  local logFile="$2"
+
+                  lsof -t -nP -iTCP:8080 -sTCP:LISTEN | xargs -r kill || true
+
+                  if [[ "$mode" == "v2" ]]; then
+                    (npm run dev:ci -- --env RENDER_V2_MESSAGE=true 2>&1 | tee "$logFile") &
+                  else
+                    (npm run dev:ci 2>&1 | tee "$logFile") &
+                  fi
+
+                  SERVER_PID=$!
+                  sleep 40
+
+                  error_count=$(grep -iv 'errorboundary' "$logFile" | grep -i 'error' | wc -l)
+                  echo "[$mode] server errors found: $error_count"
+                  if [[ "$error_count" -gt 0 ]]; then
+                    echo "[$mode] server boot errors:" >&2
+                    grep -i 'error' "$logFile" >&2 || true
+                    return 1
+                  fi
+                  return 0
+                }
+
+                stop_server() {
+                  if [[ -n "${SERVER_PID:-}" ]]; then
+                    kill "$SERVER_PID" >/dev/null 2>&1 || true
+                    wait "$SERVER_PID" 2>/dev/null || true
+                    SERVER_PID=""
+                  fi
+                }
+
+                ensure_hosts
+
+                LEGACY_STATUS=0
+                V2_STATUS=0
+
+                echo "Running legacy non-snapshot suite..."
+                if start_server "legacy" "server-legacy.log"; then
+                  npm run test:func:nosnaps
+                  LEGACY_STATUS=$?
+                else
+                  LEGACY_STATUS=1
+                fi
+                stop_server
+
+                echo "Running v2 non-snapshot suite..."
+                if start_server "v2" "server-v2.log"; then
+                  npm run test:func:nosnaps:v2
+                  V2_STATUS=$?
+                else
+                  V2_STATUS=1
+                fi
+                stop_server
+
+                echo "legacy exit: $LEGACY_STATUS"
+                echo "v2 exit: $V2_STATUS"
+
+                if [[ "$LEGACY_STATUS" -ne 0 || "$V2_STATUS" -ne 0 ]]; then
+                  exit 1
+                fi
