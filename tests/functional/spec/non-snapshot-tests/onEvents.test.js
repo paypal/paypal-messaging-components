@@ -9,7 +9,8 @@ const getContext = () => {
         amount: 120,
         style: {
             layout: 'text'
-        }
+        },
+        ...(process.env.BANNER_SNAPSHOT_MODE === 'v2Renderer' ? { features: 'useRenderV2Message' } : {})
     };
 
     return {

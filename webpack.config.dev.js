@@ -9,8 +9,6 @@ const HOSTNAME = 'localhost.paypal.com';
 const PORT = process.env.PORT || 8080;
 
 module.exports = (env = {}) => {
-    process.env.RENDER_V2_MESSAGE = env.RENDER_V2_MESSAGE ? 'true' : '';
-
     const WEBPACK_DEV_SERVER_CONFIG = {
         contentBase: './demo',
         publicPath: '/',

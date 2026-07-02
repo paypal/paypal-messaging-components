@@ -22,18 +22,14 @@ const parseJSONParam = (val, fallbackValue = {}) => {
 };
 
 const shouldUseV2Renderer = req => {
-    if (process.env.RENDER_V2_MESSAGE === 'true') {
-        return true;
-    }
-
     const { features } = req.query;
     const parsedFeatures = parseJSONParam(features, null);
     const featureTokens = typeof features === 'string' ? features.split(',').map(token => token.trim()) : [];
 
     return (
-        featureTokens.includes('renderV2Message') ||
-        (Array.isArray(parsedFeatures) && parsedFeatures.includes('renderV2Message')) ||
-        parsedFeatures === 'renderV2Message'
+        featureTokens.includes('useRenderV2Message') ||
+        (Array.isArray(parsedFeatures) && parsedFeatures.includes('useRenderV2Message')) ||
+        parsedFeatures === 'useRenderV2Message'
     );
 };
 

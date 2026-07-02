@@ -21,6 +21,11 @@ const toMatchFlexSnapshot = configureToMatchImageSnapshot({
 
 expect.extend({ toMatchTextSnapshot, toMatchFlexSnapshot });
 
+const isV2RendererMode = () => process.env.BANNER_SNAPSHOT_MODE === 'v2Renderer';
+
+const getBannerSnapshotRoot = () =>
+    isV2RendererMode() ? './tests/functional/snapshots/v2Renderer' : './tests/functional/snapshots';
+
 const getConfigStrParts = (obj, keyPrefix = '') => {
     return Object.entries(obj).reduce((accumulator, [key, val]) => {
         const totalKey = keyPrefix === '' ? key : `${keyPrefix}.${key}`;
@@ -104,7 +109,8 @@ function setWindowDimensions({ width, height }) {
 
 export default function createBannerTest(locale, testPage = 'banner.html') {
     return (viewport, config) => {
-        const testNameParts = getTestNameParts(locale, config);
+        const bannerConfig = config;
+        const testNameParts = getTestNameParts(locale, bannerConfig);
         const testName = testNameParts.join('/');
         test(testName, async () => {
             page.on('console', message => {
@@ -126,11 +132,16 @@ export default function createBannerTest(locale, testPage = 'banner.html') {
             await page.evaluateOnNewDocument(setWindowDimensions, viewport);
             await page.setViewport(viewport);
 
+            const configToRender = isV2RendererMode()
+                ? { ...bannerConfig, features: 'useRenderV2Message' }
+                : bannerConfig;
             const waitForNavPromise = page.waitForNavigation({ waitUntil: 'networkidle0' });
-            await page.goto(`https://localhost.paypal.com:8080/snapshot/${testPage}?config=${JSON.stringify(config)}`);
+            await page.goto(
+                `https://localhost.paypal.com:8080/snapshot/${testPage}?config=${JSON.stringify(configToRender)}`
+            );
             await waitForNavPromise;
 
-            const bannerDimensions = await waitForBanner({ testName, timeout: 2 * 1000, config });
+            const bannerDimensions = await waitForBanner({ testName, timeout: 2 * 1000, config: bannerConfig });
             expect(bannerDimensions.height).toBeGreaterThan(0);
             expect(bannerDimensions.width).toBeGreaterThan(0);
 
@@ -153,11 +164,12 @@ export default function createBannerTest(locale, testPage = 'banner.html') {
                 3
             );
 
-            const matchFunction = config?.style?.layout === 'text' ? 'toMatchTextSnapshot' : 'toMatchFlexSnapshot';
+            const matchFunction =
+                bannerConfig?.style?.layout === 'text' ? 'toMatchTextSnapshot' : 'toMatchFlexSnapshot';
             const customSnapshotIdentifier = `${testNameParts.pop()}-${viewport.width}`;
             expect(image)[matchFunction]({
                 diffDirection: snapshotDimensions.width > snapshotDimensions.height ? 'vertical' : 'horizontal',
-                customSnapshotsDir: ['./tests/functional/snapshots', ...testNameParts].join('/'),
+                customSnapshotsDir: [getBannerSnapshotRoot(), ...testNameParts].join('/'),
                 customSnapshotIdentifier
             });
         });
