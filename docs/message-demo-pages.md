@@ -4,7 +4,7 @@
 
 [demo/standalone.html](https://github.com/paypal/paypal-messaging-components/blob/develop/demo/standalone.html) is the standard page to edit and view when confirming changes were successful without using other PayPal infrastructure.
 
-Use the same standalone page for both v1 and v2 renderers. To exercise renderMessage, run npm run dev:standalone. To exercise renderV2Message, run npm run dev:standalone:v2.
+Use the same standalone page for both v1 and v2 renderers. To exercise renderMessage, run npm run dev:standalone. To exercise renderV2Message, add query param features=useRenderV2Message.
 
 ## View Multiple Banners
 
