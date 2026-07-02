@@ -48,7 +48,8 @@ The fixtures use the CPS v6 block schema with the following structure:
 
 ## Usage in Tests/Demos
 
--   **Local demo**: `demo/standalone-v2-comparison.html` - Run via `npm start` and navigate to `http://localhost:8080/demo/standalone-v2-comparison.html` for side-by-side legacy vs v2 rendering
+-   **Local demo**: `demo/standalone.html` - Run via `npm run dev:standalone` and navigate to `http://localhost:8080/demo/standalone.html`
+-   **Local legacy / v2 comparison demo**: `demo/standalone-v2-comparison.html` - Run via `npm run dev:v2-comparison` and navigate to `http://localhost:8080/demo/standalone-v2-comparison.html` for side-by-side legacy vs v2 rendering
 -   **Snapshot page**: `demo/snapshot/banner.html` - Querystring-driven page; feature flag injected via test setup when `BANNER_SNAPSHOT_MODE='v2Renderer'` is set
 -   **Snapshot routing**: v2 snapshots are automatically routed to `./tests/functional/snapshots/v2Renderer/` when v2 test mode is active (configured in `createBannerTest.js`)
 -   **Functional tests**: Use `features: 'useRenderV2Message'` in config to route to v2 path; see `tests/functional/spec/non-snapshot-tests/v2-renderer-path.test.js`
