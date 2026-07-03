@@ -89,6 +89,56 @@ jest.mock('server/locale/DE/Pi30/mutations/pi30q', () => ({
     'layout:flex': ['flex', 'DE', 'PI30Q']
 }));
 
+jest.mock('server/locale/AT/GPL/mutations/gpl_eqz', () => ({
+    'layout:text': ['text', 'AT', 'GPL:EQZ'],
+    'layout:flex': ['flex', 'AT', 'GPL:EQZ']
+}));
+
+jest.mock('server/locale/AT/GPL/mutations/gpl_gtz', () => ({
+    'layout:text': ['text', 'AT', 'GPL:GTZ'],
+    'layout:flex': ['flex', 'AT', 'GPL:GTZ']
+}));
+
+jest.mock('server/locale/AT/GPL/mutations/gplq_eqz', () => ({
+    'layout:text': ['text', 'AT', 'GPLQ:EQZ'],
+    'layout:flex': ['flex', 'AT', 'GPLQ:EQZ']
+}));
+
+jest.mock('server/locale/AT/GPL/mutations/gplq_gtz', () => ({
+    'layout:text': ['text', 'AT', 'GPLQ:GTZ'],
+    'layout:flex': ['flex', 'AT', 'GPLQ:GTZ']
+}));
+
+jest.mock('server/locale/AT/GPL/mutations/gpl_eqz-non-at', () => ({
+    'layout:text': ['text', 'AT', 'GPL:EQZ:NON-AT'],
+    'layout:flex': ['flex', 'AT', 'GPL:EQZ:NON-AT']
+}));
+
+jest.mock('server/locale/AT/GPL/mutations/gpl_gtz-non-at', () => ({
+    'layout:text': ['text', 'AT', 'GPL:GTZ:NON-AT'],
+    'layout:flex': ['flex', 'AT', 'GPL:GTZ:NON-AT']
+}));
+
+jest.mock('server/locale/AT/GPL/mutations/gplq_eqz-non-at', () => ({
+    'layout:text': ['text', 'AT', 'GPLQ:EQZ:NON-AT'],
+    'layout:flex': ['flex', 'AT', 'GPLQ:EQZ:NON-AT']
+}));
+
+jest.mock('server/locale/AT/GPL/mutations/gplq_gtz-non-at', () => ({
+    'layout:text': ['text', 'AT', 'GPLQ:GTZ:NON-AT'],
+    'layout:flex': ['flex', 'AT', 'GPLQ:GTZ:NON-AT']
+}));
+
+jest.mock('server/locale/AT/Pi30/mutations/pi30', () => ({
+    'layout:text': ['text', 'AT', 'PI30'],
+    'layout:flex': ['flex', 'AT', 'PI30']
+}));
+
+jest.mock('server/locale/AT/Pi30/mutations/pi30q', () => ({
+    'layout:text': ['text', 'AT', 'PI30Q'],
+    'layout:flex': ['flex', 'AT', 'PI30Q']
+}));
+
 jest.mock('server/locale/GB/mutations/gpl', () => ({
     'layout:text': ['text', 'GB', 'PL'],
     'layout:flex': ['flex', 'GB', 'PL']
@@ -158,6 +208,16 @@ describe('locale methods', () => {
             ['DE', 'GPLQ:GTZ:NON-DE'],
             ['DE', 'PI30'],
             ['DE', 'PI30Q'],
+            ['AT', 'GPL:EQZ'],
+            ['AT', 'GPL:GTZ'],
+            ['AT', 'GPLQ:EQZ'],
+            ['AT', 'GPLQ:GTZ'],
+            ['AT', 'GPL:EQZ:NON-AT'],
+            ['AT', 'GPL:GTZ:NON-AT'],
+            ['AT', 'GPLQ:EQZ:NON-AT'],
+            ['AT', 'GPLQ:GTZ:NON-AT'],
+            ['AT', 'PI30'],
+            ['AT', 'PI30Q'],
             ['GB', 'PL'],
             ['GB', 'PLQ'],
             ['GB', 'PI30NQ'],
