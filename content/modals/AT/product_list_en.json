@@ -1,0 +1,31 @@
+{
+    "meta": {
+        "product": "PRODUCT_LIST",
+        "offerCountry": "AT",
+        "language": "en-AT",
+        "useV5Design": "true",
+        "v5.1": "true"
+    },
+    "content": {
+        "headline": "<span aria-hidden='true'>Buy now, <br/>pay later</span><span class='sr-only'>Buy now, pay later</span>",
+        "disclosure": "Terms and conditions apply. Subject to credit check. For more information on Pay in 30 Days or PayPal Ratenzahlung, select one of the options above.",
+        "instructions": {
+            "payLater": "Choose <strong>PayPal</strong> to use <strong>“Pay Later”</strong>."
+        },
+        "productTiles": {
+            "payLater": [
+                {
+                    "header": "Pay in 30 Days",
+                    "body": "Get more time to pay for your purchase.",
+                    "viewName": "PAY_LATER_PAY_IN_1"
+                },
+                {
+                    "header": "PayPal Ratenzahlung",
+                    "body": "Pay for your purchase in monthly installments.",
+                    "viewName": "PAY_LATER_LONG_TERM"
+                }
+            ]
+        },
+        "closeButtonLabel": "Close"
+    }
+}
