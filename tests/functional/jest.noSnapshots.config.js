@@ -14,7 +14,7 @@ module.exports = {
         ]
     ],
     testMatch: ['<rootDir>/spec/non-snapshot-tests/**/*.test.js?(x)'],
-    testPathIgnorePatterns: ['v2-renderer-path.test.js'],
+    testPathIgnorePatterns: [],
     globalSetup: 'jest-environment-puppeteer/setup',
     globalTeardown: 'jest-environment-puppeteer/teardown',
     testEnvironment: 'jest-environment-puppeteer',
