@@ -3,6 +3,19 @@
 @use '../../../styles/globals/variables';
 
 .content__body {
+    .learnMoreLink__container {
+        font-size: 14px;
+
+        @include mixins.tablet {
+            margin-top: 10px;
+        }
+
+        @include mixins.mobile {
+            margin-top: 20px;
+            margin-left: 0px;
+        }
+    }
+
     .content__row {
         padding-right: 50px;
 
