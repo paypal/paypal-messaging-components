@@ -1,4 +1,3 @@
-// mutations import here.
 import pl from './gpl';
 import plq from './gplq';
 
