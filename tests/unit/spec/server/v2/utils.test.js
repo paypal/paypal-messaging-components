@@ -65,8 +65,8 @@ describe('buildLogoConfiguration', () => {
 
     test('extracts IMAGE block and filters from mainBlocks for left position', () => {
         const result = buildLogoConfiguration({
-            logoType: 'primary',
-            logoPosition: 'left',
+            effectiveLogoType: 'wordmark',
+            effectiveLogoPosition: 'left',
             mainItems: [logoItem, textItem]
         });
         expect(result.logoBlock).toBe(logoItem);
@@ -77,8 +77,8 @@ describe('buildLogoConfiguration', () => {
 
     test('sets hasRightLogo for right position', () => {
         const result = buildLogoConfiguration({
-            logoType: 'primary',
-            logoPosition: 'right',
+            effectiveLogoType: 'wordmark',
+            effectiveLogoPosition: 'right',
             mainItems: [textItem, logoItem]
         });
         expect(result.hasRightLogo).toBe(true);
@@ -87,28 +87,44 @@ describe('buildLogoConfiguration', () => {
 
     test('sets hasInitialLogo for top position', () => {
         const result = buildLogoConfiguration({
-            logoType: 'primary',
-            logoPosition: 'top',
+            effectiveLogoType: 'wordmark',
+            effectiveLogoPosition: 'top',
             mainItems: [logoItem, textItem]
         });
         expect(result.hasInitialLogo).toBe(true);
         expect(result.hasRightLogo).toBe(false);
     });
 
-    test('inline logo type extracts IMAGE into logoBlock and removes it from mainBlocks', () => {
+    test('inline position preserves mainItems order and leaves IMAGE blocks in place', () => {
         const result = buildLogoConfiguration({
-            logoType: 'inline',
-            logoPosition: 'left',
+            effectiveLogoType: 'wordmark',
+            effectiveLogoPosition: 'inline',
             mainItems: [logoItem, textItem]
         });
-        expect(result.logoBlock).toBe(logoItem);
+        expect(result.logoBlock).toBeUndefined();
+        expect(result.mainBlocks).toEqual([logoItem, textItem]);
+        expect(result.hasInitialLogo).toBe(false);
+        expect(result.hasRightLogo).toBe(false);
+    });
+
+    test('none type renders no logo and strips IMAGE blocks from mainBlocks', () => {
+        const result = buildLogoConfiguration({
+            effectiveLogoType: 'none',
+            effectiveLogoPosition: 'left',
+            mainItems: [logoItem, textItem]
+        });
+        expect(result.logoBlock).toBeUndefined();
         expect(result.mainBlocks).toEqual([textItem]);
         expect(result.hasInitialLogo).toBe(false);
         expect(result.hasRightLogo).toBe(false);
     });
 
     test('returns no logo block when no IMAGE items present', () => {
-        const result = buildLogoConfiguration({ logoType: 'primary', logoPosition: 'left', mainItems: [textItem] });
+        const result = buildLogoConfiguration({
+            effectiveLogoType: 'wordmark',
+            effectiveLogoPosition: 'left',
+            mainItems: [textItem]
+        });
         expect(result.logoBlock).toBeUndefined();
         expect(result.hasInitialLogo).toBe(false);
         expect(result.mainBlocks).toEqual([textItem]);

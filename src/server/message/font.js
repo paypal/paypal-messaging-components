@@ -93,7 +93,8 @@ export const getFontRules = style => {
 
 // Shared validation and @font-face generation for v2 stylesheet.
 const isSafeFontName = value => typeof value === 'string' && /^[\w\s-]+$/.test(value.trim());
-const isSafeFontSource = value => typeof value === 'string' && /^https:\/\/[^'")\s]+$/i.test(value);
+// https-only, and no characters that can escape a CSS url('...') or break an HTML <style> tag.
+const isSafeFontSource = value => typeof value === 'string' && /^https:\/\/[^'"<>\\;()\s]+$/i.test(value);
 
 export function buildFontRules({ fontSource, fontFamily, fallbackStack, defaultFontFamily, fontNamePrefix }) {
     const sources = Array.isArray(fontSource) ? fontSource.filter(isSafeFontSource) : [];

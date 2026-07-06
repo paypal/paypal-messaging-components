@@ -36,6 +36,7 @@ body {
 
 .pp-message .logo { display: inline-block; vertical-align: middle; }
 .pp-message .logo.top { display: block; vertical-align: initial; }
+.pp-message .logo.inline { display: inline; vertical-align: middle; }
 
 .pp-message img {
     max-height: 1.25em;
@@ -52,11 +53,10 @@ body {
     margin-right: 0;
     margin-bottom: 0.3125em;
 }
-
-.pp-message .logo.white img { filter: brightness(0) invert(1); }
-.pp-message .logo.monochrome img { filter: grayscale(100%) brightness(0); }
-.pp-message .logo.grayscale img { filter: grayscale(100%); }
-</style><span role=\\"img\\" aria-label=\\"PayPal\\" class=\\"logo black left primary\\"><img src=\\"https://example.com/logo.svg\\" alt=\\"PayPal\\" /></span><span aria-label=\\"Pay Later. Subject to approval.\\" class=\\"main left black\\">Pay Later. Subject to approval.</span><span aria-label=\\"Learn more\\" class=\\"action black\\"><span data-iframe-url=\\"https://example.com/lander\\" data-embeddable=\\"true\\">Learn more</span></span></div>"
+.pp-message .logo.inline img {
+    margin-right: 0;
+}
+</style><span role=\\"img\\" aria-label=\\"PayPal\\" class=\\"logo black left wordmark\\"><img src=\\"data:local/color-monogram\\" alt role=\\"presentation\\" width=\\"24\\" height=\\"32\\" /><img src=\\"data:local/color-wordmark\\" alt role=\\"presentation\\" width=\\"100\\" height=\\"32\\" /></span><span aria-label=\\"Pay Later. Subject to approval.\\" class=\\"main left black\\">Pay Later. Subject to approval.</span><span aria-label=\\"Learn more\\" class=\\"action black\\"><span data-iframe-url=\\"https://example.com/lander\\" data-embeddable=\\"true\\">Learn more</span></span></div>"
 `;
 
 exports[`v2 render snapshots renders the v2 stylesheet once 1`] = `
@@ -95,6 +95,7 @@ body {
 
 .pp-message .logo { display: inline-block; vertical-align: middle; }
 .pp-message .logo.top { display: block; vertical-align: initial; }
+.pp-message .logo.inline { display: inline; vertical-align: middle; }
 
 .pp-message img {
     max-height: 1.25em;
@@ -111,9 +112,8 @@ body {
     margin-right: 0;
     margin-bottom: 0.3125em;
 }
-
-.pp-message .logo.white img { filter: brightness(0) invert(1); }
-.pp-message .logo.monochrome img { filter: grayscale(100%) brightness(0); }
-.pp-message .logo.grayscale img { filter: grayscale(100%); }
+.pp-message .logo.inline img {
+    margin-right: 0;
+}
 </style>"
 `;

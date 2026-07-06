@@ -47,6 +47,7 @@ body {
 
 .pp-message .logo { display: inline-block; vertical-align: middle; }
 .pp-message .logo.top { display: block; vertical-align: initial; }
+.pp-message .logo.inline { display: inline; vertical-align: middle; }
 
 .pp-message img {
     max-height: 1.25em;
@@ -63,9 +64,8 @@ body {
     margin-right: 0;
     margin-bottom: 0.3125em;
 }
-
-.pp-message .logo.white img { filter: brightness(0) invert(1); }
-.pp-message .logo.monochrome img { filter: grayscale(100%) brightness(0); }
-.pp-message .logo.grayscale img { filter: grayscale(100%); }
+.pp-message .logo.inline img {
+    margin-right: 0;
+}
 `;
 };

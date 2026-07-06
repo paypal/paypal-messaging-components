@@ -4,13 +4,56 @@ import { h, Fragment } from 'preact';
 
 import { buildContentLabel } from './utils/buildContentLabel';
 import { buildLogoConfiguration } from './utils/buildLogoConfiguration';
+import { resolveLogoPresentation } from './utils/resolveLogoPresentation';
 import { mapClasses } from './utils/mapClasses';
+import { resolveLogoAssets } from './logos';
 import styles from './styles';
 
-function renderBlock(item) {
+// Renders local brand assets for first-party logos (paypal_logo, paypal_credit_logo).
+// Falls back to item.source_url for unknown image blocks.
+function renderLogoImages(item, logoPresentation) {
+    const assets = resolveLogoAssets({
+        logoName: item.name,
+        effectiveLogoType: logoPresentation.effectiveLogoType,
+        effectiveLogoPosition: logoPresentation.effectiveLogoPosition,
+        textColor: logoPresentation.textColor
+    });
+
+    if (assets) {
+        return assets.map(({ src, dimensions: [width, height] }, idx) => (
+            // eslint-disable-next-line react/no-array-index-key
+            <img key={idx} src={src} alt="" role="presentation" width={width} height={height} />
+        ));
+    }
+
+    return <img src={item.source_url} alt={item.alternative_text || 'PayPal'} />;
+}
+
+// Deferred v6-parity behaviors (not yet ported — unknown block types/fields fall through
+// to plain text or are dropped, never throwing or producing broken markup):
+// - TEXT_VARIABLE blocks / missing-text placeholders (v6-specific content type)
+// - "**bold**" marker rendering within TEXT blocks
+// - Card-offer logo overrides for PAYPAL_CASHBACK_MASTERCARD / PAYPAL_DEBIT_CARD
+
+// renderBlock renders a single CPS content block.
+// When logoPresentation is provided, IMAGE blocks render as inline brand logos
+// in CPS order (v6 parity for logo.type:inline). Without it, IMAGE falls back
+// to a plain img — callers that extract the logo block before the loop should
+// pass null so IMAGE items are never double-rendered.
+//
+// Note: LINK blocks intentionally render as <span>, not <a>. The v5 SDK message
+// click surface is the canonical click handler; click_url is not used for navigation.
+function renderBlock(item, logoPresentation) {
     if (!item) return null;
     switch (item.type) {
         case 'IMAGE':
+            if (logoPresentation) {
+                return (
+                    <span role="img" aria-label={item.alternative_text || 'PayPal'} className="logo inline wordmark">
+                        {renderLogoImages(item, logoPresentation)}
+                    </span>
+                );
+            }
             return <img src={item.source_url} alt={item.alternative_text || 'PayPal'} />;
         case 'LINK':
             return (
@@ -27,47 +70,63 @@ function renderBlock(item) {
     }
 }
 
-function renderLogo(block, className) {
+function renderLogoSpan(block, className, logoPresentation) {
     if (!block) return null;
     return (
         <span role="img" aria-label={block.alternative_text || 'PayPal'} className={className}>
-            {renderBlock(block)}
+            {renderLogoImages(block, logoPresentation)}
         </span>
     );
 }
 
-export default function V2Message({ options, v2Content }) {
+export default function V2Message({ options, v2Content, log }) {
     const { style } = options;
-    const logoType = style.logo?.type ?? 'primary';
-    const logoPosition = style.logo?.position ?? 'left';
-    const textColor = style.layout === 'flex' ? style.color ?? 'black' : style.text?.color ?? 'black';
+    const textColor = style.text?.color ?? 'black';
+
+    const logoPresentation = resolveLogoPresentation({
+        logoType: style.logo?.type,
+        logoPosition: style.logo?.position,
+        textColor,
+        log
+    });
+
+    const { effectiveLogoType, effectiveLogoPosition, originalLogoType, originalLogoPosition } = logoPresentation;
 
     const mainItems = v2Content?.main_items ?? [];
     const actionItems = v2Content?.action_items ?? [];
     const disclaimerItems = v2Content?.disclaimer_items ?? [];
 
     const { logoBlock, hasInitialLogo, hasRightLogo, mainBlocks } = buildLogoConfiguration({
-        logoType,
-        logoPosition,
+        effectiveLogoType,
+        effectiveLogoPosition,
         mainItems
     });
 
     const preparedMainBlocks =
         disclaimerItems.length > 0 ? [...mainBlocks, { type: 'TEXT', text: ' ' }, ...disclaimerItems] : mainBlocks;
 
-    const logoClasses = mapClasses({ logo: true, [textColor]: true, [logoPosition]: true, [logoType]: true });
-    const mainClasses = mapClasses({ main: true, [logoPosition]: true, [textColor]: true });
+    const logoClasses = mapClasses({
+        logo: true,
+        [textColor]: true,
+        [effectiveLogoPosition]: effectiveLogoPosition !== 'inline',
+        [effectiveLogoType]: true
+    });
+    const mainClasses = mapClasses({ main: true, [effectiveLogoPosition]: true, [textColor]: true });
     const actionClasses = mapClasses({ action: true, [textColor]: true });
 
     const mainLabel = buildContentLabel(preparedMainBlocks);
     const actionLabel = buildContentLabel(actionItems);
 
+    // For inline mode, IMAGE blocks in mainBlocks render in-place via renderBlock.
+    // For all other modes, logoPresentation is null so IMAGE blocks render as plain imgs.
+    const inlineLogoPresentation = effectiveLogoPosition === 'inline' ? logoPresentation : null;
+
     return (
         <div
             className="pp-message"
             data-pp-style-layout={style.layout}
-            data-pp-style-logo-position={logoPosition}
-            data-pp-style-logo-type={logoType}
+            data-pp-style-logo-position={originalLogoPosition}
+            data-pp-style-logo-type={originalLogoType}
             data-pp-style-text-align={style.text?.align}
             data-pp-style-text-color={textColor}
             data-pp-style-text-size={style.text?.size}
@@ -84,23 +143,22 @@ export default function V2Message({ options, v2Content }) {
                 }}
             />
             {/* eslint-enable react/no-danger */}
-            {hasInitialLogo && logoType !== 'none' ? renderLogo(logoBlock, logoClasses) : null}
+            {hasInitialLogo ? renderLogoSpan(logoBlock, logoClasses, logoPresentation) : null}
             <span aria-label={mainLabel} className={mainClasses}>
-                {logoType === 'inline' ? renderLogo(logoBlock, logoClasses) : null}
                 {preparedMainBlocks.map((item, idx) => (
                     // eslint-disable-next-line react/no-array-index-key
-                    <Fragment key={idx}>{renderBlock(item)}</Fragment>
+                    <Fragment key={idx}>{renderBlock(item, inlineLogoPresentation)}</Fragment>
                 ))}
             </span>
             {actionItems.length > 0 ? (
                 <span aria-label={actionLabel} className={actionClasses}>
                     {actionItems.map((item, idx) => (
                         // eslint-disable-next-line react/no-array-index-key
-                        <Fragment key={idx}>{renderBlock(item)}</Fragment>
+                        <Fragment key={idx}>{renderBlock(item, null)}</Fragment>
                     ))}
                 </span>
             ) : null}
-            {hasRightLogo && logoType !== 'none' ? renderLogo(logoBlock, logoClasses) : null}
+            {hasRightLogo ? renderLogoSpan(logoBlock, logoClasses, logoPresentation) : null}
         </div>
     );
 }
