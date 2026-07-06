@@ -3,6 +3,12 @@ export default ({
     fontSize = 12,
     textAlign = 'left'
 } = {}) => `
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
 .pp-message {
     font-family: ${fontFamily};
     font-weight: 450;

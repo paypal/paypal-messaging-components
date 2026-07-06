@@ -5,6 +5,7 @@ import got from 'got';
 import { PORT, VARIANT } from '../../src/server/constants';
 import { populateTemplate, createMockZoidMarkup, waitForTimeout } from './lib/miscellaneous';
 import getDevAccountDetails from './lib/devAccountDetails';
+import VARIABLE_PATH_MAP from './lib/v2VariablePathMap';
 
 // set this environment variable to simulate the time for the request to be answered
 const REQUEST_DELAY = process.env.REQUEST_DELAY ?? 500;
@@ -19,6 +20,53 @@ const parseJSONParam = (val, fallbackValue = {}) => {
     } catch (err) {
         return fallbackValue;
     }
+};
+
+const resolveMappedValue = (pathValue, morsVars) => {
+    const normalizedPath =
+        typeof pathValue === 'string'
+            ? pathValue
+                  .replace(/^\{/, '')
+                  .replace(/\}$/, '')
+                  .replace(/[{}]/g, '')
+                  .replace(/^[A-Z0-9_]+\.preferred_offer\.financing_code\./, '')
+                  .replace(/^[A-Z0-9_]+\./, '')
+            : '';
+    const sourceKeys = VARIABLE_PATH_MAP[normalizedPath] ?? [];
+    const matchedKey = sourceKeys.find(key => morsVars?.[key] !== undefined && morsVars?.[key] !== null);
+
+    return matchedKey ? morsVars?.[matchedKey] : undefined;
+};
+
+const resolveV2TextVariable = (item, morsVars, warnings) => {
+    if (!item || item.type !== 'TEXT_VARIABLE') {
+        return item;
+    }
+
+    const resolvedValue = resolveMappedValue(item.text_path, morsVars) ?? resolveMappedValue(item.text, morsVars);
+
+    if (resolvedValue !== undefined && resolvedValue !== null) {
+        return {
+            ...item,
+            text: String(resolvedValue)
+        };
+    }
+
+    warnings.push(`v2-variable-unresolved:${item.name ?? 'unknown'}`);
+
+    return {
+        ...item,
+        text: typeof item.text === 'string' ? item.text : '-'
+    };
+};
+
+const resolveV2ContentVariables = ({ v2Content, morsVars, warnings }) => {
+    return {
+        ...v2Content,
+        main_items: (v2Content?.main_items ?? []).map(item =>
+            item?.type === 'TEXT_VARIABLE' ? resolveV2TextVariable(item, morsVars, warnings) : item
+        )
+    };
 };
 
 const shouldUseV2Renderer = req => {
@@ -204,7 +252,14 @@ const getV2MessageData = (req, compiler) => {
         contextualComponents
     };
 
-    const v2Markup = render(renderOptions, v2Content, warnings.push.bind(warnings));
+    const resolvedV2Content = resolveV2ContentVariables({
+        v2Template,
+        v2Content,
+        morsVars: message?.morsVars ?? {},
+        warnings
+    });
+
+    const v2Markup = render(renderOptions, resolvedV2Content, warnings.push.bind(warnings));
     const parentStyles = getParentStyles(validatedStyle);
 
     const normalizedMeta = {
@@ -247,6 +302,10 @@ const getSmartMessageData = (req, compiler) => {
     }
 
     return getMessageData(req, compiler);
+};
+
+export const __test__ = {
+    resolveV2ContentVariables
 };
 
 export default function createMessageRoutes(app, server, compiler) {

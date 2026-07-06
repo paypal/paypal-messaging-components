@@ -6,7 +6,7 @@ const http = require('http');
 
 const PORT = 8080;
 const DEV_SERVER_URL = `http://localhost:${PORT}/demo/standalone-v2-comparison.html`;
-const WEBPACK_COMMAND = ['run', 'dev'];
+const WEBPACK_COMMAND = ['run', 'dev:standalone'];
 
 const openUrl = url => {
     const commandByPlatform = {
