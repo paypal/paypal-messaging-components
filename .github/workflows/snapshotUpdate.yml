@@ -215,6 +215,8 @@ jobs:
 
     updateSnapshotsV2Renderer:
         name: Update V2 Renderer
+        # Re-enable when renderV2Message supports flex and text styling.
+        if: false
         runs-on: ubuntu-24.04
         needs: getMatrix
         strategy:
