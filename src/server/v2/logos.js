@@ -50,12 +50,12 @@ function resolvePayPalCreditLogoAssets({ effectiveLogoType, effectiveLogoPositio
         return [PPCreditLogo.SINGLE_LINE_NO_PAYPAL[colorKey]];
     }
 
-    // wordmark left: two-image layout (no-PayPal wordmark + full PayPal Credit)
-    if (effectiveLogoPosition === 'left') {
-        return [PPCreditLogo.SINGLE_LINE_NO_PAYPAL[colorKey], PPCreditLogo.SINGLE_LINE[colorKey]];
-    }
-
-    // wordmark right/top: single-line PayPal Credit only
+    // wordmark left/right/top: single-line PayPal Credit only. Legacy v5's "left" position
+    // swaps between two images at a CSS breakpoint (nth-child + media query, see
+    // src/server/locale/US/PAYPAL_CREDIT/mutations/mediaQueries.js) so only one is ever
+    // visible; v2 has no breakpoint system, so returning both here rendered them
+    // simultaneously and permanently visible. Render the single full-lockup image used
+    // at desktop widths instead.
     return [PPCreditLogo.SINGLE_LINE[colorKey]];
 }
 

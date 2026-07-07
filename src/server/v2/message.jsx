@@ -9,6 +9,24 @@ import { mapClasses } from './utils/mapClasses';
 import { resolveLogoAssets } from './logos';
 import styles from './styles';
 
+// Mirrors the `.pp-message img` / `.pp-message .logo.<position> img` rules in styles.js as
+// inline styles, so logo sizing/alignment survives even if a host strips or overrides the
+// embedded <style> tag (e.g. HTML sanitization) — without this, images fall back to their
+// raw intrinsic width/height and render oversized and misaligned.
+function getLogoImageStyle(effectiveLogoPosition) {
+    const base = { maxHeight: '1.25em', height: '1.25em', width: 'auto', verticalAlign: 'middle' };
+    if (effectiveLogoPosition === 'right') {
+        return { ...base, marginRight: 0, marginLeft: '0.3125em' };
+    }
+    if (effectiveLogoPosition === 'top') {
+        return { ...base, marginRight: 0, marginBottom: '0.3125em' };
+    }
+    if (effectiveLogoPosition === 'inline') {
+        return { ...base, marginRight: 0 };
+    }
+    return { ...base, marginRight: '0.3125em' };
+}
+
 // Renders local brand assets for first-party logos (paypal_logo, paypal_credit_logo).
 // Falls back to item.source_url for unknown image blocks.
 function renderLogoImages(item, logoPresentation) {
@@ -18,15 +36,16 @@ function renderLogoImages(item, logoPresentation) {
         effectiveLogoPosition: logoPresentation.effectiveLogoPosition,
         textColor: logoPresentation.textColor
     });
+    const imageStyle = getLogoImageStyle(logoPresentation.effectiveLogoPosition);
 
     if (assets) {
         return assets.map(({ src, dimensions: [width, height] }, idx) => (
             // eslint-disable-next-line react/no-array-index-key
-            <img key={idx} src={src} alt="" role="presentation" width={width} height={height} />
+            <img key={idx} src={src} alt="" role="presentation" width={width} height={height} style={imageStyle} />
         ));
     }
 
-    return <img src={item.source_url} alt={item.alternative_text || 'PayPal'} />;
+    return <img src={item.source_url} alt={item.alternative_text || 'PayPal'} style={imageStyle} />;
 }
 
 // Deferred v6-parity behaviors (not yet ported — unknown block types/fields fall through

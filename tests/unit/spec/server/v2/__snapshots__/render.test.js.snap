@@ -56,7 +56,7 @@ body {
 .pp-message .logo.inline img {
     margin-right: 0;
 }
-</style><span role=\\"img\\" aria-label=\\"PayPal\\" class=\\"logo black left wordmark\\"><img src=\\"data:local/color-monogram\\" alt role=\\"presentation\\" width=\\"24\\" height=\\"32\\" /><img src=\\"data:local/color-wordmark\\" alt role=\\"presentation\\" width=\\"100\\" height=\\"32\\" /></span><span aria-label=\\"Pay Later. Subject to approval.\\" class=\\"main left black\\">Pay Later. Subject to approval.</span><span aria-label=\\"Learn more\\" class=\\"action black\\"><span data-iframe-url=\\"https://example.com/lander\\" data-embeddable=\\"true\\">Learn more</span></span></div>"
+</style><span role=\\"img\\" aria-label=\\"PayPal\\" class=\\"logo black left wordmark\\"><img src=\\"data:local/color-monogram\\" alt role=\\"presentation\\" width=\\"24\\" height=\\"32\\" style=\\"max-height: 1.25em; height: 1.25em; width: auto; vertical-align: middle; margin-right: 0.3125em;\\" /><img src=\\"data:local/color-wordmark\\" alt role=\\"presentation\\" width=\\"100\\" height=\\"32\\" style=\\"max-height: 1.25em; height: 1.25em; width: auto; vertical-align: middle; margin-right: 0.3125em;\\" /></span><span aria-label=\\"Pay Later. Subject to approval.\\" class=\\"main left black\\">Pay Later. Subject to approval.</span><span aria-label=\\"Learn more\\" class=\\"action black\\"><span data-iframe-url=\\"https://example.com/lander\\" data-embeddable=\\"true\\">Learn more</span></span></div>"
 `;
 
 exports[`v2 render snapshots renders the v2 stylesheet once 1`] = `

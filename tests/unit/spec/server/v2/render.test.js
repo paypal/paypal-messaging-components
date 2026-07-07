@@ -438,10 +438,10 @@ describe('v2 render logo presentation adapter', () => {
             main_items: [ppcLogoBlock, { type: 'TEXT', text: 'Pay Later' }]
         };
 
-        test('primary left renders two PayPal Credit images (no-paypal + single-line)', () => {
+        test('primary left renders a single PayPal Credit image (single-line only)', () => {
             const result = render(baseOptions, contentWithPPCLogo, mockLog);
-            expect(result).toContain('data:local/ppc-no-paypal-color');
             expect(result).toContain('data:local/ppc-single-color');
+            expect(result).not.toContain('data:local/ppc-no-paypal-color');
             expect(result).not.toContain('https://example.com/ppc-logo.svg');
         });
 
@@ -462,7 +462,7 @@ describe('v2 render logo presentation adapter', () => {
                 }
             };
             const result = render(options, contentWithPPCLogo, mockLog);
-            expect(result).toContain('data:local/ppc-no-paypal-black');
+            expect(result).toContain('data:local/ppc-single-black');
             expect(result).not.toContain('https://example.com/ppc-logo.svg');
         });
 
@@ -475,7 +475,7 @@ describe('v2 render logo presentation adapter', () => {
                 }
             };
             const result = render(options, contentWithPPCLogo, mockLog);
-            expect(result).toContain('data:local/ppc-no-paypal-white');
+            expect(result).toContain('data:local/ppc-single-white');
             expect(result).not.toContain('https://example.com/ppc-logo.svg');
         });
     });
