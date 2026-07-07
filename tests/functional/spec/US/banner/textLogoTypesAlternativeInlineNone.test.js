@@ -1,5 +1,7 @@
 import runDescribeBlock from './runDescribeBlock';
 
+// This suite is ignored in v2Renderer mode and should be re-enabled once renderV2Message supports text styling.
+
 const positions = ['top', 'left', 'right'];
 const logoTypes = ['alternative', 'inline', 'none'];
 

@@ -212,3 +212,87 @@ jobs:
                   name: ${{ steps.artifactInputs.outputs.name }}
                   path: ${{ steps.artifactInputs.outputs.filePath }}
                   retention-days: 1
+
+    updateSnapshotsV2Renderer:
+        name: Update V2 Renderer
+        runs-on: ubuntu-24.04
+        needs: getMatrix
+        strategy:
+            matrix:
+                testPathPattern: ${{ fromJSON(needs.getMatrix.outputs.testPathPatterns) }}
+        steps:
+            - name: Checkout repo
+              uses: actions/checkout@v4
+              with:
+                  persist-credentials: false
+
+            - name: Setup node
+              uses: actions/setup-node@v4
+              with:
+                  node-version-file: '.nvmrc'
+
+            - name: 📥 Download deps
+              uses: bahmutov/npm-install@v1
+              with:
+                  useLockFile: false
+
+            - name: Run server
+              run: |
+                  ./.github/scripts/runServer.sh
+
+            - name: Update Snapshots - ${{ matrix.testPathPattern }}
+              run: |
+                  npm run test:func:banner:snapshots:v2:ciupdate -- --testPathPattern "${{ matrix.testPathPattern }}"
+                  git status --porcelain
+
+            - name: Format Artifact Inputs
+              id: artifactInputs
+              run: |
+                  if [ -z "$(git status --porcelain)" ]
+                  then
+                      echo "skip=true" >> $GITHUB_OUTPUT
+                      exit 0
+                  fi
+
+                  ARTIFACT_NAME="snapshot-v2renderer-$(sed 's/\//-/g' <<< '${{ matrix.testPathPattern }}')"
+                  echo "name=$ARTIFACT_NAME" >> $GITHUB_OUTPUT
+
+                  ARTIFACT_PATH="snapshots/"
+                  echo "filePath=$ARTIFACT_PATH" >> $GITHUB_OUTPUT
+
+                  # even though we're not committing files here, this forces git to list full file paths, not folders
+                  git add .
+
+                  UPDATED_SNAPSHOTS=$(git status --porcelain | grep 'snapshots/v2Renderer' | sed -E "s/^.{3}//")
+                  echo "$UPDATED_SNAPSHOTS" | while read -r filePath
+                  do
+                      newPath=$(echo $filePath | sed -E "s/^.+(snapshots.+)$/\\1/")
+                      newDir=$(echo $newPath | sed -E "s/^(.+\/)[^\/]+$/\\1/")
+
+                      echo "filePath=$filePath"
+                      echo "newPath=$newPath"
+                      echo "newDir=$newDir"
+
+                      echo "mkdir ${{ github.workspace }}/$newDir"
+                      mkdir -p "${{ github.workspace }}/$newDir"
+
+                      if [ -d "${{ github.workspace }}/$filePath" ]; then
+                        # If filePath is a directory we want to move all of its contents
+                        # into the new directory location to prevent duplicate directory nesting
+                        echo "moving directory"
+                        echo "mv ${{ github.workspace }}/$filePath* ${{ github.workspace }}/$newDir"
+                        mv "${{ github.workspace }}/$filePath"* "${{ github.workspace }}/$newDir"
+                      else
+                        echo "moving file"
+                        echo "mv ${{ github.workspace }}/$filePath" "${{ github.workspace }}/$newPath"
+                        mv "${{ github.workspace }}/$filePath" "${{ github.workspace }}/$newPath"
+                      fi
+                  done
+
+            - name: Save Snapshot Artifact
+              if: steps.artifactInputs.outputs.skip != 'true'
+              uses: actions/upload-artifact@v4
+              with:
+                  name: ${{ steps.artifactInputs.outputs.name }}
+                  path: ${{ steps.artifactInputs.outputs.filePath }}
+                  retention-days: 1

@@ -59,7 +59,7 @@ jobs:
               run: |
                   ./.github/scripts/runServer.sh
 
-            - name: Compare Snapshots - ${{ matrix.testPathPattern }}
+            - name: Compare Legacy Snapshots - ${{ matrix.testPathPattern }}
               run: |
                   npm run test:func -- --testPathPattern "${{ matrix.testPathPattern }}"
 
@@ -102,3 +102,35 @@ jobs:
             # - name: Collect Diffs and Upload to Imgur
             #   run: |
             #       ./scripts/snapshot-tests/collect-diffs-v2.sh
+
+    compareSnapshotsV2Renderer:
+        name: Compare V2 Message Renderer Snapshots
+        runs-on: ubuntu-24.04
+        needs: getMatrix
+        strategy:
+            fail-fast: false
+            matrix:
+                testPathPattern: ${{ fromJSON(needs.getMatrix.outputs.testPathPatterns) }}
+        steps:
+            - name: Checkout repo
+              uses: actions/checkout@v4
+              with:
+                  persist-credentials: false
+
+            - name: Setup node
+              uses: actions/setup-node@v4
+              with:
+                  node-version-file: '.nvmrc'
+
+            - name: 📥 Download deps
+              uses: bahmutov/npm-install@v1
+              with:
+                  useLockFile: false
+
+            - name: Run server
+              run: |
+                  ./.github/scripts/runServer.sh
+
+            - name: Compare v2 message renderer snapshots - ${{ matrix.testPathPattern }}
+              run: |
+                  npm run test:func:banner:snapshots:v2 -- --testPathPattern "${{ matrix.testPathPattern }}"

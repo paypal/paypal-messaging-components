@@ -53,7 +53,8 @@ jobs:
                           if (artifact.name === 'metadata') {
                             execSync(`rsync -zavpmr --no-links --include='pull_number.txt' --exclude='*' ${tmpDir}/ ${{ github.workspace }}`);
                           } else {
-                            const snapshotsDir = artifact.name.includes('v2') ? 'tests/functional/v2/snapshots' : 'tests/functional/snapshots';
+                            const isV2ModalArtifact = artifact.name.includes('snapshot-v2-');
+                            const snapshotsDir = isV2ModalArtifact ? 'tests/functional/v2/snapshots' : 'tests/functional/snapshots';
 
                             execSync(`rsync -zavpmr --no-links --include='*.png' --include='*/' --exclude='*' ${tmpDir}/ ${{ github.workspace }}/${snapshotsDir}`);
                           }

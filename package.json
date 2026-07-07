@@ -40,7 +40,9 @@
         "test:func:nosnaps:v2": "jest --detectOpenHandles --runInBand --verbose --config tests/functional/jest.noSnapshots.v2Renderer.config.js",
         "test:func:ciupdate": "jest --verbose --config tests/functional/jest.allFunctional.config.js --updateSnapshot",
         "test:func:snapshots": "jest --detectOpenHandles --runInBand --verbose --config tests/functional/v2/jest.snapshotTests.config.js",
-        "test:func:snapshots:ciupdate": "jest --verbose --config tests/functional/v2/jest.snapshotTests.config.js --updateSnapshot"
+        "test:func:snapshots:ciupdate": "jest --verbose --config tests/functional/v2/jest.snapshotTests.config.js --updateSnapshot",
+        "test:func:banner:snapshots:v2": "jest --detectOpenHandles --runInBand --verbose --config tests/functional/jest.bannerSnapshots.v2Renderer.config.js",
+        "test:func:banner:snapshots:v2:ciupdate": "jest --verbose --config tests/functional/jest.bannerSnapshots.v2Renderer.config.js --updateSnapshot"
     },
     "dependencies": {
         "@krakenjs/beaver-logger": "^5.0.0",
