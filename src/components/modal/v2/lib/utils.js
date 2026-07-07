@@ -79,6 +79,18 @@ export const isLander = __MESSAGES__.__TARGET__ === 'LANDER';
 const { userAgent } = window.navigator;
 export const isIframe = window.top !== window || isIosWebview(userAgent) || isAndroidWebview(userAgent);
 
+export function getIosMajorVersionFromUserAgent(ua = userAgent) {
+    const match = ua.match(/OS\s(\d+)[_.]/i);
+
+    if (!match) {
+        return null;
+    }
+
+    return Number.parseInt(match[1], 10);
+}
+
+export const isIos26Webview = isIosWebview(userAgent) && getIosMajorVersionFromUserAgent(userAgent) === 26;
+
 export function setupTabTrap() {
     // Disable tab trap functionality for modal lander
     if (isLander) {

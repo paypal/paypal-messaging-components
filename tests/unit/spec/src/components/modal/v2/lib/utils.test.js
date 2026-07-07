@@ -1,4 +1,9 @@
-import { formatDateByCountry, validateProps, openPrequalification } from 'src/components/modal/v2/lib/utils';
+import {
+    formatDateByCountry,
+    validateProps,
+    openPrequalification,
+    getIosMajorVersionFromUserAgent
+} from 'src/components/modal/v2/lib/utils';
 
 jest.mock('src/utils', () => {
     const original = jest.requireActual('src/utils');
@@ -94,5 +99,23 @@ describe('openPrequalification', () => {
         expect(window.location.assign).toHaveBeenCalledWith(
             'https://www.paypal.com/paylateracq/prequalify?token=&offer=PAY_LATER_SHORT_TERM'
         );
+    });
+});
+
+describe('getIosMajorVersionFromUserAgent', () => {
+    it('returns iOS major version when UA has iOS version token', () => {
+        const version = getIosMajorVersionFromUserAgent(
+            'Mozilla/5.0 (iPhone; CPU iPhone OS 26_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148'
+        );
+
+        expect(version).toBe(26);
+    });
+
+    it('returns null when UA does not have iOS version token', () => {
+        const version = getIosMajorVersionFromUserAgent(
+            'Mozilla/5.0 (Linux; Android 14; Pixel 8) AppleWebKit/537.36 Chrome/125.0 Mobile Safari/537.36'
+        );
+
+        expect(version).toBeNull();
     });
 });
