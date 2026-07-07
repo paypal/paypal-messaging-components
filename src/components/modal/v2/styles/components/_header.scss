@@ -503,10 +503,3 @@
         }
     }
 }
-
-html.ios26-webview {
-    .header__fixed-wrapper,
-    .header__icons {
-        top: max(env(safe-area-inset-top, 0px), 16px);
-    }
-}
