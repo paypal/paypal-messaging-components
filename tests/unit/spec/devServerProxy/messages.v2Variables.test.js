@@ -55,8 +55,8 @@ describe('v2 message variable resolution', () => {
         });
 
         expect(resolved.main_items[0]).toMatchObject({ type: 'TEXT_VARIABLE', text: '4' });
-        expect(resolved.main_items[2]).toMatchObject({ type: 'TEXT_VARIABLE', text: '$30.00' });
-        expect(resolved.main_items[4]).toMatchObject({ type: 'TEXT_VARIABLE', text: '$1,500.00' });
+        expect(resolved.main_items[2]).toMatchObject({ type: 'TEXT_VARIABLE', text: '$30' });
+        expect(resolved.main_items[4]).toMatchObject({ type: 'TEXT_VARIABLE', text: '$1,500' });
         expect(warnings).toEqual([]);
     });
 
@@ -98,8 +98,8 @@ describe('v2 message variable resolution', () => {
             warnings
         });
 
-        expect(resolved.main_items[0]).toMatchObject({ type: 'TEXT_VARIABLE', text: '$199.00' });
-        expect(resolved.main_items[1]).toMatchObject({ type: 'TEXT_VARIABLE', text: '$5,000.00' });
+        expect(resolved.main_items[0]).toMatchObject({ type: 'TEXT_VARIABLE', text: '$199' });
+        expect(resolved.main_items[1]).toMatchObject({ type: 'TEXT_VARIABLE', text: '$5,000' });
         expect(warnings).toEqual([]);
     });
 
@@ -134,7 +134,7 @@ describe('v2 message variable resolution', () => {
             warnings
         });
 
-        expect(resolved.main_items[0]).toMatchObject({ type: 'TEXT_VARIABLE', text: '$25.00' });
+        expect(resolved.main_items[0]).toMatchObject({ type: 'TEXT_VARIABLE', text: '$25' });
         expect(warnings).toEqual([]);
     });
 
@@ -190,7 +190,7 @@ describe('v2 message variable resolution', () => {
 
         const morsVars = {
             financing_code: 'fin_pay_in_1_999',
-            formattedMinAmount: '€30,00'
+            formattedMinAmount: '30,00€'
         };
 
         const warnings = [];
@@ -202,7 +202,80 @@ describe('v2 message variable resolution', () => {
             warnings
         });
 
-        expect(resolved.main_items[0]).toMatchObject({ type: 'TEXT_VARIABLE', text: '€30,00' });
+        expect(resolved.main_items[0]).toMatchObject({ type: 'TEXT_VARIABLE', text: '30€' });
         expect(warnings).toEqual([]);
+    });
+
+    test('prefers product-scoped mors vars over default vars for mixed-offer templates', () => {
+        const v2Content = {
+            main_items: [
+                {
+                    type: 'TEXT_VARIABLE',
+                    name: 'periodic_payment_count',
+                    text: '{PAY_LATER_SHORT_TERM.preferred_offer.periodic_payment_count}',
+                    text_path: '{PAY_LATER_SHORT_TERM.preferred_offer.financing_code}.periodic_payment_count'
+                }
+            ]
+        };
+
+        const warnings = [];
+
+        const resolved = __test__.resolveV2ContentVariables({
+            v2Content,
+            morsVars: {
+                total_payments: 24
+            },
+            morsVarsByProduct: {
+                PAY_LATER_SHORT_TERM: {
+                    total_payments: 4
+                }
+            },
+            warnings
+        });
+
+        expect(resolved.main_items[0]).toMatchObject({ type: 'TEXT_VARIABLE', text: '4' });
+        expect(warnings).toEqual([]);
+    });
+
+    test('resolves TEXT_VARIABLE entries in action_items and disclaimer_items', () => {
+        const v2Content = {
+            main_items: [],
+            action_items: [
+                {
+                    type: 'TEXT_VARIABLE',
+                    name: 'payment_count_action',
+                    text: '{PAY_LATER_SHORT_TERM.periodic_payment_count}',
+                    text_path: '{PAY_LATER_SHORT_TERM.preferred_offer.financing_code}.periodic_payment_count'
+                }
+            ],
+            disclaimer_items: [
+                {
+                    type: 'TEXT_VARIABLE',
+                    name: 'min_amount_disclaimer',
+                    text: '{PAY_LATER_SHORT_TERM.min_amount.formatted_value}',
+                    text_path: '{PAY_LATER_SHORT_TERM.preferred_offer.financing_code}.min_amount.formatted_value'
+                }
+            ]
+        };
+
+        const warnings = [];
+
+        const resolved = __test__.resolveV2ContentVariables({
+            v2Content,
+            morsVars: {
+                total_payments: 4,
+                formattedMinAmount: '$10.00'
+            },
+            warnings
+        });
+
+        expect(resolved.action_items[0]).toMatchObject({ type: 'TEXT_VARIABLE', text: '4' });
+        expect(resolved.disclaimer_items[0]).toMatchObject({ type: 'TEXT_VARIABLE', text: '$10' });
+        expect(warnings).toEqual([]);
+    });
+
+    test('formats EUR strings with trimmed zero cents like legacy message rendering', () => {
+        expect(__test__.formatCurrencyText('1,00€')).toBe('1€');
+        expect(__test__.formatCurrencyText('1,00 EUR')).toBe('1 €');
     });
 });

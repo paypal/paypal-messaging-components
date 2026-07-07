@@ -4,7 +4,7 @@
         <title>Messaging.js v2 vs Legacy Comparison</title>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-        <script src="//localhost.paypal.com:8080/messaging.js" data-pp-account="DEV_US_MULTI"></script>
+        <script src="//localhost.paypal.com:8080/messaging.js" data-pp-account="DEV_US_LONG_TERM"></script>
         <style>
             * {
                 box-sizing: border-box;
@@ -126,7 +126,7 @@
                 <div class="control-group">
                     <label>
                         Amount
-                        <input type="text" id="amountInput" value="500" placeholder="Enter amount" />
+                        <input type="text" id="amountInput" value="0" placeholder="Enter amount" />
                     </label>
                     <label>
                         Layout
@@ -156,7 +156,7 @@
                 <div class="renderer-section">
                     <h2>📦 Legacy (renderMessage)</h2>
                     <div class="message-container">
-                        <div class="messages" id="legacyMessage" data-pp-message>null</div>
+                        <div class="messages" id="legacyMessage" data-pp-message></div>
                     </div>
                     <div class="info">
                         Uses the original <code>dist/renderMessage.js</code> SSR path. This is the current production
@@ -168,7 +168,12 @@
                 <div class="renderer-section v2">
                     <h2>✨ v2 (renderV2Message)</h2>
                     <div class="message-container">
-                        <div class="messages" id="v2Message" data-pp-message>null</div>
+                        <div
+                            class="messages"
+                            id="v2Message"
+                            data-pp-message
+                            data-pp-features="useRenderV2Message"
+                        ></div>
                     </div>
                     <div class="info">
                         Uses the new <code>dist/renderV2Message.js</code> SSR path with CPS v2 content fixtures.
@@ -179,39 +184,46 @@
         </div>
 
         <script>
-            function buildConfig(includeV2Flag = false) {
+            function getConfiguredAccount() {
+                return (
+                    document.querySelector('script[data-pp-account]')?.getAttribute('data-pp-account') || 'DEV_US_MULTI'
+                );
+            }
+
+            function getCurrentState() {
                 const amount = document.getElementById('amountInput').value || '0';
                 const layout = document.getElementById('layoutSelect').value;
                 const logoType = document.getElementById('logoTypeSelect').value;
 
-                const config = {
-                    account: 'DEV_US_MULTI',
+                return {
+                    account: getConfiguredAccount(),
                     amount,
-                    style: {
-                        layout,
-                        logo: {
-                            type: logoType
-                        }
-                    }
+                    layout,
+                    logoType
                 };
+            }
+
+            function syncMessageAttributes(element, { account, amount, layout, logoType }, includeV2Flag = false) {
+                element.setAttribute('data-pp-account', account);
+                element.setAttribute('data-pp-amount', amount);
+                element.setAttribute('data-pp-style-layout', layout);
+                element.setAttribute('data-pp-style-logo-type', logoType);
 
                 if (includeV2Flag) {
-                    config.features = 'useRenderV2Message';
+                    element.setAttribute('data-pp-features', 'useRenderV2Message');
+                } else {
+                    element.removeAttribute('data-pp-features');
                 }
-
-                return config;
             }
 
             function updateMessages() {
-                const legacyConfig = buildConfig(false);
-                const v2Config = buildConfig(true);
-
-                paypal.Message.render(legacyConfig, '#legacyMessage');
-                paypal.Message.render(v2Config, '#v2Message');
+                const state = getCurrentState();
+                syncMessageAttributes(document.getElementById('legacyMessage'), state, false);
+                syncMessageAttributes(document.getElementById('v2Message'), state, true);
             }
 
             function resetDefaults() {
-                document.getElementById('amountInput').value = '500';
+                document.getElementById('amountInput').value = '0';
                 document.getElementById('layoutSelect').value = 'text';
                 document.getElementById('logoTypeSelect').value = 'primary';
                 updateMessages();
@@ -219,7 +231,7 @@
 
             // Initial render
             window.addEventListener('load', () => {
-                setTimeout(updateMessages, 500);
+                updateMessages();
             });
         </script>
     </body>

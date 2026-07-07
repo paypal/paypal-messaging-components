@@ -23,6 +23,24 @@ export default {
                 amount: 0,
                 template: 'generic.json',
                 product: 'PRODUCT_LIST'
+            },
+            {
+                amount: 1,
+                template: 'pi30q.json',
+                templateV2: 'pay_in_1_q.json',
+                product: 'PAY_LATER_PAY_IN_1'
+            },
+            {
+                amount: 99,
+                template: 'gplq_gtz.json',
+                templateV2: 'long_term_multi_gtz.json',
+                product: 'PAY_LATER_LONG_TERM'
+            },
+            {
+                amount: 5000.01,
+                template: 'gpl_gtz.json',
+                templateV2: 'long_term_nq_gtz.json',
+                product: 'PAY_LATER_LONG_TERM'
             }
         ],
         offers: {

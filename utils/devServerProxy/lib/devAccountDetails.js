@@ -147,6 +147,18 @@ export default function getDevAccountDetails({ account, amount, buyerCountry, us
     if (devAccountMapV2[account]) {
         const { country, modalViews, messageThresholds, offers } = devAccountMapV2[account];
         const selectedMessage = selectMessageThreshold(messageThresholds, amount);
+        const morsVarsByProduct = Object.entries(offers).reduce((mappedVars, [productName, productOffers]) => {
+            const selectedOffer = selectBestOffer(productOffers, amount);
+
+            if (!selectedOffer) {
+                return mappedVars;
+            }
+
+            return {
+                ...mappedVars,
+                [productName]: getMorsVars(country, selectedOffer, amount)
+            };
+        }, {});
         const shouldUseXBTemplate = buyerCountry && buyerCountry !== country;
         const selectedTemplateName = (() => {
             // templateV2/templateXBV2 are only needed when the v2 filename differs.
@@ -204,7 +216,8 @@ export default function getDevAccountDetails({ account, amount, buyerCountry, us
             }),
             message: {
                 template: messageTemplate,
-                morsVars: getMorsVars(country, selectBestOffer(offers[selectedMessage.product], amount), amount)
+                morsVars: getMorsVars(country, selectBestOffer(offers[selectedMessage.product], amount), amount),
+                morsVarsByProduct
             }
         };
     }

@@ -3,6 +3,7 @@ import path from 'path';
 import got from 'got';
 
 import { PORT, VARIANT } from '../../src/server/constants';
+import { currencyFormat } from '../../src/utils/currencyFormat';
 import { populateTemplate, createMockZoidMarkup, waitForTimeout } from './lib/miscellaneous';
 import getDevAccountDetails from './lib/devAccountDetails';
 import VARIABLE_PATH_MAP from './lib/v2VariablePathMap';
@@ -22,33 +23,58 @@ const parseJSONParam = (val, fallbackValue = {}) => {
     }
 };
 
-const resolveMappedValue = (pathValue, morsVars) => {
-    const normalizedPath =
-        typeof pathValue === 'string'
-            ? pathValue
-                  .replace(/^\{/, '')
-                  .replace(/\}$/, '')
-                  .replace(/[{}]/g, '')
-                  .replace(/^[A-Z0-9_]+\.preferred_offer\.financing_code\./, '')
-                  .replace(/^[A-Z0-9_]+\./, '')
-            : '';
-    const sourceKeys = VARIABLE_PATH_MAP[normalizedPath] ?? [];
-    const matchedKey = sourceKeys.find(key => morsVars?.[key] !== undefined && morsVars?.[key] !== null);
+const extractProductCode = expression => {
+    if (typeof expression !== 'string') {
+        return null;
+    }
 
-    return matchedKey ? morsVars?.[matchedKey] : undefined;
+    const [head] = expression.replace(/[{}]/g, '').split('.');
+    return /^[A-Z0-9_]+$/.test(head) ? head : null;
 };
 
-const resolveV2TextVariable = (item, morsVars, warnings) => {
+const resolveMappedValue = (pathValue, morsVars, morsVarsByProduct) => {
+    const normalizedExpression =
+        typeof pathValue === 'string' ? pathValue.replace(/^\{/, '').replace(/\}$/, '').replace(/[{}]/g, '') : '';
+    const productCode = extractProductCode(normalizedExpression);
+    const normalizedPath = normalizedExpression
+        .replace(/^[A-Z0-9_]+\.preferred_offer\.financing_code\./, '')
+        .replace(/^[A-Z0-9_]+\.preferred_offer\./, '')
+        .replace(/^[A-Z0-9_]+\./, '');
+    const sourceKeys = VARIABLE_PATH_MAP[normalizedPath] ?? [normalizedPath];
+    const variableSources = [];
+
+    if (productCode && morsVarsByProduct?.[productCode]) {
+        variableSources.push(morsVarsByProduct[productCode]);
+    }
+
+    if (morsVars) {
+        variableSources.push(morsVars);
+    }
+
+    return variableSources.reduce((resolvedValue, source) => {
+        if (resolvedValue !== undefined) {
+            return resolvedValue;
+        }
+
+        const matchedKey = sourceKeys.find(key => source?.[key] !== undefined && source?.[key] !== null);
+
+        return matchedKey ? source[matchedKey] : undefined;
+    }, undefined);
+};
+
+const resolveV2TextVariable = (item, morsVars, morsVarsByProduct, warnings) => {
     if (!item || item.type !== 'TEXT_VARIABLE') {
         return item;
     }
 
-    const resolvedValue = resolveMappedValue(item.text_path, morsVars) ?? resolveMappedValue(item.text, morsVars);
+    const resolvedValue =
+        resolveMappedValue(item.text_path, morsVars, morsVarsByProduct) ??
+        resolveMappedValue(item.text, morsVars, morsVarsByProduct);
 
     if (resolvedValue !== undefined && resolvedValue !== null) {
         return {
             ...item,
-            text: String(resolvedValue)
+            text: currencyFormat(String(resolvedValue))
         };
     }
 
@@ -60,13 +86,24 @@ const resolveV2TextVariable = (item, morsVars, warnings) => {
     };
 };
 
-const resolveV2ContentVariables = ({ v2Content, morsVars, warnings }) => {
-    return {
-        ...v2Content,
-        main_items: (v2Content?.main_items ?? []).map(item =>
-            item?.type === 'TEXT_VARIABLE' ? resolveV2TextVariable(item, morsVars, warnings) : item
-        )
-    };
+const resolveV2ContentVariables = ({ v2Content, morsVars, morsVarsByProduct, warnings }) => {
+    return Object.entries(v2Content ?? {}).reduce((resolvedContent, [contentKey, contentValue]) => {
+        if (!contentKey.endsWith('_items') || !Array.isArray(contentValue)) {
+            return {
+                ...resolvedContent,
+                [contentKey]: contentValue
+            };
+        }
+
+        return {
+            ...resolvedContent,
+            [contentKey]: contentValue.map(item =>
+                item?.type === 'TEXT_VARIABLE'
+                    ? resolveV2TextVariable(item, morsVars, morsVarsByProduct, warnings)
+                    : item
+            )
+        };
+    }, {});
 };
 
 const shouldUseV2Renderer = req => {
@@ -256,6 +293,7 @@ const getV2MessageData = (req, compiler) => {
         v2Template,
         v2Content,
         morsVars: message?.morsVars ?? {},
+        morsVarsByProduct: message?.morsVarsByProduct ?? {},
         warnings
     });
 
@@ -305,6 +343,7 @@ const getSmartMessageData = (req, compiler) => {
 };
 
 export const __test__ = {
+    formatCurrencyText: currencyFormat,
     resolveV2ContentVariables
 };
 
