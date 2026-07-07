@@ -89,8 +89,9 @@ export default ({ uid, frame, prerenderFrame, doc, event, state, props: { cspNon
         window.addEventListener('keyup', handleEscape);
     };
 
+    const safeAreaTop = 'env(safe-area-inset-top, 0px)';
     const fullScreen = position =>
-        `position: ${position} !important; top: 0 !important; left: 0 !important; width: 100% !important; height: 100% !important; z-index: 2147483647 !important; border: none !important;`;
+        `position: ${position} !important; top: ${safeAreaTop} !important; left: 0 !important; width: 100% !important; height: calc(100% - ${safeAreaTop}) !important; z-index: 2147483647 !important; border: none !important;`;
     const modalTitle = getTitle(frame.title);
     // We apply both styles tag and inline style because some merchants are changing the inline
     // style values unintentionally with greedy JavaScript and the style tag with !important
