@@ -3,7 +3,6 @@ import path from 'path';
 import got from 'got';
 
 import { PORT, VARIANT } from '../../src/server/constants';
-import { currencyFormat } from '../../src/utils/currencyFormat';
 import { populateTemplate, createMockZoidMarkup, waitForTimeout } from './lib/miscellaneous';
 import getDevAccountDetails from './lib/devAccountDetails';
 import VARIABLE_PATH_MAP from './lib/v2VariablePathMap';
@@ -21,6 +20,33 @@ const parseJSONParam = (val, fallbackValue = {}) => {
     } catch (err) {
         return fallbackValue;
     }
+};
+
+const formatCurrencyText = value => {
+    if (typeof value !== 'string') {
+        return value;
+    }
+
+    let formattedStr = value;
+    const match =
+        formattedStr.match(
+            // eslint-disable-next-line security/detect-unsafe-regex
+            /((\$|£)?(\d{1,5}(\.|,)){1,3}\d\d)(\s?EUR|€)?/g
+        ) ?? null;
+
+    if (match !== null) {
+        match.forEach(foundString => {
+            const filteredString = foundString
+                .replace(/(\.|,)00-/g, '-')
+                .replace(/(\.|,)00$/g, '')
+                .replace(/((\.|,)00)(.|\s*)EUR/g, ' €')
+                .replace(/(\.|,)00€/g, '€')
+                .replace(/(\s?EUR)/g, ' €');
+            formattedStr = formattedStr.replace(foundString, filteredString);
+        });
+    }
+
+    return formattedStr;
 };
 
 const extractProductCode = expression => {
@@ -74,7 +100,7 @@ const resolveV2TextVariable = (item, morsVars, morsVarsByProduct, warnings) => {
     if (resolvedValue !== undefined && resolvedValue !== null) {
         return {
             ...item,
-            text: currencyFormat(String(resolvedValue))
+            text: formatCurrencyText(String(resolvedValue))
         };
     }
 
@@ -343,7 +369,7 @@ const getSmartMessageData = (req, compiler) => {
 };
 
 export const __test__ = {
-    formatCurrencyText: currencyFormat,
+    formatCurrencyText,
     resolveV2ContentVariables
 };
 
