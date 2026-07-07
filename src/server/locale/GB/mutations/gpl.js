@@ -27,7 +27,7 @@ export default {
                     },
                     { tag: 'xsmall' }
                 ],
-                disclaimer: ['default']
+                disclaimer: ['extra', 'default']
             })
         ],
         [
@@ -130,7 +130,7 @@ export default {
                         tag: 'medium'
                     }
                 ],
-                disclaimer: ['default']
+                disclaimer: ['extra', 'default']
             }
         ],
         [

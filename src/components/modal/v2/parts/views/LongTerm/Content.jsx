@@ -88,13 +88,11 @@ export const LongTerm = ({
     use5Dot1Design
 }) => {
     const [expandedState, setExpandedState] = useState(false);
-    // todo: follow up ticket to utilize a different session identifier than (ecToken)
-    const { amount, onClick, onClose, ecToken } = useXProps();
+    const { amount, onClick, onClose } = useXProps();
     const { views, country } = useServerData();
     const spendingPowerClickTitle = 'Check Spending Power';
     const handlePrequalification = usePrequalification(spendingPowerClickTitle, onClick, {
-        offer: product,
-        token: ecToken
+        offer: product
     });
     const { offers } = views.find(view => view.offers);
     const { minAmount, maxAmount } = getComputedVariables(offers);

@@ -8,10 +8,10 @@ export const DEV_FR_SHORT_TERM = {
         {
             value: '0.00',
             message: 'Non-qualifying Pay in 4',
-            expectedValue: 'Disponible pour les achats de 30,00 € à 2.000,00 €',
+            expectedValue: 'Disponible pour les achats de 20,00 € à 3.000,00 €',
             modalContent: {
                 subheadline:
-                    'Disponible pour les achats de 30 € à 2.000 €. Pas de frais de dossier ni de frais de retard.',
+                    'Disponible pour les achats de 20 € à 3.000 €. Pas de frais de dossier ni de frais de retard.',
                 periodicPayment: null
             }
         },
@@ -25,12 +25,12 @@ export const DEV_FR_SHORT_TERM = {
             }
         },
         {
-            value: '2000.01',
+            value: '3000.01',
             message: 'Non-qualifying Pay in 4',
-            expectedValue: 'Disponible pour les achats de 30,00 € à 2.000,00 €',
+            expectedValue: 'Disponible pour les achats de 20,00 € à 3.000,00 €',
             modalContent: {
                 subheadline:
-                    'Disponible pour les achats de 30 € à 2.000 €. Pas de frais de dossier ni de frais de retard.',
+                    'Disponible pour les achats de 20 € à 3.000 €. Pas de frais de dossier ni de frais de retard.',
                 periodicPayment: ''
             }
         }
