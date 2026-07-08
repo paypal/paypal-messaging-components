@@ -148,6 +148,12 @@
                 }
             }
 
+            &.input__wrapper--error {
+                .input {
+                    border-color: colors.$error-red;
+                }
+            }
+
             &.v5Design {
                 @include mixins.tablet {
                     margin-right: 15px;
@@ -189,12 +195,6 @@
             .calculator__error {
                 & > div {
                     max-width: none;
-                }
-            }
-
-            .input__wrapper--error {
-                .input {
-                    border-color: colors.$error-red;
                 }
             }
         }
