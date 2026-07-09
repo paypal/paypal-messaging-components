@@ -1,9 +1,11 @@
 import { buildFontRules } from '../message/font';
 
-const DEFAULT_FONT_FAMILY = '"PayPal Pro", Helvetica, Arial, "Liberation Sans", sans-serif';
-const FONT_FALLBACKS = 'Helvetica, Arial, "Liberation Sans", sans-serif';
+// Matches v5's default (src/server/message/styles/common.css `html { ... }`) so v2 doesn't
+// render merchant messages in a noticeably different typeface/weight than v5 by default.
+const DEFAULT_FONT_FAMILY = 'Helvetica, Arial, sans-serif';
+const FONT_FALLBACKS = 'Helvetica, Arial, sans-serif';
 
-export default ({ fontFamily, fontSource, fontSize = 12, textAlign = 'left' } = {}) => {
+export default ({ fontFamily, fontSource, fontSize = 14, textAlign = 'left' } = {}) => {
     const { fontFaceRules, effectiveFontFamily } = buildFontRules({
         fontSource,
         fontFamily,
@@ -22,7 +24,7 @@ body {
     display: block;
     width: 100%;
     font-family: ${effectiveFontFamily};
-    font-weight: 450;
+    font-weight: 400;
     font-size: ${fontSize}px;
     text-align: ${textAlign};
 }
@@ -66,6 +68,11 @@ body {
 }
 .pp-message .logo.inline img {
     margin-right: 0;
+    vertical-align: baseline;
+}
+
+.pp-message .inline-logo-phrase {
+    white-space: nowrap;
 }
 `;
 };

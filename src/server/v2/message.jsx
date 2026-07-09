@@ -22,7 +22,7 @@ function getLogoImageStyle(effectiveLogoPosition) {
         return { ...base, marginRight: 0, marginBottom: '0.3125em' };
     }
     if (effectiveLogoPosition === 'inline') {
-        return { ...base, marginRight: 0 };
+        return { ...base, marginRight: 0, verticalAlign: 'baseline' };
     }
     return { ...base, marginRight: '0.3125em' };
 }
@@ -54,6 +54,43 @@ function renderLogoImages(item, logoPresentation) {
 // - "**bold**" marker rendering within TEXT blocks
 // - Card-offer logo overrides for PAYPAL_CASHBACK_MASTERCARD / PAYPAL_DEBIT_CARD
 
+// Matches the trailing "word" of a string, plus any whitespace immediately before it
+// (e.g. "Buy now," -> " now,"). Used to pull the word that introduces an inline logo
+// (e.g. "with") off of its TEXT block so it can be kept on the same line as the logo.
+const TRAILING_WORD_RE = /(\s*\S+\s*)$/;
+
+// When the logo renders inline, CPS order can put the word introducing the logo
+// (e.g. "with PayPal") in a separate TEXT block from the logo IMAGE block, so the
+// two can wrap onto different lines. This walks the CPS blocks and, wherever a TEXT
+// block is immediately followed by an IMAGE block, splits the trailing word off the
+// text and regroups it with the image under a single INLINE_LOGO_PHRASE entry that
+// renders as a white-space:nowrap span — keeping the word attached to the logo
+// without hardcoding any particular word or mutating the original block list (the
+// aria-label is computed from that original list before this runs).
+function groupInlineLogoBlocks(blocks) {
+    const result = [];
+    let i = 0;
+    while (i < blocks.length) {
+        const item = blocks[i];
+        const next = blocks[i + 1];
+        const match =
+            item.type === 'TEXT' && typeof item.text === 'string' && next?.type === 'IMAGE'
+                ? item.text.match(TRAILING_WORD_RE)
+                : null;
+
+        if (match) {
+            const leadingText = item.text.slice(0, item.text.length - match[1].length);
+            if (leadingText) result.push({ type: 'TEXT', text: leadingText });
+            result.push({ type: 'INLINE_LOGO_PHRASE', text: match[1], image: next });
+            i += 2; // the IMAGE block is now rendered as part of the phrase
+        } else {
+            result.push(item);
+            i += 1;
+        }
+    }
+    return result;
+}
+
 // renderBlock renders a single CPS content block.
 // When logoPresentation is provided, IMAGE blocks render as inline brand logos
 // in CPS order (v6 parity for logo.type:inline). Without it, IMAGE falls back
@@ -65,6 +102,13 @@ function renderLogoImages(item, logoPresentation) {
 function renderBlock(item, logoPresentation) {
     if (!item) return null;
     switch (item.type) {
+        case 'INLINE_LOGO_PHRASE':
+            return (
+                <span className="inline-logo-phrase" style={{ whiteSpace: 'nowrap' }}>
+                    {item.text}
+                    {renderBlock(item.image, logoPresentation)}
+                </span>
+            );
         case 'IMAGE':
             if (logoPresentation) {
                 return (
@@ -140,6 +184,10 @@ export default function V2Message({ options, v2Content, log }) {
     // For all other modes, logoPresentation is null so IMAGE blocks render as plain imgs.
     const inlineLogoPresentation = effectiveLogoPosition === 'inline' ? logoPresentation : null;
 
+    // Grouping only affects the rendered markup, not preparedMainBlocks (already used
+    // above for mainLabel), so the aria-label always reflects the original CPS content.
+    const renderMainBlocks = inlineLogoPresentation ? groupInlineLogoBlocks(preparedMainBlocks) : preparedMainBlocks;
+
     return (
         <div
             className="pp-message"
@@ -164,7 +212,7 @@ export default function V2Message({ options, v2Content, log }) {
             {/* eslint-enable react/no-danger */}
             {hasInitialLogo ? renderLogoSpan(logoBlock, logoClasses, logoPresentation) : null}
             <span aria-label={mainLabel} className={mainClasses}>
-                {preparedMainBlocks.map((item, idx) => (
+                {renderMainBlocks.map((item, idx) => (
                     // eslint-disable-next-line react/no-array-index-key
                     <Fragment key={idx}>{renderBlock(item, inlineLogoPresentation)}</Fragment>
                 ))}

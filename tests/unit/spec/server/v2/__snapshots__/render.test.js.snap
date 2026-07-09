@@ -10,8 +10,8 @@ body {
 .pp-message {
     display: block;
     width: 100%;
-    font-family: \\"PayPal Pro\\", Helvetica, Arial, \\"Liberation Sans\\", sans-serif;
-    font-weight: 450;
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: 400;
     font-size: 12px;
     text-align: left;
 }
@@ -55,6 +55,11 @@ body {
 }
 .pp-message .logo.inline img {
     margin-right: 0;
+    vertical-align: baseline;
+}
+
+.pp-message .inline-logo-phrase {
+    white-space: nowrap;
 }
 </style><span role=\\"img\\" aria-label=\\"PayPal\\" class=\\"logo black left wordmark\\"><img src=\\"data:local/color-monogram\\" alt role=\\"presentation\\" width=\\"24\\" height=\\"32\\" style=\\"max-height: 1.25em; height: 1.25em; width: auto; vertical-align: middle; margin-right: 0.3125em;\\" /><img src=\\"data:local/color-wordmark\\" alt role=\\"presentation\\" width=\\"100\\" height=\\"32\\" style=\\"max-height: 1.25em; height: 1.25em; width: auto; vertical-align: middle; margin-right: 0.3125em;\\" /></span><span aria-label=\\"Pay Later. Subject to approval.\\" class=\\"main left black\\">Pay Later. Subject to approval.</span><span aria-label=\\"Learn more\\" class=\\"action black\\"><span data-iframe-url=\\"https://example.com/lander\\" data-embeddable=\\"true\\">Learn more</span></span></div>"
 `;
@@ -69,8 +74,8 @@ body {
 .pp-message {
     display: block;
     width: 100%;
-    font-family: \\"PayPal Pro\\", Helvetica, Arial, \\"Liberation Sans\\", sans-serif;
-    font-weight: 450;
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: 400;
     font-size: 12px;
     text-align: left;
 }
@@ -114,6 +119,11 @@ body {
 }
 .pp-message .logo.inline img {
     margin-right: 0;
+    vertical-align: baseline;
+}
+
+.pp-message .inline-logo-phrase {
+    white-space: nowrap;
 }
 </style>"
 `;

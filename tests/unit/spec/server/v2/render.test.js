@@ -212,6 +212,27 @@ describe('v2 render', () => {
         expect(logoIdx).toBeGreaterThan(mainIdx);
     });
 
+    test('inline logo image is baseline-aligned so it sits on the surrounding text baseline', () => {
+        const options = { style: { ...baseOptions.style, logo: { type: 'inline', position: 'left' } } };
+        const content = {
+            ...baseV2Content,
+            main_items: [
+                { type: 'TEXT', text: 'Pay Later' },
+                {
+                    type: 'IMAGE',
+                    source_url: 'https://example.com/logo.svg',
+                    alternative_text: 'PayPal',
+                    name: 'paypal_logo'
+                }
+            ]
+        };
+        const result = render(options, content, mockLog);
+        expect(result).toMatch(/class="logo inline[^"]*"[^>]*><img[^>]*style="[^"]*vertical-align: baseline/);
+        expect(result).toContain(
+            '.pp-message .logo.inline img {\n    margin-right: 0;\n    vertical-align: baseline;\n}'
+        );
+    });
+
     test('logo type none suppresses logo span even when IMAGE item is present', () => {
         const options = { style: { ...baseOptions.style, logo: { type: 'none', position: 'left' } } };
         const content = {
@@ -405,12 +426,80 @@ describe('v2 render logo presentation adapter', () => {
         const options = { style: { ...baseOptions.style, logo: { type: 'inline', position: 'left' } } };
         const content = {
             ...baseV2Content,
-            main_items: [{ type: 'TEXT', text: 'Buy now,' }, logoBlock, { type: 'TEXT', text: 'pay later' }]
+            main_items: [{ type: 'TEXT', text: 'Buy now,' }, logoBlock, { type: 'TEXT', text: 'pay later' }],
+            disclaimer_items: []
         };
         const result = render(options, content, mockLog);
-        // aria-label on main span contains all text so indexOf is unreliable;
-        // match the actual rendered HTML child sequence: text → logo element → text
-        expect(result).toMatch(/Buy now,[\s\S]*?<span[^>]*class="logo[\s\S]*?<\/span>[\s\S]*?pay later/);
+        // the trailing word before the logo ("now,") is regrouped with it (see the
+        // inline-logo-phrase tests below), so check overall order via the aria-label
+        // (computed from the original, ungrouped CPS content) rather than raw markup order
+        expect(result).toContain('aria-label="Buy now, PayPal pay later"');
+        // and the leading remainder of the text block still renders ahead of the logo
+        const buyIdx = result.indexOf('>Buy<');
+        const logoIdx = result.indexOf('class="logo');
+        expect(buyIdx).toBeGreaterThan(-1);
+        expect(logoIdx).toBeGreaterThan(buyIdx);
+    });
+
+    describe('inline logo phrase-attachment', () => {
+        test('trailing word before an inline logo is wrapped with it in a nowrap span', () => {
+            const options = { style: { ...baseOptions.style, logo: { type: 'inline', position: 'left' } } };
+            const content = {
+                ...baseV2Content,
+                main_items: [{ type: 'TEXT', text: 'As low as $23.84/mo with ' }, logoBlock],
+                disclaimer_items: []
+            };
+            const result = render(options, content, mockLog);
+            expect(result).toContain('>As low as $23.84/mo<');
+            expect(result).toMatch(
+                /<span class="inline-logo-phrase" style="white-space: nowrap;"> with <span[^>]*class="logo/
+            );
+        });
+
+        test('does not hardcode a specific word — works for other trailing text', () => {
+            const options = { style: { ...baseOptions.style, logo: { type: 'inline', position: 'left' } } };
+            const content = {
+                ...baseV2Content,
+                main_items: [{ type: 'TEXT', text: 'Rebajado por' }, logoBlock],
+                disclaimer_items: []
+            };
+            const result = render(options, content, mockLog);
+            expect(result).toContain('>Rebajado<');
+            expect(result).toMatch(/<span class="inline-logo-phrase"[^>]*>\s*por<span[^>]*class="logo/);
+        });
+
+        test('a text block that is a single word is wrapped whole with the logo (no leading remainder)', () => {
+            const options = { style: { ...baseOptions.style, logo: { type: 'inline', position: 'left' } } };
+            const content = {
+                ...baseV2Content,
+                main_items: [{ type: 'TEXT', text: 'with' }, logoBlock],
+                disclaimer_items: []
+            };
+            const result = render(options, content, mockLog);
+            expect(result).toMatch(/class="main[^"]*"><span class="inline-logo-phrase"/);
+        });
+
+        test('does not group a TEXT block with a following IMAGE when the logo is not inline', () => {
+            const options = { style: { ...baseOptions.style, logo: { type: 'primary', position: 'right' } } };
+            const content = {
+                ...baseV2Content,
+                main_items: [{ type: 'TEXT', text: 'Pay in 4 with' }, logoBlock],
+                disclaimer_items: []
+            };
+            const result = render(options, content, mockLog);
+            expect(result).not.toContain('class="inline-logo-phrase"');
+        });
+
+        test('aria-label reflects the original, ungrouped CPS text', () => {
+            const options = { style: { ...baseOptions.style, logo: { type: 'inline', position: 'left' } } };
+            const content = {
+                ...baseV2Content,
+                main_items: [{ type: 'TEXT', text: 'As low as $23.84/mo with ' }, logoBlock],
+                disclaimer_items: []
+            };
+            const result = render(options, content, mockLog);
+            expect(result).toContain('aria-label="As low as $23.84/mo with PayPal"');
+        });
     });
 
     test('inline IMAGE accessible label uses alternative_text', () => {
@@ -665,19 +754,19 @@ describe('v2 render fontSource', () => {
         expect(result).toContain("font-family: 'Impact', sans-serif, Helvetica");
     });
 
-    test('uses PayPal Pro default font-family when fontSource is not provided', () => {
+    test('uses v5-matching default font-family when fontSource is not provided', () => {
         const result = render(baseOptions, baseV2Content, mockLog);
         expect(result).not.toContain('@font-face');
-        expect(result).toContain('"PayPal Pro"');
+        expect(result).toContain('font-family: Helvetica, Arial, sans-serif;');
     });
 
-    test('uses PayPal Pro default font-family when fontSource is empty array', () => {
+    test('uses v5-matching default font-family when fontSource is empty array', () => {
         const options = {
             style: { ...baseOptions.style, text: { color: 'black', size: 12, fontSource: [] } }
         };
         const result = render(options, baseV2Content, mockLog);
         expect(result).not.toContain('@font-face');
-        expect(result).toContain('"PayPal Pro"');
+        expect(result).toContain('font-family: Helvetica, Arial, sans-serif;');
     });
 
     test('ignores unsafe fontSource URLs', () => {
@@ -701,7 +790,7 @@ describe('v2 render fontSource', () => {
         };
         const result = render(options, baseV2Content, mockLog);
         expect(result).not.toContain('<script>');
-        expect(result).toContain('"PayPal Pro"');
+        expect(result).toContain('font-family: Helvetica, Arial, sans-serif;');
     });
 
     test('fontSource with </style> tag injection is rejected', () => {
