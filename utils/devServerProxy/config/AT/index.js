@@ -200,65 +200,6 @@ export default {
             ]
         }
     },
-    DEV_AT_LONG_TERM_EN: {
-        country: 'AT',
-        modalViews: [
-            {
-                template: 'long_term_en.json',
-                offersTemplate: 'long_term_en.json',
-                product: 'PAY_LATER_LONG_TERM'
-            }
-        ],
-        messageThresholds: [
-            {
-                amount: 0,
-                template: 'gpl_gtz-non-at.json',
-                product: 'PAY_LATER_LONG_TERM'
-            },
-            {
-                amount: 99,
-                template: 'gplq_gtz-non-at.json',
-                product: 'PAY_LATER_LONG_TERM'
-            },
-            {
-                amount: 10000.01,
-                template: 'gpl_gtz-non-at.json',
-                product: 'PAY_LATER_LONG_TERM'
-            }
-        ],
-        offers: {
-            PAY_LATER_LONG_TERM: [
-                {
-                    totalPayments: 3,
-                    apr: 9.99,
-                    nominalRate: 9.48,
-                    minAmount: 99,
-                    maxAmount: 5000
-                },
-                {
-                    totalPayments: 6,
-                    apr: 9.99,
-                    nominalRate: 9.48,
-                    minAmount: 99,
-                    maxAmount: 5000
-                },
-                {
-                    totalPayments: 12,
-                    apr: 9.99,
-                    nominalRate: 9.5,
-                    minAmount: 99,
-                    maxAmount: 10000
-                },
-                {
-                    totalPayments: 24,
-                    apr: 9.99,
-                    nominalRate: 9.51,
-                    minAmount: 99,
-                    maxAmount: 10000
-                }
-            ]
-        }
-    },
     DEV_AT_LONG_TERM_0APR: {
         country: 'AT',
         modalViews: [
@@ -282,65 +223,6 @@ export default {
             {
                 amount: 10000.01,
                 template: 'gpl_eqz.json',
-                product: 'PAY_LATER_LONG_TERM'
-            }
-        ],
-        offers: {
-            PAY_LATER_LONG_TERM: [
-                {
-                    totalPayments: 3,
-                    apr: 0,
-                    nominalRate: 0,
-                    minAmount: 99,
-                    maxAmount: 5000
-                },
-                {
-                    totalPayments: 6,
-                    apr: 0,
-                    nominalRate: 0,
-                    minAmount: 99,
-                    maxAmount: 5000
-                },
-                {
-                    totalPayments: 12,
-                    apr: 0,
-                    nominalRate: 0,
-                    minAmount: 99,
-                    maxAmount: 10000
-                },
-                {
-                    totalPayments: 24,
-                    apr: 0,
-                    nominalRate: 0,
-                    minAmount: 99,
-                    maxAmount: 10000
-                }
-            ]
-        }
-    },
-    DEV_AT_LONG_TERM_EN_0APR: {
-        country: 'AT',
-        modalViews: [
-            {
-                template: 'long_term_en.json',
-                offersTemplate: 'long_term_en.json',
-                product: 'PAY_LATER_LONG_TERM'
-            }
-        ],
-        messageThresholds: [
-            {
-                amount: 0,
-                template: 'gpl_eqz-non-at.json',
-                product: 'PAY_LATER_LONG_TERM'
-            },
-            {
-                amount: 99,
-                template: 'gplq_eqz-non-at.json',
-                product: 'PAY_LATER_LONG_TERM'
-            },
-            {
-                amount: 10000.01,
-                template: 'gpl_eqz-non-at.json',
                 product: 'PAY_LATER_LONG_TERM'
             }
         ],
