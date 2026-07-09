@@ -1,4 +1,4 @@
-import Logo from '../../../../message/logos';
+import Logo from '../../../message/logos';
 import {
     textWrap,
     messageLogoWidth,
@@ -6,8 +6,8 @@ import {
     logo20x1,
     altNoWrap,
     setLogoTop
-} from '../../../../message/mediaQueries';
-import { textLogoMutations, flexLogoMutations } from '../../../../message/logoMutations';
+} from '../../../message/mediaQueries';
+import { textLogoMutations, flexLogoMutations } from '../../../message/logoMutations';
 
 export default {
     'layout:text': [
