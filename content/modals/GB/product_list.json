@@ -6,9 +6,9 @@
     },
     "content": {
         "headline": "Buy now, pay later",
-        "subheadline": "Get more info on Pay Later options.",
+        "subheadline": "",
         "instructions": {
-            "payLater": "Select <strong>PayPal</strong> at checkout to use <strong>Pay Later</strong>."
+            "payLater": "Get more info on Pay Later options."
         },
         "productTiles": {
             "payLater": [
