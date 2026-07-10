@@ -122,7 +122,7 @@ export default {
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25),
                     `@media screen and (max-width: ${
                         textSize * 12.5
-                    }px) { .locale--DE .message__messaging { white-space: nowrap;}}`
+                    }px) { .locale--AT .message__messaging { white-space: nowrap;}}`
                 ],
                 headline: [
                     { tag: 'medium', br: ['ab'] },

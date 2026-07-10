@@ -54,32 +54,22 @@ descFn.each(filterPermutations([LOCALE_CONFIG], [ACCOUNT]))(
             page.close();
         });
 
-        // DTGPLUPBLR-44 - AT threshold mobile tests are flaky; skip until fixed
-        const skipATMobileThreshold = account === 'DEV_AT_LONG_TERM' && viewport === 'mobile';
-        const testFn = skipATMobileThreshold ? test.skip : test;
-
         if (amount < minAmount) {
-            testFn(
-                `Amount:${amount} - Amounts below ${minAmount} show correct below threshold warning - ${viewport}`,
-                async () => {
-                    await belowThresholdErr(
-                        modalFrame,
-                        modalContent,
-                        getTestName(country, integration, account, amount, viewport)
-                    );
-                }
-            );
+            test(`Amount:${amount} - Amounts below ${minAmount} show correct below threshold warning - ${viewport}`, async () => {
+                await belowThresholdErr(
+                    modalFrame,
+                    modalContent,
+                    getTestName(country, integration, account, amount, viewport)
+                );
+            });
         } else if (amount > maxAmount) {
-            testFn(
-                `Amount:${amount} - Amounts above ${maxAmount} show correct above threshold warning - ${viewport}`,
-                async () => {
-                    await aboveThresholdErr(
-                        modalFrame,
-                        modalContent,
-                        getTestName(country, integration, account, amount, viewport)
-                    );
-                }
-            );
+            test(`Amount:${amount} - Amounts above ${maxAmount} show correct above threshold warning - ${viewport}`, async () => {
+                await aboveThresholdErr(
+                    modalFrame,
+                    modalContent,
+                    getTestName(country, integration, account, amount, viewport)
+                );
+            });
         } else if (amount >= minAmount && amount <= maxAmount && !ALL_ACCORDION_ACCOUNTS.includes(account)) {
             test(`Amount:${amount} - Offer cards show correct payment headline information - ${viewport}`, async () => {
                 await showCorrectOfferInfo(

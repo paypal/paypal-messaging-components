@@ -173,11 +173,11 @@ export default {
                     altNoWrap(textSize * 15.5),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25),
                     `.message__headline > .tag--medium > span > span:last-child::after {content: '.'}`,
-                    `.locale--DE .message__messaging .tag--medium span.br:last-child {white-space:normal;}`,
+                    `.locale--AT .message__messaging .tag--medium span.br:last-child {white-space:normal;}`,
                     xSmallNoWrap(textSize * 15.5),
                     `@media screen and (max-width: ${
                         textSize * 12.5
-                    }px) { .locale--DE .message__messaging { white-space: nowrap;}}`
+                    }px) { .locale--AT .message__messaging { white-space: nowrap;}}`
                 ],
                 headline: [
                     { tag: 'medium', br: ['Sie', 'Raten'] },
@@ -192,8 +192,8 @@ export default {
                 styles: [
                     xSmallFallback(textSize * 16),
                     xSmallNoWrap(textSize * 16),
-                    `.locale--DE .message__messaging .tag--medium span.br {white-space:normal;}`,
-                    `.locale--DE .message__messaging .tag--medium span.br:nth-child(2) {white-space:nowrap;}`
+                    `.locale--AT .message__messaging .tag--medium span.br {white-space:normal;}`,
+                    `.locale--AT .message__messaging .tag--medium span.br:nth-child(2) {white-space:nowrap;}`
                 ],
                 logo: false,
                 headline: [
@@ -216,8 +216,8 @@ export default {
                     xSmallNoWrap(textSize * 13.8),
                     `.message__logo { width: ${textSize * 4}px }`,
                     `.message__logo-container::after { content: '.'; }`,
-                    `.locale--DE .message__messaging .tag--medium span.br {white-space:normal;}`,
-                    `.locale--DE .message__messaging .tag--medium span.br:nth-child(2) {white-space:nowrap;}`
+                    `.locale--AT .message__messaging .tag--medium span.br {white-space:normal;}`,
+                    `.locale--AT .message__messaging .tag--medium span.br:nth-child(2) {white-space:nowrap;}`
                 ],
                 logo: Logo.NO_PP_MONOGRAM.COLOR,
                 headline: [

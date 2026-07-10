@@ -127,7 +127,7 @@ export default {
                     }px) { .message__messaging > .message__disclaimer > .tag--default { content: ''; display: block; }}`,
                     `@media screen and (max-width: ${
                         textSize * 19.45
-                    }px) { .locale--DE .message__messaging { display: inline-block; } }`,
+                    }px) { .locale--AT .message__messaging { display: inline-block; } }`,
                     xSmallFallback(textSize * 13.8),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25),
                     setLogoTop(textSize * 20),
@@ -163,7 +163,7 @@ export default {
                     // Prevent wrapping of amount
                     `@media screen and (max-width: ${
                         textSize * 17.25
-                    }px) { .locale--DE .message__headline > .tag--medium > span > span { white-space: nowrap; }}`,
+                    }px) { .locale--AT .message__headline > .tag--medium > span > span { white-space: nowrap; }}`,
                     crossBorderDisclaimerWrap(textSize * 32.2, textSize * 39, textSize * 20.5, textSize * 19.45),
                     xSmallFallback(textSize * 13.5),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),

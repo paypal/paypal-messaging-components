@@ -1,4 +1,4 @@
-// Media queries and commonly used style functions for DE GPL.
+// Media queries and commonly used style functions for AT GPL.
 
 /**
  * Add period after formatted min amount and formatted max amount.
@@ -13,7 +13,7 @@ export function addPeriod() {
  * Stop wrapping past a certain point on xsmall tag.
  */
 export function xSmallNoWrap(breakpoint) {
-    return `@media screen and (max-width: ${breakpoint}px) {.locale--DE .message__headline .tag--xsmall > span:first-child {white-space: nowrap;}}`;
+    return `@media screen and (max-width: ${breakpoint}px) {.locale--AT .message__headline .tag--xsmall > span:first-child {white-space: nowrap;}}`;
 }
 
 /**
@@ -67,7 +67,7 @@ export function crossBorderDisclaimerWrap(breakpointOne, breakpointTwo, breakpoi
         }
     }
     @media screen and (max-width: ${breakpointFour}px) { 
-        .locale--DE .message__messaging { 
+        .locale--AT .message__messaging { 
             display: inline-block; 
         } 
     }`;

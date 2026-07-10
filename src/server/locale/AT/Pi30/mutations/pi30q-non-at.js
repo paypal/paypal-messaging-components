@@ -143,7 +143,7 @@ export default {
                     altNoWrap(textSize * 14),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25),
                     addPeriod(),
-                    `.locale--DE .message__messaging .tag--medium span.br:last-child {white-space:normal;}`,
+                    `.locale--AT .message__messaging .tag--medium span.br:last-child {white-space:normal;}`,
                     xSmallNoWrap(textSize * 8)
                 ],
                 headline: [

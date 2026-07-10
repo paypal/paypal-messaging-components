@@ -88,10 +88,10 @@ const flex = [
                     }
                 }`,
                 `@media (min-aspect-ratio: 60/11) and (max-width: 323px) {
-                    .locale--DE .message__logo:nth-of-type(1) {
+                    .locale--AT .message__logo:nth-of-type(1) {
                         width: 40%;
                     }
-                    .locale--DE .message__logo:nth-of-type(2) {
+                    .locale--AT .message__logo:nth-of-type(2) {
                         display: none;
                     }
                     .message__headline {
