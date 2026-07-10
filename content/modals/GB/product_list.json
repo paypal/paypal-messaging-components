@@ -1,0 +1,29 @@
+{
+    "meta": {
+        "product": "PRODUCT_LIST",
+        "useV5Design": "true",
+        "v5.1": "true"
+    },
+    "content": {
+        "headline": "Buy now, pay later",
+        "subheadline": "",
+        "instructions": {
+            "payLater": "Get more info on Pay Later options."
+        },
+        "productTiles": {
+            "payLater": [
+                {
+                    "header": "Pay in 3",
+                    "body": "Interest-free payments every month, starting today.",
+                    "viewName": "PAY_LATER_SHORT_TERM"
+                },
+                {
+                    "header": "Pay in 30 Days",
+                    "body": "Full amount due in 30 days, nothing due today. Interest-free.",
+                    "viewName": "PAY_LATER_PAY_IN_1"
+                }
+            ]
+        },
+        "disclosure": "Pay in 3 and Pay in 30 Days are credit agreements. Missing payments can impact future borrowing. Eligibility subject to status. Terms and conditions apply."
+    }
+}

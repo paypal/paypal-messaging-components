@@ -18,6 +18,28 @@ const {
 } = selectors;
 
 /**
+ * Navigates to the product list view by clicking "See other ways to pay over time"
+ * inside a product-specific modal (Pi30 or Pi3). GB-specific flow: product list
+ * never opens directly from "Learn more" in the message.
+ */
+export const openProductListFromModal = async (contentWindow, modalContent, testName) => {
+    await contentWindow.waitForSelector(contentWrapper);
+
+    // Click "See other ways to pay over time" inside the product modal
+    await contentWindow.waitForSelector(productList);
+    await contentWindow.click(productList);
+    await page.waitFor(2 * 1000);
+
+    // Product list view should now be shown
+    await contentWindow.waitForSelector(`${headerContent} > ${h2}`);
+    const headline = await contentWindow.$eval(h2, element => element.innerText);
+    expect(headline).toContain(modalContent.headline);
+    if (testName) {
+        await modalSnapshot(testName, contentWindow);
+    }
+};
+
+/**
  * Ensures product list modal opens and has expected content.
  */
 export const openProductListView = async (contentWindow, modalContent, testName) => {
@@ -64,6 +86,12 @@ export const clickProductListTiles = async (contentWindow, modalContent, account
 
         // Switch to short term view
         await switchViews(3, 'longTerm');
+    } else if (account === 'DEV_GB_MULTI') {
+        // Tile 1: Pay in 3 → PAY_LATER_SHORT_TERM
+        await switchViews(2, 'shortTerm');
+
+        // Tile 2: Pay in 30 Days → PAY_LATER_PAY_IN_1
+        await switchViews(3, 'payIn1');
     } else {
         // Switch to pay in 1 view
         await switchViews(2, 'payIn1');
@@ -91,8 +119,8 @@ export const viewsShareAmount = async (contentWindow, testName, account) => {
     await contentWindow.click(`${tile}:nth-child(3)`);
     await page.waitFor(3 * 1000);
 
-    // FR long term modal does not have a calculator
-    if (account !== 'DEV_FR_MULTI') {
+    // FR long term and GB Pay in 30 Days modals do not have a calculator
+    if (account !== 'DEV_FR_MULTI' && account !== 'DEV_GB_MULTI') {
         await contentWindow.waitForSelector(input);
         const inputFieldVal = await contentWindow.$eval(input, element => element.value);
         expect(subheadline).not.toContain(inputFieldVal);
