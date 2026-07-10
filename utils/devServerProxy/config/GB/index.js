@@ -89,7 +89,7 @@ export default {
                     totalPayments: 3,
                     apr: 0,
                     nominalRate: 0,
-                    minAmount: 30,
+                    minAmount: 20,
                     maxAmount: 3000
                 }
             ]

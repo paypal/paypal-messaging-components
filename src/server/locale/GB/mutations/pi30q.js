@@ -21,7 +21,7 @@ export default {
                 ],
                 logo: Logo.PP_PAYPAL.COLOR,
                 headline: [{ tag: 'medium' }, { tag: 'xsmall' }],
-                disclaimer: ['default']
+                disclaimer: ['extra', 'default']
             })
         ],
         [
@@ -60,7 +60,10 @@ export default {
             ({ textSize }) => ({
                 styles: [xSmallFallback(textSize * 18)],
                 logo: false,
-                headline: [{ tag: 'medium' }, { tag: 'xsmall' }]
+                headline: [
+                    { tag: 'medium', replace: [[/\.$/, '']] },
+                    { tag: 'xsmall', replace: [['later.', 'later']] }
+                ]
             })
         ],
         [
@@ -68,7 +71,10 @@ export default {
             ({ textSize }) => ({
                 styles: [xSmallFallback(textSize * 18), `.message__logo { width: ${textSize * 4}px }`],
                 logo: Logo.NO_PP_MONOGRAM.COLOR,
-                headline: [{ tag: 'medium' }, { tag: 'xsmall' }]
+                headline: [
+                    { tag: 'medium', replace: [[/\.$/, '']] },
+                    { tag: 'xsmall', replace: [['later.', 'later']] }
+                ]
             })
         ],
         ...textLogoMutations
@@ -80,7 +86,7 @@ export default {
             {
                 logo: Logo.PP_PAYPAL.WHITE,
                 headline: [{ tag: 'xsmall' }, { tag: 'medium' }],
-                disclaimer: ['default']
+                disclaimer: ['extra', 'default']
             }
         ],
         [

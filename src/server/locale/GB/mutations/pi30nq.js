@@ -27,7 +27,7 @@ export default {
                     },
                     { tag: 'xsmall' }
                 ],
-                disclaimer: ['default']
+                disclaimer: ['extra', 'default']
             })
         ],
         [
@@ -66,9 +66,10 @@ export default {
                 headline: [
                     {
                         tag: 'medium',
-                        br: ['purchases']
+                        br: ['purchases'],
+                        replace: [[/\.$/, '']]
                     },
-                    { tag: 'xsmall' }
+                    { tag: 'xsmall', replace: [['later.', 'later']] }
                 ]
             })
         ],
@@ -80,9 +81,10 @@ export default {
                 headline: [
                     {
                         tag: 'medium',
-                        br: ['purchases']
+                        br: ['purchases'],
+                        replace: [[/\.$/, '']]
                     },
-                    { tag: 'xsmall' }
+                    { tag: 'xsmall', replace: [['later.', 'later']] }
                 ]
             })
         ],
@@ -95,7 +97,7 @@ export default {
             {
                 logo: Logo.PP_PAYPAL.WHITE,
                 headline: [{ tag: 'xsmall' }, { tag: 'medium' }],
-                disclaimer: ['default']
+                disclaimer: ['extra', 'default']
             }
         ],
         [

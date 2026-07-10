@@ -6,7 +6,7 @@ export const DEV_GB_MULTI = {
         {
             value: '50.00',
             message: 'Qualifying Pi30 - opens Pi30 modal then navigates to product list',
-            expectedValue: 'Pay in 30 days. Credit option.',
+            expectedValue: 'Pay in 30 days.',
             modalContent: {
                 headline: 'Buy now, pay later',
                 shortTerm: 'Pay in 3 interest-free payments',
@@ -16,7 +16,7 @@ export const DEV_GB_MULTI = {
         {
             value: '74.99',
             message: 'Qualifying Pi30 at upper boundary - opens Pi30 modal then navigates to product list',
-            expectedValue: 'Pay in 30 days. Credit option.',
+            expectedValue: 'Pay in 30 days.',
             modalContent: {
                 headline: 'Buy now, pay later',
                 shortTerm: 'Pay in 3 interest-free payments',

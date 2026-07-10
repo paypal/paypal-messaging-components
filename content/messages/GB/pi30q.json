@@ -14,8 +14,11 @@
     },
     "headline": [
         [["Buy now, pay later."], ["default", "xsmall"]],
-        [["Pay in 30 days. Credit option."], ["medium", "large", "xlarge"]]
+        [["Pay in 30 days."], ["medium", "large", "xlarge"]]
     ],
     "subHeadline": [],
-    "disclaimer": [["Learn more", ["default"]]]
+    "disclaimer": [
+        ["Credit option. ", ["extra"]],
+        ["Learn more", ["default"]]
+    ]
 }
