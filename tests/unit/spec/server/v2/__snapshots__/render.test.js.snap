@@ -1,0 +1,129 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`v2 render snapshots full render snapshot for representative case 1`] = `
+"<div class=\\"pp-message\\" data-pp-style-layout=\\"text\\" data-pp-style-logo-position=\\"left\\" data-pp-style-logo-type=\\"primary\\" data-pp-style-text-align=\\"left\\" data-pp-style-text-color=\\"black\\" data-pp-style-text-size=\\"12\\"><style>
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.pp-message {
+    display: block;
+    width: 100%;
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    text-align: left;
+}
+
+.pp-message .main { vertical-align: middle; }
+.pp-message .main.black { color: #000; }
+.pp-message .main.monochrome { color: #000; }
+.pp-message .main.grayscale { color: #000; }
+.pp-message .main.white { color: #fff; }
+
+.pp-message .action [data-iframe-url] {
+    color: #0070ba;
+    white-space: nowrap;
+}
+.pp-message .action {
+    margin-left: 0.25em;
+    vertical-align: middle;
+}
+.pp-message .action.monochrome > [data-iframe-url] { color: #000; }
+.pp-message .action.grayscale > [data-iframe-url] { color: #000; }
+.pp-message .action.white > [data-iframe-url] { color: #fff; }
+
+.pp-message .logo { display: inline-block; vertical-align: middle; }
+.pp-message .logo.top { display: block; vertical-align: initial; }
+.pp-message .logo.inline { display: inline; vertical-align: middle; }
+
+.pp-message img {
+    max-height: 1.25em;
+    height: 1.25em;
+    width: auto;
+    vertical-align: middle;
+    margin-right: 0.3125em;
+}
+.pp-message .logo.right img {
+    margin-right: 0;
+    margin-left: 0.3125em;
+}
+.pp-message .logo.top img {
+    margin-right: 0;
+    margin-bottom: 0.3125em;
+}
+.pp-message .logo.inline img {
+    margin-right: 0;
+    vertical-align: baseline;
+}
+
+.pp-message .inline-logo-phrase {
+    white-space: nowrap;
+}
+</style><span role=\\"img\\" aria-label=\\"PayPal\\" class=\\"logo black left wordmark\\"><img src=\\"data:local/color-monogram\\" alt role=\\"presentation\\" width=\\"24\\" height=\\"32\\" style=\\"max-height: 1.25em; height: 1.25em; width: auto; vertical-align: middle; margin-right: 0.3125em;\\" /><img src=\\"data:local/color-wordmark\\" alt role=\\"presentation\\" width=\\"100\\" height=\\"32\\" style=\\"max-height: 1.25em; height: 1.25em; width: auto; vertical-align: middle; margin-right: 0.3125em;\\" /></span><span aria-label=\\"Pay Later. Subject to approval.\\" class=\\"main left black\\">Pay Later. Subject to approval.</span><span aria-label=\\"Learn more\\" class=\\"action black\\"><span data-iframe-url=\\"https://example.com/lander\\" data-embeddable=\\"true\\">Learn more</span></span></div>"
+`;
+
+exports[`v2 render snapshots renders the v2 stylesheet once 1`] = `
+"<style>
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.pp-message {
+    display: block;
+    width: 100%;
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    text-align: left;
+}
+
+.pp-message .main { vertical-align: middle; }
+.pp-message .main.black { color: #000; }
+.pp-message .main.monochrome { color: #000; }
+.pp-message .main.grayscale { color: #000; }
+.pp-message .main.white { color: #fff; }
+
+.pp-message .action [data-iframe-url] {
+    color: #0070ba;
+    white-space: nowrap;
+}
+.pp-message .action {
+    margin-left: 0.25em;
+    vertical-align: middle;
+}
+.pp-message .action.monochrome > [data-iframe-url] { color: #000; }
+.pp-message .action.grayscale > [data-iframe-url] { color: #000; }
+.pp-message .action.white > [data-iframe-url] { color: #fff; }
+
+.pp-message .logo { display: inline-block; vertical-align: middle; }
+.pp-message .logo.top { display: block; vertical-align: initial; }
+.pp-message .logo.inline { display: inline; vertical-align: middle; }
+
+.pp-message img {
+    max-height: 1.25em;
+    height: 1.25em;
+    width: auto;
+    vertical-align: middle;
+    margin-right: 0.3125em;
+}
+.pp-message .logo.right img {
+    margin-right: 0;
+    margin-left: 0.3125em;
+}
+.pp-message .logo.top img {
+    margin-right: 0;
+    margin-bottom: 0.3125em;
+}
+.pp-message .logo.inline img {
+    margin-right: 0;
+    vertical-align: baseline;
+}
+
+.pp-message .inline-logo-phrase {
+    white-space: nowrap;
+}
+</style>"
+`;

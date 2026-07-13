@@ -103,6 +103,8 @@ export default {
 
     DEV000000GBPL: ['GB', ['short_term'], 'pl'],
     DEV00000GBPLQ: ['GB', ['short_term'], 'plq'],
+    DEV00GBPI30NQ: ['GB', ['pay_in_1'], 'pi30nq'],
+    DEV000GBPI30Q: ['GB', ['pay_in_1'], 'pi30q'],
 
     DEV0FRGENERIC: ['FR', ['short_term'], 'generic'],
     DEV000000FRPL: ['FR', ['short_term'], 'gpl'],

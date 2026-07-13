@@ -99,6 +99,16 @@ jest.mock('server/locale/GB/mutations/gplq', () => ({
     'layout:flex': ['flex', 'GB', 'PLQ']
 }));
 
+jest.mock('server/locale/GB/mutations/pi30nq', () => ({
+    'layout:text': ['text', 'GB', 'PI30NQ'],
+    'layout:flex': ['flex', 'GB', 'PI30NQ']
+}));
+
+jest.mock('server/locale/GB/mutations/pi30q', () => ({
+    'layout:text': ['text', 'GB', 'PI30Q'],
+    'layout:flex': ['flex', 'GB', 'PI30Q']
+}));
+
 jest.mock('server/locale/FR/mutations/gpl', () => ({
     'layout:text': ['text', 'FR', 'GPL'],
     'layout:flex': ['flex', 'FR', 'GPL']
@@ -150,6 +160,8 @@ describe('locale methods', () => {
             ['DE', 'PI30Q'],
             ['GB', 'PL'],
             ['GB', 'PLQ'],
+            ['GB', 'PI30NQ'],
+            ['GB', 'PI30Q'],
             ['FR', 'GPL'],
             ['FR', 'GPLQ'],
             ['AU', 'GPL'],

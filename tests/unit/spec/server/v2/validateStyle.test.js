@@ -65,6 +65,12 @@ describe('v2 validateStyle', () => {
         });
     });
 
+    test('defaults text.size to 14 (matches v5 default rendered font-size) when not provided', () => {
+        const result = validateStyle(mockLog, { layout: 'text' });
+        expect(result.text.size).toBe(14);
+        expect(mockLog).not.toHaveBeenCalled();
+    });
+
     test('normalises greyscale alias for text layout text.color', () => {
         const result = validateStyle(mockLog, { layout: 'text', text: { color: 'greyscale' } });
         expect(result.text.color).toBe('grayscale');
