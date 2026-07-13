@@ -5,39 +5,36 @@ import { h, Fragment } from 'preact';
 import { buildContentLabel } from './utils/buildContentLabel';
 import { buildLogoConfiguration } from './utils/buildLogoConfiguration';
 import { mapClasses } from './utils/mapClasses';
+import { renderBlock } from './utils/renderBlock';
+import FlexMessage from './flex';
 import styles from './styles';
 
-function renderBlock(item) {
-    if (!item) return null;
-    switch (item.type) {
-        case 'IMAGE':
-            return <img src={item.source_url} alt={item.alternative_text || 'PayPal'} />;
-        case 'LINK':
-            return (
-                <span
-                    data-iframe-url={item.click_url}
-                    data-embeddable={item.embeddable !== undefined ? String(item.embeddable) : undefined}
-                >
-                    {item.text}
-                </span>
-            );
-        case 'TEXT':
-        default:
-            return item.text;
-    }
+function renderLogo(block, className) {
+    if (!block) return null;
+    return (
+        <span role="img" aria-label={block.alternative_text || 'PayPal'} className={className}>
+            {renderBlock(block)}
+        </span>
+    );
 }
 
 export default function V2Message({ options, v2Content }) {
     const { style } = options;
-    const logoPosition = style.logo?.type === 'inline' ? 'inline' : style.logo?.position ?? 'left';
+
+    if (style.layout === 'flex') {
+        return <FlexMessage style={style} v2Content={v2Content} />;
+    }
+
     const logoType = style.logo?.type ?? 'primary';
-    const textColor = style.layout === 'flex' ? style.color ?? 'black' : style.text?.color ?? 'black';
+    const logoPosition = style.logo?.position ?? 'left';
+    const textColor = style.text?.color ?? 'black';
 
     const mainItems = v2Content?.main_items ?? [];
     const actionItems = v2Content?.action_items ?? [];
     const disclaimerItems = v2Content?.disclaimer_items ?? [];
 
     const { logoBlock, hasInitialLogo, hasRightLogo, mainBlocks } = buildLogoConfiguration({
+        logoType,
         logoPosition,
         mainItems
     });
@@ -53,24 +50,30 @@ export default function V2Message({ options, v2Content }) {
     const actionLabel = buildContentLabel(actionItems);
 
     return (
-        <div className="pp-message">
+        <div
+            className="pp-message"
+            data-pp-style-layout={style.layout}
+            data-pp-style-logo-position={logoPosition}
+            data-pp-style-logo-type={logoType}
+            data-pp-style-text-align={style.text?.align}
+            data-pp-style-text-color={textColor}
+            data-pp-style-text-size={style.text?.size}
+        >
             {/* eslint-disable react/no-danger */}
             <style
                 dangerouslySetInnerHTML={{
                     __html: styles({
                         fontFamily: style.text?.fontFamily,
+                        fontSource: style.text?.fontSource,
                         fontSize: style.text?.size,
                         textAlign: style.text?.align
                     })
                 }}
             />
             {/* eslint-enable react/no-danger */}
-            {hasInitialLogo && logoBlock && logoType !== 'none' ? (
-                <span role="img" aria-label={logoBlock.alternative_text || 'PayPal'} className={logoClasses}>
-                    {renderBlock(logoBlock)}
-                </span>
-            ) : null}
+            {hasInitialLogo && logoType !== 'none' ? renderLogo(logoBlock, logoClasses) : null}
             <span aria-label={mainLabel} className={mainClasses}>
+                {logoType === 'inline' ? renderLogo(logoBlock, logoClasses) : null}
                 {preparedMainBlocks.map((item, idx) => (
                     // eslint-disable-next-line react/no-array-index-key
                     <Fragment key={idx}>{renderBlock(item)}</Fragment>
@@ -84,11 +87,7 @@ export default function V2Message({ options, v2Content }) {
                     ))}
                 </span>
             ) : null}
-            {hasRightLogo && logoBlock && logoType !== 'none' ? (
-                <span role="img" aria-label={logoBlock.alternative_text || 'PayPal'} className={logoClasses}>
-                    {renderBlock(logoBlock)}
-                </span>
-            ) : null}
+            {hasRightLogo && logoType !== 'none' ? renderLogo(logoBlock, logoClasses) : null}
         </div>
     );
 }
