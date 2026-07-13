@@ -120,7 +120,7 @@ export default {
             'default',
             ({ textSize }) => ({
                 styles: [
-                    textWrap(textSize * 42.6, textSize, 'DE'),
+                    textWrap(textSize * 42.6, textSize, 'AT'),
                     // Wrapping of mehr erfahren separate from PayPal Konto.
                     `@media screen and (max-width: ${
                         textSize * 19.5
@@ -177,7 +177,7 @@ export default {
                 styles: [
                     `@media screen and (max-width: ${textSize * 15}px) { .message__content { white-space: nowrap; }}`,
                     crossBorderDisclaimerWrap(textSize * 33.2, textSize * 40.75, textSize * 19.6, textSize * 15),
-                    textWrap(textSize * 41, textSize, 'DE'),
+                    textWrap(textSize * 41, textSize, 'AT'),
                     altNoWrap(textSize * 10.6),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25),
                     xSmallFallback(textSize * 15)

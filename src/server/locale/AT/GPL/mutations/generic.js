@@ -74,7 +74,7 @@ export default {
             'default',
             ({ textSize }) => ({
                 styles: [
-                    textWrap(textSize * 55, textSize, 'DE'),
+                    textWrap(textSize * 55, textSize, 'AT'),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25),
                     setLogoTop(textSize * 20),
                     xSmallNoWrap(textSize * 7.7),
@@ -114,7 +114,7 @@ export default {
             'logo.type:alternative',
             ({ textSize }) => ({
                 styles: [
-                    textWrap(textSize * 55, textSize, 'DE'),
+                    textWrap(textSize * 55, textSize, 'AT'),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25),
                     xSmallNoWrap(textSize * 8),
                     altNoWrap(textSize * 15.5)

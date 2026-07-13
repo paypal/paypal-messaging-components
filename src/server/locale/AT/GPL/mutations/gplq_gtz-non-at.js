@@ -136,7 +136,7 @@ export default {
             'default',
             ({ textSize }) => ({
                 styles: [
-                    textWrap(textSize * 43.8, textSize, 'DE'),
+                    textWrap(textSize * 43.8, textSize, 'AT'),
                     crossBorderDisclaimerWrap(textSize * 20.5, textSize * 20, textSize * 18.6, textSize * 22.5),
                     xSmallFallback(textSize * 12.4),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25),
@@ -182,7 +182,7 @@ export default {
                 styles: [
                     `@media screen and (max-width: ${textSize * 15}px) { .message__content { white-space: nowrap; }}`,
                     crossBorderDisclaimerWrap(textSize * 33.2, textSize * 39.42, textSize * 20.2, textSize * 11.6),
-                    textWrap(textSize * 39.5, textSize, 'DE'),
+                    textWrap(textSize * 39.5, textSize, 'AT'),
                     xSmallFallback(textSize * 12.25),
                     altNoWrap(textSize * 10.6),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25)

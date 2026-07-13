@@ -144,7 +144,7 @@ export default {
             'default',
             ({ textSize }) => ({
                 styles: [
-                    textWrap(textSize * 58.5, textSize, 'DE'),
+                    textWrap(textSize * 58.5, textSize, 'AT'),
                     crossBorderDisclaimerWrap(textSize * 21.4, textSize * 30.4, textSize * 21.4, textSize * 15),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25),
                     setLogoTop(textSize * 20),
@@ -195,7 +195,7 @@ export default {
                     `@media screen and (max-width: ${
                         textSize * 14
                     }px) { .message__headline > .tag--xsmall > span:first-child { white-space: normal;}}`,
-                    textWrap(textSize * 55, textSize, 'DE'),
+                    textWrap(textSize * 55, textSize, 'AT'),
                     altNoWrap(textSize * 10.6),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25),
                     addPeriod(),

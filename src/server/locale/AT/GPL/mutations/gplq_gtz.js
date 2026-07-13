@@ -80,7 +80,7 @@ export default {
             'default',
             ({ textSize }) => ({
                 styles: [
-                    textWrap(textSize * 38, textSize, 'DE'),
+                    textWrap(textSize * 38, textSize, 'AT'),
                     xSmallFallback(textSize * 15.4),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25),
                     setLogoTop(textSize * 20),
@@ -124,7 +124,7 @@ export default {
                     `@media screen and (max-width: ${
                         textSize * 11.6
                     }px) { .message__headline > .tag--xsmall > span:first-child { white-space: normal;}}`,
-                    textWrap(textSize * 32, textSize, 'DE'),
+                    textWrap(textSize * 32, textSize, 'AT'),
                     xSmallFallback(textSize * 11.6),
                     altNoWrap(textSize * 10.6),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25)

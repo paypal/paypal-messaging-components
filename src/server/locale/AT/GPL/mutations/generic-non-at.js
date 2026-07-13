@@ -75,7 +75,7 @@ export default {
             'default',
             ({ textSize }) => ({
                 styles: [
-                    textWrap(textSize * 39, textSize, 'DE'),
+                    textWrap(textSize * 39, textSize, 'AT'),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25),
                     setLogoTop(textSize * 20),
                     xSmallNoWrap(textSize * 7.7),
@@ -119,7 +119,7 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     crossBorderDisclaimerWrap(textSize * 21.4, textSize * 30.4, textSize * 21.4, textSize * 15),
-                    textWrap(textSize * 39, textSize, 'DE'),
+                    textWrap(textSize * 39, textSize, 'AT'),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25),
                     xSmallNoWrap(textSize * 8),
                     altNoWrap(textSize * 15.5)
