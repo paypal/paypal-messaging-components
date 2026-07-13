@@ -1,5 +1,24 @@
 # Changelog
 
+## [1.90.0](https://github.com/paypal/paypal-messaging-components/compare/v1.89.0...v1.90.0) (2026-07-13)
+
+
+### Features
+
+* **DTCRCMERC-4687:** implement v5 text-layout styles for renderV2Message ([e632488](https://github.com/paypal/paypal-messaging-components/commit/e632488d7a05303de6c094b677b580aea1f1cb9e))
+* UK Pay in 30 days Offer Type expansion for GB ([#1321](https://github.com/paypal/paypal-messaging-components/issues/1321)) ([db5eaaa](https://github.com/paypal/paypal-messaging-components/commit/db5eaaa136fde8f6d79a179499f3437a51874463))
+
+
+### Bug Fixes
+
+* Adjust "Credit option. " styling in GB Flex banner ([#1342](https://github.com/paypal/paypal-messaging-components/issues/1342)) ([679399f](https://github.com/paypal/paypal-messaging-components/commit/679399f7e5a6c245da86ad5f17ab7dd3502cf82f))
+* **DTCRCMERC-4687:** address braluna PR review comments ([461e5bf](https://github.com/paypal/paypal-messaging-components/commit/461e5bf63693934c02eacb4c9615cab99493ae75))
+* **DTCRCMERC-4687:** address braluna PR review comments ([b7dc956](https://github.com/paypal/paypal-messaging-components/commit/b7dc956e5b9c4b76635456803de4b5451080a367))
+* **DTCRCMERC-4687:** fix inline logo baseline alignment and word-attachment, align default font to v5 ([664ad84](https://github.com/paypal/paypal-messaging-components/commit/664ad84a0ba01bba324460564309906c286f2364))
+* **DTCRCMERC-4687:** resolve duplicate PayPal Credit logo and inline logo sizing ([d25cf25](https://github.com/paypal/paypal-messaging-components/commit/d25cf257b98e191d54954bce5cbd3afa2b118829))
+* **DTCRCMERC-4687:** resolve first-party logos locally for v6 parity ([bb05a67](https://github.com/paypal/paypal-messaging-components/commit/bb05a67d9d2996b026c5701fe85a5c2a1ae736b4))
+* Ios26 overlay modal fix ([#1341](https://github.com/paypal/paypal-messaging-components/issues/1341)) ([ef94708](https://github.com/paypal/paypal-messaging-components/commit/ef947080a4e507acaa0f5127fd1841d208286169))
+
 ## [1.89.0](https://github.com/paypal/paypal-messaging-components/compare/v1.88.0...v1.89.0) (2026-06-25)
 
 
