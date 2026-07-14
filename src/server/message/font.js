@@ -90,3 +90,26 @@ export const getFontRules = style => {
     }
     return rules;
 };
+
+// Shared validation and @font-face generation for v2 stylesheet.
+const isSafeFontName = value => typeof value === 'string' && /^[\w\s-]+$/.test(value.trim());
+// https-only, and no characters that can escape a CSS url('...') or break an HTML <style> tag.
+const isSafeFontSource = value => typeof value === 'string' && /^https:\/\/[^'"<>\\;()\s]+$/i.test(value);
+
+export function buildFontRules({ fontSource, fontFamily, fallbackStack, defaultFontFamily, fontNamePrefix }) {
+    const sources = Array.isArray(fontSource) ? fontSource.filter(isSafeFontSource) : [];
+    const families = Array.isArray(fontFamily) ? fontFamily.filter(isSafeFontName).map(formatFontFamilyName) : [];
+
+    const fontFaceRules = sources
+        .map((url, i) => `@font-face { font-family: '${fontNamePrefix} ${i + 1}'; src: url('${url}'); }`)
+        .join('\n');
+
+    const customSourceNames = sources.map((_, i) => `'${fontNamePrefix} ${i + 1}'`);
+
+    const effectiveFontFamily =
+        customSourceNames.length > 0 || families.length > 0
+            ? [...customSourceNames, ...families, fallbackStack].join(', ')
+            : defaultFontFamily;
+
+    return { fontFaceRules, effectiveFontFamily };
+}
