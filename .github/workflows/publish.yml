@@ -8,8 +8,6 @@ permissions:
 jobs:
     main:
         runs-on: ubuntu-latest
-        env:
-          ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: 'true'
         steps:
             - name: ⬇️ Checkout repo
               uses: actions/checkout@v4
