@@ -33,7 +33,7 @@ descFn.each(filterPermutations([LOCALE_CONFIG], [ACCOUNT]))(
         });
 
         afterEach(async () => {
-            page.close();
+            await page.close();
         });
 
         test(`Amount:${amount} - Opens to product list view - ${viewport}`, async () => {

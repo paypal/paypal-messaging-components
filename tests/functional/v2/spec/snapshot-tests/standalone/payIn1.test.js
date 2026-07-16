@@ -25,7 +25,7 @@ descFn.each(filterPermutations([LOCALE_CONFIG], [ACCOUNT]))(
         });
 
         afterEach(async () => {
-            page.close();
+            await page.close();
         });
 
         test(`Amount:${amount} - Shows correct subheadline for amount - ${viewport}`, async () => {

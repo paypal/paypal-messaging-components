@@ -8,9 +8,6 @@ on:
             - develop
     pull_request: {}
 
-env:
-    ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: 'true'
-
 jobs:
     getMatrix:
         name: Get Matrix
@@ -20,7 +17,7 @@ jobs:
             testConfigs: ${{ steps.setTestConfigs.outputs.testConfigs }}
         steps:
             - name: Checkout repo
-              uses: actions/checkout@v4
+              uses: actions/checkout@v7
               with:
                   persist-credentials: false
 
@@ -44,12 +41,12 @@ jobs:
                 testPathPattern: ${{ fromJSON(needs.getMatrix.outputs.testPathPatterns) }}
         steps:
             - name: Checkout repo
-              uses: actions/checkout@v4
+              uses: actions/checkout@v7
               with:
                   persist-credentials: false
 
             - name: Setup node
-              uses: actions/setup-node@v4
+              uses: actions/setup-node@v7
               with:
                   node-version-file: '.nvmrc'
 
@@ -80,12 +77,12 @@ jobs:
                 testConfig: ${{ fromJSON(needs.getMatrix.outputs.testConfigs) }}
         steps:
             - name: Checkout repo
-              uses: actions/checkout@v4
+              uses: actions/checkout@v7
               with:
                   persist-credentials: false
 
             - name: Setup node
-              uses: actions/setup-node@v4
+              uses: actions/setup-node@v7
               with:
                   node-version-file: '.nvmrc'
 
