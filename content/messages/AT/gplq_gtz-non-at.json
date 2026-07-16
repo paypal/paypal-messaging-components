@@ -19,7 +19,7 @@
 
     "headline": [
         ["Jetzt kaufen, später bezahlen.", ["default", "xsmall"]],
-        [["Bezahlen Sie in 3-24 monatlichen Raten."], ["medium", "large", "xlarge"]]
+        [["Bezahlen Sie in bis zu 24 monatlichen Raten."], ["medium", "large", "xlarge"]]
     ],
 
     "subHeadline": [],

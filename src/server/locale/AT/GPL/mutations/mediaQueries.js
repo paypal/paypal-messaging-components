@@ -17,7 +17,7 @@ export function xSmallNoWrap(breakpoint) {
 }
 
 /**
- * Adds the word "Ratenzahlung" after logo type none 9.99% DE GPL fallback messages
+ * Adds the word "Ratenzahlung" after logo type none 9.99% AT GPL fallback messages
  */
 export function logoNoneAddRatenzahlungAfterPayPal(breakpoint, elementChild = 3) {
     return `@media screen and (max-width: ${breakpoint}px) {
@@ -36,7 +36,7 @@ export function logoNoneAddRatenzahlungAfterPayPal(breakpoint, elementChild = 3)
 }
 
 /**
- * Adds the word "Ratenzahlung" after logo type inline 9.99% DE GPL fallback messages
+ * Adds the word "Ratenzahlung" after logo type inline 9.99% AT GPL fallback messages
  */
 export function logoInlineAddRatenzahlungAfterPayPal(breakpoint) {
     return `
@@ -47,11 +47,11 @@ export function logoInlineAddRatenzahlungAfterPayPal(breakpoint) {
     }`;
 }
 
-// The media queries below are related to DE GPL cross-border (XB) text messages.
+// The media queries below are related to AT GPL cross-border (XB) text messages.
 
 /**
- * This function combines 3 commonly used media queries across all XB DE messages for logos primary and alternative.
- * crossBorderDisclaimerWrap controls the points in which the "Mehr erfahren" drops to a new line independently from "Nur mit dt. PayPal Konto."
+ * This function combines 3 commonly used media queries across all XB AT messages for logos primary and alternative.
+ * crossBorderDisclaimerWrap controls the points in which the "Mehr erfahren" drops to a new line independently from "Mit österreichischem PayPal-Konto."
  * and when it shoudl rejoin it on the same line.
  */
 export function crossBorderDisclaimerWrap(breakpointOne, breakpointTwo, breakpointThree, breakpointFour) {
@@ -73,7 +73,7 @@ export function crossBorderDisclaimerWrap(breakpointOne, breakpointTwo, breakpoi
     }`;
 }
 
-// Controls logo type none wrapping for the XB DE message headlines.
+// Controls logo type none wrapping for the XB AT message headlines.
 export function crossBorderLogoNoneWrap(breakpoint) {
     return `
     @media screen and (max-width: ${breakpoint}px) {

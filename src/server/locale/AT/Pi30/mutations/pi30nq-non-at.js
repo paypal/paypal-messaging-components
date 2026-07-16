@@ -161,7 +161,8 @@ export default {
                 styles: [
                     xSmallFallback(textSize * 14),
                     crossBorderLogoNoneWrap(textSize * 14),
-                    `.message__disclaimer > span.multi:first-of-type { white-space: normal;}`
+                    `.message__disclaimer > span.multi:first-of-type { white-space: normal;}`,
+                    addPeriod()
                 ],
                 logo: false,
                 headline: [

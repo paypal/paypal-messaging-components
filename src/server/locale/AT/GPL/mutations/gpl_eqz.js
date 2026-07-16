@@ -193,7 +193,8 @@ export default {
                     xSmallFallback(textSize * 16),
                     xSmallNoWrap(textSize * 16),
                     `.locale--AT .message__messaging .tag--medium span.br {white-space:normal;}`,
-                    `.locale--AT .message__messaging .tag--medium span.br:nth-child(2) {white-space:nowrap;}`
+                    `.locale--AT .message__messaging .tag--medium span.br:nth-child(2) {white-space:nowrap;}`,
+                    `.message__headline > .tag--medium > span > span:last-child::after {content: '.'}`
                 ],
                 logo: false,
                 headline: [

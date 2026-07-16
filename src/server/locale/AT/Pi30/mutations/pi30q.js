@@ -154,16 +154,12 @@ export default {
         [
             'logo.type:none',
             ({ textSize }) => ({
-                styles: [xSmallFallback(textSize * 14)],
+                styles: [xSmallFallback(textSize * 14), addPeriod()],
                 logo: false,
                 headline: [
                     {
                         tag: 'medium',
-                        br: ['nach'],
-                        replace: [
-                            ['Sie nach', 'Sie'],
-                            ['Tagen', 'Tage später']
-                        ]
+                        br: ['nach']
                     },
                     {
                         tag: 'xsmall',
@@ -184,11 +180,7 @@ export default {
                 headline: [
                     {
                         tag: 'medium',
-                        br: ['nach'],
-                        replace: [
-                            ['Sie nach', 'Sie'],
-                            ['Tagen', 'Tage später']
-                        ]
+                        br: ['nach']
                     },
                     {
                         tag: 'xsmall',

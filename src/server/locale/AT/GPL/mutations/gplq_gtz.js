@@ -12,10 +12,6 @@ import { flexLogoMutations, textLogoMutations } from '../../../../message/logoMu
 
 const headlineBreaks = [
     {
-        sizes: ['xsmall'],
-        breaks: ['mit']
-    },
-    {
         sizes: ['medium'],
         breaks: ['monatlichen']
     }
@@ -93,7 +89,7 @@ export default {
                         tag: 'medium',
                         br: ['monatlichen']
                     },
-                    { tag: 'xsmall', br: ['mit'] }
+                    { tag: 'xsmall' }
                 ],
                 disclaimer: ['default']
             })
@@ -129,10 +125,7 @@ export default {
                     altNoWrap(textSize * 10.6),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25)
                 ],
-                headline: [
-                    { tag: 'medium', br: ['monatlichen'] },
-                    { tag: 'xsmall', br: ['mit'] }
-                ],
+                headline: [{ tag: 'medium', br: ['monatlichen'] }, { tag: 'xsmall' }],
                 logo: Logo.PP_PAYPAL.COLOR[0]
             })
         ],
@@ -150,14 +143,9 @@ export default {
                 headline: [
                     {
                         tag: 'medium',
-                        br: ['Einkäufen'],
                         replace: [['Raten.', 'Raten']]
                     },
-                    {
-                        tag: 'xsmall',
-                        br: ['monatlichen'],
-                        replace: [['mit Ratenzahlung.', '']]
-                    }
+                    { tag: 'xsmall' }
                 ]
             })
         ],
@@ -179,11 +167,7 @@ export default {
                         br: ['monatlichen'],
                         replace: [['Raten.', 'Raten']]
                     },
-                    {
-                        tag: 'xsmall',
-                        br: ['monatlichen'],
-                        replace: [['mit Ratenzahlung.', '']]
-                    }
+                    { tag: 'xsmall' }
                 ]
             })
         ],

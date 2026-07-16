@@ -153,7 +153,7 @@ export default {
         [
             'logo.type:none',
             ({ textSize }) => ({
-                styles: [xSmallFallback(textSize * 14)],
+                styles: [xSmallFallback(textSize * 14), addPeriod()],
                 logo: false,
                 headline: [
                     {

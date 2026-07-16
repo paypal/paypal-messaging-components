@@ -19,10 +19,6 @@ import { flexLogoMutations, textLogoMutations } from '../../../../message/logoMu
 
 const headlineBreaks = [
     {
-        sizes: ['xsmall'],
-        breaks: ['mit']
-    },
-    {
         sizes: ['medium'],
         breaks: ['monatlichen']
     }
@@ -159,7 +155,7 @@ export default {
                         tag: 'medium',
                         br: ['Einkäufen']
                     },
-                    { tag: 'xsmall', br: ['mit'] }
+                    { tag: 'xsmall' }
                 ],
                 disclaimer: ['extra', 'default']
             })
@@ -215,14 +211,7 @@ export default {
                     `.message__disclaimer > span.multi:first-of-type { white-space: normal;}`
                 ],
                 logo: false,
-                headline: [
-                    { tag: 'medium' },
-                    {
-                        tag: 'xsmall',
-                        br: ['monatlichen'],
-                        replace: [['mit Ratenzahlung.', '']]
-                    }
-                ]
+                headline: [{ tag: 'medium' }, { tag: 'xsmall' }]
             })
         ],
         [
@@ -244,14 +233,9 @@ export default {
                 headline: [
                     {
                         tag: 'medium',
-                        br: ['monatlichen'],
-                        replace: [['Raten.', 'Raten']]
+                        br: ['monatlichen']
                     },
-                    {
-                        tag: 'xsmall',
-                        br: ['monatlichen'],
-                        replace: [['mit Ratenzahlung.', '']]
-                    }
+                    { tag: 'xsmall' }
                 ]
             })
         ],
