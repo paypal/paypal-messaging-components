@@ -35,6 +35,8 @@ jobs:
         name: Compare
         runs-on: ubuntu-24.04
         needs: getMatrix
+        env:
+          ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: 'true'
         strategy:
             fail-fast: false
             matrix:
@@ -71,6 +73,8 @@ jobs:
         name: Compare V2
         runs-on: ubuntu-24.04
         needs: getMatrix
+        env:
+          ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: 'true'
         strategy:
             fail-fast: false
             matrix:
