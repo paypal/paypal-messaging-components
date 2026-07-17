@@ -20,5 +20,5 @@ module.exports = {
     globalTeardown: 'jest-environment-puppeteer/teardown',
     testEnvironment: 'jest-environment-puppeteer',
     setupFilesAfterEnv: ['./spec/utils/jest.setupTests.js', '../customMatchers.js'],
-    testTimeout: 360000
+    testTimeout: 180000
 };

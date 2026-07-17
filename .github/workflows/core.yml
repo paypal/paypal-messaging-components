@@ -9,6 +9,9 @@ on:
             - develop
     pull_request: {}
 
+env:
+    ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: 'true'
+
 jobs:
     lintAndUnit:
         name: Lint and Unit Tests
