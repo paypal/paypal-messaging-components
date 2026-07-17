@@ -4,6 +4,10 @@ set -ev
 # lists all functional test configs and removes text leaving only {locale}/{account}
 validTestConfigs=$(ls ./tests/functional/v2/config/*/DEV* | sed -E 's/(^.*config\/)//;s/.js//')
 
+if [ -n "${SNAPSHOT_LOCALE:-}" ]; then
+	validTestConfigs=$(echo "$validTestConfigs" | grep "^${SNAPSHOT_LOCALE}/" || true)
+fi
+
 # transforms the list into a comma separated json array
 # Note: When run on a Mac, newlines are not removed, so tr is needed to replace the newlines.
 # But when run in Actions CI, newlines are replaced by spaces, so sed is needed to replace the spaces.
