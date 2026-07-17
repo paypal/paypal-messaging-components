@@ -56,9 +56,15 @@ jobs:
                           if (artifact.name === 'metadata') {
                             execSync(`rsync -zavpmr --no-links --include='pull_number.txt' --exclude='*' ${tmpDir}/ ${{ github.workspace }}`);
                           } else {
+                            const artifactRoot = artifact.name.includes('v2') ? 'snapshotsV2' : 'snapshots';
                             const snapshotsDir = artifact.name.includes('v2') ? 'tests/functional/v2/snapshots' : 'tests/functional/snapshots';
+                            const extractedDir = `${tmpDir}/${artifactRoot}`;
 
-                            execSync(`rsync -zavpmr --no-links --include='*.png' --include='*/' --exclude='*' ${tmpDir}/ ${{ github.workspace }}/${snapshotsDir}`);
+                            if (!fs.existsSync(extractedDir)) {
+                              throw new Error(`Expected extracted artifact directory not found: ${extractedDir}`);
+                            }
+
+                            execSync(`rsync -zavpmr --no-links --include='*.png' --include='*/' --exclude='*' ${extractedDir}/ ${{ github.workspace }}/${snapshotsDir}`);
                           }
                         })
                       );
