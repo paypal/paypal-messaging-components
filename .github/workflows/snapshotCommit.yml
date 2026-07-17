@@ -27,14 +27,17 @@ jobs:
                       const fs = require('fs');
                       const { execSync } = require('child_process');
 
-                      const artifacts = await github.rest.actions.listWorkflowRunArtifacts({
+                      const artifacts = await github.paginate(github.rest.actions.listWorkflowRunArtifacts, {
                         owner: context.repo.owner,
                         repo: context.repo.repo,
-                        run_id: context.payload.workflow_run.id
+                        run_id: context.payload.workflow_run.id,
+                        per_page: 100
                       });
 
+                      console.log(`Found ${artifacts.length} artifacts in workflow run`);
+
                       await Promise.all(
-                        artifacts.data.artifacts.map(async (artifact) => {
+                        artifacts.map(async (artifact) => {
                           const download = await github.rest.actions.downloadArtifact({
                             owner: context.repo.owner,
                             repo: context.repo.repo,
