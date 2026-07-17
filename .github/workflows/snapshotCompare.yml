@@ -13,6 +13,8 @@ jobs:
         name: Get Matrix
         runs-on: ubuntu-24.04
         outputs:
+            locale: ${{ steps.setSnapshotScope.outputs.locale }}
+            version: ${{ steps.setSnapshotScope.outputs.version }}
             testPathPatterns: ${{ steps.setTestPathPatterns.outputs.testPathPatterns }}
             testConfigs: ${{ steps.setTestConfigs.outputs.testConfigs }}
         steps:
@@ -21,18 +23,30 @@ jobs:
               with:
                   persist-credentials: false
 
+            - id: setSnapshotScope
+              name: Set snapshot scope
+              run: |
+                  bash ./.github/scripts/getSnapshotScope.sh
+              env:
+                  SNAPSHOT_BRANCH: ${{ github.head_ref || github.ref_name }}
+
             - id: setTestPathPatterns
               name: Set test path patterns
               run: |
                   echo "testPathPatterns=$(./.github/scripts/getTestPathPatterns.sh)" >> $GITHUB_OUTPUT
+              env:
+                  SNAPSHOT_LOCALE: ${{ steps.setSnapshotScope.outputs.locale }}
 
             - id: setTestConfigs
               name: Set test config environment variables
               run: |
                   echo "testConfigs=$(./.github/scripts/getTestConfigs.sh)" >> $GITHUB_OUTPUT
+              env:
+                  SNAPSHOT_LOCALE: ${{ steps.setSnapshotScope.outputs.locale }}
 
     compareSnapshots:
         name: Compare
+        if: needs.getMatrix.outputs.testPathPatterns != '[]' && needs.getMatrix.outputs.version != 'v2'
         runs-on: ubuntu-24.04
         needs: getMatrix
         strategy:
@@ -69,6 +83,7 @@ jobs:
 
     compareSnapshotsV2:
         name: Compare V2
+        if: needs.getMatrix.outputs.testConfigs != '[]' && needs.getMatrix.outputs.version != 'v1'
         runs-on: ubuntu-24.04
         needs: getMatrix
         strategy:
