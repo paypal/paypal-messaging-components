@@ -34,7 +34,7 @@ descFn.each(filterPermutations([LOCALE_CONFIG], [ACCOUNT]))(
         });
 
         afterEach(async () => {
-            await page.close();
+            page.close();
         });
 
         // enable these tests after generic BNPL message works with DEV_US_MULTI

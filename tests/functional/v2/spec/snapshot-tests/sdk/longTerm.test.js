@@ -45,7 +45,7 @@ descFn.each(filterPermutations([LOCALE_CONFIG], [ACCOUNT]))(
         });
 
         afterEach(async () => {
-            await page.close();
+            page.close();
         });
 
         if (amount < minAmount) {
