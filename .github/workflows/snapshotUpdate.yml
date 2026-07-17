@@ -11,8 +11,8 @@ jobs:
         if: github.event.label.name == 'snapshots' || github.event_name == 'workflow_dispatch'
         runs-on: ubuntu-24.04
         outputs:
-        locale: ${{ steps.setSnapshotScope.outputs.locale }}
-        version: ${{ steps.setSnapshotScope.outputs.version }}
+            locale: ${{ steps.setSnapshotScope.outputs.locale }}
+            version: ${{ steps.setSnapshotScope.outputs.version }}
             testPathPatterns: ${{ steps.setTestPathPatterns.outputs.testPathPatterns }}
             testConfigs: ${{ steps.setTestConfigs.outputs.testConfigs }}
         steps:
@@ -21,29 +21,29 @@ jobs:
               with:
                   persist-credentials: false
 
-        - id: setSnapshotScope
-          name: Set snapshot scope
-          run: |
-            bash ./.github/scripts/getSnapshotScope.sh
-          env:
-            SNAPSHOT_BRANCH: ${{ github.head_ref || github.ref_name }}
+            - id: setSnapshotScope
+              name: Set snapshot scope
+              run: |
+                  bash ./.github/scripts/getSnapshotScope.sh
+              env:
+                  SNAPSHOT_BRANCH: ${{ github.head_ref || github.ref_name }}
 
             - id: setTestPathPatterns
               run: |
                   echo "testPathPatterns=$(./.github/scripts/getTestPathPatterns.sh)" >> $GITHUB_OUTPUT
-          env:
-            SNAPSHOT_LOCALE: ${{ steps.setSnapshotScope.outputs.locale }}
+              env:
+                  SNAPSHOT_LOCALE: ${{ steps.setSnapshotScope.outputs.locale }}
 
             - id: setTestConfigs
               name: Set test config environment variables
               run: |
                   echo "testConfigs=$(./.github/scripts/getTestConfigs.sh)" >> $GITHUB_OUTPUT
-          env:
-            SNAPSHOT_LOCALE: ${{ steps.setSnapshotScope.outputs.locale }}
+              env:
+                  SNAPSHOT_LOCALE: ${{ steps.setSnapshotScope.outputs.locale }}
 
     captureMetadata:
         name: Capture Metadata
-      if: always() && github.event_name == 'pull_request'
+        if: always() && github.event_name == 'pull_request'
         runs-on: ubuntu-24.04
         needs:
             - getMatrix
@@ -63,7 +63,7 @@ jobs:
 
     updateSnapshots:
         name: Update
-      if: needs.getMatrix.outputs.testPathPatterns != '[]' && needs.getMatrix.outputs.version != 'v2'
+        if: needs.getMatrix.outputs.testPathPatterns != '[]' && needs.getMatrix.outputs.version != 'v2'
         runs-on: ubuntu-24.04
         needs: getMatrix
         strategy:
@@ -145,7 +145,7 @@ jobs:
 
     updateSnapshotsV2:
         name: Update V2
-      if: needs.getMatrix.outputs.testConfigs != '[]' && needs.getMatrix.outputs.version != 'v1'
+        if: needs.getMatrix.outputs.testConfigs != '[]' && needs.getMatrix.outputs.version != 'v1'
         runs-on: ubuntu-24.04
         needs: getMatrix
         strategy:
