@@ -1,5 +1,4 @@
 import fs from 'fs';
-import setupTestPage from '../utils/setupTestPage';
 
 function setWindowDimensions({ width, height, zoom = 1 }) {
     window.innerWidth = width / zoom;
@@ -7,6 +6,31 @@ function setWindowDimensions({ width, height, zoom = 1 }) {
     window.outerWidth = width;
     window.outerHeight = height;
 }
+
+const isRecoverablePageError = error => {
+    const message = error && error.message ? error.message : '';
+
+    return (
+        message.includes('Target closed') || message.includes('Session closed') || message.includes('TargetCloseError')
+    );
+};
+
+const setViewportWithRecovery = async (viewport, pageScaleFactor) => {
+    try {
+        await page.evaluateOnNewDocument(setWindowDimensions, { ...viewport, zoom: pageScaleFactor });
+        await page.setViewport(viewport);
+    } catch (error) {
+        if (!isRecoverablePageError(error)) {
+            throw error;
+        }
+
+        const nextPage = await global.browser.newPage();
+        global.page = nextPage;
+
+        await global.page.evaluateOnNewDocument(setWindowDimensions, { ...viewport, zoom: pageScaleFactor });
+        await global.page.setViewport(viewport);
+    }
+};
 
 const runTest = async ({ testName, testPage = 'banner.html', config, viewport, pageScaleFactor }) => {
     // eslint-disable-next-line no-console
@@ -16,13 +40,38 @@ const runTest = async ({ testName, testPage = 'banner.html', config, viewport, p
         console.log(`rerender.test page error for [${testName}]`, error);
     });
 
-    await page.evaluateOnNewDocument(setWindowDimensions, { ...viewport, zoom: pageScaleFactor });
+    const testUrl = `https://localhost.paypal.com:8080/snapshot/${testPage}?config=${JSON.stringify(config)}`;
 
-    await page.setViewport(viewport);
+    const tryNavigate = async attempt => {
+        await setViewportWithRecovery(viewport, pageScaleFactor);
 
-    await setupTestPage({ config, testPage });
+        try {
+            await page.goto(testUrl, { waitUntil: 'networkidle0' });
+            await page.waitForSelector('[data-test-visible]', {
+                visible: true,
+                timeout: 30000
+            });
+        } catch (error) {
+            if (!isRecoverablePageError(error) || attempt >= 1) {
+                throw error;
+            }
 
-    await page.waitFor(5 * 1000);
+            const nextPage = await global.browser.newPage();
+            global.page = nextPage;
+
+            await tryNavigate(attempt + 1);
+        }
+    };
+
+    await tryNavigate(0);
+
+    await new Promise(resolve => setTimeout(resolve, 5 * 1000));
+
+    await page.evaluate(() => {
+        window.scrollTo(0, 0);
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+    });
 
     const bannerContainers = await page.$$('[data-test-visible]');
 

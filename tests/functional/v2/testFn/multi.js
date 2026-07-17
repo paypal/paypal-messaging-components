@@ -28,7 +28,7 @@ export const openProductListFromModal = async (contentWindow, modalContent, test
     // Click "See other ways to pay over time" inside the product modal
     await contentWindow.waitForSelector(productList);
     await contentWindow.click(productList);
-    await page.waitFor(2 * 1000);
+    await page.evaluate(() => new Promise(resolve => setTimeout(resolve, 2 * 1000)));
 
     // Product list view should now be shown
     await contentWindow.waitForSelector(`${headerContent} > ${h2}`);
@@ -59,7 +59,7 @@ export const clickProductListTiles = async (contentWindow, modalContent, account
         await contentWindow.waitForSelector(contentWrapper);
         await contentWindow.waitForSelector(`${tile}:nth-child(${childNum})`);
         await contentWindow.click(`${tile}:nth-child(${childNum})`);
-        await page.waitFor(2 * 1000);
+        await page.evaluate(() => new Promise(resolve => setTimeout(resolve, 2 * 1000)));
 
         await contentWindow.waitForSelector(`${headerContent} > ${h2}`);
         const headline = await contentWindow.$eval(h2, element => element.innerText);
@@ -67,7 +67,7 @@ export const clickProductListTiles = async (contentWindow, modalContent, account
 
         await contentWindow.waitForSelector(productList);
         await contentWindow.click(productList);
-        await page.waitFor(2 * 1000);
+        await page.evaluate(() => new Promise(resolve => setTimeout(resolve, 2 * 1000)));
     };
 
     if (account === 'DEV_US_MULTI') {
@@ -105,19 +105,19 @@ export const viewsShareAmount = async (contentWindow, testName, account) => {
     await contentWindow.waitForSelector(contentWrapper);
     await contentWindow.waitForSelector(`${tile}:nth-child(2)`);
     await contentWindow.click(`${tile}:nth-child(2)`);
-    await page.waitFor(2 * 1000);
+    await page.evaluate(() => new Promise(resolve => setTimeout(resolve, 2 * 1000)));
 
     await contentWindow.waitForSelector(`${headerContent} > ${subheadlineContent}`);
     const subheadline = await contentWindow.$eval(subheadlineContent, element => element.innerText);
 
     await contentWindow.waitForSelector(productList);
     await contentWindow.click(productList);
-    await page.waitFor(2 * 1000);
+    await page.evaluate(() => new Promise(resolve => setTimeout(resolve, 2 * 1000)));
 
     await contentWindow.waitForSelector(contentWrapper);
     await contentWindow.waitForSelector(`${tile}:nth-child(3)`);
     await contentWindow.click(`${tile}:nth-child(3)`);
-    await page.waitFor(3 * 1000);
+    await page.evaluate(() => new Promise(resolve => setTimeout(resolve, 3 * 1000)));
 
     // FR long term and GB Pay in 30 Days modals do not have a calculator
     if (account !== 'DEV_FR_MULTI' && account !== 'DEV_GB_MULTI') {
@@ -136,7 +136,7 @@ export const closeModalViaXBtn = async contentWindow => {
     await contentWindow.waitForSelector(close);
 
     await contentWindow.click(close);
-    await page.waitFor(1000);
+    await page.evaluate(() => new Promise(resolve => setTimeout(resolve, 1000)));
 };
 
 /**
@@ -145,7 +145,7 @@ export const closeModalViaXBtn = async contentWindow => {
 export const closeModalViaEscKey = async contentWindow => {
     await contentWindow.waitForSelector(contentWrapper);
     await page.keyboard.press('Escape');
-    await page.waitFor(1000);
+    await page.evaluate(() => new Promise(resolve => setTimeout(resolve, 1000)));
 };
 
 /**
@@ -156,7 +156,7 @@ export const closeModalViaOverlay = async contentWindow => {
     await contentWindow.waitForSelector(overlay);
 
     await contentWindow.click(overlay);
-    await page.waitFor(1000);
+    await page.evaluate(() => new Promise(resolve => setTimeout(resolve, 1000)));
 };
 
 /**
@@ -167,16 +167,16 @@ export const closeAndReopenModal = async (contentWindow, integration, messageCon
     await contentWindow.waitForSelector(close);
 
     await contentWindow.click(close);
-    await page.waitFor(1000);
+    await page.evaluate(() => new Promise(resolve => setTimeout(resolve, 1000)));
 
     if (integration === 'standalone') {
         const learnMoreButton = await page.waitForSelector(standaloneLearnMore);
         await learnMoreButton.click();
-        await page.waitFor(1000);
+        await page.evaluate(() => new Promise(resolve => setTimeout(resolve, 1000)));
     } else {
         await messageContentWindow.waitForSelector(messageMessaging);
         await messageContentWindow.click(messageMessaging);
 
-        await page.waitFor(1000);
+        await page.evaluate(() => new Promise(resolve => setTimeout(resolve, 1000)));
     }
 };

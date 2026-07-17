@@ -46,10 +46,6 @@ descFn.each(filterPermutations([LOCALE_CONFIG], [ACCOUNT]))(
             logTestName(getTestName(country, integration, account, amount, viewport));
         });
 
-        afterEach(async () => {
-            page.close();
-        });
-
         if (amount < minAmount) {
             test(`Amount:${amount} - Amounts below ${minAmount} show correct below threshold warning - ${viewport}`, async () => {
                 await belowThresholdErr(
