@@ -76,7 +76,17 @@ jobs:
                   script: |
                       const fs = require('fs');
 
-                      const pullNumber = Number(fs.readFileSync('./pull_number.txt', 'utf8')).toString();
+                      let pullNumber = null;
+
+                      if (fs.existsSync('./pull_number.txt')) {
+                        pullNumber = Number(fs.readFileSync('./pull_number.txt', 'utf8')).toString();
+                      } else if (context.payload.workflow_run.pull_requests?.[0]?.number) {
+                        pullNumber = context.payload.workflow_run.pull_requests[0].number.toString();
+                        console.log('pull_number.txt not found, using workflow_run.pull_requests[0].number');
+                      } else {
+                        console.log('No PR number available; skipping snapshots label reset');
+                        return;
+                      }
 
                       await github.rest.issues.removeLabel({
                         owner: context.repo.owner,
