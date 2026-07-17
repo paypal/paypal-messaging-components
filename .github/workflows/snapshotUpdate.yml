@@ -32,7 +32,10 @@ jobs:
         name: Capture Metadata
         if: github.event_name == 'pull_request'
         runs-on: ubuntu-24.04
-        needs: getMatrix
+      needs:
+        - getMatrix
+        - updateSnapshots
+        - updateSnapshotsV2
         steps:
             - name: Capture PR Number
               run: |
