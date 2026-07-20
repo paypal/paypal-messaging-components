@@ -137,8 +137,9 @@
         }
     }
 
-    // Only DE gets the blue color
-    &__container.DE {
+    // DE and AT get the blue color
+    &__container.DE,
+    &__container.AT {
         .accordion__collapsible .accordion__row:first-child .accordion__offer-field-title {
             color: colors.$light-blue;
         }

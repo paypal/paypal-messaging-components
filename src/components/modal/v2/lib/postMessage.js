@@ -41,6 +41,7 @@ function createSafePayload(unscreenedPayload) {
             if (allowedFields.includes(key)) {
                 safePayload[key] = value;
             } else {
+                // eslint-disable-next-line no-console
                 console.warn(`modal hook payload param should be allowlisted if secure: ${key}`);
             }
         });
