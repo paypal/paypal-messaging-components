@@ -1,4 +1,4 @@
-const BaseEnvironment = require('jest-environment-puppeteer');
+const BaseEnvironment = require('jest-environment-puppeteer').default;
 
 class StablePuppeteerEnvironment extends BaseEnvironment {
     async teardown() {
