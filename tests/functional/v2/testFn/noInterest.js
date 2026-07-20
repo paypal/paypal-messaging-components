@@ -31,7 +31,7 @@ export const openTermsPage = async contentWindow => {
         document.querySelector('a').scrollIntoView();
     });
     await contentWindow.click(termsLink);
-    await page.waitFor(2 * 1000);
+    await page.evaluate(() => new Promise(resolve => setTimeout(resolve, 2 * 1000)));
 };
 
 /**
@@ -41,5 +41,5 @@ export const openCreditApplicationLogin = async contentWindow => {
     await contentWindow.waitForSelector(contentWrapper);
     await contentWindow.waitForSelector(applyNowBtn);
     await contentWindow.click(applyNowBtn);
-    await page.waitFor(3 * 1000);
+    await page.evaluate(() => new Promise(resolve => setTimeout(resolve, 3 * 1000)));
 };

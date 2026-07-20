@@ -20,11 +20,11 @@ export const xClosesModal =
         }
         const elementModal = await page.$(selectors.modal.iframe);
         const modalFrame = await elementModal.contentFrame();
-        await page.waitFor(2000);
+        await new Promise(resolve => setTimeout(resolve, 2000));
         await modalFrame.waitForSelector(selectors.button.closeBtn, { visible: true });
-        await page.waitFor(1000);
+        await new Promise(resolve => setTimeout(resolve, 1000));
         await modalFrame.click(selectors.button.closeBtn, { visible: true });
-        await page.waitFor(1000);
+        await new Promise(resolve => setTimeout(resolve, 1000));
 
         await modalSnapshot(`${groupString} ${testNameParts}`, viewport, account);
     };
@@ -35,10 +35,10 @@ export const closeModalEsc =
         const testNameParts = 'esc key modal close';
         logTestName({ account, viewport, groupString, testNameParts });
 
-        await page.waitFor(500);
+        await new Promise(resolve => setTimeout(resolve, 500));
         await page.keyboard.press('Escape');
         await page.waitForSelector('body');
-        await page.waitFor(1000);
+        await new Promise(resolve => setTimeout(resolve, 1000));
 
         await modalSnapshot(`${groupString} ${testNameParts}`, viewport, account);
     };
@@ -49,14 +49,14 @@ export const clickOutsideClosesModal =
         const testNameParts = 'click outside modal close';
         logTestName({ account, viewport, groupString, testNameParts });
 
-        await page.waitFor(1000);
+        await new Promise(resolve => setTimeout(resolve, 1000));
         const elementModal = await page.$(selectors.modal.iframe);
         const modalFrame = await elementModal.contentFrame();
         await modalFrame.waitForSelector(selectors.modal.container, {
             visible: true
         });
         await modalFrame.click(selectors.modal.overlaySide);
-        await page.waitFor(1000);
+        await new Promise(resolve => setTimeout(resolve, 1000));
 
         await modalSnapshot(`${groupString} ${testNameParts}`, viewport, account);
     };
@@ -73,30 +73,30 @@ export const closeReopenModal =
             const frame = await elementHandle.contentFrame();
             const modalFrame = await elementModal.contentFrame();
             await modalFrame.waitForSelector(selectors.button.closeBtn);
-            await page.waitFor(1000);
+            await new Promise(resolve => setTimeout(resolve, 1000));
             await modalFrame.click(selectors.button.closeBtn);
-            await page.waitFor(1000);
+            await new Promise(resolve => setTimeout(resolve, 1000));
             await frame.waitForSelector(selectors.banner.messageMessaging);
             await frame.click(selectors.banner.messageMessaging);
-            await page.waitFor(1000);
+            await new Promise(resolve => setTimeout(resolve, 1000));
             await modalFrame.waitForSelector('body');
-            await page.waitFor(1000);
+            await new Promise(resolve => setTimeout(resolve, 1000));
             await modalFrame.click(selectors.button.closeBtn);
-            await page.waitFor(1000);
+            await new Promise(resolve => setTimeout(resolve, 1000));
         } else {
             const elementBanner = await page.$(selectors.banner.wrapper);
             const elementModal = await page.$(selectors.modal.iframe);
             const modalFrame = await elementModal.contentFrame();
             await modalFrame.waitForSelector(selectors.button.closeBtn);
-            await page.waitFor(1000);
+            await new Promise(resolve => setTimeout(resolve, 1000));
             await modalFrame.click(selectors.button.closeBtn);
-            await page.waitFor(1000);
+            await new Promise(resolve => setTimeout(resolve, 1000));
             await elementBanner.click();
-            await page.waitFor(1000);
+            await new Promise(resolve => setTimeout(resolve, 1000));
             await modalFrame.waitForSelector('body');
-            await page.waitFor(1000);
+            await new Promise(resolve => setTimeout(resolve, 1000));
             await modalFrame.click(selectors.button.closeBtn);
-            await page.waitFor(1000);
+            await new Promise(resolve => setTimeout(resolve, 1000));
         }
 
         await modalSnapshot(`${groupString} ${testNameParts}`, viewport, account);
