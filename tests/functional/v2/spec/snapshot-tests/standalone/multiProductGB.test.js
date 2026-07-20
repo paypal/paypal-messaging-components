@@ -31,10 +31,6 @@ descFn.each(filterPermutations([LOCALE_CONFIG], [ACCOUNT]))(
             logTestName(getTestName(country, integration, account, amount, viewport));
         });
 
-        afterEach(async () => {
-            page.close();
-        });
-
         test(`Amount:${amount} - Opens to product list view - ${viewport}`, async () => {
             await openProductListView(
                 modalFrame,

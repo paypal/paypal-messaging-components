@@ -44,6 +44,6 @@ export const modalSnapshot = async (testNameParts, contentWindow) => {
     const matchFunction = screenDimensions[viewport].width > 500 ? 'toMatchLargeSnapshot' : 'toMatchSmallSnapshot';
     expect(image)[matchFunction]({
         customSnapshotsDir: `./tests/functional/v2/snapshots/modal/${integration}/${country}/${account}/${viewport}`,
-        customSnapshotIdentifier: `${amount}-${testName}-${viewport}`
+        customSnapshotIdentifier: `${amount}-${testName}-${viewport}-snap`
     });
 };

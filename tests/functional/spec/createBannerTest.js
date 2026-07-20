@@ -3,6 +3,8 @@ import { configureToMatchImageSnapshot } from 'jest-image-snapshot';
 import { logScreenshot, logTestName } from './utils/logging';
 import selectors from './utils/selectors';
 
+const { launch: puppeteerLaunchConfig } = require('../../../jest-puppeteer.config');
+
 const toMatchTextSnapshot = configureToMatchImageSnapshot({
     failureThresholdType: 'percent',
     failureThreshold: 0.004,
@@ -102,63 +104,116 @@ function setWindowDimensions({ width, height }) {
     window.outerHeight = height;
 }
 
+const isClosedSessionError = error => {
+    const message = error && error.message ? error.message : '';
+
+    return (
+        message.includes('Session closed') ||
+        message.includes('Target.closeTarget') ||
+        message.includes('No target with given id found')
+    );
+};
+
+const ensureFreshPage = async () => {
+    const activeBrowser = global.browser;
+    if (!activeBrowser || (typeof activeBrowser.isConnected === 'function' && !activeBrowser.isConnected())) {
+        const puppeteerModule = await import('puppeteer');
+        const relaunchedBrowser = await puppeteerModule.default.launch(puppeteerLaunchConfig);
+        global.browser = relaunchedBrowser;
+    }
+
+    try {
+        if (global.page && !global.page.isClosed()) {
+            await global.page.close();
+        }
+    } catch (error) {
+        if (!isClosedSessionError(error)) {
+            throw error;
+        }
+    }
+
+    const nextPage = await global.browser.newPage();
+    global.page = nextPage;
+};
+
+const setupPageForBanner = async (viewport, config, testPage) => {
+    await global.page.evaluateOnNewDocument(setWindowDimensions, viewport);
+    await global.page.setViewport(viewport);
+
+    await global.page.goto(`https://localhost.paypal.com:8080/snapshot/${testPage}?config=${JSON.stringify(config)}`, {
+        waitUntil: 'networkidle0'
+    });
+};
+
+const runWithPageRecovery = async runner => {
+    try {
+        return runner();
+    } catch (error) {
+        if (!isClosedSessionError(error)) {
+            throw error;
+        }
+
+        await ensureFreshPage();
+        return runner();
+    }
+};
+
 export default function createBannerTest(locale, testPage = 'banner.html') {
     return (viewport, config) => {
         const testNameParts = getTestNameParts(locale, config);
         const testName = testNameParts.join('/');
         test(testName, async () => {
-            page.on('console', message => {
-                const text = message.text();
+            await runWithPageRecovery(async () => {
+                await ensureFreshPage();
 
-                if (text.includes('waitForBanner')) {
-                    // eslint-disable-next-line no-console
-                    console.log(text);
-                }
-            });
-            page.on('pageerror', error => {
-                // TODO: find a way to re-launch the browser on error so tests can continue
-                // eslint-disable-next-line no-console
-                console.log(`banner page error for [${testName}]`, error);
-            });
+                global.page.on('console', message => {
+                    const text = message.text();
 
-            logTestName({ testName, viewport });
-
-            await page.evaluateOnNewDocument(setWindowDimensions, viewport);
-            await page.setViewport(viewport);
-
-            const waitForNavPromise = page.waitForNavigation({ waitUntil: 'networkidle0' });
-            await page.goto(`https://localhost.paypal.com:8080/snapshot/${testPage}?config=${JSON.stringify(config)}`);
-            await waitForNavPromise;
-
-            const bannerDimensions = await waitForBanner({ testName, timeout: 2 * 1000, config });
-            expect(bannerDimensions.height).toBeGreaterThan(0);
-            expect(bannerDimensions.width).toBeGreaterThan(0);
-
-            // pad text banners to account for variation in size
-            const paddedDimensions = {
-                height: padDimension(bannerDimensions.height),
-                width: padDimension(bannerDimensions.width)
-            };
-            const snapshotDimensions = config?.style?.layout === 'text' ? paddedDimensions : bannerDimensions;
-
-            logScreenshot({ name: testName, viewport: snapshotDimensions });
-            const image = await page.screenshot(
-                {
-                    clip: {
-                        ...snapshotDimensions,
-                        x: 0,
-                        y: 0
+                    if (text.includes('waitForBanner')) {
+                        // eslint-disable-next-line no-console
+                        console.log(text);
                     }
-                },
-                3
-            );
+                });
+                global.page.on('pageerror', error => {
+                    // TODO: find a way to re-launch the browser on error so tests can continue
+                    // eslint-disable-next-line no-console
+                    console.log(`banner page error for [${testName}]`, error);
+                });
 
-            const matchFunction = config?.style?.layout === 'text' ? 'toMatchTextSnapshot' : 'toMatchFlexSnapshot';
-            const customSnapshotIdentifier = `${testNameParts.pop()}-${viewport.width}`;
-            expect(image)[matchFunction]({
-                diffDirection: snapshotDimensions.width > snapshotDimensions.height ? 'vertical' : 'horizontal',
-                customSnapshotsDir: ['./tests/functional/snapshots', ...testNameParts].join('/'),
-                customSnapshotIdentifier
+                logTestName({ testName, viewport });
+
+                await setupPageForBanner(viewport, config, testPage);
+
+                const bannerDimensions = await waitForBanner({ testName, timeout: 2 * 1000, config });
+                expect(bannerDimensions.height).toBeGreaterThan(0);
+                expect(bannerDimensions.width).toBeGreaterThan(0);
+
+                // pad text banners to account for variation in size
+                const paddedDimensions = {
+                    height: padDimension(bannerDimensions.height),
+                    width: padDimension(bannerDimensions.width)
+                };
+                const snapshotDimensions = config?.style?.layout === 'text' ? paddedDimensions : bannerDimensions;
+
+                logScreenshot({ name: testName, viewport: snapshotDimensions });
+                const image = await global.page.screenshot(
+                    {
+                        clip: {
+                            ...snapshotDimensions,
+                            x: 0,
+                            y: 0
+                        }
+                    },
+                    3
+                );
+
+                const matchFunction = config?.style?.layout === 'text' ? 'toMatchTextSnapshot' : 'toMatchFlexSnapshot';
+                const customSnapshotIdentifier = `${testNameParts.pop()}-${viewport.width}-snap`;
+                expect(image)[matchFunction]({
+                    diffDirection: snapshotDimensions.width > snapshotDimensions.height ? 'vertical' : 'horizontal',
+                    customSnapshotsDir: ['./tests/functional/snapshots', ...testNameParts].join('/'),
+                    customSnapshotIdentifier
+                });
             });
         });
     };
