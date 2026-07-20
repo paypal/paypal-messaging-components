@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`v2 render snapshots full render snapshot for representative case 1`] = `
-"<div class=\\"pp-message\\" data-pp-style-layout=\\"text\\" data-pp-style-logo-position=\\"left\\" data-pp-style-logo-type=\\"primary\\" data-pp-style-text-align=\\"left\\" data-pp-style-text-color=\\"black\\" data-pp-style-text-size=\\"12\\"><style>
+"<div class="pp-message" data-pp-style-layout="text" data-pp-style-logo-position="left" data-pp-style-logo-type="primary" data-pp-style-text-align="left" data-pp-style-text-color="black" data-pp-style-text-size="12"><style>
 body {
     margin: 0;
     padding: 0;

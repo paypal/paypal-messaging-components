@@ -38,10 +38,25 @@ console.info(`${runTest ? 'Running' : 'Skipping'} ${integration}/${testFileName}
 descFn.each(filterPermutations([LOCALE_CONFIG], [ACCOUNT]))(
     '%s - Lander Webpage - %s',
     (country, account, { viewport, minAmount, maxAmount, amount, modalContent }) => {
-        beforeEach(async () => {
-            await setupWebpage(viewport, account, amount);
-            logTestName(getTestName(country, integration, account, amount, viewport));
-        });
+        const inRange = amount >= minAmount && amount <= maxAmount;
+        const hasCardTests = inRange && !ALL_ACCORDION_ACCOUNTS.includes(account);
+        const hasAccordionTests =
+            inRange &&
+            (account === 'DEV_DE_LONG_TERM' ||
+                account === 'DEV_DE_LONG_TERM_EN' ||
+                account === 'DEV_ES_LONG_TERM' ||
+                account === 'DEV_IT_LONG_TERM' ||
+                account === 'DEV_DE_LONG_TERM_0APR' ||
+                account === 'DEV_DE_LONG_TERM_EN_0APR');
+        const hasThresholdTests = amount < minAmount || amount > maxAmount;
+        const hasRunnableTests = hasThresholdTests || hasCardTests || hasAccordionTests;
+
+        if (hasRunnableTests) {
+            beforeEach(async () => {
+                await setupWebpage(viewport, account, amount);
+                logTestName(getTestName(country, integration, account, amount, viewport));
+            });
+        }
 
         if (amount < minAmount) {
             test(`Amount:${amount} - Amounts below ${minAmount} show correct below threshold warning - ${viewport}`, async () => {
@@ -59,7 +74,7 @@ descFn.each(filterPermutations([LOCALE_CONFIG], [ACCOUNT]))(
                     getTestName(country, integration, account, amount, viewport)
                 );
             });
-        } else if (amount >= minAmount && amount <= maxAmount && !ALL_ACCORDION_ACCOUNTS.includes(account)) {
+        } else if (hasCardTests) {
             test(`Amount:${amount} - Offer cards show correct payment headline information - ${viewport}`, async () => {
                 await showCorrectOfferInfo(
                     page,
@@ -93,8 +108,7 @@ descFn.each(filterPermutations([LOCALE_CONFIG], [ACCOUNT]))(
             });
         }
         if (
-            amount >= minAmount &&
-            amount <= maxAmount &&
+            inRange &&
             (account === 'DEV_DE_LONG_TERM' ||
                 account === 'DEV_DE_LONG_TERM_EN' ||
                 account === 'DEV_ES_LONG_TERM' ||
@@ -125,11 +139,7 @@ descFn.each(filterPermutations([LOCALE_CONFIG], [ACCOUNT]))(
             });
         }
 
-        if (
-            amount >= minAmount &&
-            amount <= maxAmount &&
-            (account === 'DEV_DE_LONG_TERM_0APR' || account === 'DEV_DE_LONG_TERM_EN_0APR')
-        ) {
+        if (inRange && (account === 'DEV_DE_LONG_TERM_0APR' || account === 'DEV_DE_LONG_TERM_EN_0APR')) {
             test(`Amount:${amount} - Offer accordion show correct payment headline information - ${viewport}`, async () => {
                 await showCorrectOfferInfoAccordion(
                     page,
