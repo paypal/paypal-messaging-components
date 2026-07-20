@@ -1,5 +1,12 @@
 # Changelog
 
+### [1.90.1](https://github.com/paypal/paypal-messaging-components/compare/v1.90.0...v1.90.1) (2026-07-20)
+
+
+### Bug Fixes
+
+* continue to use node 20 not 24 ([#1345](https://github.com/paypal/paypal-messaging-components/issues/1345)) ([ee75b2c](https://github.com/paypal/paypal-messaging-components/commit/ee75b2c886b32c018f7ee34fa50725675005604e))
+
 ## [1.90.0](https://github.com/paypal/paypal-messaging-components/compare/v1.89.0...v1.90.0) (2026-07-13)
 
 
