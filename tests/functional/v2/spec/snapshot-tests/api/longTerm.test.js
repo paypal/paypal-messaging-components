@@ -21,16 +21,22 @@ const LOCALE_CONFIG = config[LOCALE];
 const ACCOUNT_CONFIG = LOCALE_CONFIG[ACCOUNT];
 const integration = 'api';
 const testFileName = 'longTerm';
-const ALL_ACCORDION_ACCOUNTS = [
+// Regular APR accordion accounts (DE, AT, ES, IT)
+const REGULAR_APR_ACCORDION_ACCOUNTS = [
     'DEV_DE_LONG_TERM',
-    'DEV_DE_LONG_TERM_0APR',
     'DEV_DE_LONG_TERM_EN',
-    'DEV_DE_LONG_TERM_EN_0APR',
+    'DEV_AT_LONG_TERM',
     'DEV_ES_LONG_TERM',
     'DEV_ES_LONG_TERM_0APR',
     'DEV_IT_LONG_TERM',
     'DEV_IT_LONG_TERM_0APR'
 ];
+
+// 0% APR accordion accounts (DE, AT)
+const ZERO_APR_ACCORDION_ACCOUNTS = ['DEV_DE_LONG_TERM_0APR', 'DEV_DE_LONG_TERM_EN_0APR', 'DEV_AT_LONG_TERM_0APR'];
+
+// Combined list for exclusion from offer cards tests
+const ALL_ACCORDION_ACCOUNTS = [...REGULAR_APR_ACCORDION_ACCOUNTS, ...ZERO_APR_ACCORDION_ACCOUNTS];
 
 const runTest = ACCOUNT_CONFIG.testFileName === testFileName;
 const descFn = runTest ? describe : describe.skip;
@@ -39,25 +45,10 @@ console.info(`${runTest ? 'Running' : 'Skipping'} ${integration}/${testFileName}
 descFn.each(filterPermutations([LOCALE_CONFIG], [ACCOUNT]))(
     '%s - API Modal Iframe - %s',
     (country, account, { viewport, minAmount, maxAmount, amount, modalContent }) => {
-        const inRange = amount >= minAmount && amount <= maxAmount;
-        const hasCardTests = inRange && !ALL_ACCORDION_ACCOUNTS.includes(account);
-        const hasAccordionTests =
-            inRange &&
-            (account === 'DEV_DE_LONG_TERM' ||
-                account === 'DEV_DE_LONG_TERM_EN' ||
-                account === 'DEV_ES_LONG_TERM' ||
-                account === 'DEV_IT_LONG_TERM' ||
-                account === 'DEV_DE_LONG_TERM_0APR' ||
-                account === 'DEV_DE_LONG_TERM_EN_0APR');
-        const hasThresholdTests = amount < minAmount || amount > maxAmount;
-        const hasRunnableTests = hasThresholdTests || hasCardTests || hasAccordionTests;
-
-        if (hasRunnableTests) {
-            beforeEach(async () => {
-                ({ modalFrame } = await setupAPI(viewport, account, amount));
-                logTestName(getTestName(country, integration, account, amount, viewport));
-            });
-        }
+        beforeEach(async () => {
+            ({ modalFrame } = await setupAPI(viewport, account, amount));
+            logTestName(getTestName(country, integration, account, amount, viewport));
+        });
 
         if (amount < minAmount) {
             test(`Amount:${amount} - Amounts below ${minAmount} show correct below threshold warning - ${viewport}`, async () => {
@@ -75,7 +66,7 @@ descFn.each(filterPermutations([LOCALE_CONFIG], [ACCOUNT]))(
                     getTestName(country, integration, account, amount, viewport)
                 );
             });
-        } else if (hasCardTests) {
+        } else if (amount >= minAmount && amount <= maxAmount && !ALL_ACCORDION_ACCOUNTS.includes(account)) {
             test(`Amount:${amount} - Offer cards show correct payment headline information - ${viewport}`, async () => {
                 await showCorrectOfferInfo(
                     modalFrame,
@@ -108,13 +99,7 @@ descFn.each(filterPermutations([LOCALE_CONFIG], [ACCOUNT]))(
                 );
             });
         }
-        if (
-            inRange &&
-            (account === 'DEV_DE_LONG_TERM' ||
-                account === 'DEV_DE_LONG_TERM_EN' ||
-                account === 'DEV_ES_LONG_TERM' ||
-                account === 'DEV_IT_LONG_TERM')
-        ) {
+        if (amount >= minAmount && amount <= maxAmount && REGULAR_APR_ACCORDION_ACCOUNTS.includes(account)) {
             test(`Amount:${amount} - Offer accordion show correct payment headline information - ${viewport}`, async () => {
                 await showCorrectOfferInfoAccordion(
                     modalFrame,
@@ -140,7 +125,7 @@ descFn.each(filterPermutations([LOCALE_CONFIG], [ACCOUNT]))(
             });
         }
 
-        if (inRange && (account === 'DEV_DE_LONG_TERM_0APR' || account === 'DEV_DE_LONG_TERM_EN_0APR')) {
+        if (amount >= minAmount && amount <= maxAmount && ZERO_APR_ACCORDION_ACCOUNTS.includes(account)) {
             test(`Amount:${amount} - Offer accordion show correct payment headline information - ${viewport}`, async () => {
                 await showCorrectOfferInfoAccordion(
                     modalFrame,

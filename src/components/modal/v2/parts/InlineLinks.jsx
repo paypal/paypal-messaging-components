@@ -8,6 +8,7 @@ const InlineLinks = ({ text, useNewCheckoutDesign }) => {
     const { onClick } = useXProps();
 
     if (!Array.isArray(text)) {
+        // eslint-disable-next-line react/no-danger
         return <span dangerouslySetInnerHTML={{ __html: text }} />;
     }
     return text.map(textChunk => {

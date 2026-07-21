@@ -21,8 +21,8 @@ export const DEV_IT_LONG_TERM_0APR = {
             message: 'Qualifying IT Long Term Installments',
             expectedValue: 'A partire da 5,00 € al mese con TAEG 0%.',
             modalContent: {
-                offerHeadline: '5,00 €/Monat',
-                updatedOfferHeadline: '104,17 €/Monat',
+                offerHeadline: '5,00 €/mese*',
+                updatedOfferHeadline: '20,83 €/mese*',
                 offerFieldValues: ['120,00 €', '0,00 €', '0,00 €', '120,00 €'],
                 aprDisclaimer: 'Tasso annuo nominale fisso dello 0%'
             }
