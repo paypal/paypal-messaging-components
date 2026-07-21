@@ -7,6 +7,7 @@ import { buildLogoConfiguration } from './utils/buildLogoConfiguration';
 import { resolveLogoPresentation } from './utils/resolveLogoPresentation';
 import { mapClasses } from './utils/mapClasses';
 import { resolveLogoAssets } from './logos';
+import FlexMessage from './flex';
 import styles from './styles';
 
 // Mirrors the `.pp-message img` / `.pp-message .logo.<position> img` rules in styles.js as
@@ -144,6 +145,11 @@ function renderLogoSpan(block, className, logoPresentation) {
 
 export default function V2Message({ options, v2Content, log }) {
     const { style } = options;
+
+    if (style.layout === 'flex') {
+        return <FlexMessage style={style} v2Content={v2Content} />;
+    }
+
     const textColor = style.text?.color ?? 'black';
 
     const logoPresentation = resolveLogoPresentation({

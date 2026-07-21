@@ -1,0 +1,484 @@
+import { buildFontRules } from '../message/font';
+
+const DEFAULT_FONT_FAMILY = '"PayPal Pro", Helvetica, Arial, "Liberation Sans", sans-serif';
+const FONT_FALLBACKS = 'Helvetica, Arial, "Liberation Sans", sans-serif';
+
+const FLEX_THEMES = [
+    { name: 'blue', background: '#023188', contentColor: '#fff', logoFilter: 'brightness(0) invert(1)' },
+    { name: 'black', background: '#000', contentColor: '#fff', logoFilter: 'brightness(0) invert(1)' },
+    { name: 'white', background: '#fff', contentColor: '#023187', border: '1px solid #009cde' },
+    { name: 'white-no-border', background: '#fff', contentColor: '#023187' },
+    { name: 'gray', background: '#eaeced', contentColor: '#023187' },
+    {
+        name: 'monochrome',
+        background: '#fff',
+        contentColor: '#000',
+        border: '1px solid #000',
+        logoFilter: 'grayscale(100%) brightness(0)'
+    },
+    { name: 'grayscale', background: '#fff', border: '1px solid #b7bcbf', logoFilter: 'grayscale(100%)' }
+];
+
+// Build ratio-scoped selectors for flex layout CSS (e.g. rs('8x1', '.pp-flex__main')).
+const rs = (ratio, sub) => `.pp-message.pp-flex.r-${ratio} ${sub}`;
+
+// Same as rs, with leading indent for rules nested inside @media blocks.
+const rsMedia = (ratio, sub, indent = '    ') => `${indent}${rs(ratio, sub)}`;
+
+// Comma-join multiple ratio-scoped selectors that share the same declarations.
+const rsPair = (ratio, ...subs) => subs.map(sub => rs(ratio, sub)).join(',\n');
+
+function buildThemeRules() {
+    const bgAndContentRules = FLEX_THEMES.flatMap(({ name, background, contentColor, border }) => {
+        const decls = [contentColor && `color: ${contentColor}`, border && `border: ${border}`]
+            .filter(Boolean)
+            .join('; ');
+        return [
+            `.pp-message.pp-flex.${name} .pp-flex__background { background: ${background}; }`,
+            `.pp-message.pp-flex.${name} .pp-flex__content { ${decls}; }`
+        ];
+    }).join('\n');
+
+    const filterGroups = new Map();
+    FLEX_THEMES.filter(({ logoFilter }) => logoFilter).forEach(({ name, logoFilter }) => {
+        if (!filterGroups.has(logoFilter)) filterGroups.set(logoFilter, []);
+        filterGroups.get(logoFilter).push(name);
+    });
+    const logoFilterRules = Array.from(filterGroups.entries())
+        .map(([filter, names]) => {
+            const sels = names.map(n => `.pp-message.pp-flex.${n} .pp-flex__logo img`).join(',\n');
+            return `${sels} { filter: ${filter}; }`;
+        })
+        .join('\n');
+
+    return `${bgAndContentRules}\n\n${logoFilterRules}`;
+}
+
+function buildBaseRules() {
+    return `
+* {
+    box-sizing: border-box;
+}
+
+.pp-flex__logo img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.pp-flex__logo--fallback {
+    width: 100%;
+}
+
+button:focus .pp-message.pp-flex .pp-flex__content,
+button:focus .pp-message.pp-flex .pp-flex__content span.br {
+    text-decoration: underline;
+}
+
+.pp-flex__disclaimer [data-iframe-url],
+.pp-flex__action [data-iframe-url] {
+    text-decoration: underline;
+    white-space: nowrap;
+    font-weight: 300;
+}
+
+.pp-flex__logo-container {
+    display: flex;
+    align-items: center;
+}`;
+}
+
+function buildPortrait1x1Rules() {
+    return `
+${rs('1x1', '.pp-flex__content')} {
+    padding: 7%;
+}
+
+${rs('1x1', '.pp-flex__logo-container')} {
+    width: 100%;
+    margin-bottom: 12%;
+}
+
+${rs('1x1', '.pp-flex__logo:nth-of-type(1)')} {
+    width: 29px;
+    max-width: 15%;
+}
+
+${rs('1x1', '.pp-flex__logo:nth-of-type(2)')} {
+    width: 91px;
+    max-width: 45%;
+    margin-left: 3%;
+}
+
+${rs('1x1', '.pp-flex__main')} {
+    font-size: 10vw;
+    line-height: 1.55em;
+    font-weight: 400;
+}
+
+${rs('1x1', '.pp-flex__disclaimer')} {
+    position: absolute;
+    width: 80%;
+    bottom: 7%;
+    font-size: 9.5px;
+    line-height: 1.1;
+}
+
+@media (min-width: 140px) {
+    ${rsMedia('1x1', '.pp-flex__main')} { font-size: 8.4vw; }
+}
+
+@media (min-width: 170px) {
+    ${rsMedia('1x1', '.pp-flex__main')} { font-size: 8vw; }
+    ${rsMedia('1x1', '.pp-flex__disclaimer')} { font-size: 5.5vw; }
+}
+
+@media (min-width: 220px) {
+    ${rsMedia('1x1', '.pp-flex__disclaimer')} { font-size: 4.5vw; }
+}`;
+}
+
+function buildPortrait1x4Rules() {
+    return `
+${rs('1x4', '.pp-flex__content')} {
+    padding: 8%;
+}
+
+${rs('1x4', '.pp-flex__logo-container')} {
+    width: 100%;
+    margin-top: 3%;
+}
+
+${rs('1x4', '.pp-flex__messaging')} {
+    height: 100%;
+    transform: translateY(-80px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+${rs('1x4', '.pp-flex__main')} {
+    font-size: 1.1rem;
+    line-height: 1.3em;
+    margin-bottom: 10%;
+    font-weight: 400;
+}
+
+${rsPair('1x4', '.pp-flex__disclaimer', '.pp-flex__action')} {
+    font-size: 0.9rem;
+    line-height: 1.1;
+}
+
+${rs('1x4', '.pp-flex__logo:nth-of-type(1)')} {
+    width: 27px;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+${rs('1x4', '.pp-flex__logo:nth-of-type(2)')} {
+    width: 89px;
+    display: inline-block;
+}
+
+@media (min-height: 500px) {
+    ${rsMedia('1x4', '.pp-flex__main')} { font-size: 1.7rem; }
+}
+
+@media (aspect-ratio: 1/2) {
+    ${rsMedia('1x4', '.pp-flex__messaging')} { transform: translateY(-40px); }
+}`;
+}
+
+function buildLandscapeMobileBase(ratio) {
+    const logoImgRule =
+        ratio === '20x1'
+            ? `
+@media (max-aspect-ratio: 61/10) {
+    ${rsMedia(ratio, '.pp-flex__logo img')} { width: 60%; }
+}
+`
+            : '';
+
+    return `
+${rs(ratio, '.pp-flex__content')} {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-right: 1rem;
+}
+
+${rs(ratio, '.pp-flex__logo-container')} {
+    flex: 0 0 33%;
+    justify-content: center;
+}
+${logoImgRule}
+${rs(ratio, '.pp-flex__messaging')} {
+    flex: 1 1 100%;
+}
+
+${rs(ratio, '.pp-flex__main')} {
+    font-size: 5vw;
+    line-height: 1;
+    margin-bottom: 0.2em;
+    font-weight: 400;
+}
+
+${rsPair(ratio, '.pp-flex__disclaimer', '.pp-flex__action')} {
+    font-size: 10px;
+    line-height: 1.1;
+    display: inline;
+}
+
+@media (max-aspect-ratio: 61/10) and (min-width: 400px) {
+    ${rsMedia(ratio, '.pp-flex__logo-container')} { flex: 0 0 25%; }
+    ${rsMedia(ratio, '.pp-flex__main')} { font-size: 4vw; margin-bottom: 0.5rem; }
+}
+
+@media (max-aspect-ratio: 61/10) and (min-width: 520px) {
+    ${rsMedia(ratio, '.pp-flex__disclaimer')},
+    ${rsMedia(ratio, '.pp-flex__action')} { font-size: 0.85rem; }
+}
+
+@media (max-aspect-ratio: 61/10) and (min-width: 640px) {
+    ${rsMedia(ratio, '.pp-flex__main')} { font-size: 1.7rem; }
+}`;
+}
+
+function buildLandscape8x1Rules() {
+    const ratio = '8x1';
+
+    return `${buildLandscapeMobileBase(ratio)}
+${rs(ratio, '.pp-flex__logo-container')} {
+    padding-bottom: 2.5px;
+}
+
+${rs(ratio, '.pp-flex__logo')} {
+    width: 60%;
+}
+
+${rs(ratio, '.pp-flex__logo:nth-of-type(2)')} {
+    display: none;
+}
+
+@media (max-aspect-ratio: 61/10) and (min-width: 324px) {
+    ${rsMedia(ratio, '.pp-flex__logo:nth-of-type(1)')} { width: 45%; }
+}
+
+@media (max-aspect-ratio: 61/10) and (max-width: 374px) {
+    ${rsMedia(ratio, '.pp-flex__logo:nth-of-type(1)')} { width: 50%; }
+}
+
+@media (max-width: 374px) {
+    ${rsMedia(ratio, '.pp-flex__logo:nth-of-type(1)')} { width: 55%; }
+}
+
+@media (min-aspect-ratio: 80/11) {
+    ${rsMedia(ratio, '.pp-flex__main')} {
+        display: inline;
+        line-height: 1.3em;
+    }
+
+    ${rsMedia(ratio, '.pp-flex__logo-container')} {
+        flex-basis: 12%;
+        margin-bottom: -6px;
+        justify-content: flex-start;
+        margin-left: 5px;
+    }
+
+    ${rsMedia(ratio, '.pp-flex__logo:nth-of-type(1)')} {
+        width: 50%;
+        margin-left: 10px;
+    }
+
+    ${rsMedia(ratio, '.pp-flex__disclaimer')},
+    ${rsMedia(ratio, '.pp-flex__action')} {
+        margin-left: 7px;
+    }
+}
+
+@media (min-aspect-ratio: 80/11) and (min-width: 500px) {
+    ${rsMedia(ratio, '.pp-flex__main')} { font-size: 3vw; }
+
+    ${rsMedia(ratio, '.pp-flex__logo-container')} { flex-basis: 22%; }
+
+    ${rsMedia(ratio, '.pp-flex__logo:nth-of-type(1)')} {
+        width: 18%;
+        margin-right: 5%;
+    }
+
+    ${rsMedia(ratio, '.pp-flex__logo:nth-of-type(2)')} {
+        display: inline-block;
+        width: 55%;
+    }
+
+    ${rsMedia(ratio, '.pp-flex__disclaimer')},
+    ${rsMedia(ratio, '.pp-flex__action')} {
+        font-size: 0.9rem;
+    }
+}`;
+}
+
+function buildLandscape20x1Rules() {
+    const ratio = '20x1';
+
+    return `${buildLandscapeMobileBase(ratio)}
+@media (min-aspect-ratio: 200/11) {
+    ${rsMedia(ratio, '.pp-flex__content')} {
+        justify-content: center;
+        align-items: center;
+    }
+
+    ${rsMedia(ratio, '.pp-flex__logo-container')} {
+        flex: none;
+        width: auto;
+        max-width: 18%;
+        margin-right: 1.5vw;
+        align-self: center;
+        padding-top: 2.5px;
+    }
+
+    ${rsMedia(ratio, '.pp-flex__logo img')} {
+        width: 100%;
+    }
+
+    ${rsMedia(ratio, '.pp-flex__logo:nth-of-type(1)')} {
+        width: 20%;
+        margin-right: 3%;
+    }
+
+    ${rsMedia(ratio, '.pp-flex__logo:nth-of-type(2)')} {
+        width: 60%;
+    }
+
+    ${rsMedia(ratio, '.pp-flex__messaging')} {
+        flex: none;
+        display: inline-flex;
+        flex-direction: row;
+        align-items: flex-end;
+        align-self: center;
+        width: auto;
+    }
+
+    ${rsMedia(ratio, '.pp-flex__main')} {
+        flex: none;
+        margin-bottom: 0;
+        font-size: 0.7rem;
+        line-height: 1;
+    }
+
+    ${rsMedia(ratio, '.pp-flex__disclaimer')},
+    ${rsMedia(ratio, '.pp-flex__action')} {
+        margin-left: 7px;
+        font-size: 8px;
+        line-height: 1.1;
+    }
+}
+
+@media (min-aspect-ratio: 200/11) and (min-width: 400px) {
+    ${rsMedia(ratio, '.pp-flex__main')} { font-size: 1rem; }
+
+    ${rsMedia(ratio, '.pp-flex__logo:nth-of-type(1)')} {
+        width: 22%;
+        margin-right: 5%;
+    }
+
+    ${rsMedia(ratio, '.pp-flex__logo:nth-of-type(2)')} {
+        display: inline-block;
+        width: 65%;
+    }
+}
+
+@media (min-aspect-ratio: 200/11) and (min-width: 600px) {
+    ${rsMedia(ratio, '.pp-flex__logo-container')} { max-width: 22%; }
+
+    ${rsMedia(ratio, '.pp-flex__main')} { font-size: 1.8vw; }
+    ${rsMedia(ratio, '.pp-flex__disclaimer')},
+    ${rsMedia(ratio, '.pp-flex__action')} { font-size: 0.75rem; }
+}
+
+@media (min-aspect-ratio: 200/11) and (min-width: 1000px) {
+    ${rsMedia(ratio, '.pp-flex__disclaimer')},
+    ${rsMedia(ratio, '.pp-flex__action')} { font-size: 0.9rem; }
+}`;
+}
+
+function buildRatioRules(ratio) {
+    switch (ratio) {
+        case '1x1':
+            return buildPortrait1x1Rules();
+        case '1x4':
+            return buildPortrait1x4Rules();
+        case '8x1':
+            return buildLandscape8x1Rules();
+        case '20x1':
+            return buildLandscape20x1Rules();
+        default:
+            return '';
+    }
+}
+
+export default function flexStyles({ fontFamily, fontSource, ratio } = {}) {
+    const { fontFaceRules, effectiveFontFamily } = buildFontRules({
+        fontSource,
+        fontFamily,
+        fallbackStack: FONT_FALLBACKS,
+        defaultFontFamily: DEFAULT_FONT_FAMILY,
+        fontNamePrefix: 'PP Merchant Font'
+    });
+    const fontFaceBlock = fontFaceRules ? `${fontFaceRules}\n` : '';
+
+    return `${fontFaceBlock}
+html,
+body,
+button {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+button {
+    width: 100%;
+    border: none;
+    padding: 0;
+}
+
+html {
+    overflow: hidden;
+}
+
+.pp-message.pp-flex {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    font-family: ${effectiveFontFamily};
+    font-weight: 300;
+    cursor: pointer;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.pp-message.pp-flex .pp-flex__background,
+.pp-message.pp-flex .pp-flex__content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.pp-message.pp-flex .pp-flex__background {
+    z-index: -1;
+}
+
+${buildBaseRules()}
+
+${buildThemeRules()}
+
+${buildRatioRules(ratio)}
+`;
+}
