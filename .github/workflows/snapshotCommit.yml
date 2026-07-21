@@ -19,6 +19,7 @@ jobs:
               with:
                   ref: ${{ github.event.workflow_run.head_branch }}
                   repository: ${{ github.event.workflow_run.head_repository.full_name }}
+                  allow-unsafe-pr-checkout: true
 
             - name: Download Artifacts
               uses: actions/github-script@v7
