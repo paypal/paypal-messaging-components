@@ -29,18 +29,23 @@ export const modalSnapshot = async (testNameParts, contentWindow) => {
     const [country, integration, account, amount, testName, viewport = 'desktop'] = testNameParts.split('-');
     const viewportDimensions = screenDimensions[viewport] || screenDimensions.desktop;
 
-    const modalDimensions = await contentWindow.$eval(contentWrapper, element => {
-        const rect = element.getBoundingClientRect();
-        return {
-            x: rect.left,
-            y: rect.top,
-            width: rect.width,
-            height: rect.height
-        };
-    });
+    const clip = await contentWindow.evaluate(wrapperSelector => {
+        const modalEl = document.querySelector(wrapperSelector);
+        if (!modalEl) {
+            return null;
+        }
 
-    const frameElement = await contentWindow.frameElement();
-    const frameDimensions = frameElement ? await frameElement.boundingBox() : null;
+        const modalRect = modalEl.getBoundingClientRect();
+        const frameEl = window.frameElement;
+        const frameRect = frameEl ? frameEl.getBoundingClientRect() : { left: 0, top: 0 };
+
+        return {
+            x: frameRect.left + modalRect.left,
+            y: frameRect.top + modalRect.top,
+            width: modalRect.width,
+            height: modalRect.height
+        };
+    }, contentWrapper);
 
     let snapshotDimensions = {
         x: 0,
@@ -49,11 +54,11 @@ export const modalSnapshot = async (testNameParts, contentWindow) => {
         height: viewportDimensions.height
     };
 
-    if (frameDimensions && modalDimensions.width > 0 && modalDimensions.height > 0) {
-        const x = Math.max(0, Math.round(frameDimensions.x + modalDimensions.x));
-        const y = Math.max(0, Math.round(frameDimensions.y + modalDimensions.y));
-        const width = Math.max(1, Math.round(modalDimensions.width));
-        const height = Math.max(1, Math.round(modalDimensions.height));
+    if (clip && clip.width > 0 && clip.height > 0) {
+        const x = Math.max(0, Math.round(clip.x));
+        const y = Math.max(0, Math.round(clip.y));
+        const width = Math.max(1, Math.round(clip.width));
+        const height = Math.max(1, Math.round(clip.height));
 
         snapshotDimensions = {
             x,
