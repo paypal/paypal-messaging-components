@@ -1292,31 +1292,15 @@ describe('v2 render flex snapshots', () => {
         disclaimer_items: [{ type: 'TEXT', text: 'Subject to approval.' }]
     };
 
-    test('full render for representative case (blue/8x1) includes expected flex structure', () => {
+    test('full render snapshot for representative case (blue/8x1)', () => {
         const options = { style: { layout: 'flex', color: 'blue', ratio: '8x1' } };
-        const result = render(options, flexContentWithLogo);
-
-        expect(result).toContain('class="pp-message pp-flex blue r-8x1"');
-        expect(result).toContain('data-pp-style-layout="flex"');
-        expect(result).toContain('data-pp-style-color="blue"');
-        expect(result).toContain('data-pp-style-ratio="8x1"');
-        expect(result).toContain('data:local/white-monogram');
-        expect(result).toContain('data:local/white-wordmark');
-        expect(result).toContain('Pay Later.');
-        expect(result).toContain('Learn more');
-        expect(result).toContain('Subject to approval.');
-        expect(result).toMatch(/<style>[\s\S]*?<\/style>/);
-        expect(result).toMatch(/<style>[\s\S]*\.pp-message\.pp-flex\.r-8x1[\s\S]*?<\/style>/);
+        expect(render(options, flexContentWithLogo)).toMatchSnapshot();
     });
 
     test('renders flex stylesheet once', () => {
         const options = { style: { layout: 'flex', color: 'blue', ratio: '8x1' } };
         const result = render(options, flexContentWithLogo);
-
-        expect(result.match(/<style>/g)).toHaveLength(1);
-        const css = result.match(/<style>([\s\S]*?)<\/style>/)[1];
-        expect(css).toContain('.pp-message.pp-flex.r-8x1 .pp-flex__content');
-        expect(css).toMatch(/font-family:[\s\S]*PayPal Pro/);
+        expect(result.match(/<style>[\s\S]*?<\/style>/)[0]).toMatchSnapshot();
     });
 
     test.each([

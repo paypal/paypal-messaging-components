@@ -38,6 +38,12 @@ module.exports = {
         '/node_modules/(?!(preact|preact-render-to-string|@testing-library/preact-hooks|@testing-library/preact)/)'
     ],
     setupFilesAfterEnv: ['<rootDir>/tests/unit/utils/setup.js', '<rootDir>/tests/customMatchers.js'],
+    // Align snapshot serialization with committed snapshots (Jest 27+ defaults differ on
+    // escapeString and printBasicPrototype, which breaks HTML string and object snapshots).
+    snapshotFormat: {
+        escapeString: true,
+        printBasicPrototype: true
+    },
     // grumbler-scripts includes babel-plugin-istanbul
     coveragePathIgnorePatterns: ['<rootDir>']
 };
