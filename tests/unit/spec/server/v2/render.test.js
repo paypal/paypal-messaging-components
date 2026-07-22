@@ -343,7 +343,7 @@ describe('v2 render', () => {
         });
     });
 
-    test('renders LINK item as a span with data attributes (not an anchor)', () => {
+    test('renders LINK item as an action__link span without click metadata', () => {
         const content = {
             ...baseV2Content,
             main_items: [
@@ -352,19 +352,25 @@ describe('v2 render', () => {
         };
         const result = render(baseOptions, content, mockLog);
         expect(result).toContain('Terms apply');
-        expect(result).toContain('data-iframe-url="https://example.com/terms"');
-        expect(result).toContain('data-embeddable="true"');
+        expect(result).toContain('class="action__link"');
+        expect(result).not.toContain('data-iframe-url');
+        expect(result).not.toContain('data-embeddable');
         expect(result).not.toContain('<a');
     });
 
-    test('omits data-embeddable when embeddable is not present on LINK item', () => {
+    test('merges non-LINK action items into main content after disclaimers', () => {
         const content = {
             ...baseV2Content,
-            main_items: [{ type: 'LINK', text: 'Terms apply', click_url: 'https://example.com/terms' }],
-            action_items: []
+            action_items: [
+                { type: 'TEXT', text: 'Offer details.' },
+                { type: 'LINK', text: 'Learn more', click_url: 'https://example.com/lander' }
+            ]
         };
         const result = render(baseOptions, content, mockLog);
-        expect(result).not.toContain('data-embeddable');
+        expect(result).toContain('aria-label="Pay Later Subject to approval. Offer details." class="main');
+        expect(result).toMatch(/class="main[^>]*">Pay Later Subject to approval\. Offer details\.<\/span> <span/);
+        expect(result).toContain('aria-label="Learn more" class="action');
+        expect(result).toContain('class="action__link">Learn more</span>');
     });
 
     test('applies text color class to main span', () => {

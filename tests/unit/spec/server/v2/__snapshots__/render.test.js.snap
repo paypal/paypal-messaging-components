@@ -23,15 +23,15 @@ body {
 .pp-message .main.grayscale { color: #000; }
 .pp-message .main.white { color: #fff; }
 
-.pp-message .action [data-iframe-url] {
+.pp-message .action__link {
   color: #0070ba;
   text-decoration: underline;
   text-decoration-color: currentColor;
   white-space: nowrap;
 }
-.pp-message .action.monochrome > [data-iframe-url] { color: #000; }
-.pp-message .action.grayscale > [data-iframe-url] { color: #000; }
-.pp-message .action.white > [data-iframe-url] { color: #fff; text-decoration-color: #fff; }
+.pp-message .monochrome .action__link,
+.pp-message .grayscale .action__link { color: #000; }
+.pp-message .white .action__link { color: #fff; text-decoration-color: #fff; }
 
 button:focus .pp-message .main,
 button:active .pp-message .main {
@@ -80,7 +80,7 @@ button:active .pp-message .main {
   max-height: 1em;
   height: 1em;
 }
-</style><span role="img" aria-label="PayPal" class="logo black left wordmark paypal"><img src="data:local/color-monogram" alt role="presentation" width="24" height="32" /><img src="data:local/color-wordmark" alt role="presentation" width="100" height="32" /></span><span aria-label="Pay Later. Subject to approval." class="main left black">Pay Later. Subject to approval.</span> <span aria-label="Learn more" class="action black"><span data-iframe-url="https://example.com/lander" data-embeddable="true">Learn more</span></span></div>"
+</style><span role="img" aria-label="PayPal" class="logo black left wordmark paypal"><img src="data:local/color-monogram" alt role="presentation" width="24" height="32" /><img src="data:local/color-wordmark" alt role="presentation" width="100" height="32" /></span><span aria-label="Pay Later. Subject to approval." class="main left black">Pay Later. Subject to approval.</span> <span aria-label="Learn more" class="action black"><span class="action__link">Learn more</span></span></div>"
 `;
 
 exports[`v2 render snapshots renders the v2 stylesheet once 1`] = `
@@ -106,15 +106,15 @@ body {
 .pp-message .main.grayscale { color: #000; }
 .pp-message .main.white { color: #fff; }
 
-.pp-message .action [data-iframe-url] {
+.pp-message .action__link {
   color: #0070ba;
   text-decoration: underline;
   text-decoration-color: currentColor;
   white-space: nowrap;
 }
-.pp-message .action.monochrome > [data-iframe-url] { color: #000; }
-.pp-message .action.grayscale > [data-iframe-url] { color: #000; }
-.pp-message .action.white > [data-iframe-url] { color: #fff; text-decoration-color: #fff; }
+.pp-message .monochrome .action__link,
+.pp-message .grayscale .action__link { color: #000; }
+.pp-message .white .action__link { color: #fff; text-decoration-color: #fff; }
 
 button:focus .pp-message .main,
 button:active .pp-message .main {

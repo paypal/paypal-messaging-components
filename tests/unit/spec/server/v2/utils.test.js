@@ -54,6 +54,14 @@ describe('buildContentLabel', () => {
         expect(buildContentLabel(items)).toBe('Pay Later');
     });
 
+    test('does not insert a space before punctuation-only items', () => {
+        const items = [
+            { type: 'TEXT', text: 'Pay in 3 interest-free payments with PayPal' },
+            { type: 'TEXT', text: '.' }
+        ];
+        expect(buildContentLabel(items)).toBe('Pay in 3 interest-free payments with PayPal.');
+    });
+
     test('returns empty string for empty array', () => {
         expect(buildContentLabel([])).toBe('');
     });

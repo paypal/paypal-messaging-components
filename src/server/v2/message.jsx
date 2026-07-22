@@ -49,8 +49,8 @@ function renderLogoImages(item, logoPresentation) {
 // to a plain img — callers that extract the logo block before the loop should
 // pass null so IMAGE items are never double-rendered.
 //
-// Note: LINK blocks intentionally render as <span>, not <a>. The v5 SDK message
-// click surface is the canonical click handler; click_url is not used for navigation.
+// LINK blocks are visually styled spans, not anchors: the v5 SDK message click
+// surface is canonical and click_url is not used for navigation.
 function renderBlock(item, logoPresentation) {
     if (!item) return null;
     switch (item.type) {
@@ -68,14 +68,7 @@ function renderBlock(item, logoPresentation) {
             }
             return <img src={item.source_url} alt={item.alternative_text || 'PayPal'} />;
         case 'LINK':
-            return (
-                <span
-                    data-iframe-url={item.click_url}
-                    data-embeddable={item.embeddable !== undefined ? String(item.embeddable) : undefined}
-                >
-                    {item.text}
-                </span>
-            );
+            return <span className="action__link">{item.text}</span>;
         case 'TEXT':
             return item.brand ? <strong>{item.text}</strong> : item.text;
         default:
@@ -130,8 +123,16 @@ export default function V2Message({ options, v2Content, log }) {
         mainItems
     });
 
-    const preparedMainBlocks =
-        disclaimerItems.length > 0 ? [...mainBlocks, { type: 'TEXT', text: ' ' }, ...disclaimerItems] : mainBlocks;
+    const linkActionItems = actionItems.filter(item => item.type === 'LINK');
+    const nonLinkActionItems = actionItems.filter(item => item.type !== 'LINK');
+    const appendBlocks = (blocks, items) => {
+        if (items.length === 0) {
+            return blocks;
+        }
+
+        return blocks.length === 0 ? items : [...blocks, { type: 'TEXT', text: ' ' }, ...items];
+    };
+    const preparedMainBlocks = appendBlocks(appendBlocks(mainBlocks, disclaimerItems), nonLinkActionItems);
 
     const logoClasses = mapClasses({
         logo: true,
@@ -143,7 +144,7 @@ export default function V2Message({ options, v2Content, log }) {
     const actionClasses = mapClasses({ action: true, [textColor]: true });
 
     const mainLabel = buildContentLabel(preparedMainBlocks);
-    const actionLabel = buildContentLabel(actionItems);
+    const actionLabel = buildContentLabel(linkActionItems);
 
     // For inline mode, IMAGE blocks in mainBlocks render in-place via renderBlock.
     // For all other modes, logoPresentation is null so IMAGE blocks render as plain imgs.
@@ -183,11 +184,11 @@ export default function V2Message({ options, v2Content, log }) {
                     ))}
                 </span>
             )}
-            {actionItems.length > 0 ? (
+            {linkActionItems.length > 0 ? (
                 <>
                     {' '}
                     <span aria-label={actionLabel} className={actionClasses}>
-                        {actionItems.map((item, idx) => (
+                        {linkActionItems.map((item, idx) => (
                             // eslint-disable-next-line react/no-array-index-key
                             <Fragment key={idx}>{renderBlock(item, null)}</Fragment>
                         ))}

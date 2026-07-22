@@ -49,15 +49,15 @@ body {
 .pp-message .main.grayscale { color: #000; }
 .pp-message .main.white { color: #fff; }
 
-.pp-message .action [data-iframe-url] {
+.pp-message .action__link {
   color: #0070ba;
   text-decoration: underline;
   text-decoration-color: currentColor;
   white-space: nowrap;
 }
-.pp-message .action.monochrome > [data-iframe-url] { color: #000; }
-.pp-message .action.grayscale > [data-iframe-url] { color: #000; }
-.pp-message .action.white > [data-iframe-url] { color: #fff; text-decoration-color: #fff; }
+.pp-message .monochrome .action__link,
+.pp-message .grayscale .action__link { color: #000; }
+.pp-message .white .action__link { color: #fff; text-decoration-color: #fff; }
 
 button:focus .pp-message .main,
 button:active .pp-message .main {
