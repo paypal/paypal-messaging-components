@@ -65,7 +65,8 @@ const BodyContent = () => {
     const useV5Design = productMeta?.useV5Design === 'true';
     const use5Dot1Design = productMeta?.['v5.1'];
     const useNewCheckoutDesign = features?.includes('new-checkout-design') ? 'true' : 'false';
-
+    const useDarkMode = !!features?.includes('useDarkMode');
+    console.log('useDarkMode', useDarkMode);
     // add v4Design or v5Design class to root html to update lander specific styles to v4 or v5 respectively
     const documentClassName = document.documentElement.className;
     if (useV4Design && isLander) {
@@ -111,6 +112,7 @@ const BodyContent = () => {
                 content={content}
                 productMeta={productMeta}
                 useNewCheckoutDesign={useNewCheckoutDesign}
+                useDarkMode={useDarkMode}
                 use5Dot1Design={use5Dot1Design}
                 openProductList={openProductList}
             />
@@ -128,6 +130,7 @@ const BodyContent = () => {
                 content={content}
                 productMeta={productMeta}
                 useNewCheckoutDesign={useNewCheckoutDesign}
+                useDarkMode={useDarkMode}
                 use5Dot1Design={use5Dot1Design}
                 openProductList={openProductList}
             />
@@ -174,12 +177,13 @@ const BodyContent = () => {
                     useV4Design={useV4Design}
                     useV5Design={useV5Design}
                     use5Dot1Design={use5Dot1Design}
+                    useDarkMode={useDarkMode}
                 />
             )}
             <div
                 className={`content__container ${useV4Design ? 'v4Design' : ''} ${useV5Design ? 'v5Design' : ''} ${
                     useNewCheckoutDesign === 'true' ? 'checkout' : ''
-                } ${use5Dot1Design ? 'v5Dot1Design' : ''} `}
+                } ${use5Dot1Design ? 'v5Dot1Design' : ''} ${useDarkMode ? 'darkMode' : ''}`}
             >
                 <main className="main">
                     <div className="content__body">{viewComponents[viewName]}</div>
