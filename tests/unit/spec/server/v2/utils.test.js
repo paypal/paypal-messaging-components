@@ -54,6 +54,14 @@ describe('buildContentLabel', () => {
         expect(buildContentLabel(items)).toBe('Pay Later');
     });
 
+    test('does not insert a space before punctuation-only items', () => {
+        const items = [
+            { type: 'TEXT', text: 'Pay in 3 interest-free payments with PayPal' },
+            { type: 'TEXT', text: '.' }
+        ];
+        expect(buildContentLabel(items)).toBe('Pay in 3 interest-free payments with PayPal.');
+    });
+
     test('returns empty string for empty array', () => {
         expect(buildContentLabel([])).toBe('');
     });
@@ -107,14 +115,14 @@ describe('buildLogoConfiguration', () => {
         expect(result.hasRightLogo).toBe(false);
     });
 
-    test('none type renders no logo and strips IMAGE blocks from mainBlocks', () => {
+    test('none type replaces IMAGE blocks with their accessible brand text', () => {
         const result = buildLogoConfiguration({
             effectiveLogoType: 'none',
             effectiveLogoPosition: 'left',
             mainItems: [logoItem, textItem]
         });
         expect(result.logoBlock).toBeUndefined();
-        expect(result.mainBlocks).toEqual([textItem]);
+        expect(result.mainBlocks).toEqual([{ type: 'TEXT', text: 'PayPal ', brand: true }, textItem]);
         expect(result.hasInitialLogo).toBe(false);
         expect(result.hasRightLogo).toBe(false);
     });

@@ -4,7 +4,7 @@
 // primary          wordmark          as provided (left/right/top)
 // alternative      monogram          always left (v6 constraint)
 // inline           wordmark          always inline (overrides position)
-// none             none              n/a
+// none             text              in CPS order
 
 const LOGO_TYPE_MAP = {
     primary: 'wordmark',
@@ -44,7 +44,7 @@ export function resolveLogoPresentation({ logoType, logoPosition, textColor, log
     } else if (effectiveLogoType === 'none') {
         effectiveLogoPosition = 'left';
         if (hasExplicitNonDefaultPosition) {
-            logInvalid(log, `No logo is rendered when style.logo.type is "none"; ignoring "${logoPosition}".`);
+            logInvalid(log, `The brand renders as text when style.logo.type is "none"; ignoring "${logoPosition}".`);
         }
     } else {
         effectiveLogoPosition = originalLogoPosition;
