@@ -6,16 +6,8 @@ import { buildContentLabel } from './utils/buildContentLabel';
 import { buildLogoConfiguration } from './utils/buildLogoConfiguration';
 import { resolveLogoPresentation } from './utils/resolveLogoPresentation';
 import { mapClasses } from './utils/mapClasses';
-import { resolveLogoAssets } from './logos';
+import { getLogoBrandClass, resolveLogoAssets } from './logos';
 import styles from './styles';
-
-const LOGO_BRAND_CLASS = {
-    paypal_logo: 'paypal',
-    paypal_credit_logo: 'paypal-credit',
-    venmo_logo: 'venmo'
-};
-
-const getLogoBrandClass = logoName => LOGO_BRAND_CLASS[logoName] ?? '';
 
 // Renders local brand assets for first-party logos (paypal_logo, paypal_credit_logo).
 // Falls back to item.source_url for unknown image blocks.
@@ -60,7 +52,10 @@ function renderBlock(item, logoPresentation) {
                     <span
                         role="img"
                         aria-label={item.alternative_text || 'PayPal'}
-                        className={`logo inline wordmark ${getLogoBrandClass(item.name)}`.trim()}
+                        className={`logo inline wordmark ${getLogoBrandClass({
+                            logoName: item.name,
+                            alternativeText: item.alternative_text
+                        })}`.trim()}
                     >
                         {renderLogoImages(item, logoPresentation)}
                     </span>
@@ -93,7 +88,10 @@ function renderLogoSpan(block, className, logoPresentation) {
         <span
             role="img"
             aria-label={block.alternative_text || 'PayPal'}
-            className={`${className} ${getLogoBrandClass(block.name)}`.trim()}
+            className={`${className} ${getLogoBrandClass({
+                logoName: block.name,
+                alternativeText: block.alternative_text
+            })}`.trim()}
         >
             {renderLogoImages(block, logoPresentation)}
         </span>

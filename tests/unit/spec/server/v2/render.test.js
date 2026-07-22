@@ -558,6 +558,43 @@ describe('v2 render logo presentation adapter', () => {
             expect(result).toContain('vertical-align: text-top;');
         });
 
+        test('uses the accessible brand label to size an unnamed PayPal Credit image', () => {
+            const options = { style: { ...baseOptions.style, logo: { type: 'inline', position: 'left' } } };
+            const content = {
+                ...baseV2Content,
+                main_items: [
+                    { ...ppcLogoBlock, name: undefined },
+                    { type: 'TEXT', text: 'Pay Later' }
+                ]
+            };
+            const result = render(options, content, mockLog);
+
+            expect(result).toContain('https://example.com/ppc-logo.svg');
+            expect(result).toContain('class="logo inline wordmark paypal-credit"');
+            expect(result).toMatch(
+                /\.pp-message \.logo\.inline\.paypal-credit img \{\s+vertical-align: text-top;\s+max-height: 1em;\s+height: 1em;\s+\}/
+            );
+        });
+
+        test('does not apply PayPal Credit styling to an unknown image name', () => {
+            const options = { style: { ...baseOptions.style, logo: { type: 'inline', position: 'left' } } };
+            const content = {
+                ...baseV2Content,
+                main_items: [
+                    {
+                        ...ppcLogoBlock,
+                        name: 'custom_image',
+                        alternative_text: 'Merchant logo'
+                    },
+                    { type: 'TEXT', text: 'Pay Later' }
+                ]
+            };
+            const result = render(options, content, mockLog);
+
+            expect(result).toContain('class="logo inline wordmark"');
+            expect(result).not.toContain('class="logo inline wordmark paypal-credit"');
+        });
+
         test('monochrome text color maps to BLACK key for PayPal Credit logo', () => {
             const options = {
                 style: {

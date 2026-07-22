@@ -8,6 +8,26 @@ export const PAYPAL_CREDIT_LOGO_NAME = 'paypal_credit_logo';
 // content, though it may not be merged into develop yet on the CPS side.
 export const VENMO_LOGO_NAME = 'venmo_logo';
 
+// One catalog owns both the stable CPS name and the accessible fallback label.
+// The name selects a local asset; the label lets an otherwise valid unnamed
+// IMAGE receive its brand-specific presentation without trusting arbitrary text.
+const LOGO_BRANDS = [
+    { id: 'paypal', name: PAYPAL_LOGO_NAME, alternativeText: 'PayPal' },
+    { id: 'paypal-credit', name: PAYPAL_CREDIT_LOGO_NAME, alternativeText: 'PayPal Credit' },
+    { id: 'venmo', name: VENMO_LOGO_NAME, alternativeText: 'Venmo' }
+];
+
+export function getLogoBrand({ logoName, alternativeText }) {
+    return (
+        LOGO_BRANDS.find(brand => brand.name === logoName) ??
+        LOGO_BRANDS.find(brand => brand.alternativeText === alternativeText)
+    );
+}
+
+export function getLogoBrandClass({ logoName, alternativeText }) {
+    return getLogoBrand({ logoName, alternativeText })?.id ?? '';
+}
+
 const PP_COLOR_KEY = {
     black: 'COLOR',
     white: 'WHITE',
@@ -69,13 +89,15 @@ function resolveVenmoLogoAssets({ textColor }) {
 // Returns Array<{src, dimensions: [w, h]}> for known first-party logos,
 // or null to signal the caller should fall back to item.source_url.
 export function resolveLogoAssets({ logoName, effectiveLogoType, effectiveLogoPosition, textColor }) {
-    if (logoName === PAYPAL_LOGO_NAME) {
+    const logoBrand = getLogoBrand({ logoName });
+
+    if (logoBrand?.id === 'paypal') {
         return resolvePayPalLogoAssets({ effectiveLogoType, effectiveLogoPosition, textColor });
     }
-    if (logoName === PAYPAL_CREDIT_LOGO_NAME) {
+    if (logoBrand?.id === 'paypal-credit') {
         return resolvePayPalCreditLogoAssets({ effectiveLogoType, effectiveLogoPosition, textColor });
     }
-    if (logoName === VENMO_LOGO_NAME) {
+    if (logoBrand?.id === 'venmo') {
         return resolveVenmoLogoAssets({ textColor });
     }
     return null;
