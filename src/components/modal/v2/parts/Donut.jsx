@@ -27,7 +27,7 @@ const Donut = ({
     const strokeDasharray = `${percentage} ${100 - percentage}`;
     const isV4OrV5Design = useV4Design === 'true' || useV5Design === 'true';
     const isV5Design = useV5Design === 'true';
-    console.log('useDarkMode donut', useDarkMode);
+
     const segments = (
         <circle
             cx={cx}
