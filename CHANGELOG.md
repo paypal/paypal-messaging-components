@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.91.0](https://github.com/paypal/paypal-messaging-components/compare/v1.90.1...v1.91.0) (2026-07-21)
+
+
+### Features
+
+* AT Expansion ([#1276](https://github.com/paypal/paypal-messaging-components/issues/1276)) ([b74c3af](https://github.com/paypal/paypal-messaging-components/commit/b74c3af03c377fba4ed2ff6a3739d44200cc4dca))
+
+
+### Documentation
+
+* clarify Hi Developer greeting scope ([#1365](https://github.com/paypal/paypal-messaging-components/issues/1365)) ([feeeae7](https://github.com/paypal/paypal-messaging-components/commit/feeeae7ac18ec435aadd0b184e2d96aae4ae859b))
+
 ### [1.90.1](https://github.com/paypal/paypal-messaging-components/compare/v1.90.0...v1.90.1) (2026-07-20)
 
 
