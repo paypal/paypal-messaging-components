@@ -65,7 +65,7 @@ const BodyContent = () => {
     const useV5Design = productMeta?.useV5Design === 'true';
     const use5Dot1Design = productMeta?.['v5.1'];
     const useNewCheckoutDesign = features?.includes('new-checkout-design') ? 'true' : 'false';
-    const useDarkMode = !!features?.includes('useDarkMode');
+    const useDarkMode = !!features?.includes('use-dark-mode');
 
     // add v4Design or v5Design class to root html to update lander specific styles to v4 or v5 respectively
     const documentClassName = document.documentElement.className;
