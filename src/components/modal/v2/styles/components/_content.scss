@@ -170,6 +170,11 @@
                     margin-bottom: 60px;
                 }
             }
+
+            &.darkMode {
+                color: colors.$white;
+                opacity: 0.72;
+            }
         }
 
         &.checkout {

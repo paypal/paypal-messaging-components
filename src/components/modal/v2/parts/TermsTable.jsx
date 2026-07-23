@@ -12,7 +12,8 @@ const TermsTable = ({
     useV4Design,
     useV5Design,
     use5Dot1Design,
-    useNewCheckoutDesign
+    useNewCheckoutDesign,
+    useDarkMode
 }) => {
     const { offerCountry } = meta;
     const offerAccordionCountries = ['AT', 'DE', 'ES', 'IT'];
@@ -70,6 +71,7 @@ const TermsTable = ({
                     useV5Design={useV5Design}
                     use5Dot1Design={use5Dot1Design}
                     useNewCheckoutDesign={useNewCheckoutDesign}
+                    useDarkMode={useDarkMode}
                 />
             );
         });
