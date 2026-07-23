@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.92.0](https://github.com/paypal/paypal-messaging-components/compare/v1.91.0...v1.92.0) (2026-07-23)
+
+
+### Features
+
+* fix firefox logos for rewrite ([#1347](https://github.com/paypal/paypal-messaging-components/issues/1347)) ([d9b2991](https://github.com/paypal/paypal-messaging-components/commit/d9b2991da077bb4944d976581a1d333bc966d994))
+
+
+### Bug Fixes
+
+* UK Pi30 message update on removing extra space ([#1351](https://github.com/paypal/paypal-messaging-components/issues/1351)) ([dc30231](https://github.com/paypal/paypal-messaging-components/commit/dc3023141e929410ea806c7347211549881317ae))
+
 ## [1.91.0](https://github.com/paypal/paypal-messaging-components/compare/v1.90.1...v1.91.0) (2026-07-21)
 
 
