@@ -1,9 +1,46 @@
 import { selectors } from '../../v2/utils';
 
+const isRecoverablePageError = error => {
+    const message = error && error.message ? error.message : '';
+
+    return (
+        message.includes('Target closed') ||
+        message.includes('Session closed') ||
+        message.includes('TargetCloseError') ||
+        message.includes('ERR_ABORTED')
+    );
+};
+
+const ensureLivePage = async () => {
+    if (!page || page.isClosed()) {
+        const nextPage = await global.browser.newPage();
+        global.page = nextPage;
+    }
+};
+
+const createFreshPage = async () => {
+    const nextPage = await global.browser.newPage();
+    global.page = nextPage;
+};
+
+const gotoWithRecovery = async url => {
+    await ensureLivePage();
+
+    try {
+        await page.goto(url, { waitUntil: 'networkidle0' });
+        return;
+    } catch (error) {
+        if (!isRecoverablePageError(error)) {
+            throw error;
+        }
+    }
+
+    await createFreshPage();
+    await page.goto(url, { waitUntil: 'networkidle0' });
+};
+
 export default async function setupTestPage({ config, testPage, frameName }) {
-    const isV2Mode = process.env.BANNER_SNAPSHOT_MODE === 'v2Renderer';
-    const resolvedConfig = isV2Mode ? { ...config, features: 'useRenderV2Message' } : config;
-    await page.goto(`https://localhost.paypal.com:8080/snapshot/${testPage}?config=${JSON.stringify(resolvedConfig)}`);
+    await gotoWithRecovery(`https://localhost.paypal.com:8080/snapshot/${testPage}?config=${JSON.stringify(config)}`);
 
     const frameWithMessage = frameName ? page.frames().find(frame => frame.name() === frameName) : page.mainFrame();
     const bannerElement = await frameWithMessage.waitForSelector(selectors.message.messageIframe, {
@@ -21,7 +58,7 @@ export default async function setupTestPage({ config, testPage, frameName }) {
         return { modalFrame };
     };
 
-    await page.waitFor(3 * 1000);
+    await new Promise(resolve => setTimeout(resolve, 3 * 1000));
 
     return { bannerElement, openModal };
 }

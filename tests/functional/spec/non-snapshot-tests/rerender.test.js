@@ -18,9 +18,9 @@ const runTest = async ({ testName, testPage = 'banner.html', config, callback })
         });
     }, config.account);
 
-    await page.waitFor(5 * 1000);
+    await new Promise(resolve => setTimeout(resolve, 5 * 1000));
     await callback();
-    await page.waitFor(15 * 1000);
+    await new Promise(resolve => setTimeout(resolve, 15 * 1000));
 
     const bannerContainers = await page.$$('[data-pp-id]');
     expect(bannerContainers.length).toBe(2);
@@ -52,12 +52,16 @@ describe('dynamic attribute detection testing', () => {
             config,
             testName: 'existing element',
             callback: async () => {
-                await page.evaluate(async () => {
+                await page.evaluate(() => {
                     const div = document.createElement('div');
+                    div.setAttribute('id', 'rerender-target');
                     document.body.appendChild(div);
+                });
 
-                    await new Promise(resolve => setTimeout(resolve, 2000));
+                await new Promise(resolve => setTimeout(resolve, 2000));
 
+                await page.evaluate(() => {
+                    const div = document.querySelector('#rerender-target');
                     div.setAttribute('data-pp-message', '');
                 });
             }

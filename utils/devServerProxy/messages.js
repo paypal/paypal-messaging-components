@@ -9,6 +9,165 @@ import VARIABLE_PATH_MAP from './lib/v2VariablePathMap';
 
 // set this environment variable to simulate the time for the request to be answered
 const REQUEST_DELAY = process.env.REQUEST_DELAY ?? 500;
+const PAYPAL_BADGE_URL = 'https://www.paypalobjects.com/upstream/assets/logos/v2/paypal_badge.svg';
+const PAYPAL_BADGE_INLINE_URL = 'https://www.paypalobjects.com/upstream/assets/logos/v2/paypal_badge_inline.svg';
+const PAYPAL_CREDIT_BADGE_URL = 'https://www.paypalobjects.com/upstream/assets/logos/v2/paypal_credit_badge.svg';
+const PAYPAL_CREDIT_BADGE_INLINE_URL =
+    'https://www.paypalobjects.com/upstream/assets/logos/v2/paypal_credit_badge_inline.svg';
+const DEMO_CLICK_URL = 'https://www.paypal.com/ppclander';
+const DEMO_IMPRESSION_URL = 'https://www.paypal.com/credit-presentment/log';
+
+const createLink = text => ({
+    type: 'LINK',
+    text,
+    click_url: DEMO_CLICK_URL,
+    embeddable: true
+});
+
+const v2DemoContent = {
+    V2_DE_PLP1_SQ_NON_INLINE: {
+        impression_url: DEMO_IMPRESSION_URL,
+        main_items: [
+            {
+                type: 'IMAGE',
+                name: 'paypal_logo',
+                source_url: PAYPAL_BADGE_URL,
+                alternative_text: 'PayPal'
+            },
+            {
+                type: 'TEXT',
+                text: 'Bezahlen Sie nach 30 Tagen.'
+            }
+        ],
+        action_items: [createLink('Mehr erfahren')]
+    },
+    V2_DE_PLP1_SQ_INLINE: {
+        impression_url: DEMO_IMPRESSION_URL,
+        main_items: [
+            {
+                type: 'TEXT',
+                text: 'Bezahlen Sie nach 30 Tagen mit '
+            },
+            {
+                type: 'IMAGE',
+                name: 'paypal_logo',
+                source_url: PAYPAL_BADGE_INLINE_URL,
+                alternative_text: 'PayPal'
+            },
+            {
+                type: 'TEXT',
+                text: '.'
+            }
+        ],
+        action_items: []
+    },
+    V2_US_PLLT_MQ_GZ_INLINE_MONTHLY: {
+        impression_url: DEMO_IMPRESSION_URL,
+        main_items: [
+            {
+                type: 'TEXT',
+                alternative_text: 'As low as $23.84 per month with ',
+                text: 'As low as $23.84/mo with '
+            },
+            {
+                type: 'IMAGE',
+                name: 'paypal_logo',
+                source_url: PAYPAL_BADGE_INLINE_URL,
+                alternative_text: 'PayPal'
+            },
+            {
+                type: 'TEXT',
+                text: '.'
+            }
+        ],
+        action_items: [createLink('Learn more')]
+    },
+    V2_US_PLLT_MQ_GZ_MONTHLY: {
+        impression_url: DEMO_IMPRESSION_URL,
+        main_items: [
+            {
+                type: 'IMAGE',
+                name: 'paypal_logo',
+                source_url: PAYPAL_BADGE_URL,
+                alternative_text: 'PayPal'
+            },
+            {
+                type: 'TEXT',
+                alternative_text: 'As low as $23.84 per month.',
+                text: 'As low as $23.84/mo.'
+            }
+        ],
+        action_items: [createLink('Learn more')]
+    },
+    V2_US_PPCNI_SQ_PAYPAL_CREDIT: {
+        impression_url: DEMO_IMPRESSION_URL,
+        main_items: [
+            {
+                type: 'IMAGE',
+                name: 'paypal_credit_logo',
+                source_url: PAYPAL_CREDIT_BADGE_URL,
+                alternative_text: 'PayPal Credit'
+            },
+            {
+                type: 'TEXT',
+                text: 'No Interest if paid in full in 6 months.'
+            }
+        ],
+        action_items: [createLink('Learn more')]
+    },
+    V2_US_PPCNI_SQ_INLINE_PAYPAL_CREDIT: {
+        impression_url: DEMO_IMPRESSION_URL,
+        main_items: [
+            {
+                type: 'TEXT',
+                text: 'No Interest if paid in full in 6 months with '
+            },
+            {
+                type: 'IMAGE',
+                name: 'paypal_credit_logo',
+                source_url: PAYPAL_CREDIT_BADGE_INLINE_URL,
+                alternative_text: 'PayPal Credit'
+            },
+            {
+                type: 'TEXT',
+                text: '.'
+            }
+        ],
+        action_items: [createLink('Learn more')]
+    }
+};
+
+const createV2Content = ({ channel, populatedBanner }) =>
+    v2DemoContent[channel] ?? {
+        main_items: [
+            {
+                type: 'IMAGE',
+                source_url: PAYPAL_BADGE_URL,
+                alternative_text: 'PayPal',
+                name: 'paypal_logo'
+            },
+            {
+                type: 'TEXT',
+                text: 'Pay in 4 interest-free payments'
+            }
+        ],
+        action_items: [
+            {
+                ...createLink('Learn more'),
+                click_url: populatedBanner?.meta?.lander || DEMO_CLICK_URL
+            }
+        ],
+        disclaimer_items: [{ type: 'TEXT', text: 'Subject to approval.' }]
+    };
+
+const getCompiledBundle = (compiler, filename) => {
+    const renderPath = path.resolve(__dirname, `../../dist/${filename}`);
+    const compilers = compiler?.compilers ?? [compiler];
+
+    const bundleCompiler = compilers.find(({ outputFileSystem }) => outputFileSystem?.existsSync?.(renderPath));
+
+    return bundleCompiler ? bundleCompiler.outputFileSystem.readFileSync(renderPath, 'utf8') : null;
+};
 
 const parseJSONParam = (val, fallbackValue = {}) => {
     if (!val || typeof val !== 'string') {
@@ -166,9 +325,12 @@ const getMessageData = async (req, compiler) => {
         merchant_id: merchantId,
         style,
         buyerCountry,
-        contextual_components: contextualComponents
+        contextual_components: contextualComponents,
+        features,
+        channel
     } = req.query;
     const account = merchantId || clientId || payerId;
+    const useV2Renderer = features?.split(',').includes('render-v2-message');
 
     const { message } = getDevAccountDetails({ account, amount, buyerCountry });
 
@@ -176,22 +338,25 @@ const getMessageData = async (req, compiler) => {
         ? JSON.parse(populateTemplate(message.template, message.morsVars))
         : await passthroughMessageReq(req);
 
-    const memoryFS = compiler.compilers[2].outputFileSystem;
-    const renderPath = path.resolve(__dirname, '../../dist/renderMessage.js');
+    const renderFilename = useV2Renderer ? 'renderV2Message.js' : 'renderMessage.js';
+    const bundle = getCompiledBundle(compiler, renderFilename);
 
-    if (populatedBanner && memoryFS.existsSync(renderPath)) {
+    if (populatedBanner && bundle) {
         // eslint-disable-next-line no-eval, security/detect-eval-with-expression
-        const { render, validateStyle, getParentStyles } = eval(memoryFS.readFileSync(renderPath, 'utf8'));
+        const { render, validateStyle, getParentStyles } = eval(bundle);
 
         const warnings = [];
+        const parsedStyle = JSON.parse(style);
 
-        const validatedStyle = validateStyle(
-            warnings.push.bind(warnings),
-            JSON.parse(style),
-            populatedBanner.meta.offerCountry,
-            populatedBanner.meta.offerType,
-            contextualComponents
-        );
+        const validatedStyle = useV2Renderer
+            ? validateStyle(warnings.push.bind(warnings), parsedStyle)
+            : validateStyle(
+                  warnings.push.bind(warnings),
+                  parsedStyle,
+                  populatedBanner.meta.offerCountry,
+                  populatedBanner.meta.offerType,
+                  contextualComponents
+              );
 
         let customMarkup = '';
 
@@ -206,11 +371,17 @@ const getMessageData = async (req, compiler) => {
             }
         }
 
-        const markup = render(
-            { style: validatedStyle, amount, customMarkup, contextualComponents },
-            populatedBanner,
-            warnings.push.bind(warnings)
-        );
+        const markup = useV2Renderer
+            ? render(
+                  { style: validatedStyle, amount },
+                  createV2Content({ channel, populatedBanner }),
+                  warnings.push.bind(warnings)
+              )
+            : render(
+                  { style: validatedStyle, amount, customMarkup, contextualComponents },
+                  populatedBanner,
+                  warnings.push.bind(warnings)
+              );
         const parentStyles = getParentStyles(validatedStyle);
 
         return {

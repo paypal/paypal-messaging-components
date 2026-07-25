@@ -1,4 +1,57 @@
 import render from 'server/v2/render';
+import validateStyle from 'server/v2/validateStyle';
+
+jest.mock('server/message/logos', () => {
+    const makeVariant = (name, mw, mh, ww, wh) => [
+        { src: `data:local/${name}-monogram`, dimensions: [mw, mh] },
+        { src: `data:local/${name}-wordmark`, dimensions: [ww, wh] }
+    ];
+    const PP_PAYPAL = {
+        COLOR: makeVariant('color', 24, 32, 100, 32),
+        WHITE: makeVariant('white', 24, 32, 100, 32),
+        GRAYSCALE: makeVariant('grayscale', 24, 32, 100, 32),
+        MONOCHROME: makeVariant('monochrome', 24, 32, 100, 32)
+    };
+    return {
+        PP_PAYPAL,
+        NO_PP_MONOGRAM: {
+            COLOR: { src: 'data:local/inline-color', dimensions: [100, 32] },
+            WHITE: { src: 'data:local/inline-white', dimensions: [100, 32] },
+            GRAYSCALE: { src: 'data:local/inline-grayscale', dimensions: [100, 32] },
+            MONOCHROME: { src: 'data:local/inline-monochrome', dimensions: [100, 32] }
+        }
+    };
+});
+
+jest.mock('server/v2/venmoLogos', () => {
+    const makeSingle = name => ({ src: `data:local/${name}`, dimensions: [101, 32] });
+    return {
+        VENMO: {
+            COLOR: makeSingle('venmo-color'),
+            WHITE: makeSingle('venmo-white'),
+            GRAYSCALE: makeSingle('venmo-grayscale'),
+            MONOCHROME: makeSingle('venmo-monochrome')
+        }
+    };
+});
+
+jest.mock('server/locale/US/PAYPAL_CREDIT/logos', () => {
+    const makeSingle = name => ({ src: `data:local/${name}`, dimensions: [100, 32] });
+    const makeVariant = prefix => ({
+        COLOR: makeSingle(`${prefix}-color`),
+        WHITE: makeSingle(`${prefix}-white`),
+        GRAYSCALE: makeSingle(`${prefix}-grayscale`),
+        BLACK: makeSingle(`${prefix}-black`)
+    });
+    return {
+        STACKED: makeVariant('ppc-stacked'),
+        SINGLE_LINE: makeVariant('ppc-single'),
+        SINGLE_LINE_NO_PAYPAL: makeVariant('ppc-no-paypal'),
+        SINGLE_LINE_NO_PP: makeVariant('ppc-no-pp'),
+        PRIMARY: makeVariant('ppc-stacked'),
+        ALTERNATIVE: makeVariant('ppc-single')
+    };
+});
 
 const mockLog = jest.fn();
 
@@ -51,6 +104,12 @@ describe('v2 render', () => {
         expect(result).toMatch(/class="action[^"]*"/);
     });
 
+    test('separates main content and action with breakable whitespace', () => {
+        const result = render(baseOptions, baseV2Content, mockLog);
+        expect(result).toContain('</span> <span aria-label="Learn more" class="action');
+        expect(result).not.toContain('.pp-message .action {\n    margin-left:');
+    });
+
     test('renders disclaimer_items appended to main content', () => {
         const result = render(baseOptions, baseV2Content, mockLog);
         expect(result).toContain('Subject to approval.');
@@ -76,7 +135,9 @@ describe('v2 render', () => {
             ]
         };
         const result = render(baseOptions, content, mockLog);
-        expect(result).toContain('https://example.com/logo.svg');
+        // Known paypal_logo resolves from local assets, not CPS source_url
+        expect(result).not.toContain('https://example.com/logo.svg');
+        expect(result).toContain('data:local/color-monogram');
         expect(result).toMatch(/class="logo[^"]*"/);
         expect(result).toContain('role="img"');
     });
@@ -134,7 +195,32 @@ describe('v2 render', () => {
         expect(result).toMatch(/class="logo[^"]*top[^"]*"/);
     });
 
-    test('inline logo type keeps logo in main blocks without a standalone logo span', () => {
+    test('inline logo type renders logo amid plain main text', () => {
+        const options = { style: { ...baseOptions.style, logo: { type: 'inline', position: 'left' } } };
+        const content = {
+            ...baseV2Content,
+            main_items: [
+                { type: 'TEXT', text: 'Pay Later' },
+                {
+                    type: 'IMAGE',
+                    source_url: 'https://example.com/logo.svg',
+                    alternative_text: 'PayPal',
+                    name: 'paypal_logo'
+                },
+                { type: 'TEXT', text: '.' }
+            ]
+        };
+        const result = render(options, content, mockLog);
+        expect(result).toMatch(/class="logo[^"]*inline[^"]*"/);
+        expect(result).toMatch(/class="main[^"]*inline-content"/);
+        const beforeLogoIdx = result.indexOf('>Pay Later</span>');
+        const logoIdx = result.indexOf('class="logo');
+        const afterLogoIdx = result.indexOf('.</span>', logoIdx);
+        expect(logoIdx).toBeGreaterThan(beforeLogoIdx);
+        expect(afterLogoIdx).toBeGreaterThan(logoIdx);
+    });
+
+    test('inline logo is nested in the inline main span', () => {
         const options = { style: { ...baseOptions.style, logo: { type: 'inline', position: 'left' } } };
         const content = {
             ...baseV2Content,
@@ -149,11 +235,10 @@ describe('v2 render', () => {
             ]
         };
         const result = render(options, content, mockLog);
-        // no standalone logo span — logo rendered inline within main blocks
-        expect(result).not.toMatch(/role="img"/);
+        expect(result).toMatch(/class="main[^"]*inline-content"[^>]*>Pay Later<span role="img"[^>]*class="logo/);
     });
 
-    test('logo type none suppresses logo span even when IMAGE item is present', () => {
+    test('logo type none replaces the graphic with accessible brand text', () => {
         const options = { style: { ...baseOptions.style, logo: { type: 'none', position: 'left' } } };
         const content = {
             ...baseV2Content,
@@ -169,9 +254,96 @@ describe('v2 render', () => {
         };
         const result = render(options, content, mockLog);
         expect(result).not.toMatch(/role="img"/);
+        expect(result).toContain('<strong>PayPal </strong>Pay Later');
     });
 
-    test('renders LINK item as a span with data attributes (not an anchor)', () => {
+    test('logo type none keeps brand text attached to following punctuation', () => {
+        const options = { style: { ...baseOptions.style, logo: { type: 'none', position: 'left' } } };
+        const content = {
+            ...baseV2Content,
+            main_items: [
+                { type: 'TEXT', text: 'Pay later with ' },
+                {
+                    type: 'IMAGE',
+                    source_url: 'https://example.com/logo.svg',
+                    alternative_text: 'PayPal',
+                    name: 'paypal_logo'
+                },
+                { type: 'TEXT', text: '.' }
+            ]
+        };
+        const result = render(options, content, mockLog);
+        expect(result).toMatch(/class="main[^>]*>Pay later with <strong>PayPal<\/strong>\./);
+    });
+
+    describe('logo local asset resolution', () => {
+        const logoBlock = {
+            type: 'IMAGE',
+            source_url: 'https://example.com/logo.svg',
+            alternative_text: 'PayPal',
+            name: 'paypal_logo'
+        };
+        const contentWithKnownLogo = {
+            ...baseV2Content,
+            main_items: [logoBlock, { type: 'TEXT', text: 'Pay Later' }]
+        };
+        const contentWithUnknownLogo = {
+            ...baseV2Content,
+            main_items: [
+                { ...logoBlock, name: 'custom_image' },
+                { type: 'TEXT', text: 'Pay Later' }
+            ]
+        };
+
+        test('unknown image block falls back to source_url', () => {
+            const result = render(baseOptions, contentWithUnknownLogo, mockLog);
+            expect(result).toContain('https://example.com/logo.svg');
+            expect(result).not.toContain('data:local/');
+        });
+
+        test('primary renders both monogram and wordmark local images', () => {
+            const result = render(baseOptions, contentWithKnownLogo, mockLog);
+            expect(result).toContain('data:local/color-monogram');
+            expect(result).toContain('data:local/color-wordmark');
+            expect(result).not.toContain('https://example.com/logo.svg');
+        });
+
+        test('alternative renders only monogram local image', () => {
+            const options = { style: { ...baseOptions.style, logo: { type: 'alternative', position: 'left' } } };
+            const result = render(options, contentWithKnownLogo, mockLog);
+            expect(result).toContain('data:local/color-monogram');
+            expect(result).not.toContain('data:local/color-wordmark');
+            expect(result).not.toContain('https://example.com/logo.svg');
+        });
+
+        test('inline renders only wordmark (NO_PP_MONOGRAM) local image', () => {
+            const options = { style: { ...baseOptions.style, logo: { type: 'inline', position: 'left' } } };
+            const result = render(options, contentWithKnownLogo, mockLog);
+            expect(result).toContain('data:local/inline-color');
+            expect(result).not.toContain('data:local/color-monogram');
+            expect(result).not.toContain('https://example.com/logo.svg');
+        });
+
+        test.each([
+            ['white', 'white-monogram', 'white-wordmark'],
+            ['grayscale', 'grayscale-monogram', 'grayscale-wordmark'],
+            ['monochrome', 'monochrome-monogram', 'monochrome-wordmark']
+        ])('text.color %s resolves matching local variant', (color, expectedMonogram, expectedWordmark) => {
+            const options = {
+                style: {
+                    ...baseOptions.style,
+                    logo: { type: 'primary', position: 'left' },
+                    text: { color, size: 12 }
+                }
+            };
+            const result = render(options, contentWithKnownLogo, mockLog);
+            expect(result).toContain(`data:local/${expectedMonogram}`);
+            expect(result).toContain(`data:local/${expectedWordmark}`);
+            expect(result).not.toContain('https://example.com/logo.svg');
+        });
+    });
+
+    test('renders LINK item as an action__link span without click metadata', () => {
         const content = {
             ...baseV2Content,
             main_items: [
@@ -180,25 +352,43 @@ describe('v2 render', () => {
         };
         const result = render(baseOptions, content, mockLog);
         expect(result).toContain('Terms apply');
-        expect(result).toContain('data-iframe-url="https://example.com/terms"');
-        expect(result).toContain('data-embeddable="true"');
+        expect(result).toContain('class="action__link"');
+        expect(result).not.toContain('data-iframe-url');
+        expect(result).not.toContain('data-embeddable');
         expect(result).not.toContain('<a');
     });
 
-    test('omits data-embeddable when embeddable is not present on LINK item', () => {
+    test('merges non-LINK action items into main content after disclaimers', () => {
         const content = {
             ...baseV2Content,
-            main_items: [{ type: 'LINK', text: 'Terms apply', click_url: 'https://example.com/terms' }],
-            action_items: []
+            action_items: [
+                { type: 'TEXT', text: 'Offer details.' },
+                { type: 'LINK', text: 'Learn more', click_url: 'https://example.com/lander' }
+            ]
         };
         const result = render(baseOptions, content, mockLog);
-        expect(result).not.toContain('data-embeddable');
+        expect(result).toContain('aria-label="Pay Later Subject to approval. Offer details." class="main');
+        expect(result).toMatch(/class="main[^>]*">Pay Later Subject to approval\. Offer details\.<\/span> <span/);
+        expect(result).toContain('aria-label="Learn more" class="action');
+        expect(result).toContain('class="action__link">Learn more</span>');
     });
 
     test('applies text color class to main span', () => {
         const options = { style: { ...baseOptions.style, text: { color: 'white' } } };
         const result = render(options, baseV2Content, mockLog);
         expect(result).toMatch(/class="main[^"]*white[^"]*"/);
+    });
+
+    test('greyscale alias normalizes to grayscale class after validation', () => {
+        const raw = {
+            layout: 'text',
+            logo: { type: 'primary', position: 'left' },
+            text: { color: 'greyscale', size: 12 }
+        };
+        const validatedStyle = validateStyle(mockLog, raw);
+        const result = render({ style: validatedStyle }, baseV2Content, mockLog);
+        expect(result).toMatch(/class="main[^"]*grayscale[^"]*"/);
+        expect(result).not.toContain('greyscale');
     });
 
     test('handles empty main_items gracefully', () => {
@@ -218,5 +408,628 @@ describe('v2 render', () => {
         expect(result).not.toContain('message__container');
         expect(result).not.toContain('message__headline');
         expect(result).not.toContain('message__foreground');
+    });
+
+    test('maps validated v5 text style options to root data attributes', () => {
+        const options = {
+            style: {
+                layout: 'text',
+                logo: { type: 'primary', position: 'top' },
+                text: { align: 'center', color: 'white', size: 16 }
+            }
+        };
+        const result = render(options, baseV2Content, mockLog);
+        expect(result).toContain('data-pp-style-layout="text"');
+        expect(result).toContain('data-pp-style-logo-position="top"');
+        expect(result).toContain('data-pp-style-logo-type="primary"');
+        expect(result).toContain('data-pp-style-text-align="center"');
+        expect(result).toContain('data-pp-style-text-color="white"');
+        expect(result).toContain('data-pp-style-text-size="16"');
+    });
+
+    test.each(['center', 'right'])('aligns %s text on the root and button', align => {
+        const options = {
+            style: {
+                ...baseOptions.style,
+                text: { color: 'black', size: 12, align }
+            }
+        };
+        const result = render(options, baseV2Content, mockLog);
+        expect(result).toContain(`text-align: ${align};`);
+        expect(result).toContain(align === 'center' ? 'margin: 0 auto;' : 'margin-left: auto;');
+    });
+});
+
+describe('v2 render logo presentation adapter', () => {
+    const logoBlock = {
+        type: 'IMAGE',
+        source_url: 'https://example.com/logo.svg',
+        alternative_text: 'PayPal',
+        name: 'paypal_logo'
+    };
+
+    test('inline type overrides position:left — logo renders in main content order', () => {
+        const options = { style: { ...baseOptions.style, logo: { type: 'inline', position: 'left' } } };
+        const content = { ...baseV2Content, main_items: [{ type: 'TEXT', text: 'Pay Later' }, logoBlock] };
+        const result = render(options, content, mockLog);
+        const mainIdx = result.indexOf('class="main');
+        const logoIdx = result.indexOf('class="logo');
+        expect(logoIdx).toBeGreaterThan(mainIdx);
+    });
+
+    test('alternative + position:right resolves to monogram left (monogram forces left)', () => {
+        const options = { style: { ...baseOptions.style, logo: { type: 'alternative', position: 'right' } } };
+        const content = { ...baseV2Content, main_items: [logoBlock, { type: 'TEXT', text: 'Pay Later' }] };
+        const result = render(options, content, mockLog);
+        expect(result).toMatch(/class="logo[^"]*left[^"]*"/);
+        expect(result).not.toMatch(/class="logo[^"]*right[^"]*"/);
+    });
+
+    test('inline content ordering: TEXT IMAGE TEXT preserves CPS order', () => {
+        const options = { style: { ...baseOptions.style, logo: { type: 'inline', position: 'left' } } };
+        const content = {
+            ...baseV2Content,
+            main_items: [{ type: 'TEXT', text: 'Buy now,' }, logoBlock, { type: 'TEXT', text: 'pay later' }],
+            disclaimer_items: []
+        };
+        const result = render(options, content, mockLog);
+        // the trailing word before the logo ("now,") is regrouped with it (see the
+        // inline-logo-phrase tests below), so check overall order via the aria-label
+        // (computed from the original, ungrouped CPS content) rather than raw markup order
+        expect(result).toContain('aria-label="Buy now, PayPal pay later"');
+        // and the leading remainder of the text block still renders ahead of the logo
+        const buyIdx = result.indexOf('>Buy ');
+        const logoIdx = result.indexOf('class="logo');
+        expect(buyIdx).toBeGreaterThan(-1);
+        expect(logoIdx).toBeGreaterThan(buyIdx);
+    });
+
+    describe('inline logo main layout', () => {
+        test('renders trailing CPS text directly after the logo', () => {
+            const options = { style: { ...baseOptions.style, logo: { type: 'inline', position: 'left' } } };
+            const content = {
+                ...baseV2Content,
+                main_items: [{ type: 'TEXT', text: 'Pay in 4 with ' }, logoBlock, { type: 'TEXT', text: '.' }],
+                disclaimer_items: []
+            };
+            const result = render(options, content, mockLog);
+            expect(result).toMatch(/class="logo[^"]*"[\s\S]*?<\/span>\.<\/span>/);
+        });
+
+        test('keeps the complete CPS label on the inline content wrapper', () => {
+            const options = { style: { ...baseOptions.style, logo: { type: 'inline', position: 'left' } } };
+            const content = {
+                ...baseV2Content,
+                main_items: [{ type: 'TEXT', text: 'As low as $23.84/mo with ' }, logoBlock],
+                disclaimer_items: []
+            };
+            const result = render(options, content, mockLog);
+            expect(result).toMatch(/class="main[^"]*inline-content" aria-label="As low as \$23\.84\/mo with PayPal"/);
+        });
+    });
+
+    test('inline IMAGE accessible label uses alternative_text', () => {
+        const options = { style: { ...baseOptions.style, logo: { type: 'inline', position: 'left' } } };
+        const content = {
+            ...baseV2Content,
+            main_items: [
+                { type: 'TEXT', text: 'Pay Later' },
+                { ...logoBlock, alternative_text: 'PayPal Logo' }
+            ]
+        };
+        const result = render(options, content, mockLog);
+        expect(result).toContain('aria-label="PayPal Logo"');
+    });
+
+    describe('PayPal Credit logo resolution', () => {
+        const ppcLogoBlock = {
+            type: 'IMAGE',
+            source_url: 'https://example.com/ppc-logo.svg',
+            alternative_text: 'PayPal Credit',
+            name: 'paypal_credit_logo'
+        };
+        const contentWithPPCLogo = {
+            ...baseV2Content,
+            main_items: [ppcLogoBlock, { type: 'TEXT', text: 'Pay Later' }]
+        };
+
+        test('primary left renders a single PayPal Credit image (single-line only)', () => {
+            const result = render(baseOptions, contentWithPPCLogo, mockLog);
+            expect(result).toContain('data:local/ppc-single-color');
+            expect(result).not.toContain('data:local/ppc-no-paypal-color');
+            expect(result).not.toContain('https://example.com/ppc-logo.svg');
+        });
+
+        test('inline renders SINGLE_LINE_NO_PP PayPal Credit image', () => {
+            const options = { style: { ...baseOptions.style, logo: { type: 'inline', position: 'left' } } };
+            const result = render(options, contentWithPPCLogo, mockLog);
+            expect(result).toContain('data:local/ppc-no-pp-color');
+            expect(result).not.toContain('data:local/ppc-single-color');
+            expect(result).not.toContain('https://example.com/ppc-logo.svg');
+            expect(result).toContain('class="logo inline wordmark paypal-credit"');
+            expect(result).toMatch(
+                /\.pp-message \.logo\.inline\.paypal-credit img \{\s+vertical-align: text-top;\s+max-height: 1em;\s+height: 1em;\s+\}/
+            );
+        });
+
+        test('uses text-top alignment for inline PayPal Credit', () => {
+            const options = { style: { ...baseOptions.style, logo: { type: 'inline', position: 'left' } } };
+            const result = render(options, contentWithPPCLogo, mockLog);
+            expect(result).toContain('vertical-align: text-top;');
+        });
+
+        test('uses the accessible brand label to size an unnamed PayPal Credit image', () => {
+            const options = { style: { ...baseOptions.style, logo: { type: 'inline', position: 'left' } } };
+            const content = {
+                ...baseV2Content,
+                main_items: [
+                    { ...ppcLogoBlock, name: undefined },
+                    { type: 'TEXT', text: 'Pay Later' }
+                ]
+            };
+            const result = render(options, content, mockLog);
+
+            expect(result).toContain('https://example.com/ppc-logo.svg');
+            expect(result).toContain('class="logo inline wordmark paypal-credit"');
+            expect(result).toMatch(
+                /\.pp-message \.logo\.inline\.paypal-credit img \{\s+vertical-align: text-top;\s+max-height: 1em;\s+height: 1em;\s+\}/
+            );
+        });
+
+        test('does not apply PayPal Credit styling to an unknown image name', () => {
+            const options = { style: { ...baseOptions.style, logo: { type: 'inline', position: 'left' } } };
+            const content = {
+                ...baseV2Content,
+                main_items: [
+                    {
+                        ...ppcLogoBlock,
+                        name: 'custom_image',
+                        alternative_text: 'Merchant logo'
+                    },
+                    { type: 'TEXT', text: 'Pay Later' }
+                ]
+            };
+            const result = render(options, content, mockLog);
+
+            expect(result).toContain('class="logo inline wordmark"');
+            expect(result).not.toContain('class="logo inline wordmark paypal-credit"');
+        });
+
+        test('monochrome text color maps to BLACK key for PayPal Credit logo', () => {
+            const options = {
+                style: {
+                    ...baseOptions.style,
+                    logo: { type: 'primary', position: 'left' },
+                    text: { color: 'monochrome', size: 12 }
+                }
+            };
+            const result = render(options, contentWithPPCLogo, mockLog);
+            expect(result).toContain('data:local/ppc-single-black');
+            expect(result).not.toContain('https://example.com/ppc-logo.svg');
+        });
+
+        test('white text color maps to WHITE key for PayPal Credit logo', () => {
+            const options = {
+                style: {
+                    ...baseOptions.style,
+                    logo: { type: 'primary', position: 'left' },
+                    text: { color: 'white', size: 12 }
+                }
+            };
+            const result = render(options, contentWithPPCLogo, mockLog);
+            expect(result).toContain('data:local/ppc-single-white');
+            expect(result).not.toContain('https://example.com/ppc-logo.svg');
+        });
+    });
+
+    describe('Venmo logo resolution', () => {
+        const venmoLogoBlock = {
+            type: 'IMAGE',
+            source_url: 'https://example.com/venmo-logo.svg',
+            alternative_text: 'Venmo',
+            name: 'venmo_logo'
+        };
+        const contentWithVenmoLogo = {
+            ...baseV2Content,
+            main_items: [venmoLogoBlock, { type: 'TEXT', text: 'Pay with Venmo' }]
+        };
+
+        test('renders local Venmo asset instead of source_url', () => {
+            const result = render(baseOptions, contentWithVenmoLogo, mockLog);
+            expect(result).toContain('data:local/venmo-color');
+            expect(result).not.toContain('https://example.com/venmo-logo.svg');
+        });
+
+        test('white text color maps to WHITE key for Venmo logo', () => {
+            const options = {
+                style: { ...baseOptions.style, text: { color: 'white', size: 12 } }
+            };
+            const result = render(options, contentWithVenmoLogo, mockLog);
+            expect(result).toContain('data:local/venmo-white');
+        });
+
+        test('grayscale text color maps to GRAYSCALE key for Venmo logo', () => {
+            const options = {
+                style: { ...baseOptions.style, text: { color: 'grayscale', size: 12 } }
+            };
+            const result = render(options, contentWithVenmoLogo, mockLog);
+            expect(result).toContain('data:local/venmo-grayscale');
+        });
+
+        test('alternative type still renders the single Venmo asset (no monogram variant)', () => {
+            const options = { style: { ...baseOptions.style, logo: { type: 'alternative', position: 'left' } } };
+            const result = render(options, contentWithVenmoLogo, mockLog);
+            expect(result).toContain('data:local/venmo-color');
+        });
+
+        test('inline renders the same single Venmo asset in CPS order', () => {
+            const options = { style: { ...baseOptions.style, logo: { type: 'inline', position: 'left' } } };
+            const content = {
+                ...baseV2Content,
+                main_items: [{ type: 'TEXT', text: 'Pay with' }, venmoLogoBlock, { type: 'TEXT', text: 'Venmo' }]
+            };
+            const result = render(options, content, mockLog);
+            expect(result).toMatch(/Pay with[\s\S]*?<span[^>]*class="logo[\s\S]*?<\/span>[\s\S]*?Venmo/);
+            expect(result).toContain('data:local/venmo-color');
+        });
+    });
+});
+
+describe('v2 render logo compatibility warnings', () => {
+    test('alternative + explicit non-left position warns and normalizes to left', () => {
+        const localLog = jest.fn();
+        const options = { style: { ...baseOptions.style, logo: { type: 'alternative', position: 'top' } } };
+        render(options, baseV2Content, localLog);
+        expect(localLog).toHaveBeenCalledWith(expect.stringContaining('style.logo.position'));
+        expect(localLog).toHaveBeenCalledWith(expect.stringContaining('"top"'));
+    });
+
+    test('inline type + explicit non-left position warns that inline overrides it', () => {
+        const localLog = jest.fn();
+        const options = { style: { ...baseOptions.style, logo: { type: 'inline', position: 'right' } } };
+        render(options, baseV2Content, localLog);
+        expect(localLog).toHaveBeenCalledWith(expect.stringContaining('"inline"'));
+        expect(localLog).toHaveBeenCalledWith(expect.stringContaining('"right"'));
+    });
+
+    test('none type + explicit non-left position warns that the brand renders as text', () => {
+        const localLog = jest.fn();
+        const options = { style: { ...baseOptions.style, logo: { type: 'none', position: 'right' } } };
+        render(options, baseV2Content, localLog);
+        expect(localLog).toHaveBeenCalledWith(expect.stringContaining('brand renders as text'));
+    });
+
+    test('primary + left (defaults) does not warn', () => {
+        const localLog = jest.fn();
+        render(baseOptions, baseV2Content, localLog);
+        expect(localLog).not.toHaveBeenCalled();
+    });
+
+    test('alternative + default (unset) position does not warn', () => {
+        const localLog = jest.fn();
+        const options = { style: { ...baseOptions.style, logo: { type: 'alternative' } } };
+        render(options, baseV2Content, localLog);
+        expect(localLog).not.toHaveBeenCalled();
+    });
+
+    test('render works without a log callback', () => {
+        const options = { style: { ...baseOptions.style, logo: { type: 'inline', position: 'right' } } };
+        expect(() => render(options, baseV2Content)).not.toThrow();
+    });
+});
+
+describe('v2 render deferred block types', () => {
+    test('unknown block type renders as empty text, not broken markup', () => {
+        const content = {
+            ...baseV2Content,
+            main_items: [
+                { type: 'TEXT', text: 'Buy now,' },
+                { type: 'TEXT_VARIABLE', name: 'installment_amount' },
+                { type: 'TEXT', text: 'pay later' }
+            ]
+        };
+        const result = render(baseOptions, content, mockLog);
+        expect(result).toContain('Buy now,');
+        expect(result).toContain('pay later');
+        expect(result).not.toContain('undefined');
+        expect(result).not.toContain('[object Object]');
+    });
+});
+
+describe('v2 render fontSource', () => {
+    test('generates @font-face rule for a single fontSource URL', () => {
+        const options = {
+            style: {
+                ...baseOptions.style,
+                text: { color: 'black', size: 12, fontSource: ['https://example.com/font.woff2'] }
+            }
+        };
+        const result = render(options, baseV2Content, mockLog);
+        expect(result).toContain('@font-face');
+        expect(result).toContain("url('https://example.com/font.woff2')");
+        expect(result).toContain("font-family: 'PP Merchant Font 1'");
+    });
+
+    test('prepends custom font name to font-family stack', () => {
+        const options = {
+            style: {
+                ...baseOptions.style,
+                text: { color: 'black', size: 12, fontSource: ['https://example.com/font.woff2'] }
+            }
+        };
+        const result = render(options, baseV2Content, mockLog);
+        expect(result).toMatch(/font-family:\s*'PP Merchant Font 1',/);
+        expect(result).not.toContain('"PayPal Pro"');
+    });
+
+    test('generates one @font-face rule per fontSource URL', () => {
+        const options = {
+            style: {
+                ...baseOptions.style,
+                text: {
+                    color: 'black',
+                    size: 12,
+                    fontSource: ['https://example.com/font1.woff2', 'https://example.com/font2.woff2']
+                }
+            }
+        };
+        const result = render(options, baseV2Content, mockLog);
+        expect(result).toContain("url('https://example.com/font1.woff2')");
+        expect(result).toContain("url('https://example.com/font2.woff2')");
+        expect(result).toContain("'PP Merchant Font 1'");
+        expect(result).toContain("'PP Merchant Font 2'");
+    });
+
+    test('includes explicit fontFamily after fontSource names in font-family stack', () => {
+        const options = {
+            style: {
+                ...baseOptions.style,
+                text: {
+                    color: 'black',
+                    size: 12,
+                    fontSource: ['https://example.com/font.woff2'],
+                    fontFamily: ['MyFont']
+                }
+            }
+        };
+        const result = render(options, baseV2Content, mockLog);
+        expect(result).toMatch(/'PP Merchant Font 1',\s*'MyFont',/);
+    });
+
+    test('includes explicit fontFamily without fontSource', () => {
+        const options = {
+            style: {
+                ...baseOptions.style,
+                text: { color: 'black', size: 12, fontFamily: ['Impact', 'sans-serif'] }
+            }
+        };
+        const result = render(options, baseV2Content, mockLog);
+        expect(result).toContain("font-family: 'Impact', sans-serif, Helvetica");
+    });
+
+    test('uses v5-matching default font-family when fontSource is not provided', () => {
+        const result = render(baseOptions, baseV2Content, mockLog);
+        expect(result).not.toContain('@font-face');
+        expect(result).toContain('font-family: Helvetica, Arial, sans-serif;');
+    });
+
+    test('uses v5-matching default font-family when fontSource is empty array', () => {
+        const options = {
+            style: { ...baseOptions.style, text: { color: 'black', size: 12, fontSource: [] } }
+        };
+        const result = render(options, baseV2Content, mockLog);
+        expect(result).not.toContain('@font-face');
+        expect(result).toContain('font-family: Helvetica, Arial, sans-serif;');
+    });
+
+    test('ignores unsafe fontSource URLs', () => {
+        const options = {
+            style: {
+                ...baseOptions.style,
+                text: { color: 'black', size: 12, fontSource: ['./font.woff2'] }
+            }
+        };
+        const result = render(options, baseV2Content, mockLog);
+        expect(result).not.toContain('@font-face');
+        expect(result).not.toContain('./font.woff2');
+    });
+
+    test('ignores unsafe fontFamily values', () => {
+        const options = {
+            style: {
+                ...baseOptions.style,
+                text: { color: 'black', size: 12, fontFamily: ["</style><script>alert('x')</script>"] }
+            }
+        };
+        const result = render(options, baseV2Content, mockLog);
+        expect(result).not.toContain('<script>');
+        expect(result).toContain('font-family: Helvetica, Arial, sans-serif;');
+    });
+
+    test('fontSource with </style> tag injection is rejected', () => {
+        const options = {
+            style: {
+                ...baseOptions.style,
+                text: {
+                    color: 'black',
+                    size: 12,
+                    fontSource: ['https://evil.com/f.woff2</style><script>alert(1)</script>']
+                }
+            }
+        };
+        const result = render(options, baseV2Content, mockLog);
+        expect(result).not.toContain('@font-face');
+        expect(result).not.toContain('<script>');
+    });
+
+    test('fontSource with CSS escape characters is rejected', () => {
+        const options = {
+            style: {
+                ...baseOptions.style,
+                text: {
+                    color: 'black',
+                    size: 12,
+                    fontSource: ['https://evil.com/f.woff2) } body { color: red; } a {']
+                }
+            }
+        };
+        const result = render(options, baseV2Content, mockLog);
+        expect(result).not.toContain('@font-face');
+    });
+
+    test('fontSource with javascript: scheme is rejected', () => {
+        // eslint-disable-next-line no-script-url -- asserting this scheme is rejected, not executing it
+        const maliciousSource = 'javascript:alert(1)';
+        const options = {
+            style: {
+                ...baseOptions.style,
+                text: { color: 'black', size: 12, fontSource: [maliciousSource] }
+            }
+        };
+        const result = render(options, baseV2Content, mockLog);
+        expect(result).not.toContain('@font-face');
+        // eslint-disable-next-line no-script-url -- asserting this scheme is rejected, not executing it
+        expect(result).not.toContain('javascript:');
+    });
+});
+
+describe('v2 render snapshots', () => {
+    const contentWithLogo = {
+        main_items: [
+            {
+                type: 'IMAGE',
+                source_url: 'https://example.com/logo.svg',
+                alternative_text: 'PayPal',
+                name: 'paypal_logo'
+            },
+            { type: 'TEXT', text: 'Pay Later.' }
+        ],
+        action_items: [{ type: 'LINK', text: 'Learn more', click_url: 'https://example.com/lander', embeddable: true }],
+        disclaimer_items: [{ type: 'TEXT', text: 'Subject to approval.' }]
+    };
+
+    const baseStyleOptions = {
+        style: {
+            layout: 'text',
+            logo: { type: 'primary', position: 'left' },
+            text: { color: 'black', size: 12, align: 'left' }
+        }
+    };
+
+    test('full render snapshot for representative case', () => {
+        expect(render(baseStyleOptions, contentWithLogo)).toMatchSnapshot();
+    });
+
+    test('renders the v2 stylesheet once', () => {
+        const result = render(baseStyleOptions, contentWithLogo);
+        expect(result.match(/<style>[\s\S]*?<\/style>/)[0]).toMatchSnapshot();
+    });
+
+    test.each([['primary'], ['alternative'], ['inline'], ['none']])('maps logo type: %s', logoType => {
+        const options = {
+            style: {
+                layout: 'text',
+                logo: { type: logoType, position: 'left' },
+                text: { color: 'black', size: 12, align: 'left' }
+            }
+        };
+        const result = render(options, contentWithLogo);
+        expect(result).toContain(`data-pp-style-logo-type="${logoType}"`);
+    });
+
+    test.each([['left'], ['right'], ['top']])('maps logo position: %s', position => {
+        const options = {
+            style: {
+                layout: 'text',
+                logo: { type: 'primary', position },
+                text: { color: 'black', size: 12, align: 'left' }
+            }
+        };
+        const result = render(options, contentWithLogo);
+        expect(result).toContain(`data-pp-style-logo-position="${position}"`);
+    });
+
+    test.each([['black'], ['white'], ['monochrome'], ['grayscale']])('applies text color class and CSS: %s', color => {
+        const options = {
+            style: {
+                layout: 'text',
+                logo: { type: 'primary', position: 'left' },
+                text: { color, size: 12, align: 'left' }
+            }
+        };
+        const result = render(options, baseV2Content);
+        expect(result).toMatch(new RegExp(`class="main[^"]*${color}`));
+        expect(result).toContain(`.pp-message .main.${color}`);
+    });
+
+    test('inline logo with white text color resolves white local asset (no CSS filter)', () => {
+        const result = render(
+            {
+                style: {
+                    layout: 'text',
+                    logo: { type: 'inline', position: 'left' },
+                    text: { color: 'white', size: 12, align: 'left' }
+                }
+            },
+            contentWithLogo
+        );
+
+        // Local white asset is used; CSS color filters are not relied upon
+        expect(result).toContain('data:local/inline-white');
+        expect(result).not.toContain('.pp-message .logo.white img');
+        expect(result).not.toContain('https://example.com/logo.svg');
+    });
+
+    test.each([[10], [11], [12], [13], [14], [15], [16]])('maps text size: %spx', size => {
+        const options = {
+            style: {
+                layout: 'text',
+                logo: { type: 'primary', position: 'left' },
+                text: { color: 'black', size, align: 'left' }
+            }
+        };
+        const result = render(options, baseV2Content);
+        expect(result).toContain(`data-pp-style-text-size="${size}"`);
+    });
+
+    test.each([['left'], ['center'], ['right']])('maps text align: %s', align => {
+        const options = {
+            style: {
+                layout: 'text',
+                logo: { type: 'primary', position: 'left' },
+                text: { color: 'black', size: 12, align }
+            }
+        };
+        const result = render(options, baseV2Content);
+        expect(result).toContain(`data-pp-style-text-align="${align}"`);
+    });
+});
+
+describe('v2 render stylesheet isolation', () => {
+    test('stylesheet is embedded inline — no external CSS dependency', () => {
+        const result = render(baseOptions, baseV2Content, mockLog);
+        expect(result).toMatch(/<style>[\s\S]*?<\/style>/);
+        expect(result).not.toContain('<link');
+    });
+
+    test('all stylesheet selectors are scoped to .pp-message or body reset', () => {
+        const result = render(baseOptions, baseV2Content, mockLog);
+        const css = result.match(/<style>([\s\S]*?)<\/style>/)[1];
+        const selectorLines = css
+            .split('\n')
+            .map(l => l.trim())
+            .filter(l => l.length > 0 && !l.startsWith('@') && !l.startsWith('}') && l.includes('{'));
+        expect(
+            selectorLines.every(l => l.startsWith('.pp-message') || l.startsWith('body') || l.startsWith('button:'))
+        ).toBe(true);
+    });
+
+    test('preserves v5 message interaction styling', () => {
+        const result = render(baseOptions, baseV2Content, mockLog);
+        const css = result.match(/<style>([\s\S]*?)<\/style>/)[1];
+
+        expect(css).toContain('cursor: pointer;');
+        expect(css).toContain('text-decoration: underline;');
+        expect(css).toContain('button:focus .pp-message');
     });
 });

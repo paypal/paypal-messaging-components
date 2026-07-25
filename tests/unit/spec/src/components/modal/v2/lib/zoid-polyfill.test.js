@@ -262,11 +262,11 @@ describe('zoidPollyfill', () => {
         expect(postMessage).toHaveBeenCalledTimes(1);
         expect(postMessage.mock.calls[0][0]).toEqual(expect.any(String));
         expect(JSON.parse(postMessage.mock.calls[0][0])).toMatchInlineSnapshot(`
-            Object {
-              "args": Array [
-                Object {
-                  "__shared__": Object {
-                    "credit_product_identifiers": Array [
+            {
+              "args": [
+                {
+                  "__shared__": {
+                    "credit_product_identifiers": [
                       "PAY_LATER_LONG_TERM_US",
                     ],
                     "fdata": "123abc",
@@ -287,9 +287,9 @@ describe('zoidPollyfill', () => {
         expect(postMessage).toHaveBeenCalledTimes(1);
         expect(postMessage.mock.calls[0][0]).toEqual(expect.any(String));
         expect(JSON.parse(postMessage.mock.calls[0][0])).toMatchInlineSnapshot(`
-            Object {
-              "args": Array [
-                Object {
+            {
+              "args": [
+                {
                   "event_type": "modal_clicked",
                   "page_view_link_name": "test link",
                   "page_view_link_source": "test src",
@@ -305,9 +305,9 @@ describe('zoidPollyfill', () => {
         expect(postMessage).toHaveBeenCalledTimes(1);
         expect(postMessage.mock.calls[0][0]).toEqual(expect.any(String));
         expect(JSON.parse(postMessage.mock.calls[0][0])).toMatchInlineSnapshot(`
-            Object {
-              "args": Array [
-                Object {
+            {
+              "args": [
+                {
                   "calculator_input": "500",
                   "event_type": "modal_clicked",
                   "page_view_link_name": "Calculator",
@@ -324,9 +324,9 @@ describe('zoidPollyfill', () => {
         expect(postMessage).toHaveBeenCalledTimes(1);
         expect(postMessage.mock.calls[0][0]).toEqual(expect.any(String));
         expect(JSON.parse(postMessage.mock.calls[0][0])).toMatchInlineSnapshot(`
-            Object {
-              "args": Array [
-                Object {
+            {
+              "args": [
+                {
                   "event_type": "modal_viewed",
                   "page_view_link_name": "Show",
                   "page_view_link_source": "Show",
@@ -342,9 +342,9 @@ describe('zoidPollyfill', () => {
         expect(postMessage).toHaveBeenCalledTimes(1);
         expect(postMessage.mock.calls[0][0]).toEqual(expect.any(String));
         expect(JSON.parse(postMessage.mock.calls[0][0])).toMatchInlineSnapshot(`
-            Object {
-              "args": Array [
-                Object {
+            {
+              "args": [
+                {
                   "event_type": "modal_closed",
                   "page_view_link_name": "Close Button",
                   "page_view_link_source": "Close Button",
@@ -420,24 +420,24 @@ describe('zoidPollyfill', () => {
             expect(postMessage).toHaveBeenCalledTimes(1);
             expect(postMessage.mock.calls[0][0]).toEqual(expect.any(String));
             expect(JSON.parse(postMessage.mock.calls[0][0])).toMatchInlineSnapshot(`
-            Object {
-              "args": Array [
-                Object {
-                  "__shared__": Object {
-                    "credit_product_identifiers": Array [
-                      "PAY_LATER_LONG_TERM_US",
-                    ],
-                    "fdata": "123abc",
-                    "offer_country_code": "US",
-                  },
-                  "event_type": "modal_rendered",
-                  "render_duration": "50",
-                  "request_duration": "100",
-                },
-              ],
-              "name": "onReady",
-            }
-        `);
+                {
+                  "args": [
+                    {
+                      "__shared__": {
+                        "credit_product_identifiers": [
+                          "PAY_LATER_LONG_TERM_US",
+                        ],
+                        "fdata": "123abc",
+                        "offer_country_code": "US",
+                      },
+                      "event_type": "modal_rendered",
+                      "render_duration": "50",
+                      "request_duration": "100",
+                    },
+                  ],
+                  "name": "onReady",
+                }
+            `);
             postMessage.mockClear();
         });
         test('uses browser flow for webview when embedded in iframe', () => {

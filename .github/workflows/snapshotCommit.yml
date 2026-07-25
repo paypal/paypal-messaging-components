@@ -27,14 +27,17 @@ jobs:
                       const fs = require('fs');
                       const { execSync } = require('child_process');
 
-                      const artifacts = await github.rest.actions.listWorkflowRunArtifacts({
+                      const artifacts = await github.paginate(github.rest.actions.listWorkflowRunArtifacts, {
                         owner: context.repo.owner,
                         repo: context.repo.repo,
-                        run_id: context.payload.workflow_run.id
+                        run_id: context.payload.workflow_run.id,
+                        per_page: 100
                       });
 
+                      console.log(`Found ${artifacts.length} artifacts in workflow run`);
+
                       await Promise.all(
-                        artifacts.data.artifacts.map(async (artifact) => {
+                        artifacts.map(async (artifact) => {
                           const download = await github.rest.actions.downloadArtifact({
                             owner: context.repo.owner,
                             repo: context.repo.repo,
@@ -77,7 +80,17 @@ jobs:
                   script: |
                       const fs = require('fs');
 
-                      const pullNumber = Number(fs.readFileSync('./pull_number.txt', 'utf8')).toString();
+                      let pullNumber = null;
+
+                      if (fs.existsSync('./pull_number.txt')) {
+                        pullNumber = Number(fs.readFileSync('./pull_number.txt', 'utf8')).toString();
+                      } else if (context.payload.workflow_run.pull_requests?.[0]?.number) {
+                        pullNumber = context.payload.workflow_run.pull_requests[0].number.toString();
+                        console.log('pull_number.txt not found, using workflow_run.pull_requests[0].number');
+                      } else {
+                        console.log('No PR number available; skipping snapshots label reset');
+                        return;
+                      }
 
                       await github.rest.issues.removeLabel({
                         owner: context.repo.owner,

@@ -92,7 +92,7 @@ const Calculator = ({
     const hasInitialAmount = typeof amount !== 'undefined';
 
     // If the person entered an amount in the calc and it is not 0.
-    const hasEnteredAmount = !(parseInt(delocalize(value || '0', country, language), 10) === 0);
+    const hasEnteredAmount = !(parseFloat(delocalize(value || '0', country, language)) === 0);
 
     // If no initial amount is passed in (amount is undefined) and they have not entered any amount at all (aka empty input field).
     const emptyState = !hasInitialAmount && !hasEnteredAmount;
@@ -175,7 +175,7 @@ const Calculator = ({
                     }`}
                 >
                     <div>
-                        {error && hasEnteredAmount ? <Icon name={country === 'AT' ? 'warning-v5' : 'warning'} /> : null}
+                        {error && hasEnteredAmount ? <Icon name="warning" /> : null}
                         <div>{error}</div>
                     </div>
                 </div>
@@ -214,11 +214,7 @@ const Calculator = ({
                 <div
                     className={`input__wrapper transitional ${useV5Design === 'true' ? 'v5Design' : ''} ${
                         cta ? 'checkout' : ''
-                    } ${
-                        country === 'AT' && error && (hasEnteredAmount || hasInitialAmount)
-                            ? 'input__wrapper--error'
-                            : ''
-                    }`}
+                    } ${country || ''} ${error && hasEnteredAmount ? 'input__wrapper--error' : ''}`}
                 >
                     <label htmlFor="purchase-amount" className={`input__label ${country}`}>
                         {renderInputLabelOnEmptyField(country)}
