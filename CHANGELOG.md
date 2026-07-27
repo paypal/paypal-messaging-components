@@ -1,5 +1,12 @@
 # Changelog
 
+### [1.92.1](https://github.com/paypal/paypal-messaging-components/compare/v1.92.0...v1.92.1) (2026-07-27)
+
+
+### Bug Fixes
+
+* route PL_GENERIC_XB messageType to cross-border generic mutations for AT/DE ([#1369](https://github.com/paypal/paypal-messaging-components/issues/1369)) ([36c3238](https://github.com/paypal/paypal-messaging-components/commit/36c323801819e6caaaac84bb4cd449153a770318))
+
 ## [1.92.0](https://github.com/paypal/paypal-messaging-components/compare/v1.91.0...v1.92.0) (2026-07-23)
 
 
