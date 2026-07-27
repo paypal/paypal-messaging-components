@@ -2,6 +2,7 @@ import { configureToMatchImageSnapshot } from 'jest-image-snapshot';
 import { logScreenshot } from './logging';
 import { selectors } from './selectors';
 import { screenDimensions } from './setup';
+import { assertNonBlankPng } from '../../utils/assertNonBlankPng';
 
 const {
     modal: { contentWrapper }
@@ -71,6 +72,7 @@ export const modalSnapshot = async (testNameParts, contentWindow) => {
     logScreenshot({ name: testNameParts, viewport: snapshotDimensions });
 
     const image = await page.screenshot({ clip: snapshotDimensions }, 3);
+    assertNonBlankPng({ image, context: testNameParts });
 
     const matchFunction = screenDimensions[viewport].width > 500 ? 'toMatchLargeSnapshot' : 'toMatchSmallSnapshot';
     expect(image)[matchFunction]({

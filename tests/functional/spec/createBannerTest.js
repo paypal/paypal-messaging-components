@@ -2,6 +2,7 @@
 import { configureToMatchImageSnapshot } from 'jest-image-snapshot';
 import { logScreenshot, logTestName } from './utils/logging';
 import selectors from './utils/selectors';
+import { assertNonBlankPng } from '../utils/assertNonBlankPng';
 
 const { launch: puppeteerLaunchConfig } = require('../../../jest-puppeteer.config');
 
@@ -206,6 +207,8 @@ export default function createBannerTest(locale, testPage = 'banner.html') {
                     },
                     3
                 );
+
+                assertNonBlankPng({ image, context: testName });
 
                 const matchFunction = config?.style?.layout === 'text' ? 'toMatchTextSnapshot' : 'toMatchFlexSnapshot';
                 const customSnapshotIdentifier = `${testNameParts.pop()}-${viewport.width}-snap`;

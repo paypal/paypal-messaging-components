@@ -1,6 +1,7 @@
 import { configureToMatchImageSnapshot } from 'jest-image-snapshot';
 import { logScreenshot } from './logging';
 import selectors from './selectors';
+import { assertNonBlankPng } from '../../utils/assertNonBlankPng';
 
 const toMatchLargeSnapshot = configureToMatchImageSnapshot({
     failureThresholdType: 'percent',
@@ -36,6 +37,7 @@ const modalSnapshot = async (testNameParts, viewport, account) => {
     logScreenshot({ name: testNameParts, viewport: snapshotDimensions });
 
     const image = await page.screenshot({ clip: snapshotDimensions }, 3);
+    assertNonBlankPng({ image, context: testNameParts });
 
     // replace double colons with underscores, and replace spaces and colons with dashes
     const customSnapshotIdentifier = testNameParts.replace(':: ', '_').replace(/[ :]/g, '-');
