@@ -1073,11 +1073,13 @@ describe('v2 render flex layout', () => {
         expect(result).toContain('Pay Later.');
     });
 
-    test('renders action items in pp-flex__action', () => {
+    test('renders action items in pp-flex__action without click_url iframe attrs', () => {
         const result = render(baseFlexOptions, flexContentWithLogo, mockLog);
         expect(result).toContain('class="pp-flex__action"');
         expect(result).toContain('Learn more');
-        expect(result).toContain('data-iframe-url="https://example.com/lander"');
+        expect(result).not.toContain('data-iframe-url');
+        expect(result).not.toContain('data-embeddable');
+        expect(result).not.toContain('https://example.com/lander');
     });
 
     test('omits pp-flex__action when action_items is empty', () => {
@@ -1191,9 +1193,10 @@ describe('v2 render flex layout', () => {
     test('flex stylesheet underlines action and disclaimer links', () => {
         const result = render(baseFlexOptions, flexContentWithLogo, mockLog);
         const css = result.match(/<style>([\s\S]*?)<\/style>/)[1];
-        expect(css).toContain('.pp-flex__action [data-iframe-url]');
-        expect(css).toContain('.pp-flex__disclaimer [data-iframe-url]');
-        expect(css).toMatch(/\.pp-flex__action \[data-iframe-url\][\s\S]*text-decoration:\s*underline/);
+        expect(css).toContain('.pp-flex__action span');
+        expect(css).toContain('.pp-flex__disclaimer span');
+        expect(css).toMatch(/\.pp-flex__action span[\s\S]*text-decoration:\s*underline/);
+        expect(css).not.toContain('[data-iframe-url]');
     });
 
     test('flex portrait pairs action and disclaimer font sizing', () => {

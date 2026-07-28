@@ -69,8 +69,8 @@ button:focus .pp-message.pp-flex .pp-flex__content span.br {
     text-decoration: underline;
 }
 
-.pp-flex__disclaimer [data-iframe-url],
-.pp-flex__action [data-iframe-url] {
+.pp-flex__disclaimer span,
+.pp-flex__action span {
     text-decoration: underline;
     white-space: nowrap;
     font-weight: 300;
@@ -213,7 +213,7 @@ button:focus .pp-message.pp-flex .pp-flex__content span.br {
         font-size: 0.9rem;
     }
 }
-</style><div class="pp-flex__background"></div><div class="pp-flex__content"><div class="pp-flex__logo-container" aria-hidden="true"><span class="pp-flex__logo"><img src="data:local/white-monogram" alt role="presentation" width="24" height="32" /></span><span class="pp-flex__logo"><img src="data:local/white-wordmark" alt role="presentation" width="100" height="32" /></span></div><div class="pp-flex__messaging"><div aria-label="Pay Later." class="pp-flex__main">Pay Later.</div><div aria-label="Learn more" class="pp-flex__action"><span data-iframe-url="https://example.com/lander" data-embeddable="true">Learn more</span></div><div class="pp-flex__disclaimer">Subject to approval.</div></div></div></div>"
+</style><div class="pp-flex__background"></div><div class="pp-flex__content"><div class="pp-flex__logo-container" aria-hidden="true"><span class="pp-flex__logo"><img src="data:local/white-monogram" alt role="presentation" width="24" height="32" /></span><span class="pp-flex__logo"><img src="data:local/white-wordmark" alt role="presentation" width="100" height="32" /></span></div><div class="pp-flex__messaging"><div aria-label="Pay Later." class="pp-flex__main">Pay Later.</div><div aria-label="Learn more" class="pp-flex__action"><span>Learn more</span></div><div class="pp-flex__disclaimer">Subject to approval.</div></div></div></div>"
 `;
 
 exports[`v2 render flex snapshots no-custom-font snapshot uses v5 Helvetica/Arial default stack 1`] = `
@@ -285,8 +285,8 @@ button:focus .pp-message.pp-flex .pp-flex__content span.br {
     text-decoration: underline;
 }
 
-.pp-flex__disclaimer [data-iframe-url],
-.pp-flex__action [data-iframe-url] {
+.pp-flex__disclaimer span,
+.pp-flex__action span {
     text-decoration: underline;
     white-space: nowrap;
     font-weight: 300;
@@ -501,8 +501,8 @@ button:focus .pp-message.pp-flex .pp-flex__content span.br {
     text-decoration: underline;
 }
 
-.pp-flex__disclaimer [data-iframe-url],
-.pp-flex__action [data-iframe-url] {
+.pp-flex__disclaimer span,
+.pp-flex__action span {
     text-decoration: underline;
     white-space: nowrap;
     font-weight: 300;

@@ -6,7 +6,7 @@ import { buildContentLabel } from './utils/buildContentLabel';
 import { buildLogoConfiguration } from './utils/buildLogoConfiguration';
 import { resolveLogoPresentation } from './utils/resolveLogoPresentation';
 import { mapClasses } from './utils/mapClasses';
-import { LINK_MODE, renderBlock, renderLogoImages } from './utils/renderBlock';
+import { renderBlock, renderLogoImages } from './utils/renderBlock';
 import { getLogoBrandClass } from './logos';
 import FlexMessage from './flex';
 import styles from './styles';
@@ -17,6 +17,8 @@ import styles from './styles';
 // - "**bold**" marker rendering within TEXT blocks
 // - Card-offer logo overrides for PAYPAL_CASHBACK_MASTERCARD / PAYPAL_DEBIT_CARD
 
+const textLinkOptions = { linkClassName: 'action__link' };
+
 function renderInlineMain(blocks, mainClasses, mainLabel, logoPresentation) {
     return (
         <span className={`${mainClasses} inline-content`} aria-label={mainLabel}>
@@ -24,8 +26,8 @@ function renderInlineMain(blocks, mainClasses, mainLabel, logoPresentation) {
                 // eslint-disable-next-line react/no-array-index-key
                 <Fragment key={idx}>
                     {renderBlock(item, {
-                        logoPresentation: item.type === 'IMAGE' ? logoPresentation : null,
-                        linkMode: LINK_MODE.ACTION
+                        ...textLinkOptions,
+                        logoPresentation: item.type === 'IMAGE' ? logoPresentation : null
                     })}
                 </Fragment>
             ))}
@@ -103,7 +105,6 @@ export default function V2Message({ options, v2Content, log }) {
     // For inline mode, IMAGE blocks in mainBlocks render in-place via renderBlock.
     // For all other modes, logoPresentation is null so IMAGE blocks render as plain imgs.
     const inlineLogoPresentation = effectiveLogoPosition === 'inline' ? logoPresentation : null;
-    const textBlockOptions = { logoPresentation: null, linkMode: LINK_MODE.ACTION };
 
     return (
         <div
@@ -135,7 +136,7 @@ export default function V2Message({ options, v2Content, log }) {
                 <span aria-label={mainLabel} className={mainClasses}>
                     {preparedMainBlocks.map((item, idx) => (
                         // eslint-disable-next-line react/no-array-index-key
-                        <Fragment key={idx}>{renderBlock(item, textBlockOptions)}</Fragment>
+                        <Fragment key={idx}>{renderBlock(item, textLinkOptions)}</Fragment>
                     ))}
                 </span>
             )}
@@ -145,7 +146,7 @@ export default function V2Message({ options, v2Content, log }) {
                     <span aria-label={actionLabel} className={actionClasses}>
                         {linkActionItems.map((item, idx) => (
                             // eslint-disable-next-line react/no-array-index-key
-                            <Fragment key={idx}>{renderBlock(item, textBlockOptions)}</Fragment>
+                            <Fragment key={idx}>{renderBlock(item, textLinkOptions)}</Fragment>
                         ))}
                     </span>
                 </>

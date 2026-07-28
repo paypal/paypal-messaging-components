@@ -75,8 +75,8 @@ button:focus .pp-message.pp-flex .pp-flex__content span.br {
     text-decoration: underline;
 }
 
-.pp-flex__disclaimer [data-iframe-url],
-.pp-flex__action [data-iframe-url] {
+.pp-flex__disclaimer span,
+.pp-flex__action span {
     text-decoration: underline;
     white-space: nowrap;
     font-weight: 300;

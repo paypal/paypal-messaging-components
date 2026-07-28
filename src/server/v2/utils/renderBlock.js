@@ -3,11 +3,6 @@ import { h } from 'preact';
 
 import { getLogoBrandClass, resolveLogoAssets } from '../logos';
 
-export const LINK_MODE = {
-    ACTION: 'action',
-    IFRAME_ATTRS: 'iframeAttrs'
-};
-
 // Renders local brand assets for first-party logos (paypal_logo, paypal_credit_logo, venmo).
 // Falls back to item.source_url for unknown image blocks.
 export function renderLogoImages(item, logoPresentation) {
@@ -35,10 +30,9 @@ export function renderLogoImages(item, logoPresentation) {
  * @param {object} [options]
  * @param {object|null} [options.logoPresentation] When set, IMAGE blocks render as
  *   inline brand logos (text layout logo.type:inline). Pass null/omit for plain img.
- * @param {'action'|'iframeAttrs'} [options.linkMode] Text uses 'action' (styled span).
- *   Flex uses 'iframeAttrs' (data-iframe-url / data-embeddable).
+ * @param {string} [options.linkClassName] Optional class for LINK spans (e.g. action__link).
  */
-export function renderBlock(item, { logoPresentation = null, linkMode = LINK_MODE.IFRAME_ATTRS } = {}) {
+export function renderBlock(item, { logoPresentation = null, linkClassName } = {}) {
     if (!item) return null;
 
     switch (item.type) {
@@ -59,17 +53,7 @@ export function renderBlock(item, { logoPresentation = null, linkMode = LINK_MOD
             }
             return <img src={item.source_url} alt={item.alternative_text || 'PayPal'} />;
         case 'LINK':
-            if (linkMode === LINK_MODE.ACTION) {
-                return <span className="action__link">{item.text}</span>;
-            }
-            return (
-                <span
-                    data-iframe-url={item.click_url}
-                    data-embeddable={item.embeddable !== undefined ? String(item.embeddable) : undefined}
-                >
-                    {item.text}
-                </span>
-            );
+            return linkClassName ? <span className={linkClassName}>{item.text}</span> : <span>{item.text}</span>;
         case 'TEXT':
             return item.brand ? <strong>{item.text}</strong> : item.text;
         default:
