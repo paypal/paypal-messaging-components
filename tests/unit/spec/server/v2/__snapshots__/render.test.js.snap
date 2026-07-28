@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`v2 render flex snapshots full render snapshot for representative case (blue/8x1) 1`] = `
-"<div class=\\"pp-message pp-flex blue r-8x1\\" data-pp-style-layout=\\"flex\\" data-pp-style-color=\\"blue\\" data-pp-style-ratio=\\"8x1\\"><style>
+"<div class="pp-message pp-flex blue r-8x1" data-pp-style-layout="flex" data-pp-style-color="blue" data-pp-style-ratio="8x1"><style>
 html,
 body,
 button {
@@ -27,7 +27,7 @@ html {
     position: relative;
     width: 100%;
     height: 100%;
-    font-family: \\"PayPal Pro\\", Helvetica, Arial, \\"Liberation Sans\\", sans-serif;
+    font-family: "PayPal Pro", Helvetica, Arial, "Liberation Sans", sans-serif;
     font-weight: 300;
     cursor: pointer;
     box-sizing: border-box;
@@ -213,7 +213,7 @@ button:focus .pp-message.pp-flex .pp-flex__content span.br {
         font-size: 0.9rem;
     }
 }
-</style><div class=\\"pp-flex__background\\"></div><div class=\\"pp-flex__content\\"><div class=\\"pp-flex__logo-container\\" aria-hidden=\\"true\\"><span class=\\"pp-flex__logo\\"><img src=\\"data:local/white-monogram\\" alt role=\\"presentation\\" width=\\"24\\" height=\\"32\\" /></span><span class=\\"pp-flex__logo\\"><img src=\\"data:local/white-wordmark\\" alt role=\\"presentation\\" width=\\"100\\" height=\\"32\\" /></span></div><div class=\\"pp-flex__messaging\\"><div aria-label=\\"Pay Later.\\" class=\\"pp-flex__main\\">Pay Later.</div><div aria-label=\\"Learn more\\" class=\\"pp-flex__action\\"><span data-iframe-url=\\"https://example.com/lander\\" data-embeddable=\\"true\\">Learn more</span></div><div class=\\"pp-flex__disclaimer\\">Subject to approval.</div></div></div></div>"
+</style><div class="pp-flex__background"></div><div class="pp-flex__content"><div class="pp-flex__logo-container" aria-hidden="true"><span class="pp-flex__logo"><img src="data:local/white-monogram" alt role="presentation" width="24" height="32" /></span><span class="pp-flex__logo"><img src="data:local/white-wordmark" alt role="presentation" width="100" height="32" /></span></div><div class="pp-flex__messaging"><div aria-label="Pay Later." class="pp-flex__main">Pay Later.</div><div aria-label="Learn more" class="pp-flex__action"><span data-iframe-url="https://example.com/lander" data-embeddable="true">Learn more</span></div><div class="pp-flex__disclaimer">Subject to approval.</div></div></div></div>"
 `;
 
 exports[`v2 render flex snapshots renders flex stylesheet once 1`] = `
@@ -243,7 +243,7 @@ html {
     position: relative;
     width: 100%;
     height: 100%;
-    font-family: \\"PayPal Pro\\", Helvetica, Arial, \\"Liberation Sans\\", sans-serif;
+    font-family: "PayPal Pro", Helvetica, Arial, "Liberation Sans", sans-serif;
     font-weight: 300;
     cursor: pointer;
     box-sizing: border-box;
@@ -433,7 +433,7 @@ button:focus .pp-message.pp-flex .pp-flex__content span.br {
 `;
 
 exports[`v2 render snapshots full render snapshot for representative case 1`] = `
-"<div class=\\"pp-message\\" data-pp-style-layout=\\"text\\" data-pp-style-logo-position=\\"left\\" data-pp-style-logo-type=\\"primary\\" data-pp-style-text-align=\\"left\\" data-pp-style-text-color=\\"black\\" data-pp-style-text-size=\\"12\\"><style>
+"<div class="pp-message" data-pp-style-layout="text" data-pp-style-logo-position="left" data-pp-style-logo-type="primary" data-pp-style-text-align="left" data-pp-style-text-color="black" data-pp-style-text-size="12"><style>
 body {
     margin: 0;
     padding: 0;
