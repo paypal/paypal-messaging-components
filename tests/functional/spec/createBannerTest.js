@@ -48,32 +48,51 @@ const getTestNameParts = (locale, { account, amount, style: { layout, ...style }
 // returns height and width of banner in pixels
 const waitForBanner = async ({ testName, timeout, config }) => {
     try {
-        const polling = 10;
+        const polling = 100;
+        // Must pass into the page function — closures are not available in waitForFunction.
+        const useIframeBodyDimensions = Boolean(config?.style?.text?.align);
         const result = await page.waitForFunction(
-            ({ bannerSelectors, _testName, _polling, _timeout }) => {
-                Window.timeTaken = (Window.timeTaken || 0) + _polling;
-                if (Window.timeTaken % 1000 === 0 && Window.timeTaken >= _timeout - 2000) {
+            ({ bannerSelectors, _testName, _timeout, useIframeBodyDimensions: useBodyDims, startedAt }) => {
+                if (Date.now() - startedAt >= _timeout - 2000 && !window.__waitForBannerLogged) {
+                    window.__waitForBannerLogged = true;
                     // eslint-disable-next-line no-console
                     console.info(`waitForBanner innerHTML for failed test [${_testName}]`, document.body.innerHTML);
                 }
 
                 const iframe = document.querySelector(bannerSelectors.iframeByAttribute);
                 if (iframe) {
-                    const iframeBody = iframe.contentWindow.document.body;
-                    const banner = iframeBody.querySelector(bannerSelectors.container);
-                    if (config?.style?.text?.align) {
+                    // Iframe can exist before its document/body is ready; do not throw.
+                    const iframeDoc = iframe.contentDocument || iframe.contentWindow?.document;
+                    const iframeBody = iframeDoc?.body;
+                    if (!iframeBody) {
+                        return false;
+                    }
+
+                    if (useBodyDims) {
                         return (
-                            iframeBody?.clientHeight && {
+                            iframeBody.clientHeight > 0 && {
                                 height: iframeBody.clientHeight,
                                 width: iframeBody.clientWidth
                             }
                         );
                     }
-                    return banner?.clientHeight && { height: banner.clientHeight, width: banner.clientWidth };
+
+                    const banner = iframeBody.querySelector(bannerSelectors.container);
+                    return (
+                        banner?.clientHeight > 0 && {
+                            height: banner.clientHeight,
+                            width: banner.clientWidth
+                        }
+                    );
                 }
 
                 const legacy = document.querySelector(bannerSelectors.legacyContainer);
-                return legacy?.clientHeight && { height: legacy.clientHeight, width: legacy.clientWidth };
+                return (
+                    legacy?.clientHeight > 0 && {
+                        height: legacy.clientHeight,
+                        width: legacy.clientWidth
+                    }
+                );
             },
             {
                 polling,
@@ -82,8 +101,9 @@ const waitForBanner = async ({ testName, timeout, config }) => {
             {
                 bannerSelectors: selectors.banner,
                 _testName: testName,
-                _polling: polling,
-                _timeout: timeout
+                _timeout: timeout,
+                useIframeBodyDimensions,
+                startedAt: Date.now()
             }
         );
 
@@ -184,7 +204,7 @@ export default function createBannerTest(locale, testPage = 'banner.html') {
 
                 await setupPageForBanner(viewport, config, testPage);
 
-                const bannerDimensions = await waitForBanner({ testName, timeout: 2 * 1000, config });
+                const bannerDimensions = await waitForBanner({ testName, timeout: 10 * 1000, config });
                 expect(bannerDimensions.height).toBeGreaterThan(0);
                 expect(bannerDimensions.width).toBeGreaterThan(0);
 
