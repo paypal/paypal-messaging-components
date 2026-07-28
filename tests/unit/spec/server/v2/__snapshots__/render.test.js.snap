@@ -27,7 +27,7 @@ html {
     position: relative;
     width: 100%;
     height: 100%;
-    font-family: "PayPal Pro", Helvetica, Arial, "Liberation Sans", sans-serif;
+    font-family: Helvetica, Arial, sans-serif;
     font-weight: 300;
     cursor: pointer;
     box-sizing: border-box;
@@ -216,6 +216,222 @@ button:focus .pp-message.pp-flex .pp-flex__content span.br {
 </style><div class="pp-flex__background"></div><div class="pp-flex__content"><div class="pp-flex__logo-container" aria-hidden="true"><span class="pp-flex__logo"><img src="data:local/white-monogram" alt role="presentation" width="24" height="32" /></span><span class="pp-flex__logo"><img src="data:local/white-wordmark" alt role="presentation" width="100" height="32" /></span></div><div class="pp-flex__messaging"><div aria-label="Pay Later." class="pp-flex__main">Pay Later.</div><div aria-label="Learn more" class="pp-flex__action"><span data-iframe-url="https://example.com/lander" data-embeddable="true">Learn more</span></div><div class="pp-flex__disclaimer">Subject to approval.</div></div></div></div>"
 `;
 
+exports[`v2 render flex snapshots no-custom-font snapshot uses v5 Helvetica/Arial default stack 1`] = `
+"
+html,
+body,
+button {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+button {
+    width: 100%;
+    border: none;
+    padding: 0;
+}
+
+html {
+    overflow: hidden;
+}
+
+.pp-message.pp-flex {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: 300;
+    cursor: pointer;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.pp-message.pp-flex .pp-flex__background,
+.pp-message.pp-flex .pp-flex__content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.pp-message.pp-flex .pp-flex__background {
+    z-index: -1;
+}
+
+
+* {
+    box-sizing: border-box;
+}
+
+.pp-flex__logo img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.pp-flex__logo--fallback {
+    width: 100%;
+}
+
+button:focus .pp-message.pp-flex .pp-flex__content,
+button:focus .pp-message.pp-flex .pp-flex__content span.br {
+    text-decoration: underline;
+}
+
+.pp-flex__disclaimer [data-iframe-url],
+.pp-flex__action [data-iframe-url] {
+    text-decoration: underline;
+    white-space: nowrap;
+    font-weight: 300;
+}
+
+.pp-flex__logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.pp-message.pp-flex.blue .pp-flex__background { background: #023188; }
+.pp-message.pp-flex.blue .pp-flex__content { color: #fff; }
+.pp-message.pp-flex.black .pp-flex__background { background: #000; }
+.pp-message.pp-flex.black .pp-flex__content { color: #fff; }
+.pp-message.pp-flex.white .pp-flex__background { background: #fff; }
+.pp-message.pp-flex.white .pp-flex__content { color: #023187; border: 1px solid #009cde; }
+.pp-message.pp-flex.white-no-border .pp-flex__background { background: #fff; }
+.pp-message.pp-flex.white-no-border .pp-flex__content { color: #023187; }
+.pp-message.pp-flex.gray .pp-flex__background { background: #eaeced; }
+.pp-message.pp-flex.gray .pp-flex__content { color: #023187; }
+.pp-message.pp-flex.monochrome .pp-flex__background { background: #fff; }
+.pp-message.pp-flex.monochrome .pp-flex__content { color: #000; border: 1px solid #000; }
+.pp-message.pp-flex.grayscale .pp-flex__background { background: #fff; }
+.pp-message.pp-flex.grayscale .pp-flex__content { border: 1px solid #b7bcbf; }
+
+.pp-message.pp-flex.blue .pp-flex__logo img,
+.pp-message.pp-flex.black .pp-flex__logo img { filter: brightness(0) invert(1); }
+.pp-message.pp-flex.monochrome .pp-flex__logo img { filter: grayscale(100%) brightness(0); }
+.pp-message.pp-flex.grayscale .pp-flex__logo img { filter: grayscale(100%); }
+
+
+.pp-message.pp-flex.r-8x1 .pp-flex__content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-right: 1rem;
+}
+
+.pp-message.pp-flex.r-8x1 .pp-flex__logo-container {
+    flex: 0 0 33%;
+    justify-content: center;
+}
+
+.pp-message.pp-flex.r-8x1 .pp-flex__messaging {
+    flex: 1 1 100%;
+}
+
+.pp-message.pp-flex.r-8x1 .pp-flex__main {
+    font-size: 5vw;
+    line-height: 1;
+    margin-bottom: 0.2em;
+    font-weight: 400;
+}
+
+.pp-message.pp-flex.r-8x1 .pp-flex__disclaimer,
+.pp-message.pp-flex.r-8x1 .pp-flex__action {
+    font-size: 10px;
+    line-height: 1.1;
+    display: inline;
+}
+
+@media (max-aspect-ratio: 61/10) and (min-width: 400px) {
+        .pp-message.pp-flex.r-8x1 .pp-flex__logo-container { flex: 0 0 25%; }
+        .pp-message.pp-flex.r-8x1 .pp-flex__main { font-size: 4vw; margin-bottom: 0.5rem; }
+}
+
+@media (max-aspect-ratio: 61/10) and (min-width: 520px) {
+        .pp-message.pp-flex.r-8x1 .pp-flex__disclaimer,
+        .pp-message.pp-flex.r-8x1 .pp-flex__action { font-size: 0.85rem; }
+}
+
+@media (max-aspect-ratio: 61/10) and (min-width: 640px) {
+        .pp-message.pp-flex.r-8x1 .pp-flex__main { font-size: 1.7rem; }
+}
+.pp-message.pp-flex.r-8x1 .pp-flex__logo-container {
+    padding-bottom: 2.5px;
+}
+
+.pp-message.pp-flex.r-8x1 .pp-flex__logo {
+    width: 60%;
+}
+
+.pp-message.pp-flex.r-8x1 .pp-flex__logo:nth-of-type(2) {
+    display: none;
+}
+
+@media (max-aspect-ratio: 61/10) and (min-width: 324px) {
+        .pp-message.pp-flex.r-8x1 .pp-flex__logo:nth-of-type(1) { width: 45%; }
+}
+
+@media (max-aspect-ratio: 61/10) and (max-width: 374px) {
+        .pp-message.pp-flex.r-8x1 .pp-flex__logo:nth-of-type(1) { width: 50%; }
+}
+
+@media (max-width: 374px) {
+        .pp-message.pp-flex.r-8x1 .pp-flex__logo:nth-of-type(1) { width: 55%; }
+}
+
+@media (min-aspect-ratio: 80/11) {
+        .pp-message.pp-flex.r-8x1 .pp-flex__main {
+        display: inline;
+        line-height: 1.3em;
+    }
+
+        .pp-message.pp-flex.r-8x1 .pp-flex__logo-container {
+        flex-basis: 12%;
+        margin-bottom: -6px;
+        justify-content: flex-start;
+        margin-left: 5px;
+    }
+
+        .pp-message.pp-flex.r-8x1 .pp-flex__logo:nth-of-type(1) {
+        width: 50%;
+        margin-left: 10px;
+    }
+
+        .pp-message.pp-flex.r-8x1 .pp-flex__disclaimer,
+        .pp-message.pp-flex.r-8x1 .pp-flex__action {
+        margin-left: 7px;
+    }
+}
+
+@media (min-aspect-ratio: 80/11) and (min-width: 500px) {
+        .pp-message.pp-flex.r-8x1 .pp-flex__main { font-size: 3vw; }
+
+        .pp-message.pp-flex.r-8x1 .pp-flex__logo-container { flex-basis: 22%; }
+
+        .pp-message.pp-flex.r-8x1 .pp-flex__logo:nth-of-type(1) {
+        width: 18%;
+        margin-right: 5%;
+    }
+
+        .pp-message.pp-flex.r-8x1 .pp-flex__logo:nth-of-type(2) {
+        display: inline-block;
+        width: 55%;
+    }
+
+        .pp-message.pp-flex.r-8x1 .pp-flex__disclaimer,
+        .pp-message.pp-flex.r-8x1 .pp-flex__action {
+        font-size: 0.9rem;
+    }
+}
+"
+`;
+
 exports[`v2 render flex snapshots renders flex stylesheet once 1`] = `
 "<style>
 html,
@@ -243,7 +459,7 @@ html {
     position: relative;
     width: 100%;
     height: 100%;
-    font-family: "PayPal Pro", Helvetica, Arial, "Liberation Sans", sans-serif;
+    font-family: Helvetica, Arial, sans-serif;
     font-weight: 300;
     cursor: pointer;
     box-sizing: border-box;

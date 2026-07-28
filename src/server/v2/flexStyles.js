@@ -1,7 +1,7 @@
 import { buildFontRules } from '../message/font';
 
-const DEFAULT_FONT_FAMILY = '"PayPal Pro", Helvetica, Arial, "Liberation Sans", sans-serif';
-const FONT_FALLBACKS = 'Helvetica, Arial, "Liberation Sans", sans-serif';
+const DEFAULT_FONT_FAMILY = 'Helvetica, Arial, sans-serif';
+const FONT_FALLBACKS = 'Helvetica, Arial, sans-serif';
 
 const FLEX_THEMES = [
     { name: 'blue', background: '#023188', contentColor: '#fff', logoFilter: 'brightness(0) invert(1)' },

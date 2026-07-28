@@ -1356,6 +1356,34 @@ describe('v2 render flex snapshots', () => {
         expect(result.match(/<style>[\s\S]*?<\/style>/)[0]).toMatchSnapshot();
     });
 
+    test('no-custom-font snapshot uses v5 Helvetica/Arial default stack', () => {
+        const options = { style: { layout: 'flex', color: 'blue', ratio: '8x1' } };
+        const result = render(options, flexContentWithLogo);
+        const css = result.match(/<style>([\s\S]*?)<\/style>/)[1];
+
+        expect(css).not.toContain('@font-face');
+        expect(css).not.toContain('PayPal Pro');
+        expect(css).toContain('font-family: Helvetica, Arial, sans-serif;');
+        expect(css).toMatchSnapshot();
+    });
+
+    test('custom fontSource still prepends merchant font before v5 fallbacks', () => {
+        const options = {
+            style: {
+                layout: 'flex',
+                color: 'blue',
+                ratio: '8x1',
+                text: { fontSource: ['https://example.com/font.woff2'] }
+            }
+        };
+        const result = render(options, flexContentWithLogo);
+        const css = result.match(/<style>([\s\S]*?)<\/style>/)[1];
+
+        expect(css).toContain('@font-face');
+        expect(css).toMatch(/font-family:\s*'PP Merchant Font 1',\s*Helvetica, Arial, sans-serif/);
+        expect(css).not.toContain('PayPal Pro');
+    });
+
     test.each([
         ['black', '8x1'],
         ['white', '1x1'],
