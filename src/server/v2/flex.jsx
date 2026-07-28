@@ -3,10 +3,12 @@
 import { h, Fragment } from 'preact';
 
 import { buildContentLabel } from './utils/buildContentLabel';
-import { renderBlock } from './utils/renderBlock';
+import { LINK_MODE, renderBlock } from './utils/renderBlock';
 import { resolveLogoAssets } from './logos';
 import flexStyles from './flexStyles';
 import { FLEX_COLOR_TO_LOGO_TEXT_COLOR, FLEX_DEFAULTS } from './constants';
+
+const flexBlockOptions = { linkMode: LINK_MODE.IFRAME_ATTRS };
 
 function renderFlexLogo(logoBlock, flexColor) {
     const textColor = FLEX_COLOR_TO_LOGO_TEXT_COLOR[flexColor] ?? 'white';
@@ -26,7 +28,7 @@ function renderFlexLogo(logoBlock, flexColor) {
         ));
     }
 
-    return <span className="pp-flex__logo pp-flex__logo--fallback">{renderBlock(logoBlock)}</span>;
+    return <span className="pp-flex__logo pp-flex__logo--fallback">{renderBlock(logoBlock, flexBlockOptions)}</span>;
 }
 
 export default function FlexMessage({ style, v2Content }) {
@@ -72,14 +74,14 @@ export default function FlexMessage({ style, v2Content }) {
                     <div aria-label={mainLabel} className="pp-flex__main">
                         {mainBlocks.map((item, idx) => (
                             // eslint-disable-next-line react/no-array-index-key
-                            <Fragment key={idx}>{renderBlock(item)}</Fragment>
+                            <Fragment key={idx}>{renderBlock(item, flexBlockOptions)}</Fragment>
                         ))}
                     </div>
                     {actionItems.length > 0 ? (
                         <div aria-label={actionLabel} className="pp-flex__action">
                             {actionItems.map((item, idx) => (
                                 // eslint-disable-next-line react/no-array-index-key
-                                <Fragment key={idx}>{renderBlock(item)}</Fragment>
+                                <Fragment key={idx}>{renderBlock(item, flexBlockOptions)}</Fragment>
                             ))}
                         </div>
                     ) : null}
@@ -87,7 +89,7 @@ export default function FlexMessage({ style, v2Content }) {
                         <div className="pp-flex__disclaimer">
                             {disclaimerItems.map((item, idx) => (
                                 // eslint-disable-next-line react/no-array-index-key
-                                <Fragment key={idx}>{renderBlock(item)}</Fragment>
+                                <Fragment key={idx}>{renderBlock(item, flexBlockOptions)}</Fragment>
                             ))}
                         </div>
                     ) : null}
