@@ -1265,6 +1265,30 @@ describe('v2 render flex layout', () => {
         expect(css).toMatch(/\.pp-flex__logo img[\s\S]*width:\s*100%/);
     });
 
+    test('flex landscape narrow path shares locale-A logo rules for 8x1 and 20x1', () => {
+        ['8x1', '20x1'].forEach(ratio => {
+            const result = render({ style: { layout: 'flex', color: 'blue', ratio } }, flexContentWithLogo, mockLog);
+            const css = result.match(/<style>([\s\S]*?)<\/style>/)[1];
+            expect(css).toMatch(
+                new RegExp(
+                    `\\.pp-message\\.pp-flex\\.r-${ratio} \\.pp-flex__logo:nth-of-type\\(2\\)[\\s\\S]*display:\\s*none`
+                )
+            );
+            expect(css).toMatch(
+                new RegExp(
+                    `@media \\(max-aspect-ratio: 61/10\\)[\\s\\S]*\\.pp-message\\.pp-flex\\.r-${ratio} \\.pp-flex__logo-container[\\s\\S]*flex-basis:\\s*12%`
+                )
+            );
+            expect(css).toMatch(
+                new RegExp(
+                    `@media \\(max-aspect-ratio: 61/10\\)[\\s\\S]*\\.pp-message\\.pp-flex\\.r-${ratio} \\.pp-flex__logo-container[\\s\\S]*margin-bottom:\\s*-6px`
+                )
+            );
+            expect(css).toContain(`@media (max-aspect-ratio: 61/10) and (min-width: 324px)`);
+            expect(css).toContain(`@media (max-aspect-ratio: 61/10) and (max-width: 323px)`);
+        });
+    });
+
     test('flex 1x4 centers messaging vertically and uses full-width logo container', () => {
         const options = { style: { layout: 'flex', color: 'blue', ratio: '1x4' } };
         const result = render(options, flexContentWithLogo, mockLog);

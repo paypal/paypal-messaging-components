@@ -122,6 +122,14 @@ button:focus .pp-message.pp-flex .pp-flex__content span.br {
     justify-content: center;
 }
 
+.pp-message.pp-flex.r-8x1 .pp-flex__logo {
+    width: 60%;
+}
+
+.pp-message.pp-flex.r-8x1 .pp-flex__logo:nth-of-type(2) {
+    display: none;
+}
+
 .pp-message.pp-flex.r-8x1 .pp-flex__messaging {
     flex: 1 1 100%;
 }
@@ -129,7 +137,6 @@ button:focus .pp-message.pp-flex .pp-flex__content span.br {
 .pp-message.pp-flex.r-8x1 .pp-flex__main {
     font-size: 5vw;
     line-height: 1;
-    margin-bottom: 0.2em;
     font-weight: 400;
     display: block;
 }
@@ -141,8 +148,47 @@ button:focus .pp-message.pp-flex .pp-flex__content span.br {
     display: inline;
 }
 
+@media (max-aspect-ratio: 61/10) {
+        .pp-message.pp-flex.r-8x1 .pp-flex__logo-container {
+        flex-basis: 12%;
+        margin-bottom: -6px;
+        justify-content: flex-start;
+        margin-left: 5px;
+    }
+
+        .pp-message.pp-flex.r-8x1 .pp-flex__logo:nth-of-type(1) {
+        margin-left: 10px;
+        margin-right: 0;
+    }
+}
+
+@media (max-aspect-ratio: 61/10) and (min-width: 324px) {
+        .pp-message.pp-flex.r-8x1 .pp-flex__logo:nth-of-type(1) { width: 45%; }
+}
+
+@media (max-aspect-ratio: 61/10) and (max-width: 374px) {
+        .pp-message.pp-flex.r-8x1 .pp-flex__logo:nth-of-type(1) { width: 50%; }
+}
+
+@media (max-width: 374px) {
+        .pp-message.pp-flex.r-8x1 .pp-flex__logo:nth-of-type(1) { width: 55%; }
+        .pp-message.pp-flex.r-8x1 .pp-flex__logo-container { margin-right: 2.5%; }
+}
+
+@media (max-aspect-ratio: 61/10) and (max-width: 323px) {
+        .pp-message.pp-flex.r-8x1 .pp-flex__logo-container { margin-right: 7%; }
+
+        .pp-message.pp-flex.r-8x1 .pp-flex__logo:nth-of-type(1) {
+        margin: 0 5px;
+        width: 30%;
+    }
+
+        .pp-message.pp-flex.r-8x1 .pp-flex__logo:nth-of-type(2) {
+        display: inline;
+    }
+}
+
 @media (max-aspect-ratio: 61/10) and (min-width: 400px) {
-        .pp-message.pp-flex.r-8x1 .pp-flex__logo-container { flex: 0 0 25%; }
         .pp-message.pp-flex.r-8x1 .pp-flex__main { font-size: 4vw; margin-bottom: 0.5rem; }
 }
 
@@ -156,26 +202,6 @@ button:focus .pp-message.pp-flex .pp-flex__content span.br {
 }
 .pp-message.pp-flex.r-8x1 .pp-flex__logo-container {
     padding-bottom: 2.5px;
-}
-
-.pp-message.pp-flex.r-8x1 .pp-flex__logo {
-    width: 60%;
-}
-
-.pp-message.pp-flex.r-8x1 .pp-flex__logo:nth-of-type(2) {
-    display: none;
-}
-
-@media (max-aspect-ratio: 61/10) and (min-width: 324px) {
-        .pp-message.pp-flex.r-8x1 .pp-flex__logo:nth-of-type(1) { width: 45%; }
-}
-
-@media (max-aspect-ratio: 61/10) and (max-width: 374px) {
-        .pp-message.pp-flex.r-8x1 .pp-flex__logo:nth-of-type(1) { width: 50%; }
-}
-
-@media (max-width: 374px) {
-        .pp-message.pp-flex.r-8x1 .pp-flex__logo:nth-of-type(1) { width: 55%; }
 }
 
 @media (min-aspect-ratio: 80/11) {
@@ -342,6 +368,14 @@ button:focus .pp-message.pp-flex .pp-flex__content span.br {
     justify-content: center;
 }
 
+.pp-message.pp-flex.r-8x1 .pp-flex__logo {
+    width: 60%;
+}
+
+.pp-message.pp-flex.r-8x1 .pp-flex__logo:nth-of-type(2) {
+    display: none;
+}
+
 .pp-message.pp-flex.r-8x1 .pp-flex__messaging {
     flex: 1 1 100%;
 }
@@ -349,7 +383,6 @@ button:focus .pp-message.pp-flex .pp-flex__content span.br {
 .pp-message.pp-flex.r-8x1 .pp-flex__main {
     font-size: 5vw;
     line-height: 1;
-    margin-bottom: 0.2em;
     font-weight: 400;
     display: block;
 }
@@ -361,8 +394,47 @@ button:focus .pp-message.pp-flex .pp-flex__content span.br {
     display: inline;
 }
 
+@media (max-aspect-ratio: 61/10) {
+        .pp-message.pp-flex.r-8x1 .pp-flex__logo-container {
+        flex-basis: 12%;
+        margin-bottom: -6px;
+        justify-content: flex-start;
+        margin-left: 5px;
+    }
+
+        .pp-message.pp-flex.r-8x1 .pp-flex__logo:nth-of-type(1) {
+        margin-left: 10px;
+        margin-right: 0;
+    }
+}
+
+@media (max-aspect-ratio: 61/10) and (min-width: 324px) {
+        .pp-message.pp-flex.r-8x1 .pp-flex__logo:nth-of-type(1) { width: 45%; }
+}
+
+@media (max-aspect-ratio: 61/10) and (max-width: 374px) {
+        .pp-message.pp-flex.r-8x1 .pp-flex__logo:nth-of-type(1) { width: 50%; }
+}
+
+@media (max-width: 374px) {
+        .pp-message.pp-flex.r-8x1 .pp-flex__logo:nth-of-type(1) { width: 55%; }
+        .pp-message.pp-flex.r-8x1 .pp-flex__logo-container { margin-right: 2.5%; }
+}
+
+@media (max-aspect-ratio: 61/10) and (max-width: 323px) {
+        .pp-message.pp-flex.r-8x1 .pp-flex__logo-container { margin-right: 7%; }
+
+        .pp-message.pp-flex.r-8x1 .pp-flex__logo:nth-of-type(1) {
+        margin: 0 5px;
+        width: 30%;
+    }
+
+        .pp-message.pp-flex.r-8x1 .pp-flex__logo:nth-of-type(2) {
+        display: inline;
+    }
+}
+
 @media (max-aspect-ratio: 61/10) and (min-width: 400px) {
-        .pp-message.pp-flex.r-8x1 .pp-flex__logo-container { flex: 0 0 25%; }
         .pp-message.pp-flex.r-8x1 .pp-flex__main { font-size: 4vw; margin-bottom: 0.5rem; }
 }
 
@@ -376,26 +448,6 @@ button:focus .pp-message.pp-flex .pp-flex__content span.br {
 }
 .pp-message.pp-flex.r-8x1 .pp-flex__logo-container {
     padding-bottom: 2.5px;
-}
-
-.pp-message.pp-flex.r-8x1 .pp-flex__logo {
-    width: 60%;
-}
-
-.pp-message.pp-flex.r-8x1 .pp-flex__logo:nth-of-type(2) {
-    display: none;
-}
-
-@media (max-aspect-ratio: 61/10) and (min-width: 324px) {
-        .pp-message.pp-flex.r-8x1 .pp-flex__logo:nth-of-type(1) { width: 45%; }
-}
-
-@media (max-aspect-ratio: 61/10) and (max-width: 374px) {
-        .pp-message.pp-flex.r-8x1 .pp-flex__logo:nth-of-type(1) { width: 50%; }
-}
-
-@media (max-width: 374px) {
-        .pp-message.pp-flex.r-8x1 .pp-flex__logo:nth-of-type(1) { width: 55%; }
 }
 
 @media (min-aspect-ratio: 80/11) {
@@ -562,6 +614,14 @@ button:focus .pp-message.pp-flex .pp-flex__content span.br {
     justify-content: center;
 }
 
+.pp-message.pp-flex.r-8x1 .pp-flex__logo {
+    width: 60%;
+}
+
+.pp-message.pp-flex.r-8x1 .pp-flex__logo:nth-of-type(2) {
+    display: none;
+}
+
 .pp-message.pp-flex.r-8x1 .pp-flex__messaging {
     flex: 1 1 100%;
 }
@@ -569,7 +629,6 @@ button:focus .pp-message.pp-flex .pp-flex__content span.br {
 .pp-message.pp-flex.r-8x1 .pp-flex__main {
     font-size: 5vw;
     line-height: 1;
-    margin-bottom: 0.2em;
     font-weight: 400;
     display: block;
 }
@@ -581,8 +640,47 @@ button:focus .pp-message.pp-flex .pp-flex__content span.br {
     display: inline;
 }
 
+@media (max-aspect-ratio: 61/10) {
+        .pp-message.pp-flex.r-8x1 .pp-flex__logo-container {
+        flex-basis: 12%;
+        margin-bottom: -6px;
+        justify-content: flex-start;
+        margin-left: 5px;
+    }
+
+        .pp-message.pp-flex.r-8x1 .pp-flex__logo:nth-of-type(1) {
+        margin-left: 10px;
+        margin-right: 0;
+    }
+}
+
+@media (max-aspect-ratio: 61/10) and (min-width: 324px) {
+        .pp-message.pp-flex.r-8x1 .pp-flex__logo:nth-of-type(1) { width: 45%; }
+}
+
+@media (max-aspect-ratio: 61/10) and (max-width: 374px) {
+        .pp-message.pp-flex.r-8x1 .pp-flex__logo:nth-of-type(1) { width: 50%; }
+}
+
+@media (max-width: 374px) {
+        .pp-message.pp-flex.r-8x1 .pp-flex__logo:nth-of-type(1) { width: 55%; }
+        .pp-message.pp-flex.r-8x1 .pp-flex__logo-container { margin-right: 2.5%; }
+}
+
+@media (max-aspect-ratio: 61/10) and (max-width: 323px) {
+        .pp-message.pp-flex.r-8x1 .pp-flex__logo-container { margin-right: 7%; }
+
+        .pp-message.pp-flex.r-8x1 .pp-flex__logo:nth-of-type(1) {
+        margin: 0 5px;
+        width: 30%;
+    }
+
+        .pp-message.pp-flex.r-8x1 .pp-flex__logo:nth-of-type(2) {
+        display: inline;
+    }
+}
+
 @media (max-aspect-ratio: 61/10) and (min-width: 400px) {
-        .pp-message.pp-flex.r-8x1 .pp-flex__logo-container { flex: 0 0 25%; }
         .pp-message.pp-flex.r-8x1 .pp-flex__main { font-size: 4vw; margin-bottom: 0.5rem; }
 }
 
@@ -596,26 +694,6 @@ button:focus .pp-message.pp-flex .pp-flex__content span.br {
 }
 .pp-message.pp-flex.r-8x1 .pp-flex__logo-container {
     padding-bottom: 2.5px;
-}
-
-.pp-message.pp-flex.r-8x1 .pp-flex__logo {
-    width: 60%;
-}
-
-.pp-message.pp-flex.r-8x1 .pp-flex__logo:nth-of-type(2) {
-    display: none;
-}
-
-@media (max-aspect-ratio: 61/10) and (min-width: 324px) {
-        .pp-message.pp-flex.r-8x1 .pp-flex__logo:nth-of-type(1) { width: 45%; }
-}
-
-@media (max-aspect-ratio: 61/10) and (max-width: 374px) {
-        .pp-message.pp-flex.r-8x1 .pp-flex__logo:nth-of-type(1) { width: 50%; }
-}
-
-@media (max-width: 374px) {
-        .pp-message.pp-flex.r-8x1 .pp-flex__logo:nth-of-type(1) { width: 55%; }
 }
 
 @media (min-aspect-ratio: 80/11) {

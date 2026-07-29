@@ -203,15 +203,6 @@ ${rs('1x4', '.pp-flex__logo:nth-of-type(2)')} {
 }
 
 function buildLandscapeMobileBase(ratio) {
-    const logoImgRule =
-        ratio === '20x1'
-            ? `
-@media (max-aspect-ratio: 61/10) {
-    ${rsMedia(ratio, '.pp-flex__logo img')} { width: 60%; }
-}
-`
-            : '';
-
     return `
 ${rs(ratio, '.pp-flex__content')} {
     display: flex;
@@ -224,7 +215,15 @@ ${rs(ratio, '.pp-flex__logo-container')} {
     flex: 0 0 33%;
     justify-content: center;
 }
-${logoImgRule}
+
+${rs(ratio, '.pp-flex__logo')} {
+    width: 60%;
+}
+
+${rs(ratio, '.pp-flex__logo:nth-of-type(2)')} {
+    display: none;
+}
+
 ${rs(ratio, '.pp-flex__messaging')} {
     flex: 1 1 100%;
 }
@@ -232,7 +231,6 @@ ${rs(ratio, '.pp-flex__messaging')} {
 ${rs(ratio, '.pp-flex__main')} {
     font-size: 5vw;
     line-height: 1;
-    margin-bottom: 0.2em;
     font-weight: 400;
     display: block;
 }
@@ -244,8 +242,47 @@ ${rs(ratio, '.pp-flex__action')} {
     display: inline;
 }
 
+@media (max-aspect-ratio: 61/10) {
+    ${rsMedia(ratio, '.pp-flex__logo-container')} {
+        flex-basis: 12%;
+        margin-bottom: -6px;
+        justify-content: flex-start;
+        margin-left: 5px;
+    }
+
+    ${rsMedia(ratio, '.pp-flex__logo:nth-of-type(1)')} {
+        margin-left: 10px;
+        margin-right: 0;
+    }
+}
+
+@media (max-aspect-ratio: 61/10) and (min-width: 324px) {
+    ${rsMedia(ratio, '.pp-flex__logo:nth-of-type(1)')} { width: 45%; }
+}
+
+@media (max-aspect-ratio: 61/10) and (max-width: 374px) {
+    ${rsMedia(ratio, '.pp-flex__logo:nth-of-type(1)')} { width: 50%; }
+}
+
+@media (max-width: 374px) {
+    ${rsMedia(ratio, '.pp-flex__logo:nth-of-type(1)')} { width: 55%; }
+    ${rsMedia(ratio, '.pp-flex__logo-container')} { margin-right: 2.5%; }
+}
+
+@media (max-aspect-ratio: 61/10) and (max-width: 323px) {
+    ${rsMedia(ratio, '.pp-flex__logo-container')} { margin-right: 7%; }
+
+    ${rsMedia(ratio, '.pp-flex__logo:nth-of-type(1)')} {
+        margin: 0 5px;
+        width: 30%;
+    }
+
+    ${rsMedia(ratio, '.pp-flex__logo:nth-of-type(2)')} {
+        display: inline;
+    }
+}
+
 @media (max-aspect-ratio: 61/10) and (min-width: 400px) {
-    ${rsMedia(ratio, '.pp-flex__logo-container')} { flex: 0 0 25%; }
     ${rsMedia(ratio, '.pp-flex__main')} { font-size: 4vw; margin-bottom: 0.5rem; }
 }
 
@@ -265,26 +302,6 @@ function buildLandscape8x1Rules() {
     return `${buildLandscapeMobileBase(ratio)}
 ${rs(ratio, '.pp-flex__logo-container')} {
     padding-bottom: 2.5px;
-}
-
-${rs(ratio, '.pp-flex__logo')} {
-    width: 60%;
-}
-
-${rs(ratio, '.pp-flex__logo:nth-of-type(2)')} {
-    display: none;
-}
-
-@media (max-aspect-ratio: 61/10) and (min-width: 324px) {
-    ${rsMedia(ratio, '.pp-flex__logo:nth-of-type(1)')} { width: 45%; }
-}
-
-@media (max-aspect-ratio: 61/10) and (max-width: 374px) {
-    ${rsMedia(ratio, '.pp-flex__logo:nth-of-type(1)')} { width: 50%; }
-}
-
-@media (max-width: 374px) {
-    ${rsMedia(ratio, '.pp-flex__logo:nth-of-type(1)')} { width: 55%; }
 }
 
 @media (min-aspect-ratio: 80/11) {
@@ -357,6 +374,7 @@ function buildLandscape20x1Rules() {
     }
 
     ${rsMedia(ratio, '.pp-flex__logo:nth-of-type(2)')} {
+        display: inline-block;
         width: 60%;
     }
 
