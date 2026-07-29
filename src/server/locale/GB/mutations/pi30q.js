@@ -17,7 +17,9 @@ export default {
                 styles: [
                     textWrap(textSize * 32, textSize, 'GB'),
                     xSmallFallback(textSize * 16),
-                    messageLogoWidth(false, textSize * 4, textSize * 1.25)
+                    messageLogoWidth(false, textSize * 4, textSize * 1.25),
+                    `.weak { display: none}`,
+                    '.message__headline .tag--medium > span:first-child:after { content: "."; }'
                 ],
                 logo: Logo.PP_PAYPAL.COLOR,
                 headline: [{ tag: 'medium' }, { tag: 'xsmall' }],
@@ -30,7 +32,9 @@ export default {
                 styles: [
                     xSmallFallback(textSize * 10.75),
                     setLogoTop(textSize * 32 + 10),
-                    messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
+                    messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
+                    `.weak { display: none}`,
+                    '.message__headline .tag--medium > span:first-child:after { content: "."; }'
                 ]
             })
         ],
@@ -39,7 +43,9 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     xSmallFallback(textSize * 10.75),
-                    messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
+                    messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
+                    `.weak { display: none}`,
+                    '.message__headline .tag--medium > span:first-child:after { content: "."; }'
                 ]
             })
         ],
@@ -50,7 +56,9 @@ export default {
                     textWrap(textSize * 32, textSize, 'GB'),
                     xSmallFallback(textSize * 11.5),
                     altNoWrap(textSize * 10.6),
-                    messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25)
+                    messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25),
+                    `.weak { display: none}`,
+                    '.message__headline .tag--medium > span:first-child:after { content: "."; }'
                 ],
                 logo: Logo.PP_PAYPAL.COLOR[0]
             })
@@ -86,13 +94,21 @@ export default {
             {
                 logo: Logo.PP_PAYPAL.WHITE,
                 headline: [{ tag: 'xsmall' }, { tag: 'medium' }],
-                disclaimer: ['extra', 'default']
+                disclaimer: ['extra', 'default'],
+                styles: [
+                    '.message__headline .tag--medium > span:first-child:after { content: "."; }',
+                    '.message__headline .tag--medium .weak { display: none; }'
+                ]
             }
         ],
         [
             'ratio:20x1',
             {
-                styles: [logo20x1()]
+                styles: [
+                    logo20x1(),
+                    '.message__headline .tag--medium > span:first-child:after { content: "."; }',
+                    '.message__headline .tag--medium .weak { display: none; }'
+                ]
             }
         ],
         ...flexLogoMutations

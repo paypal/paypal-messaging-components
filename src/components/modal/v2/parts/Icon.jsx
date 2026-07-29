@@ -219,26 +219,6 @@ const Icon = ({ name = '', content }) => {
                     />
                 </svg>
             );
-        case 'warning-v5':
-            return (
-                <svg
-                    aria-hidden="true"
-                    width="21"
-                    height="18.75"
-                    viewBox="0 0 21 18.75"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                >
-                    <path
-                        d="M10.5 1.5L19.5 17.75H1.5L10.5 1.5Z"
-                        stroke="#C31526"
-                        stroke-width="1.5"
-                        stroke-linejoin="round"
-                    />
-                    <rect x="9.625" y="6.75" width="1.75" height="5.5" rx="0.875" fill="#C31526" />
-                    <circle cx="10.5" cy="15" r="1" fill="#C31526" />
-                </svg>
-            );
         case 'PRODUCT_LIST-desktop':
             return (
                 <svg

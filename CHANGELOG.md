@@ -1,5 +1,43 @@
 # Changelog
 
+### [1.92.1](https://github.com/paypal/paypal-messaging-components/compare/v1.92.0...v1.92.1) (2026-07-27)
+
+
+### Bug Fixes
+
+* route PL_GENERIC_XB messageType to cross-border generic mutations for AT/DE ([#1369](https://github.com/paypal/paypal-messaging-components/issues/1369)) ([36c3238](https://github.com/paypal/paypal-messaging-components/commit/36c323801819e6caaaac84bb4cd449153a770318))
+
+## [1.92.0](https://github.com/paypal/paypal-messaging-components/compare/v1.91.0...v1.92.0) (2026-07-23)
+
+
+### Features
+
+* fix firefox logos for rewrite ([#1347](https://github.com/paypal/paypal-messaging-components/issues/1347)) ([d9b2991](https://github.com/paypal/paypal-messaging-components/commit/d9b2991da077bb4944d976581a1d333bc966d994))
+
+
+### Bug Fixes
+
+* UK Pi30 message update on removing extra space ([#1351](https://github.com/paypal/paypal-messaging-components/issues/1351)) ([dc30231](https://github.com/paypal/paypal-messaging-components/commit/dc3023141e929410ea806c7347211549881317ae))
+
+## [1.91.0](https://github.com/paypal/paypal-messaging-components/compare/v1.90.1...v1.91.0) (2026-07-21)
+
+
+### Features
+
+* AT Expansion ([#1276](https://github.com/paypal/paypal-messaging-components/issues/1276)) ([b74c3af](https://github.com/paypal/paypal-messaging-components/commit/b74c3af03c377fba4ed2ff6a3739d44200cc4dca))
+
+
+### Documentation
+
+* clarify Hi Developer greeting scope ([#1365](https://github.com/paypal/paypal-messaging-components/issues/1365)) ([feeeae7](https://github.com/paypal/paypal-messaging-components/commit/feeeae7ac18ec435aadd0b184e2d96aae4ae859b))
+
+### [1.90.1](https://github.com/paypal/paypal-messaging-components/compare/v1.90.0...v1.90.1) (2026-07-20)
+
+
+### Bug Fixes
+
+* continue to use node 20 not 24 ([#1345](https://github.com/paypal/paypal-messaging-components/issues/1345)) ([ee75b2c](https://github.com/paypal/paypal-messaging-components/commit/ee75b2c886b32c018f7ee34fa50725675005604e))
+
 ## [1.90.0](https://github.com/paypal/paypal-messaging-components/compare/v1.89.0...v1.90.0) (2026-07-13)
 
 

@@ -18,25 +18,25 @@
             @name: messages render below the fold
             @viewport: 400x300
         -->
-        <div class="root" style="padding-top: 400px;">
+        <div class="root" style="padding-top: 400px">
             <!-- Regular message render -->
             <div class="message" data-test-visible="true"></div>
 
             <!-- Container is too small -->
-            <div style="width: 100px;">
-                <div class="message" data-test-visible="false"></div>
+            <div style="width: 100px">
+                <div class="message" data-test-visible="true"></div>
             </div>
 
             <!-- Outer container is too small but inner container overflows allowing the message to be visible -->
-            <div style="width: 100px;">
-                <div style="width: 400px;">
+            <div style="width: 100px">
+                <div style="width: 400px">
                     <div class="message" data-test-visible="true"></div>
                 </div>
             </div>
 
             <!-- Outer container hides overflowing content -->
             <div style="width: 100px; overflow: hidden">
-                <div style="width: 500px;">
+                <div style="width: 500px">
                     <div class="message" data-test-visible="false"></div>
                 </div>
             </div>

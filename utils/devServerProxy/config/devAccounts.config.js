@@ -101,6 +101,25 @@ export default {
     DEV000DEMULTI: ['DE', ['pay_in_1', 'long_term'], 'pi30'],
     DEV0XBDEMULTI: ['DE', ['pay_in_1', 'long_term'], 'pi30-non-de'],
 
+    // AT - Austria
+    DEV000ATPLEQZ: ['AT', ['long_term'], 'gpl_eqz'],
+    DEV000ATPLGTZ: ['AT', ['long_term'], 'gpl_gtz'],
+    DEV00ATPLQEQZ: ['AT', ['long_term'], 'gplq_eqz'],
+    DEV00ATPLQGTZ: ['AT', ['long_term'], 'gplq_gtz'],
+    DEVXBATPLQEQZ: ['AT', ['long_term'], 'gplq_eqz-non-at'],
+    DEVXBATPLQGTZ: ['AT', ['long_term'], 'gplq_gtz-non-at'],
+    DEV00ATPI30NQ: ['AT', ['pay_in_1'], 'pi30nq'],
+    DEV000ATPI30Q: ['AT', ['pay_in_1'], 'pi30q'],
+    DEV0000ATPI30: ['AT', ['pay_in_1'], 'pi30'],
+    DEVXBATPI30NQ: ['AT', ['pay_in_1'], 'pi30nq-non-at'],
+    DEV0XBATPI30Q: ['AT', ['pay_in_1'], 'pi30q-non-at'],
+    DEV00XBATPI30: ['AT', ['pay_in_1'], 'pi30-non-at'],
+    DEV0ATGENERIC: ['AT', ['product_list'], 'generic'],
+    DEV000XBATGEN: ['AT', ['product_list'], 'generic-non-at'],
+    // Multi product modal
+    DEV000ATMULTI: ['AT', ['pay_in_1', 'long_term'], 'pi30'],
+    DEV0XBATMULTI: ['AT', ['pay_in_1', 'long_term'], 'pi30-non-at'],
+
     DEV000000GBPL: ['GB', ['short_term'], 'pl'],
     DEV00000GBPLQ: ['GB', ['short_term'], 'plq'],
     DEV00GBPI30NQ: ['GB', ['pay_in_1'], 'pi30nq'],
