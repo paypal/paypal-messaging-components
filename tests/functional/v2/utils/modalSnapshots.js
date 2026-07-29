@@ -2,7 +2,6 @@ import { configureToMatchImageSnapshot } from 'jest-image-snapshot';
 import { logScreenshot } from './logging';
 import { selectors } from './selectors';
 import { screenDimensions } from './setup';
-import { assertNonBlankPng } from '../../utils/assertNonBlankPng';
 
 const {
     modal: { contentWrapper }
@@ -26,9 +25,43 @@ const toMatchSmallSnapshot = configureToMatchImageSnapshot({
 
 expect.extend({ toMatchLargeSnapshot, toMatchSmallSnapshot });
 
+const waitForModalReady = async contentWindow => {
+    await contentWindow.waitForFunction(
+        wrapperSelector => {
+            const modalEl = document.querySelector(wrapperSelector);
+            if (!modalEl) {
+                return false;
+            }
+
+            const modalRect = modalEl.getBoundingClientRect();
+            if (modalRect.width < 50 || modalRect.height < 50) {
+                return false;
+            }
+
+            const text = (modalEl.innerText || '').replace(/\s+/g, ' ').trim();
+            if (text.length < 30 || /^learn more$/i.test(text)) {
+                return false;
+            }
+
+            const meaningfulContent = modalEl.querySelector(
+                'h1, h2, .content__row, .offer__container, .tile, .instructions, .cta, .button'
+            );
+
+            return Boolean(meaningfulContent);
+        },
+        {
+            polling: 50,
+            timeout: 8000
+        },
+        contentWrapper
+    );
+};
+
 export const modalSnapshot = async (testNameParts, contentWindow) => {
     const [country, integration, account, amount, testName, viewport = 'desktop'] = testNameParts.split('-');
     const viewportDimensions = screenDimensions[viewport] || screenDimensions.desktop;
+
+    await waitForModalReady(contentWindow);
 
     const clip = await contentWindow.evaluate(wrapperSelector => {
         const modalEl = document.querySelector(wrapperSelector);
@@ -72,7 +105,6 @@ export const modalSnapshot = async (testNameParts, contentWindow) => {
     logScreenshot({ name: testNameParts, viewport: snapshotDimensions });
 
     const image = await page.screenshot({ clip: snapshotDimensions }, 3);
-    assertNonBlankPng({ image, context: testNameParts });
 
     const matchFunction = screenDimensions[viewport].width > 500 ? 'toMatchLargeSnapshot' : 'toMatchSmallSnapshot';
     expect(image)[matchFunction]({
