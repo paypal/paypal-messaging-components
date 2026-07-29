@@ -30,20 +30,6 @@ export default ({ uid, frame, prerenderFrame, doc, event, state, props: { cspNon
     const handleRender = wrapper => {
         const overlay = wrapper.querySelector('div');
 
-        // Measure iOS safe area in the parent window (env() computes here with viewport-fit=cover).
-        // Cross-origin iframes cannot access env() so we measure here and apply pixels.
-        const safeEl = doc.createElement('div');
-        safeEl.style.cssText =
-            'position:fixed;top:0;left:0;width:0;visibility:hidden;pointer-events:none;height:env(safe-area-inset-top,0px)';
-        doc.body.appendChild(safeEl);
-        const safeAreaPx = parseFloat(doc.defaultView.getComputedStyle(safeEl).height) || 0;
-        doc.body.removeChild(safeEl);
-
-        if (safeAreaPx > 0) {
-            overlay.style.setProperty('top', `${safeAreaPx}px`, 'important');
-            overlay.style.setProperty('height', `calc(100% - ${safeAreaPx}px)`, 'important');
-        }
-
         const handleShow = () => {
             state.open = true;
             state.previousFocus = document.activeElement;
@@ -103,8 +89,9 @@ export default ({ uid, frame, prerenderFrame, doc, event, state, props: { cspNon
         window.addEventListener('keyup', handleEscape);
     };
 
+    const safeAreaTop = 'env(safe-area-inset-top, 0px)';
     const fullScreen = position =>
-        `position: ${position} !important; top: 0 !important; left: 0 !important; width: 100% !important; height: 100% !important; z-index: 2147483647 !important; border: none !important;`;
+        `position: ${position} !important; top: ${safeAreaTop} !important; left: 0 !important; width: 100% !important; height: calc(100% - ${safeAreaTop}) !important; z-index: 2147483647 !important; border: none !important;`;
     const modalTitle = getTitle(frame.title);
     // We apply both styles tag and inline style because some merchants are changing the inline
     // style values unintentionally with greedy JavaScript and the style tag with !important
