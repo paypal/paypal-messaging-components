@@ -1100,6 +1100,23 @@ describe('v2 render flex layout', () => {
         expect(result).not.toContain('class="pp-flex__disclaimer"');
     });
 
+    test('keeps non-LINK action copy in pp-flex__action (GB Credit option pattern)', () => {
+        const content = {
+            ...flexContentWithLogo,
+            disclaimer_items: [],
+            action_items: [
+                { type: 'TEXT', text: 'Credit option. ' },
+                { type: 'LINK', text: 'Learn more', click_url: 'https://example.com/lander', embeddable: true }
+            ]
+        };
+        const result = render(baseFlexOptions, content, mockLog);
+        expect(result).not.toContain('class="pp-flex__disclaimer"');
+        const actionMatch = result.match(/class="pp-flex__action"[^>]*>([\s\S]*?)<\/div>/);
+        expect(actionMatch).not.toBeNull();
+        expect(actionMatch[1]).toContain('Credit option.');
+        expect(actionMatch[1]).toContain('Learn more');
+    });
+
     test('IMAGE item does not appear in pp-flex__main (logo is extracted)', () => {
         const result = render(baseFlexOptions, flexContentWithLogo, mockLog);
         const mainMatch = result.match(/class="pp-flex__main"[^<]*([\s\S]*?)<\/div>/);
@@ -1283,10 +1300,22 @@ describe('v2 render flex layout', () => {
         expect(css).toMatch(/\.pp-message\.pp-flex\.r-20x1 \.pp-flex__logo-container[\s\S]*align-self:\s*center/);
         expect(css).toMatch(/\.pp-message\.pp-flex\.r-20x1 \.pp-flex__logo img[\s\S]*width:\s*100%/);
         expect(css).toMatch(
-            /\.pp-message\.pp-flex\.r-20x1 \.pp-flex__messaging[\s\S]*display:\s*inline-flex[\s\S]*align-items:\s*flex-end/
+            /\.pp-message\.pp-flex\.r-20x1 \.pp-flex__messaging[\s\S]*display:\s*flex[\s\S]*flex-direction:\s*row/
         );
+        expect(css).toMatch(/\.pp-message\.pp-flex\.r-20x1 \.pp-flex__messaging[\s\S]*align-items:\s*center/);
         expect(css).toMatch(/\.pp-message\.pp-flex\.r-20x1 \.pp-flex__messaging[\s\S]*align-self:\s*center/);
         expect(css).not.toMatch(/\.pp-message\.pp-flex\.r-20x1 \.pp-flex__main[\s\S]*vertical-align:\s*bottom/);
+    });
+
+    test('flex 8x1 keeps disclaimer under main (v5 block flow parity)', () => {
+        const options = { style: { layout: 'flex', color: 'blue', ratio: '8x1' } };
+        const result = render(options, flexContentWithLogo, mockLog);
+        const css = result.match(/<style>([\s\S]*?)<\/style>/)[1];
+        expect(css).toMatch(/\.pp-message\.pp-flex\.r-8x1 \.pp-flex__main[\s\S]*display:\s*block/);
+        expect(css).toMatch(/\.pp-message\.pp-flex\.r-8x1 \.pp-flex__disclaimer[\s\S]*display:\s*inline/);
+        expect(css).toMatch(
+            /@media \(min-aspect-ratio: 80\/11\)[\s\S]*\.pp-message\.pp-flex\.r-8x1 \.pp-flex__main[\s\S]*display:\s*block/
+        );
     });
 
     test('flex 8x1 includes dedicated landscape breakpoint rules', () => {
