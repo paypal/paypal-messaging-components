@@ -105,11 +105,16 @@ jobs:
 
                   git status --porcelain
 
+            - name: Compute V1 Stability Artifact Name
+              id: stabilityArtifactName
+              if: failure()
+              run: echo "name=snapshot-stability-v1-$(echo '${{ matrix.testPathPattern }}' | sed 's/\//-/g')" >> $GITHUB_OUTPUT
+
             - name: Upload V1 Stability Diagnostics
               if: failure()
               uses: actions/upload-artifact@v4
               with:
-                name: snapshot-stability-v1-${{ replace(matrix.testPathPattern, '/', '-') }}
+                name: ${{ steps.stabilityArtifactName.outputs.name }}
                 path: /tmp/snapshot-stability/
                 if-no-files-found: ignore
                 retention-days: 3
@@ -220,11 +225,16 @@ jobs:
 
                   git status --porcelain
 
+            - name: Compute V2 Stability Artifact Name
+              id: stabilityArtifactName
+              if: failure()
+              run: echo "name=snapshot-stability-v2-$(echo '${{ matrix.testConfig }}' | sed 's/\//-/g')" >> $GITHUB_OUTPUT
+
             - name: Upload V2 Stability Diagnostics
               if: failure()
               uses: actions/upload-artifact@v4
               with:
-                name: snapshot-stability-v2-${{ replace(matrix.testConfig, '/', '-') }}
+                name: ${{ steps.stabilityArtifactName.outputs.name }}
                 path: /tmp/snapshot-stability/
                 if-no-files-found: ignore
                 retention-days: 3
