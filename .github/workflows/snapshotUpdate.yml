@@ -109,7 +109,7 @@ jobs:
               if: failure()
               uses: actions/upload-artifact@v4
               with:
-                name: snapshot-stability-v1-${{ matrix.testPathPattern }}
+                name: snapshot-stability-v1-${{ replace(matrix.testPathPattern, '/', '-') }}
                 path: /tmp/snapshot-stability/
                 if-no-files-found: ignore
                 retention-days: 3
@@ -224,7 +224,7 @@ jobs:
               if: failure()
               uses: actions/upload-artifact@v4
               with:
-                name: snapshot-stability-v2-${{ matrix.testConfig }}
+                name: snapshot-stability-v2-${{ replace(matrix.testConfig, '/', '-') }}
                 path: /tmp/snapshot-stability/
                 if-no-files-found: ignore
                 retention-days: 3
