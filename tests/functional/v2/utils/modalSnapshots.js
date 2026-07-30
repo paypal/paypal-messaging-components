@@ -57,7 +57,7 @@ const waitForModalReady = async contentWindow => {
     );
 };
 
-const settleModalRendering = async contentWindow => {
+export const settleModalRendering = async contentWindow => {
     await contentWindow.evaluate(async () => {
         if (!document.getElementById('__pp_snapshot_stabilizer__')) {
             const style = document.createElement('style');
