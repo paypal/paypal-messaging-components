@@ -85,16 +85,22 @@ jobs:
 
                 run_once
 
-                mkdir -p /tmp/snapshot-stability/v1-pass1
-                rsync -a --delete tests/functional/snapshots/ /tmp/snapshot-stability/v1-pass1/
-
-                run_once
-
-                if ! diff -qr /tmp/snapshot-stability/v1-pass1 tests/functional/snapshots > /tmp/snapshot-stability/v1.diff
+                PASS1_STATUS="$(git status --porcelain tests/functional/snapshots || true)"
+                if [ -z "$PASS1_STATUS" ]
                 then
-                  echo "::error::Non-deterministic v1 snapshots detected for ${{ matrix.testPathPattern }}"
-                  sed -n '1,200p' /tmp/snapshot-stability/v1.diff
-                  exit 1
+                  echo "No v1 snapshot updates detected on pass 1; skipping stability rerun."
+                else
+                  mkdir -p /tmp/snapshot-stability/v1-pass1
+                  rsync -a --delete tests/functional/snapshots/ /tmp/snapshot-stability/v1-pass1/
+
+                  run_once
+
+                  if ! diff -qr /tmp/snapshot-stability/v1-pass1 tests/functional/snapshots > /tmp/snapshot-stability/v1.diff
+                  then
+                    echo "::error::Non-deterministic v1 snapshots detected for ${{ matrix.testPathPattern }}"
+                    sed -n '1,200p' /tmp/snapshot-stability/v1.diff
+                    exit 1
+                  fi
                 fi
 
                   git status --porcelain
@@ -194,16 +200,22 @@ jobs:
 
                 run_once
 
-                mkdir -p /tmp/snapshot-stability/v2-pass1
-                rsync -a --delete tests/functional/v2/snapshots/ /tmp/snapshot-stability/v2-pass1/
-
-                run_once
-
-                if ! diff -qr /tmp/snapshot-stability/v2-pass1 tests/functional/v2/snapshots > /tmp/snapshot-stability/v2.diff
+                PASS1_STATUS="$(git status --porcelain tests/functional/v2/snapshots || true)"
+                if [ -z "$PASS1_STATUS" ]
                 then
-                  echo "::error::Non-deterministic v2 snapshots detected for ${{ matrix.testConfig }}"
-                  sed -n '1,200p' /tmp/snapshot-stability/v2.diff
-                  exit 1
+                  echo "No v2 snapshot updates detected on pass 1; skipping stability rerun."
+                else
+                  mkdir -p /tmp/snapshot-stability/v2-pass1
+                  rsync -a --delete tests/functional/v2/snapshots/ /tmp/snapshot-stability/v2-pass1/
+
+                  run_once
+
+                  if ! diff -qr /tmp/snapshot-stability/v2-pass1 tests/functional/v2/snapshots > /tmp/snapshot-stability/v2.diff
+                  then
+                    echo "::error::Non-deterministic v2 snapshots detected for ${{ matrix.testConfig }}"
+                    sed -n '1,200p' /tmp/snapshot-stability/v2.diff
+                    exit 1
+                  fi
                 fi
 
                   git status --porcelain

@@ -45,7 +45,5 @@ export const setupStandalone = async (viewport, account, amount) => {
     const zoidModalIframeEl = await page.waitForSelector(iframe, { visible: true });
     const modalFrame = await zoidModalIframeEl.contentFrame();
 
-    await page.evaluate(() => new Promise(resolve => setTimeout(resolve, 5 * 1000)));
-
     return { modalFrame };
 };

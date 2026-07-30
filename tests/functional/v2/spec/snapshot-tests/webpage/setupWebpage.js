@@ -34,19 +34,15 @@ export const setupWebpage = async (viewport, account, amount) => {
     // Reset page between tests to get a clean state
     await resetPageSafely();
 
-    // Small delay to ensure page is ready after jest-environment-puppeteer reset
-    await new Promise(resolve => setTimeout(resolve, 100));
+    // Set viewport before navigation so responsive layout resolves deterministically.
+    await setViewportWithRetry(viewport);
 
     // Navigate to page
     await page.goto(
         `https://localhost.paypal.com:8080/credit-presentment/lander/modal?payer_id=${account}&amount=${amount}`,
-        { waitUntil: 'networkidle2' }
+        { waitUntil: 'networkidle0' }
     );
-
-    // Set viewport after page loads with retries
-    await setViewportWithRetry(viewport);
 
     // Wait for modal to be visible
     await page.waitForSelector(overlay, { visible: true });
-    await page.evaluate(() => new Promise(resolve => setTimeout(resolve, 5 * 1000)));
 };

@@ -47,7 +47,5 @@ export const setupAPI = async (viewport, account, amount) => {
     });
     const modalFrame = await apiIframeEl.contentFrame();
 
-    await page.evaluate(() => new Promise(resolve => setTimeout(resolve, 5 * 1000)));
-
     return { modalFrame };
 };
