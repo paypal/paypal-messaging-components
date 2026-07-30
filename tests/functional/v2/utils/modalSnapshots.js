@@ -82,7 +82,11 @@ const settleModalRendering = async contentWindow => {
 
         await new Promise(resolve => {
             requestAnimationFrame(() => {
-                requestAnimationFrame(resolve);
+                requestAnimationFrame(() => {
+                    requestAnimationFrame(() => {
+                        requestAnimationFrame(resolve);
+                    });
+                });
             });
         });
     });
@@ -105,6 +109,9 @@ export const modalSnapshot = async (testNameParts, contentWindow) => {
     });
 
     await settleModalRendering(contentWindow);
+
+    // Give Chromium's compositor time to commit all paint layers before screenshotting
+    await new Promise(resolve => setTimeout(resolve, 100));
 
     const box = await modalElement.boundingBox();
     const snapshotDimensions = box
