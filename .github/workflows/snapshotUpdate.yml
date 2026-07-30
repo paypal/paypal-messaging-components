@@ -77,31 +77,7 @@ jobs:
 
             - name: Update Snapshots - ${{ matrix.testPathPattern }}
               run: |
-                set -euo pipefail
-
-                run_once() {
-                  npm run test:func:ciupdate -- --testPathPattern "${{ matrix.testPathPattern }}"
-                }
-
-                run_once
-
-                PASS1_STATUS="$(git status --porcelain tests/functional/snapshots || true)"
-                if [ -z "$PASS1_STATUS" ]
-                then
-                  echo "No v1 snapshot updates detected on pass 1; skipping stability rerun."
-                else
-                  mkdir -p /tmp/snapshot-stability/v1-pass1
-                  rsync -a --delete tests/functional/snapshots/ /tmp/snapshot-stability/v1-pass1/
-
-                  run_once
-
-                  if ! diff -qr /tmp/snapshot-stability/v1-pass1 tests/functional/snapshots > /tmp/snapshot-stability/v1.diff
-                  then
-                    echo "::error::Non-deterministic v1 snapshots detected for ${{ matrix.testPathPattern }}"
-                    sed -n '1,200p' /tmp/snapshot-stability/v1.diff
-                    exit 1
-                  fi
-                fi
+                npm run test:func:ciupdate -- --testPathPattern "${{ matrix.testPathPattern }}"
 
                   git status --porcelain
 

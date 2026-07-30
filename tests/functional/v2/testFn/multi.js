@@ -26,8 +26,16 @@ export const openProductListFromModal = async (contentWindow, modalContent, test
     await contentWindow.waitForSelector(contentWrapper);
 
     // Click "See other ways to pay over time" inside the product modal
-    await contentWindow.waitForSelector(productList);
-    await contentWindow.click(productList);
+    await contentWindow.waitForFunction(
+        selector => !!document.querySelector(selector),
+        { timeout: 30000 },
+        productList
+    );
+    await contentWindow.evaluate(selector => {
+        const el = document.querySelector(selector);
+        el.scrollIntoView({ block: 'center' });
+        el.click();
+    }, productList);
     await page.evaluate(() => new Promise(resolve => setTimeout(resolve, 2 * 1000)));
 
     // Product list view should now be shown
