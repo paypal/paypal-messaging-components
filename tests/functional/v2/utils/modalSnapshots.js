@@ -110,24 +110,6 @@ export const modalSnapshot = async (testNameParts, contentWindow) => {
 
     await settleModalRendering(contentWindow);
 
-    // Wait for additional animation frames within the browser context to ensure
-    // all compositing is complete before returning to Node.js for screenshot.
-    // This avoids lingering Node.js timers that can interfere with test teardown.
-    await contentWindow.evaluate(() => {
-        return new Promise(resolve => {
-            let frameCount = 0;
-            const frame = () => {
-                frameCount += 1;
-                if (frameCount < 6) {
-                    requestAnimationFrame(frame);
-                } else {
-                    resolve();
-                }
-            };
-            requestAnimationFrame(frame);
-        });
-    });
-
     const box = await modalElement.boundingBox();
     const snapshotDimensions = box
         ? {
