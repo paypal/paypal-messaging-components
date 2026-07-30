@@ -43,8 +43,28 @@ const waitForModalReady = async contentWindow => {
                 return false;
             }
 
+            // Wait for spinner to be gone (spinner lives outside .content__wrapper at .modal-wrapper level)
+            const spinner = document.querySelector('.spinner');
+            if (spinner && spinner.style.opacity === '1') {
+                return false;
+            }
+
+            // Wait for loading state to clear (LongTerm fetches offers async)
+            if (document.querySelector('.content__wrapper-overflow.loading')) {
+                return false;
+            }
+
+            // Wait for loading shimmers to be replaced with real content
+            if (
+                document.querySelector(
+                    '.offer__field-loading, .accordion__container.shimmer, .offer__container.shimmer'
+                )
+            ) {
+                return false;
+            }
+
             const meaningfulContent = modalEl.querySelector(
-                'h1, h2, .content__row, .offer__container, .tile, .instructions, .cta, .button'
+                'h1, h2, .content__row, .offer__container:not(.shimmer), .tile, .instructions, .cta, .button'
             );
 
             return Boolean(meaningfulContent);
