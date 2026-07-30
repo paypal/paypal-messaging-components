@@ -57,11 +57,43 @@ const waitForModalReady = async contentWindow => {
     );
 };
 
+const settleModalRendering = async contentWindow => {
+    await contentWindow.evaluate(async () => {
+        if (!document.getElementById('__pp_snapshot_stabilizer__')) {
+            const style = document.createElement('style');
+            style.id = '__pp_snapshot_stabilizer__';
+            style.textContent = `
+                *, *::before, *::after {
+                    animation: none !important;
+                    transition: none !important;
+                    caret-color: transparent !important;
+                }
+            `;
+            document.head.appendChild(style);
+        }
+
+        if (document.fonts && document.fonts.ready) {
+            try {
+                await document.fonts.ready;
+            } catch (error) {
+                // Ignore font readiness errors and continue with frame-settle fallback.
+            }
+        }
+
+        await new Promise(resolve => {
+            requestAnimationFrame(() => {
+                requestAnimationFrame(resolve);
+            });
+        });
+    });
+};
+
 export const modalSnapshot = async (testNameParts, contentWindow) => {
     const [country, integration, account, amount, testName, viewport = 'desktop'] = testNameParts.split('-');
     const viewportDimensions = screenDimensions[viewport] || screenDimensions.desktop;
 
     await waitForModalReady(contentWindow);
+    await settleModalRendering(contentWindow);
 
     const modalElement = await contentWindow.$(contentWrapper);
     if (!modalElement) {
@@ -71,6 +103,8 @@ export const modalSnapshot = async (testNameParts, contentWindow) => {
     await modalElement.evaluate(element => {
         element.scrollIntoView({ block: 'center', inline: 'center' });
     });
+
+    await settleModalRendering(contentWindow);
 
     const box = await modalElement.boundingBox();
     const snapshotDimensions = box

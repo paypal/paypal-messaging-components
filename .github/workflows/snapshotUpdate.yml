@@ -77,8 +77,36 @@ jobs:
 
             - name: Update Snapshots - ${{ matrix.testPathPattern }}
               run: |
+                set -euo pipefail
+
+                run_once() {
                   npm run test:func:ciupdate -- --testPathPattern "${{ matrix.testPathPattern }}"
+                }
+
+                run_once
+
+                mkdir -p /tmp/snapshot-stability/v1-pass1
+                rsync -a --delete tests/functional/snapshots/ /tmp/snapshot-stability/v1-pass1/
+
+                run_once
+
+                if ! diff -qr /tmp/snapshot-stability/v1-pass1 tests/functional/snapshots > /tmp/snapshot-stability/v1.diff
+                then
+                  echo "::error::Non-deterministic v1 snapshots detected for ${{ matrix.testPathPattern }}"
+                  sed -n '1,200p' /tmp/snapshot-stability/v1.diff
+                  exit 1
+                fi
+
                   git status --porcelain
+
+            - name: Upload V1 Stability Diagnostics
+              if: failure()
+              uses: actions/upload-artifact@v4
+              with:
+                name: snapshot-stability-v1-${{ matrix.testPathPattern }}
+                path: /tmp/snapshot-stability/
+                if-no-files-found: ignore
+                retention-days: 3
 
             - name: Format Artifact Inputs
               id: artifactInputs
@@ -158,8 +186,36 @@ jobs:
 
             - name: Update Snapshots - ${{ matrix.testConfig }}
               run: |
+                set -euo pipefail
+
+                run_once() {
                   CONFIG_PATH=${{ matrix.testConfig }} npm run test:func:snapshots:ciupdate
+                }
+
+                run_once
+
+                mkdir -p /tmp/snapshot-stability/v2-pass1
+                rsync -a --delete tests/functional/v2/snapshots/ /tmp/snapshot-stability/v2-pass1/
+
+                run_once
+
+                if ! diff -qr /tmp/snapshot-stability/v2-pass1 tests/functional/v2/snapshots > /tmp/snapshot-stability/v2.diff
+                then
+                  echo "::error::Non-deterministic v2 snapshots detected for ${{ matrix.testConfig }}"
+                  sed -n '1,200p' /tmp/snapshot-stability/v2.diff
+                  exit 1
+                fi
+
                   git status --porcelain
+
+            - name: Upload V2 Stability Diagnostics
+              if: failure()
+              uses: actions/upload-artifact@v4
+              with:
+                name: snapshot-stability-v2-${{ matrix.testConfig }}
+                path: /tmp/snapshot-stability/
+                if-no-files-found: ignore
+                retention-days: 3
 
             - name: Format Artifact Inputs
               id: artifactInputs
