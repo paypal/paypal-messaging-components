@@ -110,8 +110,12 @@ export const modalSnapshot = async (testNameParts, contentWindow) => {
 
     await settleModalRendering(contentWindow);
 
-    // Give Chromium's compositor time to commit all paint layers before screenshotting
-    await new Promise(resolve => setTimeout(resolve, 100));
+    // Give Chromium's compositor time to commit all paint layers before screenshotting.
+    // Use .unref() so the timer doesn't block test teardown/process exit.
+    await new Promise(resolve => {
+        const timer = setTimeout(resolve, 100);
+        timer.unref();
+    });
 
     const box = await modalElement.boundingBox();
     const snapshotDimensions = box
