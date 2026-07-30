@@ -60,7 +60,12 @@ export const clickProductListTiles = async (contentWindow, modalContent, account
     const switchViews = async (childNum, viewName) => {
         await contentWindow.waitForSelector(contentWrapper);
         await contentWindow.waitForSelector(`${tile}:nth-child(${childNum})`);
-        await contentWindow.click(`${tile}:nth-child(${childNum})`);
+        // Use native .click() via evaluate instead of frame.click() which requires iframe focus
+        // and correct page coordinates - both can fail in cross-origin iframes with newer Chrome headless.
+        await contentWindow.evaluate(
+            selector => document.querySelector(selector).click(),
+            `${tile}:nth-child(${childNum})`
+        );
         await page.evaluate(() => new Promise(resolve => setTimeout(resolve, 2 * 1000)));
 
         await contentWindow.waitForSelector(`${headerContent} > ${h2}`);
@@ -68,7 +73,7 @@ export const clickProductListTiles = async (contentWindow, modalContent, account
         expect(headline).toContain(modalContent[viewName]);
 
         await contentWindow.waitForSelector(productList);
-        await contentWindow.click(productList);
+        await contentWindow.evaluate(selector => document.querySelector(selector).click(), productList);
         await page.evaluate(() => new Promise(resolve => setTimeout(resolve, 2 * 1000)));
     };
 
@@ -108,19 +113,19 @@ export const viewsShareAmount = async (contentWindow, testName, account) => {
     await settleModalRendering(contentWindow);
     await contentWindow.waitForSelector(contentWrapper);
     await contentWindow.waitForSelector(`${tile}:nth-child(2)`);
-    await contentWindow.click(`${tile}:nth-child(2)`);
+    await contentWindow.evaluate(selector => document.querySelector(selector).click(), `${tile}:nth-child(2)`);
     await page.evaluate(() => new Promise(resolve => setTimeout(resolve, 2 * 1000)));
 
     await contentWindow.waitForSelector(`${headerContent} > ${subheadlineContent}`);
     const subheadline = await contentWindow.$eval(subheadlineContent, element => element.innerText);
 
     await contentWindow.waitForSelector(productList);
-    await contentWindow.click(productList);
+    await contentWindow.evaluate(selector => document.querySelector(selector).click(), productList);
     await page.evaluate(() => new Promise(resolve => setTimeout(resolve, 2 * 1000)));
 
     await contentWindow.waitForSelector(contentWrapper);
     await contentWindow.waitForSelector(`${tile}:nth-child(3)`);
-    await contentWindow.click(`${tile}:nth-child(3)`);
+    await contentWindow.evaluate(selector => document.querySelector(selector).click(), `${tile}:nth-child(3)`);
     await page.evaluate(() => new Promise(resolve => setTimeout(resolve, 3 * 1000)));
 
     // FR long term and GB Pay in 30 Days modals do not have a calculator
