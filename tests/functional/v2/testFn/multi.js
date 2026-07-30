@@ -72,8 +72,16 @@ export const clickProductListTiles = async (contentWindow, modalContent, account
         const headline = await contentWindow.$eval(h2, element => element.innerText);
         expect(headline).toContain(modalContent[viewName]);
 
-        await contentWindow.waitForSelector(productList);
-        await contentWindow.evaluate(selector => document.querySelector(selector).click(), productList);
+        await contentWindow.waitForFunction(
+            selector => !!document.querySelector(selector),
+            { timeout: 30000 },
+            productList
+        );
+        await contentWindow.evaluate(selector => {
+            const el = document.querySelector(selector);
+            el.scrollIntoView({ block: 'center' });
+            el.click();
+        }, productList);
         await page.evaluate(() => new Promise(resolve => setTimeout(resolve, 2 * 1000)));
     };
 
@@ -119,8 +127,19 @@ export const viewsShareAmount = async (contentWindow, testName, account) => {
     await contentWindow.waitForSelector(`${headerContent} > ${subheadlineContent}`);
     const subheadline = await contentWindow.$eval(subheadlineContent, element => element.innerText);
 
-    await contentWindow.waitForSelector(productList);
-    await contentWindow.evaluate(selector => document.querySelector(selector).click(), productList);
+    // waitForFunction checks pure DOM presence (no viewport-visibility requirement),
+    // then scrollIntoView ensures the button is reachable before clicking.
+    // LongTerm and other content-heavy views can push #productListLink below the fold.
+    await contentWindow.waitForFunction(
+        selector => !!document.querySelector(selector),
+        { timeout: 30000 },
+        productList
+    );
+    await contentWindow.evaluate(selector => {
+        const el = document.querySelector(selector);
+        el.scrollIntoView({ block: 'center' });
+        el.click();
+    }, productList);
     await page.evaluate(() => new Promise(resolve => setTimeout(resolve, 2 * 1000)));
 
     await contentWindow.waitForSelector(contentWrapper);
