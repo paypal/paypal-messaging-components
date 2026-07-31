@@ -137,9 +137,14 @@ export const modalSnapshot = async (testNameParts, contentWindow) => {
     await contentWindow.evaluate(wrapperSelector => {
         const el = document.querySelector(wrapperSelector);
         if (el) {
-            // Reset inner scroll to top so header/subheadline are not cut off
+            // Reset inner scroll to top so header/subheadline are not cut off.
+            // Also reset .content__wrapper-overflow which is the outer scrollable
+            // container on the lander/webpage integration.
             el.scrollTop = 0;
-            el.scrollIntoView({ block: 'center', inline: 'center' });
+            const overflow =
+                el.closest('.content__wrapper-overflow') || document.querySelector('.content__wrapper-overflow');
+            if (overflow) overflow.scrollTop = 0;
+            el.scrollIntoView({ block: 'start', inline: 'start' });
         }
     }, contentWrapper);
 
@@ -175,7 +180,67 @@ export const modalSnapshot = async (testNameParts, contentWindow) => {
 
     logScreenshot({ name: testNameParts, viewport: snapshotDimensions });
 
+    // The Zoid container on the parent page has a dark grey backdrop
+    // (rgba(108,115,120,0.85)) and the modal iframe transitions from opacity 0→1.
+    // If the screenshot is taken mid-transition, the backdrop composites over
+    // the modal iframe causing grey wash across the entire modal surface.
+    // Disable parent-page Zoid transitions and clear the backdrop before
+    // screenshotting, then restore. Only applies when a parent page exists
+    // (SDK/Standalone — not API which loads the modal directly).
+    const parentPage = global.page;
+    let zoidStateToRestore = null;
+    if (parentPage && parentPage !== contentWindow) {
+        zoidStateToRestore = await parentPage.evaluate(() => {
+            const zoidContainers = Array.from(document.querySelectorAll('[id^="zoid-paypal-credit-modal"]'));
+            const state = zoidContainers.map(container => {
+                const backdropDiv = container.querySelector(':scope > div');
+                const iframe = container.querySelector(':scope > div > iframe');
+                return {
+                    containerId: container.id,
+                    backdropBg: backdropDiv ? backdropDiv.style.background : '',
+                    backdropTransition: backdropDiv ? backdropDiv.style.transition : '',
+                    iframeOpacity: iframe ? iframe.style.opacity : '',
+                    iframeTransition: iframe ? iframe.style.transition : ''
+                };
+            });
+            // Disable backdrop and snap iframe to full opacity
+            zoidContainers.forEach(container => {
+                const backdropDiv = container.querySelector(':scope > div');
+                const iframe = container.querySelector(':scope > div > iframe');
+                if (backdropDiv) {
+                    backdropDiv.style.transition = 'none';
+                    backdropDiv.style.background = 'transparent';
+                }
+                if (iframe) {
+                    iframe.style.transition = 'none';
+                    iframe.style.opacity = '1';
+                }
+            });
+            return state;
+        });
+    }
+
     const image = await modalElement.screenshot();
+
+    // Restore Zoid parent state
+    if (zoidStateToRestore && parentPage) {
+        await parentPage.evaluate(state => {
+            state.forEach(({ containerId, backdropBg, backdropTransition, iframeOpacity, iframeTransition }) => {
+                const container = document.getElementById(containerId);
+                if (!container) return;
+                const backdropDiv = container.querySelector(':scope > div');
+                const iframe = container.querySelector(':scope > div > iframe');
+                if (backdropDiv) {
+                    backdropDiv.style.transition = backdropTransition;
+                    backdropDiv.style.background = backdropBg;
+                }
+                if (iframe) {
+                    iframe.style.transition = iframeTransition;
+                    iframe.style.opacity = iframeOpacity;
+                }
+            });
+        }, zoidStateToRestore);
+    }
 
     const matchFunction = screenDimensions[viewport].width > 500 ? 'toMatchLargeSnapshot' : 'toMatchSmallSnapshot';
     expect(image)[matchFunction]({
