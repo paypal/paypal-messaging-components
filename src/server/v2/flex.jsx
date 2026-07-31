@@ -14,7 +14,7 @@ function renderFlexLogo(logoBlock, flexColor) {
         logoName: logoBlock.name,
         alternativeText: logoBlock.alternative_text
     });
-    const logoClassName = `pp-flex__logo ${brandClass}`.trim();
+    const logoClassName = ['pp-flex__logo', brandClass].filter(Boolean).join(' ');
     const assets = resolveLogoAssets({
         logoName: logoBlock.name,
         effectiveLogoType: 'wordmark',
@@ -32,7 +32,9 @@ function renderFlexLogo(logoBlock, flexColor) {
     }
 
     return (
-        <span className={`pp-flex__logo pp-flex__logo--fallback ${brandClass}`.trim()}>{renderBlock(logoBlock)}</span>
+        <span className={['pp-flex__logo', 'pp-flex__logo--fallback', brandClass].filter(Boolean).join(' ')}>
+            {renderBlock(logoBlock)}
+        </span>
     );
 }
 

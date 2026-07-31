@@ -37,14 +37,15 @@ function renderInlineMain(blocks, mainClasses, mainLabel, logoPresentation) {
 
 function renderLogoSpan(block, className, logoPresentation) {
     if (!block) return null;
+    const brandClass = getLogoBrandClass({
+        logoName: block.name,
+        alternativeText: block.alternative_text
+    });
     return (
         <span
             role="img"
             aria-label={block.alternative_text || 'PayPal'}
-            className={`${className} ${getLogoBrandClass({
-                logoName: block.name,
-                alternativeText: block.alternative_text
-            })}`.trim()}
+            className={[className, brandClass].filter(Boolean).join(' ')}
         >
             {renderLogoImages(block, logoPresentation)}
         </span>
