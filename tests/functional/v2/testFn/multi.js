@@ -145,8 +145,26 @@ export const clickProductListTiles = async (contentWindow, modalContent, account
 export const viewsShareAmount = async (contentWindow, testName, account) => {
     await contentWindow.waitForSelector(contentWrapper);
     await contentWindow.waitForSelector(`${tile}:nth-child(2)`);
-    await contentWindow.evaluate(selector => document.querySelector(selector).click(), `${tile}:nth-child(2)`);
-    await page.evaluate(() => new Promise(resolve => setTimeout(resolve, 2 * 1000)));
+
+    const initialHeadline = await contentWindow.$eval(h2, el => el.innerText);
+
+    const tryClick = async (selector, attemptsLeft) => {
+        await contentWindow.evaluate(sel => document.querySelector(sel).click(), selector);
+        try {
+            await contentWindow.waitForFunction(
+                (h2Sel, initial) => {
+                    const el = document.querySelector(h2Sel);
+                    return el && el.innerText !== initial;
+                },
+                { timeout: 4000 },
+                `${headerContent} > ${h2}`,
+                initialHeadline
+            );
+        } catch (e) {
+            if (attemptsLeft > 1) await tryClick(selector, attemptsLeft - 1);
+        }
+    };
+    await tryClick(`${tile}:nth-child(2)`, 3);
 
     await contentWindow.waitForSelector(`${headerContent} > ${subheadlineContent}`);
     const subheadline = await contentWindow.$eval(subheadlineContent, element => element.innerText);
