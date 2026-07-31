@@ -43,10 +43,15 @@ const waitForModalReady = async contentWindow => {
                 return false;
             }
 
-            // Wait for spinner to be gone (spinner lives outside .content__wrapper at .modal-wrapper level)
+            // Wait for spinner to be fully invisible (LongTerm spinner uses
+            // opacity:0 default + transition:0.2s; check computed opacity so we
+            // wait out the fade-out transition, not just the inline style change)
             const spinner = document.querySelector('.spinner');
-            if (spinner && spinner.style.opacity === '1') {
-                return false;
+            if (spinner) {
+                const computedOpacity = parseFloat(window.getComputedStyle(spinner).opacity);
+                if (computedOpacity > 0.01) {
+                    return false;
+                }
             }
 
             // Wait for loading state to clear (LongTerm fetches offers async)
@@ -88,6 +93,11 @@ export const settleModalRendering = async contentWindow => {
                     transition: none !important;
                     caret-color: transparent !important;
                 }
+                /* Prevent transparent body areas from showing the parent page's
+                   Zoid dark backdrop in SDK/Standalone cross-origin iframe screenshots */
+                html, body {
+                    background-color: white !important;
+                }
             `;
             document.head.appendChild(style);
         }
@@ -126,10 +136,22 @@ export const modalSnapshot = async (testNameParts, contentWindow) => {
 
     await contentWindow.evaluate(wrapperSelector => {
         const el = document.querySelector(wrapperSelector);
-        if (el) el.scrollIntoView({ block: 'center', inline: 'center' });
+        if (el) {
+            // Reset inner scroll to top so header/subheadline are not cut off
+            el.scrollTop = 0;
+            el.scrollIntoView({ block: 'center', inline: 'center' });
+        }
     }, contentWrapper);
 
     await settleModalRendering(contentWindow);
+
+    // Final loading check: Zoid delivers real xprops after initial render, which
+    // triggers useDidUpdateEffect → setLoading(true) in Container.jsx. This can
+    // happen between the first waitForModalReady and the screenshot. Running
+    // waitForModalReady again after settleModalRendering (which freezes
+    // transitions so loading state is immediately visible via getComputedStyle)
+    // catches any loading triggered by late-arriving Zoid props.
+    await waitForModalReady(contentWindow);
 
     // Get the element's bounding box in iframe-local coordinates for logging
     const iframeLocalBox = await contentWindow.evaluate(wrapperSelector => {
