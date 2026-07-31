@@ -47,7 +47,7 @@ export default function FlexMessage({ style, v2Content }) {
     const logoBlock = mainItems.find(item => item.type === 'IMAGE');
     const mainBlocks = mainItems.filter(item => item.type !== 'IMAGE');
 
-    const mainLabel = buildContentLabel(mainBlocks);
+    const mainLabel = buildContentLabel(logoBlock ? [logoBlock, ...mainBlocks] : mainBlocks);
     const actionLabel = buildContentLabel(actionItems);
 
     return (

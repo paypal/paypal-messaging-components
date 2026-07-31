@@ -1160,6 +1160,29 @@ describe('v2 render flex layout', () => {
         expect(result).toContain('Pay Later.');
     });
 
+    test('includes leading logo alternative_text in pp-flex__main aria-label', () => {
+        const result = render(baseFlexOptions, flexContentWithLogo, mockLog);
+        expect(result).toContain('aria-label="PayPal Pay Later."');
+        expect(result).toContain('class="pp-flex__logo-container" aria-hidden="true"');
+    });
+
+    test('includes custom unknown IMAGE alternative_text in pp-flex__main aria-label', () => {
+        const content = {
+            ...flexContentWithLogo,
+            main_items: [
+                {
+                    type: 'IMAGE',
+                    source_url: 'https://example.com/unknown.svg',
+                    alternative_text: 'Custom Brand'
+                },
+                { type: 'TEXT', text: 'Pay Later.' }
+            ]
+        };
+        const result = render(baseFlexOptions, content, mockLog);
+        expect(result).toContain('aria-label="Custom Brand Pay Later."');
+        expect(result).toContain('class="pp-flex__logo-container" aria-hidden="true"');
+    });
+
     test('renders action items in pp-flex__action without click_url iframe attrs', () => {
         const result = render(baseFlexOptions, flexContentWithLogo, mockLog);
         expect(result).toContain('class="pp-flex__action"');
