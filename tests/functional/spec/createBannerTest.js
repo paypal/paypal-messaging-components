@@ -48,32 +48,79 @@ const getTestNameParts = (locale, { account, amount, style: { layout, ...style }
 // returns height and width of banner in pixels
 const waitForBanner = async ({ testName, timeout, config }) => {
     try {
-        const polling = 10;
+        const polling = 100;
+        // Must pass into the page function — closures are not available in waitForFunction.
+        const useIframeBodyDimensions = Boolean(config?.style?.text?.align);
         const result = await page.waitForFunction(
-            ({ bannerSelectors, _testName, _polling, _timeout }) => {
-                Window.timeTaken = (Window.timeTaken || 0) + _polling;
-                if (Window.timeTaken % 1000 === 0 && Window.timeTaken >= _timeout - 2000) {
+            async ({ bannerSelectors, _testName, _timeout, useIframeBodyDimensions: useBodyDims, startedAt }) => {
+                if (Date.now() - startedAt >= _timeout - 2000 && !window.__waitForBannerLogged) {
+                    window.__waitForBannerLogged = true;
                     // eslint-disable-next-line no-console
                     console.info(`waitForBanner innerHTML for failed test [${_testName}]`, document.body.innerHTML);
                 }
 
+                let measureEl = null;
+                let measureDoc = null;
+
                 const iframe = document.querySelector(bannerSelectors.iframeByAttribute);
                 if (iframe) {
-                    const iframeBody = iframe.contentWindow.document.body;
-                    const banner = iframeBody.querySelector(bannerSelectors.container);
-                    if (config?.style?.text?.align) {
-                        return (
-                            iframeBody?.clientHeight && {
-                                height: iframeBody.clientHeight,
-                                width: iframeBody.clientWidth
-                            }
-                        );
+                    // Iframe can exist before its document/body is ready; do not throw.
+                    const iframeDoc = iframe.contentDocument || iframe.contentWindow?.document;
+                    const iframeBody = iframeDoc?.body;
+                    if (!iframeBody) {
+                        return false;
                     }
-                    return banner?.clientHeight && { height: banner.clientHeight, width: banner.clientWidth };
+
+                    measureDoc = iframeDoc;
+                    measureEl = useBodyDims ? iframeBody : iframeBody.querySelector(bannerSelectors.container);
+                } else {
+                    measureEl = document.querySelector(bannerSelectors.legacyContainer);
+                    measureDoc = document;
                 }
 
-                const legacy = document.querySelector(bannerSelectors.legacyContainer);
-                return legacy?.clientHeight && { height: legacy.clientHeight, width: legacy.clientWidth };
+                if (!measureEl || measureEl.clientHeight <= 0) {
+                    return false;
+                }
+
+                // Wait for screenshot-affecting resources before treating the banner as ready.
+                if (measureDoc.fonts?.ready) {
+                    await measureDoc.fonts.ready;
+                }
+
+                const incompleteImages = Array.from(measureDoc.images || []).filter(img => !img.complete);
+                if (incompleteImages.length > 0) {
+                    await Promise.all(
+                        incompleteImages.map(
+                            img =>
+                                new Promise(resolve => {
+                                    img.addEventListener('load', resolve, { once: true });
+                                    img.addEventListener('error', resolve, { once: true });
+                                })
+                        )
+                    );
+                }
+
+                const first = {
+                    height: measureEl.clientHeight,
+                    width: measureEl.clientWidth
+                };
+
+                await new Promise(resolve => {
+                    requestAnimationFrame(() => {
+                        requestAnimationFrame(resolve);
+                    });
+                });
+
+                const second = {
+                    height: measureEl.clientHeight,
+                    width: measureEl.clientWidth
+                };
+
+                if (second.height <= 0 || first.height !== second.height || first.width !== second.width) {
+                    return false;
+                }
+
+                return second;
             },
             {
                 polling,
@@ -82,13 +129,12 @@ const waitForBanner = async ({ testName, timeout, config }) => {
             {
                 bannerSelectors: selectors.banner,
                 _testName: testName,
-                _polling: polling,
-                _timeout: timeout
+                _timeout: timeout,
+                useIframeBodyDimensions,
+                startedAt: Date.now()
             }
         );
 
-        // Give time for fonts to load after banner is rendered
-        await new Promise(resolve => setTimeout(resolve, 500));
         return await result.jsonValue();
     } catch (error) {
         console.warn(`waitForBanner error for [${testName}]`, error); // eslint-disable-line no-console
@@ -184,7 +230,7 @@ export default function createBannerTest(locale, testPage = 'banner.html') {
 
                 await setupPageForBanner(viewport, config, testPage);
 
-                const bannerDimensions = await waitForBanner({ testName, timeout: 2 * 1000, config });
+                const bannerDimensions = await waitForBanner({ testName, timeout: 10 * 1000, config });
                 expect(bannerDimensions.height).toBeGreaterThan(0);
                 expect(bannerDimensions.width).toBeGreaterThan(0);
 

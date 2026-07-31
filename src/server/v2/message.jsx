@@ -6,28 +6,10 @@ import { buildContentLabel } from './utils/buildContentLabel';
 import { buildLogoConfiguration } from './utils/buildLogoConfiguration';
 import { resolveLogoPresentation } from './utils/resolveLogoPresentation';
 import { mapClasses } from './utils/mapClasses';
-import { getLogoBrandClass, resolveLogoAssets } from './logos';
+import { renderBlock, renderLogoImages } from './utils/renderBlock';
+import { getLogoBrandClass } from './logos';
+import FlexMessage from './flex';
 import styles from './styles';
-
-// Renders local brand assets for first-party logos (paypal_logo, paypal_credit_logo).
-// Falls back to item.source_url for unknown image blocks.
-function renderLogoImages(item, logoPresentation) {
-    const assets = resolveLogoAssets({
-        logoName: item.name,
-        effectiveLogoType: logoPresentation.effectiveLogoType,
-        effectiveLogoPosition: logoPresentation.effectiveLogoPosition,
-        textColor: logoPresentation.textColor
-    });
-
-    if (assets) {
-        return assets.map(({ src, dimensions: [width, height] }, idx) => (
-            // eslint-disable-next-line react/no-array-index-key
-            <img key={idx} src={src} alt="" role="presentation" width={width} height={height} />
-        ));
-    }
-
-    return <img src={item.source_url} alt={item.alternative_text || 'PayPal'} />;
-}
 
 // Deferred v6-parity behaviors (not yet ported — unknown block types/fields fall through
 // to plain text or are dropped, never throwing or producing broken markup):
@@ -35,48 +17,19 @@ function renderLogoImages(item, logoPresentation) {
 // - "**bold**" marker rendering within TEXT blocks
 // - Card-offer logo overrides for PAYPAL_CASHBACK_MASTERCARD / PAYPAL_DEBIT_CARD
 
-// renderBlock renders a single CPS content block.
-// When logoPresentation is provided, IMAGE blocks render as inline brand logos
-// in CPS order (v6 parity for logo.type:inline). Without it, IMAGE falls back
-// to a plain img — callers that extract the logo block before the loop should
-// pass null so IMAGE items are never double-rendered.
-//
-// LINK blocks are visually styled spans, not anchors: the v5 SDK message click
-// surface is canonical and click_url is not used for navigation.
-function renderBlock(item, logoPresentation) {
-    if (!item) return null;
-    switch (item.type) {
-        case 'IMAGE':
-            if (logoPresentation) {
-                return (
-                    <span
-                        role="img"
-                        aria-label={item.alternative_text || 'PayPal'}
-                        className={`logo inline wordmark ${getLogoBrandClass({
-                            logoName: item.name,
-                            alternativeText: item.alternative_text
-                        })}`.trim()}
-                    >
-                        {renderLogoImages(item, logoPresentation)}
-                    </span>
-                );
-            }
-            return <img src={item.source_url} alt={item.alternative_text || 'PayPal'} />;
-        case 'LINK':
-            return <span className="action__link">{item.text}</span>;
-        case 'TEXT':
-            return item.brand ? <strong>{item.text}</strong> : item.text;
-        default:
-            return item.text;
-    }
-}
+const textLinkOptions = { linkClassName: 'action__link' };
 
 function renderInlineMain(blocks, mainClasses, mainLabel, logoPresentation) {
     return (
         <span className={`${mainClasses} inline-content`} aria-label={mainLabel}>
             {blocks.map((item, idx) => (
                 // eslint-disable-next-line react/no-array-index-key
-                <Fragment key={idx}>{renderBlock(item, item.type === 'IMAGE' ? logoPresentation : null)}</Fragment>
+                <Fragment key={idx}>
+                    {renderBlock(item, {
+                        ...textLinkOptions,
+                        logoPresentation: item.type === 'IMAGE' ? logoPresentation : null
+                    })}
+                </Fragment>
             ))}
         </span>
     );
@@ -84,14 +37,15 @@ function renderInlineMain(blocks, mainClasses, mainLabel, logoPresentation) {
 
 function renderLogoSpan(block, className, logoPresentation) {
     if (!block) return null;
+    const brandClass = getLogoBrandClass({
+        logoName: block.name,
+        alternativeText: block.alternative_text
+    });
     return (
         <span
             role="img"
             aria-label={block.alternative_text || 'PayPal'}
-            className={`${className} ${getLogoBrandClass({
-                logoName: block.name,
-                alternativeText: block.alternative_text
-            })}`.trim()}
+            className={[className, brandClass].filter(Boolean).join(' ')}
         >
             {renderLogoImages(block, logoPresentation)}
         </span>
@@ -100,6 +54,11 @@ function renderLogoSpan(block, className, logoPresentation) {
 
 export default function V2Message({ options, v2Content, log }) {
     const { style } = options;
+
+    if (style.layout === 'flex') {
+        return <FlexMessage style={style} v2Content={v2Content} />;
+    }
+
     const textColor = style.text?.color ?? 'black';
 
     const logoPresentation = resolveLogoPresentation({
@@ -178,7 +137,7 @@ export default function V2Message({ options, v2Content, log }) {
                 <span aria-label={mainLabel} className={mainClasses}>
                     {preparedMainBlocks.map((item, idx) => (
                         // eslint-disable-next-line react/no-array-index-key
-                        <Fragment key={idx}>{renderBlock(item, null)}</Fragment>
+                        <Fragment key={idx}>{renderBlock(item, textLinkOptions)}</Fragment>
                     ))}
                 </span>
             )}
@@ -188,7 +147,7 @@ export default function V2Message({ options, v2Content, log }) {
                     <span aria-label={actionLabel} className={actionClasses}>
                         {linkActionItems.map((item, idx) => (
                             // eslint-disable-next-line react/no-array-index-key
-                            <Fragment key={idx}>{renderBlock(item, null)}</Fragment>
+                            <Fragment key={idx}>{renderBlock(item, textLinkOptions)}</Fragment>
                         ))}
                     </span>
                 </>
