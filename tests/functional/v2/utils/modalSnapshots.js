@@ -197,28 +197,28 @@ export const modalSnapshot = async (testNameParts, contentWindow) => {
         // 2. Get element's iframe-local box.
         // 3. Combine for correct page-space clip.
         // 4. Clear Zoid backdrop + snap iframe opacity before screenshotting.
-        const [iframePageBox, elementLocalBox] = await Promise.all([
-            parentPage.evaluate(() => {
-                // Locate the Zoid modal iframe OR the api-iframe
-                const iframeEl =
-                    document.querySelector('[id^="zoid-paypal-credit-modal"] > div > iframe') ||
-                    document.querySelector('#api-iframe');
-                if (!iframeEl) return null;
-                const r = iframeEl.getBoundingClientRect();
-                return { x: r.x, y: r.y, width: r.width, height: r.height };
-            }),
-            contentWindow.evaluate(wrapperSelector => {
-                const el = document.querySelector(wrapperSelector);
-                if (!el) return null;
-                const r = el.getBoundingClientRect();
-                return {
-                    x: Math.max(0, Math.round(r.x)),
-                    y: Math.max(0, Math.round(r.y)),
-                    width: Math.max(1, Math.round(r.width)),
-                    height: Math.max(1, Math.round(r.height))
-                };
-            }, contentWrapper)
-        ]);
+        // Run sequentially (not Promise.all) to avoid CDP session conflicts between
+        // concurrent evaluations on the parent page and the cross-origin frame.
+        const iframePageBox = await parentPage.evaluate(() => {
+            const iframeEl =
+                document.querySelector('[id^="zoid-paypal-credit-modal"] > div > iframe') ||
+                document.querySelector('#api-iframe');
+            if (!iframeEl) return null;
+            const r = iframeEl.getBoundingClientRect();
+            return { x: r.x, y: r.y, width: r.width, height: r.height };
+        });
+
+        const elementLocalBox = await contentWindow.evaluate(wrapperSelector => {
+            const el = document.querySelector(wrapperSelector);
+            if (!el) return null;
+            const r = el.getBoundingClientRect();
+            return {
+                x: Math.max(0, Math.round(r.x)),
+                y: Math.max(0, Math.round(r.y)),
+                width: Math.max(1, Math.round(r.width)),
+                height: Math.max(1, Math.round(r.height))
+            };
+        }, contentWrapper);
 
         // Clear Zoid backdrop and snap iframe to full opacity
         await parentPage.evaluate(() => {
