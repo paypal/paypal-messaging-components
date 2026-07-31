@@ -124,30 +124,40 @@ export const modalSnapshot = async (testNameParts, contentWindow) => {
         throw new Error(`Unable to locate modal content wrapper for ${testNameParts}`);
     }
 
-    await modalElement.evaluate(element => {
-        element.scrollIntoView({ block: 'center', inline: 'center' });
-    });
+    await contentWindow.evaluate(wrapperSelector => {
+        const el = document.querySelector(wrapperSelector);
+        if (el) el.scrollIntoView({ block: 'center', inline: 'center' });
+    }, contentWrapper);
 
     await settleModalRendering(contentWindow);
 
-    const box = await modalElement.boundingBox();
-    const snapshotDimensions = box
-        ? {
-              x: Math.max(0, Math.round(box.x)),
-              y: Math.max(0, Math.round(box.y)),
-              width: Math.max(1, Math.round(box.width)),
-              height: Math.max(1, Math.round(box.height))
-          }
-        : {
-              x: 0,
-              y: 0,
-              width: viewportDimensions.width,
-              height: viewportDimensions.height
-          };
+    // Get the element's bounding box in iframe-local coordinate space (not page
+    // coordinates). ElementHandle.screenshot() uses page coordinates which
+    // includes the Zoid parent page's grey modal backdrop for SDK/Standalone
+    // cross-origin iframes, causing a grey overlay in screenshots.
+    // Screenshotting the iframe viewport with an iframe-local clip avoids this.
+    const iframeLocalBox = await contentWindow.evaluate(wrapperSelector => {
+        const el = document.querySelector(wrapperSelector);
+        if (!el) return null;
+        const r = el.getBoundingClientRect();
+        return {
+            x: Math.max(0, Math.round(r.x)),
+            y: Math.max(0, Math.round(r.y)),
+            width: Math.max(1, Math.round(r.width)),
+            height: Math.max(1, Math.round(r.height))
+        };
+    }, contentWrapper);
+
+    const snapshotDimensions = iframeLocalBox || {
+        x: 0,
+        y: 0,
+        width: viewportDimensions.width,
+        height: viewportDimensions.height
+    };
 
     logScreenshot({ name: testNameParts, viewport: snapshotDimensions });
 
-    const image = await modalElement.screenshot();
+    const image = await contentWindow.screenshot({ clip: snapshotDimensions });
 
     const matchFunction = screenDimensions[viewport].width > 500 ? 'toMatchLargeSnapshot' : 'toMatchSmallSnapshot';
     expect(image)[matchFunction]({

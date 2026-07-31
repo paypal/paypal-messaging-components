@@ -1,4 +1,4 @@
-import { selectors, modalSnapshot, settleModalRendering } from '../utils/index';
+import { selectors, modalSnapshot } from '../utils/index';
 
 const {
     standaloneLearnMore,
@@ -63,8 +63,6 @@ export const openProductListView = async (contentWindow, modalContent, testName)
  * Ensures each product tile in the product list modal takes user to correct view.
  */
 export const clickProductListTiles = async (contentWindow, modalContent, account) => {
-    // Disable CSS animations/transitions so the entrance animation doesn't intercept tile clicks
-    await settleModalRendering(contentWindow);
     const switchViews = async (childNum, viewName) => {
         await contentWindow.waitForSelector(contentWrapper);
         await contentWindow.waitForSelector(`${tile}:nth-child(${childNum})`);
@@ -125,8 +123,6 @@ export const clickProductListTiles = async (contentWindow, modalContent, account
  * Ensures that the starting amount is shared between views.
  */
 export const viewsShareAmount = async (contentWindow, testName, account) => {
-    // Disable CSS animations/transitions so the entrance animation doesn't intercept tile clicks
-    await settleModalRendering(contentWindow);
     await contentWindow.waitForSelector(contentWrapper);
     await contentWindow.waitForSelector(`${tile}:nth-child(2)`);
     await contentWindow.evaluate(selector => document.querySelector(selector).click(), `${tile}:nth-child(2)`);
