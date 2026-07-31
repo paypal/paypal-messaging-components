@@ -1052,12 +1052,99 @@ describe('v2 render flex layout', () => {
     test('renders logo in pp-flex__logo-container when IMAGE item is present', () => {
         const result = render(baseFlexOptions, flexContentWithLogo, mockLog);
         expect(result).toContain('class="pp-flex__logo-container"');
-        expect(result).toContain('class="pp-flex__logo"');
+        expect(result).toContain('class="pp-flex__logo paypal"');
         expect(result).toContain('data:local/white-monogram');
         expect(result).toContain('data:local/white-wordmark');
         expect(result).not.toContain('https://example.com/logo.svg');
         expect(result).toContain('aria-hidden="true"');
-        expect(result.match(/class="pp-flex__logo"/g)).toHaveLength(2);
+        expect(result.match(/class="pp-flex__logo paypal"/g)).toHaveLength(2);
+    });
+
+    test('renders single PayPal Credit lockup with brand class', () => {
+        const content = {
+            ...flexContentWithLogo,
+            main_items: [
+                {
+                    type: 'IMAGE',
+                    source_url: 'https://example.com/ppc.svg',
+                    alternative_text: 'PayPal Credit',
+                    name: 'paypal_credit_logo'
+                },
+                { type: 'TEXT', text: 'Pay Later.' }
+            ]
+        };
+        const result = render(baseFlexOptions, content, mockLog);
+        expect(result).toContain('class="pp-flex__logo paypal-credit"');
+        expect(result).toContain('data:local/ppc-single-white');
+        expect(result).not.toContain('data:local/white-monogram');
+        expect(result).not.toContain('https://example.com/ppc.svg');
+        expect(result.match(/class="pp-flex__logo paypal-credit"/g)).toHaveLength(1);
+    });
+
+    test('renders single Venmo lockup with brand class', () => {
+        const content = {
+            ...flexContentWithLogo,
+            main_items: [
+                {
+                    type: 'IMAGE',
+                    source_url: 'https://example.com/venmo.svg',
+                    alternative_text: 'Venmo',
+                    name: 'venmo_logo'
+                },
+                { type: 'TEXT', text: 'Pay Later.' }
+            ]
+        };
+        const result = render(baseFlexOptions, content, mockLog);
+        expect(result).toContain('class="pp-flex__logo venmo"');
+        expect(result).toContain('data:local/venmo-white');
+        expect(result).not.toContain('https://example.com/venmo.svg');
+        expect(result.match(/class="pp-flex__logo venmo"/g)).toHaveLength(1);
+    });
+
+    test('renders unknown IMAGE as fallback lockup span', () => {
+        const content = {
+            ...flexContentWithLogo,
+            main_items: [
+                {
+                    type: 'IMAGE',
+                    source_url: 'https://example.com/unknown.svg',
+                    alternative_text: 'Unknown Brand'
+                },
+                { type: 'TEXT', text: 'Pay Later.' }
+            ]
+        };
+        const result = render(baseFlexOptions, content, mockLog);
+        expect(result).toContain('class="pp-flex__logo pp-flex__logo--fallback"');
+        expect(result).toContain('https://example.com/unknown.svg');
+        expect(result.match(/class="pp-flex__logo pp-flex__logo--fallback"/g)).toHaveLength(1);
+    });
+
+    test('flex stylesheet sizes single-piece lockups larger than PayPal monograms', () => {
+        const result1x1 = render(
+            { style: { layout: 'flex', color: 'blue', ratio: '1x1' } },
+            flexContentWithLogo,
+            mockLog
+        );
+        const css1x1 = result1x1.match(/<style>([\s\S]*?)<\/style>/)[1];
+        expect(css1x1).toMatch(/\.pp-flex__logo\.paypal-credit:nth-of-type\(1\)[\s\S]*width:\s*50%/);
+        expect(css1x1).toMatch(/\.pp-flex__logo\.venmo:nth-of-type\(1\)[\s\S]*width:\s*50%/);
+        expect(css1x1).toMatch(/\.pp-flex__logo:only-child[\s\S]*width:\s*50%/);
+        expect(css1x1).toMatch(/\.pp-message\.pp-flex\.r-1x1 \.pp-flex__logo:nth-of-type\(1\)[\s\S]*width:\s*29px/);
+
+        const result1x4 = render(
+            { style: { layout: 'flex', color: 'blue', ratio: '1x4' } },
+            flexContentWithLogo,
+            mockLog
+        );
+        const css1x4 = result1x4.match(/<style>([\s\S]*?)<\/style>/)[1];
+        expect(css1x4).toMatch(/\.pp-flex__logo\.paypal-credit:nth-of-type\(1\)[\s\S]*width:\s*70%/);
+        expect(css1x4).toMatch(/\.pp-message\.pp-flex\.r-1x4 \.pp-flex__logo:nth-of-type\(1\)[\s\S]*width:\s*27px/);
+
+        const result8x1 = render(baseFlexOptions, flexContentWithLogo, mockLog);
+        const css8x1 = result8x1.match(/<style>([\s\S]*?)<\/style>/)[1];
+        expect(css8x1).toMatch(
+            /@media \(max-aspect-ratio: 61\/10\) and \(min-width: 324px\)[\s\S]*\.pp-flex__logo\.paypal-credit:nth-of-type\(1\)[\s\S]*width:\s*60%/
+        );
     });
 
     test('omits logo-container when no IMAGE item in main_items', () => {

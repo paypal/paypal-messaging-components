@@ -28,6 +28,18 @@ const rsMedia = (ratio, sub, indent = '    ') => `${indent}${rs(ratio, sub)}`;
 // Comma-join multiple ratio-scoped selectors that share the same declarations.
 const rsPair = (ratio, ...subs) => subs.map(sub => rs(ratio, sub)).join(',\n');
 
+// Single-piece lockups (PPC/Venmo/fallback). Include :nth-of-type(1) so brand
+// selectors beat dual-PayPal monogram rules; :only-child covers unnamed fallbacks.
+const LOCKUP_LOGO_SUBS = [
+    '.pp-flex__logo.paypal-credit:nth-of-type(1)',
+    '.pp-flex__logo.venmo:nth-of-type(1)',
+    '.pp-flex__logo:only-child'
+];
+
+const rsLockup = (ratio, indent = '') => LOCKUP_LOGO_SUBS.map(sub => `${indent}${rs(ratio, sub)}`).join(',\n');
+
+const rsMediaLockup = (ratio, indent = '    ') => rsLockup(ratio, indent);
+
 function buildThemeRules() {
     const bgAndContentRules = FLEX_THEMES.flatMap(({ name, background, contentColor, border }) => {
         const decls = [contentColor && `color: ${contentColor}`, border && `border: ${border}`]
@@ -117,6 +129,11 @@ ${rs('1x1', '.pp-flex__logo:nth-of-type(2)')} {
     margin-left: 3%;
 }
 
+${rsLockup('1x1')} {
+    width: 50%;
+    max-width: 50%;
+}
+
 ${rs('1x1', '.pp-flex__main')} {
     font-size: 10vw;
     line-height: 1.55em;
@@ -193,6 +210,12 @@ ${rs('1x4', '.pp-flex__logo:nth-of-type(2)')} {
     display: inline-block;
 }
 
+${rsLockup('1x4')} {
+    width: 70%;
+    max-width: none;
+    margin-right: 0;
+}
+
 @media (min-height: 500px) {
     ${rsMedia('1x4', '.pp-flex__main')} { font-size: 1.7rem; }
 }
@@ -254,19 +277,30 @@ ${rs(ratio, '.pp-flex__action')} {
         margin-left: 10px;
         margin-right: 0;
     }
+
+    ${rsMediaLockup(ratio)} {
+        margin-left: 0;
+        margin-right: 0;
+    }
 }
 
 @media (max-aspect-ratio: 61/10) and (min-width: 324px) {
     ${rsMedia(ratio, '.pp-flex__logo:nth-of-type(1)')} { width: 45%; }
+
+    ${rsMediaLockup(ratio)} { width: 60%; }
 }
 
 @media (max-aspect-ratio: 61/10) and (max-width: 374px) {
     ${rsMedia(ratio, '.pp-flex__logo:nth-of-type(1)')} { width: 50%; }
+
+    ${rsMediaLockup(ratio)} { width: 60%; }
 }
 
 @media (max-width: 374px) {
     ${rsMedia(ratio, '.pp-flex__logo:nth-of-type(1)')} { width: 55%; }
     ${rsMedia(ratio, '.pp-flex__logo-container')} { margin-right: 2.5%; }
+
+    ${rsMediaLockup(ratio)} { width: 60%; }
 }
 
 @media (max-aspect-ratio: 61/10) and (max-width: 323px) {
@@ -279,6 +313,11 @@ ${rs(ratio, '.pp-flex__action')} {
 
     ${rsMedia(ratio, '.pp-flex__logo:nth-of-type(2)')} {
         display: inline;
+    }
+
+    ${rsMediaLockup(ratio)} {
+        margin: 0;
+        width: 60%;
     }
 }
 
@@ -321,6 +360,11 @@ ${rs(ratio, '.pp-flex__logo-container')} {
         width: 50%;
         margin-left: 10px;
     }
+
+    ${rsMediaLockup(ratio)} {
+        width: 60%;
+        margin-left: 0;
+    }
 }
 
 @media (min-aspect-ratio: 80/11) and (min-width: 500px) {
@@ -338,13 +382,17 @@ ${rs(ratio, '.pp-flex__logo-container')} {
         width: 55%;
     }
 
+    ${rsMediaLockup(ratio)} {
+        width: 60%;
+        margin-right: 0;
+    }
+
     ${rsMedia(ratio, '.pp-flex__disclaimer')},
     ${rsMedia(ratio, '.pp-flex__action')} {
         font-size: 0.9rem;
     }
 }`;
 }
-
 function buildLandscape20x1Rules() {
     const ratio = '20x1';
 
@@ -376,6 +424,11 @@ function buildLandscape20x1Rules() {
     ${rsMedia(ratio, '.pp-flex__logo:nth-of-type(2)')} {
         display: inline-block;
         width: 60%;
+    }
+
+    ${rsMediaLockup(ratio)} {
+        width: 60%;
+        margin-right: 0;
     }
 
     ${rsMedia(ratio, '.pp-flex__messaging')} {
@@ -421,6 +474,11 @@ function buildLandscape20x1Rules() {
     ${rsMedia(ratio, '.pp-flex__logo:nth-of-type(2)')} {
         display: inline-block;
         width: 65%;
+    }
+
+    ${rsMediaLockup(ratio)} {
+        width: 60%;
+        margin-right: 0;
     }
 }
 

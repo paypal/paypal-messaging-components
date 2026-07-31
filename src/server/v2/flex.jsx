@@ -4,12 +4,17 @@ import { h, Fragment } from 'preact';
 
 import { buildContentLabel } from './utils/buildContentLabel';
 import { renderBlock } from './utils/renderBlock';
-import { resolveLogoAssets } from './logos';
+import { getLogoBrandClass, resolveLogoAssets } from './logos';
 import flexStyles from './flexStyles';
 import { FLEX_COLOR_TO_LOGO_TEXT_COLOR, FLEX_DEFAULTS } from './constants';
 
 function renderFlexLogo(logoBlock, flexColor) {
     const textColor = FLEX_COLOR_TO_LOGO_TEXT_COLOR[flexColor] ?? 'white';
+    const brandClass = getLogoBrandClass({
+        logoName: logoBlock.name,
+        alternativeText: logoBlock.alternative_text
+    });
+    const logoClassName = `pp-flex__logo ${brandClass}`.trim();
     const assets = resolveLogoAssets({
         logoName: logoBlock.name,
         effectiveLogoType: 'wordmark',
@@ -20,13 +25,15 @@ function renderFlexLogo(logoBlock, flexColor) {
     if (assets) {
         return assets.map(({ src, dimensions: [width, height] }, idx) => (
             // eslint-disable-next-line react/no-array-index-key
-            <span key={idx} className="pp-flex__logo">
+            <span key={idx} className={logoClassName}>
                 <img src={src} alt="" role="presentation" width={width} height={height} />
             </span>
         ));
     }
 
-    return <span className="pp-flex__logo pp-flex__logo--fallback">{renderBlock(logoBlock)}</span>;
+    return (
+        <span className={`pp-flex__logo pp-flex__logo--fallback ${brandClass}`.trim()}>{renderBlock(logoBlock)}</span>
+    );
 }
 
 export default function FlexMessage({ style, v2Content }) {

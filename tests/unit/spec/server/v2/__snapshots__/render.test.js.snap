@@ -160,19 +160,38 @@ button:focus .pp-message.pp-flex .pp-flex__content span.br {
         margin-left: 10px;
         margin-right: 0;
     }
+
+        .pp-message.pp-flex.r-8x1 .pp-flex__logo.paypal-credit:nth-of-type(1),
+    .pp-message.pp-flex.r-8x1 .pp-flex__logo.venmo:nth-of-type(1),
+    .pp-message.pp-flex.r-8x1 .pp-flex__logo:only-child {
+        margin-left: 0;
+        margin-right: 0;
+    }
 }
 
 @media (max-aspect-ratio: 61/10) and (min-width: 324px) {
         .pp-message.pp-flex.r-8x1 .pp-flex__logo:nth-of-type(1) { width: 45%; }
+
+        .pp-message.pp-flex.r-8x1 .pp-flex__logo.paypal-credit:nth-of-type(1),
+    .pp-message.pp-flex.r-8x1 .pp-flex__logo.venmo:nth-of-type(1),
+    .pp-message.pp-flex.r-8x1 .pp-flex__logo:only-child { width: 60%; }
 }
 
 @media (max-aspect-ratio: 61/10) and (max-width: 374px) {
         .pp-message.pp-flex.r-8x1 .pp-flex__logo:nth-of-type(1) { width: 50%; }
+
+        .pp-message.pp-flex.r-8x1 .pp-flex__logo.paypal-credit:nth-of-type(1),
+    .pp-message.pp-flex.r-8x1 .pp-flex__logo.venmo:nth-of-type(1),
+    .pp-message.pp-flex.r-8x1 .pp-flex__logo:only-child { width: 60%; }
 }
 
 @media (max-width: 374px) {
         .pp-message.pp-flex.r-8x1 .pp-flex__logo:nth-of-type(1) { width: 55%; }
         .pp-message.pp-flex.r-8x1 .pp-flex__logo-container { margin-right: 2.5%; }
+
+        .pp-message.pp-flex.r-8x1 .pp-flex__logo.paypal-credit:nth-of-type(1),
+    .pp-message.pp-flex.r-8x1 .pp-flex__logo.venmo:nth-of-type(1),
+    .pp-message.pp-flex.r-8x1 .pp-flex__logo:only-child { width: 60%; }
 }
 
 @media (max-aspect-ratio: 61/10) and (max-width: 323px) {
@@ -185,6 +204,13 @@ button:focus .pp-message.pp-flex .pp-flex__content span.br {
 
         .pp-message.pp-flex.r-8x1 .pp-flex__logo:nth-of-type(2) {
         display: inline;
+    }
+
+        .pp-message.pp-flex.r-8x1 .pp-flex__logo.paypal-credit:nth-of-type(1),
+    .pp-message.pp-flex.r-8x1 .pp-flex__logo.venmo:nth-of-type(1),
+    .pp-message.pp-flex.r-8x1 .pp-flex__logo:only-child {
+        margin: 0;
+        width: 60%;
     }
 }
 
@@ -221,6 +247,13 @@ button:focus .pp-message.pp-flex .pp-flex__content span.br {
         width: 50%;
         margin-left: 10px;
     }
+
+        .pp-message.pp-flex.r-8x1 .pp-flex__logo.paypal-credit:nth-of-type(1),
+    .pp-message.pp-flex.r-8x1 .pp-flex__logo.venmo:nth-of-type(1),
+    .pp-message.pp-flex.r-8x1 .pp-flex__logo:only-child {
+        width: 60%;
+        margin-left: 0;
+    }
 }
 
 @media (min-aspect-ratio: 80/11) and (min-width: 500px) {
@@ -238,12 +271,19 @@ button:focus .pp-message.pp-flex .pp-flex__content span.br {
         width: 55%;
     }
 
+        .pp-message.pp-flex.r-8x1 .pp-flex__logo.paypal-credit:nth-of-type(1),
+    .pp-message.pp-flex.r-8x1 .pp-flex__logo.venmo:nth-of-type(1),
+    .pp-message.pp-flex.r-8x1 .pp-flex__logo:only-child {
+        width: 60%;
+        margin-right: 0;
+    }
+
         .pp-message.pp-flex.r-8x1 .pp-flex__disclaimer,
         .pp-message.pp-flex.r-8x1 .pp-flex__action {
         font-size: 0.9rem;
     }
 }
-</style><div class="pp-flex__background"></div><div class="pp-flex__content"><div class="pp-flex__logo-container" aria-hidden="true"><span class="pp-flex__logo"><img src="data:local/white-monogram" alt role="presentation" width="24" height="32" /></span><span class="pp-flex__logo"><img src="data:local/white-wordmark" alt role="presentation" width="100" height="32" /></span></div><div class="pp-flex__messaging"><div aria-label="Pay Later." class="pp-flex__main">Pay Later.</div><div aria-label="Learn more" class="pp-flex__action"><span>Learn more</span></div><div class="pp-flex__disclaimer">Subject to approval.</div></div></div></div>"
+</style><div class="pp-flex__background"></div><div class="pp-flex__content"><div class="pp-flex__logo-container" aria-hidden="true"><span class="pp-flex__logo paypal"><img src="data:local/white-monogram" alt role="presentation" width="24" height="32" /></span><span class="pp-flex__logo paypal"><img src="data:local/white-wordmark" alt role="presentation" width="100" height="32" /></span></div><div class="pp-flex__messaging"><div aria-label="Pay Later." class="pp-flex__main">Pay Later.</div><div aria-label="Learn more" class="pp-flex__action"><span>Learn more</span></div><div class="pp-flex__disclaimer">Subject to approval.</div></div></div></div>"
 `;
 
 exports[`v2 render flex snapshots no-custom-font snapshot uses v5 Helvetica/Arial default stack 1`] = `
@@ -406,19 +446,38 @@ button:focus .pp-message.pp-flex .pp-flex__content span.br {
         margin-left: 10px;
         margin-right: 0;
     }
+
+        .pp-message.pp-flex.r-8x1 .pp-flex__logo.paypal-credit:nth-of-type(1),
+    .pp-message.pp-flex.r-8x1 .pp-flex__logo.venmo:nth-of-type(1),
+    .pp-message.pp-flex.r-8x1 .pp-flex__logo:only-child {
+        margin-left: 0;
+        margin-right: 0;
+    }
 }
 
 @media (max-aspect-ratio: 61/10) and (min-width: 324px) {
         .pp-message.pp-flex.r-8x1 .pp-flex__logo:nth-of-type(1) { width: 45%; }
+
+        .pp-message.pp-flex.r-8x1 .pp-flex__logo.paypal-credit:nth-of-type(1),
+    .pp-message.pp-flex.r-8x1 .pp-flex__logo.venmo:nth-of-type(1),
+    .pp-message.pp-flex.r-8x1 .pp-flex__logo:only-child { width: 60%; }
 }
 
 @media (max-aspect-ratio: 61/10) and (max-width: 374px) {
         .pp-message.pp-flex.r-8x1 .pp-flex__logo:nth-of-type(1) { width: 50%; }
+
+        .pp-message.pp-flex.r-8x1 .pp-flex__logo.paypal-credit:nth-of-type(1),
+    .pp-message.pp-flex.r-8x1 .pp-flex__logo.venmo:nth-of-type(1),
+    .pp-message.pp-flex.r-8x1 .pp-flex__logo:only-child { width: 60%; }
 }
 
 @media (max-width: 374px) {
         .pp-message.pp-flex.r-8x1 .pp-flex__logo:nth-of-type(1) { width: 55%; }
         .pp-message.pp-flex.r-8x1 .pp-flex__logo-container { margin-right: 2.5%; }
+
+        .pp-message.pp-flex.r-8x1 .pp-flex__logo.paypal-credit:nth-of-type(1),
+    .pp-message.pp-flex.r-8x1 .pp-flex__logo.venmo:nth-of-type(1),
+    .pp-message.pp-flex.r-8x1 .pp-flex__logo:only-child { width: 60%; }
 }
 
 @media (max-aspect-ratio: 61/10) and (max-width: 323px) {
@@ -431,6 +490,13 @@ button:focus .pp-message.pp-flex .pp-flex__content span.br {
 
         .pp-message.pp-flex.r-8x1 .pp-flex__logo:nth-of-type(2) {
         display: inline;
+    }
+
+        .pp-message.pp-flex.r-8x1 .pp-flex__logo.paypal-credit:nth-of-type(1),
+    .pp-message.pp-flex.r-8x1 .pp-flex__logo.venmo:nth-of-type(1),
+    .pp-message.pp-flex.r-8x1 .pp-flex__logo:only-child {
+        margin: 0;
+        width: 60%;
     }
 }
 
@@ -467,6 +533,13 @@ button:focus .pp-message.pp-flex .pp-flex__content span.br {
         width: 50%;
         margin-left: 10px;
     }
+
+        .pp-message.pp-flex.r-8x1 .pp-flex__logo.paypal-credit:nth-of-type(1),
+    .pp-message.pp-flex.r-8x1 .pp-flex__logo.venmo:nth-of-type(1),
+    .pp-message.pp-flex.r-8x1 .pp-flex__logo:only-child {
+        width: 60%;
+        margin-left: 0;
+    }
 }
 
 @media (min-aspect-ratio: 80/11) and (min-width: 500px) {
@@ -482,6 +555,13 @@ button:focus .pp-message.pp-flex .pp-flex__content span.br {
         .pp-message.pp-flex.r-8x1 .pp-flex__logo:nth-of-type(2) {
         display: inline-block;
         width: 55%;
+    }
+
+        .pp-message.pp-flex.r-8x1 .pp-flex__logo.paypal-credit:nth-of-type(1),
+    .pp-message.pp-flex.r-8x1 .pp-flex__logo.venmo:nth-of-type(1),
+    .pp-message.pp-flex.r-8x1 .pp-flex__logo:only-child {
+        width: 60%;
+        margin-right: 0;
     }
 
         .pp-message.pp-flex.r-8x1 .pp-flex__disclaimer,
@@ -652,19 +732,38 @@ button:focus .pp-message.pp-flex .pp-flex__content span.br {
         margin-left: 10px;
         margin-right: 0;
     }
+
+        .pp-message.pp-flex.r-8x1 .pp-flex__logo.paypal-credit:nth-of-type(1),
+    .pp-message.pp-flex.r-8x1 .pp-flex__logo.venmo:nth-of-type(1),
+    .pp-message.pp-flex.r-8x1 .pp-flex__logo:only-child {
+        margin-left: 0;
+        margin-right: 0;
+    }
 }
 
 @media (max-aspect-ratio: 61/10) and (min-width: 324px) {
         .pp-message.pp-flex.r-8x1 .pp-flex__logo:nth-of-type(1) { width: 45%; }
+
+        .pp-message.pp-flex.r-8x1 .pp-flex__logo.paypal-credit:nth-of-type(1),
+    .pp-message.pp-flex.r-8x1 .pp-flex__logo.venmo:nth-of-type(1),
+    .pp-message.pp-flex.r-8x1 .pp-flex__logo:only-child { width: 60%; }
 }
 
 @media (max-aspect-ratio: 61/10) and (max-width: 374px) {
         .pp-message.pp-flex.r-8x1 .pp-flex__logo:nth-of-type(1) { width: 50%; }
+
+        .pp-message.pp-flex.r-8x1 .pp-flex__logo.paypal-credit:nth-of-type(1),
+    .pp-message.pp-flex.r-8x1 .pp-flex__logo.venmo:nth-of-type(1),
+    .pp-message.pp-flex.r-8x1 .pp-flex__logo:only-child { width: 60%; }
 }
 
 @media (max-width: 374px) {
         .pp-message.pp-flex.r-8x1 .pp-flex__logo:nth-of-type(1) { width: 55%; }
         .pp-message.pp-flex.r-8x1 .pp-flex__logo-container { margin-right: 2.5%; }
+
+        .pp-message.pp-flex.r-8x1 .pp-flex__logo.paypal-credit:nth-of-type(1),
+    .pp-message.pp-flex.r-8x1 .pp-flex__logo.venmo:nth-of-type(1),
+    .pp-message.pp-flex.r-8x1 .pp-flex__logo:only-child { width: 60%; }
 }
 
 @media (max-aspect-ratio: 61/10) and (max-width: 323px) {
@@ -677,6 +776,13 @@ button:focus .pp-message.pp-flex .pp-flex__content span.br {
 
         .pp-message.pp-flex.r-8x1 .pp-flex__logo:nth-of-type(2) {
         display: inline;
+    }
+
+        .pp-message.pp-flex.r-8x1 .pp-flex__logo.paypal-credit:nth-of-type(1),
+    .pp-message.pp-flex.r-8x1 .pp-flex__logo.venmo:nth-of-type(1),
+    .pp-message.pp-flex.r-8x1 .pp-flex__logo:only-child {
+        margin: 0;
+        width: 60%;
     }
 }
 
@@ -713,6 +819,13 @@ button:focus .pp-message.pp-flex .pp-flex__content span.br {
         width: 50%;
         margin-left: 10px;
     }
+
+        .pp-message.pp-flex.r-8x1 .pp-flex__logo.paypal-credit:nth-of-type(1),
+    .pp-message.pp-flex.r-8x1 .pp-flex__logo.venmo:nth-of-type(1),
+    .pp-message.pp-flex.r-8x1 .pp-flex__logo:only-child {
+        width: 60%;
+        margin-left: 0;
+    }
 }
 
 @media (min-aspect-ratio: 80/11) and (min-width: 500px) {
@@ -728,6 +841,13 @@ button:focus .pp-message.pp-flex .pp-flex__content span.br {
         .pp-message.pp-flex.r-8x1 .pp-flex__logo:nth-of-type(2) {
         display: inline-block;
         width: 55%;
+    }
+
+        .pp-message.pp-flex.r-8x1 .pp-flex__logo.paypal-credit:nth-of-type(1),
+    .pp-message.pp-flex.r-8x1 .pp-flex__logo.venmo:nth-of-type(1),
+    .pp-message.pp-flex.r-8x1 .pp-flex__logo:only-child {
+        width: 60%;
+        margin-right: 0;
     }
 
         .pp-message.pp-flex.r-8x1 .pp-flex__disclaimer,
