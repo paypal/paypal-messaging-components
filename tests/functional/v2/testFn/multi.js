@@ -66,15 +66,35 @@ export const clickProductListTiles = async (contentWindow, modalContent, account
     const switchViews = async (childNum, viewName) => {
         await contentWindow.waitForSelector(contentWrapper);
         await contentWindow.waitForSelector(`${tile}:nth-child(${childNum})`);
-        // Use native .click() via evaluate instead of frame.click() which requires iframe focus
-        // and correct page coordinates - both can fail in cross-origin iframes with newer Chrome headless.
-        await contentWindow.evaluate(
-            selector => document.querySelector(selector).click(),
-            `${tile}:nth-child(${childNum})`
-        );
-        await page.evaluate(() => new Promise(resolve => setTimeout(resolve, 2 * 1000)));
 
-        await contentWindow.waitForSelector(`${headerContent} > ${h2}`);
+        // Capture product list headline so we can detect when navigation happened
+        const initialHeadline = await contentWindow.$eval(h2, el => el.innerText);
+
+        // Click and wait for headline to change — retry up to 3 times in case
+        // Preact event handling is delayed in the cross-origin iframe context.
+        const tryClickTile = async attemptsLeft => {
+            await contentWindow.evaluate(
+                selector => document.querySelector(selector).click(),
+                `${tile}:nth-child(${childNum})`
+            );
+            try {
+                await contentWindow.waitForFunction(
+                    (h2Sel, initial) => {
+                        const el = document.querySelector(h2Sel);
+                        return el && el.innerText !== initial;
+                    },
+                    { timeout: 4000 },
+                    `${headerContent} > ${h2}`,
+                    initialHeadline
+                );
+            } catch (e) {
+                if (attemptsLeft > 1) {
+                    await tryClickTile(attemptsLeft - 1);
+                }
+            }
+        };
+        await tryClickTile(3);
+
         const headline = await contentWindow.$eval(h2, element => element.innerText);
         expect(headline).toContain(modalContent[viewName]);
 
