@@ -182,29 +182,47 @@ export const modalSnapshot = async (testNameParts, contentWindow) => {
 
     // The Zoid container on the parent page has a dark grey backdrop
     // (rgba(108,115,120,0.85)) and the modal iframe transitions from opacity 0→1.
-    // If the screenshot is taken mid-transition, the backdrop composites over
-    // the modal iframe causing grey wash across the entire modal surface.
-    // Disable parent-page Zoid transitions and clear the backdrop before
-    // screenshotting, then restore. Only applies when a parent page exists
-    // (SDK/Standalone — not API which loads the modal directly).
+    // Additionally, ElementHandle.boundingBox() returns iframe-local coordinates
+    // for cross-origin iframes. On desktop the Zoid iframe is centered (offset
+    // from 0,0), so iframe-local coords ≠ page coords → screenshot clips to the
+    // wrong page region (pure backdrop). Fix: compute page-space clip by
+    // combining the iframe's page position + element's iframe-local position,
+    // then use page.screenshot() directly with backdrop cleared.
     const parentPage = global.page;
-    let zoidStateToRestore = null;
+    let image;
+
     if (parentPage && parentPage !== contentWindow) {
-        zoidStateToRestore = await parentPage.evaluate(() => {
-            const zoidContainers = Array.from(document.querySelectorAll('[id^="zoid-paypal-credit-modal"]'));
-            const state = zoidContainers.map(container => {
-                const backdropDiv = container.querySelector(':scope > div');
-                const iframe = container.querySelector(':scope > div > iframe');
+        // SDK / Standalone / API: contentWindow is a cross-origin iframe frame.
+        // 1. Find the iframe element on the parent page and get its page-space box.
+        // 2. Get element's iframe-local box.
+        // 3. Combine for correct page-space clip.
+        // 4. Clear Zoid backdrop + snap iframe opacity before screenshotting.
+        const [iframePageBox, elementLocalBox] = await Promise.all([
+            parentPage.evaluate(() => {
+                // Locate the Zoid modal iframe OR the api-iframe
+                const iframeEl =
+                    document.querySelector('[id^="zoid-paypal-credit-modal"] > div > iframe') ||
+                    document.querySelector('#api-iframe');
+                if (!iframeEl) return null;
+                const r = iframeEl.getBoundingClientRect();
+                return { x: r.x, y: r.y, width: r.width, height: r.height };
+            }),
+            contentWindow.evaluate(wrapperSelector => {
+                const el = document.querySelector(wrapperSelector);
+                if (!el) return null;
+                const r = el.getBoundingClientRect();
                 return {
-                    containerId: container.id,
-                    backdropBg: backdropDiv ? backdropDiv.style.background : '',
-                    backdropTransition: backdropDiv ? backdropDiv.style.transition : '',
-                    iframeOpacity: iframe ? iframe.style.opacity : '',
-                    iframeTransition: iframe ? iframe.style.transition : ''
+                    x: Math.max(0, Math.round(r.x)),
+                    y: Math.max(0, Math.round(r.y)),
+                    width: Math.max(1, Math.round(r.width)),
+                    height: Math.max(1, Math.round(r.height))
                 };
-            });
-            // Disable backdrop and snap iframe to full opacity
-            zoidContainers.forEach(container => {
+            }, contentWrapper)
+        ]);
+
+        // Clear Zoid backdrop and snap iframe to full opacity
+        await parentPage.evaluate(() => {
+            document.querySelectorAll('[id^="zoid-paypal-credit-modal"]').forEach(container => {
                 const backdropDiv = container.querySelector(':scope > div');
                 const iframe = container.querySelector(':scope > div > iframe');
                 if (backdropDiv) {
@@ -216,30 +234,22 @@ export const modalSnapshot = async (testNameParts, contentWindow) => {
                     iframe.style.opacity = '1';
                 }
             });
-            return state;
         });
-    }
 
-    const image = await modalElement.screenshot();
+        const clip =
+            iframePageBox && elementLocalBox
+                ? {
+                      x: Math.round(iframePageBox.x + elementLocalBox.x),
+                      y: Math.round(iframePageBox.y + elementLocalBox.y),
+                      width: elementLocalBox.width,
+                      height: elementLocalBox.height
+                  }
+                : snapshotDimensions;
 
-    // Restore Zoid parent state
-    if (zoidStateToRestore && parentPage) {
-        await parentPage.evaluate(state => {
-            state.forEach(({ containerId, backdropBg, backdropTransition, iframeOpacity, iframeTransition }) => {
-                const container = document.getElementById(containerId);
-                if (!container) return;
-                const backdropDiv = container.querySelector(':scope > div');
-                const iframe = container.querySelector(':scope > div > iframe');
-                if (backdropDiv) {
-                    backdropDiv.style.transition = backdropTransition;
-                    backdropDiv.style.background = backdropBg;
-                }
-                if (iframe) {
-                    iframe.style.transition = iframeTransition;
-                    iframe.style.opacity = iframeOpacity;
-                }
-            });
-        }, zoidStateToRestore);
+        image = await parentPage.screenshot({ clip });
+    } else {
+        // Webpage / Lander: contentWindow IS the page, no cross-origin offset.
+        image = await modalElement.screenshot();
     }
 
     const matchFunction = screenDimensions[viewport].width > 500 ? 'toMatchLargeSnapshot' : 'toMatchSmallSnapshot';
