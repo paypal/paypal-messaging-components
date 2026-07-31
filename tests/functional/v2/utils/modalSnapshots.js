@@ -131,11 +131,7 @@ export const modalSnapshot = async (testNameParts, contentWindow) => {
 
     await settleModalRendering(contentWindow);
 
-    // Get the element's bounding box in iframe-local coordinate space (not page
-    // coordinates). ElementHandle.screenshot() uses page coordinates which
-    // includes the Zoid parent page's grey modal backdrop for SDK/Standalone
-    // cross-origin iframes, causing a grey overlay in screenshots.
-    // Screenshotting the iframe viewport with an iframe-local clip avoids this.
+    // Get the element's bounding box in iframe-local coordinates for logging
     const iframeLocalBox = await contentWindow.evaluate(wrapperSelector => {
         const el = document.querySelector(wrapperSelector);
         if (!el) return null;
@@ -157,7 +153,7 @@ export const modalSnapshot = async (testNameParts, contentWindow) => {
 
     logScreenshot({ name: testNameParts, viewport: snapshotDimensions });
 
-    const image = await contentWindow.screenshot({ clip: snapshotDimensions });
+    const image = await modalElement.screenshot();
 
     const matchFunction = screenDimensions[viewport].width > 500 ? 'toMatchLargeSnapshot' : 'toMatchSmallSnapshot';
     expect(image)[matchFunction]({
