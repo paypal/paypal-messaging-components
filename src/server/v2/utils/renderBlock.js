@@ -38,15 +38,13 @@ export function renderBlock(item, { logoPresentation = null, linkClassName } = {
     switch (item.type) {
         case 'IMAGE':
             if (logoPresentation) {
+                const brandClass = getLogoBrandClass({
+                    logoName: item.name,
+                    alternativeText: item.alternative_text
+                });
+                const className = ['logo', 'inline', 'wordmark', brandClass].filter(Boolean).join(' ');
                 return (
-                    <span
-                        role="img"
-                        aria-label={item.alternative_text || 'PayPal'}
-                        className={`logo inline wordmark ${getLogoBrandClass({
-                            logoName: item.name,
-                            alternativeText: item.alternative_text
-                        })}`.trim()}
-                    >
+                    <span role="img" aria-label={item.alternative_text || 'PayPal'} className={className}>
                         {renderLogoImages(item, logoPresentation)}
                     </span>
                 );
