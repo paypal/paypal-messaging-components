@@ -100,6 +100,11 @@ $donut-text-v5: #545d68;
             .checkout & {
                 font-size: 16px;
             }
+
+            .darkMode & {
+                color: colors.$white;
+                opacity: 0.72;
+            }
         }
 
         &.donut__timestamp {
@@ -118,22 +123,38 @@ $donut-text-v5: #545d68;
                 width: 80px;
                 text-wrap: auto;
             }
+
+            .darkMode & {
+                color: colors.$white;
+                opacity: 0.72;
+            }
         }
     }
     &_line {
         &:first-child {
             svg g {
                 fill: $donut-background;
+
+                .darkMode & {
+                    fill: colors.$white;
+                    opacity: 1;
+                }
             }
             span.donut__timestamp_v5,
             span.donut__payment_v5 {
                 color: colors.$text-main;
+
+                .darkMode & {
+                    color: colors.$white;
+                    opacity: 1;
+                }
             }
         }
         span.donut__timestamp_v5Dot1,
         span.donut__payment_v5Dot1 {
             color: colors.$v5-gray;
         }
+
         .svg {
             display: flex;
             flex-direction: column;
@@ -158,12 +179,22 @@ $donut-text-v5: #545d68;
                 @include mixins.smallMobile {
                     max-width: 35px;
                 }
+
+                .darkMode & {
+                    border-top: 1px dashed colors.$white;
+                    opacity: 0.72;
+                }
             }
         }
         .v5Design {
             &.svg::after {
                 margin-bottom: 12px;
             }
+        }
+        
+        .darkMode svg g {
+            fill: colors.$white;
+            opacity: 0.72;
         }
 
         &__3 {
