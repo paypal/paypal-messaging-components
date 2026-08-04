@@ -1,14 +1,23 @@
 /** @jsx h */
 import { h } from 'preact';
 
-const OfferCard = ({ offer: { content, meta }, useV4Design, useV5Design, use5Dot1Design, useNewCheckoutDesign }) => {
+const OfferCard = ({
+    offer: { content, meta },
+    useV4Design,
+    useV5Design,
+    use5Dot1Design,
+    useNewCheckoutDesign,
+    useDarkMode
+}) => {
     const { termsLabel } = content;
     const aprRemoveTrailingZeros = meta?.apr.replace(/\D00$/, '');
     const aprFieldTitle = aprRemoveTrailingZeros === '0' ? termsLabel?.zeroApr : termsLabel?.nonZeroApr;
     const offerHeaderField = termsLabel?.offerHeader;
 
     return (
-        <div className={`offer__container ${useV5Design === 'true' ? 'v5Design' : ''}`}>
+        <div
+            className={`offer__container ${useV5Design === 'true' ? 'v5Design' : ''} ${useDarkMode ? 'darkMode' : ''}`}
+        >
             <div className={`offer__row ${useV5Design === 'true' ? 'v5Design' : ''}`}>
                 <strong
                     className={`offer__field-header ${use5Dot1Design ? 'v5Dot1Design' : ''}`}

@@ -21,7 +21,12 @@ module.exports = {
             '--disable-dev-shm-usage',
             '--no-sandbox',
             '--ignore-certificate-errors',
-            '--ignore-certificate-errors-spki-list'
+            '--ignore-certificate-errors-spki-list',
+            // Disable sub-pixel LCD text anti-aliasing and font sub-pixel
+            // positioning so screenshots are pixel-identical across browser
+            // launches (prevents non-deterministic snapshot failures in CI).
+            '--disable-lcd-text',
+            '--disable-font-subpixel-positioning'
         ]
     },
     browser: 'chromium',

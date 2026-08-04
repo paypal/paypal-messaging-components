@@ -71,6 +71,21 @@ jobs:
               run: |
                   git status --porcelain
 
+            - name: Detect Snapshot Changes
+              id: snapshot_changes
+              run: |
+                  SNAPSHOT_STATUS="$(git status --porcelain tests/functional/snapshots tests/functional/v2/snapshots || true)"
+
+                  if [ -z "$SNAPSHOT_STATUS" ]
+                  then
+                      echo "has_changes=false" >> "$GITHUB_OUTPUT"
+                      echo "::error::Update Snapshots succeeded, but no snapshot file changes were present to commit."
+                      exit 1
+                  fi
+
+                  echo "has_changes=true" >> "$GITHUB_OUTPUT"
+                  echo "$SNAPSHOT_STATUS"
+
             - name: Reset Label
               if: github.event.workflow_run.event == 'pull_request'
               uses: actions/github-script@v7
@@ -102,6 +117,7 @@ jobs:
                       });
 
             - name: Commit Updated Snapshots
+              if: steps.snapshot_changes.outputs.has_changes == 'true'
               uses: stefanzweifel/git-auto-commit-action@v4
               with:
                   commit_message: 'chore(snapshots): ${{ github.event.workflow.name }} [skip ci]'
