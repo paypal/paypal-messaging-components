@@ -85,7 +85,8 @@ export const LongTerm = ({
     productMeta: { useV4Design, useV5Design, showPromoContent, prequalExperience, product },
     openProductList,
     useNewCheckoutDesign,
-    use5Dot1Design
+    use5Dot1Design,
+    useDarkMode
 }) => {
     const [expandedState, setExpandedState] = useState(false);
     const { amount, onClick, onClose } = useXProps();
@@ -196,7 +197,11 @@ export const LongTerm = ({
     return (
         <Fragment>
             <style>{styles._getCss()}</style>
-            <div className={`content__row dynamic ${useNewCheckoutDesign === 'true' ? 'checkout' : ''}`}>
+            <div
+                className={`content__row dynamic ${useNewCheckoutDesign === 'true' ? 'checkout' : ''} ${
+                    useDarkMode ? 'darkMode' : ''
+                }`}
+            >
                 <div className="content__col">
                     <Calculator
                         setExpandedState={setExpandedState}
@@ -208,6 +213,7 @@ export const LongTerm = ({
                         useV5Design={useV5Design}
                         use5Dot1Design={use5Dot1Design}
                         useNewCheckoutDesign={useNewCheckoutDesign}
+                        useDarkMode={useDarkMode}
                     />
                     {showOfferTerms && offerTerms && (
                         <OfferTerms
@@ -237,7 +243,7 @@ export const LongTerm = ({
                     useNewCheckoutDesign === 'true' ? 'checkout' : ''
                 } ${useV5Design === 'true' ? 'v5Design' : ''} ${getEuroStyleClass(country)} ${
                     isPrequalExperience ? 'prequal-fixed-offset' : ''
-                }`}
+                } ${useDarkMode ? 'darkMode' : ''}`}
             >
                 {getDisclosure(disclosure)}
             </div>

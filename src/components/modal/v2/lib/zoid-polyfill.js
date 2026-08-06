@@ -51,7 +51,7 @@ export function handleBrowserEvents(clientOrigin, propListeners, event) {
     sendEvent(createPostMessengerEvent('ack', id), clientOrigin);
 }
 
-const getAccount = (merchantId, clientId, payerId) => {
+const getAccount = (merchantId, clientId, payerId, accountIdOverride) => {
     if (merchantId) {
         return merchantId;
     }
@@ -61,7 +61,12 @@ const getAccount = (merchantId, clientId, payerId) => {
         return `client-id:${clientId}`;
     }
 
-    return payerId;
+    if (payerId) {
+        return payerId;
+    }
+
+    // Server-resolved fallback for credential-less landers (no merchant_id/client_id/payer_id in the URL)
+    return accountIdOverride;
 };
 
 const setupBrowser = props => {
@@ -98,7 +103,7 @@ const setupBrowser = props => {
         // TODO: Verify these callbacks are instrumented correctly
         onReady: ({ products, meta }) => {
             const { clientId, payerId, merchantId, offer, partnerAttributionId } = props;
-            const { trackingDetails } = meta;
+            const { trackingDetails, accountIdOverride } = meta;
 
             logger.addMetaBuilder(existingMeta => {
                 // Remove potential existing meta info
@@ -124,7 +129,7 @@ const setupBrowser = props => {
                         // TODO: This should likely be specific to this integration type
                         type: 'modal',
                         // messageRequestId,
-                        account: getAccount(merchantId, clientId, payerId),
+                        account: getAccount(merchantId, clientId, payerId, accountIdOverride),
                         trackingDetails
                     }
                 };
