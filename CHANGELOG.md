@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.94.0](https://github.com/paypal/paypal-messaging-components/compare/v1.93.0...v1.94.0) (2026-08-06)
+
+
+### Features
+
+* Pl2go darkmode ([#1370](https://github.com/paypal/paypal-messaging-components/issues/1370)) ([374364e](https://github.com/paypal/paypal-messaging-components/commit/374364e92374156ef0f0af36dadd34ed20bbb7fd))
+
+
+### Bug Fixes
+
+* fall back to server-resolved account for FPTI on credential-less landers ([90b86f6](https://github.com/paypal/paypal-messaging-components/commit/90b86f6b5ccab33174283e929034fb5e792fcd91))
+* fix desktop snapshots ([#1364](https://github.com/paypal/paypal-messaging-components/issues/1364)) ([7c773c7](https://github.com/paypal/paypal-messaging-components/commit/7c773c733f0b79f9873f60f3810f09836db39348))
+
 ## [1.93.0](https://github.com/paypal/paypal-messaging-components/compare/v1.92.1...v1.93.0) (2026-08-03)
 
 
