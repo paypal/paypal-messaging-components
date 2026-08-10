@@ -84,4 +84,33 @@ describe('zoid/message/containerTemplate', () => {
         const { container } = renderTemplate({ layout: 'flex' });
         expect(container.style.minHeight).toBe('');
     });
+
+    test('Returns null when frame or prerenderFrame is missing', () => {
+        const event = createEventEmitter();
+        const container = document.createElement('div');
+
+        expect(
+            containerTemplate({
+                uid: 'uid',
+                frame: null,
+                prerenderFrame: document.createElement('iframe'),
+                doc: document,
+                event,
+                props: { style: { layout: 'text' } },
+                container
+            })
+        ).toBeNull();
+
+        expect(
+            containerTemplate({
+                uid: 'uid',
+                frame: document.createElement('iframe'),
+                prerenderFrame: null,
+                doc: document,
+                event,
+                props: { style: { layout: 'text' } },
+                container
+            })
+        ).toBeNull();
+    });
 });

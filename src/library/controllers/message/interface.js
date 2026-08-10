@@ -197,7 +197,13 @@ export default (options = {}) => ({
 
                                     return render(container)
                                         .then(() => globalEvent.trigger('render'))
-                                        .then(resolve);
+                                        .then(resolve)
+                                        .catch(() => {
+                                            // zoid rejects after failed iframe init (e.g. CPNW 400).
+                                            // Resolve so the merchant does not get an unhandled rejection;
+                                            // message simply does not render.
+                                            return resolve();
+                                        });
                                 }
 
                                 const { updateProps, state } = messagesMap.get(container);

@@ -246,6 +246,14 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                         const { trackingDetails, offerType, ppDebugId, language: renderedLanguage } = meta;
                         const partnerClientId = merchantId && account.slice(10); // slice is to remove the characters 'client-id:' from account name
 
+                        // Mark successful child ready so onDestroy may re-render on DOM moves.
+                        // Failed iframe loads never reach onReady; onDestroy must not auto-re-render those.
+                        const container = getContainer();
+                        const messageEntry = getGlobalState().messagesMap.get(container);
+                        if (messageEntry?.state) {
+                            messageEntry.state.ready = true;
+                        }
+
                         // overwrites potentially poisoned PAGE_TYPE value from cached trackingDetails
                         trackingDetails.PAGE_TYPE = pageType;
 
@@ -340,6 +348,34 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                     };
                 }
             },
+            onError: {
+                type: 'function',
+                queryParam: false,
+                value: ({ props }) => {
+                    const { onError, getContainer, index } = props;
+
+                    // Prevents zoid's default EVENT.ERROR path from setTimeout-throwing;
+                    // failed smart-message loads (e.g. CPNW validation 400) stay quiet for merchants.
+                    return err => {
+                        const container = typeof getContainer === 'function' ? getContainer() : null;
+                        const messageEntry = container && getGlobalState().messagesMap.get(container);
+                        if (messageEntry?.state) {
+                            messageEntry.state.errored = true;
+                        }
+
+                        const message = err?.message || String(err);
+                        logger.warn('message_render_error', {
+                            description: message,
+                            container,
+                            index
+                        });
+
+                        if (typeof onError === 'function') {
+                            onError({ message });
+                        }
+                    };
+                }
+            },
             onDestroy: {
                 type: 'function',
                 queryParam: false,
@@ -354,13 +390,24 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                         const container = getContainer();
                         // Let the cleanup finish before re-rendering
                         ZalgoPromise.delay(CLEAN_UP_DELAY).then(() => {
+                            const entry = container && messagesMap.get(container);
+
+                            // Never auto-re-render after a failed load (e.g. BUYER_COUNTRY_CURRENCY_MISMATCH 400).
+                            // Drop the dead instance so a later intentional Messages().render can create a fresh one.
+                            if (!entry?.state?.ready) {
+                                if (container && messagesMap.has(container)) {
+                                    messagesMap.delete(container);
+                                }
+                                return;
+                            }
+
                             if (
                                 container &&
                                 container.ownerDocument.body.contains(container) &&
                                 !isScriptBeingDestroyed()
                             ) {
                                 // Will re-render with the full config options stored in the zoid props
-                                const { render, state, updateProps, clone } = messagesMap.get(container).clone();
+                                const { render, state, updateProps, clone } = entry.clone();
 
                                 state.renderStart = getCurrentTime();
 

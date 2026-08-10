@@ -132,7 +132,7 @@ export const getOverflowObserver = createGlobalVariableGetter('__intersection_ob
             const firstContainer = getGlobalState().messagesMap.keys().next().value;
             // A single page app could cause an issue here if the root element is
             // determined to be inside the main single page app code
-            const root = getRoot(firstContainer);
+            const root = firstContainer ? getRoot(firstContainer) : undefined;
             // eslint-disable-next-line compat/compat
             return new IntersectionObserver(
                 (entries, observer) => {
@@ -140,7 +140,11 @@ export const getOverflowObserver = createGlobalVariableGetter('__intersection_ob
 
                     entries.forEach(entry => {
                         const iframe = entry.target;
-                        const container = iframe.parentNode.parentNode;
+                        const container = iframe.parentNode?.parentNode;
+                        if (!container) {
+                            observer.unobserve(iframe);
+                            return;
+                        }
                         ppDebug('Message Container:', { debugObj: container });
                         ppDebug('Messages Container Parent:', { debugObj: container.parentNode });
                         // If the library has been cleaned up by an SDK destroy, the container

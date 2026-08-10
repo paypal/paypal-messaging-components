@@ -27,6 +27,12 @@ const getPlaceholderHeightPx = style => {
 };
 
 export default ({ uid, frame, prerenderFrame, doc, event, props, container }) => {
+    // Match zoid default container template: skip when frames were not created
+    // (e.g. failed iframe init / destroy race). Avoids null.nodeType-style NPEs.
+    if (!frame || !prerenderFrame) {
+        return null;
+    }
+
     const host = container;
     const placeholderHeightPx = getPlaceholderHeightPx(props.style);
 

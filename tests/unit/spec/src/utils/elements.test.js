@@ -1,4 +1,4 @@
-import { getInlineOptions } from 'src/utils/elements';
+import { getInlineOptions, getRoot } from 'src/utils/elements';
 
 // Spy on window in order to manipulate attributes
 const windowSpy = jest.spyOn(window, 'window', 'get');
@@ -58,6 +58,18 @@ describe('elements utils', () => {
             expect(options.onClick.toString()).toContain('console.log("onClick")');
             expect(options.onRender.toString()).toContain('console.log("onRender")');
             expect(options.onApply.toString()).toContain('console.log("onApply")');
+        });
+    });
+
+    describe('getRoot', () => {
+        test('Returns undefined for null/undefined base element', () => {
+            expect(getRoot(null)).toBeUndefined();
+            expect(getRoot(undefined)).toBeUndefined();
+        });
+
+        test('Does not throw when base element is detached (null parentNode)', () => {
+            const detached = document.createElement('div');
+            expect(() => getRoot(detached)).not.toThrow();
         });
     });
 });

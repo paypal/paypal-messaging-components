@@ -361,13 +361,18 @@ export const elementOutside = (parentEl, childEl) => {
  * @returns {HTMLElement}
  */
 export const getRoot = baseElement => {
+    if (!baseElement) {
+        return undefined;
+    }
+
     const elementWindow = getWindowFromElement(baseElement);
 
     const domPath = [];
     {
         let el = baseElement;
         // Loop up the DOM tree to the root html node
-        while (el?.parentNode.nodeType === Node.ELEMENT_NODE) {
+        // parentNode may be null for detached nodes; optional-chain both sides
+        while (el?.parentNode?.nodeType === Node.ELEMENT_NODE) {
             // Skip elements that are collapsed due to various CSS rules
             // which causes an issue with determining the root element
             if (el.parentNode.offsetHeight !== 0) {
