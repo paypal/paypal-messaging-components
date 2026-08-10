@@ -85,16 +85,15 @@ export const LongTerm = ({
     productMeta: { useV4Design, useV5Design, showPromoContent, prequalExperience, product },
     openProductList,
     useNewCheckoutDesign,
-    use5Dot1Design
+    use5Dot1Design,
+    useDarkMode
 }) => {
     const [expandedState, setExpandedState] = useState(false);
-    // todo: follow up ticket to utilize a different session identifier than (ecToken)
-    const { amount, onClick, onClose, ecToken } = useXProps();
+    const { amount, onClick, onClose } = useXProps();
     const { views, country } = useServerData();
     const spendingPowerClickTitle = 'Check Spending Power';
     const handlePrequalification = usePrequalification(spendingPowerClickTitle, onClick, {
-        offer: product,
-        token: ecToken
+        offer: product
     });
     const { offers } = views.find(view => view.offers);
     const { minAmount, maxAmount } = getComputedVariables(offers);
@@ -203,7 +202,11 @@ export const LongTerm = ({
     return (
         <Fragment>
             <style>{styles._getCss()}</style>
-            <div className={`content__row dynamic ${useNewCheckoutDesign === 'true' ? 'checkout' : ''}`}>
+            <div
+                className={`content__row dynamic ${useNewCheckoutDesign === 'true' ? 'checkout' : ''} ${
+                    useDarkMode ? 'darkMode' : ''
+                }`}
+            >
                 <div className="content__col">
                     <Calculator
                         setExpandedState={setExpandedState}
@@ -215,6 +218,7 @@ export const LongTerm = ({
                         useV5Design={useV5Design}
                         use5Dot1Design={use5Dot1Design}
                         useNewCheckoutDesign={useNewCheckoutDesign}
+                        useDarkMode={useDarkMode}
                     />
                     {showOfferTerms && offerTerms && (
                         <OfferTerms
@@ -242,7 +246,9 @@ export const LongTerm = ({
             <div
                 className={`content__row disclosure ${expandedState ? '' : 'collapsed'} ${
                     useNewCheckoutDesign === 'true' ? 'checkout' : ''
-                }  ${getEuroStyleClass(country)} ${isPrequalExperience ? 'prequal-fixed-offset' : ''}`}
+                } ${getEuroStyleClass(country)} ${
+                    isPrequalExperience ? 'prequal-fixed-offset' : ''
+                } ${useDarkMode ? 'darkMode' : ''}`}
             >
                 {getDisclosure(disclosure)}
             </div>

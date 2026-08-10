@@ -1,5 +1,123 @@
 # Changelog
 
+## [1.93.0](https://github.com/paypal/paypal-messaging-components/compare/v1.92.1...v1.93.0) (2026-08-03)
+
+
+### Features
+
+* add flex layout support to renderV2Message (DTCRCMERC-5374) ([#1367](https://github.com/paypal/paypal-messaging-components/issues/1367)) ([cdaa69f](https://github.com/paypal/paypal-messaging-components/commit/cdaa69fd444d12a94e044203ea02e51484c73b2c))
+
+
+### Bug Fixes
+
+* Ios26 modal fix ([#1373](https://github.com/paypal/paypal-messaging-components/issues/1373)) ([263ab0f](https://github.com/paypal/paypal-messaging-components/commit/263ab0f08a94f503719bedfd6d968eaad80f344b))
+
+### [1.92.1](https://github.com/paypal/paypal-messaging-components/compare/v1.92.0...v1.92.1) (2026-07-27)
+
+
+### Bug Fixes
+
+* route PL_GENERIC_XB messageType to cross-border generic mutations for AT/DE ([#1369](https://github.com/paypal/paypal-messaging-components/issues/1369)) ([36c3238](https://github.com/paypal/paypal-messaging-components/commit/36c323801819e6caaaac84bb4cd449153a770318))
+
+## [1.92.0](https://github.com/paypal/paypal-messaging-components/compare/v1.91.0...v1.92.0) (2026-07-23)
+
+
+### Features
+
+* fix firefox logos for rewrite ([#1347](https://github.com/paypal/paypal-messaging-components/issues/1347)) ([d9b2991](https://github.com/paypal/paypal-messaging-components/commit/d9b2991da077bb4944d976581a1d333bc966d994))
+
+
+### Bug Fixes
+
+* UK Pi30 message update on removing extra space ([#1351](https://github.com/paypal/paypal-messaging-components/issues/1351)) ([dc30231](https://github.com/paypal/paypal-messaging-components/commit/dc3023141e929410ea806c7347211549881317ae))
+
+## [1.91.0](https://github.com/paypal/paypal-messaging-components/compare/v1.90.1...v1.91.0) (2026-07-21)
+
+
+### Features
+
+* AT Expansion ([#1276](https://github.com/paypal/paypal-messaging-components/issues/1276)) ([b74c3af](https://github.com/paypal/paypal-messaging-components/commit/b74c3af03c377fba4ed2ff6a3739d44200cc4dca))
+
+
+### Documentation
+
+* clarify Hi Developer greeting scope ([#1365](https://github.com/paypal/paypal-messaging-components/issues/1365)) ([feeeae7](https://github.com/paypal/paypal-messaging-components/commit/feeeae7ac18ec435aadd0b184e2d96aae4ae859b))
+
+### [1.90.1](https://github.com/paypal/paypal-messaging-components/compare/v1.90.0...v1.90.1) (2026-07-20)
+
+
+### Bug Fixes
+
+* continue to use node 20 not 24 ([#1345](https://github.com/paypal/paypal-messaging-components/issues/1345)) ([ee75b2c](https://github.com/paypal/paypal-messaging-components/commit/ee75b2c886b32c018f7ee34fa50725675005604e))
+
+## [1.90.0](https://github.com/paypal/paypal-messaging-components/compare/v1.89.0...v1.90.0) (2026-07-13)
+
+
+### Features
+
+* **DTCRCMERC-4687:** implement v5 text-layout styles for renderV2Message ([e632488](https://github.com/paypal/paypal-messaging-components/commit/e632488d7a05303de6c094b677b580aea1f1cb9e))
+* UK Pay in 30 days Offer Type expansion for GB ([#1321](https://github.com/paypal/paypal-messaging-components/issues/1321)) ([db5eaaa](https://github.com/paypal/paypal-messaging-components/commit/db5eaaa136fde8f6d79a179499f3437a51874463))
+
+
+### Bug Fixes
+
+* Adjust "Credit option. " styling in GB Flex banner ([#1342](https://github.com/paypal/paypal-messaging-components/issues/1342)) ([679399f](https://github.com/paypal/paypal-messaging-components/commit/679399f7e5a6c245da86ad5f17ab7dd3502cf82f))
+* **DTCRCMERC-4687:** address braluna PR review comments ([461e5bf](https://github.com/paypal/paypal-messaging-components/commit/461e5bf63693934c02eacb4c9615cab99493ae75))
+* **DTCRCMERC-4687:** address braluna PR review comments ([b7dc956](https://github.com/paypal/paypal-messaging-components/commit/b7dc956e5b9c4b76635456803de4b5451080a367))
+* **DTCRCMERC-4687:** fix inline logo baseline alignment and word-attachment, align default font to v5 ([664ad84](https://github.com/paypal/paypal-messaging-components/commit/664ad84a0ba01bba324460564309906c286f2364))
+* **DTCRCMERC-4687:** resolve duplicate PayPal Credit logo and inline logo sizing ([d25cf25](https://github.com/paypal/paypal-messaging-components/commit/d25cf257b98e191d54954bce5cbd3afa2b118829))
+* **DTCRCMERC-4687:** resolve first-party logos locally for v6 parity ([bb05a67](https://github.com/paypal/paypal-messaging-components/commit/bb05a67d9d2996b026c5701fe85a5c2a1ae736b4))
+* Ios26 overlay modal fix ([#1341](https://github.com/paypal/paypal-messaging-components/issues/1341)) ([ef94708](https://github.com/paypal/paypal-messaging-components/commit/ef947080a4e507acaa0f5127fd1841d208286169))
+
+## [1.89.0](https://github.com/paypal/paypal-messaging-components/compare/v1.88.0...v1.89.0) (2026-06-25)
+
+
+### Features
+
+* Adjust UK Pi3 for regulatory changes ([#1330](https://github.com/paypal/paypal-messaging-components/issues/1330)) ([c6c3d35](https://github.com/paypal/paypal-messaging-components/commit/c6c3d353ad1ebea275f58bf593e54d0d9b8830e7))
+
+## [1.88.0](https://github.com/paypal/paypal-messaging-components/compare/v1.87.0...v1.88.0) (2026-06-22)
+
+
+### Features
+
+* Adjust UK Pi3 for regulatory changes ([#1330](https://github.com/paypal/paypal-messaging-components/issues/1330)) ([#1334](https://github.com/paypal/paypal-messaging-components/issues/1334)) ([d0cf9f0](https://github.com/paypal/paypal-messaging-components/commit/d0cf9f0fe3a2401836acbea8f48db93fac1ac16d))
+
+## [1.87.0](https://github.com/paypal/paypal-messaging-components/compare/v1.86.0...v1.87.0) (2026-06-11)
+
+
+### Features
+
+* CA PM XO modal ([#1327](https://github.com/paypal/paypal-messaging-components/issues/1327)) ([5cda868](https://github.com/paypal/paypal-messaging-components/commit/5cda868f3bab8c291c8c095e774b4903954478a1))
+
+## [1.86.0](https://github.com/paypal/paypal-messaging-components/compare/v1.85.0...v1.86.0) (2026-06-04)
+
+
+### Features
+
+* **DTCRCMERC-5257:** add renderV2Message SSR module ([ad50e6a](https://github.com/paypal/paypal-messaging-components/commit/ad50e6aa659536167c994d99e95e9af40e77169c))
+
+
+### Bug Fixes
+
+* **DTCRCMERC-5257:** address braluna PR review comments ([20b0888](https://github.com/paypal/paypal-messaging-components/commit/20b08886c80745d54ec589a4616cecfa5cefa5a2))
+* **DTCRCMERC-5257:** address jeremy and braluna PR review comments ([0d0208c](https://github.com/paypal/paypal-messaging-components/commit/0d0208cf07e4263fc1716bed4fe814f11b0c97a8))
+* **DTCRCMERC-5257:** code review fixes for renderV2Message module ([bcbe1da](https://github.com/paypal/paypal-messaging-components/commit/bcbe1da08f112f5d6cb6369277d324351379280a))
+* **DTCRCMERC-5257:** parameterize fontFamily and textAlign in styles ([9534613](https://github.com/paypal/paypal-messaging-components/commit/9534613c8bdc0c9dc0e91a4e785fa3673e8bc3a4))
+
+
+### Code Refactoring
+
+* **DTCRCMERC-5257:** rework renderV2Message to v6 template architecture ([bf98240](https://github.com/paypal/paypal-messaging-components/commit/bf9824066c29551231ae966356ce96189b8271f6))
+* update fr msg thresholds ([#1324](https://github.com/paypal/paypal-messaging-components/issues/1324)) ([ec5fd84](https://github.com/paypal/paypal-messaging-components/commit/ec5fd84d4034440417f1cb201a0b9b46e5fc2a55))
+
+## [1.85.0](https://github.com/paypal/paypal-messaging-components/compare/v1.84.1...v1.85.0) (2026-05-28)
+
+
+### Features
+
+* create uk xo pi30 modal ([#1310](https://github.com/paypal/paypal-messaging-components/issues/1310)) ([eb1186d](https://github.com/paypal/paypal-messaging-components/commit/eb1186dc9b774f802c545e64aeccc88c4e3bf231))
+
 ### [1.84.1](https://github.com/paypal/paypal-messaging-components/compare/v1.84.0...v1.84.1) (2026-05-14)
 
 

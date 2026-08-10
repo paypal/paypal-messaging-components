@@ -78,6 +78,10 @@
             background-color: colors.$white;
         }
 
+        &.darkMode {
+            background-color: colors.$dark-mode-black;
+        }
+
         .content__col {
             height: 100%;
             display: flex;
@@ -157,6 +161,11 @@
                     margin-bottom: 60px;
                 }
             }
+
+            &.darkMode {
+                color: colors.$white;
+                opacity: 0.72;
+            }
         }
 
         &.checkout {
@@ -176,5 +185,9 @@
 
     &.checkout {
         background-color: colors.$white;
+    }
+    
+    &.darkMode {
+        background-color: colors.$dark-mode-black;
     }
 }

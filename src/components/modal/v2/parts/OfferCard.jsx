@@ -1,14 +1,14 @@
 /** @jsx h */
 import { h } from 'preact';
 
-const OfferCard = ({ offer: { content, meta }, useNewCheckoutDesign }) => {
+const OfferCard = ({ offer: { content, meta }, useNewCheckoutDesign, useDarkMode }) => {
     const { termsLabel } = content;
     const aprRemoveTrailingZeros = meta?.apr.replace(/\D00$/, '');
     const aprFieldTitle = aprRemoveTrailingZeros === '0' ? termsLabel?.zeroApr : termsLabel?.nonZeroApr;
     const offerHeaderField = termsLabel?.offerHeader;
 
     return (
-        <div className="offer__container">
+        <div className={`${useDarkMode ? 'darkMode' : ''}`}>
             <div className="offer__row">
                 <strong
                     className="offer__field-header"

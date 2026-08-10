@@ -1,6 +1,6 @@
-@use "../globals/colors";
-@use "../globals/mixins";
-@use "../globals/variables";
+@use '../globals/colors';
+@use '../globals/mixins';
+@use '../globals/variables';
 
 strong {
     font-family: variables.$paypal-open;
@@ -66,6 +66,18 @@ strong {
                 }
             }
         }
+
+        &.darkMode {
+            .offer__field-header,
+            .offer__field-title,
+            .offer__field-value {
+                color: colors.$white;
+            }
+            .offer__field-title:nth-child(-n + 2),
+            .offer__field-value:nth-child(-n + 2) {
+                opacity: 0.72;
+            }
+        }
     }
     &__row {
         display: flex;
@@ -113,7 +125,8 @@ strong {
     &__field-title {
         display: flex;
         font-size: 18px;
-        color: colors.$v5-gray;
+        color: colors.$text-main;
+        font-weight: bold;
         margin: 0px;
         @include mixins.smallMobile {
             font-size: 18px;
@@ -133,7 +146,8 @@ strong {
 
     &__field-value {
         font-size: 18px;
-        color: colors.$v5-gray;
+        color: colors.$text-main;
+        font-weight: bold;
         margin: 0px;
         @include mixins.mobile {
             font-size: 18px;

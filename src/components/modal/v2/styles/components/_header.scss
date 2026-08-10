@@ -40,6 +40,10 @@
         @include mixins.lander {
             border-radius: 0;
         }
+
+        .darkMode {
+            background-color: colors.$dark-mode-black;
+        }
     }
 
     &__background-wrapper {
@@ -337,6 +341,10 @@
                     max-width: 75%;
                 }
             }
+
+            &.darkMode {
+                color: colors.$white;
+            }
         }
 
         .subheadline_p {
@@ -383,6 +391,10 @@
                 @include mixins.mobile {
                     margin-left: 0px;
                 }
+            }
+
+            &.darkMode {
+                color: colors.$white;
             }
         }
 
@@ -473,6 +485,10 @@
                 @include mixins.mobile {
                     padding: 10px 22px 50px;
                 }
+            }
+
+            .subheadline-gb {
+                padding-right: 50px;
             }
         }
     }

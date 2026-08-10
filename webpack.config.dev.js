@@ -155,5 +155,28 @@ module.exports = (env = {}) => {
         })
     });
 
-    return [LIBRARY_DEV_CONFIG, COMPONENTS_DEV_CONFIG, LANDER_COMPONENTS_DEV_CONFIG, RENDERING_DEV_CONFIG];
+    const RENDERING_V2_DEV_CONFIG = getWebpackConfig({
+        entry: {
+            renderV2Message: './src/server/v2/index.js'
+        },
+        libraryTarget: 'commonjs',
+        modulename: 'renderV2Message',
+        debug: true,
+        minify: false,
+        sourcemaps: false,
+        filename: '[name].js',
+        env: env.NODE_ENV,
+        vars: globals({
+            ...env,
+            TARGET: 'render'
+        })
+    });
+
+    return [
+        LIBRARY_DEV_CONFIG,
+        COMPONENTS_DEV_CONFIG,
+        LANDER_COMPONENTS_DEV_CONFIG,
+        RENDERING_DEV_CONFIG,
+        RENDERING_V2_DEV_CONFIG
+    ];
 };

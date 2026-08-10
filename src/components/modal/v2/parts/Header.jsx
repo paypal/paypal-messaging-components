@@ -9,7 +9,8 @@ const Header = ({
     subheadline,
     isQualifying = 'false',
     qualifyingSubheadline,
-    closeButtonLabel = 'Close'
+    closeButtonLabel = 'Close',
+    useDarkMode
 }) => {
     const { country } = useServerData();
     const [, handleClose] = useTransitionState();
@@ -35,10 +36,12 @@ const Header = ({
     return (
         <Fragment>
             <div aria-hidden="true" className="header__fixed-wrapper header__fixed-wrapper--front">
-                <div className="header__background-wrapper header__background-wrapper--gradient" />
+                <div
+                    className={`header__background-wrapper header__background-wrapper--gradient ${useDarkMode ? 'darkMode' : ''}`}
+                />
             </div>
             <div aria-hidden="true" className="header__fixed-wrapper">
-                <div className="header__background-wrapper" />
+                <div className={`header__background-wrapper ${useDarkMode ? 'darkMode' : ''}`} />
             </div>
             <div className="header__icons">
                 <div className={`logo__wrapper ${isScrolled ? 'logo__wrapper--scroll' : ''}`}>
@@ -61,7 +64,9 @@ const Header = ({
                     </button>
                 )}
                 <div className="header__fixed-wrapper header__fixed-wrapper--front">
-                    <div className="header__background-wrapper header__background-wrapper--sticky" />
+                    <div
+                        className={`header__background-wrapper header__background-wrapper--sticky ${useDarkMode ? 'darkMode' : ''}`}
+                    />
                 </div>
             </div>
             <div className="header__content">
@@ -73,12 +78,16 @@ const Header = ({
                     dangerouslySetInnerHTML={{ __html: headline }}
                 />
                 {isQualifying === 'true' && qualifyingSubheadline !== '' ? (
-                    <p className={`subheadline_p subheadline-${countryClassName} qualifying`}>
+                    <p
+                        className={`subheadline_p subheadline-${countryClassName} qualifying ${useDarkMode ? 'darkMode' : ''}`}
+                    >
                         {qualifyingSubheadline.replace(/(\s?EUR)/g, ' €')}
                     </p>
                 ) : (
                     <p
-                        className={`subheadline_p subheadline-${countryClassName} ${getEuroStyleClass(country)}`}
+                        className={`subheadline_p subheadline-${countryClassName} ${
+                            useDarkMode ? 'darkMode' : ''
+                        } ${getEuroStyleClass(country)}`}
                         // eslint-disable-next-line react/no-danger
                         dangerouslySetInnerHTML={{
                             __html: currencyFormat(subheadline) ?? ''

@@ -97,6 +97,11 @@ $donut-text-v5: #545d68;
             .checkout & {
                 font-size: 16px;
             }
+
+            .darkMode & {
+                color: colors.$white;
+                opacity: 0.72;
+            }
         }
 
         &.donut__timestamp {
@@ -111,20 +116,46 @@ $donut-text-v5: #545d68;
                 width: 80px;
                 text-wrap: auto;
             }
+
+            .darkMode & {
+                color: colors.$white;
+                opacity: 0.72;
+            }
         }
     }
     &_line {
         &:first-child {
             svg g {
                 fill: $donut-background;
+
+                .darkMode & {
+                    fill: colors.$white;
+                    opacity: 1;
+                }
+            }
+
+            .darkMode & {
+                color: colors.$white;
+                opacity: 1;
             }
         }
+
         .svg {
             display: flex;
             flex-direction: column;
             align-items: center;
             position: relative;
             z-index: 1;
+
+            .darkMode & {
+                border-top: 1px dashed colors.$white;
+                opacity: 0.72;
+            }
+        }
+
+        .darkMode svg g {
+            fill: colors.$white;
+            opacity: 0.72;
         }
 
         &__3 {

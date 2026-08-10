@@ -47,6 +47,7 @@ export default function useCalculator({ autoSubmit = false } = {}) {
     const calculateRef = useRef();
     const serverData = useServerData();
     const { views, country, setServerData } = serverData;
+    const languageMeta = views[0]?.meta?.language || 'undefined';
 
     // From the views retreived, find and return the view with an offers property (i.e. PAY_LATER_LONG_TERM) if there is one.
     const viewWithOffers = views.find(view => view?.offers);
@@ -77,8 +78,8 @@ export default function useCalculator({ autoSubmit = false } = {}) {
     } = useXProps();
 
     const [state, dispatch] = useReducer(reducer, {
-        inputValue: localize(amount, country, 2),
-        prevValue: localize(amount, country, 2),
+        inputValue: localize(amount, country, 2, languageMeta),
+        prevValue: localize(amount, country, 2, languageMeta),
         view: viewWithOffers,
         isLoading: false
     });
@@ -152,13 +153,13 @@ export default function useCalculator({ autoSubmit = false } = {}) {
             // provided could be a value resulted from JavaScript math where the value has floating point
             // precision issues (e.g. 100.000000000001)
             Math.abs(viewWithOffersAmount - amount) < 0.01 &&
-            Math.abs(delocalize(state.inputValue, country) - amount) >= 0.01
+            Math.abs(delocalize(state.inputValue, country, languageMeta) - amount) >= 0.01
         ) {
             dispatch({
                 type: 'view',
                 data: {
                     ...viewWithOffers,
-                    formattedAmount: localize(`${viewWithOffersAmount}`, country, 2),
+                    formattedAmount: localize(`${viewWithOffersAmount}`, country, 2, languageMeta),
                     autoSubmit: false
                 }
             });
@@ -168,7 +169,7 @@ export default function useCalculator({ autoSubmit = false } = {}) {
     // Because we use state in this function, which changes every dispatch,
     // and we want it debounced, we need to use a ref to hold the most up-to-date function reference
     calculateRef.current = () => {
-        const delocalizedValue = delocalize(state.inputValue, country).replace(/\.$/, '.00');
+        const delocalizedValue = delocalize(state.inputValue, country, languageMeta).replace(/\.$/, '.00');
 
         if (state.prevValue !== state.inputValue && delocalizedValue !== 'NaN') {
             onCalculate({ value: delocalizedValue });

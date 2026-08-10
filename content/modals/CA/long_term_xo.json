@@ -1,0 +1,45 @@
+{
+    "meta": {
+        "product": "PAY_LATER_LONG_TERM",
+        "offerCountry": "CA",
+        "useV5Design": "true",
+        "variables": {
+            "transaction_amount": "${eval(transaction_amount ? transaction_amount : '-')}",
+            "qualifying_offer": "${eval(CREDIT_OFFERS_DS.qualifying_offer ? CREDIT_OFFERS_DS.qualifying_offer : 'false')}",
+            "financing_code": "${CREDIT_OFFERS_DS.financing_code}",
+            "formattedPeriodicPayment": "${CREDIT_OFFERS_DS.formattedPeriodicPayment}",
+            "total_payments": "${CREDIT_OFFERS_DS.total_payments}",
+            "formattedMinAmount": "${CREDIT_OFFERS_DS.formattedMinAmount}",
+            "formattedMaxAmount": "${CREDIT_OFFERS_DS.formattedMaxAmount}",
+            "formattedTotalCost": "${CREDIT_OFFERS_DS.formattedTotalCost}",
+            "minAmount": "${CREDIT_OFFERS_DS.minAmount}",
+            "maxAmount": "${CREDIT_OFFERS_DS.maxAmount}",
+            "apr": "${CREDIT_OFFERS_DS.apr}",
+            "nominal_rate": "${CREDIT_OFFERS_DS.nominal_rate}"
+        }
+    },
+    "content": {
+        "headline": "Pay Monthly",
+        "subheadline": "Get more time to pay, with no down payment or late fees.",
+        "calculator": {
+            "title": "How much is your purchase?",
+            "inputLabel": "Purchase amount",
+            "inputPlaceholder": "$0",
+            "genericError": "Something went wrong. Please try again later."
+        },
+        "genericDisclaimer": "Terms vary based on purchase amount and your credit.",
+        "instructions": [
+            "Choose PayPal at checkout to pay later with <strong>Pay Monthly</strong><span aria-hidden='true'>.</span>",
+            "Get a decision in seconds and complete your purchase.",
+            "Use autopay for your payments. It's easy!"
+        ],
+        "disclosure": [
+            "Pay Monthly is available to approved consumers for purchases of $49.00 to $10,000.00 (CAD) for certain transaction types. Availability depends on the merchant. You must be age of majority in the province or territory where you live to apply. Any transactions in other currencies will be converted to Canadian dollars subject to applicable currency conversion charges. You may repay the amount you owe in full at any time, without any fees or charges."
+        ],
+        "cta": {
+            "buttonTextEligible": "Continue with Pay Monthly",
+            "buttonTextIneligible": "Back to Checkout",
+            "link": "https://www.paypal.com/link/to/long-term-application"
+        }
+    }
+}

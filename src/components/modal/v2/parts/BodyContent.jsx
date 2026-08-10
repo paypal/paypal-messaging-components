@@ -8,7 +8,8 @@ import {
     useXProps,
     useScroll,
     useDidUpdateEffect,
-    useTransitionState
+    useTransitionState,
+    usePrefersDarkMode
 } from '../lib';
 import Header from './Header';
 import { LongTerm, ShortTerm, NoInterest, ProductList, PayIn1 } from './views';
@@ -64,6 +65,9 @@ const BodyContent = () => {
     const useV5Design = productMeta?.useV5Design === 'true';
     const use5Dot1Design = productMeta?.['v5.1'];
     const useNewCheckoutDesign = features?.includes('new-checkout-design') ? 'true' : 'false';
+    const prefersDarkMode = usePrefersDarkMode();
+    const useDarkMode =
+        productMeta?.enableDarkMode === 'true' && (prefersDarkMode || !!features?.includes('use-dark-mode'));
 
     const isPreapproved = productMeta?.preapproved;
     const shouldShowPreapprovedBadge = productMeta?.showPreapprovedBadge;
@@ -102,18 +106,25 @@ const BodyContent = () => {
                 content={content}
                 productMeta={productMeta}
                 useNewCheckoutDesign={useNewCheckoutDesign}
+                useDarkMode={useDarkMode}
                 use5Dot1Design={use5Dot1Design}
                 openProductList={openProductList}
             />
         ),
         [VIEW_IDS.PAY_LATER_PAY_IN_1]: (
-            <PayIn1 productMeta={productMeta} content={content} openProductList={openProductList} />
+            <PayIn1
+                productMeta={productMeta}
+                content={content}
+                useNewCheckoutDesign={useNewCheckoutDesign}
+                openProductList={openProductList}
+            />
         ),
         [VIEW_IDS.PAY_LATER_SHORT_TERM]: (
             <ShortTerm
                 content={content}
                 productMeta={productMeta}
                 useNewCheckoutDesign={useNewCheckoutDesign}
+                useDarkMode={useDarkMode}
                 use5Dot1Design={use5Dot1Design}
                 openProductList={openProductList}
             />
@@ -153,9 +164,12 @@ const BodyContent = () => {
                     useV4Design={useV4Design}
                     useV5Design={useV5Design}
                     use5Dot1Design={use5Dot1Design}
+                    useDarkMode={useDarkMode}
                 />
             )}
-            <div className={`content__container ${useNewCheckoutDesign === 'true' ? 'checkout' : ''}`}>
+            <div
+                className={`content__container ${useNewCheckoutDesign === 'true' ? 'checkout' : ''} ${useDarkMode ? 'darkMode' : ''}`}
+            >
                 <main className="main">
                     <div className="content__body">{viewComponents[viewName]}</div>
                 </main>

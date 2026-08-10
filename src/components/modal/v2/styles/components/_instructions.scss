@@ -36,6 +36,10 @@
         line-height: 24px;
         font-size: 18px;
         padding-bottom: 16px;
+
+        .darkMode & {
+            color: colors.$white;
+        }
     }
     h2 {
         font-size: 18px;
@@ -140,6 +144,10 @@
             ::after {
                 content: '.';
             }
+        }
+
+        .darkMode & {
+            color: colors.$white;
         }
     }
 

@@ -1,7 +1,17 @@
 import '../../../../utils/mockZoidCreate';
 
 import { getTreatmentsComponent } from '../../../../../../src/library/zoid/treatments';
-import { getNamespace, globalEvent } from '../../../../../../src/utils';
+import { destroyGlobalState, getNamespace, globalEvent, setGlobalState } from '../../../../../../src/utils';
+
+jest.mock('@paypal/sdk-client/src', () => ({
+    getClientID: () => 'test-client-id',
+    getDefaultNamespace: () => 'paypal',
+    getDisableSetCookie: () => false,
+    getEnv: () => 'stage',
+    getPayPalDomain: () => 'https://www.paypal.com',
+    getSDKMeta: () => 'sdk-meta',
+    getStorageID: () => 'test-device-id'
+}));
 
 jest.mock('../../../../../../src/utils/global', () => {
     const global = jest.requireActual('../../../../../../src/utils/global');
@@ -15,6 +25,85 @@ jest.mock('../../../../../../src/utils/global', () => {
 
 describe('treatments component', () => {
     const treatmentsHash = '1daf92517fb7620b02add6943517ae0a5ca8f0a0';
+    let target;
+
+    beforeEach(() => {
+        target = window.__MESSAGES__.__TARGET__;
+        destroyGlobalState();
+    });
+
+    afterEach(() => {
+        window.__MESSAGES__.__TARGET__ = target;
+        destroyGlobalState();
+    });
+
+    test('sends client_id and deviceID query props for SDK treatments', () => {
+        window.__MESSAGES__.__TARGET__ = 'SDK';
+
+        const treatmentsComponent = getTreatmentsComponent();
+
+        expect(treatmentsComponent.config.props.clientId).toMatchObject({
+            type: 'string',
+            queryParam: 'client_id',
+            required: false
+        });
+        expect(treatmentsComponent.props.clientId).toBe('test-client-id');
+        expect(treatmentsComponent.props.payerId).toBeUndefined();
+        expect(treatmentsComponent.config.props.deviceID).toMatchObject({
+            type: 'string',
+            queryParam: true
+        });
+        expect(treatmentsComponent.props.deviceID).toBe('test-device-id');
+    });
+
+    test('sends payer_id from global config for standalone payer account treatments', () => {
+        window.__MESSAGES__.__TARGET__ = 'STANDALONE';
+        setGlobalState({ config: { account: 'DEV00000000NI' } });
+
+        const treatmentsComponent = getTreatmentsComponent();
+
+        expect(treatmentsComponent.config.props.payerId).toMatchObject({
+            type: 'string',
+            queryParam: 'payer_id',
+            required: false
+        });
+        expect(treatmentsComponent.props.payerId).toBe('DEV00000000NI');
+        expect(treatmentsComponent.props.clientId).toBeUndefined();
+    });
+
+    test('sends client_id from global config for standalone client-id account treatments', () => {
+        window.__MESSAGES__.__TARGET__ = 'STANDALONE';
+        setGlobalState({ config: { account: 'client-id:test-standalone-client-id' } });
+
+        const treatmentsComponent = getTreatmentsComponent();
+
+        expect(treatmentsComponent.props.clientId).toBe('test-standalone-client-id');
+        expect(treatmentsComponent.props.payerId).toBeUndefined();
+    });
+
+    test.each([undefined, '', { payerId: 'DEV00000000NI' }])(
+        'does not send experiment credentials for standalone account %p',
+        account => {
+            window.__MESSAGES__.__TARGET__ = 'STANDALONE';
+            setGlobalState({ config: { account } });
+
+            const treatmentsComponent = getTreatmentsComponent();
+
+            expect(treatmentsComponent.props.clientId).toBeUndefined();
+            expect(treatmentsComponent.props.payerId).toBeUndefined();
+        }
+    );
+
+    test('prefers client_id when standalone account uses client-id prefix', () => {
+        window.__MESSAGES__.__TARGET__ = 'STANDALONE';
+        setGlobalState({ config: { account: 'client-id:test-client-id' } });
+
+        const treatmentsComponent = getTreatmentsComponent();
+
+        expect(treatmentsComponent.props.clientId).toBe('test-client-id');
+        expect(treatmentsComponent.props.payerId).toBeUndefined();
+    });
+
     test('handles treatment data', () => {
         const {
             props: { onReady }

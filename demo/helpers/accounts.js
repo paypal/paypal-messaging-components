@@ -88,6 +88,8 @@ const accounts = [
     // GB
     // 'DEV000000GBPL',
     // 'DEV00000GBPLQ',
+    // 'DEV00GBPI30NQ',
+    // 'DEV000GBPI30Q',
 
     // FR
     // DEV0FRGENERIC

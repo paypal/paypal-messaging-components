@@ -15,7 +15,8 @@ const Donut = ({
     timeStamp,
     periodicPayment,
     qualifying,
-    useNewCheckoutDesign
+    useNewCheckoutDesign,
+    useDarkMode
 }) => {
     const percentage = (currentNum / numOfPayments) * 100;
     const strokeDasharray = `${percentage} ${100 - percentage}`;
@@ -43,7 +44,9 @@ const Donut = ({
                 currentNum === numOfPayments ? 'donut__single_payment_line__end' : ''
             }`}
         >
-            <span className={`${useNewCheckoutDesign === 'true' ? 'checkout' : ''} svg`}>
+            <span
+                className={`${useNewCheckoutDesign === 'true' ? 'checkout' : ''} svg ${useDarkMode ? 'darkMode' : ''}`}
+            >
                 <svg aria-hidden viewBox={viewBox} className="donut" style={style} xmlns="http://www.w3.org/2000/svg">
                     <circle
                         cx={cx}

@@ -27,14 +27,17 @@ jobs:
                       const fs = require('fs');
                       const { execSync } = require('child_process');
 
-                      const artifacts = await github.rest.actions.listWorkflowRunArtifacts({
+                      const artifacts = await github.paginate(github.rest.actions.listWorkflowRunArtifacts, {
                         owner: context.repo.owner,
                         repo: context.repo.repo,
-                        run_id: context.payload.workflow_run.id
+                        run_id: context.payload.workflow_run.id,
+                        per_page: 100
                       });
 
+                      console.log(`Found ${artifacts.length} artifacts in workflow run`);
+
                       await Promise.all(
-                        artifacts.data.artifacts.map(async (artifact) => {
+                        artifacts.map(async (artifact) => {
                           const download = await github.rest.actions.downloadArtifact({
                             owner: context.repo.owner,
                             repo: context.repo.repo,
@@ -64,6 +67,21 @@ jobs:
               run: |
                   git status --porcelain
 
+            - name: Detect Snapshot Changes
+              id: snapshot_changes
+              run: |
+                  SNAPSHOT_STATUS="$(git status --porcelain tests/functional/snapshots tests/functional/v2/snapshots || true)"
+
+                  if [ -z "$SNAPSHOT_STATUS" ]
+                  then
+                      echo "has_changes=false" >> "$GITHUB_OUTPUT"
+                      echo "::error::Update Snapshots succeeded, but no snapshot file changes were present to commit."
+                      exit 1
+                  fi
+
+                  echo "has_changes=true" >> "$GITHUB_OUTPUT"
+                  echo "$SNAPSHOT_STATUS"
+
             - name: Reset Label
               if: github.event.workflow_run.event == 'pull_request'
               uses: actions/github-script@v7
@@ -73,7 +91,17 @@ jobs:
                   script: |
                       const fs = require('fs');
 
-                      const pullNumber = Number(fs.readFileSync('./pull_number.txt', 'utf8')).toString();
+                      let pullNumber = null;
+
+                      if (fs.existsSync('./pull_number.txt')) {
+                        pullNumber = Number(fs.readFileSync('./pull_number.txt', 'utf8')).toString();
+                      } else if (context.payload.workflow_run.pull_requests?.[0]?.number) {
+                        pullNumber = context.payload.workflow_run.pull_requests[0].number.toString();
+                        console.log('pull_number.txt not found, using workflow_run.pull_requests[0].number');
+                      } else {
+                        console.log('No PR number available; skipping snapshots label reset');
+                        return;
+                      }
 
                       await github.rest.issues.removeLabel({
                         owner: context.repo.owner,
@@ -85,6 +113,7 @@ jobs:
                       });
 
             - name: Commit Updated Snapshots
+              if: steps.snapshot_changes.outputs.has_changes == 'true'
               uses: stefanzweifel/git-auto-commit-action@v4
               with:
                   commit_message: 'chore(snapshots): ${{ github.event.workflow.name }} [skip ci]'

@@ -12,7 +12,8 @@ const TermsTable = ({
     useV4Design,
     useV5Design,
     use5Dot1Design,
-    useNewCheckoutDesign
+    useNewCheckoutDesign,
+    useDarkMode
 }) => {
     const { offerCountry } = meta;
     const offerAccordionCountries = ['AT', 'DE', 'ES', 'IT'];
@@ -35,8 +36,9 @@ const TermsTable = ({
         );
     }
 
-    // ES and IT countries offer accordion should display in ascending order (6, 12, 24 months)
-    const processedOffers = offerCountry === 'ES' || offerCountry === 'IT' ? [...offers].reverse() : offers;
+    // ES, IT, and CA countries offer accordion should display in ascending order (6, 12, 24 months)
+    const processedOffers =
+        offerCountry === 'ES' || offerCountry === 'IT' || offerCountry === 'CA' ? [...offers].reverse() : offers;
 
     const qualifyingOffers = processedOffers
         .filter(offer => offer.meta.qualifying === 'true')
@@ -69,6 +71,7 @@ const TermsTable = ({
                     useV5Design={useV5Design}
                     use5Dot1Design={use5Dot1Design}
                     useNewCheckoutDesign={useNewCheckoutDesign}
+                    useDarkMode={useDarkMode}
                 />
             );
         });

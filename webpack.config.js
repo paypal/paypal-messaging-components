@@ -97,10 +97,26 @@ module.exports = (env = {}) => {
         })
     });
 
+    const RENDERING_V2_CONFIG = getWebpackConfig({
+        entry: {
+            renderV2Message: './src/server/v2/index.js'
+        },
+        libraryTarget: 'commonjs',
+        modulename: 'renderV2Message',
+        minify: true,
+        debug: false,
+        filename: '[name].js',
+        env: env.NODE_ENV,
+        vars: globals({
+            ...env,
+            TARGET: 'render'
+        })
+    });
+
     const modules = {
         library: [MESSAGING_JS_CONFIG, MODAL_JS_CONFIG],
         components: [COMPONENTS_CONFIG, LANDER_COMPONENTS_CONFIG],
-        render: [RENDERING_CONFIG]
+        render: [RENDERING_CONFIG, RENDERING_V2_CONFIG]
     };
 
     return Array.prototype.concat.apply(
