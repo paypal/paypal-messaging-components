@@ -10,7 +10,11 @@
         <button class="learn-more">Learn more</button>
         <script>
             const modal = window.paypal.MessagesModal({
-                account: 'DEV_US_MULTI'
+                account: 'DEV_US_LONG_TERM_CHECKOUT',
+                channel: 'CHECKOUT',
+                features: 'use-new-checkout-design',
+                // features: 'use-dark-mode',
+                amount: '900'
             });
             document.querySelector('.learn-more').addEventListener('click', () => {
                 modal.show();

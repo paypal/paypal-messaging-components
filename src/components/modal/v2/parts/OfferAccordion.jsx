@@ -5,8 +5,6 @@ import Icon from './Icon';
 
 const OfferAccordion = ({
     offer: { content, meta },
-    useV5Design,
-    use5Dot1Design,
     aprDisclaimer,
     index,
     activeSelection,
@@ -31,8 +29,8 @@ const OfferAccordion = ({
         <div
             id={index}
             className={`accordion__container ${activeSelection === index ? 'active' : ''} ${open} ${
-                useV5Design === 'true' ? 'v5Design' : ''
-            } ${use5Dot1Design ? 'v5Dot1Design' : ''} ${offerCountry || ''}`}
+                offerCountry || ''
+            }`}
         >
             <div className="accordion__content">
                 <div className="accordion__row">

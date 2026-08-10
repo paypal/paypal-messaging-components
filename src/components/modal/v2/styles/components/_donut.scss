@@ -1,6 +1,6 @@
 @use '../globals/mixins';
-@use "../globals/colors";
-@use "../globals/variables";
+@use '../globals/colors';
+@use '../globals/variables';
 
 $webpage: 1640px;
 $green500: #388c00;
@@ -34,16 +34,34 @@ $donut-text-v5: #545d68;
         .donut__ {
             &payment {
                 font-family: variables.$paypal-open;
+                color: colors.$text-main;
+
+                .darkMode & {
+                    color: colors.$white;
+                    opacity: 1;
+                }
             }
             &timestamp {
                 font-family: variables.$paypal-open;
+                color: colors.$text-main;
+
+                .darkMode & {
+                    color: colors.$white;
+                    opacity: 1;
+                }
             }
         }
     }
 
     svg {
+        background-color: white;
         max-width: 50px;
         width: 100%;
+
+        .darkMode & {
+            background-color: #1a1a1a;
+            opacity: 1;
+        }
 
         text {
             font-size: 0.5rem;
@@ -85,16 +103,12 @@ $donut-text-v5: #545d68;
 
         &.donut__payment {
             font-family: variables.$paypal-open;
-            color: colors.$text-main;
+            color: colors.$v5-gray;
             font-size: 0.9rem;
             margin-top: 0.3rem;
 
             @media all and (min-width: $webpage) {
                 margin-top: 0.25rem;
-            }
-            &_v5 {
-                @extend .donut__payment;
-                color: $donut-text-v5;
             }
 
             .checkout & {
@@ -108,17 +122,13 @@ $donut-text-v5: #545d68;
         }
 
         &.donut__timestamp {
-            color: colors.$text-main;
+            color: colors.$v5-gray;
             font-family: variables.$paypal-open;
             font-size: 0.9rem;
             @include mixins.desktop {
                 line-height: 22px;
             }
             white-space: nowrap;
-            &_v5 {
-                @extend .donut__timestamp;
-                color: $donut-text-v5;
-            }
             .checkout & {
                 width: 80px;
                 text-wrap: auto;
@@ -140,58 +150,21 @@ $donut-text-v5: #545d68;
                     opacity: 1;
                 }
             }
-            span.donut__timestamp_v5,
-            span.donut__payment_v5 {
-                color: colors.$text-main;
 
-                .darkMode & {
-                    color: colors.$white;
-                    opacity: 1;
-                }
+            .darkMode & {
+                color: colors.$white;
+                opacity: 1;
             }
-        }
-        span.donut__timestamp_v5Dot1,
-        span.donut__payment_v5Dot1 {
-            color: colors.$v5-gray;
         }
 
         .svg {
             display: flex;
             flex-direction: column;
             align-items: center;
-
-            &::after {
-                content: '';
-                flex-grow: 1;
-                border-top: 1px dashed colors.$dark-gray;
-                width: 100%;
-                max-width: 50px;
-                transform: translateX((97%));
-                margin-top: -50%;
-                margin-bottom: 50%;
-
-                @include mixins.smallHeightMobile {
-                    transform: translateX((100%));
-                }
-                @include mixins.mobile {
-                    max-width: 45px;
-                }
-                @include mixins.smallMobile {
-                    max-width: 35px;
-                }
-
-                .darkMode & {
-                    border-top: 1px dashed colors.$white;
-                    opacity: 0.72;
-                }
-            }
+            position: relative;
+            z-index: 1;
         }
-        .v5Design {
-            &.svg::after {
-                margin-bottom: 12px;
-            }
-        }
-        
+
         .darkMode svg g {
             fill: colors.$white;
             opacity: 0.72;
@@ -199,37 +172,9 @@ $donut-text-v5: #545d68;
 
         &__3 {
             @extend .donut__single_payment_line;
-            .svg {
-                @include mixins.mobile {
-                    position: relative;
-                }
-
-                &::after {
-                    max-width: 85px;
-                    transform: translateX((100%));
-                    margin-left: 50%;
-
-                    @include mixins.smallHeightMobile {
-                        transform: translateX((75%));
-                    }
-                    @include mixins.mobile {
-                        max-width: none;
-                        padding-left: 2px;
-                    }
-                    @include mixins.smallMobile {
-                        max-width: min(55px, calc(100vw * 0.3));
-                        transform: translateX((57%));
-                    }
-                }
-            }
         }
         &__end {
             @extend .donut__single_payment_line;
-            .svg {
-                &::after {
-                    visibility: hidden;
-                }
-            }
         }
     }
 }

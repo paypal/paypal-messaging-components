@@ -19,15 +19,10 @@
     border-radius: 12px;
     margin-bottom: 31px;
     background: colors.$white;
-    box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.04), 0px 1px 12px rgba(0, 0, 0, 0.08);
+    box-shadow: none;
+    border: 1px solid #CCCCCC;
     cursor: pointer;
 
-    &.v5Design {
-        box-shadow: none;
-    }
-    &.v5Dot1Design {
-        border: 1px solid #CCCCCC;
-    }
     &:hover {
         border: 2px solid #000000;
     }
@@ -63,25 +58,15 @@
             .tile__body {
                 font-family: variables.$paypal-open;
                 margin-top: 5px;
-                font-size: 18px;
+                font-size: 100%;
                 font-weight: 400;
                 line-height: 24px;
                 display: flex;
                 align-items: center;
-                color: colors.$text-main;
-
-                &.v5Design {
-                    font-size: 100%;
-                }
-
-                &.v5Dot1Design {
-                    color: colors.$v5-gray;
-                }
+                color: colors.$v5-gray;
             }
         }
     }
 
-    &.v5Design {
-        height: 100px;
-    }
+    height: 100px;
 }

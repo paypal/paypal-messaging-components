@@ -74,9 +74,6 @@ const Calculator = ({
     aprDisclaimer,
     genericDisclaimer,
     cta,
-    useV4Design,
-    useV5Design,
-    use5Dot1Design,
     useNewCheckoutDesign,
     useDarkMode
 }) => {
@@ -200,22 +197,20 @@ const Calculator = ({
     return (
         <div
             className={`calculator ${useNewCheckoutDesign === 'true' ? 'checkout' : ''} ${
-                useV5Design === 'true' ? 'v5Design' : ''
-            } ${cta ? 'border-checkout' : ''}`}
+                cta ? 'border-checkout' : ''
+            }`}
         >
             <form
-                className={`form ${useV4Design === 'true' ? 'v4Design' : ''} ${
-                    useV5Design === 'true' ? 'v5Design' : ''
-                } ${useNewCheckoutDesign === 'true' ? 'checkout' : ''} ${useDarkMode ? 'darkMode' : ''}`}
+                className={`form ${useNewCheckoutDesign === 'true' ? 'checkout' : ''} ${useDarkMode ? 'darkMode' : ''}`}
                 onSubmit={submit}
             >
                 <h3 className={`title ${cta ? 'checkout-title' : ''}`}>
                     {!hasInitialAmount ? genericTitle || title : title}
                 </h3>
                 <div
-                    className={`input__wrapper transitional ${useV5Design === 'true' ? 'v5Design' : ''} ${
-                        cta ? 'checkout' : ''
-                    } ${country || ''} ${error && hasEnteredAmount ? 'input__wrapper--error' : ''}`}
+                    className={`input__wrapper transitional ${cta ? 'checkout' : ''} ${country || ''} ${
+                        error && hasEnteredAmount ? 'input__wrapper--error' : ''
+                    }`}
                 >
                     <label htmlFor="purchase-amount" className={`input__label ${country}`}>
                         {renderInputLabelOnEmptyField(country)}
@@ -241,9 +236,6 @@ const Calculator = ({
                         view={view}
                         isLoading={isLoading}
                         aprDisclaimer={aprDisclaimer}
-                        useV4Design={useV4Design}
-                        useV5Design={useV5Design}
-                        use5Dot1Design={use5Dot1Design}
                         useNewCheckoutDesign={useNewCheckoutDesign}
                         useDarkMode={useDarkMode}
                     />
@@ -253,15 +245,13 @@ const Calculator = ({
                 <div
                     className={`finance-terms__disclaimer ${
                         !(hasInitialAmount || hasUsedInputField) || error ? 'no-amount' : ''
-                    } ${useV5Design === 'true' ? 'v5Design' : ''} ${useDarkMode ? 'darkMode' : ''}`}
+                    } ${useDarkMode ? 'darkMode' : ''}`}
                 >
                     {aprDisclaimer[0].aprDisclaimer}
                 </div>
             )}
             {(country === 'ES' || country === 'IT') && (
-                <div className={`finance-terms__disclaimer ${useV5Design === 'true' ? 'v5Design' : ''}`}>
-                    {genericDisclaimer}
-                </div>
+                <div className="finance-terms__disclaimer">{genericDisclaimer}</div>
             )}
         </div>
     );

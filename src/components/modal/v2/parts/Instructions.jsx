@@ -2,16 +2,7 @@
 import { Fragment, h } from 'preact';
 import { currencyFormat, getEuroStyleClass } from '../lib';
 
-const Instructions = ({
-    instructions,
-    cta,
-    expandedState = false,
-    className = '',
-    useV4Design,
-    useV5Design,
-    country,
-    useNewCheckoutDesign
-}) => {
+const Instructions = ({ instructions, cta, expandedState = false, className = '', country, useNewCheckoutDesign }) => {
     const renderBullet = (index, design) => {
         return (
             <div className="instructions__bullet">
@@ -36,17 +27,9 @@ const Instructions = ({
     const renderInstructionsContent = () => {
         if (Array.isArray(instructions)) {
             return (
-                <ol
-                    className={`${expandedState ? '' : 'collapsed'} ${className} ${
-                        useV4Design === 'true' ? 'v4Design' : ''
-                    }`}
-                >
+                <ol className={`${expandedState ? '' : 'collapsed'} ${className}`}>
                     {instructions.map((instruction, index) => (
-                        <li
-                            className={`instructions__item-wrapper ${useV5Design ? 'v5Design' : ''} ${getEuroStyleClass(
-                                country
-                            )}`}
-                        >
+                        <li className={`instructions__item-wrapper ${getEuroStyleClass(country)}`}>
                             {renderBullet(index + 1, useNewCheckoutDesign)}
                             <div
                                 // eslint-disable-next-line react/no-danger
@@ -62,22 +45,14 @@ const Instructions = ({
             return (
                 <Fragment>
                     <h2
-                        className={`instructions__item-wrapper ${useV5Design ? 'v5Design' : ''} ${getEuroStyleClass(
-                            country
-                        )}`}
+                        className={`instructions__item-wrapper ${getEuroStyleClass(country)}`}
                         // eslint-disable-next-line react/no-danger
                         dangerouslySetInnerHTML={{ __html: instructions.instructionsHeadline }}
                     />
-                    <ol
-                        className={
-                            (`${expandedState ? '' : 'collapsed'}`,
-                            className,
-                            `${useV4Design === 'true' ? 'v4Design' : ''}`)
-                        }
-                    >
+                    <ol className={`${expandedState ? '' : 'collapsed'} ${className}`}>
                         {instructions.instructionsSubHeadline.map((instruction, index) => {
                             return (
-                                <li className={`instructions__item-wrapper ${useV5Design ? 'v5Design' : ''}`}>
+                                <li className="instructions__item-wrapper">
                                     {instructions.instructionsIcons
                                         ? renderIcons(Object.values(instructions.instructionsIcons)[index])
                                         : renderBullet(index + 1, useNewCheckoutDesign)}
@@ -107,11 +82,7 @@ const Instructions = ({
     };
 
     return (
-        <div
-            className={`content__row instructions ${useV5Design ? 'v5Design' : ''} ${
-                useNewCheckoutDesign === 'true' ? 'checkout' : ''
-            }`}
-        >
+        <div className={`content__row instructions ${useNewCheckoutDesign === 'true' ? 'checkout' : ''}`}>
             <div className={`${cta ? 'instructions__border-checkout' : ''}`}>{renderInstructionsContent()}</div>
         </div>
     );

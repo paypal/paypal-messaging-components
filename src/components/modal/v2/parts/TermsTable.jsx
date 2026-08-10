@@ -5,16 +5,7 @@ import OfferCard from './OfferCard';
 import OfferAccordion from './OfferAccordion';
 import LoadingShimmer from './LoadingShimmer';
 
-const TermsTable = ({
-    isLoading,
-    view: { meta, offers },
-    aprDisclaimer,
-    useV4Design,
-    useV5Design,
-    use5Dot1Design,
-    useNewCheckoutDesign,
-    useDarkMode
-}) => {
+const TermsTable = ({ isLoading, view: { meta, offers }, aprDisclaimer, useNewCheckoutDesign, useDarkMode }) => {
     const { offerCountry } = meta;
     const offerAccordionCountries = ['AT', 'DE', 'ES', 'IT'];
     /**
@@ -56,8 +47,6 @@ const TermsTable = ({
                         aprDisclaimer={disclaimer}
                         activeSelection={activeSelection}
                         setActiveSelection={setActiveSelection}
-                        useV5Design={useV5Design}
-                        use5Dot1Design={use5Dot1Design}
                         offerCountry={offerCountry}
                     />
                 );
@@ -67,9 +56,6 @@ const TermsTable = ({
                 <OfferCard
                     offer={offer}
                     index={idx}
-                    useV4Design={useV4Design}
-                    useV5Design={useV5Design}
-                    use5Dot1Design={use5Dot1Design}
                     useNewCheckoutDesign={useNewCheckoutDesign}
                     useDarkMode={useDarkMode}
                 />

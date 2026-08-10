@@ -10,24 +10,13 @@ body {
 
 html {
     min-width: inherit !important;
+    color-scheme: light dark;
 
     &.lander {
         // Overscroll background color since we use an SVG pattern
         // for the core background which moves with the overscroll
-        background: colors.$lander-beige;
-    }
-
-    &.v4Design {
-        background: colors.$v4-lander-gray;
-
-        .content__wrapper-overflow {
-            background-color: colors.$v4-gray;
-        }
-    }
-    
-    &.v5Design {
         background: colors.$v5-lander-gray;
-        
+
         .content__wrapper-overflow {
             background-color: colors.$v5-white;
         }

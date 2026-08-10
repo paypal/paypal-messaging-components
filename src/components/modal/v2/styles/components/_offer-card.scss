@@ -1,6 +1,6 @@
-@use "../globals/colors";
-@use "../globals/mixins";
-@use "../globals/variables";
+@use '../globals/colors';
+@use '../globals/mixins';
+@use '../globals/variables';
 
 strong {
     font-family: variables.$paypal-open;
@@ -30,10 +30,8 @@ strong {
             }
         }
 
-        &.v5Design {
-            &:last-child {
-                margin-bottom: 0px;
-            }
+        &:last-child {
+            margin-bottom: 0px;
         }
 
         @include mixins.desktop {
@@ -70,10 +68,13 @@ strong {
         }
 
         &.darkMode {
-            .offer__field-header, .offer__field-title, .offer__field-value {
+            .offer__field-header,
+            .offer__field-title,
+            .offer__field-value {
                 color: colors.$white;
             }
-            .offer__field-title:nth-child(-n+2), .offer__field-value:nth-child(-n+2) {
+            .offer__field-title:nth-child(-n + 2),
+            .offer__field-value:nth-child(-n + 2) {
                 opacity: 0.72;
             }
         }
@@ -97,17 +98,14 @@ strong {
     }
     &__field-header {
         font-size: 18px;
+        color: colors.$text-main;
+        font-weight: bold;
         @include mixins.mobile {
             font-size: 18px;
             margin-top: 16px;
         }
         @include mixins.smallMobile {
             font-size: 1rem;
-        }
-
-        &.v5Dot1Design {
-            color: colors.$text-main;
-            font-weight: bold;
         }
 
         .checkout & {
@@ -127,7 +125,7 @@ strong {
     &__field-title {
         display: flex;
         font-size: 18px;
-        color: colors.$gray;
+        color: colors.$v5-gray;
         margin: 0px;
         @include mixins.smallMobile {
             font-size: 18px;
@@ -135,23 +133,19 @@ strong {
 
         &:is(strong) {
             color: colors.$text-main;
-        }
-
-        &.v5Dot1Design {
-            color: colors.$text-main;
             font-weight: bold;
         }
+
         .checkout & {
             font-size: 16px;
-            & :last-of-type {
-                color: colors.$text-main !important;
-            }
+            color: colors.$text-main;
+            font-weight: bold;
         }
     }
 
     &__field-value {
         font-size: 18px;
-        color: colors.$gray;
+        color: colors.$v5-gray;
         margin: 0px;
         @include mixins.mobile {
             font-size: 18px;
@@ -162,15 +156,13 @@ strong {
 
         &:is(strong) {
             color: colors.$text-main;
-        }
-
-        &.v5Dot1Design {
-            color: colors.$text-main;
             font-weight: bold;
         }
 
         .checkout & {
             font-size: 16px;
+            color: colors.$text-main;
+            font-weight: bold;
         }
     }
 }

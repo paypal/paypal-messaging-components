@@ -31,8 +31,6 @@ export const ShortTerm = ({
     productMeta: {
         qualifying,
         periodicPayment,
-        useV4Design,
-        useV5Design,
         preapproved,
         showPreapprovedBadge,
         showPromoContent,
@@ -41,7 +39,6 @@ export const ShortTerm = ({
     },
     openProductList,
     useNewCheckoutDesign,
-    use5Dot1Design,
     useDarkMode
 }) => {
     const { views, country } = useServerData();
@@ -169,9 +166,6 @@ export const ShortTerm = ({
                                 {elements.map((installment, index) => (
                                     <Donut
                                         key={index}
-                                        useV4Design={useV4Design}
-                                        useV5Design={useV5Design}
-                                        use5Dot1Design={use5Dot1Design}
                                         useNewCheckoutDesign={useNewCheckoutDesign}
                                         useDarkMode={useDarkMode}
                                         qualifying={qualifying}
@@ -200,8 +194,6 @@ export const ShortTerm = ({
                         <Instructions
                             instructions={instructions}
                             cta={cta}
-                            useV4Design={useV4Design}
-                            useV5Design={useV5Design}
                             useDarkMode={useDarkMode}
                             useNewCheckoutDesign={useNewCheckoutDesign}
                         />
@@ -224,7 +216,7 @@ export const ShortTerm = ({
             <div
                 className={`content__row disclosure ${
                     (cta && useNewCheckoutDesign === 'true') || cta ? 'checkout' : ''
-                } ${useV5Design === 'true' ? 'v5Design' : ''} ${useDarkMode ? 'darkMode' : ''} ${countryClassName}`}
+                } ${useDarkMode ? 'darkMode' : ''} ${countryClassName}`}
             >
                 <InlineLinks text={currencyFormat(disclosure)} />
                 {renderLearnMoreLink()}

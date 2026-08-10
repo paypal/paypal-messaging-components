@@ -2,8 +2,6 @@
     "meta": {
         "offerCountry": "DE",
         "language": "en-DE",
-        "useV5Design": "true",
-        "v5.1": "true",
         "periodicPayment": "{formattedPeriodicPayment}",
         "product": "PAY_LATER_PAY_IN_1",
         "minAmount": "{minAmount}",

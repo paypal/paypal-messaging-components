@@ -19,13 +19,37 @@
             align-items: center;
             justify-content: space-evenly;
             width: 100%;
-            max-width: 360px;
             margin: 0 auto;
             padding: 0 20px 15px 20px;
+            position: relative;
+
+            &::before {
+                content: '';
+                position: absolute;
+                z-index: 0;
+                top: 25px;
+                left: 90px;
+                right: 90px;
+                border-top: 1px dashed colors.$dark-gray;
+
+                @include mixins.mobile {
+                    left: 47px;
+                    right: 47px;
+                }
+            }
+
+            &:has(.donut__single_payment_line__3)::before {
+                left: 118px;
+                right: 118px;
+
+                @include mixins.mobile {
+                    left: 47px;
+                    right: 47px;
+                }
+            }
 
             @include mixins.desktop {
                 transform: translate(0px, 1rem);
-                position: relative;
                 top: 30px;
             }
 
@@ -47,11 +71,9 @@
                 justify-content: space-between;
             }
 
-            .v5Design & {
-                @include mixins.tablet {
-                    margin-top: 20px;
-                    margin-bottom: 20px;
-                }
+            @include mixins.tablet {
+                margin-top: 20px;
+                margin-bottom: 20px;
             }
         }
     }
@@ -154,7 +176,7 @@
         flex-direction: column;
         align-items: center;
 
-        .button.cta {
+        .button.cta:not(.checkout) {
             padding: 12px 0;
         }
 
@@ -190,17 +212,15 @@
         }
 
         &.checkout {
-            .button {
-                @include mixins.tablet {
-                    width: auto;
-                }
+            .button.cta {
+                margin-top: 10px;
             }
         }
     }
 
     .offer-terms {
         color: colors.$text-main;
-        background-color: #E3F7FF;
+        background-color: #e3f7ff;
         border-radius: 12px;
         padding: 16px;
         margin: 12px 0;
@@ -262,6 +282,12 @@
             padding: 6px 16px 16px 16px;
             max-width: auto;
             margin-top: 10px;
+
+            &::before {
+                top: 31px;
+                left: 68px;
+                right: 68px;
+            }
         }
     }
 
@@ -277,10 +303,8 @@
     }
 
     .disclosure {
-        &.v5Design {
-            color: colors.$v5-gray;
-            padding-top: 24px;
-        }
+        color: colors.$v5-gray;
+        padding-top: 24px;
 
         &.checkout {
             padding-bottom: 60px;

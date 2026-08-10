@@ -82,10 +82,9 @@ export const LongTerm = ({
         offerTerms,
         spendingPowerSubtext
     },
-    productMeta: { useV4Design, useV5Design, showPromoContent, prequalExperience, product },
+    productMeta: { showPromoContent, prequalExperience, product },
     openProductList,
     useNewCheckoutDesign,
-    use5Dot1Design,
     useDarkMode
 }) => {
     const [expandedState, setExpandedState] = useState(false);
@@ -109,6 +108,20 @@ export const LongTerm = ({
      * we make sure "cta" is not in the content. If "cta" is not undefined, return the Checkout-specific cta button.
      * Otherwise, render the Product List link.
      */
+    const renderProductListLink = () => {
+        if (views?.length > 2 && typeof cta === 'undefined') {
+            return (
+                <Fragment>
+                    {navLinkPrefix && <div className="content__row nav__link-prefix">{navLinkPrefix}</div>}
+                    <ProductListLink openProductList={openProductList} className={country?.toLowerCase()}>
+                        {linkToProductList}
+                    </ProductListLink>
+                </Fragment>
+            );
+        }
+        return null;
+    };
+
     const renderCheckoutCtaButton = () => {
         /**
          * Event link name used in Pay Monthly XO version of the modal.
@@ -160,16 +173,7 @@ export const LongTerm = ({
                 </div>
             );
         }
-        if (views?.length > 2) {
-            return (
-                <Fragment>
-                    {navLinkPrefix && <div className="content__row nav__link-prefix">{navLinkPrefix}</div>}
-                    <ProductListLink openProductList={openProductList} className={country?.toLowerCase()}>
-                        {linkToProductList}
-                    </ProductListLink>
-                </Fragment>
-            );
-        }
+
         return null;
     };
 
@@ -209,9 +213,6 @@ export const LongTerm = ({
                         cta={cta}
                         aprDisclaimer={offerAPRDisclaimers}
                         genericDisclaimer={genericDisclaimer}
-                        useV4Design={useV4Design}
-                        useV5Design={useV5Design}
-                        use5Dot1Design={use5Dot1Design}
                         useNewCheckoutDesign={useNewCheckoutDesign}
                         useDarkMode={useDarkMode}
                     />
@@ -232,8 +233,6 @@ export const LongTerm = ({
                 <Instructions
                     instructions={instructions}
                     cta={cta}
-                    useV4Design={useV4Design}
-                    useV5Design={useV5Design}
                     useNewCheckoutDesign={useNewCheckoutDesign}
                     expandedState={expandedState}
                 />
@@ -241,11 +240,14 @@ export const LongTerm = ({
             <div
                 className={`content__row disclosure ${expandedState ? '' : 'collapsed'} ${
                     useNewCheckoutDesign === 'true' ? 'checkout' : ''
-                } ${useV5Design === 'true' ? 'v5Design' : ''} ${getEuroStyleClass(country)} ${
-                    isPrequalExperience ? 'prequal-fixed-offset' : ''
-                } ${useDarkMode ? 'darkMode' : ''}`}
+                } ${getEuroStyleClass(country)} ${isPrequalExperience ? 'prequal-fixed-offset' : ''} ${
+                    useDarkMode ? 'darkMode' : ''
+                }`}
             >
                 {getDisclosure(disclosure)}
+            </div>
+            <div className={`content__row productLink${isPrequalExperience ? ' prequal-fixed-offset' : ''}`}>
+                <div className="productLink__container">{renderProductListLink()}</div>
             </div>
             {conditionalStickyButton}
         </Fragment>

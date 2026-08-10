@@ -6,7 +6,6 @@
         "maxAmount": "{maxAmount}",
         "qualifying": "{qualifying_offer}",
         "amount": "{transaction_amount}",
-        "useV5Design": "true",
         "apr": "{apr}",
         "preapproved": "false",
         "showPreapprovedBadge": "false",

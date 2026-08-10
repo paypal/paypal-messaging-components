@@ -26,28 +26,21 @@
             outline: 3px solid colors.$light-blue;
             border-color: transparent;
         }
-        &.v5Design {
-            width: 100%;
-            padding-right: 5px;
-            &:not(:last-child) {
-                margin-bottom: 16px;
-            }
-            .accordion__row {
-                button {
-                    border-radius: 11px;
-                }
+        width: 100%;
+        padding-right: 5px;
+        &:not(:last-child) {
+            margin-bottom: 16px;
+        }
+        .accordion__row {
+            button {
+                border-radius: 11px;
             }
         }
 
         &.open {
-            &.v5Design {
-                background-color: colors.$white;
-                outline: 3px solid colors.$black;
-                border-color: transparent;
-            }
-            &.v5Dot1Design {
-                outline: 3px solid #0070e0;
-            }
+            background-color: colors.$white;
+            outline: 3px solid #0070e0;
+            border-color: transparent;
         }
          &.IT,
         &.ES {
@@ -90,9 +83,7 @@
 
         .accordion__offer-field-header {
             &:first-child {
-                .v5Design & {
-                    font-weight: bold;
-                }
+                font-weight: bold;
             }
         }
     }

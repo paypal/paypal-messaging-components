@@ -1,6 +1,6 @@
-@use "../globals/colors";
-@use "../globals/mixins";
-@use "../globals/variables";
+@use '../globals/colors';
+@use '../globals/mixins';
+@use '../globals/variables';
 
 .calculator {
     .loading & {
@@ -39,6 +39,9 @@
     }
 
     &.border-checkout {
+        width: auto;
+        padding-right: 35px;
+
         @include mixins.tablet {
             width: auto;
             margin-bottom: 20px;
@@ -66,6 +69,10 @@
             background-color: colors.$white;
             padding: 20px 20px 20px 20px;
             border-radius: 12px;
+        }
+
+        &.checkout {
+            padding-left: 20px;
         }
     }
 
@@ -107,8 +114,8 @@
 
             .input__label {
                 position: absolute;
-                left: 0.5rem;
-                top: 0.25rem;
+                left: 12px;
+                top: 8px;
 
                 .checkout & {
                     top: 0.5rem;
@@ -148,27 +155,16 @@
                 }
             }
 
-            &.input__wrapper--error {
-                .input {
-                    border-color: colors.$error-red;
-                }
+            @include mixins.tablet {
+                margin-right: 15px;
             }
 
-            &.v5Design {
-                @include mixins.tablet {
-                    margin-right: 15px;
-                }
-                .input__label {
-                    left: 12px;
-                    top: 8px;
-                }
-                input {
-                    width: 100%;
-                    padding-left: 12px;
-                    padding-bottom: 8px;
-                    @include mixins.mobile {
-                        padding-right: 0px;
-                    }
+            input {
+                width: 100%;
+                padding-left: 12px;
+                padding-bottom: 8px;
+                @include mixins.mobile {
+                    padding-right: 0px;
                 }
             }
 
@@ -177,32 +173,35 @@
             }
         }
 
-        &.v5Design {
-            h4 {
-                font-weight: 700;
-            }
-            label {
-                color: colors.$v5-gray;
-            }
-            input {
-                border: 1px solid colors.$v5-gray;
-            }
-            // @include tablet {
-            display: flex;
-            flex-direction: column;
-            // }
-
-            .calculator__error {
-                & > div {
-                    max-width: none;
-                }
-            }
+        h4 {
+            font-weight: 700;
+        }
+        label {
+            color: colors.$v5-gray;
+        }
+        input {
+            border: 1px solid colors.$v5-gray;
         }
 
-        &.v4Design,
+        &.input__wrapper--error {
+            .input {
+                border-color: colors.$error-red;
+            }
+        }
+        display: flex;
+        flex-direction: column;
+
         &.checkout {
             h3 {
                 font-weight: 700;
+            }
+            .input__wrapper {
+                width: 100%;
+            }
+
+            .input {
+                border-radius: 8px;
+                width: 97%;
             }
         }
 
@@ -222,17 +221,6 @@
                     color: colors.$white;
                     opacity: 0.72;
                 }
-            }
-        }
-        
-        &.checkout {
-            .input__wrapper {
-                width: 100%;
-            }
-
-            .input {
-                border-radius: 8px;
-                width: 97%;
             }
         }
 
@@ -281,7 +269,8 @@
     }
 
     .finance-terms__disclaimer {
-        color: colors.$gray;
+        color: colors.$v5-gray;
+        padding-top: 16px;
         font-size: 14px;
         line-height: 1.5;
 
@@ -292,40 +281,24 @@
             margin-top: 0px;
         }
 
-        &.v5Design {
-            color: colors.$v5-gray;
-            padding-top: 16px;
-        }
-
         &.darkMode {
             color: colors.$white;
             opacity: 0.72;
         }
     }
 
-    &.v5Design {
-        text-align: left;
-        @include mixins.tablet {
-            width: 88%;
-        }
-        @include mixins.mobile {
-            width: 100%;
-            padding-right: 0px;
-        }
+    text-align: left;
+    @include mixins.tablet {
+        width: 88%;
+    }
+    @include mixins.mobile {
+        width: 100%;
+        padding-right: 0px;
+    }
 
-        .offer__wrapper {
-            display: flex;
-            flex-direction: column;
-        }
-
-        &.border-checkout {
-            width: auto;
-            padding-right: 35px;
-
-            &.checkout {
-                padding-left: 20px;
-            }
-        }
+    .offer__wrapper {
+        display: flex;
+        flex-direction: column;
     }
 
     &.checkout {
