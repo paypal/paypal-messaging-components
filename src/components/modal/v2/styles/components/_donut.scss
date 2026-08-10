@@ -34,9 +34,21 @@ $donut-text-v5: #545d68;
         .donut__ {
             &payment {
                 font-family: variables.$paypal-open;
+                color: colors.$text-main;
+
+                .darkMode & {
+                    color: colors.$white;
+                    opacity: 1;
+                }
             }
             &timestamp {
                 font-family: variables.$paypal-open;
+                color: colors.$text-main;
+
+                .darkMode & {
+                    color: colors.$white;
+                    opacity: 1;
+                }
             }
         }
     }
@@ -45,6 +57,11 @@ $donut-text-v5: #545d68;
         background-color: white;
         max-width: 50px;
         width: 100%;
+
+        .darkMode & {
+            background-color: #1a1a1a;
+            opacity: 1;
+        }
 
         text {
             font-size: 0.5rem;
@@ -146,11 +163,6 @@ $donut-text-v5: #545d68;
             align-items: center;
             position: relative;
             z-index: 1;
-
-            .darkMode & {
-                border-top: 1px dashed colors.$white;
-                opacity: 0.72;
-            }
         }
 
         .darkMode svg g {

@@ -7,8 +7,6 @@
         "qualifying": "{qualifying_offer}",
         "amount": "{transaction_amount}",
         "apr": "{apr}",
-        "useV5Design": "true",
-        "v5.1": "true",
         "enableDarkMode": "true",
         "variables": {
             "transaction_amount": "${eval(transaction_amount ? transaction_amount : '-')}",

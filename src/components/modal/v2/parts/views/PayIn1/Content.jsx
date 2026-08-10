@@ -12,7 +12,7 @@ import { currencyFormat } from '../../../lib/hooks/currency'; // Remove .00 cent
 import { getEuroStyleClass } from '../../../lib';
 
 export const PayIn1 = ({
-    productMeta: { useV5Design, qualifying },
+    productMeta: { qualifying },
     content: { instructions, linkToProductList, disclosure, navLinkPrefix, learnMoreLink, cta },
     useNewCheckoutDesign,
     openProductList
@@ -96,7 +96,6 @@ export const PayIn1 = ({
                     <Instructions
                         instructions={instructions}
                         country={country}
-                        useV5Design={useV5Design}
                         useNewCheckoutDesign={useNewCheckoutDesign}
                     />
                 </div>

@@ -61,9 +61,6 @@ const BodyContent = () => {
 
     const isQualifying = productMeta?.qualifying;
 
-    const useV4Design = productMeta?.useV4Design === 'true';
-    const useV5Design = productMeta?.useV5Design === 'true';
-    const use5Dot1Design = productMeta?.['v5.1'];
     const useNewCheckoutDesign = features?.includes('new-checkout-design') ? 'true' : 'false';
     const prefersDarkMode = usePrefersDarkMode();
     const useDarkMode =
@@ -98,16 +95,13 @@ const BodyContent = () => {
 
     // Add views to viewComponents object where the keys are the product name and the values are the view component
     const viewComponents = {
-        [VIEW_IDS.PAYPAL_CREDIT_NO_INTEREST]: (
-            <NoInterest content={content} openProductList={openProductList} use5Dot1Design={use5Dot1Design} />
-        ),
+        [VIEW_IDS.PAYPAL_CREDIT_NO_INTEREST]: <NoInterest content={content} openProductList={openProductList} />,
         [VIEW_IDS.PAY_LATER_LONG_TERM]: (
             <LongTerm
                 content={content}
                 productMeta={productMeta}
                 useNewCheckoutDesign={useNewCheckoutDesign}
                 useDarkMode={useDarkMode}
-                use5Dot1Design={use5Dot1Design}
                 openProductList={openProductList}
             />
         ),
@@ -125,7 +119,6 @@ const BodyContent = () => {
                 productMeta={productMeta}
                 useNewCheckoutDesign={useNewCheckoutDesign}
                 useDarkMode={useDarkMode}
-                use5Dot1Design={use5Dot1Design}
                 openProductList={openProductList}
             />
         ),
@@ -161,14 +154,13 @@ const BodyContent = () => {
                     qualifyingSubheadline={qualifyingSubheadline}
                     closeButtonLabel={closeButtonLabel}
                     viewName={viewName}
-                    useV4Design={useV4Design}
-                    useV5Design={useV5Design}
-                    use5Dot1Design={use5Dot1Design}
                     useDarkMode={useDarkMode}
                 />
             )}
             <div
-                className={`content__container ${useNewCheckoutDesign === 'true' ? 'checkout' : ''} ${useDarkMode ? 'darkMode' : ''}`}
+                className={`content__container ${useNewCheckoutDesign === 'true' ? 'checkout' : ''} ${
+                    useDarkMode ? 'darkMode' : ''
+                }`}
             >
                 <main className="main">
                     <div className="content__body">{viewComponents[viewName]}</div>

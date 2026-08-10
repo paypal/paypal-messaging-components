@@ -10,6 +10,7 @@ body {
 
 html {
     min-width: inherit !important;
+    color-scheme: light dark;
 
     &.lander {
         // Overscroll background color since we use an SVG pattern

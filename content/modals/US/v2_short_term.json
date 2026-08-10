@@ -2,8 +2,6 @@
     "meta": {
         "product": "PAY_LATER_SHORT_TERM",
         "prequalExperience": "false",
-        "useV5Design": "true",
-        "v5.1": "true",
         "periodicPayment": "{formattedPeriodicPayment}",
         "minAmount": "{minAmount}",
         "maxAmount": "{maxAmount}",

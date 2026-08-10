@@ -82,10 +82,9 @@ export const LongTerm = ({
         offerTerms,
         spendingPowerSubtext
     },
-    productMeta: { useV4Design, useV5Design, showPromoContent, prequalExperience, product },
+    productMeta: { showPromoContent, prequalExperience, product },
     openProductList,
     useNewCheckoutDesign,
-    use5Dot1Design,
     useDarkMode
 }) => {
     const [expandedState, setExpandedState] = useState(false);
@@ -214,9 +213,6 @@ export const LongTerm = ({
                         cta={cta}
                         aprDisclaimer={offerAPRDisclaimers}
                         genericDisclaimer={genericDisclaimer}
-                        useV4Design={useV4Design}
-                        useV5Design={useV5Design}
-                        use5Dot1Design={use5Dot1Design}
                         useNewCheckoutDesign={useNewCheckoutDesign}
                         useDarkMode={useDarkMode}
                     />
@@ -237,8 +233,6 @@ export const LongTerm = ({
                 <Instructions
                     instructions={instructions}
                     cta={cta}
-                    useV4Design={useV4Design}
-                    useV5Design={useV5Design}
                     useNewCheckoutDesign={useNewCheckoutDesign}
                     expandedState={expandedState}
                 />
@@ -246,9 +240,9 @@ export const LongTerm = ({
             <div
                 className={`content__row disclosure ${expandedState ? '' : 'collapsed'} ${
                     useNewCheckoutDesign === 'true' ? 'checkout' : ''
-                } ${getEuroStyleClass(country)} ${
-                    isPrequalExperience ? 'prequal-fixed-offset' : ''
-                } ${useDarkMode ? 'darkMode' : ''}`}
+                } ${getEuroStyleClass(country)} ${isPrequalExperience ? 'prequal-fixed-offset' : ''} ${
+                    useDarkMode ? 'darkMode' : ''
+                }`}
             >
                 {getDisclosure(disclosure)}
             </div>

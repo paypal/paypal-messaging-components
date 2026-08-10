@@ -8,7 +8,7 @@ const OfferCard = ({ offer: { content, meta }, useNewCheckoutDesign, useDarkMode
     const offerHeaderField = termsLabel?.offerHeader;
 
     return (
-        <div className={`${useDarkMode ? 'darkMode' : ''}`}>
+        <div className={`offer__container ${useDarkMode ? 'darkMode' : ''}`}>
             <div className="offer__row">
                 <strong
                     className="offer__field-header"

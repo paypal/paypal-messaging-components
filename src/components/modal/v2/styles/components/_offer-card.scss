@@ -125,8 +125,7 @@ strong {
     &__field-title {
         display: flex;
         font-size: 18px;
-        color: colors.$text-main;
-        font-weight: bold;
+        color: colors.$v5-gray;
         margin: 0px;
         @include mixins.smallMobile {
             font-size: 18px;
@@ -146,8 +145,7 @@ strong {
 
     &__field-value {
         font-size: 18px;
-        color: colors.$text-main;
-        font-weight: bold;
+        color: colors.$v5-gray;
         margin: 0px;
         @include mixins.mobile {
             font-size: 18px;

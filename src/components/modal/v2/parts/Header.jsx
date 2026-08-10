@@ -37,7 +37,9 @@ const Header = ({
         <Fragment>
             <div aria-hidden="true" className="header__fixed-wrapper header__fixed-wrapper--front">
                 <div
-                    className={`header__background-wrapper header__background-wrapper--gradient ${useDarkMode ? 'darkMode' : ''}`}
+                    className={`header__background-wrapper header__background-wrapper--gradient ${
+                        useDarkMode ? 'darkMode' : ''
+                    }`}
                 />
             </div>
             <div aria-hidden="true" className="header__fixed-wrapper">
@@ -65,7 +67,9 @@ const Header = ({
                 )}
                 <div className="header__fixed-wrapper header__fixed-wrapper--front">
                     <div
-                        className={`header__background-wrapper header__background-wrapper--sticky ${useDarkMode ? 'darkMode' : ''}`}
+                        className={`header__background-wrapper header__background-wrapper--sticky ${
+                            useDarkMode ? 'darkMode' : ''
+                        }`}
                     />
                 </div>
             </div>
@@ -73,13 +77,15 @@ const Header = ({
                 <h2
                     // id used for aria-labelleby on modal container element
                     id="header__headline"
-                    className={`headline-${countryClassName}`}
+                    className={`headline-${countryClassName} ${useDarkMode ? 'darkMode' : ''}`}
                     // eslint-disable-next-line react/no-danger
                     dangerouslySetInnerHTML={{ __html: headline }}
                 />
                 {isQualifying === 'true' && qualifyingSubheadline !== '' ? (
                     <p
-                        className={`subheadline_p subheadline-${countryClassName} qualifying ${useDarkMode ? 'darkMode' : ''}`}
+                        className={`subheadline_p subheadline-${countryClassName} qualifying ${
+                            useDarkMode ? 'darkMode' : ''
+                        }`}
                     >
                         {qualifyingSubheadline.replace(/(\s?EUR)/g, ' €')}
                     </p>

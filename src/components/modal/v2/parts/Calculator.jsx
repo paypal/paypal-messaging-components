@@ -74,9 +74,6 @@ const Calculator = ({
     aprDisclaimer,
     genericDisclaimer,
     cta,
-    useV4Design,
-    useV5Design,
-    use5Dot1Design,
     useNewCheckoutDesign,
     useDarkMode
 }) => {
@@ -211,9 +208,9 @@ const Calculator = ({
                     {!hasInitialAmount ? genericTitle || title : title}
                 </h3>
                 <div
-                    className={`input__wrapper transitional ${
-                        cta ? 'checkout' : ''
-                    } ${country || ''} ${error && hasEnteredAmount ? 'input__wrapper--error' : ''}`}
+                    className={`input__wrapper transitional ${cta ? 'checkout' : ''} ${country || ''} ${
+                        error && hasEnteredAmount ? 'input__wrapper--error' : ''
+                    }`}
                 >
                     <label htmlFor="purchase-amount" className={`input__label ${country}`}>
                         {renderInputLabelOnEmptyField(country)}
@@ -239,9 +236,6 @@ const Calculator = ({
                         view={view}
                         isLoading={isLoading}
                         aprDisclaimer={aprDisclaimer}
-                        useV4Design={useV4Design}
-                        useV5Design={useV5Design}
-                        use5Dot1Design={use5Dot1Design}
                         useNewCheckoutDesign={useNewCheckoutDesign}
                         useDarkMode={useDarkMode}
                     />

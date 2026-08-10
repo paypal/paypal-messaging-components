@@ -7,7 +7,6 @@
         "qualifying": "{qualifying_offer}",
         "amount": "{transaction_amount}",
         "apr": "{apr}",
-        "useV5Design": "true",
         "preapproved": "false",
         "showPreapprovedBadge": "false",
         "showPromoContent": "false",
