@@ -170,6 +170,17 @@ export const getOverflowObserver = createGlobalVariableGetter('__intersection_ob
                             isIntersectingFallback = elementContains(root ?? window, iframe);
                         }
 
+                        // eslint-disable-next-line no-console
+                        console.info(
+                            `[pp-overflow-debug] ratio=${entry.intersectionRatio} rootBounds=${JSON.stringify(
+                                entry.rootBounds
+                            )} bcrWidth=${
+                                iframe.getBoundingClientRect().width
+                            } minWidth=${minWidth} fallback=${isIntersectingFallback} rootType=${
+                                root ? 'element' : 'null'
+                            }`
+                        );
+
                         /**
                          * If the message is intersecting/partially obscured AND the message isn't off the page,
                          * or the message is too small, run overflow detection to hide the message.
