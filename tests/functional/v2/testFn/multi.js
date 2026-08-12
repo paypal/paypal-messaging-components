@@ -26,8 +26,16 @@ export const openProductListFromModal = async (contentWindow, modalContent, test
     await contentWindow.waitForSelector(contentWrapper);
 
     // Click "See other ways to pay over time" inside the product modal
-    await contentWindow.waitForSelector(productList);
-    await contentWindow.click(productList);
+    await contentWindow.waitForFunction(
+        selector => !!document.querySelector(selector),
+        { timeout: 30000 },
+        productList
+    );
+    await contentWindow.evaluate(selector => {
+        const el = document.querySelector(selector);
+        el.scrollIntoView({ block: 'center' });
+        el.click();
+    }, productList);
     await page.evaluate(() => new Promise(resolve => setTimeout(resolve, 2 * 1000)));
 
     // Product list view should now be shown
@@ -58,15 +66,48 @@ export const clickProductListTiles = async (contentWindow, modalContent, account
     const switchViews = async (childNum, viewName) => {
         await contentWindow.waitForSelector(contentWrapper);
         await contentWindow.waitForSelector(`${tile}:nth-child(${childNum})`);
-        await contentWindow.click(`${tile}:nth-child(${childNum})`);
-        await page.evaluate(() => new Promise(resolve => setTimeout(resolve, 2 * 1000)));
 
-        await contentWindow.waitForSelector(`${headerContent} > ${h2}`);
+        // Capture product list headline so we can detect when navigation happened
+        const initialHeadline = await contentWindow.$eval(h2, el => el.innerText);
+
+        // Click and wait for headline to change — retry up to 3 times in case
+        // Preact event handling is delayed in the cross-origin iframe context.
+        const tryClickTile = async attemptsLeft => {
+            await contentWindow.evaluate(
+                selector => document.querySelector(selector).click(),
+                `${tile}:nth-child(${childNum})`
+            );
+            try {
+                await contentWindow.waitForFunction(
+                    (h2Sel, initial) => {
+                        const el = document.querySelector(h2Sel);
+                        return el && el.innerText !== initial;
+                    },
+                    { timeout: 4000 },
+                    `${headerContent} > ${h2}`,
+                    initialHeadline
+                );
+            } catch (e) {
+                if (attemptsLeft > 1) {
+                    await tryClickTile(attemptsLeft - 1);
+                }
+            }
+        };
+        await tryClickTile(3);
+
         const headline = await contentWindow.$eval(h2, element => element.innerText);
         expect(headline).toContain(modalContent[viewName]);
 
-        await contentWindow.waitForSelector(productList);
-        await contentWindow.click(productList);
+        await contentWindow.waitForFunction(
+            selector => !!document.querySelector(selector),
+            { timeout: 30000 },
+            productList
+        );
+        await contentWindow.evaluate(selector => {
+            const el = document.querySelector(selector);
+            el.scrollIntoView({ block: 'center' });
+            el.click();
+        }, productList);
         await page.evaluate(() => new Promise(resolve => setTimeout(resolve, 2 * 1000)));
     };
 
@@ -110,19 +151,48 @@ export const clickProductListTiles = async (contentWindow, modalContent, account
 export const viewsShareAmount = async (contentWindow, testName, account) => {
     await contentWindow.waitForSelector(contentWrapper);
     await contentWindow.waitForSelector(`${tile}:nth-child(2)`);
-    await contentWindow.click(`${tile}:nth-child(2)`);
-    await page.evaluate(() => new Promise(resolve => setTimeout(resolve, 2 * 1000)));
+
+    const initialHeadline = await contentWindow.$eval(h2, el => el.innerText);
+
+    const tryClick = async (selector, attemptsLeft) => {
+        await contentWindow.evaluate(sel => document.querySelector(sel).click(), selector);
+        try {
+            await contentWindow.waitForFunction(
+                (h2Sel, initial) => {
+                    const el = document.querySelector(h2Sel);
+                    return el && el.innerText !== initial;
+                },
+                { timeout: 4000 },
+                `${headerContent} > ${h2}`,
+                initialHeadline
+            );
+        } catch (e) {
+            if (attemptsLeft > 1) await tryClick(selector, attemptsLeft - 1);
+        }
+    };
+    await tryClick(`${tile}:nth-child(2)`, 3);
 
     await contentWindow.waitForSelector(`${headerContent} > ${subheadlineContent}`);
     const subheadline = await contentWindow.$eval(subheadlineContent, element => element.innerText);
 
-    await contentWindow.waitForSelector(productList);
-    await contentWindow.click(productList);
+    // waitForFunction checks pure DOM presence (no viewport-visibility requirement),
+    // then scrollIntoView ensures the button is reachable before clicking.
+    // LongTerm and other content-heavy views can push #productListLink below the fold.
+    await contentWindow.waitForFunction(
+        selector => !!document.querySelector(selector),
+        { timeout: 30000 },
+        productList
+    );
+    await contentWindow.evaluate(selector => {
+        const el = document.querySelector(selector);
+        el.scrollIntoView({ block: 'center' });
+        el.click();
+    }, productList);
     await page.evaluate(() => new Promise(resolve => setTimeout(resolve, 2 * 1000)));
 
     await contentWindow.waitForSelector(contentWrapper);
     await contentWindow.waitForSelector(`${tile}:nth-child(3)`);
-    await contentWindow.click(`${tile}:nth-child(3)`);
+    await contentWindow.evaluate(selector => document.querySelector(selector).click(), `${tile}:nth-child(3)`);
     await page.evaluate(() => new Promise(resolve => setTimeout(resolve, 3 * 1000)));
 
     // FR long term and GB Pay in 30 Days modals do not have a calculator

@@ -6,7 +6,12 @@ on:
     push:
         branches:
             - develop
-    pull_request: {}
+    pull_request:
+        types:
+            - opened
+            - reopened
+            - synchronize
+            - ready_for_review
 
 jobs:
     getMatrix:

@@ -8,6 +8,7 @@ jest.mock('src/utils', () => {
 
     return {
         ...originalModule,
+        getOrCreateDeviceID: jest.fn(() => 'mock-device-id'),
         logger: {
             track: jest.fn(),
             addMetaBuilder: jest.fn(),
@@ -354,6 +355,42 @@ describe('zoidPollyfill', () => {
             }
         `);
         postMessage.mockClear();
+    });
+
+    describe('getAccount falls back to a server-provided accountIdOverride when no URL ids are present', () => {
+        beforeAll(() => {
+            mockLoadUrl(
+                'https://localhost.paypal.com:8080/credit-presentment/lander/modal?offer=TIKTOK_PAYPAL_PAY_LATER_SHORT_TERM_US&channel=TIKTOK_MOBILE_APP'
+            );
+
+            zoidPolyfill();
+        });
+        beforeEach(() => {
+            logger.track.mockClear();
+            logger.addMetaBuilder.mockClear();
+        });
+
+        test('uses meta.accountIdOverride when merchantId/clientId/payerId are absent from the URL', () => {
+            window.xprops.onReady({
+                products: ['PAY_LATER_SHORT_TERM'],
+                meta: { trackingDetails: 'trackingDetails', accountIdOverride: 'W9WK2RH9RWWQC' }
+            });
+
+            expect(logger.track).toHaveBeenCalledTimes(1);
+            expect(logger.addMetaBuilder).toHaveBeenCalledTimes(1);
+            const metaBuilder = logger.addMetaBuilder.mock.calls[0][0];
+            expect(metaBuilder({})[1].account).toBe('W9WK2RH9RWWQC');
+        });
+
+        test('leaves account undefined when neither URL ids nor accountIdOverride are present', () => {
+            window.xprops.onReady({
+                products: ['PAY_LATER_SHORT_TERM'],
+                meta: { trackingDetails: 'trackingDetails' }
+            });
+
+            const metaBuilder = logger.addMetaBuilder.mock.calls[0][0];
+            expect(metaBuilder({})[1].account).toBeUndefined();
+        });
     });
 
     describe('notifies when props update', () => {

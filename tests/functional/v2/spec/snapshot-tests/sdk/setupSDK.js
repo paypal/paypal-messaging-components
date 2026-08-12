@@ -5,6 +5,7 @@ const {
     message: { messageContainer, messageIframe, messageMessaging },
     modal: { iframe }
 } = selectors;
+const port = process.env.PORT || 8080;
 
 const setViewportWithRetry = async (viewport, maxRetries = 5) => {
     // eslint-disable-next-line no-plusplus
@@ -36,7 +37,7 @@ export const setupSDK = async (viewport, account, amount) => {
     await resetPageSafely();
 
     await setViewportWithRetry(viewport);
-    await page.goto(`https://localhost.paypal.com:8080/snapshot/v2/sdk.html?account=${account}&amount=${amount}`);
+    await page.goto(`https://localhost.paypal.com:${port}/snapshot/v2/sdk.html?account=${account}&amount=${amount}`);
 
     await page.waitForSelector(messageContainer);
     const zoidMessageIframeEl = await page.waitForSelector(messageIframe, { visible: true });
@@ -47,8 +48,6 @@ export const setupSDK = async (viewport, account, amount) => {
 
     const zoidModalIframeEl = await page.waitForSelector(iframe, { visible: true });
     const modalFrame = await zoidModalIframeEl.contentFrame();
-
-    await page.evaluate(() => new Promise(resolve => setTimeout(resolve, 3 * 1000)));
 
     return { messageFrame, modalFrame };
 };

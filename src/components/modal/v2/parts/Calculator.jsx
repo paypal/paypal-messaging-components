@@ -77,7 +77,8 @@ const Calculator = ({
     useV4Design,
     useV5Design,
     use5Dot1Design,
-    useNewCheckoutDesign
+    useNewCheckoutDesign,
+    useDarkMode
 }) => {
     const { view, value, isLoading, submit, changeInput } = useCalculator({ autoSubmit: true });
     const { amount } = useXProps();
@@ -172,7 +173,7 @@ const Calculator = ({
                 <div
                     className={`content-column transitional calculator__error ${
                         !(error || emptyState || isLoading) ? 'hide' : ''
-                    }`}
+                    } ${useDarkMode ? 'darkMode' : ''}`}
                 >
                     <div>
                         {error && hasEnteredAmount ? <Icon name="warning" /> : null}
@@ -205,7 +206,7 @@ const Calculator = ({
             <form
                 className={`form ${useV4Design === 'true' ? 'v4Design' : ''} ${
                     useV5Design === 'true' ? 'v5Design' : ''
-                } ${useNewCheckoutDesign === 'true' ? 'checkout' : ''}`}
+                } ${useNewCheckoutDesign === 'true' ? 'checkout' : ''} ${useDarkMode ? 'darkMode' : ''}`}
                 onSubmit={submit}
             >
                 <h3 className={`title ${cta ? 'checkout-title' : ''}`}>
@@ -244,6 +245,7 @@ const Calculator = ({
                         useV5Design={useV5Design}
                         use5Dot1Design={use5Dot1Design}
                         useNewCheckoutDesign={useNewCheckoutDesign}
+                        useDarkMode={useDarkMode}
                     />
                 </div>
             ) : null}
@@ -251,7 +253,7 @@ const Calculator = ({
                 <div
                     className={`finance-terms__disclaimer ${
                         !(hasInitialAmount || hasUsedInputField) || error ? 'no-amount' : ''
-                    } ${useV5Design === 'true' ? 'v5Design' : ''}`}
+                    } ${useV5Design === 'true' ? 'v5Design' : ''} ${useDarkMode ? 'darkMode' : ''}`}
                 >
                     {aprDisclaimer[0].aprDisclaimer}
                 </div>

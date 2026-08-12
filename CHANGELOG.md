@@ -1,5 +1,49 @@
 # Changelog
 
+## [1.94.0](https://github.com/paypal/paypal-messaging-components/compare/v1.93.0...v1.94.0) (2026-08-06)
+
+
+### Features
+
+* Pl2go darkmode ([#1370](https://github.com/paypal/paypal-messaging-components/issues/1370)) ([374364e](https://github.com/paypal/paypal-messaging-components/commit/374364e92374156ef0f0af36dadd34ed20bbb7fd))
+
+
+### Bug Fixes
+
+* fall back to server-resolved account for FPTI on credential-less landers ([90b86f6](https://github.com/paypal/paypal-messaging-components/commit/90b86f6b5ccab33174283e929034fb5e792fcd91))
+* fix desktop snapshots ([#1364](https://github.com/paypal/paypal-messaging-components/issues/1364)) ([7c773c7](https://github.com/paypal/paypal-messaging-components/commit/7c773c733f0b79f9873f60f3810f09836db39348))
+
+## [1.93.0](https://github.com/paypal/paypal-messaging-components/compare/v1.92.1...v1.93.0) (2026-08-03)
+
+
+### Features
+
+* add flex layout support to renderV2Message (DTCRCMERC-5374) ([#1367](https://github.com/paypal/paypal-messaging-components/issues/1367)) ([cdaa69f](https://github.com/paypal/paypal-messaging-components/commit/cdaa69fd444d12a94e044203ea02e51484c73b2c))
+
+
+### Bug Fixes
+
+* Ios26 modal fix ([#1373](https://github.com/paypal/paypal-messaging-components/issues/1373)) ([263ab0f](https://github.com/paypal/paypal-messaging-components/commit/263ab0f08a94f503719bedfd6d968eaad80f344b))
+
+### [1.92.1](https://github.com/paypal/paypal-messaging-components/compare/v1.92.0...v1.92.1) (2026-07-27)
+
+
+### Bug Fixes
+
+* route PL_GENERIC_XB messageType to cross-border generic mutations for AT/DE ([#1369](https://github.com/paypal/paypal-messaging-components/issues/1369)) ([36c3238](https://github.com/paypal/paypal-messaging-components/commit/36c323801819e6caaaac84bb4cd449153a770318))
+
+## [1.92.0](https://github.com/paypal/paypal-messaging-components/compare/v1.91.0...v1.92.0) (2026-07-23)
+
+
+### Features
+
+* fix firefox logos for rewrite ([#1347](https://github.com/paypal/paypal-messaging-components/issues/1347)) ([d9b2991](https://github.com/paypal/paypal-messaging-components/commit/d9b2991da077bb4944d976581a1d333bc966d994))
+
+
+### Bug Fixes
+
+* UK Pi30 message update on removing extra space ([#1351](https://github.com/paypal/paypal-messaging-components/issues/1351)) ([dc30231](https://github.com/paypal/paypal-messaging-components/commit/dc3023141e929410ea806c7347211549881317ae))
+
 ## [1.91.0](https://github.com/paypal/paypal-messaging-components/compare/v1.90.1...v1.91.0) (2026-07-21)
 
 
