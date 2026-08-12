@@ -60,50 +60,23 @@ const waitForBanner = async ({ testName, timeout, config }) => {
         // CSS-driven iframe viewport resizes into the iframe context.
         const isFlexLayout = isV2RendererMode() && config?.style?.layout === 'flex';
 
-        // Step 1: sync predicate — Puppeteer 2.x + newer Chrome only polls with sync
-        // functions; async predicates return a truthy Promise and never retry.
-        // Only needed for v2Renderer flex (outer-page iframe measurement); all other
-        // paths use the original single-step async approach to preserve screenshot timing.
-        await page.waitForFunction(
-            ({ bannerSelectors, isFlex, useBodyDims, _testName, _timeout, startedAt }) => {
-                if (Date.now() - startedAt >= _timeout - 2000 && !window.__waitForBannerLogged) {
-                    window.__waitForBannerLogged = true;
-                    // eslint-disable-next-line no-console
-                    console.info(`waitForBanner innerHTML for failed test [${_testName}]`, document.body.innerHTML);
-                }
-
-                const iframe = document.querySelector(bannerSelectors.iframeByAttribute);
-
-                if (isFlex) {
-                    return Boolean(iframe && iframe.clientHeight > 0);
-                }
-
-                if (!iframe) {
-                    const legacy = document.querySelector(bannerSelectors.legacyContainer);
-                    return Boolean(legacy && legacy.clientHeight > 0);
-                }
-
-                const iframeDoc = iframe.contentDocument || iframe.contentWindow?.document;
-                const iframeBody = iframeDoc?.body;
-                if (!iframeBody) return false;
-
-                const measureEl = useBodyDims ? iframeBody : iframeBody.querySelector(bannerSelectors.container);
-                return Boolean(measureEl && measureEl.clientHeight > 0);
-            },
-            { polling, timeout },
-            {
-                bannerSelectors: selectors.banner,
-                isFlex: isFlexLayout,
-                useBodyDims: useIframeBodyDimensions,
-                _testName: testName,
-                _timeout: timeout,
-                startedAt: Date.now()
-            }
-        );
-
+        // v2Renderer flex uses a 2-step approach: sync poll (Puppeteer 2.x async predicates don't
+        // retry) + async evaluate for outer-page iframe dimensions. Legacy uses the original single
+        // async waitForFunction to preserve exact screenshot timing.
         if (isFlexLayout) {
-            // Step 2 (v2Renderer flex only): wait for fonts/images then read outer-page dimensions.
-            // For legacy paths, return dimensions inline in waitForFunction to preserve screenshot timing.
+            await page.waitForFunction(
+                ({ bannerSelectors, _testName, _timeout, startedAt }) => {
+                    if (Date.now() - startedAt >= _timeout - 2000 && !window.__waitForBannerLogged) {
+                        window.__waitForBannerLogged = true;
+                        // eslint-disable-next-line no-console
+                        console.info(`waitForBanner innerHTML for failed test [${_testName}]`, document.body.innerHTML);
+                    }
+                    const iframe = document.querySelector(bannerSelectors.iframeByAttribute);
+                    return Boolean(iframe && iframe.clientHeight > 0);
+                },
+                { polling, timeout },
+                { bannerSelectors: selectors.banner, _testName: testName, _timeout: timeout, startedAt: Date.now() }
+            );
             return await page.evaluate(
                 async ({ bannerSelectors }) => {
                     const iframe = document.querySelector(bannerSelectors.iframeByAttribute);
@@ -131,23 +104,30 @@ const waitForBanner = async ({ testName, timeout, config }) => {
             );
         }
 
-        // Step 2 (legacy): re-run as async to get stable dimensions with font/image/frame wait.
         const result = await page.waitForFunction(
-            async ({ bannerSelectors, useBodyDims }) => {
+            async ({ bannerSelectors, useBodyDims, _testName, _timeout, startedAt }) => {
+                if (Date.now() - startedAt >= _timeout - 2000 && !window.__waitForBannerLogged) {
+                    window.__waitForBannerLogged = true;
+                    // eslint-disable-next-line no-console
+                    console.info(`waitForBanner innerHTML for failed test [${_testName}]`, document.body.innerHTML);
+                }
+
                 const iframe = document.querySelector(bannerSelectors.iframeByAttribute);
                 let measureEl;
                 let measureDoc;
                 if (iframe) {
                     const iframeDoc = iframe.contentDocument || iframe.contentWindow?.document;
+                    const iframeBody = iframeDoc?.body;
+                    if (!iframeBody) return false;
                     measureDoc = iframeDoc;
-                    measureEl = useBodyDims
-                        ? iframeDoc?.body
-                        : iframeDoc?.body?.querySelector(bannerSelectors.container);
+                    measureEl = useBodyDims ? iframeBody : iframeBody.querySelector(bannerSelectors.container);
                 } else {
                     measureEl = document.querySelector(bannerSelectors.legacyContainer);
                     measureDoc = document;
                 }
+
                 if (!measureEl || measureEl.clientHeight <= 0) return false;
+
                 if (measureDoc?.fonts?.ready) await measureDoc.fonts.ready;
                 const incompleteImages = Array.from(measureDoc?.images || []).filter(img => !img.complete);
                 if (incompleteImages.length > 0) {
@@ -161,6 +141,7 @@ const waitForBanner = async ({ testName, timeout, config }) => {
                         )
                     );
                 }
+
                 const first = { height: measureEl.clientHeight, width: measureEl.clientWidth };
                 await new Promise(resolve => {
                     requestAnimationFrame(() => requestAnimationFrame(resolve));
@@ -170,7 +151,13 @@ const waitForBanner = async ({ testName, timeout, config }) => {
                 return second;
             },
             { polling, timeout },
-            { bannerSelectors: selectors.banner, useBodyDims: useIframeBodyDimensions, startedAt: Date.now() }
+            {
+                bannerSelectors: selectors.banner,
+                useBodyDims: useIframeBodyDimensions,
+                _testName: testName,
+                _timeout: timeout,
+                startedAt: Date.now()
+            }
         );
         return await result.jsonValue();
     } catch (error) {
