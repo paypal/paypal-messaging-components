@@ -65,15 +65,13 @@ const runTest = async ({ testName, testPage = 'banner.html', config, viewport, p
 
     await tryNavigate(0);
 
-    // Ensure scroll is at 0 before IntersectionObserver fires (fires once then unobserves;
-    // a non-zero initial scroll in headless Chrome can cause partial intersection → hidden).
+    await new Promise(resolve => setTimeout(resolve, 5 * 1000));
+
     await page.evaluate(() => {
         window.scrollTo(0, 0);
         document.documentElement.scrollTop = 0;
         document.body.scrollTop = 0;
     });
-
-    await new Promise(resolve => setTimeout(resolve, 5 * 1000));
 
     const bannerContainers = await page.$$('[data-test-visible]');
 
