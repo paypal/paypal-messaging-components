@@ -39,12 +39,6 @@ const runTest = async ({ testName, testPage = 'banner.html', config, viewport, p
         // eslint-disable-next-line no-console
         console.log(`rerender.test page error for [${testName}]`, error);
     });
-    page.on('console', msg => {
-        if (msg.text().includes('[pp-overflow-debug]')) {
-            // eslint-disable-next-line no-console
-            console.log('[overflow-diag]', msg.text());
-        }
-    });
 
     const testUrl = `https://localhost.paypal.com:8080/snapshot/${testPage}?config=${JSON.stringify(config)}`;
 

@@ -170,17 +170,6 @@ export const getOverflowObserver = createGlobalVariableGetter('__intersection_ob
                             isIntersectingFallback = elementContains(root ?? window, iframe);
                         }
 
-                        // eslint-disable-next-line no-console
-                        console.info(
-                            `[pp-overflow-debug] ratio=${entry.intersectionRatio} rootBounds=${JSON.stringify(
-                                entry.rootBounds
-                            )} bcrWidth=${
-                                iframe.getBoundingClientRect().width
-                            } minWidth=${minWidth} fallback=${isIntersectingFallback} rootType=${
-                                root ? 'element' : 'null'
-                            }`
-                        );
-
                         /**
                          * If the message is intersecting/partially obscured AND the message isn't off the page,
                          * or the message is too small, run overflow detection to hide the message.
@@ -192,9 +181,9 @@ export const getOverflowObserver = createGlobalVariableGetter('__intersection_ob
                             ((entry.intersectionRatio < 0.9 &&
                                 entry.intersectionRatio > 0 &&
                                 !elementOutside(root ?? window, iframe)) ||
-                                // Round up for decimal values
-                                // Increment calculation +1 as a margin of error to account for fractional widths.
-                                Math.ceil(currentWidth + 1) < minWidth) &&
+                                // +5 margin accounts for fractional widths and minor browser rendering differences
+                                // in how browsers report the pre-constraint vs constrained iframe width.
+                                Math.ceil(currentWidth + 5) < minWidth) &&
                             !isIntersectingFallback
                         ) {
                             logger.warn(state.renderComplete ? 'update_hidden' : 'hidden', {
