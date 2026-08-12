@@ -80,7 +80,13 @@ export const clickProductListTiles = async (contentWindow, modalContent, account
         // Switch to no interest view.
         // NOTE: PPC NI tile is separated from the pay later tiles as a means to distinguish product categories in the product list modal.
         await switchViews(5, 'noInterest');
-    } else if (account === 'DEV_ES_MULTI' || account === 'DEV_IT_MULTI' || account === 'DEV_FR_MULTI') {
+    } else if (
+        account === 'DEV_ES_MULTI' ||
+        account === 'DEV_IT_MULTI' ||
+        account === 'DEV_FR_MULTI' ||
+        account === 'DEV_CA_MULTI' ||
+        account === 'DEV_CA_MULTI_FR'
+    ) {
         // Switch to long term view
         await switchViews(2, 'shortTerm');
 

@@ -31,11 +31,12 @@
         "donutTimestamps": ["Today", "2 weeks", "4 weeks", "6 weeks"],
         "instructions": [
             "Choose PayPal at checkout to pay later with <strong>Pay in 4</strong>. ",
-            "Complete your purchase with a 25% first payment.",
+            "Complete your purchase with a 25% down payment.",
             "Use autopay for the rest of your payments. It's easy!"
         ],
         "disclosure": [
             "Pay in 4 is available to approved consumers for purchases of {formattedMinAmount} to {formattedMaxAmount} (CAD) for certain transaction types. Availability depends on the merchant. You must be age of majority in the province or territory where you live to apply. Any transactions in other currencies will be converted to Canadian dollars subject to applicable currency conversion charges. You may repay the amount you owe in full at any time, without any fees or charges."
-        ]
+        ],
+        "linkToProductList": "See other ways to pay later"
     }
 }

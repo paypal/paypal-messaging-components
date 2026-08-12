@@ -30,12 +30,12 @@
     },
     "content": {
         "calculator": {
-            "belowThreshold": "Saisissez un montant entre {formattedMinAmount} CAD et {formattedMaxAmount} CAD.",
-            "aboveThreshold": "Saisissez un montant entre {formattedMinAmount} CAD et {formattedMaxAmount} CAD."
+            "belowThreshold": "Indiquez un montant de {formattedMinAmount} CAD ou plus.",
+            "aboveThreshold": "Indiquez un montant de {formattedMaxAmount} CAD ou moins."
         },
         "disclaimer": {
-            "zeroAPR": "Les modalités varient en fonction du montant de l'achat et de votre crédit.",
-            "nonZeroAPR": "*Le TAEG est de 0 % à 31,99 %. Les modalités et les taux varient en fonction du montant de l'achat et de votre crédit."
+            "zeroAPR": "Les conditions varient en fonction du montant de l'achat et de votre crédit.",
+            "nonZeroAPR": "*Le TAEG est de 0 % à 31,99 %. Les conditions et les taux varient en fonction du montant de l'achat et de votre crédit."
         },
         "termsLabel": {
             "offerHeader": "{formattedPeriodicPayment} CAD/<span aria-hidden='true'>mois</span> pendant {total_payments} mois",

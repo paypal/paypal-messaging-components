@@ -30,8 +30,8 @@
     },
     "content": {
         "calculator": {
-            "belowThreshold": "Enter an amount of {formattedMinAmount} or more.",
-            "aboveThreshold": "Enter an amount no larger than {formattedMaxAmount}."
+            "belowThreshold": "Enter an amount between {formattedMinAmount} - {formattedMaxAmount}.",
+            "aboveThreshold": "Enter an amount between {formattedMinAmount} - {formattedMaxAmount}."
         },
         "disclaimer": {
             "zeroAPR": "Terms vary based on purchase amount and your credit.",

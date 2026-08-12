@@ -31,11 +31,12 @@
         "donutTimestamps": ["Aujourd'hui", "2 semaines", "4 semaines", "6 semaines"],
         "instructions": [
             "Choisissez PayPal à la caisse pour payer plus tard avec <strong>le Paiement en 4</strong>.",
-            "Terminez votre achat avec un premier paiement de 25 %.",
+            "Terminez votre achat avec un acompte de 25 %.",
             "Utilisez le paiement préapprouvé pour le reste de vos paiements. C'est facile !"
         ],
         "disclosure": [
             "Paiement en 4 est offert aux consommateurs approuvés pour les achats de {formattedMinAmount} à {formattedMaxAmount} (CAD) pour certains types de transactions. La disponibilité dépend du marchand. Vous devez avoir atteint l’âge de la majorité dans la province ou le territoire où vous résidez pour présenter une demande. Toutes les transactions dans d’autres devises seront converties en dollars canadiens, sous réserve des frais de conversion de devise applicables. Vous pouvez rembourser la totalité du montant que vous devez en tout temps, sans frais."
-        ]
+        ],
+        "linkToProductList": "Voir d'autres façons de payer plus tard"
     }
 }
