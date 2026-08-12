@@ -165,9 +165,7 @@ export const getOverflowObserver = createGlobalVariableGetter('__intersection_ob
                         // If this is the case we run our own calculations as a fallback.
                         // e.g. https://www.auto-protect-shop.de/nanolex-ultra-glasversiegelung-set/a-528
                         if (entry.rootBounds?.width === 0 && entry.rootBounds.height === 0) {
-                            // root ?? window: when root is undefined (viewport), elementContains(undefined,…) always returns
-                            // false — use window so viewport-visible messages are correctly protected.
-                            isIntersectingFallback = elementContains(root ?? window, iframe);
+                            isIntersectingFallback = elementContains(root, iframe);
                         }
 
                         /**
@@ -176,18 +174,17 @@ export const getOverflowObserver = createGlobalVariableGetter('__intersection_ob
                          *
                          * Else, ensure the message is visible.
                          */
-                        const currentWidth = iframe.getBoundingClientRect().width;
                         if (
                             ((entry.intersectionRatio < 0.9 &&
                                 entry.intersectionRatio > 0 &&
                                 !elementOutside(root ?? window, iframe)) ||
-                                // +5 margin accounts for fractional widths and minor browser rendering differences
-                                // in how browsers report the pre-constraint vs constrained iframe width.
-                                Math.ceil(currentWidth + 5) < minWidth) &&
+                                // Round up for decimal values
+                                // Increment calculation +1 as a margin of error to account for fractional widths.
+                                Math.ceil(iframe.getBoundingClientRect().width + 1) < minWidth) &&
                             !isIntersectingFallback
                         ) {
                             logger.warn(state.renderComplete ? 'update_hidden' : 'hidden', {
-                                description: `PayPal Message has been hidden. Message must be visible and requires minimum dimensions of ${minWidth}px x ${minHeight}px. Current container is ${currentWidth}px x ${entry.intersectionRect.height}px.`,
+                                description: `PayPal Message has been hidden. Message must be visible and requires minimum dimensions of ${minWidth}px x ${minHeight}px. Current container is ${entry.intersectionRect.width}px x ${entry.intersectionRect.height}px.`,
                                 container,
                                 index,
                                 duration,
