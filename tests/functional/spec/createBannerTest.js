@@ -281,7 +281,7 @@ export default function createBannerTest(locale, testPage = 'banner.html') {
                 );
 
                 const matchFunction = config?.style?.layout === 'text' ? 'toMatchTextSnapshot' : 'toMatchFlexSnapshot';
-                const customSnapshotIdentifier = `${testNameParts.pop()}-${viewport.width}`;
+                const customSnapshotIdentifier = `${testNameParts.pop()}-${viewport.width}-snap`;
                 expect(image)[matchFunction]({
                     diffDirection: snapshotDimensions.width > snapshotDimensions.height ? 'vertical' : 'horizontal',
                     customSnapshotsDir: [getBannerSnapshotRoot(), ...testNameParts].join('/'),
