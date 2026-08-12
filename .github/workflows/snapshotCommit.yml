@@ -56,8 +56,8 @@ jobs:
                           if (artifact.name === 'metadata') {
                             execSync(`rsync -zavpmr --no-links --include='pull_number.txt' --exclude='*' ${tmpDir}/ ${{ github.workspace }}`);
                           } else if (artifact.name.includes('snapshot-v2renderer-')) {
-                            // Re-enable when renderV2Message supports flex and text styling.
-                            console.log(`Skipping disabled v2Renderer artifact: ${artifact.name}`);
+                            const snapshotsDir = 'tests/functional/snapshots';
+                            execSync(`rsync -zavpmr --no-links --include='*.png' --include='*/' --exclude='*' ${tmpDir}/ ${{ github.workspace }}/${snapshotsDir}`);
                           } else {
                             const isV2ModalArtifact = artifact.name.includes('snapshot-v2-');
                             const snapshotsDir = isV2ModalArtifact ? 'tests/functional/v2/snapshots' : 'tests/functional/snapshots';

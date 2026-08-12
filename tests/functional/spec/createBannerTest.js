@@ -56,43 +56,75 @@ const waitForBanner = async ({ testName, timeout, config }) => {
         const polling = 100;
         // Must pass into the page function — closures are not available in waitForFunction.
         const useIframeBodyDimensions = Boolean(config?.style?.text?.align);
-        const result = await page.waitForFunction(
-            async ({ bannerSelectors, _testName, _timeout, useIframeBodyDimensions: useBodyDims, startedAt }) => {
+        // Outer-page measurement for v2Renderer flex: Puppeteer headless doesn't propagate
+        // CSS-driven iframe viewport resizes into the iframe context.
+        const isFlexLayout = isV2RendererMode() && config?.style?.layout === 'flex';
+
+        // Step 1: sync predicate — Puppeteer 2.x + newer Chrome only polls with sync
+        // functions; async predicates return a truthy Promise and never retry.
+        await page.waitForFunction(
+            ({ bannerSelectors, isFlex, useBodyDims, _testName, _timeout, startedAt }) => {
                 if (Date.now() - startedAt >= _timeout - 2000 && !window.__waitForBannerLogged) {
                     window.__waitForBannerLogged = true;
                     // eslint-disable-next-line no-console
                     console.info(`waitForBanner innerHTML for failed test [${_testName}]`, document.body.innerHTML);
                 }
 
-                let measureEl = null;
-                let measureDoc = null;
-
                 const iframe = document.querySelector(bannerSelectors.iframeByAttribute);
-                if (iframe) {
-                    // Iframe can exist before its document/body is ready; do not throw.
-                    const iframeDoc = iframe.contentDocument || iframe.contentWindow?.document;
-                    const iframeBody = iframeDoc?.body;
-                    if (!iframeBody) {
-                        return false;
-                    }
 
+                if (isFlex) {
+                    return Boolean(iframe && iframe.clientHeight > 0);
+                }
+
+                if (!iframe) {
+                    const legacy = document.querySelector(bannerSelectors.legacyContainer);
+                    return Boolean(legacy && legacy.clientHeight > 0);
+                }
+
+                const iframeDoc = iframe.contentDocument || iframe.contentWindow?.document;
+                const iframeBody = iframeDoc?.body;
+                if (!iframeBody) return false;
+
+                const measureEl = useBodyDims ? iframeBody : iframeBody.querySelector(bannerSelectors.container);
+                return Boolean(measureEl && measureEl.clientHeight > 0);
+            },
+            { polling, timeout },
+            {
+                bannerSelectors: selectors.banner,
+                isFlex: isFlexLayout,
+                useBodyDims: useIframeBodyDimensions,
+                _testName: testName,
+                _timeout: timeout,
+                startedAt: Date.now()
+            }
+        );
+
+        // Step 2: banner has positive height — wait for fonts/images then read stable dimensions.
+        return await page.evaluate(
+            async ({ bannerSelectors, isFlex, useBodyDims }) => {
+                const iframe = document.querySelector(bannerSelectors.iframeByAttribute);
+                let measureEl;
+                let measureDoc;
+
+                if (isFlex) {
+                    measureEl = iframe;
+                    measureDoc = iframe?.contentDocument || iframe?.contentWindow?.document;
+                } else if (iframe) {
+                    const iframeDoc = iframe.contentDocument || iframe.contentWindow?.document;
                     measureDoc = iframeDoc;
-                    measureEl = useBodyDims ? iframeBody : iframeBody.querySelector(bannerSelectors.container);
+                    measureEl = useBodyDims
+                        ? iframeDoc?.body
+                        : iframeDoc?.body?.querySelector(bannerSelectors.container);
                 } else {
                     measureEl = document.querySelector(bannerSelectors.legacyContainer);
                     measureDoc = document;
                 }
 
-                if (!measureEl || measureEl.clientHeight <= 0) {
-                    return false;
-                }
+                if (!measureEl) return { height: null, width: null };
 
-                // Wait for screenshot-affecting resources before treating the banner as ready.
-                if (measureDoc.fonts?.ready) {
-                    await measureDoc.fonts.ready;
-                }
+                if (measureDoc?.fonts?.ready) await measureDoc.fonts.ready;
 
-                const incompleteImages = Array.from(measureDoc.images || []).filter(img => !img.complete);
+                const incompleteImages = Array.from(measureDoc?.images || []).filter(img => !img.complete);
                 if (incompleteImages.length > 0) {
                     await Promise.all(
                         incompleteImages.map(
@@ -105,42 +137,14 @@ const waitForBanner = async ({ testName, timeout, config }) => {
                     );
                 }
 
-                const first = {
-                    height: measureEl.clientHeight,
-                    width: measureEl.clientWidth
-                };
-
                 await new Promise(resolve => {
-                    requestAnimationFrame(() => {
-                        requestAnimationFrame(resolve);
-                    });
+                    requestAnimationFrame(() => requestAnimationFrame(resolve));
                 });
 
-                const second = {
-                    height: measureEl.clientHeight,
-                    width: measureEl.clientWidth
-                };
-
-                if (second.height <= 0 || first.height !== second.height || first.width !== second.width) {
-                    return false;
-                }
-
-                return second;
+                return { height: measureEl.clientHeight, width: measureEl.clientWidth };
             },
-            {
-                polling,
-                timeout
-            },
-            {
-                bannerSelectors: selectors.banner,
-                _testName: testName,
-                _timeout: timeout,
-                useIframeBodyDimensions,
-                startedAt: Date.now()
-            }
+            { bannerSelectors: selectors.banner, isFlex: isFlexLayout, useBodyDims: useIframeBodyDimensions }
         );
-
-        return await result.jsonValue();
     } catch (error) {
         console.warn(`waitForBanner error for [${testName}]`, error); // eslint-disable-line no-console
     }
@@ -234,7 +238,9 @@ export default function createBannerTest(locale, testPage = 'banner.html') {
 
                 logTestName({ testName, viewport });
 
-                await setupPageForBanner(viewport, config, testPage);
+                // Route through the v2 renderer when in v2Renderer mode.
+                const pageConfig = isV2RendererMode() ? { ...config, features: 'useRenderV2Message' } : config;
+                await setupPageForBanner(viewport, pageConfig, testPage);
 
                 const bannerDimensions = await waitForBanner({ testName, timeout: 10 * 1000, config });
                 expect(bannerDimensions.height).toBeGreaterThan(0);

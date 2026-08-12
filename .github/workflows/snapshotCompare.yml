@@ -110,8 +110,7 @@ jobs:
 
     compareSnapshotsV2Renderer:
         name: Compare V2 Message Renderer Snapshots
-        # Re-enable when renderV2Message supports flex and text styling.
-        if: false
+        if: ${{ github.event_name == 'pull_request' }}
         runs-on: ubuntu-24.04
         needs: getMatrix
         strategy:

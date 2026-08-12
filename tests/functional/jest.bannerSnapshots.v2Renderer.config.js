@@ -13,9 +13,7 @@ module.exports = {
         ]
     ],
     testMatch: ['<rootDir>/spec/**/banner/**/?(*.)test.js?(x)'],
-    // Re-enable these suites once renderV2Message supports flex and full text styling.
     testPathIgnorePatterns: [
-        '.*/banner/flex.*\\.test\\.js$',
         '.*/US/banner/textLogoTypesAlternativeInlineNone\\.test\\.js$',
         '.*/US/banner/textColorsPrimaryAlternative\\.test\\.js$',
         '.*/US/banner/textFontSizes\\.test\\.js$'
