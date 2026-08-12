@@ -5,7 +5,7 @@ module.exports = {
         command: 'npm run dev:ci',
         host: 'localhost.paypal.com',
         port: 8080,
-        protocol: 'https',
+        protocol: 'tcp',
         launchTimeout: 180000,
         usedPortAction: 'ignore'
     },
