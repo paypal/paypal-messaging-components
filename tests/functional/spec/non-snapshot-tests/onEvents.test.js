@@ -142,12 +142,12 @@ describe('client callbacks', () => {
             const error = `${jshandle}`;
             expect(error).toBe(false);
         });
-        await page.exposeFunction(`getContext`, getContext);
-        await page.exposeFunction(`delay`, delay);
     });
 
     beforeEach(async () => {
         await page.goto(`https://localhost.paypal.com:8080/blank.html`);
+        await page.exposeFunction(`getContext`, getContext);
+        await page.exposeFunction(`delay`, delay);
     });
 
     // Check that we can write a callback function on the message html tag
