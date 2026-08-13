@@ -1,3 +1,5 @@
+const path = require('path');
+
 module.exports = {
     reporters: [
         'default',
@@ -18,6 +20,9 @@ module.exports = {
         '.*/US/banner/textColorsPrimaryAlternative\\.test\\.js$',
         '.*/US/banner/textFontSizes\\.test\\.js$'
     ],
+    transform: {
+        '^.+\\.jsx?$': ['babel-jest', { configFile: path.resolve(__dirname, '../../babel.config.js') }]
+    },
     globalSetup: 'jest-environment-puppeteer/setup',
     globalTeardown: 'jest-environment-puppeteer/teardown',
     testEnvironment: 'jest-environment-puppeteer',
