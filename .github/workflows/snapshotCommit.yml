@@ -19,6 +19,13 @@ jobs:
               with:
                   ref: ${{ github.event.workflow_run.head_branch }}
                   repository: ${{ github.event.workflow_run.head_repository.full_name }}
+                  # Accepted risk: this workflow intentionally supports committing generated
+                  # snapshots back onto contributor forks. Access is gated by the 'snapshots'
+                  # label (collaborator-only) on the upstream "Update Snapshots" workflow, and
+                  # this job only downloads pre-built image artifacts + writes/commits files —
+                  # it never executes code from the checked-out ref. See
+                  # https://gh.io/securely-using-pull_request_target for the general risk model.
+                  allow-unsafe-pr-checkout: true
 
             - name: Download Artifacts
               uses: actions/github-script@v7
