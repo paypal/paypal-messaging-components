@@ -200,7 +200,7 @@ export default {
                 'mini-cart',
                 'cart',
                 'checkout',
-                'experience-view-edit-fi'
+                'view-edit-fi'
             ];
 
             if (!validateType(Types.STRING, pageType)) {
