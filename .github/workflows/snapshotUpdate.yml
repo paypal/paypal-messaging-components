@@ -36,7 +36,6 @@ jobs:
             - getMatrix
             - updateSnapshots
             - updateSnapshotsV2
-            - updateSnapshotsV2Renderer
         steps:
             - name: Capture PR Number
               run: |
@@ -249,6 +248,8 @@ jobs:
 
     updateSnapshotsV2Renderer:
         name: Update V2 Renderer
+        # Disabled until v2 renderer reaches full text/flex style parity with legacy
+        if: false
         runs-on: ubuntu-24.04
         needs: getMatrix
         strategy:

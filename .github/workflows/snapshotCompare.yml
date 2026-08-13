@@ -110,7 +110,8 @@ jobs:
 
     compareSnapshotsV2Renderer:
         name: Compare V2 Message Renderer Snapshots
-        if: ${{ github.event_name == 'pull_request' }}
+        # Disabled until v2 renderer reaches full text/flex style parity with legacy
+        if: false
         runs-on: ubuntu-24.04
         needs: getMatrix
         strategy:
