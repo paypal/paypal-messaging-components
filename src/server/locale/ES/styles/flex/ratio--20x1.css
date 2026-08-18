@@ -1,17 +1,16 @@
 @media (min-aspect-ratio: 200/11) {
     .message__logo-container {
         margin-bottom: -3px;
-        max-width: 12%;
-        margin-right: 1.5vw;
+        max-width: 9.6%;
     }
 
     .message__logo:nth-of-type(1) {
-        width: 15%;
-        margin-right: 3%;
+        width: 12%;
+        margin-right: 2.4%;
     }
 
     .message__logo:nth-of-type(2) {
-        width: 55%;
+        width: 44%;
     }
 
     .message__promo-container {
@@ -34,13 +33,20 @@
     .message__disclaimer {
         margin-left: 4px;
     }
-}
 
-@media (min-aspect-ratio: 200/11) and (min-width: 351px) {
-    .message__disclaimer {
-        font-size: 0.8rem;
+    .message__disclaimer > span.tag--xsmall,
+    .message__disclaimer > span.tag--large,
+    .message__disclaimer > span.tag--default {
+        font-size: 1.2vw;
+    }
+
+    .message__disclaimer > span.tag--large,
+    .message__disclaimer > span.tag--large:nth-of-type(1),
+    .message__disclaimer > span.tag--large:nth-of-type(2) {
+        display: inline;
     }
 }
+
 @media (min-aspect-ratio: 200/11) and (min-width: 903px) {
     .message__logo-container {
         margin-bottom: -6px;
@@ -48,7 +54,7 @@
 }
 @media (min-aspect-ratio: 200/11) and (min-width: 400px) {
     .message__headline {
-        font-size: 2vw;
+        font-size: 1.2vw;
     }
 
     .message__headline > span:nth-of-type(3) {
@@ -56,13 +62,13 @@
     }
 
     .message__logo:nth-of-type(1) {
-        width: 20%;
-        margin-right: 5%;
+        width: 16%;
+        margin-right: 4%;
     }
 
     .message__logo:nth-of-type(2) {
         display: inline-block;
-        width: 60%;
+        width: 48%;
     }
 }
 
@@ -90,17 +96,17 @@
     }
 
     .message__logo-container {
-        max-width: 18%;
+        max-width: 14.4%;
     }
 }
 
 @media (min-aspect-ratio: 200/11) and (min-width: 401px) and (max-width: 522px) {
     .message__logo-container {
-        max-width: 18%;
+        max-width: 14.4%;
     }
 
     .message__headline {
-        font-size: 2.75vw;
+        font-size: 1.2vw;
     }
 
     .message__headline > span:nth-of-type(3) {
@@ -110,6 +116,24 @@
 
 @media (min-aspect-ratio: 200/11) and (max-width: 350px) {
     .message__headline {
-        font-size: 10px;
+        font-size: 1.2vw;
+    }
+
+    .message__disclaimer > span.tag--xsmall,
+    .message__disclaimer > span.tag--large,
+    .message__disclaimer > span.tag--default {
+        font-size: 1.2vw;
+    }
+}
+
+@media (min-aspect-ratio: 200/11) and (min-width: 500px) {
+    .message__headline {
+        font-size: 1vw;
+    }
+
+    .message__disclaimer > span.tag--xsmall,
+    .message__disclaimer > span.tag--large,
+    .message__disclaimer > span.tag--default {
+        font-size: 1vw;
     }
 }

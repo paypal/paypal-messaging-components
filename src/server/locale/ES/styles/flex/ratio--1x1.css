@@ -1,5 +1,20 @@
-.message__disclaimer span.multi:nth-of-type(1) {
-    display: none;
+.message__disclaimer {
+    white-space: normal;
+}
+
+.message__disclaimer > span,
+.message__disclaimer > span > span {
+    white-space: normal;
+}
+
+.message__disclaimer > span.tag--xsmall,
+.message__disclaimer > span.tag--large {
+    font-size: 5.4vw;
+}
+
+.message__disclaimer > span.tag--default,
+.message__disclaimer > span.tag--default > span {
+    white-space: nowrap;
 }
 
 .message__headline span.multi:nth-of-type(2) {
@@ -24,15 +39,11 @@
 }
 
 .message__headline {
-    font-size: 10vw;
+    font-size: 5vw;
     line-height: 1.55em;
 }
 
 @media (min-width: 140px) {
-    .message__headline {
-        font-size: 8.4vw;
-    }
-
     .message__headline span.multi:nth-of-type(1) {
         display: none;
     }
@@ -43,5 +54,16 @@
 
     .message__disclaimer span.multi:nth-of-type(1) {
         display: inline;
+    }
+}
+
+@media (max-width: 165px) {
+    .message__headline {
+        font-size: 4.2vw;
+    }
+
+    .message__disclaimer > span.tag--large,
+    .message__disclaimer > span.tag--default {
+        font-size: 4.2vw;
     }
 }
