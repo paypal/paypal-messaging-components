@@ -36,19 +36,23 @@ const TermsTable = ({
         );
     }
 
-    // ES, IT, and CA countries offer accordion should display in ascending order (6, 12, 24 months)
-    const processedOffers =
-        offerCountry === 'ES' || offerCountry === 'IT' || offerCountry === 'CA' ? [...offers].reverse() : offers;
+    // US, ES, IT, and CA display offers ascending (6, 12, 24 months); AT, DE, and FR display descending.
+    const offerSortDirection = { US: 'asc', ES: 'asc', IT: 'asc', CA: 'asc', AT: 'desc', DE: 'desc', FR: 'desc' };
+    const direction = offerSortDirection[offerCountry];
+    const processedOffers = direction
+        ? [...offers].sort((a, b) =>
+              direction === 'asc'
+                  ? a.meta.total_payments - b.meta.total_payments
+                  : b.meta.total_payments - a.meta.total_payments
+          )
+        : offers;
 
     const qualifyingOffers = processedOffers
         .filter(offer => offer.meta.qualifying === 'true')
         .map((offer, idx) => {
             // DE, ES, and IT use the accordion style for presentation of offers in the modal.
             if (offerAccordionCountries.includes(offerCountry)) {
-                const disclaimer =
-                    aprDisclaimer.length < processedOffers.length
-                        ? aprDisclaimer[aprDisclaimer.length - 1].aprDisclaimer
-                        : aprDisclaimer[idx].aprDisclaimer;
+                const disclaimer = (aprDisclaimer[offer.meta.total_payments] ?? aprDisclaimer.default).aprDisclaimer;
                 return (
                     <OfferAccordion
                         offer={offer}

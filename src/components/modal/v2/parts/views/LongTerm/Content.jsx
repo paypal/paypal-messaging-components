@@ -29,13 +29,13 @@ const getAPRDetails = ({ offers, genericDisclaimer, disclaimer: { zeroAPR, mixed
     });
 
     if (qualifyingOffers.length === 0) {
-        return [
-            {
-                /**
-                 * Specifically, this impacts US Long Term and which legal disclaimer shows underneath the offer cards.
-                 * If no initial amount is passed in or there is an error, we default to a generic disclaimer.
-                 * i.e. Terms may vary based on purchase amount.
-                 */
+        return {
+            /**
+             * Specifically, this impacts US Long Term and which legal disclaimer shows underneath the offer cards.
+             * If no initial amount is passed in or there is an error, we default to a generic disclaimer.
+             * i.e. Terms may vary based on purchase amount.
+             */
+            default: {
                 aprDisclaimer: genericDisclaimer ?? zeroAPR,
                 /**
                  * Used by DE Long Term to determine which legal disclosure shows at the bottom of the modal.
@@ -43,30 +43,32 @@ const getAPRDetails = ({ offers, genericDisclaimer, disclaimer: { zeroAPR, mixed
                  */
                 aprType: 'nonZeroAPR'
             }
-        ];
+        };
     }
 
     // TODO: Clean up backwards compatible code after release and content updates.
-    return qualifyingOffers.map(({ content: { disclaimer } }) => {
+    // Keyed by each offer's own term (total_payments) so the disclaimer stays paired with its offer
+    // regardless of what order `offers` is rendered/sorted in downstream.
+    return qualifyingOffers.reduce((acc, { meta, content: { disclaimer } }) => {
         if (qualifyingOffers.length === totalNonZero) {
-            return {
+            acc[meta.total_payments] = {
                 aprDisclaimer: disclaimer?.nonZeroAPR ?? nonZeroAPR,
                 aprType: 'nonZeroAPR'
             };
-        }
-
-        if (qualifyingOffers.length === totalZero) {
-            return {
+        } else if (qualifyingOffers.length === totalZero) {
+            acc[meta.total_payments] = {
                 aprDisclaimer: disclaimer?.zeroAPR ?? zeroAPR,
                 aprType: 'zeroAPR'
             };
+        } else {
+            acc[meta.total_payments] = {
+                aprDisclaimer: disclaimer?.mixedAPR ?? mixedAPR,
+                aprType: 'mixedAPR'
+            };
         }
 
-        return {
-            aprDisclaimer: disclaimer?.mixedAPR ?? mixedAPR,
-            aprType: 'mixedAPR'
-        };
-    });
+        return acc;
+    }, {});
 };
 
 export const LongTerm = ({
@@ -183,7 +185,7 @@ export const LongTerm = ({
 
     // Determine disclosure content based on type
     const getDisclosure = disclosureContent => {
-        const aprType = offerAPRDisclaimers?.[0]?.aprType;
+        const aprType = Object.values(offerAPRDisclaimers)[0]?.aprType;
 
         let text = disclosureContent;
         if (typeof disclosureContent !== 'string' && !Array.isArray(disclosureContent)) {
