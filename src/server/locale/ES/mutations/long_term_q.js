@@ -88,7 +88,7 @@ export default {
                     messageLogoWidth(false, textSize * 4, textSize * 1.25),
                     setLogoTop(textSize * 16),
                     addPeriod(),
-                    disclaimerWrap(textSize * 35)
+                    disclaimerWrap(textSize * 15)
                 ],
                 logo: Logo.PP_PAYPAL.COLOR,
                 headline: [
@@ -115,7 +115,7 @@ export default {
                     setLogoTop(textSize * 94.5),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
                     addPeriod(),
-                    disclaimerWrap(textSize * 24),
+                    disclaimerWrap(textSize * 15),
                     `@media screen and (max-width: ${
                         textSize * 14.5
                     }px) { .message__headline > .tag--xsmall > span { white-space: normal;} }`
@@ -159,7 +159,7 @@ export default {
                     altNoWrap(textSize * 10.6),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25),
                     addPeriod(),
-                    disclaimerWrap(textSize * 24)
+                    disclaimerWrap(textSize * 15)
                 ],
                 logo: Logo.PP_PAYPAL.COLOR[0],
                 headline: [

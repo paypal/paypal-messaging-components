@@ -99,7 +99,7 @@ export default {
                     messageLogoWidth(false, textSize * 4, textSize * 1.25),
                     setLogoTop(textSize * 20),
                     addPeriod(),
-                    disclaimerWrap(textSize * 36)
+                    disclaimerWrap(textSize * 19)
                 ],
                 logo: Logo.PP_PAYPAL.COLOR,
                 headline: [
@@ -123,7 +123,7 @@ export default {
                     setLogoTop(textSize * 107),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
                     addPeriod(),
-                    disclaimerWrap(textSize * 24),
+                    disclaimerWrap(textSize * 19),
                     `@media screen and (max-width: ${
                         textSize * 14.5
                     }px) { .message__headline > .tag--xsmall > span { white-space: normal;} }`
@@ -147,7 +147,7 @@ export default {
                     xSmallFallback(textSize * 16),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
                     addPeriod(),
-                    disclaimerWrap(textSize * 25),
+                    disclaimerWrap(textSize * 19),
                     `@media screen and (max-width: ${
                         textSize * 14.5
                     }px) { .message__headline > .tag--xsmall > span { white-space: normal;} }`
