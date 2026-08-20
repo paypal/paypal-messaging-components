@@ -1,4 +1,4 @@
-.message__disclaimer span.multi:nth-of-type(1) {
+.message__disclaimer .tag--xsmall {
     display: none;
 }
 
@@ -41,7 +41,7 @@
         display: inline;
     }
 
-    .message__disclaimer span.multi:nth-of-type(1) {
+    .message__disclaimer .tag--xsmall {
         display: inline;
     }
 }

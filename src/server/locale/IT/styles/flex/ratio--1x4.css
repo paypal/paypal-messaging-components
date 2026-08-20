@@ -27,9 +27,20 @@
 
 .message__disclaimer {
     font-size: 0.9rem;
+    white-space: normal;
 }
 
-.message__disclaimer span.multi:nth-of-type(1) {
+.message__disclaimer > span,
+.message__disclaimer > span > span {
+    white-space: normal;
+}
+
+.message__disclaimer > span.tag--default,
+.message__disclaimer > span.tag--default > span {
+    white-space: nowrap;
+}
+
+.message__disclaimer .tag--xsmall {
     display: inline;
 }
 

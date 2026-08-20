@@ -24,6 +24,7 @@
     ],
     "subHeadline": [],
     "disclaimer": [
+        [["Attenzione! Prendere in prestito denaro comporta dei costi."], ["large"]],
         ["<span aria-hidden='true'>Scopri di più</span><span class='sr-only'>Scopri di più</span>", ["default"]]
     ]
 }
