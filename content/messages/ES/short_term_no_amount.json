@@ -17,7 +17,12 @@
     "headline": [["Compra ahora y paga después.", ["default"]]],
     "subHeadline": [],
     "disclaimer": [
-        [["Atención, un crédito puede tener un coste y debe ser devuelto."], ["large"]],
+        [
+            [
+                "Atención, un crédito es vinculante para ti y debe ser devuelto. Comprueba el coste del préstamo y tu capacidad de reembolso antes de comprometerte."
+            ],
+            ["large"]
+        ],
         ["Más información", ["default"]]
     ]
 }
