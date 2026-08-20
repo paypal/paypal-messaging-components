@@ -5,6 +5,9 @@ import OfferCard from './OfferCard';
 import OfferAccordion from './OfferAccordion';
 import LoadingShimmer from './LoadingShimmer';
 
+// US, ES, IT, and CA display offers ascending (6, 12, 24 months); AT, DE, and FR display descending.
+const offerSortDirection = { US: 'asc', ES: 'asc', IT: 'asc', CA: 'asc', AT: 'desc', DE: 'desc', FR: 'desc' };
+
 const TermsTable = ({
     isLoading,
     view: { meta, offers },
@@ -36,15 +39,10 @@ const TermsTable = ({
         );
     }
 
-    // US, ES, IT, and CA display offers ascending (6, 12, 24 months); AT, DE, and FR display descending.
-    const offerSortDirection = { US: 'asc', ES: 'asc', IT: 'asc', CA: 'asc', AT: 'desc', DE: 'desc', FR: 'desc' };
     const direction = offerSortDirection[offerCountry];
+    const sortSign = direction === 'asc' ? 1 : -1;
     const processedOffers = direction
-        ? [...offers].sort((a, b) =>
-              direction === 'asc'
-                  ? a.meta.total_payments - b.meta.total_payments
-                  : b.meta.total_payments - a.meta.total_payments
-          )
+        ? [...offers].sort((a, b) => sortSign * (a.meta.total_payments - b.meta.total_payments))
         : offers;
 
     const qualifyingOffers = processedOffers
@@ -52,7 +50,8 @@ const TermsTable = ({
         .map((offer, idx) => {
             // DE, ES, and IT use the accordion style for presentation of offers in the modal.
             if (offerAccordionCountries.includes(offerCountry)) {
-                const disclaimer = (aprDisclaimer[offer.meta.total_payments] ?? aprDisclaimer.default).aprDisclaimer;
+                const disclaimer =
+                    aprDisclaimer[offer.meta.total_payments]?.aprDisclaimer ?? aprDisclaimer.default?.aprDisclaimer;
                 return (
                     <OfferAccordion
                         offer={offer}
