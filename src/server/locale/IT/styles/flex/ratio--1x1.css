@@ -2,6 +2,16 @@
     display: none;
 }
 
+.message__disclaimer > .tag--large,
+.message__disclaimer > .tag--large > span {
+    white-space: normal;
+}
+
+.message__disclaimer > span.tag--default,
+.message__disclaimer > span.tag--default > span {
+    white-space: nowrap;
+}
+
 .message__headline span.multi:nth-of-type(2) {
     display: none;
 }

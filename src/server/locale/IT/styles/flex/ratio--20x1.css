@@ -44,6 +44,23 @@
 @media (min-aspect-ratio: 200/11) and (min-width: 903px) {
     .message__logo-container {
         margin-bottom: -6px;
+        max-width: 10%;
+        margin-right: 1vw;
+    }
+
+    .message__headline {
+        font-size: 1.55vw;
+    }
+
+    .message__messaging {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .message__disclaimer {
+        margin-left: 0;
+        font-size: 0.65rem;
     }
 }
 @media (min-aspect-ratio: 200/11) and (min-width: 400px) {
