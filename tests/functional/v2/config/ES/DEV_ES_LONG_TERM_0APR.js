@@ -21,8 +21,8 @@ export const DEV_ES_LONG_TERM_0APR = {
             message: 'Qualifying ES Long Term Installments',
             expectedValue: 'Desde 5,00 € al mes al 0% TAE.',
             modalContent: {
-                offerHeadline: '5,00 €/mes*',
-                updatedOfferHeadline: '20,83 €/mes*',
+                offerHeadline: '20,00 €/mes*',
+                updatedOfferHeadline: '83,33 €/mes*',
                 offerFieldValues: ['120,00 €', '0,00 €', '0,00 €', '120,00 €'],
                 aprDisclaimer: 'TIN fijo anual del 0%'
             }
