@@ -21,9 +21,9 @@ export const DEV_AT_LONG_TERM = {
             message: 'Qualifying AT Long Term Installments',
             expectedValue: 'Bezahlen Sie in bis zu 24 monatlichen Raten.',
             modalContent: {
-                offerHeadline: '33,82€/Monat',
-                updatedOfferHeadline: '170,83€/Monat',
-                offerFieldValues: ['99,00€', '2,47€', '101,47€'],
+                offerHeadline: '4,95€/Monat',
+                updatedOfferHeadline: '25,00€/Monat',
+                offerFieldValues: ['99,00€', '19,78€', '118,78€'],
                 aprDisclaimer: 'Eff. Jahreszins'
             }
         },
