@@ -54,20 +54,11 @@ const TermsTable = ({
 
     const rawSortDirection = OFFER_SORT_DIRECTION_BY_COUNTRY[offerCountry];
     const isValidSortDirection = Object.values(SORT_DIRECTION).includes(rawSortDirection);
-    if (rawSortDirection !== undefined && !isValidSortDirection) {
-        console.warn(`Invalid long term offer sort direction "${rawSortDirection}" for country "${offerCountry}"`);
-    }
     const sortSign = isValidSortDirection ? rawSortDirection : 0;
     const processedOffers = sortSign
         ? offers
               .filter(offer => offer.meta.qualifying === 'true')
-              .map(offer => {
-                  const totalPayments = Number(offer.meta.total_payments);
-                  if (Number.isNaN(totalPayments)) {
-                      console.warn('TermsTable: non-numeric total_payments, offer left in place');
-                  }
-                  return { offer, totalPayments };
-              })
+              .map(offer => ({ offer, totalPayments: Number(offer.meta.total_payments) }))
               .sort((a, b) =>
                   Number.isNaN(a.totalPayments) || Number.isNaN(b.totalPayments)
                       ? 0
