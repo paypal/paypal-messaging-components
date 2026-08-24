@@ -50,6 +50,7 @@ const TermsTable = ({
     }
     const processedOffers = sortSign
         ? offers
+              .filter(offer => offer.meta.qualifying === 'true')
               .map(offer => {
                   const totalPayments = Number(offer.meta.total_payments);
                   if (Number.isNaN(totalPayments)) {
@@ -63,41 +64,39 @@ const TermsTable = ({
                       : sortSign * (a.totalPayments - b.totalPayments)
               )
               .map(({ offer }) => offer)
-        : offers;
+        : offers.filter(offer => offer.meta.qualifying === 'true');
 
-    const qualifyingOffers = processedOffers
-        .filter(offer => offer.meta.qualifying === 'true')
-        .map((offer, idx) => {
-            // DE, ES, and IT use the accordion style for presentation of offers in the modal.
-            if (offerAccordionCountries.includes(offerCountry)) {
-                const disclaimer =
-                    aprDisclaimer[offer.meta.total_payments]?.aprDisclaimer ?? aprDisclaimer.default?.aprDisclaimer;
-                return (
-                    <OfferAccordion
-                        offer={offer}
-                        index={idx}
-                        aprDisclaimer={disclaimer}
-                        activeSelection={activeSelection}
-                        setActiveSelection={setActiveSelection}
-                        useV5Design={useV5Design}
-                        use5Dot1Design={use5Dot1Design}
-                        offerCountry={offerCountry}
-                    />
-                );
-            }
-            // All other countries use the card style
+    const qualifyingOffers = processedOffers.map((offer, idx) => {
+        // DE, ES, and IT use the accordion style for presentation of offers in the modal.
+        if (offerAccordionCountries.includes(offerCountry)) {
+            const disclaimer =
+                aprDisclaimer[offer.meta.total_payments]?.aprDisclaimer ?? aprDisclaimer.default?.aprDisclaimer;
             return (
-                <OfferCard
+                <OfferAccordion
                     offer={offer}
                     index={idx}
-                    useV4Design={useV4Design}
+                    aprDisclaimer={disclaimer}
+                    activeSelection={activeSelection}
+                    setActiveSelection={setActiveSelection}
                     useV5Design={useV5Design}
                     use5Dot1Design={use5Dot1Design}
-                    useNewCheckoutDesign={useNewCheckoutDesign}
-                    useDarkMode={useDarkMode}
+                    offerCountry={offerCountry}
                 />
             );
-        });
+        }
+        // All other countries use the card style
+        return (
+            <OfferCard
+                offer={offer}
+                index={idx}
+                useV4Design={useV4Design}
+                useV5Design={useV5Design}
+                use5Dot1Design={use5Dot1Design}
+                useNewCheckoutDesign={useNewCheckoutDesign}
+                useDarkMode={useDarkMode}
+            />
+        );
+    });
 
     setNumOffers(qualifyingOffers.length === 0 ? undefined : qualifyingOffers.length);
 
