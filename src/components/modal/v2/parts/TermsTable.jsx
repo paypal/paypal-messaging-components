@@ -5,8 +5,21 @@ import OfferCard from './OfferCard';
 import OfferAccordion from './OfferAccordion';
 import LoadingShimmer from './LoadingShimmer';
 
+const SORT_DIRECTION = {
+    ASCENDING: 1,
+    DESCENDING: -1
+};
+
 // US, ES, IT, and CA display offers ascending (6, 12, 24 months); AT, DE, and FR display descending.
-const offerSortDirection = { US: 'asc', ES: 'asc', IT: 'asc', CA: 'asc', AT: 'desc', DE: 'desc', FR: 'desc' };
+const OFFER_SORT_DIRECTION_BY_COUNTRY = {
+    US: SORT_DIRECTION.ASCENDING,
+    ES: SORT_DIRECTION.ASCENDING,
+    IT: SORT_DIRECTION.ASCENDING,
+    CA: SORT_DIRECTION.ASCENDING,
+    AT: SORT_DIRECTION.DESCENDING,
+    DE: SORT_DIRECTION.DESCENDING,
+    FR: SORT_DIRECTION.DESCENDING
+};
 
 const TermsTable = ({
     isLoading,
@@ -39,15 +52,12 @@ const TermsTable = ({
         );
     }
 
-    const direction = offerSortDirection[offerCountry];
-    let sortSign = 0;
-    if (direction === 'asc') {
-        sortSign = 1;
-    } else if (direction === 'desc') {
-        sortSign = -1;
-    } else if (direction) {
-        console.warn(`Unrecognized offer Sort Direction "${direction}" for country "${offerCountry}"`);
+    const rawSortDirection = OFFER_SORT_DIRECTION_BY_COUNTRY[offerCountry];
+    const isValidSortDirection = Object.values(SORT_DIRECTION).includes(rawSortDirection);
+    if (rawSortDirection !== undefined && !isValidSortDirection) {
+        console.warn(`Invalid long term offer sort direction "${rawSortDirection}" for country "${offerCountry}"`);
     }
+    const sortSign = isValidSortDirection ? rawSortDirection : 0;
     const processedOffers = sortSign
         ? offers
               .filter(offer => offer.meta.qualifying === 'true')
