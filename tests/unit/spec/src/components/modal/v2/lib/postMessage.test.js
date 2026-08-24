@@ -28,14 +28,12 @@ describe('sendEvent', () => {
 
     describe('top-level browser tab (window.parent === window)', () => {
         beforeEach(() => {
-            // Force the browser branch so targetWindow resolves via window.opener rather than window.parent.
             // Under Jest, NODE_ENV === 'test' short-circuits sendEvent to always use window.parent.
             process.env.NODE_ENV = 'production';
         });
 
         it('does not throw when opened from another page with no opener (regression: lander calculator crash)', () => {
-            // A referrer-bearing tab sets a truthy trustedOrigin, which previously let execution reach
-            // targetWindow.postMessage while window.opener was null -> TypeError that broke the calculator.
+            // A referrer-bearing tab sets a truthy trustedOrigin, which previously let execution reach targetWindow.postMessage while window.opener was null.
             Object.defineProperty(window, 'opener', { value: null, configurable: true, writable: true });
 
             expect(() => sendEvent({ type: 'message' }, 'https://www.merchant.com')).not.toThrow();
