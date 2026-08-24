@@ -40,8 +40,15 @@ const TermsTable = ({
     }
 
     const direction = offerSortDirection[offerCountry];
-    const sortSign = direction === 'asc' ? 1 : -1;
-    const processedOffers = direction
+    let sortSign = 0;
+    if (direction === 'asc') {
+        sortSign = 1;
+    } else if (direction === 'desc') {
+        sortSign = -1;
+    } else if (direction) {
+        console.warn(`Unrecognized offer Sort Direction "${direction}" for country "${offerCountry}"`);
+    }
+    const processedOffers = sortSign
         ? [...offers].sort((a, b) => sortSign * (a.meta.total_payments - b.meta.total_payments))
         : offers;
 
