@@ -49,7 +49,20 @@ const TermsTable = ({
         console.warn(`Unrecognized offer Sort Direction "${direction}" for country "${offerCountry}"`);
     }
     const processedOffers = sortSign
-        ? [...offers].sort((a, b) => sortSign * (a.meta.total_payments - b.meta.total_payments))
+        ? offers
+              .map(offer => {
+                  const totalPayments = Number(offer.meta.total_payments);
+                  if (Number.isNaN(totalPayments)) {
+                      console.warn('TermsTable: non-numeric total_payments, offer left in place');
+                  }
+                  return { offer, totalPayments };
+              })
+              .sort((a, b) =>
+                  Number.isNaN(a.totalPayments) || Number.isNaN(b.totalPayments)
+                      ? 0
+                      : sortSign * (a.totalPayments - b.totalPayments)
+              )
+              .map(({ offer }) => offer)
         : offers;
 
     const qualifyingOffers = processedOffers
