@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.95.0](https://github.com/paypal/paypal-messaging-components/compare/v1.94.0...v1.95.0) (2026-08-19)
+
+
+### Features
+
+* add experience-view-edit-fi pageType value ([c2e95e3](https://github.com/paypal/paypal-messaging-components/commit/c2e95e318807754c0cbabfc1f206776b340de10f))
+* add TikTok Pay Later short-term US modal content ([#1374](https://github.com/paypal/paypal-messaging-components/issues/1374)) ([d2b3a4c](https://github.com/paypal/paypal-messaging-components/commit/d2b3a4c5d06c581309893375799755200d2eb138))
+* add view-edit-fi pageType value ([2b3c122](https://github.com/paypal/paypal-messaging-components/commit/2b3c122b1b13e671b6aeec0b4e889a1283adbcf2))
+* view-edit-fi pageType value ([634b7c1](https://github.com/paypal/paypal-messaging-components/commit/634b7c130b7981469116a452f0c6b1da2a7a861b))
+
 ## [1.94.0](https://github.com/paypal/paypal-messaging-components/compare/v1.93.0...v1.94.0) (2026-08-06)
 
 
