@@ -97,6 +97,7 @@ strong {
     }
     &__field-header {
         font-size: 18px;
+        margin: 0;
         @include mixins.mobile {
             font-size: 18px;
             margin-top: 16px;
