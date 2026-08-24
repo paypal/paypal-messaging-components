@@ -84,7 +84,7 @@ const Calculator = ({
     const { amount } = useXProps();
     const { country, views } = useServerData();
     const { language } = views[0].meta;
-    const { title, genericTitle, inputLabel, inputPlaceholder, inputCurrencySymbol } = calculator;
+    const { title, genericTitle, inputLabel, inputPlaceholder, inputCurrencySymbol, loadingLabel } = calculator;
     const formattedInputPlaceholder = currencyFormat(inputPlaceholder).replace(/(\s?€)/g, '');
 
     // Set hasUsedInputField to true if someone has typed in the input field at any point.
@@ -243,8 +243,11 @@ const Calculator = ({
                 </div>
                 <div aria-live="polite">{renderError(error || emptyState || isLoading)}</div>
             </form>
+            <div role="status" className="sr-only">
+                {isLoading ? loadingLabel : ''}
+            </div>
             {(hasInitialAmount || hasUsedInputField) && !error ? (
-                <div aria-live="polite" className="content-column">
+                <div className="content-column" aria-busy={isLoading ? 'true' : undefined}>
                     <TermsTable
                         view={view}
                         isLoading={isLoading}

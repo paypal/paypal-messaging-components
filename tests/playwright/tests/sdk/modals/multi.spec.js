@@ -1,7 +1,58 @@
 import { expect } from '@playwright/test';
 import { modalTest } from '../../../pages/modals_fixture';
 
+/**
+ * Calculates relative luminance for an RGB color.
+ * @param {Array<Number>} color Red, green, and blue channels.
+ * @returns {Number} Relative luminance from 0 to 1.
+ */
+const relativeLuminance = color => {
+    const channels = color
+        .map(channel => channel / 255)
+        .map(channel => (channel <= 0.03928 ? channel / 12.92 : ((channel + 0.055) / 1.055) ** 2.4));
+
+    return 0.2126 * channels[0] + 0.7152 * channels[1] + 0.0722 * channels[2];
+};
+
+/**
+ * Calculates the WCAG contrast ratio between two RGB colors.
+ * @param {Array<Number>} firstColor First RGB color.
+ * @param {Array<Number>} secondColor Second RGB color.
+ * @returns {Number} Contrast ratio from 1 to 21.
+ */
+const contrastRatio = (firstColor, secondColor) => {
+    const luminances = [relativeLuminance(firstColor), relativeLuminance(secondColor)].sort((a, b) => b - a);
+
+    return (luminances[0] + 0.05) / (luminances[1] + 0.05);
+};
+
 modalTest.describe('Long Term Modals', () => {
+    ['DEV_US_LONG_TERM', 'DEV_US_LONG_TERM_CHECKOUT'].forEach(account => {
+        modalTest(`Announces ${account} loading with contrasting shimmers`, async ({ navigatePage, loadModal }) => {
+            await navigatePage({ account, amount: '', offer: 'PAY_LATER_LONG_TERM' });
+            const modalIframeElement = await loadModal();
+            const modalIframe = await modalIframeElement.contentFrame();
+
+            await modalIframe.locator('input').fill('100');
+            const loadingStatus = modalIframe.getByRole('status');
+            await expect(loadingStatus).toHaveCount(1);
+            await expect(loadingStatus).toHaveText('Loading financing options');
+            await expect(modalIframe.locator('.content-column[aria-busy="true"]')).toHaveCount(1);
+
+            const shimmers = modalIframe.locator('.offer__field-loading');
+            expect(await shimmers.count()).toBeGreaterThan(0);
+            const gradients = await shimmers.evaluateAll(elements =>
+                elements.map(element => window.getComputedStyle(element).backgroundImage)
+            );
+            const shimmerColors = gradients.flatMap(gradient =>
+                Array.from(gradient.matchAll(/rgb\((\d+),\s*(\d+),\s*(\d+)\)/g), match => match.slice(1).map(Number))
+            );
+
+            expect(shimmerColors.length).toBeGreaterThan(0);
+            shimmerColors.forEach(color => expect(contrastRatio(color, [255, 255, 255])).toBeGreaterThanOrEqual(3));
+        });
+    });
+
     modalTest('US Long Term Multi & LT Q', async ({ navigatePage, loadModal, modalAxeCoreScan }) => {
         await navigatePage({ account: 'DEV_US_MULTI', amount: 1501, offer: 'PAY_LATER_LONG_TERM' });
         const modalIframeElement = await loadModal();
