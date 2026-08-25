@@ -96,7 +96,9 @@ strong {
         }
     }
     &__field-header {
+        font-family: variables.$paypal-open;
         font-size: 18px;
+        color: colors.$text-main;
         margin: 0;
         @include mixins.mobile {
             font-size: 18px;
