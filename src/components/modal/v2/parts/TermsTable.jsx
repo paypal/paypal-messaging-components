@@ -82,10 +82,7 @@ const TermsTable = ({
                     setActiveSelection={setActiveSelection}
                     useV5Design={useV5Design}
                     use5Dot1Design={use5Dot1Design}
-                    useNewCheckoutDesign={useNewCheckoutDesign}
-                    useDarkMode={useDarkMode}
                     offerCountry={offerCountry}
-                    language={language}
                 />
             );
         }
@@ -99,6 +96,8 @@ const TermsTable = ({
                 use5Dot1Design={use5Dot1Design}
                 useNewCheckoutDesign={useNewCheckoutDesign}
                 useDarkMode={useDarkMode}
+                offerCountry={offerCountry}
+                language={language}
             />
         );
     });
