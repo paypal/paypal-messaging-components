@@ -246,6 +246,7 @@ const Calculator = ({
                         use5Dot1Design={use5Dot1Design}
                         useNewCheckoutDesign={useNewCheckoutDesign}
                         useDarkMode={useDarkMode}
+                        language={language}
                     />
                 </div>
             ) : null}

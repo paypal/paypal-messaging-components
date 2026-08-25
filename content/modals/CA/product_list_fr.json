@@ -7,7 +7,7 @@
         "language": "fr-CA"
     },
     "content": {
-        "headline": "<span aria-hidden='true'>Achetez plus tard</span><span class='sr-only'>Achetez plus tard</span>",
+        "headline": "<span aria-hidden='true'>Acheter maintenant, payez plus tard</span><span class='sr-only'>Acheter maintenant, payez plus tard</span>",
         "disclosure": "Des conditions s'appliquent à chaque option. La disponibilité de l'offre peut dépendre de l'admissibilité du consommateur et du marchand.",
         "instructions": {
             "payLater": "Obtenez plus d'informations sur les options Payer plus tard."
@@ -21,7 +21,7 @@
                 },
                 {
                     "header": "Payer par mois",
-                    "body": "Divisez votre achat en versements mensuels égaux, 0 $ CAD dû aujourd'hui.",
+                    "body": "Divisez votre achat en versements mensuels égaux, 0 $ CA dû aujourd'hui.",
                     "viewName": "PAY_LATER_LONG_TERM"
                 }
             ]
