@@ -256,7 +256,7 @@ const Calculator = ({
                         !(hasInitialAmount || hasUsedInputField) || error ? 'no-amount' : ''
                     } ${useV5Design === 'true' ? 'v5Design' : ''} ${useDarkMode ? 'darkMode' : ''}`}
                 >
-                    {aprDisclaimer[0].aprDisclaimer}
+                    {Object.values(aprDisclaimer)[0].aprDisclaimer}
                 </div>
             )}
             {(country === 'ES' || country === 'IT') && (
