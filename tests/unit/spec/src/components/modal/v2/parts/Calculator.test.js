@@ -105,17 +105,19 @@ describe('Calculator amount field accessibility', () => {
         });
         mockUseXProps.mockReturnValue({ amount: 0 });
 
-        renderCalculator();
+        const { container } = renderCalculator();
 
         const input = screen.getByRole('textbox', { name: 'Purchase amount' });
         const error = screen.getByText('Enter an amount of at least $49.');
 
         expect(input).toHaveAttribute('aria-invalid', 'true');
         expect(input).toHaveAttribute('aria-describedby', error.id);
+        expect(container.querySelector('.input__wrapper')).not.toHaveClass('input__wrapper--error');
+        expect(error.previousElementSibling).toBeNull();
     });
 
     test('associates a cleared amount with its error after the field has been used', () => {
-        renderCalculator();
+        const { container } = renderCalculator();
 
         const input = screen.getByRole('textbox', { name: 'Enter amount' });
         fireEvent.input(input, { target: { value: '' } });
@@ -123,6 +125,8 @@ describe('Calculator amount field accessibility', () => {
         const error = screen.getByText('Enter an amount of at least $49.');
         expect(input).toHaveAttribute('aria-invalid', 'true');
         expect(input).toHaveAttribute('aria-describedby', error.id);
+        expect(container.querySelector('.input__wrapper')).not.toHaveClass('input__wrapper--error');
+        expect(error.previousElementSibling).toBeNull();
     });
 
     test('announces a service failure without marking a valid amount as invalid', () => {

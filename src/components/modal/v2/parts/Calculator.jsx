@@ -106,6 +106,7 @@ const Calculator = ({
     const hasInputError = Boolean(
         error && error !== calculator.genericError && (hasInitialAmount || hasUsedInputField)
     );
+    const showVisualInputError = Boolean(error && error !== calculator.genericError && hasEnteredAmount);
 
     useEffect(() => {
         if (!hasInitialAmount && !hasUsedInputField) {
@@ -180,7 +181,7 @@ const Calculator = ({
                     } ${useDarkMode ? 'darkMode' : ''}`}
                 >
                     <div>
-                        {hasInputError ? <Icon name="warning" /> : null}
+                        {showVisualInputError ? <Icon name="warning" /> : null}
                         <div id={hasInputError ? 'purchase-amount-error' : undefined}>{error}</div>
                     </div>
                 </div>
@@ -219,7 +220,7 @@ const Calculator = ({
                 <div
                     className={`input__wrapper transitional ${useV5Design === 'true' ? 'v5Design' : ''} ${
                         cta ? 'checkout' : ''
-                    } ${country || ''} ${hasInputError ? 'input__wrapper--error' : ''}`}
+                    } ${country || ''} ${showVisualInputError ? 'input__wrapper--error' : ''}`}
                 >
                     <label htmlFor="purchase-amount" className={`input__label ${country}`}>
                         {renderInputLabelOnEmptyField(country)}
