@@ -26,6 +26,67 @@ const contrastRatio = (firstColor, secondColor) => {
     return (luminances[0] + 0.05) / (luminances[1] + 0.05);
 };
 
+/**
+ * Measures each rendered shimmer color against the ancestor backgrounds behind it.
+ * @param {import('@playwright/test').Locator} shimmers Rendered shimmer elements.
+ * @returns {Promise<Array<{ foregroundColor: Array<Number>, backgroundColor: Array<Number> }>>} Color pairs.
+ */
+const getShimmerContrastMeasurements = shimmers =>
+    shimmers.evaluateAll(elements => {
+        const parseCssColor = value => {
+            const channels = value.match(/[\d.]+/g)?.map(Number);
+
+            if (!channels || channels.length < 3) {
+                throw new Error(`Unsupported CSS color: ${value}`);
+            }
+
+            return [...channels.slice(0, 3), channels[3] ?? 1];
+        };
+
+        const compositeColor = ([foregroundRed, foregroundGreen, foregroundBlue, foregroundAlpha], background) => {
+            const [backgroundRed, backgroundGreen, backgroundBlue, backgroundAlpha] = background;
+            const alpha = foregroundAlpha + backgroundAlpha * (1 - foregroundAlpha);
+
+            if (alpha === 0) {
+                return [0, 0, 0, 0];
+            }
+
+            return [
+                (foregroundRed * foregroundAlpha + backgroundRed * backgroundAlpha * (1 - foregroundAlpha)) / alpha,
+                (foregroundGreen * foregroundAlpha +
+                    backgroundGreen * backgroundAlpha * (1 - foregroundAlpha)) /
+                    alpha,
+                (foregroundBlue * foregroundAlpha +
+                    backgroundBlue * backgroundAlpha * (1 - foregroundAlpha)) /
+                    alpha,
+                alpha
+            ];
+        };
+
+        const getEffectiveBackgroundColor = element => {
+            const ancestorColors = [];
+
+            for (let ancestor = element.parentElement; ancestor; ancestor = ancestor.parentElement) {
+                ancestorColors.push(parseCssColor(window.getComputedStyle(ancestor).backgroundColor));
+            }
+
+            return ancestorColors
+                .reverse()
+                .reduce((background, foreground) => compositeColor(foreground, background), [255, 255, 255, 1])
+                .slice(0, 3);
+        };
+
+        return elements.flatMap(element => {
+            const backgroundImage = window.getComputedStyle(element).backgroundImage;
+            const foregroundColors = Array.from(backgroundImage.matchAll(/rgba?\([^)]+\)/g), match =>
+                parseCssColor(match[0]).slice(0, 3)
+            );
+            const backgroundColor = getEffectiveBackgroundColor(element);
+
+            return foregroundColors.map(foregroundColor => ({ foregroundColor, backgroundColor }));
+        });
+    });
+
 modalTest.describe('Long Term Modals', () => {
     ['DEV_US_LONG_TERM', 'DEV_US_LONG_TERM_CHECKOUT'].forEach(account => {
         modalTest(`Announces ${account} loading with contrasting shimmers`, async ({ navigatePage, loadModal }) => {
@@ -41,15 +102,12 @@ modalTest.describe('Long Term Modals', () => {
 
             const shimmers = modalIframe.locator('.offer__field-loading');
             expect(await shimmers.count()).toBeGreaterThan(0);
-            const gradients = await shimmers.evaluateAll(elements =>
-                elements.map(element => window.getComputedStyle(element).backgroundImage)
-            );
-            const shimmerColors = gradients.flatMap(gradient =>
-                Array.from(gradient.matchAll(/rgb\((\d+),\s*(\d+),\s*(\d+)\)/g), match => match.slice(1).map(Number))
-            );
+            const contrastMeasurements = await getShimmerContrastMeasurements(shimmers);
 
-            expect(shimmerColors.length).toBeGreaterThan(0);
-            shimmerColors.forEach(color => expect(contrastRatio(color, [255, 255, 255])).toBeGreaterThanOrEqual(3));
+            expect(contrastMeasurements).not.toHaveLength(0);
+            contrastMeasurements.forEach(({ foregroundColor, backgroundColor }) =>
+                expect(contrastRatio(foregroundColor, backgroundColor)).toBeGreaterThanOrEqual(3)
+            );
         });
     });
 
