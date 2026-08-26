@@ -17,7 +17,7 @@
 
 ## Screenshots / Videos
 
-<!-- Add before/after screenshots, GIFs, or a short video for visible UI changes. For semantics-only or non-UI changes, write "N/A" and include exact DOM, accessibility-tree, or automated evidence under Testing instructions. -->
+<!-- Add before/after screenshots, GIFs, or a short video for visible UI changes. Inspect screenshots at full resolution and wait for overlays, spinners, shimmers, fonts, and transitions to settle before publishing. For semantics-only or non-UI changes, write "N/A" and include exact DOM, accessibility-tree, or automated evidence under Testing instructions. -->
 
 ## Testing instructions
 
