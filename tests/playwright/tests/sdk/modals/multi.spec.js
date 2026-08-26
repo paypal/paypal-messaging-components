@@ -53,8 +53,7 @@ const getShimmerContrastMeasurements = shimmers =>
 
             return [
                 (foregroundRed * foregroundAlpha + backgroundRed * backgroundAlpha * (1 - foregroundAlpha)) / alpha,
-                (foregroundGreen * foregroundAlpha + backgroundGreen * backgroundAlpha * (1 - foregroundAlpha)) /
-                    alpha,
+                (foregroundGreen * foregroundAlpha + backgroundGreen * backgroundAlpha * (1 - foregroundAlpha)) / alpha,
                 (foregroundBlue * foregroundAlpha + backgroundBlue * backgroundAlpha * (1 - foregroundAlpha)) / alpha,
                 alpha
             ];
