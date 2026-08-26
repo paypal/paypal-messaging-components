@@ -87,9 +87,41 @@ const getShimmerContrastMeasurements = shimmers =>
         });
     });
 
+const loadingContrastScenarios = [
+    {
+        name: 'standard card',
+        account: 'DEV_US_LONG_TERM',
+        loadingLabel: 'Loading financing options',
+        shimmerContainer: '.offer__container.shimmer'
+    },
+    {
+        name: 'checkout card',
+        account: 'DEV_US_LONG_TERM_CHECKOUT',
+        loadingLabel: 'Loading financing options',
+        shimmerContainer: '.offer__container.shimmer'
+    },
+    {
+        name: 'accordion',
+        account: 'DEV_DE_LONG_TERM',
+        loadingLabel: 'Finanzierungsoptionen werden geladen',
+        shimmerContainer: '.accordion__container.shimmer'
+    },
+    {
+        name: 'dark-mode card',
+        account: 'DEV_US_LONG_TERM_PL2GO',
+        colorScheme: 'dark',
+        loadingLabel: 'Loading financing options',
+        shimmerContainer: '.content__row.dynamic.darkMode .offer__container.shimmer'
+    }
+];
+
 modalTest.describe('Long Term Modals', () => {
-    ['DEV_US_LONG_TERM', 'DEV_US_LONG_TERM_CHECKOUT'].forEach(account => {
-        modalTest(`Announces ${account} loading with contrasting shimmers`, async ({ navigatePage, loadModal }) => {
+    loadingContrastScenarios.forEach(({ name, account, colorScheme, loadingLabel, shimmerContainer }) => {
+        modalTest(`Announces ${name} loading with contrasting shimmers`, async ({ navigatePage, page, loadModal }) => {
+            if (colorScheme) {
+                await page.emulateMedia({ colorScheme });
+            }
+
             await navigatePage({ account, amount: '', offer: 'PAY_LATER_LONG_TERM' });
             const modalIframeElement = await loadModal();
             const modalIframe = await modalIframeElement.contentFrame();
@@ -97,10 +129,12 @@ modalTest.describe('Long Term Modals', () => {
             await modalIframe.locator('input').fill('100');
             const loadingStatus = modalIframe.getByRole('status');
             await expect(loadingStatus).toHaveCount(1);
-            await expect(loadingStatus).toHaveText('Loading financing options');
+            await expect(loadingStatus).toHaveText(loadingLabel);
             await expect(modalIframe.locator('.content-column[aria-busy="true"]')).toHaveCount(1);
 
-            const shimmers = modalIframe.locator('.offer__field-loading');
+            const shimmerContainers = modalIframe.locator(shimmerContainer);
+            await expect(shimmerContainers).not.toHaveCount(0);
+            const shimmers = shimmerContainers.locator('.offer__field-loading');
             expect(await shimmers.count()).toBeGreaterThan(0);
             const contrastMeasurements = await getShimmerContrastMeasurements(shimmers);
 
