@@ -27,7 +27,7 @@ const contrastRatio = (firstColor, secondColor) => {
 };
 
 /**
- * Measures each rendered shimmer color against the ancestor backgrounds behind it.
+ * Measures each rendered shimmer color against the composited background layers behind it.
  * @param {import('@playwright/test').Locator} shimmers Rendered shimmer elements.
  * @returns {Promise<Array<{ foregroundColor: Array<Number>, backgroundColor: Array<Number> }>>} Color pairs.
  */
@@ -64,26 +64,28 @@ const getShimmerContrastMeasurements = shimmers =>
         };
 
         const getEffectiveBackgroundColor = element => {
-            const ancestorColors = [];
+            const backgroundLayers = [];
 
-            for (let ancestor = element.parentElement; ancestor; ancestor = ancestor.parentElement) {
-                ancestorColors.push(parseCssColor(window.getComputedStyle(ancestor).backgroundColor));
+            for (let layer = element; layer; layer = layer.parentElement) {
+                backgroundLayers.push(parseCssColor(window.getComputedStyle(layer).backgroundColor));
             }
 
-            return ancestorColors
+            return backgroundLayers
                 .reverse()
-                .reduce((background, foreground) => compositeColor(foreground, background), [255, 255, 255, 1])
-                .slice(0, 3);
+                .reduce((background, foreground) => compositeColor(foreground, background), [255, 255, 255, 1]);
         };
 
         return elements.flatMap(element => {
             const backgroundImage = window.getComputedStyle(element).backgroundImage;
             const foregroundColors = Array.from(backgroundImage.matchAll(/rgba?\([^)]+\)/g), match =>
-                parseCssColor(match[0]).slice(0, 3)
+                parseCssColor(match[0])
             );
             const backgroundColor = getEffectiveBackgroundColor(element);
 
-            return foregroundColors.map(foregroundColor => ({ foregroundColor, backgroundColor }));
+            return foregroundColors.map(foregroundColor => ({
+                foregroundColor: compositeColor(foregroundColor, backgroundColor).slice(0, 3),
+                backgroundColor: backgroundColor.slice(0, 3)
+            }));
         });
     });
 
