@@ -53,12 +53,9 @@ const getShimmerContrastMeasurements = shimmers =>
 
             return [
                 (foregroundRed * foregroundAlpha + backgroundRed * backgroundAlpha * (1 - foregroundAlpha)) / alpha,
-                (foregroundGreen * foregroundAlpha +
-                    backgroundGreen * backgroundAlpha * (1 - foregroundAlpha)) /
+                (foregroundGreen * foregroundAlpha + backgroundGreen * backgroundAlpha * (1 - foregroundAlpha)) /
                     alpha,
-                (foregroundBlue * foregroundAlpha +
-                    backgroundBlue * backgroundAlpha * (1 - foregroundAlpha)) /
-                    alpha,
+                (foregroundBlue * foregroundAlpha + backgroundBlue * backgroundAlpha * (1 - foregroundAlpha)) / alpha,
                 alpha
             ];
         };
@@ -76,7 +73,7 @@ const getShimmerContrastMeasurements = shimmers =>
         };
 
         return elements.flatMap(element => {
-            const backgroundImage = window.getComputedStyle(element).backgroundImage;
+            const { backgroundImage } = window.getComputedStyle(element);
             const foregroundColors = Array.from(backgroundImage.matchAll(/rgba?\([^)]+\)/g), match =>
                 parseCssColor(match[0])
             );
