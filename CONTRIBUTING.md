@@ -25,9 +25,12 @@ $ git pull upstream
 # Install dependencies
 $ npm install
 
-# Run scripts to verify installation (Note: test includes lint)
+# Run scripts to verify installation
+$ npm run lint
 $ npm test
 ```
+
+Fork-based pull requests may require a maintainer to apply review labels and approve GitHub Actions workflows. Call those out in the pull request's Review section rather than treating missing checks as passing.
 
 ## Making Changes
 
