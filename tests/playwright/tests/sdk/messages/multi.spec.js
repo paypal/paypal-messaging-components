@@ -17,7 +17,7 @@ messageTest.describe('Multi Messages', () => {
 
         // The rendered NI fixture switches copy below its 141.552px message breakpoint.
         await page.setViewportSize({ width: 150, height: 667 });
-        await expect(messageButton).toHaveAccessibleName('PayPal Buy now. Pay over time. Learn more');
+        await expect(messageButton).toHaveAccessibleName('PayPal Credit Buy now. Pay over time. Learn more');
         await messageAxeCoreScan(messageIframe);
     });
     messageTest('NI US only', async ({ navigatePage, loadMessage, messageAxeCoreScan }) => {

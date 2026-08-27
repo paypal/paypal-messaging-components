@@ -8,10 +8,9 @@ const Logos = ({ mutations }) => {
 
     return (
         <div className="message__logo-container">
-            {/* Multiple image fragments render one logo, so only one contributes its text alternative. */}
-            {logos.map(({ src, dimensions: [width, height] }, index) => (
-                <div className="message__logo message__logo--svg">
-                    <img src={src} alt={index === 0 ? 'PayPal' : ''} />
+            {logos.map(({ src, dimensions: [width, height] }) => (
+                <div className="message__logo message__logo--svg" aria-hidden="true">
+                    <img src={src} alt="" role="presentation" />
                     <canvas height={height} width={width} />
                 </div>
             ))}

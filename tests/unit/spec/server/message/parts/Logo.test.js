@@ -5,8 +5,8 @@ import { render } from '@testing-library/preact';
 import Logo from 'server/message/parts/Logo';
 
 describe('<Logo />', () => {
-    test('exposes a single PayPal text alternative for a composite logo', () => {
-        const { container, getByAltText } = render(
+    test('keeps every fragment of a composite logo decorative', () => {
+        const { container } = render(
             <Logo
                 mutations={[
                     { src: 'monogram.svg', dimensions: [24, 32] },
@@ -16,14 +16,15 @@ describe('<Logo />', () => {
         );
 
         expect(container.querySelector('.message__logo-container')).not.toHaveAttribute('aria-hidden');
-        expect(getByAltText('PayPal')).toHaveAttribute('src', 'monogram.svg');
-        expect(container.querySelectorAll('img[alt="PayPal"]')).toHaveLength(1);
-        expect(container.querySelector('img[src="wordmark.svg"]')).toHaveAttribute('alt', '');
+        expect(container.querySelectorAll('.message__logo[aria-hidden="true"]')).toHaveLength(2);
+        expect(container.querySelectorAll('img[alt=""][role="presentation"]')).toHaveLength(2);
     });
 
-    test('exposes the PayPal text alternative for a single-image logo', () => {
-        const { getByAltText } = render(<Logo mutations={{ src: 'wordmark.svg', dimensions: [100, 32] }} />);
+    test('keeps a single-image logo decorative', () => {
+        const { container } = render(<Logo mutations={{ src: 'wordmark.svg', dimensions: [100, 32] }} />);
 
-        expect(getByAltText('PayPal')).toHaveAttribute('src', 'wordmark.svg');
+        expect(container.querySelector('.message__logo')).toHaveAttribute('aria-hidden', 'true');
+        expect(container.querySelector('img')).toHaveAttribute('alt', '');
+        expect(container.querySelector('img')).toHaveAttribute('role', 'presentation');
     });
 });
