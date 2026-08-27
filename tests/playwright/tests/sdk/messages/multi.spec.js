@@ -13,7 +13,9 @@ messageTest.describe('Multi Messages', () => {
         const messageFrame = await messageIframe.contentFrame();
         const messageButton = messageFrame.getByRole('button');
 
-        await expect(messageButton).toHaveAccessibleName('No Interest if paid in full in 6 months. Learn more');
+        await expect(messageButton).toHaveAccessibleName(
+            'PayPal Credit No Interest if paid in full in 6 months. Learn more'
+        );
 
         // The rendered NI fixture switches copy below its 141.552px message breakpoint.
         await page.setViewportSize({ width: 150, height: 667 });
