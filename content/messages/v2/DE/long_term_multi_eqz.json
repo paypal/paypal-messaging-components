@@ -1,0 +1,50 @@
+{
+    "id": "c38c6d9d-4759-414b-8bca-e34138c972c1",
+    "type": "PLLT_MQ_EZ",
+    "offer_types": ["PAY_LATER_LONG_TERM"],
+    "priority_rules": [
+        {
+            "type": "QUALIFYING",
+            "multiple": true,
+            "apr": "0.00",
+            "priority_score": 8.1
+        }
+    ],
+    "content": {
+        "main_items": [
+            {
+                "type": "IMAGE",
+                "name": "paypal_logo",
+                "source_url": "https://www.paypalobjects.com/upstream/assets/logos/v2/paypal_badge.svg",
+                "alternative_text": "PayPal"
+            },
+            {
+                "type": "TEXT",
+                "text": "0% eff. Jahreszins: ab "
+            },
+            {
+                "type": "TEXT_VARIABLE",
+                "name": "periodic_payment",
+                "text": "{PAY_LATER_LONG_TERM.periodic_payment.formatted_value}",
+                "text_path": "{PAY_LATER_LONG_TERM.preferred_offer.financing_code}.breakdown.periodic_payment.formatted_value"
+            },
+            {
+                "type": "TEXT",
+                "text": " pro Monat."
+            }
+        ],
+        "disclaimer_items": [
+            {
+                "type": "TEXT",
+                "text": "Nur mit dt. PayPal Konto."
+            }
+        ],
+        "action_items": [
+            {
+                "type": "LINK",
+                "text": "Mehr erfahren",
+                "click_url": "{click_url}"
+            }
+        ]
+    }
+}

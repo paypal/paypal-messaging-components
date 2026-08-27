@@ -31,14 +31,18 @@
         "dev:stage": "webpack serve --config webpack.config.dev.js --env TARGET=standalone --env NODE_ENV=stage",
         "dev:sandbox": "webpack serve --config webpack.config.dev.js --env TARGET=standalone --env NODE_ENV=sandbox",
         "dev:production": "webpack serve --config webpack.config.dev.js --env TARGET=standalone --env NODE_ENV=production",
+        "dev:v2-comparison": "node scripts/dev/v2-comparison.js",
         "lint": "eslint . --ext .js,.jsx",
         "start": "npm run dev",
         "test": "jest --verbose",
         "test:func": "jest --detectOpenHandles --runInBand --verbose --config tests/functional/jest.allFunctional.config.js",
         "test:func:nosnaps": "jest --detectOpenHandles --runInBand --verbose --config tests/functional/jest.noSnapshots.config.js",
+        "test:func:nosnaps:v2": "jest --detectOpenHandles --runInBand --verbose --config tests/functional/jest.noSnapshots.v2Renderer.config.js",
         "test:func:ciupdate": "jest --verbose --config tests/functional/jest.allFunctional.config.js --updateSnapshot",
         "test:func:snapshots": "jest --detectOpenHandles --runInBand --verbose --config tests/functional/v2/jest.snapshotTests.config.js",
-        "test:func:snapshots:ciupdate": "jest --verbose --config tests/functional/v2/jest.snapshotTests.config.js --updateSnapshot"
+        "test:func:snapshots:ciupdate": "jest --verbose --config tests/functional/v2/jest.snapshotTests.config.js --updateSnapshot",
+        "test:func:banner:snapshots:v2": "jest --detectOpenHandles --runInBand --verbose --config tests/functional/jest.bannerSnapshots.v2Renderer.config.js",
+        "test:func:banner:snapshots:v2:ciupdate": "jest --verbose --config tests/functional/jest.bannerSnapshots.v2Renderer.config.js --updateSnapshot"
     },
     "dependencies": {
         "@krakenjs/beaver-logger": "^5.0.0",
@@ -93,7 +97,7 @@
         "jest-environment-jsdom-sixteen": "^1.0.3",
         "jest-environment-puppeteer": "^11.0.0",
         "jest-html-reporter": "^3.3.0",
-        "jest-image-snapshot": "^6.5.2",
+        "jest-image-snapshot": "6.5.2",
         "lint-staged": "^8.0.4",
         "preact": "^10.1.1",
         "preact-render-to-string": "^5.1.9",
