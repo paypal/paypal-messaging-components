@@ -6,9 +6,9 @@ export const DEV_CA_MULTI_FR = {
         {
             value: '0.00',
             message: 'Product list modal functionality',
-            expectedValue: 'Achetez plus tard',
+            expectedValue: 'Acheter maintenant, payez plus tard',
             modalContent: {
-                headline: 'Achetez plus tard',
+                headline: 'Acheter maintenant, payez plus tard',
                 shortTerm: 'Payer en 4',
                 longTerm: 'Payer par mois'
             }

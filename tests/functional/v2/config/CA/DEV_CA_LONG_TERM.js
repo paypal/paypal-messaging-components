@@ -1,4 +1,4 @@
-export const DEV_CA_LONG_TERM_CHECKOUT = {
+export const DEV_CA_LONG_TERM = {
     testFileName: 'longTerm',
     country: 'CA',
     description: 'CA merchant eligible for pay monthly (long term)',
@@ -14,8 +14,7 @@ export const DEV_CA_LONG_TERM_CHECKOUT = {
                 updatedOfferHeadline: '$94.17/mo. for 6 months',
                 offerFieldValues: ['26%', '$6.37', '$55.37'],
                 aprDisclaimer:
-                    '*Terms and rates vary based on purchase amount and your credit. In Quebec and Newfoundland, APR is no more than 22%.',
-                cta: 'Continue with Pay Monthly'
+                    '*Terms and rates vary based on purchase amount and your credit. In Quebec and Newfoundland, APR is no more than 22%.'
             }
         },
         {
@@ -27,8 +26,7 @@ export const DEV_CA_LONG_TERM_CHECKOUT = {
                 updatedOfferHeadline: '$94.17/mo. for 6 months',
                 offerFieldValues: ['26%', '$130.00', '$1,130.00'],
                 aprDisclaimer:
-                    '*Terms and rates vary based on purchase amount and your credit. In Quebec and Newfoundland, APR is no more than 22%.',
-                cta: 'Continue with Pay Monthly'
+                    '*Terms and rates vary based on purchase amount and your credit. In Quebec and Newfoundland, APR is no more than 22%.'
             }
         },
         {
@@ -36,7 +34,7 @@ export const DEV_CA_LONG_TERM_CHECKOUT = {
             message: 'Non-qualifying Pay Monthly',
             expectedValue: 'Pay Monthly',
             modalContent: {
-                belowMinAmountErr: 'Enter an amount of $49.00 or more.'
+                belowMinAmountErr: 'Enter an amount between $49.00 - $10,000.00.'
             }
         },
         {
@@ -44,7 +42,7 @@ export const DEV_CA_LONG_TERM_CHECKOUT = {
             message: 'Non-qualifying Pay Monthly',
             expectedValue: 'Pay Monthly',
             modalContent: {
-                aboveMaxAmountErr: 'Enter an amount no larger than $10,000.00.'
+                aboveMaxAmountErr: 'Enter an amount between $49.00 - $10,000.00.'
             }
         }
     ]

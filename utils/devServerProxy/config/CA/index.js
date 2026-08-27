@@ -172,7 +172,7 @@ export default {
         modalViews: [
             {
                 template: 'long_term_xo.json',
-                offersTemplate: 'long_term.json',
+                offersTemplate: 'long_term_xo.json',
                 product: 'PAY_LATER_LONG_TERM'
             }
         ],
@@ -222,7 +222,7 @@ export default {
         modalViews: [
             {
                 template: 'long_term_xo_fr.json',
-                offersTemplate: 'long_term_fr.json',
+                offersTemplate: 'long_term_xo_fr.json',
                 product: 'PAY_LATER_LONG_TERM'
             }
         ],

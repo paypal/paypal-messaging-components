@@ -1,4 +1,4 @@
-export const DEV_CA_LONG_TERM_CHECKOUT_FR = {
+export const DEV_CA_LONG_TERM_FR = {
     testFileName: 'longTerm',
     country: 'CA',
     description: 'CA merchant eligible for pay monthly (long term) - French',
@@ -14,8 +14,7 @@ export const DEV_CA_LONG_TERM_CHECKOUT_FR = {
                 updatedOfferHeadline: '94,17 $ CA/mois pendant 6 mois',
                 offerFieldValues: ['26%', '6,37 $ CA', '55,37 $ CA'],
                 aprDisclaimer:
-                    "*Les modalités et les taux varient selon le montant de l'achat et votre dossier de crédit. Au Québec et à Terre-Neuve, le TAP n'excède pas 22 %.",
-                cta: 'Continuer avec Payer par mois'
+                    "*Les modalités et les taux varient selon le montant de l'achat et votre dossier de crédit. Au Québec et à Terre-Neuve, le TAP n'excède pas 22 %."
             }
         },
         {
@@ -27,8 +26,7 @@ export const DEV_CA_LONG_TERM_CHECKOUT_FR = {
                 updatedOfferHeadline: '94,17 $ CA/mois pendant 6 mois',
                 offerFieldValues: ['26%', '130,00 $ CA', '1 130,00 $ CA'],
                 aprDisclaimer:
-                    "*Les modalités et les taux varient selon le montant de l'achat et votre dossier de crédit. Au Québec et à Terre-Neuve, le TAP n'excède pas 22 %.",
-                cta: 'Continuer avec Payer par mois'
+                    "*Les modalités et les taux varient selon le montant de l'achat et votre dossier de crédit. Au Québec et à Terre-Neuve, le TAP n'excède pas 22 %."
             }
         },
         {
@@ -36,7 +34,7 @@ export const DEV_CA_LONG_TERM_CHECKOUT_FR = {
             message: 'Non-qualifying Pay Monthly',
             expectedValue: 'Payer par mois',
             modalContent: {
-                belowMinAmountErr: 'Indiquez un montant de 49,00 $ CA ou plus.'
+                belowMinAmountErr: 'Saisissez un montant entre 49,00 $ CA et 10 000,00 $ CA.'
             }
         },
         {
@@ -44,7 +42,7 @@ export const DEV_CA_LONG_TERM_CHECKOUT_FR = {
             message: 'Non-qualifying Pay Monthly',
             expectedValue: 'Payer par mois',
             modalContent: {
-                aboveMaxAmountErr: 'Indiquez un montant de 10 000,00 $ CA ou moins.'
+                aboveMaxAmountErr: 'Saisissez un montant entre 49,00 $ CA et 10 000,00 $ CA.'
             }
         }
     ]
