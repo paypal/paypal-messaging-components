@@ -1,0 +1,44 @@
+{
+    "meta": {
+        "product": "PAY_LATER_SHORT_TERM",
+        "periodicPayment": "{formattedPeriodicPayment}",
+        "minAmount": "{minAmount}",
+        "maxAmount": "{maxAmount}",
+        "qualifying": "{qualifying_offer}",
+        "amount": "{transaction_amount}",
+        "apr": "{apr}",
+        "useV5Design": "true",
+        "v5.1": "true",
+        "enableDarkMode": "true",
+        "variables": {
+            "transaction_amount": "${eval(transaction_amount ? transaction_amount : '-')}",
+            "qualifying_offer": "${eval(CREDIT_OFFERS_DS.qualifying_offer ? CREDIT_OFFERS_DS.qualifying_offer : 'false')}",
+            "financing_code": "${CREDIT_OFFERS_DS.financing_code}",
+            "formattedPeriodicPayment": "${CREDIT_OFFERS_DS.formattedPeriodicPayment}",
+            "total_payments": "${CREDIT_OFFERS_DS.total_payments}",
+            "formattedMinAmount": "${CREDIT_OFFERS_DS.formattedMinAmount}",
+            "formattedMaxAmount": "${CREDIT_OFFERS_DS.formattedMaxAmount}",
+            "formattedTotalCost": "${CREDIT_OFFERS_DS.formattedTotalCost}",
+            "minAmount": "${CREDIT_OFFERS_DS.minAmount}",
+            "maxAmount": "${CREDIT_OFFERS_DS.maxAmount}",
+            "apr": "${CREDIT_OFFERS_DS.apr}",
+            "nominal_rate": "${CREDIT_OFFERS_DS.nominal_rate}"
+        }
+    },
+    "content": {
+        "headline": "Pay in 4 interest-free payments",
+        "subheadline": "No impact on credit score and no late fees. Available for purchases of {formattedMinAmount} to {formattedMaxAmount}.",
+        "qualifyingSubheadline": "Split your purchase of {formattedTotalCost} into {total_payments} with no impact on credit score and no late fees.",
+        "donutTimestamps": ["Today", "2 weeks", "4 weeks", "6 weeks"],
+        "instructions": [
+            "Apply for Pay in 4. Available for purchases of {formattedMinAmount} to {formattedMaxAmount}. ",
+            "Shop almost anywhere after receiving a single-use virtual card number.",
+            "Pay back what you spend in 4 payments, every 2 weeks, starting today."
+        ],
+        "disclosure": [
+            "Pay in 4 is available to consumers upon approval for purchases of {formattedMinAmount} to {formattedMaxAmount}. Pay in 4 is currently not available to residents of <span aria-hidden='true'>MO</span><span class='sr-only'>Missouri</span>. Offer availability depends on the merchant and also may not be available for certain recurring, subscription services. When applying, a soft credit check may be needed, but will not affect your credit score. You must be 18 years old or older to apply. PayPal, Inc.: Loans to <span aria-hidden='true'>CA</span><span class='sr-only'>California</span> residents are made or arranged pursuant to a <span aria-hidden='true'>CA</span><span class='sr-only'>California</span> Financing Law License. <span aria-hidden='true'>GA</span><span class='sr-only'>Georgia</span> Installment Lender Licensee, NMLS #910457. <span aria-hidden='true'>RI</span><span class='sr-only'>Rhode Island</span> Small Loan Lender Licensee. <span aria-hidden='true'>NM</span><span class='sr-only'>New Mexico</span> residents:",
+            ["Find more disclosures ", "https://www.paypal.com/us/webapps/mpp/campaigns/newmexicodisclosure"],
+            "related to Pay in 4."
+        ]
+    }
+}
