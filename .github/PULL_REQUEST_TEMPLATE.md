@@ -3,6 +3,7 @@
     PR guidelines:
     - Delete this comment so the preview begins with your description
     - Make sure not to include any internal links
+    - Scan the title, body, branch, commits, screenshots, and test instructions for internal URLs, stage tags, identifiers, service details, credentials, and merchant or customer data
     - Please fill out all sections where applicable!
     - PR title should be in the format <prefix>: <short description>
         - for a reminder of what prefixes are available, see here: https://github.com/angular/angular.js/blob/master/DEVELOPERS.md#-git-commit-guidelines
@@ -16,16 +17,19 @@
 
 ## Screenshots / Videos
 
-<!-- Add any relevant screenshots, GIFs, or a short video demo. For non-UI changes, write "N/A". -->
+<!-- Add before/after screenshots, GIFs, or a short video for visible UI changes. For semantics-only or non-UI changes, write "N/A" and include exact DOM, accessibility-tree, or automated evidence under Testing instructions. -->
 
 ## Testing instructions
 
 <!--
     Include any useful information that will help with testing this change specifically, if applicable
     General testing setup can be omitted - this should focus on setup unique to this PR
+    For bug fixes, name the regression covered and the exact command that passes with the fix
 -->
 
 ## Review
+
+<!-- For fork PRs, note any maintainer actions still needed, such as applying review labels or approving GitHub Actions workflows. -->
 
 <!-- SLA: Please give us 3 days to engage with your PR. We will be notified when it is created. -->
 

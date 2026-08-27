@@ -150,6 +150,7 @@ export default {
             {
                 amount: 30,
                 template: '/prequalification/short_term_q.json',
+                templateV2: 'short_term_q.json',
                 product: OFFER.PAY_LATER_SHORT_TERM
             },
             {
@@ -277,6 +278,43 @@ export default {
                     nominalRate: 0,
                     minAmount: 30,
                     maxAmount: 1500
+                }
+            ]
+        }
+    },
+    DEV_US_TIKTOK_SHORT_TERM: {
+        country: 'US',
+        modalViews: [
+            {
+                template: 'PLHub/tiktok_paypal_pay_later_short_term_us.json',
+                product: OFFER.PAY_LATER_SHORT_TERM
+            }
+        ],
+        messageThresholds: [
+            {
+                amount: 0,
+                template: 'short_term_nq.json',
+                product: OFFER.PAY_LATER_SHORT_TERM
+            },
+            {
+                amount: 10,
+                template: 'short_term_q.json',
+                product: OFFER.PAY_LATER_SHORT_TERM
+            },
+            {
+                amount: 2000.01,
+                template: 'short_term_nq.json',
+                product: OFFER.PAY_LATER_SHORT_TERM
+            }
+        ],
+        offers: {
+            [OFFER.PAY_LATER_SHORT_TERM]: [
+                {
+                    totalPayments: 4,
+                    apr: 0,
+                    nominalRate: 0,
+                    minAmount: 10,
+                    maxAmount: 2000
                 }
             ]
         }

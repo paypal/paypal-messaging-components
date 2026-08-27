@@ -11,16 +11,19 @@ export default {
             {
                 amount: 1999.99,
                 template: 'gpl.json',
+                templateV2: 'short-term_nq.json',
                 product: 'PAY_LATER_SHORT_TERM'
             },
             {
                 amount: 0.99,
                 template: 'gplq.json',
+                templateV2: 'short-term_q.json',
                 product: 'PAY_LATER_SHORT_TERM'
             },
             {
                 amount: 0,
                 template: 'gpl.json',
+                templateV2: 'short-term_nq.json',
                 product: 'PAY_LATER_SHORT_TERM'
             }
         ],
