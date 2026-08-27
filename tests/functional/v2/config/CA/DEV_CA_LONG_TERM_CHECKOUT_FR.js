@@ -10,11 +10,11 @@ export const DEV_CA_LONG_TERM_CHECKOUT_FR = {
             message: 'Qualifying Pay Monthly',
             expectedValue: 'Payer par mois',
             modalContent: {
-                offerHeadline: '$9.23 CAD/mois pendant 6 mois',
-                updatedOfferHeadline: '$94.17 CAD/mois pendant 6 mois',
-                offerFieldValues: ['26%', '$6.37', '$55.37'],
+                offerHeadline: '9,23 $ CA/mois pendant 6 mois',
+                updatedOfferHeadline: '94,17 $ CA/mois pendant 6 mois',
+                offerFieldValues: ['26%', '6,37 $ CA', '55,37 $ CA'],
                 aprDisclaimer:
-                    "*Le TAEG est de 0 % à 31,99 %. Les conditions et les taux varient en fonction du montant de l'achat et de votre crédit.",
+                    "*Les modalités et les taux varient selon le montant de l'achat et votre dossier de crédit. Au Québec et à Terre-Neuve, le TAP n'excède pas 22 %.",
                 cta: 'Continuer avec Payer par mois'
             }
         },
@@ -23,11 +23,11 @@ export const DEV_CA_LONG_TERM_CHECKOUT_FR = {
             message: 'Qualifying Pay Monthly',
             expectedValue: 'Payer par mois',
             modalContent: {
-                offerHeadline: '$188.33 CAD/mois pendant 6 mois',
-                updatedOfferHeadline: '$94.17 CAD/mois pendant 6 mois',
-                offerFieldValues: ['26%', '$130.00', '$1,130.00'],
+                offerHeadline: '188,33 $ CA/mois pendant 6 mois',
+                updatedOfferHeadline: '94,17 $ CA/mois pendant 6 mois',
+                offerFieldValues: ['26%', '130,00 $ CA', '1 130,00 $ CA'],
                 aprDisclaimer:
-                    "*Le TAEG est de 0 % à 31,99 %. Les conditions et les taux varient en fonction du montant de l'achat et de votre crédit.",
+                    "*Les modalités et les taux varient selon le montant de l'achat et votre dossier de crédit. Au Québec et à Terre-Neuve, le TAP n'excède pas 22 %.",
                 cta: 'Continuer avec Payer par mois'
             }
         },
@@ -36,7 +36,7 @@ export const DEV_CA_LONG_TERM_CHECKOUT_FR = {
             message: 'Non-qualifying Pay Monthly',
             expectedValue: 'Payer par mois',
             modalContent: {
-                belowMinAmountErr: 'Indiquez un montant de $49.00 CAD ou plus.'
+                belowMinAmountErr: 'Indiquez un montant de 49,00 $ CA ou plus.'
             }
         },
         {
@@ -44,7 +44,7 @@ export const DEV_CA_LONG_TERM_CHECKOUT_FR = {
             message: 'Non-qualifying Pay Monthly',
             expectedValue: 'Payer par mois',
             modalContent: {
-                aboveMaxAmountErr: 'Indiquez un montant de $10,000.00 CAD ou moins.'
+                aboveMaxAmountErr: 'Indiquez un montant de 10 000,00 $ CA ou moins.'
             }
         }
     ]

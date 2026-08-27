@@ -13,7 +13,8 @@ export const DEV_CA_LONG_TERM_CHECKOUT = {
                 offerHeadline: '$9.23/mo. for 6 months',
                 updatedOfferHeadline: '$94.17/mo. for 6 months',
                 offerFieldValues: ['26%', '$6.37', '$55.37'],
-                aprDisclaimer: '*APR is 0% to 31.99%. Terms and rates vary based on purchase amount and your credit.',
+                aprDisclaimer:
+                    '*Terms and rates vary based on purchase amount and your credit. In Quebec and Newfoundland, APR is no more than 22%.',
                 cta: 'Continue with Pay Monthly'
             }
         },
@@ -25,7 +26,8 @@ export const DEV_CA_LONG_TERM_CHECKOUT = {
                 offerHeadline: '$188.33/mo. for 6 months',
                 updatedOfferHeadline: '$94.17/mo. for 6 months',
                 offerFieldValues: ['26%', '$130.00', '$1,130.00'],
-                aprDisclaimer: '*APR is 0% to 31.99%. Terms and rates vary based on purchase amount and your credit.',
+                aprDisclaimer:
+                    '*Terms and rates vary based on purchase amount and your credit. In Quebec and Newfoundland, APR is no more than 22%.',
                 cta: 'Continue with Pay Monthly'
             }
         },

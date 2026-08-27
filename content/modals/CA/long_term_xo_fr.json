@@ -21,21 +21,21 @@
     },
     "content": {
         "headline": "Payer par mois",
-        "subheadline": "Bénéficiez de plus de temps pour payer, sans acompte ni frais de retard.",
+        "subheadline": "Obtenez plus de temps pour payer, sans acompte ni frais de retard.",
         "calculator": {
             "title": "Quel est le montant de votre achat?",
             "inputLabel": "Montant de l'achat",
-            "inputPlaceholder": "0 CAD",
+            "inputPlaceholder": "0 $ CA",
             "genericError": "Une erreur s’est produite. Veuillez réessayer plus tard."
         },
         "genericDisclaimer": "Les conditions varient en fonction du montant de l'achat et de votre crédit.",
         "instructions": [
-            "Choisissez PayPal à la caisse pour payer plus tard avec le Paiement mensuel.",
+            "Choisissez PayPal au paiement pour payer plus tard avec <strong>Payer par mois</strong><span aria-hidden='true'>.</span>",
             "Obtenez une décision en quelques secondes et finalisez votre achat.",
-            "Utilisez le paiement automatique pour vos paiements. C'est facile !"
+            "Utilisez le paiement préapprouvé pour vos paiements. C'est facile!"
         ],
         "disclosure": [
-            "Le Paiement mensuel est offert aux consommateurs approuvés pour des achats de 49,00 $ à 10 000,00 $ (CAD) pour certains types de transactions. La disponibilité dépend du marchand. Vous devez avoir l'âge de la majorité dans la province ou le territoire où vous résidez pour faire une demande. Toutes les transactions effectuées dans d'autres devises seront converties en dollars canadiens, sous réserve des frais de conversion de devises applicables. Vous pouvez rembourser le montant dû en totalité à tout moment, sans frais ni pénalités."
+            "Le paiement par mois est offert aux consommateurs approuvés pour les achats de 49,00 $ à 10 000,00 $ CA pour certains types de transactions. La disponibilité dépend du marchand. Vous devez avoir l'âge de la majorité dans la province ou le territoire où vous résidez pour faire une demande. Toutes les transactions effectuées dans d'autres devises seront converties en dollars canadiens, sous réserve des frais de conversion de devises applicables. Vous pouvez rembourser le montant dû en totalité à tout moment, sans frais ni pénalités."
         ],
         "cta": {
             "buttonTextEligible": "Continuer avec Payer par mois",

@@ -11,27 +11,27 @@ export const DEV_CA_SHORT_TERM_FR = {
             expectedValue: 'Achetez maintenant, payez plus tard.',
             modalContent: {
                 subheadline:
-                    'Aucun impact sur la cote de crédit et aucuns frais de retard. Disponible pour les achats de $30 à $1,500.',
+                    'Aucun impact sur la cote de crédit et aucuns frais de retard. Disponible pour les achats de 30 $ à 1 500 $.',
                 periodicPayment: null
             }
         },
         {
             value: '30.00',
             message: 'Qualifying Pay in 4',
-            expectedValue: 'Payer en 4 versements sans intérêt de $7.50',
+            expectedValue: 'Payer en 4 versements sans intérêt de 7,50 $',
             modalContent: {
                 subheadline:
-                    'Divisez votre achat de $30.00 en 4 versements, sans incidence sur votre cote de crédit et sans frais de retard.',
-                periodicPayment: '$7.50'
+                    'Divisez votre achat de 30,00 $ en 4 versements, sans incidence sur votre cote de crédit et sans frais de retard.',
+                periodicPayment: '7,50 $'
             }
         },
         {
             value: '1500.01',
             message: 'Non-qualifying Pay in 4',
-            expectedValue: 'Payer en 4 versements sans intérêt pour les achats de $30 à $1,500.',
+            expectedValue: 'Payer en 4 versements sans intérêt pour les achats de 30 $ à 1 500 $.',
             modalContent: {
                 subheadline:
-                    'Aucun impact sur la cote de crédit et aucuns frais de retard. Disponible pour les achats de $30 à $1,500.',
+                    'Aucun impact sur la cote de crédit et aucuns frais de retard. Disponible pour les achats de 30 $ à 1 500 $.',
                 periodicPayment: ''
             }
         }
