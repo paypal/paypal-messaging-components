@@ -283,10 +283,7 @@ describe('zoidPollyfill', () => {
         `);
         postMessage.mockClear();
 
-        window.xprops.onClick({
-            linkName: 'test link',
-            src: 'test src'
-        });
+        window.xprops.onClick({ linkName: 'test link', src: 'test src' });
 
         expect(postMessage).toHaveBeenCalledTimes(1);
         expect(postMessage.mock.calls[0][0]).toEqual(expect.any(String));
