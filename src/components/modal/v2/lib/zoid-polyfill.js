@@ -248,13 +248,11 @@ const setupWebview = props => {
             });
         },
 
-        onClick: ({ linkName, src = linkName, url }) => {
+        onClick: ({ linkName, src = linkName }) => {
             sendCallbackMessage('onClick', {
                 event_type: 'modal_clicked',
                 page_view_link_name: linkName,
-                page_view_link_source: src,
-                // Native app can use this to present the link itself (e.g. in a half sheet) instead of window.open
-                url
+                page_view_link_source: src
             });
         },
 

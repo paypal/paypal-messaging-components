@@ -285,8 +285,7 @@ describe('zoidPollyfill', () => {
 
         window.xprops.onClick({
             linkName: 'test link',
-            src: 'test src',
-            url: 'https://www.paypal.com/'
+            src: 'test src'
         });
 
         expect(postMessage).toHaveBeenCalledTimes(1);
@@ -298,7 +297,6 @@ describe('zoidPollyfill', () => {
                   "event_type": "modal_clicked",
                   "page_view_link_name": "test link",
                   "page_view_link_source": "test src",
-                  "url": "https://www.paypal.com/",
                 },
               ],
               "name": "onClick",

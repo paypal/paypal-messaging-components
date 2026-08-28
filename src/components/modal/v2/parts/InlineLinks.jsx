@@ -1,23 +1,7 @@
 /** @jsx h */
-/* global Android */
 import { h } from 'preact';
-import { isAndroidWebview, isIosWebview } from '@krakenjs/belter/src';
 
 import { useXProps } from '../lib';
-
-const hasNativeWebviewBridge = () => {
-    if (window.webkit?.messageHandlers?.paypalMessageModalCallbackHandler) {
-        return true;
-    }
-
-    return typeof Android !== 'undefined' && Boolean(Android.paypalMessageModalCallbackHandler);
-};
-
-const shouldInterceptDisclosureLink = () => {
-    const { userAgent } = window.navigator;
-
-    return (isIosWebview(userAgent) || isAndroidWebview(userAgent)) && hasNativeWebviewBridge();
-};
 
 // Create text with links scattered within it
 const InlineLinks = ({ text, useNewCheckoutDesign }) => {
@@ -42,17 +26,11 @@ const InlineLinks = ({ text, useNewCheckoutDesign }) => {
                         // className="inline-link"
                         className={`inline-link ${useNewCheckoutDesign === 'true' ? 'checkout' : ''}`}
                         href={linkUrl}
-                        onClick={event => {
-                            if (shouldInterceptDisclosureLink()) {
-                                event.preventDefault();
-                            }
-
+                        onClick={() => {
                             onClick({
                                 // Remove trailing punctuation if it exists
                                 linkName: linkText.replace(/[^\w]$/, ''),
-                                src: 'link_click',
-                                // Lets native webview hosts intercept and present the link themselves (e.g. in a half sheet)
-                                url: linkUrl
+                                src: 'link_click'
                             });
                         }}
                     >
