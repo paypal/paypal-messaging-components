@@ -1,27 +1,21 @@
 /** @jsx h */
-/* global Android */
 import { h } from 'preact';
-import { isAndroidWebview, isIosWebview } from '@krakenjs/belter/src';
 
-import { useXProps } from '../lib';
+import { useXProps, useServerData, useDisclosureView } from '../lib';
+import { ppDebug } from '../../../../utils/debug';
 
-const hasNativeWebviewBridge = () => {
-    if (window.webkit?.messageHandlers?.paypalMessageModalCallbackHandler) {
-        return true;
-    }
+const shouldUseInlineDisclosure = views => {
+    const useInlineDisclosure = Array.isArray(views) && views.some(view => view?.meta?.useInlineDisclosure === 'true');
+    ppDebug(`InlineLinks: useInlineDisclosure content? ${useInlineDisclosure}`);
 
-    return typeof Android !== 'undefined' && Boolean(Android.paypalMessageModalCallbackHandler);
-};
-
-const shouldInterceptDisclosureLink = () => {
-    const { userAgent } = window.navigator;
-
-    return (isIosWebview(userAgent) || isAndroidWebview(userAgent)) && hasNativeWebviewBridge();
+    return useInlineDisclosure;
 };
 
 // Create text with links scattered within it
 const InlineLinks = ({ text, useNewCheckoutDesign }) => {
     const { onClick } = useXProps();
+    const { views } = useServerData();
+    const { openDisclosure } = useDisclosureView();
 
     if (!Array.isArray(text)) {
         // eslint-disable-next-line react/no-danger
@@ -43,15 +37,18 @@ const InlineLinks = ({ text, useNewCheckoutDesign }) => {
                         className={`inline-link ${useNewCheckoutDesign === 'true' ? 'checkout' : ''}`}
                         href={linkUrl}
                         onClick={event => {
-                            if (shouldInterceptDisclosureLink()) {
+                            // Some integrations (e.g. Apple Wallet's webview) have no way to intercept and present
+                            // the link themselves, so show it inline instead of navigating away. All other
+                            // integrations keep the default browser tab behavior.
+                            if (shouldUseInlineDisclosure(views)) {
                                 event.preventDefault();
+                                openDisclosure(linkUrl);
                             }
 
                             onClick({
                                 // Remove trailing punctuation if it exists
                                 linkName: linkText.replace(/[^\w]$/, ''),
                                 src: 'link_click',
-                                // Lets native webview hosts intercept and present the link themselves (e.g. in a half sheet)
                                 url: linkUrl
                             });
                         }}
