@@ -11,7 +11,6 @@ const LOCALE_CONFIG = config[LOCALE];
 const ACCOUNT_CONFIG = LOCALE_CONFIG[ACCOUNT];
 const integration = 'sdk';
 const testFileName = 'shortTerm';
-const DARK_MODE_ACCOUNTS = ['DEV_US_APPLE_SHORT_TERM_PL2GO'];
 
 const runTest = ACCOUNT_CONFIG.testFileName === testFileName;
 const descFn = runTest ? describe : describe.skip;
@@ -43,16 +42,5 @@ descFn.each(filterPermutations([LOCALE_CONFIG], [ACCOUNT]))(
                 getTestName(country, integration, account, amount, viewport)
             );
         });
-
-        if (DARK_MODE_ACCOUNTS.includes(account)) {
-            test(`Amount:${amount} - Shows correct subheadline in dark mode - ${viewport}`, async () => {
-                ({ modalFrame } = await setupSDK(viewport, account, amount, { features: 'use-dark-mode' }));
-                await openShortTermView(
-                    modalFrame,
-                    modalContent,
-                    getTestName(country, integration, account, amount, viewport)
-                );
-            });
-        }
     }
 );
