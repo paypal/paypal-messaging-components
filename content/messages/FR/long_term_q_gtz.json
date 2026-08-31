@@ -21,6 +21,7 @@
     ],
     "subHeadline": [],
     "disclaimer": [
+        ["Attention ! Un crédit coûte de l'argent et doit être remboursé.", ["large"]],
         ["<span aria-hidden='true'>En savoir plus</span><span class='sr-only'>En savoir plus</span>", ["default"]]
     ]
 }
