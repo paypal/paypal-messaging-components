@@ -17,6 +17,11 @@
     font-size: 0.7rem;
 }
 
+.message__disclaimer > span.tag--xsmall,
+.message__disclaimer > span.tag--large {
+    font-size: 4vw;
+}
+
 @media (max-aspect-ratio: 61/10) and (min-width: 324px) {
     .message__headline span.multi:nth-of-type(2) {
         display: inline;
@@ -41,6 +46,10 @@
         line-height: 1.3em;
         display: inline;
     }
+    .message__disclaimer > span.tag--xsmall,
+    .message__disclaimer > span.tag--large {
+        font-size: 3vw;
+    }
     .message__logo-container {
         flex-basis: 12%;
         margin-bottom: -6px;
@@ -61,6 +70,11 @@
 
 @media (max-width: 374px) {
     .message__headline {
+        font-size: 3.8vw;
+    }
+
+    .message__disclaimer > span.tag--xsmall,
+    .message__disclaimer > span.tag--large {
         font-size: 3.8vw;
     }
 

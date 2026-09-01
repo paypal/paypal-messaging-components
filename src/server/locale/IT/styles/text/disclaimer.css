@@ -1,7 +1,3 @@
-.message__disclaimer {
-    white-space: normal;
-}
-
 .message__disclaimer > span.tag--large,
 .message__disclaimer > span.tag--large.multi:first-of-type,
 .message__disclaimer > span.tag--large.multi:last-of-type {

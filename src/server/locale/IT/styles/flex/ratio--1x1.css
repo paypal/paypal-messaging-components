@@ -7,6 +7,11 @@
     white-space: normal;
 }
 
+.message__disclaimer > span.tag--xsmall,
+.message__disclaimer > span.tag--large {
+    font-size: 10vw;
+}
+
 .message__disclaimer > span.tag--default,
 .message__disclaimer > span.tag--default > span {
     white-space: nowrap;
@@ -53,5 +58,10 @@
 
     .message__disclaimer .tag--xsmall {
         display: inline;
+    }
+
+    .message__disclaimer > span.tag--xsmall,
+    .message__disclaimer > span.tag--large {
+        font-size: 7.7vw;
     }
 }

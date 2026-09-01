@@ -21,6 +21,22 @@
 
     .message__disclaimer {
         margin-left: 4px;
+        white-space: normal;
+    }
+
+    .message__disclaimer > span,
+    .message__disclaimer > span > span {
+        white-space: normal;
+    }
+
+    .message__disclaimer > span.tag--xsmall,
+    .message__disclaimer > span.tag--large {
+        font-size: 8.4vw;
+    }
+
+    .message__disclaimer > span.tag--default,
+    .message__disclaimer > span.tag--default > span {
+        white-space: nowrap;
     }
 }
 
@@ -60,7 +76,7 @@
     }
 
     .message__disclaimer {
-        font-size: 0.9rem;
+        font-size: inherit;
     }
 }
 
@@ -74,10 +90,20 @@
     .message__headline {
         font-size: 3vw;
     }
+
+    .message__disclaimer > span.tag--xsmall,
+    .message__disclaimer > span.tag--large {
+        font-size: 3vw;
+    }
 }
 
 @media (min-aspect-ratio: 80/11) and (max-width: 350px) {
     .message__headline {
+        font-size: 10px;
+    }
+
+    .message__disclaimer > span.tag--xsmall,
+    .message__disclaimer > span.tag--large {
         font-size: 10px;
     }
 }

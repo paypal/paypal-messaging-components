@@ -40,6 +40,11 @@
     white-space: nowrap;
 }
 
+.message__disclaimer > span.tag--xsmall,
+.message__disclaimer > span.tag--large {
+    font-size: 1rem;
+}
+
 .message__disclaimer .tag--xsmall {
     display: inline;
 }
@@ -50,6 +55,11 @@
 
 @media (min-height: 500px) {
     .message__headline {
+        font-size: 1.8rem;
+    }
+
+    .message__disclaimer > span.tag--xsmall,
+    .message__disclaimer > span.tag--large {
         font-size: 1.8rem;
     }
 }
