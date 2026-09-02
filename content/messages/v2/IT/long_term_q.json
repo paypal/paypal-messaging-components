@@ -1,0 +1,51 @@
+{
+    "id": "78a0c3e5-f8d2-46db-92f1-c7a5e4d7f9e8",
+    "type": "PLLT_MQ_GZ",
+    "offer_types": ["PAY_LATER_LONG_TERM"],
+    "priority_rules": [
+        {
+            "type": "QUALIFYING",
+            "priority_score": 7.2,
+            "multiple": true,
+            "min_amount": "500.00",
+            "max_amount": "${ctx.PAY_LATER_LONG_TERM.max_amount.value}"
+        },
+        {
+            "type": "QUALIFYING",
+            "multiple": true,
+            "priority_score": 6.9
+        }
+    ],
+    "content": {
+        "main_items": [
+            {
+                "type": "IMAGE",
+                "name": "paypal_logo",
+                "source_url": "https://www.paypalobjects.com/upstream/assets/logos/v2/paypal_wordmark.svg",
+                "alternative_text": "PayPal"
+            },
+            {
+                "type": "TEXT",
+                "text": "Paga fino a "
+            },
+            {
+                "type": "TEXT_VARIABLE",
+                "name": "max_periodic_payment_count",
+                "text": "{PAY_LATER_LONG_TERM.max_periodic_payment_count}",
+                "text_path": "{PAY_LATER_LONG_TERM.preferred_offer.financing_code}.periodic_payment_count"
+            },
+            {
+                "type": "TEXT",
+                "text": " rate."
+            }
+        ],
+        "disclaimer_items": [],
+        "action_items": [
+            {
+                "type": "LINK",
+                "text": "Scopri di più",
+                "click_url": "{click_url}"
+            }
+        ]
+    }
+}

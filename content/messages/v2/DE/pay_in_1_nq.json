@@ -1,0 +1,58 @@
+{
+    "id": "bab62ca1-0874-4d13-a1d9-843400472850",
+    "type": "PLP1_NQ",
+    "offer_types": ["PAY_LATER_PAY_IN_1"],
+    "priority_rules": [
+        {
+            "type": "ELIGIBLE",
+            "priority_score": 3
+        }
+    ],
+    "content": {
+        "main_items": [
+            {
+                "type": "IMAGE",
+                "name": "paypal_logo",
+                "source_url": "https://www.paypalobjects.com/upstream/assets/logos/v2/paypal_badge.svg",
+                "alternative_text": "PayPal"
+            },
+            {
+                "type": "TEXT",
+                "text": "Bezahlen Sie bei Einkäufen von "
+            },
+            {
+                "type": "TEXT_VARIABLE",
+                "name": "min_amount",
+                "text": "{PAY_LATER_PAY_IN_1.min_amount.formatted_value}",
+                "text_path": "{PAY_LATER_PAY_IN_1.preferred_offer.financing_code}.min_amount.formatted_value"
+            },
+            {
+                "type": "TEXT",
+                "text": " bis "
+            },
+            {
+                "type": "TEXT_VARIABLE",
+                "name": "max_amount",
+                "text": "{PAY_LATER_PAY_IN_1.max_amount.formatted_value}",
+                "text_path": "{PAY_LATER_PAY_IN_1.preferred_offer.financing_code}.max_amount.formatted_value"
+            },
+            {
+                "type": "TEXT",
+                "text": " erst nach 30 Tagen."
+            }
+        ],
+        "disclaimer_items": [
+            {
+                "type": "TEXT",
+                "text": "Nur mit dt. PayPal Konto."
+            }
+        ],
+        "action_items": [
+            {
+                "type": "LINK",
+                "text": "Mehr erfahren",
+                "click_url": "{click_url}"
+            }
+        ]
+    }
+}
