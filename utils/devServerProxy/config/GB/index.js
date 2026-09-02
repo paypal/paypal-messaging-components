@@ -107,16 +107,19 @@ export default {
             {
                 amount: 0,
                 template: 'pl.json',
+                templateV2: 'short-term_nq.json',
                 product: 'PAY_LATER_SHORT_TERM'
             },
             {
                 amount: 30,
                 template: 'plq.json',
+                templateV2: 'short-term_q.json',
                 product: 'PAY_LATER_SHORT_TERM'
             },
             {
                 amount: 2000.01,
                 template: 'pl.json',
+                templateV2: 'short-term_nq.json',
                 product: 'PAY_LATER_SHORT_TERM'
             }
         ],
@@ -144,16 +147,19 @@ export default {
             {
                 amount: 0,
                 template: 'pl.json',
+                templateV2: 'short-term_nq.json',
                 product: 'PAY_LATER_SHORT_TERM'
             },
             {
                 amount: 30,
                 template: 'plq.json',
+                templateV2: 'short-term_q.json',
                 product: 'PAY_LATER_SHORT_TERM'
             },
             {
                 amount: 2000.01,
                 template: 'pl.json',
+                templateV2: 'short-term_nq.json',
                 product: 'PAY_LATER_SHORT_TERM'
             }
         ],
