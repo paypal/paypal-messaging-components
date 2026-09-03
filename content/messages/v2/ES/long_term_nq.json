@@ -1,0 +1,50 @@
+{
+    "id": "b3b602e0-349f-4262-9315-98a903d42b3e",
+    "type": "PLLT_NQ_GZ",
+    "offer_types": ["PAY_LATER_LONG_TERM"],
+    "priority_rules": [
+        {
+            "type": "ELIGIBLE",
+            "priority_score": 7.1,
+            "multiple": true,
+            "min_amount": "${ctx.PAY_LATER_LONG_TERM.max_amount.value}"
+        },
+        {
+            "type": "ELIGIBLE",
+            "multiple": true,
+            "priority_score": 4
+        }
+    ],
+    "content": {
+        "main_items": [
+            {
+                "type": "IMAGE",
+                "name": "paypal_logo",
+                "source_url": "https://www.paypalobjects.com/upstream/assets/logos/v2/paypal_wordmark.svg",
+                "alternative_text": "PayPal"
+            },
+            {
+                "type": "TEXT",
+                "text": "Paga a plazos para compras de 120€ a "
+            },
+            {
+                "type": "TEXT_VARIABLE",
+                "name": "max_amount",
+                "text": "{PAY_LATER_LONG_TERM.max_amount.formatted_value}",
+                "text_path": "{PAY_LATER_LONG_TERM.preferred_offer.financing_code}.max_amount.formatted_value"
+            },
+            {
+                "type": "TEXT",
+                "text": "."
+            }
+        ],
+        "disclaimer_items": [],
+        "action_items": [
+            {
+                "type": "LINK",
+                "text": "Más información",
+                "click_url": "{click_url}"
+            }
+        ]
+    }
+}
