@@ -1,3 +1,4 @@
+import { expect } from '@playwright/test';
 import { messageTest } from '../../../pages/messages_fixture';
 
 messageTest.describe('Multi Messages', () => {
@@ -6,9 +7,19 @@ messageTest.describe('Multi Messages', () => {
         const messageIframe = await loadMessage();
         await messageAxeCoreScan(messageIframe);
     });
-    messageTest('NI', async ({ navigatePage, loadMessage, messageAxeCoreScan }) => {
+    messageTest('NI', async ({ navigatePage, page, loadMessage, messageAxeCoreScan }) => {
         await navigatePage({ account: 'DEV0000000NIQ' });
         const messageIframe = await loadMessage();
+        const messageFrame = await messageIframe.contentFrame();
+        const messageButton = messageFrame.getByRole('button');
+
+        await expect(messageButton).toHaveAccessibleName(
+            'PayPal Credit No Interest if paid in full in 6 months. Learn more'
+        );
+
+        // The rendered NI fixture switches copy below its 141.552px message breakpoint.
+        await page.setViewportSize({ width: 150, height: 667 });
+        await expect(messageButton).toHaveAccessibleName('PayPal Credit Buy now. Pay over time. Learn more');
         await messageAxeCoreScan(messageIframe);
     });
     messageTest('NI US only', async ({ navigatePage, loadMessage, messageAxeCoreScan }) => {
@@ -32,6 +43,11 @@ messageTest.describe('Multi Messages', () => {
     messageTest('Long Term Q', async ({ navigatePage, loadMessage, messageAxeCoreScan }) => {
         await navigatePage({ account: 'DEV00USLTMQGZ', amount: 200 });
         const messageIframe = await loadMessage();
+        const messageFrame = await messageIframe.contentFrame();
+        const messageButton = messageFrame.getByRole('button');
+
+        await expect(messageButton).toHaveAccessibleName(/^PayPal As low as \$[\d,.]+\/ month\. Learn more$/);
+
         await messageAxeCoreScan(messageIframe);
     });
     messageTest('Buttons Message', async ({ navigatePage, loadMessage, messageAxeCoreScan }) => {
