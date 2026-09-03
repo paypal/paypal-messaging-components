@@ -1,10 +1,18 @@
+import { expect } from '@playwright/test';
 import { modalTest } from '../../../pages/modals_fixture';
 
 modalTest.describe('Long Term Modals', () => {
     modalTest('US Long Term Multi & LT Q', async ({ navigatePage, loadModal, modalAxeCoreScan }) => {
         await navigatePage({ account: 'DEV_US_MULTI', amount: 1501, offer: 'PAY_LATER_LONG_TERM' });
-        const modalIframe = await loadModal();
-        await modalAxeCoreScan(modalIframe);
+        const modalIframeElement = await loadModal();
+        const modalIframe = await modalIframeElement.contentFrame();
+        const financingPlanHeadings = modalIframe.getByRole('heading', { level: 4 });
+
+        await expect(financingPlanHeadings).toHaveCount(3);
+        await expect(modalIframe.getByRole('heading', { level: 4, name: /for 6 months$/ })).toBeVisible();
+        await expect(modalIframe.getByRole('heading', { level: 4, name: /for 12 months$/ })).toBeVisible();
+        await expect(modalIframe.getByRole('heading', { level: 4, name: /for 24 months$/ })).toBeVisible();
+        await modalAxeCoreScan(modalIframeElement);
     });
     modalTest('US/DE Long Term Multi & LT NQ', async ({ navigatePage, loadModal, modalAxeCoreScan }) => {
         await navigatePage({ account: 'DEV_US_MULTI', amount: 20001, offer: 'PAY_LATER_LONG_TERM' });
