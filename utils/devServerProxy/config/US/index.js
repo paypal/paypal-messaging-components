@@ -212,7 +212,7 @@ export default {
         country: 'US',
         modalViews: [
             {
-                template: 'pl2go/pl2go_short_term.json',
+                template: 'PL2GO/pl2go_short_term.json',
                 product: OFFER.PAY_LATER_SHORT_TERM
             }
         ],

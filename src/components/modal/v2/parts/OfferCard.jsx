@@ -19,7 +19,7 @@ const OfferCard = ({
             className={`offer__container ${useV5Design === 'true' ? 'v5Design' : ''} ${useDarkMode ? 'darkMode' : ''}`}
         >
             <div className={`offer__row ${useV5Design === 'true' ? 'v5Design' : ''}`}>
-                <strong
+                <h4
                     className={`offer__field-header ${use5Dot1Design ? 'v5Dot1Design' : ''}`}
                     // eslint-disable-next-line react/no-danger
                     dangerouslySetInnerHTML={{ __html: offerHeaderField }}
