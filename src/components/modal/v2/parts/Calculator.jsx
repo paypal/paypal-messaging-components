@@ -254,7 +254,7 @@ const Calculator = ({
                 {isLoading ? loadingLabel : ''}
             </div>
             {(hasInitialAmount || hasUsedInputField) && !error ? (
-                <div className="content-column" aria-busy={isLoading ? 'true' : undefined}>
+                <div className="content-column" aria-live="polite" aria-busy={isLoading ? 'true' : undefined}>
                     <TermsTable
                         view={view}
                         isLoading={isLoading}

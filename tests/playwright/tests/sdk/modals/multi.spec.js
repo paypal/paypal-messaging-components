@@ -128,7 +128,7 @@ modalTest.describe('Long Term Modals', () => {
             const loadingStatus = modalIframe.getByRole('status');
             await expect(loadingStatus).toHaveCount(1);
             await expect(loadingStatus).toHaveText(loadingLabel);
-            await expect(modalIframe.locator('.content-column[aria-busy="true"]')).toHaveCount(1);
+            await expect(modalIframe.locator('.content-column[aria-live="polite"][aria-busy="true"]')).toHaveCount(1);
 
             const shimmerContainers = modalIframe.locator(shimmerContainer);
             await expect(shimmerContainers).not.toHaveCount(0);

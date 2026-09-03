@@ -163,8 +163,9 @@ describe('Calculator loading announcement', () => {
         ['the English fallback', undefined, 'Loading financing options'],
         ['localized content', 'Finanzierungsoptionen werden geladen', 'Finanzierungsoptionen werden geladen']
     ])('uses %s', (_, loadingLabel, expectedLabel) => {
-        renderCalculator({ loadingLabel });
+        const { container } = renderCalculator({ loadingLabel });
 
         expect(screen.getByRole('status')).toHaveTextContent(expectedLabel);
+        expect(container.querySelector('.content-column[aria-live="polite"]')).toHaveAttribute('aria-busy', 'true');
     });
 });
