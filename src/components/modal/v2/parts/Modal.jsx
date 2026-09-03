@@ -1,7 +1,14 @@
 /** @jsx h */
 import { h } from 'preact';
 
-import { TransitionStateProvider, XPropsProvider, ServerDataProvider, isLander, isIframe } from '../lib';
+import {
+    TransitionStateProvider,
+    XPropsProvider,
+    ServerDataProvider,
+    DisclosureViewProvider,
+    isLander,
+    isIframe
+} from '../lib';
 import ErrorBoundary from './ErrorBoundary';
 import Container from './Container';
 
@@ -20,8 +27,10 @@ const Modal = ({ serverData, children }) => {
             <ErrorBoundary>
                 <ServerDataProvider data={serverData}>
                     <TransitionStateProvider>
-                        <style>{styles._getCss()}</style>
-                        <Container>{children}</Container>
+                        <DisclosureViewProvider>
+                            <style>{styles._getCss()}</style>
+                            <Container>{children}</Container>
+                        </DisclosureViewProvider>
                     </TransitionStateProvider>
                 </ServerDataProvider>
             </ErrorBoundary>
