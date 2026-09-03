@@ -43,11 +43,11 @@ const defaultCalculatorState = {
     changeInput: jest.fn()
 };
 
-const renderCalculator = () =>
+const renderCalculator = (calculatorOverrides = {}) =>
     render(
         <Calculator
             setExpandedState={jest.fn()}
-            calculator={calculator}
+            calculator={{ ...calculator, ...calculatorOverrides }}
             aprDisclaimer={{ default: { aprDisclaimer: 'Terms apply.' } }}
         />
     );
@@ -146,5 +146,25 @@ describe('Calculator amount field accessibility', () => {
         expect(input).not.toHaveAttribute('aria-describedby');
         expect(error).not.toHaveAttribute('id');
         expect(error.closest('[aria-live="polite"]')).toBeInTheDocument();
+    });
+});
+
+describe('Calculator loading announcement', () => {
+    beforeEach(() => {
+        mockUseCalculator.mockReturnValue({
+            ...defaultCalculatorState,
+            value: '100',
+            isLoading: true
+        });
+        mockUseXProps.mockReturnValue({ amount: 100 });
+    });
+
+    test.each([
+        ['the English fallback', undefined, 'Loading financing options'],
+        ['localized content', 'Finanzierungsoptionen werden geladen', 'Finanzierungsoptionen werden geladen']
+    ])('uses %s', (_, loadingLabel, expectedLabel) => {
+        renderCalculator({ loadingLabel });
+
+        expect(screen.getByRole('status')).toHaveTextContent(expectedLabel);
     });
 });

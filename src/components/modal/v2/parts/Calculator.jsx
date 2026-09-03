@@ -84,7 +84,14 @@ const Calculator = ({
     const { amount } = useXProps();
     const { country, views } = useServerData();
     const { language } = views[0].meta;
-    const { title, genericTitle, inputLabel, inputPlaceholder, inputCurrencySymbol, loadingLabel } = calculator;
+    const {
+        title,
+        genericTitle,
+        inputLabel,
+        inputPlaceholder,
+        inputCurrencySymbol,
+        loadingLabel = 'Loading financing options'
+    } = calculator;
     const formattedInputPlaceholder = currencyFormat(inputPlaceholder).replace(/(\s?€)/g, '');
 
     // Set hasUsedInputField to true if someone has typed in the input field at any point.
