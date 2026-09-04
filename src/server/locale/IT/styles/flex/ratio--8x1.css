@@ -76,7 +76,7 @@
     }
 
     .message__disclaimer {
-        font-size: inherit;
+        font-size: 0.6rem;
     }
 }
 
@@ -87,29 +87,29 @@
 }
 
 @media (min-aspect-ratio: 80/11) and (min-width: 351px) {
-    .message__headline {
-        font-size: 3vw;
-    }
+.message__headline {
+font-size: 2vw;
+}
 
     .message__disclaimer > span.tag--xsmall,
     .message__disclaimer > span.tag--large {
-        font-size: 3vw;
+        font-size: 2vw;
     }
 }
 
 @media (min-aspect-ratio: 80/11) and (max-width: 350px) {
-    .message__headline {
-        font-size: 10px;
-    }
+.message__headline {
+font-size: 8px;
+}
 
     .message__disclaimer > span.tag--xsmall,
     .message__disclaimer > span.tag--large {
-        font-size: 10px;
+        font-size: 8px;
     }
 }
 
 @media (min-aspect-ratio: 80/11) and (min-width: 360px) {
     .message__messaging {
-        line-height: 1.3rem;
+        line-height: 1rem;
     }
 }

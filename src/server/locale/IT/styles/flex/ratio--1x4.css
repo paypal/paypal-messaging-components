@@ -62,7 +62,14 @@
     .message__disclaimer > span.tag--large {
         font-size: 1.8rem;
     }
+.message__headline {
+font-size: 1.2rem;
 }
+
+    .message__disclaimer > span.tag--xsmall,
+    .message__disclaimer > span.tag--large {
+        font-size: 1.2rem;
+    }
 
 @media (aspect-ratio: 1/2) {
     .message__messaging {
