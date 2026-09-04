@@ -87,9 +87,9 @@
 }
 
 @media (min-aspect-ratio: 80/11) and (min-width: 351px) {
-.message__headline {
-font-size: 2vw;
-}
+    .message__headline {
+        font-size: 2vw;
+    }
 
     .message__disclaimer > span.tag--xsmall,
     .message__disclaimer > span.tag--large {
@@ -98,9 +98,9 @@ font-size: 2vw;
 }
 
 @media (min-aspect-ratio: 80/11) and (max-width: 350px) {
-.message__headline {
-font-size: 8px;
-}
+    .message__headline {
+        font-size: 8px;
+    }
 
     .message__disclaimer > span.tag--xsmall,
     .message__disclaimer > span.tag--large {

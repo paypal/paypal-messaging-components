@@ -54,7 +54,7 @@
     }
 
     .message__headline {
-        font-size: 1.55vw;
+        font-size: 1.2vw;
     }
 
     .message__messaging {
@@ -70,17 +70,17 @@
 
     .message__disclaimer > span.tag--xsmall,
     .message__disclaimer > span.tag--large {
-        font-size: 1.55vw;
+        font-size: 1.2vw;
     }
 }
 @media (min-aspect-ratio: 200/11) and (min-width: 400px) {
-.message__headline {
-font-size: 1.2vw;
-}
+    .message__headline {
+        font-size: 2vw;
+    }
 
     .message__disclaimer > span.tag--xsmall,
     .message__disclaimer > span.tag--large {
-        font-size: 1.2vw;
+        font-size: 2vw;
     }
 
     .message__headline > span:nth-of-type(3) {
@@ -128,15 +128,8 @@ font-size: 1.2vw;
     }
 
     .message__headline {
-        font-size: 2.75vw;
+        font-size: 1.5vw;
     }
-
-    .message__disclaimer > span.tag--xsmall,
-    .message__disclaimer > span.tag--large {
-        font-size: 2.75vw;
-.message__headline {
-font-size: 1.5vw;
-}
 
     .message__disclaimer > span.tag--xsmall,
     .message__disclaimer > span.tag--large {
@@ -149,9 +142,9 @@ font-size: 1.5vw;
 }
 
 @media (min-aspect-ratio: 200/11) and (max-width: 350px) {
-.message__headline {
-font-size: 5px;
-}
+    .message__headline {
+        font-size: 5px;
+    }
 
     .message__disclaimer > span.tag--xsmall,
     .message__disclaimer > span.tag--large {

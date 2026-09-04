@@ -39,9 +39,8 @@
 }
 
 .message__headline {
-    font-size: 10vw;
-font-size: 6vw;
-line-height: 1.2em;
+    font-size: 6vw;
+    line-height: 1.2em;
 }
 
 @media (min-width: 140px) {
