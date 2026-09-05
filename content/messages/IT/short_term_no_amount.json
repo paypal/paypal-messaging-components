@@ -19,5 +19,8 @@
 
     "subHeadline": [],
 
-    "disclaimer": [["Scopri di più", ["default"]]]
+    "disclaimer": [
+        [["Attenzione! Prendere in prestito denaro comporta dei costi."], ["large"]],
+        ["Scopri di più", ["default"]]
+    ]
 }

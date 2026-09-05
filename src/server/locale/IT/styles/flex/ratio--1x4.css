@@ -27,9 +27,25 @@
 
 .message__disclaimer {
     font-size: 0.9rem;
+    white-space: normal;
 }
 
-.message__disclaimer span.multi:nth-of-type(1) {
+.message__disclaimer > span,
+.message__disclaimer > span > span {
+    white-space: normal;
+}
+
+.message__disclaimer > span.tag--default,
+.message__disclaimer > span.tag--default > span {
+    white-space: nowrap;
+}
+
+.message__disclaimer > span.tag--xsmall,
+.message__disclaimer > span.tag--large {
+    font-size: 1rem;
+}
+
+.message__disclaimer .tag--xsmall {
     display: inline;
 }
 
@@ -39,7 +55,12 @@
 
 @media (min-height: 500px) {
     .message__headline {
-        font-size: 1.8rem;
+        font-size: 1.2rem;
+    }
+
+    .message__disclaimer > span.tag--xsmall,
+    .message__disclaimer > span.tag--large {
+        font-size: 1.2rem;
     }
 }
 
