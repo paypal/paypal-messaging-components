@@ -81,6 +81,7 @@ export const LongTerm = ({
         genericDisclaimer,
         instructions,
         disclosure,
+        creditWarning,
         navLinkPrefix,
         linkToProductList,
         cta,
@@ -243,6 +244,9 @@ export const LongTerm = ({
                     expandedState={expandedState}
                 />
             </div>
+            {creditWarning && (
+                <div className={`content__row credit-warning ${useDarkMode ? 'darkMode' : ''}`}>{creditWarning}</div>
+            )}
             <div
                 className={`content__row disclosure ${expandedState ? '' : 'collapsed'} ${
                     useNewCheckoutDesign === 'true' ? 'checkout' : ''
