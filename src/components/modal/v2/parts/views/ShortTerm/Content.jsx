@@ -22,6 +22,7 @@ export const ShortTerm = ({
         estimatedInstallments,
         preapproval,
         disclosure,
+        creditWarning,
         donutTimestamps,
         learnMoreLink,
         cta,
@@ -221,6 +222,11 @@ export const ShortTerm = ({
                     </div>
                 </div>
             </div>
+            {creditWarning && (
+                <div className={`content__row credit-warning ${useDarkMode ? 'darkMode' : ''} ${countryClassName}`}>
+                    {creditWarning}
+                </div>
+            )}
             <div
                 className={`content__row disclosure ${
                     (cta && useNewCheckoutDesign === 'true') || cta ? 'checkout' : ''
