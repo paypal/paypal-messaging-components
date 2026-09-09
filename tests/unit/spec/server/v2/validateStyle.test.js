@@ -1,4 +1,5 @@
 import validateStyle from 'server/v2/validateStyle';
+import buildStyles from 'server/v2/styles';
 
 const mockLog = jest.fn();
 
@@ -65,10 +66,15 @@ describe('v2 validateStyle', () => {
         });
     });
 
-    test('defaults text.size to 14 (matches v5 default rendered font-size) when not provided', () => {
+    test('defaults text.size to 12 when not provided', () => {
         const result = validateStyle(mockLog, { layout: 'text' });
-        expect(result.text.size).toBe(14);
+        expect(result.text.size).toBe(12);
         expect(mockLog).not.toHaveBeenCalled();
+    });
+
+    test('defaults rendered V2 text to 12px while preserving explicit sizes', () => {
+        expect(buildStyles()).toContain('font-size: 12px;');
+        expect(buildStyles({ fontSize: 14 })).toContain('font-size: 14px;');
     });
 
     test('normalises greyscale alias for text layout text.color', () => {
