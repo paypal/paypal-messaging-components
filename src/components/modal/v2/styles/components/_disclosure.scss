@@ -8,7 +8,7 @@
     z-index: 1002;
     display: flex;
     flex-direction: column;
-    background: colors.$beige;
+    background: colors.$v5-white;
 
     &__back {
         display: flex;
@@ -27,5 +27,6 @@
         flex: 1 1 auto;
         width: 100%;
         border: none;
+        background: colors.$v5-white;
     }
 }
