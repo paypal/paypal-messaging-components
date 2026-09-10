@@ -26,8 +26,8 @@
     },
     "content": {
         "headline": "Pay in 4 interest-free payments",
-        "subheadline": "No impact on credit score and no late fees. Available for purchases of {formattedMinAmount} to {formattedMaxAmount}.",
-        "qualifyingSubheadline": "Split your purchase of {formattedTotalCost} into {total_payments} with no impact on credit score and no late fees.",
+        "subheadline": "No impact on credit score and no late fees. Available for purchases of {formattedMinAmount} CAD to {formattedMaxAmount} CAD.",
+        "qualifyingSubheadline": "Split your purchase of {formattedTotalCost} CAD into {total_payments} with no impact on credit score and no late fees.",
         "donutTimestamps": ["Today", "2 weeks", "4 weeks", "6 weeks"],
         "instructions": [
             "Choose PayPal at checkout to pay later with <strong>Pay in 4</strong>. ",

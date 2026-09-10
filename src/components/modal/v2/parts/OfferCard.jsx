@@ -15,8 +15,10 @@ const OfferCard = ({
     const aprRemoveTrailingZeros = meta?.apr.replace(/\D00$/, '');
     const aprFieldTitle = aprRemoveTrailingZeros === '0' ? termsLabel?.zeroApr : termsLabel?.nonZeroApr;
     const offerHeaderField = termsLabel?.offerHeader;
-    const addCurrencySuffix = value =>
-        offerCountry === 'CA' && language === 'fr-CA' ? value?.replace(/\s?\$$/, ' $ CA') : value;
+    const addCurrencySuffix = value => {
+        if (offerCountry !== 'CA' || !value) return value;
+        return language === 'fr-CA' ? value.replace(/\s?\$$/, ' $ CA') : `${value} CAD`;
+    };
 
     return (
         <div

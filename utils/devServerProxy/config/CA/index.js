@@ -9,12 +9,12 @@ export default {
         ],
         messageThresholds: [
             {
-                amount: 1500.01,
+                amount: 2000.01,
                 template: 'short_term_nq.json',
                 product: 'PAY_LATER_SHORT_TERM'
             },
             {
-                amount: 30,
+                amount: 10,
                 template: 'short_term_q.json',
                 product: 'PAY_LATER_SHORT_TERM'
             },
@@ -35,8 +35,8 @@ export default {
                     totalPayments: 4,
                     apr: 0,
                     nominalRate: 0,
-                    minAmount: 30,
-                    maxAmount: 1500
+                    minAmount: 10,
+                    maxAmount: 2000
                 }
             ]
         }
@@ -51,12 +51,12 @@ export default {
         ],
         messageThresholds: [
             {
-                amount: 1500.01,
+                amount: 2000.01,
                 template: 'short_term_nq.json',
                 product: 'PAY_LATER_SHORT_TERM'
             },
             {
-                amount: 30,
+                amount: 10,
                 template: 'short_term_q.json',
                 product: 'PAY_LATER_SHORT_TERM'
             },
@@ -77,8 +77,8 @@ export default {
                     totalPayments: 4,
                     apr: 0,
                     nominalRate: 0,
-                    minAmount: 30,
-                    maxAmount: 1500
+                    minAmount: 10,
+                    maxAmount: 2000
                 }
             ]
         }
@@ -93,12 +93,12 @@ export default {
         ],
         messageThresholds: [
             {
-                amount: 1500.01,
+                amount: 2000.01,
                 template: 'short_term_nq_fr.json',
                 product: 'PAY_LATER_SHORT_TERM'
             },
             {
-                amount: 30,
+                amount: 10,
                 template: 'short_term_q_fr.json',
                 product: 'PAY_LATER_SHORT_TERM'
             },
@@ -119,8 +119,8 @@ export default {
                     totalPayments: 4,
                     apr: 0,
                     nominalRate: 0,
-                    minAmount: 30,
-                    maxAmount: 1500
+                    minAmount: 10,
+                    maxAmount: 2000
                 }
             ]
         }
@@ -135,12 +135,12 @@ export default {
         ],
         messageThresholds: [
             {
-                amount: 1500.01,
+                amount: 2000.01,
                 template: 'short_term_nq_fr.json',
                 product: 'PAY_LATER_SHORT_TERM'
             },
             {
-                amount: 30,
+                amount: 10,
                 template: 'short_term_q_fr.json',
                 product: 'PAY_LATER_SHORT_TERM'
             },
@@ -161,8 +161,8 @@ export default {
                     totalPayments: 4,
                     apr: 0,
                     nominalRate: 0,
-                    minAmount: 30,
-                    maxAmount: 1500
+                    minAmount: 10,
+                    maxAmount: 2000
                 }
             ]
         }
@@ -396,7 +396,7 @@ export default {
                 product: 'PAY_LATER_SHORT_TERM'
             },
             {
-                amount: 30,
+                amount: 10,
                 template: 'short_term_q.json',
                 product: 'PAY_LATER_SHORT_TERM'
             },
@@ -406,7 +406,7 @@ export default {
                 product: 'PAY_LATER_LONG_TERM'
             },
             {
-                amount: 1500.01,
+                amount: 2000.01,
                 template: 'short_term_nq.json',
                 product: 'PAY_LATER_SHORT_TERM'
             },
@@ -422,8 +422,8 @@ export default {
                     totalPayments: 4,
                     apr: 0,
                     nominalRate: 0,
-                    minAmount: 30,
-                    maxAmount: 1500
+                    minAmount: 10,
+                    maxAmount: 2000
                 }
             ],
             PAY_LATER_LONG_TERM: [
@@ -473,7 +473,7 @@ export default {
                 product: 'PAY_LATER_SHORT_TERM'
             },
             {
-                amount: 30,
+                amount: 10,
                 template: 'short_term_q_fr.json',
                 product: 'PAY_LATER_SHORT_TERM'
             },
@@ -483,7 +483,7 @@ export default {
                 product: 'PAY_LATER_LONG_TERM'
             },
             {
-                amount: 1500.01,
+                amount: 2000.01,
                 template: 'short_term_nq_fr.json',
                 product: 'PAY_LATER_SHORT_TERM'
             },
@@ -499,8 +499,8 @@ export default {
                     totalPayments: 4,
                     apr: 0,
                     nominalRate: 0,
-                    minAmount: 30,
-                    maxAmount: 1500
+                    minAmount: 10,
+                    maxAmount: 2000
                 }
             ],
             PAY_LATER_LONG_TERM: [

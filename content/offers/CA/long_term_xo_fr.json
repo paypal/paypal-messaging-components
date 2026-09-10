@@ -39,7 +39,7 @@
         },
         "termsLabel": {
             "offerHeader": "{formattedPeriodicPayment} CA/<span aria-hidden='true'>mois</span> pendant {total_payments} mois",
-            "nonZeroApr": "<span aria-hidden='true'>TAEG estimé*</span><span class='sr-only'>TAEG estimé, voir l'astérisque pour plus de détails ci-dessous.</span>",
+            "nonZeroApr": "<span aria-hidden='true'>TAP estimé*</span><span class='sr-only'>TAP estimé, voir l'astérisque pour plus de détails ci-dessous.</span>",
             "totalInterest": "Intérêts",
             "total": "Total"
         }
