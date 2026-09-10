@@ -1,7 +1,7 @@
 /** @jsx h */
 /** @jsxFrag Fragment */
 import { h, Fragment } from 'preact';
-import { objectMerge, objectFlattenToArray, curry } from '../../utils/server';
+import { objectMerge, objectFlattenToArray, curry, getStandardProductOffer, OFFER } from '../../utils/server';
 import { getMutations, getLocaleStyles, getLocaleClass, getLocaleProductName } from '../locale';
 import allStyles from './styles';
 import Logo from './parts/Logo';
@@ -85,7 +85,14 @@ export default ({ options, markup, locale }) => {
     }
 
     const logoType = style.logo?.type;
-    const logoEl = <Logo mutations={mutationRules.logo} />;
+    const brandName =
+        getStandardProductOffer(messageType) === OFFER.PAYPAL_CREDIT_NO_INTEREST ? 'PayPal Credit' : 'PayPal';
+    const logoEl = (
+        <>
+            <Logo mutations={mutationRules.logo} />
+            <span className="sr-only">{brandName}</span>
+        </>
+    );
 
     const [withText, productName] = getLocaleProductName(locale, messageType, contextualComponents, language);
 

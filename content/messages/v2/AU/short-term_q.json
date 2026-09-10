@@ -1,0 +1,52 @@
+{
+    "id": "a5a8a34b-3fec-45da-9ad2-684c36502e61",
+    "type": "PLST_SQ",
+    "offer_types": ["PAY_LATER_SHORT_TERM"],
+    "priority_rules": [
+        {
+            "type": "QUALIFYING",
+            "priority_score": 6
+        }
+    ],
+    "content": {
+        "main_items": [
+            {
+                "type": "IMAGE",
+                "name": "paypal_logo",
+                "source_url": "https://www.paypalobjects.com/upstream/assets/logos/v2/paypal_badge.svg",
+                "alternative_text": "PayPal"
+            },
+            {
+                "type": "TEXT",
+                "text": "Pay in "
+            },
+            {
+                "type": "TEXT_VARIABLE",
+                "name": "periodic_payment_count",
+                "text": "{PAY_LATER_SHORT_TERM.preferred_offer.periodic_payment_count}",
+                "text_path": "{PAY_LATER_SHORT_TERM.preferred_offer.financing_code}.periodic_payment_count"
+            },
+            {
+                "type": "TEXT",
+                "text": " interest-free payments of "
+            },
+            {
+                "type": "TEXT_VARIABLE",
+                "name": "periodic_payment",
+                "text": "{PAY_LATER_SHORT_TERM.preferred_offer.periodic_payment.formatted_value}",
+                "text_path": "{PAY_LATER_SHORT_TERM.preferred_offer.financing_code}.breakdown.periodic_payment.formatted_value"
+            },
+            {
+                "type": "TEXT",
+                "text": "."
+            }
+        ],
+        "action_items": [
+            {
+                "type": "LINK",
+                "text": "Learn more",
+                "click_url": "{click_url}"
+            }
+        ]
+    }
+}

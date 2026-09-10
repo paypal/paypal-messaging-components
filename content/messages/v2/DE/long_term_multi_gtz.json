@@ -1,0 +1,49 @@
+{
+    "id": "7f38c610-7c72-461b-b926-865169fbb02a",
+    "type": "PLLT_MQ_GZ",
+    "offer_types": ["PAY_LATER_LONG_TERM"],
+    "priority_rules": [
+        {
+            "type": "QUALIFYING",
+            "multiple": true,
+            "priority_score": 8
+        }
+    ],
+    "content": {
+        "main_items": [
+            {
+                "type": "IMAGE",
+                "name": "paypal_logo",
+                "source_url": "https://www.paypalobjects.com/upstream/assets/logos/v2/paypal_badge.svg",
+                "alternative_text": "PayPal"
+            },
+            {
+                "type": "TEXT",
+                "text": "Bezahlen Sie in bis zu "
+            },
+            {
+                "type": "TEXT_VARIABLE",
+                "name": "max_periodic_payment_count",
+                "text": "{PAY_LATER_LONG_TERM.max_periodic_payment_count}",
+                "text_path": "{PAY_LATER_LONG_TERM.preferred_offer.financing_code}.product.max_periodic_payment_count"
+            },
+            {
+                "type": "TEXT",
+                "text": " monatlichen Raten."
+            }
+        ],
+        "disclaimer_items": [
+            {
+                "type": "TEXT",
+                "text": "Nur mit dt. PayPal Konto."
+            }
+        ],
+        "action_items": [
+            {
+                "type": "LINK",
+                "text": "Mehr erfahren",
+                "click_url": "{click_url}"
+            }
+        ]
+    }
+}

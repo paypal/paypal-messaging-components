@@ -1,0 +1,50 @@
+{
+    "id": "dc77b2bc-4c82-43d2-be99-51b0787a58d2",
+    "type": "PLLT_MQ_GZ",
+    "offer_types": ["PAY_LATER_LONG_TERM"],
+    "priority_rules": [
+        {
+            "type": "QUALIFYING",
+            "multiple": true,
+            "min_amount": "199.00",
+            "priority_score": 7.2
+        },
+        {
+            "type": "QUALIFYING",
+            "multiple": true,
+            "priority_score": 5.8
+        }
+    ],
+    "content": {
+        "main_items": [
+            {
+                "type": "IMAGE",
+                "name": "paypal_logo",
+                "source_url": "https://www.paypalobjects.com/upstream/assets/logos/v2/paypal_badge.svg",
+                "alternative_text": "PayPal"
+            },
+            {
+                "type": "TEXT",
+                "text": "As low as "
+            },
+            {
+                "type": "TEXT_VARIABLE",
+                "name": "periodic_payment",
+                "text": "{PAY_LATER_LONG_TERM.periodic_payment.formatted_value}",
+                "text_path": "{PAY_LATER_LONG_TERM.preferred_offer.financing_code}.breakdown.periodic_payment.formatted_value"
+            },
+            {
+                "type": "TEXT",
+                "text": "/mo.",
+                "alternative_text": " per month."
+            }
+        ],
+        "action_items": [
+            {
+                "type": "LINK",
+                "text": "Learn more",
+                "click_url": "{click_url}"
+            }
+        ]
+    }
+}

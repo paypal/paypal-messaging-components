@@ -16,9 +16,11 @@ module.exports = (env = {}) => {
         // otherwise opens default browser if not set
         open: process.env.DEV_BROWSER || false,
         openPage: (() => {
+            const query = env.OPEN_PAGE_QUERY ? `?${env.OPEN_PAGE_QUERY}` : '';
+
             switch (env.TARGET) {
                 case 'standalone':
-                    return 'standalone.html';
+                    return `standalone.html${query}`;
                 case 'standalone-modal':
                     return 'standalone-modal.html';
                 case 'sdk':

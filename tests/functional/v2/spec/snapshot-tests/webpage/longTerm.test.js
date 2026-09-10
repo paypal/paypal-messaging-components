@@ -20,6 +20,7 @@ const LOCALE_CONFIG = config[LOCALE];
 const ACCOUNT_CONFIG = LOCALE_CONFIG[ACCOUNT];
 const integration = 'webpage';
 const testFileName = 'longTerm';
+const DARK_MODE_ACCOUNTS = ['DEV_US_APPLE_LONG_TERM_PL2GO'];
 // Regular APR accordion accounts (DE, AT, ES, IT)
 const REGULAR_APR_ACCORDION_ACCOUNTS = [
     'DEV_DE_LONG_TERM',
@@ -97,6 +98,17 @@ descFn.each(filterPermutations([LOCALE_CONFIG], [ACCOUNT]))(
                     getTestName(country, integration, account, amount, viewport)
                 );
             });
+
+            if (DARK_MODE_ACCOUNTS.includes(account)) {
+                test(`Amount:${amount} - Offer cards show correct payment headline information in dark mode - ${viewport}`, async () => {
+                    await setupWebpage(viewport, account, amount, { features: 'use-dark-mode' });
+                    await showCorrectOfferInfo(
+                        page,
+                        modalContent,
+                        getTestName(country, integration, account, amount, viewport)
+                    );
+                });
+            }
         }
         if (amount >= minAmount && amount <= maxAmount && REGULAR_APR_ACCORDION_ACCOUNTS.includes(account)) {
             test(`Amount:${amount} - Offer accordion show correct payment headline information - ${viewport}`, async () => {

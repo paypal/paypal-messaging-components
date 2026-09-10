@@ -121,11 +121,18 @@ const getMorsVars = (country, offer, amount, language) => {
 const getTemplateLanguage = (country, ...templateNames) =>
     country === 'CA' && templateNames.some(name => name?.includes('_fr')) ? 'fr-CA' : undefined;
 
-export default function getDevAccountDetails({ account, amount, buyerCountry }) {
+export default function getDevAccountDetails({ account, amount, buyerCountry, useV2MessageContent = false }) {
     if (devAccountMap[account]) {
-        const [country, productNames, messageName] = devAccountMap[account];
+        const [country, productNames, messageName, v2MessageName] = devAccountMap[account];
         const offers = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../config/terms.json'), 'utf-8'));
         const terms = getTerms(country, offers, Number(amount));
+        // The renderer flag switches the base directory from content/messages to content/messages/v2.
+        // Only provide an explicit v2 message name when the filename differs between the two trees.
+        const selectedMessageName = useV2MessageContent ? v2MessageName || messageName : messageName;
+        const messageBasePath = useV2MessageContent ? `${CONTENT_PATH}/messages/v2` : `${CONTENT_PATH}/messages`;
+        const messagePath = `${messageBasePath}/${country}/${selectedMessageName}.json`;
+        // Temporary strict mode for v2 validation: do not fallback to legacy (v1) content.
+        const messageTemplatePath = messagePath;
 
         return {
             country,
@@ -140,12 +147,12 @@ export default function getDevAccountDetails({ account, amount, buyerCountry }) 
                 )
             })),
             message: {
-                template: fs.readFileSync(`${CONTENT_PATH}/messages/${country}/${messageName}.json`, 'utf8'),
+                template: fs.readFileSync(messageTemplatePath, 'utf8'),
                 morsVars: getMorsVars(
                     country,
                     selectBestOffer(offers, amount),
                     amount,
-                    getTemplateLanguage(country, messageName)
+                    getTemplateLanguage(country, selectedMessageName)
                 )
             }
         };
@@ -154,11 +161,42 @@ export default function getDevAccountDetails({ account, amount, buyerCountry }) 
     if (devAccountMapV2[account]) {
         const { country, modalViews, messageThresholds, offers } = devAccountMapV2[account];
         const selectedMessage = selectMessageThreshold(messageThresholds, amount);
+        const morsVarsByProduct = Object.entries(offers).reduce((mappedVars, [productName, productOffers]) => {
+            const selectedOffer = selectBestOffer(productOffers, amount);
 
-        const messageTemplate =
-            buyerCountry && buyerCountry !== country && selectedMessage.templateXB
-                ? fs.readFileSync(`${CONTENT_PATH}/messages/${country}/${selectedMessage.templateXB}`, 'utf8')
-                : fs.readFileSync(`${CONTENT_PATH}/messages/${country}/${selectedMessage.template}`, 'utf8');
+            if (!selectedOffer) {
+                return mappedVars;
+            }
+
+            return {
+                ...mappedVars,
+                [productName]: getMorsVars(country, selectedOffer, amount)
+            };
+        }, {});
+        const shouldUseXBTemplate = buyerCountry && buyerCountry !== country;
+        const selectedTemplateName = (() => {
+            // templateV2/templateXBV2 are only needed when the v2 filename differs.
+            // Otherwise the same template name is resolved from content/messages/v2 via messageBasePath.
+            if (useV2MessageContent) {
+                if (shouldUseXBTemplate && selectedMessage.templateXBV2) {
+                    return selectedMessage.templateXBV2;
+                }
+
+                if (selectedMessage.templateV2) {
+                    return selectedMessage.templateV2;
+                }
+            }
+
+            if (shouldUseXBTemplate && selectedMessage.templateXB) {
+                return selectedMessage.templateXB;
+            }
+
+            return selectedMessage.template;
+        })();
+        const messageBasePath = useV2MessageContent ? `${CONTENT_PATH}/messages/v2` : `${CONTENT_PATH}/messages`;
+        const messageTemplatePath = `${messageBasePath}/${country}/${selectedTemplateName}`;
+        // Temporary strict mode for v2 validation: do not fallback to legacy (v1) content.
+        const messageTemplate = fs.readFileSync(messageTemplatePath, 'utf8');
 
         return {
             country,
@@ -199,8 +237,9 @@ export default function getDevAccountDetails({ account, amount, buyerCountry }) 
                     country,
                     selectBestOffer(offers[selectedMessage.product], amount),
                     amount,
-                    getTemplateLanguage(country, selectedMessage.template)
-                )
+                    getTemplateLanguage(country, selectedTemplateName)
+                ),
+                morsVarsByProduct
             }
         };
     }

@@ -1,0 +1,75 @@
+{
+    "id": "a934c1c0-627c-4a44-8fd9-18e506a88ae7",
+    "type": "PLLT_NQ_EZ",
+    "offer_types": ["PAY_LATER_LONG_TERM"],
+    "priority_rules": [
+        {
+            "type": "ELIGIBLE",
+            "min_amount": "${ctx.PAY_LATER_LONG_TERM.max_amount.value}",
+            "apr": "0.00",
+            "priority_score": 4.1
+        },
+        {
+            "type": "ELIGIBLE",
+            "apr": "0.00",
+            "priority_score": 2.1
+        }
+    ],
+    "content": {
+        "main_items": [
+            {
+                "type": "IMAGE",
+                "name": "paypal_logo",
+                "source_url": "https://www.paypalobjects.com/upstream/assets/logos/v2/paypal_badge.svg",
+                "alternative_text": "PayPal"
+            },
+            {
+                "type": "TEXT",
+                "text": "0% eff. Jahreszins: Bezahlen Sie in bis zu "
+            },
+            {
+                "type": "TEXT_VARIABLE",
+                "name": "max_periodic_payment_count",
+                "text": "{PAY_LATER_LONG_TERM.max_periodic_payment_count}",
+                "text_path": "{PAY_LATER_LONG_TERM.preferred_offer.financing_code}.product.max_periodic_payment_count"
+            },
+            {
+                "type": "TEXT",
+                "text": " monatlichen Raten bei Einkäufen i.H.v. "
+            },
+            {
+                "type": "TEXT_VARIABLE",
+                "name": "min_amount",
+                "text": "{PAY_LATER_LONG_TERM.min_amount.formatted_value}",
+                "text_path": "{PAY_LATER_LONG_TERM.preferred_offer.financing_code}.min_amount.formatted_value"
+            },
+            {
+                "type": "TEXT",
+                "text": "-"
+            },
+            {
+                "type": "TEXT_VARIABLE",
+                "name": "max_amount",
+                "text": "{PAY_LATER_LONG_TERM.max_amount.formatted_value}",
+                "text_path": "{PAY_LATER_LONG_TERM.preferred_offer.financing_code}.max_amount.formatted_value"
+            },
+            {
+                "type": "TEXT",
+                "text": "."
+            }
+        ],
+        "disclaimer_items": [
+            {
+                "type": "TEXT",
+                "text": "Nur mit dt. PayPal Konto."
+            }
+        ],
+        "action_items": [
+            {
+                "type": "LINK",
+                "text": "Mehr erfahren",
+                "click_url": "{click_url}"
+            }
+        ]
+    }
+}

@@ -23,6 +23,11 @@ const toMatchFlexSnapshot = configureToMatchImageSnapshot({
 
 expect.extend({ toMatchTextSnapshot, toMatchFlexSnapshot });
 
+const isV2RendererMode = () => process.env.BANNER_SNAPSHOT_MODE === 'v2Renderer';
+
+const getBannerSnapshotRoot = () =>
+    isV2RendererMode() ? './tests/functional/snapshots/v2Renderer' : './tests/functional/snapshots';
+
 const getConfigStrParts = (obj, keyPrefix = '') => {
     return Object.entries(obj).reduce((accumulator, [key, val]) => {
         const totalKey = keyPrefix === '' ? key : `${keyPrefix}.${key}`;
@@ -51,26 +56,69 @@ const waitForBanner = async ({ testName, timeout, config }) => {
         const polling = 100;
         // Must pass into the page function — closures are not available in waitForFunction.
         const useIframeBodyDimensions = Boolean(config?.style?.text?.align);
+        // Outer-page measurement for v2Renderer flex: Puppeteer headless doesn't propagate
+        // CSS-driven iframe viewport resizes into the iframe context.
+        const isFlexLayout = isV2RendererMode() && config?.style?.layout === 'flex';
+
+        // v2Renderer flex uses a 2-step approach: sync poll (Puppeteer 2.x async predicates don't
+        // retry) + async evaluate for outer-page iframe dimensions. Legacy uses the original single
+        // async waitForFunction to preserve exact screenshot timing.
+        if (isFlexLayout) {
+            await page.waitForFunction(
+                ({ bannerSelectors, _testName, _timeout, startedAt }) => {
+                    if (Date.now() - startedAt >= _timeout - 2000 && !window.__waitForBannerLogged) {
+                        window.__waitForBannerLogged = true;
+                        // eslint-disable-next-line no-console
+                        console.info(`waitForBanner innerHTML for failed test [${_testName}]`, document.body.innerHTML);
+                    }
+                    const iframe = document.querySelector(bannerSelectors.iframeByAttribute);
+                    return Boolean(iframe && iframe.clientHeight > 0);
+                },
+                { polling, timeout },
+                { bannerSelectors: selectors.banner, _testName: testName, _timeout: timeout, startedAt: Date.now() }
+            );
+            return await page.evaluate(
+                async ({ bannerSelectors }) => {
+                    const iframe = document.querySelector(bannerSelectors.iframeByAttribute);
+                    if (!iframe) return { height: null, width: null };
+                    const measureDoc = iframe.contentDocument || iframe.contentWindow?.document;
+                    if (measureDoc?.fonts?.ready) await measureDoc.fonts.ready;
+                    const incompleteImages = Array.from(measureDoc?.images || []).filter(img => !img.complete);
+                    if (incompleteImages.length > 0) {
+                        await Promise.all(
+                            incompleteImages.map(
+                                img =>
+                                    new Promise(resolve => {
+                                        img.addEventListener('load', resolve, { once: true });
+                                        img.addEventListener('error', resolve, { once: true });
+                                    })
+                            )
+                        );
+                    }
+                    await new Promise(resolve => {
+                        requestAnimationFrame(() => requestAnimationFrame(resolve));
+                    });
+                    return { height: iframe.clientHeight, width: iframe.clientWidth };
+                },
+                { bannerSelectors: selectors.banner }
+            );
+        }
+
         const result = await page.waitForFunction(
-            async ({ bannerSelectors, _testName, _timeout, useIframeBodyDimensions: useBodyDims, startedAt }) => {
+            async ({ bannerSelectors, useBodyDims, _testName, _timeout, startedAt }) => {
                 if (Date.now() - startedAt >= _timeout - 2000 && !window.__waitForBannerLogged) {
                     window.__waitForBannerLogged = true;
                     // eslint-disable-next-line no-console
                     console.info(`waitForBanner innerHTML for failed test [${_testName}]`, document.body.innerHTML);
                 }
 
-                let measureEl = null;
-                let measureDoc = null;
-
                 const iframe = document.querySelector(bannerSelectors.iframeByAttribute);
+                let measureEl;
+                let measureDoc;
                 if (iframe) {
-                    // Iframe can exist before its document/body is ready; do not throw.
                     const iframeDoc = iframe.contentDocument || iframe.contentWindow?.document;
                     const iframeBody = iframeDoc?.body;
-                    if (!iframeBody) {
-                        return false;
-                    }
-
+                    if (!iframeBody) return false;
                     measureDoc = iframeDoc;
                     measureEl = useBodyDims ? iframeBody : iframeBody.querySelector(bannerSelectors.container);
                 } else {
@@ -78,16 +126,10 @@ const waitForBanner = async ({ testName, timeout, config }) => {
                     measureDoc = document;
                 }
 
-                if (!measureEl || measureEl.clientHeight <= 0) {
-                    return false;
-                }
+                if (!measureEl || measureEl.clientHeight <= 0) return false;
 
-                // Wait for screenshot-affecting resources before treating the banner as ready.
-                if (measureDoc.fonts?.ready) {
-                    await measureDoc.fonts.ready;
-                }
-
-                const incompleteImages = Array.from(measureDoc.images || []).filter(img => !img.complete);
+                if (measureDoc?.fonts?.ready) await measureDoc.fonts.ready;
+                const incompleteImages = Array.from(measureDoc?.images || []).filter(img => !img.complete);
                 if (incompleteImages.length > 0) {
                     await Promise.all(
                         incompleteImages.map(
@@ -100,41 +142,23 @@ const waitForBanner = async ({ testName, timeout, config }) => {
                     );
                 }
 
-                const first = {
-                    height: measureEl.clientHeight,
-                    width: measureEl.clientWidth
-                };
-
+                const first = { height: measureEl.clientHeight, width: measureEl.clientWidth };
                 await new Promise(resolve => {
-                    requestAnimationFrame(() => {
-                        requestAnimationFrame(resolve);
-                    });
+                    requestAnimationFrame(() => requestAnimationFrame(resolve));
                 });
-
-                const second = {
-                    height: measureEl.clientHeight,
-                    width: measureEl.clientWidth
-                };
-
-                if (second.height <= 0 || first.height !== second.height || first.width !== second.width) {
-                    return false;
-                }
-
+                const second = { height: measureEl.clientHeight, width: measureEl.clientWidth };
+                if (second.height <= 0 || first.height !== second.height || first.width !== second.width) return false;
                 return second;
             },
-            {
-                polling,
-                timeout
-            },
+            { polling, timeout },
             {
                 bannerSelectors: selectors.banner,
+                useBodyDims: useIframeBodyDimensions,
                 _testName: testName,
                 _timeout: timeout,
-                useIframeBodyDimensions,
                 startedAt: Date.now()
             }
         );
-
         return await result.jsonValue();
     } catch (error) {
         console.warn(`waitForBanner error for [${testName}]`, error); // eslint-disable-line no-console
@@ -206,7 +230,8 @@ const runWithPageRecovery = async runner => {
 
 export default function createBannerTest(locale, testPage = 'banner.html') {
     return (viewport, config) => {
-        const testNameParts = getTestNameParts(locale, config);
+        const bannerConfig = config;
+        const testNameParts = getTestNameParts(locale, bannerConfig);
         const testName = testNameParts.join('/');
         test(testName, async () => {
             await runWithPageRecovery(async () => {
@@ -228,7 +253,9 @@ export default function createBannerTest(locale, testPage = 'banner.html') {
 
                 logTestName({ testName, viewport });
 
-                await setupPageForBanner(viewport, config, testPage);
+                // Route through the v2 renderer when in v2Renderer mode.
+                const pageConfig = isV2RendererMode() ? { ...config, features: 'useRenderV2Message' } : config;
+                await setupPageForBanner(viewport, pageConfig, testPage);
 
                 const bannerDimensions = await waitForBanner({ testName, timeout: 10 * 1000, config });
                 expect(bannerDimensions.height).toBeGreaterThan(0);
@@ -257,7 +284,7 @@ export default function createBannerTest(locale, testPage = 'banner.html') {
                 const customSnapshotIdentifier = `${testNameParts.pop()}-${viewport.width}-snap`;
                 expect(image)[matchFunction]({
                     diffDirection: snapshotDimensions.width > snapshotDimensions.height ? 'vertical' : 'horizontal',
-                    customSnapshotsDir: ['./tests/functional/snapshots', ...testNameParts].join('/'),
+                    customSnapshotsDir: [getBannerSnapshotRoot(), ...testNameParts].join('/'),
                     customSnapshotIdentifier
                 });
             });

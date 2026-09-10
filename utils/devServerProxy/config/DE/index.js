@@ -23,6 +23,24 @@ export default {
                 amount: 0,
                 template: 'generic.json',
                 product: 'PRODUCT_LIST'
+            },
+            {
+                amount: 1,
+                template: 'pi30q.json',
+                templateV2: 'pay_in_1_q.json',
+                product: 'PAY_LATER_PAY_IN_1'
+            },
+            {
+                amount: 99,
+                template: 'gplq_gtz.json',
+                templateV2: 'long_term_multi_gtz.json',
+                product: 'PAY_LATER_LONG_TERM'
+            },
+            {
+                amount: 5000.01,
+                template: 'gpl_gtz.json',
+                templateV2: 'long_term_nq_gtz.json',
+                product: 'PAY_LATER_LONG_TERM'
             }
         ],
         offers: {
@@ -79,16 +97,19 @@ export default {
             {
                 amount: 0.01,
                 template: 'pi30nq.json',
+                templateV2: 'pay_in_1_nq.json',
                 product: 'PAY_LATER_PAY_IN_1'
             },
             {
                 amount: 1,
                 template: 'pi30q.json',
+                templateV2: 'pay_in_1_q.json',
                 product: 'PAY_LATER_PAY_IN_1'
             },
             {
                 amount: 2000.01,
                 template: 'pi30nq.json',
+                templateV2: 'pay_in_1_nq.json',
                 product: 'PAY_LATER_PAY_IN_1'
             }
         ],
@@ -116,16 +137,19 @@ export default {
             {
                 amount: 0.01,
                 template: 'pi30nq.json',
+                templateV2: 'pay_in_1_nq.json',
                 product: 'PAY_LATER_PAY_IN_1'
             },
             {
                 amount: 1,
                 template: 'pi30q.json',
+                templateV2: 'pay_in_1_q.json',
                 product: 'PAY_LATER_PAY_IN_1'
             },
             {
                 amount: 2000.01,
                 template: 'pi30nq.json',
+                templateV2: 'pay_in_1_nq.json',
                 product: 'PAY_LATER_PAY_IN_1'
             }
         ],
@@ -154,16 +178,19 @@ export default {
             {
                 amount: 0,
                 template: 'gpl_gtz.json',
+                templateV2: 'long_term_nq_gtz.json',
                 product: 'PAY_LATER_LONG_TERM'
             },
             {
                 amount: 99,
                 template: 'gplq_gtz.json',
+                templateV2: 'long_term_multi_gtz.json',
                 product: 'PAY_LATER_LONG_TERM'
             },
             {
                 amount: 5000.01,
                 template: 'gpl_gtz.json',
+                templateV2: 'long_term_nq_gtz.json',
                 product: 'PAY_LATER_LONG_TERM'
             }
         ],
@@ -213,16 +240,19 @@ export default {
             {
                 amount: 0,
                 template: 'gpl_gtz.json',
+                templateV2: 'long_term_nq_gtz.json',
                 product: 'PAY_LATER_LONG_TERM'
             },
             {
                 amount: 99,
                 template: 'gplq_gtz.json',
+                templateV2: 'long_term_multi_gtz.json',
                 product: 'PAY_LATER_LONG_TERM'
             },
             {
                 amount: 5000.01,
                 template: 'gpl_gtz.json',
+                templateV2: 'long_term_nq_gtz.json',
                 product: 'PAY_LATER_LONG_TERM'
             }
         ],
@@ -272,16 +302,19 @@ export default {
             {
                 amount: 0,
                 template: 'gpl_eqz.json',
+                templateV2: 'long_term_nq_eqz.json',
                 product: 'PAY_LATER_LONG_TERM'
             },
             {
                 amount: 99,
                 template: 'gplq_eqz.json',
+                templateV2: 'long_term_multi_eqz.json',
                 product: 'PAY_LATER_LONG_TERM'
             },
             {
                 amount: 5000.01,
                 template: 'gpl_eqz.json',
+                templateV2: 'long_term_nq_eqz.json',
                 product: 'PAY_LATER_LONG_TERM'
             }
         ],
@@ -331,16 +364,19 @@ export default {
             {
                 amount: 0,
                 template: 'gpl_eqz.json',
+                templateV2: 'long_term_nq_eqz.json',
                 product: 'PAY_LATER_LONG_TERM'
             },
             {
                 amount: 99,
                 template: 'gplq_eqz.json',
+                templateV2: 'long_term_multi_eqz.json',
                 product: 'PAY_LATER_LONG_TERM'
             },
             {
                 amount: 5000.01,
                 template: 'gpl_eqz.json',
+                templateV2: 'long_term_nq_eqz.json',
                 product: 'PAY_LATER_LONG_TERM'
             }
         ],

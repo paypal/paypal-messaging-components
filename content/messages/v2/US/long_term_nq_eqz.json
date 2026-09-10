@@ -1,0 +1,59 @@
+{
+    "id": "ebff62e6-2116-407d-a671-3646f2305c22",
+    "type": "PLLT_NQ_EZ",
+    "offer_types": ["PAY_LATER_LONG_TERM"],
+    "priority_rules": [
+        {
+            "type": "ELIGIBLE",
+            "apr": "0.00",
+            "min_amount": "${ctx.PAY_LATER_LONG_TERM.max_amount.value}",
+            "priority_score": 5.6
+        },
+        {
+            "type": "ELIGIBLE",
+            "apr": "0.00",
+            "priority_score": 1.1
+        }
+    ],
+    "content": {
+        "main_items": [
+            {
+                "type": "IMAGE",
+                "name": "paypal_logo",
+                "source_url": "https://www.paypalobjects.com/upstream/assets/logos/v2/paypal_badge.svg",
+                "alternative_text": "PayPal"
+            },
+            {
+                "type": "TEXT",
+                "text": "Pay monthly at 0% APR for purchases of "
+            },
+            {
+                "type": "TEXT_VARIABLE",
+                "name": "min_amount",
+                "text": "{PAY_LATER_LONG_TERM.min_amount.formatted_value}",
+                "text_path": "{PAY_LATER_LONG_TERM.preferred_offer.financing_code}.product.min_amount.formatted_value"
+            },
+            {
+                "type": "TEXT",
+                "text": "-"
+            },
+            {
+                "type": "TEXT_VARIABLE",
+                "name": "max_amount",
+                "text": "{PAY_LATER_LONG_TERM.max_amount.formatted_value}",
+                "text_path": "{PAY_LATER_LONG_TERM.preferred_offer.financing_code}.product.max_amount.formatted_value"
+            },
+            {
+                "type": "TEXT",
+                "text": "."
+            }
+        ],
+        "action_items": [
+            {
+                "type": "LINK",
+                "text": "Learn more",
+                "click_url": "{click_url}"
+            }
+        ]
+    }
+}

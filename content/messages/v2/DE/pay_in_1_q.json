@@ -1,0 +1,38 @@
+{
+    "id": "a4a02246-2b63-4c95-a198-e4e3ce6238fc",
+    "type": "PLP1_SQ",
+    "offer_types": ["PAY_LATER_PAY_IN_1"],
+    "priority_rules": [
+        {
+            "type": "QUALIFYING",
+            "priority_score": 7
+        }
+    ],
+    "content": {
+        "main_items": [
+            {
+                "type": "IMAGE",
+                "name": "paypal_logo",
+                "source_url": "https://www.paypalobjects.com/upstream/assets/logos/v2/paypal_badge.svg",
+                "alternative_text": "PayPal"
+            },
+            {
+                "type": "TEXT",
+                "text": "Bezahlen Sie nach 30 Tagen."
+            }
+        ],
+        "disclaimer_items": [
+            {
+                "type": "TEXT",
+                "text": "Nur mit dt. PayPal Konto."
+            }
+        ],
+        "action_items": [
+            {
+                "type": "LINK",
+                "text": "Mehr erfahren",
+                "click_url": "{click_url}"
+            }
+        ]
+    }
+}

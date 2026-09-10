@@ -1,0 +1,59 @@
+{
+    "id": "1a293c31-5533-4e4f-b366-229fc4d68f12",
+    "type": "PPCNI_NQ",
+    "offer_types": ["PAYPAL_CREDIT_NO_INTEREST"],
+    "priority_rules": [
+        {
+            "type": "ELIGIBLE",
+            "priority_score": 2
+        }
+    ],
+    "content": {
+        "main_items": [
+            {
+                "type": "IMAGE",
+                "name": "paypal_credit_logo",
+                "source_url": "https://www.paypalobjects.com/upstream/assets/logos/v2/paypal_credit_badge.svg",
+                "alternative_text": "PayPal Credit"
+            },
+            {
+                "type": "TEXT",
+                "text": "No Interest if paid in full in "
+            },
+            {
+                "type": "TEXT_VARIABLE",
+                "name": "periodic_payment_count",
+                "text": "{PAYPAL_CREDIT_NO_INTEREST.periodic_payment_count}",
+                "text_path": "{PAYPAL_CREDIT_NO_INTEREST.preferred_offer.financing_code}.periodic_payment_count"
+            },
+            {
+                "type": "TEXT",
+                "text": " months on all purchases of "
+            },
+            {
+                "type": "TEXT_VARIABLE",
+                "name": "min_amount",
+                "text": "{PAYPAL_CREDIT_NO_INTEREST.min_amount.formatted_value}",
+                "text_path": "{PAYPAL_CREDIT_NO_INTEREST.preferred_offer.financing_code}.min_amount.formatted_value"
+            },
+            {
+                "type": "TEXT",
+                "alternative_text": " or more.",
+                "text": "+."
+            }
+        ],
+        "disclaimer_items": [
+            {
+                "type": "TEXT",
+                "text": "US only."
+            }
+        ],
+        "action_items": [
+            {
+                "type": "LINK",
+                "text": "Learn more",
+                "click_url": "{click_url}"
+            }
+        ]
+    }
+}

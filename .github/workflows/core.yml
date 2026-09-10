@@ -57,5 +57,8 @@ jobs:
             - name: Run server
               run: ./.github/scripts/runServer.sh
 
-            - name: Functional Non-Snapshot Tests
+            - name: Functional Non-Snapshot Tests (legacy)
               run: npm run test:func:nosnaps
+
+            - name: Functional Non-Snapshot Tests (v2)
+              run: npm run test:func:nosnaps:v2

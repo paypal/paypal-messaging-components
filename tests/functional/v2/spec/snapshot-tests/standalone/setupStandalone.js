@@ -31,14 +31,13 @@ const setViewportWithRetry = async (viewport, maxRetries = 5) => {
     }
 };
 
-export const setupStandalone = async (viewport, account, amount) => {
+export const setupStandalone = async (viewport, account, amount, queryParams = {}) => {
     // Reset page between tests to get a clean state
     await resetPageSafely();
 
     await setViewportWithRetry(viewport);
-    await page.goto(
-        `https://localhost.paypal.com:8080/snapshot/v2/standalone-modal.html?account=${account}&amount=${amount}`
-    );
+    const params = new URLSearchParams({ account, amount, ...queryParams });
+    await page.goto(`https://localhost.paypal.com:8080/snapshot/v2/standalone-modal.html?${params.toString()}`);
     const learnMoreButton = await page.waitForSelector(standaloneLearnMore);
     await learnMoreButton.click();
 

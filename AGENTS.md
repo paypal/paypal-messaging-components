@@ -77,7 +77,7 @@
 
 ## Local gate (run before PR / handoff)
 
--   `nvm use` (Node 20)
+-   `nvm use` (uses the version in `.nvmrc`)
 -   `npm install`
 -   `npm run lint`
 -   `npm test` (unit tests; Jest)

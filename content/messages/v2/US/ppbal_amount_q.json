@@ -1,0 +1,35 @@
+{
+    "id": "f7a9c7e5-6f90-4c0a-8c36-3e9dbe8540bc",
+    "type": "PPBAL_AMOUNT",
+    "offer_types": ["PAYPAL_BALANCE"],
+    "priority_rules": [
+        {
+            "type": "ELIGIBLE",
+            "priority_score": 0
+        }
+    ],
+    "content": {
+        "main_items": [
+            {
+                "type": "IMAGE",
+                "name": "paypal_logo",
+                "source_url": "https://www.paypalobjects.com/upstream/assets/logos/v2/paypal_wordmark.svg",
+                "alternative_text": "PayPal"
+            },
+            {
+                "type": "TEXT",
+                "text": "Use your "
+            },
+            {
+                "type": "TEXT_VARIABLE",
+                "name": "paypal_balance_amount",
+                "text": "{PAYPAL_BALANCE.balance_amount.formatted_value}",
+                "text_path": "{PAYPAL_BALANCE}.balance_amount.formatted_value"
+            },
+            {
+                "type": "TEXT",
+                "text": "+ balance."
+            }
+        ]
+    }
+}
