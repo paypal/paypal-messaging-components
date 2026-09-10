@@ -200,6 +200,14 @@ export function primaryWrap(breakpoint) {
 }
 
 /**
+ * Allows the first disclaimer span (e.g. a regulatory caveat) to wrap onto multiple lines
+ * without forcing a following "Learn more" link span to wrap as well.
+ */
+export function disclaimerWrap() {
+    return `.message__disclaimer > span.multi:first-of-type { white-space: normal; }`;
+}
+
+/**
  * Used to hide "Learn more" disclaimer for fallback messages and disables pointer events on the message.
  * Specifically used in Buttons and Marks fallback messages where we do not want to show the "Learn more" disclaimer link.
  */

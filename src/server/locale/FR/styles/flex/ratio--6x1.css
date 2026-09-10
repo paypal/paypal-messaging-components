@@ -37,6 +37,9 @@
     .message__sub-headline {
         display: none;
     }
+    .message__disclaimer {
+        font-size: 0.7rem;
+    }
 }
 
 @media (max-aspect-ratio: 61/10) {
