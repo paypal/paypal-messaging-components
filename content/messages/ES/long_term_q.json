@@ -20,5 +20,13 @@
         [["Paga en hasta {total_payments} plazos"], ["small", "medium", "large", "xlarge"]]
     ],
     "subHeadline": [],
-    "disclaimer": [["Más información", ["default"]]]
+    "disclaimer": [
+        [
+            [
+                "Atención, un crédito es vinculante para ti y debe ser devuelto. Comprueba el coste del préstamo y tu capacidad de reembolso antes de comprometerte."
+            ],
+            ["large"]
+        ],
+        ["Más información", ["default"]]
+    ]
 }

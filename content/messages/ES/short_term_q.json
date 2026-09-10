@@ -22,6 +22,7 @@
 
     "disclaimer": [
         [["0% TAE."], ["xsmall"]],
+        [["Atención, un crédito puede tener un coste y debe ser devuelto."], ["large"]],
         [["Más información"], ["default"]]
     ]
 }

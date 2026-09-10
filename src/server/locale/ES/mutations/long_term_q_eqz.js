@@ -6,7 +6,8 @@ import {
     messageLogoWidth,
     setLogoTop,
     textWrap,
-    xSmallFallback
+    xSmallFallback,
+    disclaimerWrap
 } from '../../../message/mediaQueries';
 
 const headlineBreaks = [
@@ -42,7 +43,7 @@ export default {
                         tag: 'medium'
                     }
                 ],
-                disclaimer: ['default'],
+                disclaimer: ['large', 'default'],
                 styles: []
             }
         ],
@@ -66,10 +67,11 @@ export default {
             'default',
             ({ textSize }) => ({
                 styles: [
-                    textWrap(textSize * 37, textSize, 'ES'),
+                    textWrap(textSize * 57, textSize, 'ES'),
                     xSmallFallback(textSize * 18),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25),
                     setLogoTop(textSize * 16),
+                    disclaimerWrap(textSize * 11.5),
                     `.message__headline .br:nth-child(2) {
     font-weight: bold;
 }`
@@ -82,7 +84,7 @@ export default {
                     },
                     { tag: 'xsmall' }
                 ],
-                disclaimer: ['default']
+                disclaimer: ['large', 'default']
             })
         ],
         [
@@ -93,8 +95,9 @@ export default {
                         textSize * 18.5
                     }px) { .message__headline > .tag--medium > span > span:first-child { white-space: normal; } }`,
                     xSmallFallback(textSize * 16),
-                    setLogoTop(textSize * 37),
+                    setLogoTop(textSize * 55.5),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
+                    disclaimerWrap(textSize * 11.5),
                     `.message__headline .br:nth-child(2) {
     font-weight: bold;
 }`
@@ -117,6 +120,7 @@ export default {
                     }px) { .message__headline > .tag--medium > span > span:first-child { white-space: normal; } }`,
                     xSmallFallback(textSize * 16),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
+                    disclaimerWrap(textSize * 11.5),
                     `.message__headline .br:nth-child(2) {
     font-weight: bold;
 }`
@@ -135,10 +139,11 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     `@media screen and (max-width: ${textSize * 14}px) { .message__content { white-space: nowrap; }}`,
-                    textWrap(textSize * 33.5, textSize, 'ES'),
+                    textWrap(textSize * 57, textSize, 'ES'),
                     xSmallFallback(textSize * 14),
                     altNoWrap(textSize * 14),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25),
+                    disclaimerWrap(textSize * 11.5),
                     `.message__headline .br:nth-child(2) {
     font-weight: bold;
 }`

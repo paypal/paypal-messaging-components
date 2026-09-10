@@ -21,6 +21,23 @@
 
     .message__disclaimer {
         margin-left: 4px;
+        white-space: normal;
+    }
+
+    .message__disclaimer > span,
+    .message__disclaimer > span > span {
+        white-space: normal;
+    }
+
+    .message__disclaimer > span.tag--xsmall,
+    .message__disclaimer > span.tag--large {
+        font-size: 1.7vw;
+    }
+
+    .message__disclaimer > span.tag--default,
+    .message__disclaimer > span.tag--default > span {
+        white-space: nowrap;
+        font-size: 0.5rem;
     }
 }
 
@@ -80,13 +97,13 @@
 
 @media (min-aspect-ratio: 80/11) and (min-width: 351px) {
     .message__headline {
-        font-size: 3.5vw;
+        font-size: 1.7vw;
     }
 }
 
 @media (min-aspect-ratio: 80/11) and (max-width: 350px) {
     .message__headline {
-        font-size: 10px;
+        font-size: 1.7vw;
     }
 }
 

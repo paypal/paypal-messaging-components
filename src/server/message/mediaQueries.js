@@ -103,6 +103,24 @@ export function setLogoTop(breakpoint) {
 }
 
 /**
+ * Freezes the disclaimer's large tag at its current wrapped line count once the breakpoint
+ * is reached, instead of letting it keep re-wrapping into more lines as the width shrinks further.
+ * Also resets .message__disclaimer to white-space: normal so the default tag still shows on its own line.
+ */
+export function disclaimerWrap(breakpoint) {
+    return `@media screen and (max-width: ${breakpoint}px) {
+        .message__disclaimer {
+            white-space: normal;
+        }
+
+        .message__disclaimer > span.tag--large {
+            display: inline-block;
+            min-width: ${breakpoint}px;
+        }
+    }`;
+}
+
+/**
  * Used for message logo width configurations.
  * @param {number} logoContainerWidth Changes message logo container width.
  * @param {number} logoWidth Changes overall logo width.

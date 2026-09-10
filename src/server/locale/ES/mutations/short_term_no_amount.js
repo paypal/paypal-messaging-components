@@ -5,7 +5,8 @@ import {
     altNoWrap,
     setLogoTop,
     logo20x1,
-    xSmallFallback
+    xSmallFallback,
+    disclaimerWrap
 } from '../../../message/mediaQueries';
 import { textLogoMutations, flexLogoMutations } from '../../../message/logoMutations';
 
@@ -38,7 +39,7 @@ const flex = [
                     tag: 'medium'
                 }
             ],
-            disclaimer: ['default']
+            disclaimer: ['large', 'default']
         }
     ],
     [
@@ -64,10 +65,11 @@ export default {
             'default',
             ({ textSize }) => ({
                 styles: [
-                    textWrap(textSize * 33, textSize, 'ES'),
+                    textWrap(textSize * 98, textSize, 'ES'),
                     xSmallFallback(textSize * 16),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25),
-                    setLogoTop(textSize * 16)
+                    setLogoTop(textSize * 16),
+                    disclaimerWrap(textSize * 18)
                 ],
                 logo: Logo.PP_PAYPAL.COLOR,
                 headline: [
@@ -76,7 +78,7 @@ export default {
                         br: ['ahora y']
                     }
                 ],
-                disclaimer: ['default']
+                disclaimer: ['large', 'default']
             })
         ],
         [
@@ -84,8 +86,9 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     xSmallFallback(textSize * 17.4),
-                    setLogoTop(textSize * 41.5),
-                    messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
+                    setLogoTop(textSize * 98),
+                    messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
+                    disclaimerWrap(textSize * 18)
                 ],
                 headline: [
                     {
@@ -100,7 +103,8 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     xSmallFallback(textSize * 17.4),
-                    messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
+                    messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
+                    disclaimerWrap(textSize * 18)
                 ],
                 headline: [
                     {
@@ -115,10 +119,11 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     `@media screen and (max-width: ${textSize * 10.6}px) { .message__content { white-space: nowrap; }}`,
-                    textWrap(textSize * 36.5, textSize, 'ES'),
+                    textWrap(textSize * 95, textSize, 'ES'),
                     xSmallFallback(textSize * 17.75),
                     altNoWrap(textSize * 10.6),
-                    messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25)
+                    messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25),
+                    disclaimerWrap(textSize * 18)
                 ],
                 logo: Logo.PP_PAYPAL.COLOR[0],
                 headline: [
