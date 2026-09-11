@@ -18,7 +18,7 @@ import { flexLogoMutations, textLogoMutations } from '../../../../message/logoMu
 const headlineBreaks = [
     {
         sizes: ['medium'],
-        breaks: ['monatlichen']
+        breaks: ['bei']
     }
 ].reduce((acc, item) => {
     const { sizes, breaks } = item;
@@ -44,7 +44,7 @@ const flex = [
                     tag: 'medium'
                 }
             ],
-            disclaimer: ['default']
+            disclaimer: ['large', 'default']
         }
     ],
     [
@@ -61,12 +61,18 @@ const flex = [
                 addPeriod(),
                 `@media (min-aspect-ratio: 60 / 11) and (max-width: 374px) {
                 .message__headline {
-                    font-size: 4.5vw;
+                    font-size: 2vw;
+                }
+                .message__disclaimer > span.tag--large {
+                    font-size: 2vw;
                 }
             }`,
                 `@media (min-aspect-ratio: 60/11) and (max-width: 323px) {
                 .message__headline {
-                    font-size: 4.5vw;
+                    font-size: 2vw;
+                }
+                .message__disclaimer > span.tag--large {
+                    font-size: 2vw;
                 }
             }`
             ],
@@ -97,7 +103,7 @@ export default {
             'default',
             ({ textSize }) => ({
                 styles: [
-                    textWrap(textSize * 55, textSize, 'AT'),
+                    textWrap(textSize * 67.5, textSize, 'AT'),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25),
                     setLogoTop(textSize * 20),
                     addPeriod(),
@@ -113,7 +119,7 @@ export default {
                     },
                     { tag: 'xsmall' }
                 ],
-                disclaimer: ['default']
+                disclaimer: ['large', 'default']
             })
         ],
         [
@@ -121,7 +127,7 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     xSmallFallback(textSize * 20),
-                    setLogoTop(textSize * 48),
+                    setLogoTop(textSize * 67.5),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
                     addPeriod()
                 ]
@@ -131,6 +137,7 @@ export default {
             'logo.type:primary && logo.position:top',
             ({ textSize }) => ({
                 styles: [
+                    textWrap(textSize * 26.87, textSize, 'AT'),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
                     addPeriod(),
                     xSmallFallback(textSize * 20)
@@ -144,7 +151,7 @@ export default {
                     `@media screen and (max-width: ${
                         textSize * 14
                     }px) { .message__headline > .tag--xsmall > span:first-child { white-space: normal;}}`,
-                    textWrap(textSize * 55, textSize, 'AT'),
+                    textWrap(textSize * 63, textSize, 'AT'),
                     altNoWrap(textSize * 10.6),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25),
                     addPeriod(),

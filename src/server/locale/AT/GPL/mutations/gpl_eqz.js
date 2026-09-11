@@ -10,7 +10,7 @@ const headlineBreaks = [
     },
     {
         sizes: ['medium'],
-        breaks: ['Sie in', 'Einkäufen']
+        breaks: ['monatlichen', 'Einkäufen']
     }
 ].reduce((acc, item) => {
     const { sizes, breaks } = item;
@@ -36,7 +36,7 @@ const flex = [
                     tag: 'medium'
                 }
             ],
-            disclaimer: ['default']
+            disclaimer: ['large', 'default']
         }
     ],
     [
@@ -59,12 +59,18 @@ const flex = [
                 }`,
                 `@media (min-aspect-ratio: 60 / 11) and (max-width: 374px) {
                     .message__headline {
-                        font-size: 4.5vw;
+                        font-size: 2vw;
+                    }
+                    .message__disclaimer > span.tag--large {
+                        font-size: 2vw;
                     }
                 }`,
                 `@media (min-aspect-ratio: 60/11) and (max-width: 323px) {
                     .message__headline {
-                        font-size: 4.5vw;
+                        font-size: 2vw;
+                    }
+                    .message__disclaimer > span.tag--large {
+                        font-size: 2vw;
                     }
                 }`
             ],
@@ -103,7 +109,7 @@ export default {
             'default',
             ({ textSize }) => ({
                 styles: [
-                    textWrap(textSize * 55, textSize, 'AT'),
+                    textWrap(textSize * 85.5, textSize, 'AT'),
                     xSmallFallback(textSize * 15),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25),
                     setLogoTop(textSize * 20),
@@ -123,7 +129,7 @@ export default {
                     },
                     { tag: 'xsmall', br: ['verfügbar.'] }
                 ],
-                disclaimer: ['default']
+                disclaimer: ['large', 'default']
             })
         ],
         [
@@ -131,7 +137,7 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     xSmallFallback(textSize * 15),
-                    setLogoTop(textSize * 53),
+                    setLogoTop(textSize * 84.5),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
                     `.message__headline > .tag--medium > span > span:last-child::after {
                         content: '.'
@@ -168,7 +174,7 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     `@media screen and (max-width: ${textSize * 15.5}px) { .message__content { white-space: nowrap; }}`,
-                    textWrap(textSize * 55, textSize, 'AT'),
+                    textWrap(textSize * 79, textSize, 'AT'),
                     xSmallFallback(textSize * 15.5),
                     altNoWrap(textSize * 15.5),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25),

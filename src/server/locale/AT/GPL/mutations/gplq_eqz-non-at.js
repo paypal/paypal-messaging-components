@@ -10,7 +10,7 @@ const headlineBreaks = [
     },
     {
         sizes: ['medium'],
-        breaks: ['Jahreszins: ab']
+        breaks: ['- pro, .']
     }
 ].reduce((acc, item) => {
     const { sizes, breaks } = item;
@@ -36,23 +36,13 @@ const flex = [
                     tag: 'medium'
                 }
             ],
-            disclaimer: ['extra', 'default']
+            disclaimer: ['large', 'extra', 'default']
         }
     ],
     [
         'ratio:20x1',
         {
             styles: [
-                `@media (min-aspect-ratio: 200/11) {
-                    .message__headline {
-                        font-size: 2vw;
-                    }
-                }`,
-                `@media (min-aspect-ratio: 60 / 11) and (max-width: 374px) {
-                    .message__headline {
-                        font-size: 4vw;
-                    }
-                }`,
                 `@media (min-aspect-ratio: 200 / 11) and (max-width: 650px) {
                     .message__disclaimer > .tag--extra > span {
                         margin-right: 2px;
@@ -71,12 +61,12 @@ const flex = [
             styles: [
                 `@media (min-aspect-ratio: 60 / 11) and (max-width: 374px) {
                     .message__headline {
-                        font-size: 4vw;
+                        font-size: 2vw;
                     }
                 }`,
                 `@media (min-aspect-ratio: 60/11) and (max-width: 323px) {
                 .message__headline {
-                    font-size: 4vw;
+                    font-size: 2vw;
                 }
             }`
             ],
@@ -87,12 +77,17 @@ const flex = [
         'ratio:1x1',
         {
             styles: [
+                `.message__disclaimer > span.tag--extra {
+                    font-size: 4vw;
+                }`,
                 `@media (max-aspect-ratio: 11/10) and (max-width: 220px) {
-            .message__headline {
-                font-size: 8vw;
-            }
             .message__disclaimer {
                 font-size: 0.65rem;
+            }
+        }`,
+                `@media (max-aspect-ratio: 11/10) and (max-width: 150px) {
+            .message__disclaimer > span.tag--extra {
+                font-size: 5vw;
             }
         }`
             ],
@@ -120,14 +115,8 @@ export default {
             'default',
             ({ textSize }) => ({
                 styles: [
-                    textWrap(textSize * 42.6, textSize, 'AT'),
-                    // Wrapping of mehr erfahren separate from PayPal Konto.
-                    `@media screen and (max-width: ${
-                        textSize * 19.5
-                    }px) { .message__messaging > .message__disclaimer > .tag--default { content: ''; display: block; }}`,
-                    `@media screen and (max-width: ${
-                        textSize * 19.45
-                    }px) { .locale--AT .message__messaging { display: inline-block; } }`,
+                    textWrap(textSize * 70, textSize, 'AT'),
+                    crossBorderDisclaimerWrap(textSize * 32.2, textSize * 39, textSize * 23.5, textSize * 19.45),
                     xSmallFallback(textSize * 13.8),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25),
                     setLogoTop(textSize * 20),
@@ -141,16 +130,16 @@ export default {
                     },
                     { tag: 'xsmall', br: ['verfügbar.'] }
                 ],
-                disclaimer: ['extra', 'default']
+                disclaimer: ['large', 'extra', 'default']
             })
         ],
         [
             'logo.type:primary && logo.position:right',
             ({ textSize }) => ({
                 styles: [
-                    crossBorderDisclaimerWrap(textSize * 32.2, textSize * 39, textSize * 20.5, textSize * 19.45),
+                    crossBorderDisclaimerWrap(textSize * 32.2, textSize * 39, textSize * 23.5, textSize * 19.45),
                     xSmallFallback(textSize * 17.08),
-                    setLogoTop(textSize * 45.5),
+                    setLogoTop(textSize * 70),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
                     xSmallNoWrap(textSize * 17.08)
                 ]
@@ -164,7 +153,7 @@ export default {
                     `@media screen and (max-width: ${
                         textSize * 17.25
                     }px) { .locale--AT .message__headline > .tag--medium > span > span { white-space: nowrap; }}`,
-                    crossBorderDisclaimerWrap(textSize * 32.2, textSize * 39, textSize * 20.5, textSize * 19.45),
+                    crossBorderDisclaimerWrap(textSize * 32.2, textSize * 39, textSize * 23.5, textSize * 19.45),
                     xSmallFallback(textSize * 13.5),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
                     xSmallNoWrap(textSize * 13.5)
@@ -176,8 +165,8 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     `@media screen and (max-width: ${textSize * 15}px) { .message__content { white-space: nowrap; }}`,
-                    crossBorderDisclaimerWrap(textSize * 33.2, textSize * 40.75, textSize * 19.6, textSize * 15),
-                    textWrap(textSize * 41, textSize, 'AT'),
+                    crossBorderDisclaimerWrap(textSize * 33.2, textSize * 40.75, textSize * 23.5, textSize * 15),
+                    textWrap(textSize * 68, textSize, 'AT'),
                     altNoWrap(textSize * 10.6),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25),
                     xSmallFallback(textSize * 15)

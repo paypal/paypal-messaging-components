@@ -1,6 +1,6 @@
 @media (min-aspect-ratio: 80/11) {
     .message__headline {
-        font-size: 3vw;
+        font-size: 2vw;
         display: inline;
         line-height: 1.2em;
     }
@@ -14,8 +14,11 @@
         display: inline;
     }
     .message__disclaimer {
-        font-size: 2vw;
+        font-size: 1.5vw;
         display: block;
+    }
+    .message__disclaimer > span.tag--large {
+        font-size: 2vw;
     }
 }
 @media (min-aspect-ratio: 80 / 11) and (min-width: 501px) {
@@ -32,7 +35,16 @@
         width: 50%;
     }
     .message__disclaimer {
-        font-size: 0.9rem;
+        font-size: 1vw;
+    }
+    .message__disclaimer > span.tag--large {
+        font-size: 2vw;
+    }
+    .message__disclaimer > span.tag--extra {
+        font-size: 1.5vw;
+    }
+    .tag--default {
+        font-size: 1.5vw;
     }
 }
 @media (min-aspect-ratio: 80 / 11) and (max-width: 250px) {
@@ -49,17 +61,25 @@
     }
     .message__messaging {
         font-size: 0.6rem;
-        padding: 2px 0;
+        padding: 0 2px;
         height: 200%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
     }
     .message__headline {
-        font-size: 4.5vw;
+        font-size: 2.5vw;
+        position: relative;
+        top: 0;
     }
     .message__disclaimer {
-        line-height: 15px;
+        line-height: 10px;
+    }
+    .message__disclaimer > span.tag--large {
+        font-size: 2.5vw;
     }
     .tag--default {
-        font-size: 0.7rem;
+        font-size: 0.3rem;
     }
     .message__promo-container {
         margin-right: 6px;

@@ -20,7 +20,7 @@ import { flexLogoMutations, textLogoMutations } from '../../../../message/logoMu
 const headlineBreaks = [
     {
         sizes: ['medium'],
-        breaks: ['monatlichen']
+        breaks: ['bei']
     }
 ].reduce((acc, item) => {
     const { sizes, breaks } = item;
@@ -46,7 +46,7 @@ const flex = [
                     tag: 'medium'
                 }
             ],
-            disclaimer: ['extra', 'default']
+            disclaimer: ['large', 'extra', 'default']
         }
     ],
     [
@@ -54,16 +54,6 @@ const flex = [
         {
             styles: [
                 addPeriod(),
-                `@media (min-aspect-ratio: 60 / 11) and (max-width: 374px) {
-                    .message__headline {
-                        font-size: 4vw;
-                    }
-                }`,
-                `@media (min-aspect-ratio: 60/11) and (max-width: 323px) {
-                    .message__headline span.tag--xsmall {
-                        font-size: 3.5vw;
-                    }
-                }`,
                 `@media (min-aspect-ratio: 200 / 11) and (max-width: 650px) {
                     .message__disclaimer > .tag--extra > span {
                         margin-right: 2px;
@@ -83,12 +73,12 @@ const flex = [
                 addPeriod(),
                 `@media (min-aspect-ratio: 60 / 11) and (max-width: 374px) {
                 .message__headline {
-                    font-size: 4vw;
+                    font-size: 2vw;
                 }
             }`,
                 `@media (min-aspect-ratio: 60/11) and (max-width: 323px) {
                 .message__headline {
-                    font-size: 3.5vw;
+                    font-size: 2vw;
                 }
             }`
             ],
@@ -100,18 +90,20 @@ const flex = [
         {
             styles: [
                 addPeriod(),
-                `.message__headline {
-                font-size: 7vw;
+                `.message__disclaimer > span.tag--extra {
+                font-size: 4vw;
             }`,
                 `.message__headline > .tag--medium > span > span:last-child::after {
             content: '.'
         }`,
                 `@media (max-aspect-ratio: 11/10) and (max-width: 220px) {
-            .message__headline {
-                font-size: 8vw;
-            }
             .message__disclaimer {
                 font-size: 0.65rem;
+            }
+        }`,
+                `@media (max-aspect-ratio: 11/10) and (max-width: 150px) {
+            .message__disclaimer > span.tag--extra {
+                font-size: 5vw;
             }
         }`
             ],
@@ -140,12 +132,12 @@ export default {
             'default',
             ({ textSize }) => ({
                 styles: [
-                    textWrap(textSize * 58.5, textSize, 'AT'),
+                    textWrap(textSize * 82.5, textSize, 'AT'),
                     crossBorderDisclaimerWrap(textSize * 21.4, textSize * 30.4, textSize * 21.4, textSize * 15),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25),
                     setLogoTop(textSize * 20),
                     addPeriod(),
-                    xSmallFallback(textSize * 16.5),
+                    xSmallFallback(textSize * 26.5),
                     xSmallNoWrap(textSize * 16.5),
                     primaryWrap(textSize * 15.4)
                 ],
@@ -157,7 +149,7 @@ export default {
                     },
                     { tag: 'xsmall' }
                 ],
-                disclaimer: ['extra', 'default']
+                disclaimer: ['large', 'extra', 'default']
             })
         ],
         [
@@ -165,8 +157,8 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     crossBorderDisclaimerWrap(textSize * 21.4, textSize * 30.2, textSize * 21.4, textSize * 15),
-                    xSmallFallback(textSize * 19.08),
-                    setLogoTop(textSize * 59.2),
+                    xSmallFallback(textSize * 26.5),
+                    setLogoTop(textSize * 83.5),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
                     addPeriod()
                 ]
@@ -176,10 +168,10 @@ export default {
             'logo.type:primary && logo.position:top',
             ({ textSize }) => ({
                 styles: [
-                    crossBorderDisclaimerWrap(textSize * 25.2, textSize * 29, textSize * 20.5, textSize * 15),
+                    crossBorderDisclaimerWrap(textSize * 25.2, textSize * 29, textSize * 22.5, textSize * 15),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
                     addPeriod(),
-                    xSmallFallback(textSize * 19)
+                    xSmallFallback(textSize * 26.5)
                 ]
             })
         ],
@@ -187,11 +179,11 @@ export default {
             'logo.type:alternative',
             ({ textSize }) => ({
                 styles: [
-                    crossBorderDisclaimerWrap(textSize * 25.5, textSize * 29, textSize * 20.5, textSize * 15),
+                    crossBorderDisclaimerWrap(textSize * 25.5, textSize * 29, textSize * 24, textSize * 15),
                     `@media screen and (max-width: ${
                         textSize * 14
                     }px) { .message__headline > .tag--xsmall > span:first-child { white-space: normal;}}`,
-                    textWrap(textSize * 55, textSize, 'AT'),
+                    textWrap(textSize * 78.5, textSize, 'AT'),
                     altNoWrap(textSize * 10.6),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25),
                     addPeriod(),

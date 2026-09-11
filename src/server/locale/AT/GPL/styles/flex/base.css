@@ -64,6 +64,14 @@
     line-height: 1.5;
 }
 
+.message__disclaimer > .tag--large > span:only-child {
+    text-decoration: none;
+}
+
+.message__disclaimer > span.tag--large {
+    font-size: 3.5vw;
+}
+
 .message__promo-container {
     padding-right: 3px;
 }

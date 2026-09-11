@@ -10,7 +10,7 @@ const headlineBreaks = [
     },
     {
         sizes: ['medium'],
-        breaks: ['Sie in', 'Einkäufen']
+        breaks: ['monatlichen', 'Einkäufen']
     }
 ].reduce((acc, item) => {
     const { sizes, breaks } = item;
@@ -36,7 +36,7 @@ const flex = [
                     tag: 'medium'
                 }
             ],
-            disclaimer: ['extra', 'default']
+            disclaimer: ['large', 'extra', 'default']
         }
     ],
     [
@@ -45,16 +45,6 @@ const flex = [
             styles: [
                 `.message__headline > .tag--medium > span > span:last-child::after {
                     content: '.'
-                }`,
-                `@media (min-aspect-ratio: 200/11) {
-                    .message__headline {
-                        font-size: 1.7vw;
-                    }
-                }`,
-                `@media (min-aspect-ratio: 60 / 11) and (max-width: 374px) {
-                    .message__headline {
-                        font-size: 4vw;
-                    }
                 }`,
                 `@media (min-aspect-ratio: 200 / 11) and (max-width: 650px) {
                     .message__disclaimer > .tag--extra > span {
@@ -77,12 +67,12 @@ const flex = [
                 }`,
                 `@media (min-aspect-ratio: 60 / 11) and (max-width: 374px) {
                     .message__headline {
-                        font-size: 4vw;
+                        font-size: 2vw;
                     }
                 }`,
                 `@media (min-aspect-ratio: 60/11) and (max-width: 323px) {
                     .message__headline {
-                        font-size: 4vw;
+                        font-size: 2vw;
                     }
                 }`
             ],
@@ -93,18 +83,20 @@ const flex = [
         'ratio:1x1',
         {
             styles: [
-                `.message__headline {
-                    font-size: 7vw;
+                `.message__disclaimer > span.tag--extra {
+                    font-size: 4vw;
                 }`,
                 `.message__headline > .tag--medium > span > span:last-child::after {
                 content: '.'
             }`,
                 `@media (max-aspect-ratio: 11/10) and (max-width: 220px) {
-                .message__headline {
-                    font-size: 8vw;
-                }
                 .message__disclaimer {
                     font-size: 0.65rem;
+                }
+            }`,
+                `@media (max-aspect-ratio: 11/10) and (max-width: 150px) {
+                .message__disclaimer > span.tag--extra {
+                    font-size: 5vw;
                 }
             }`
             ],
@@ -135,9 +127,9 @@ export default {
             'default',
             ({ textSize }) => ({
                 styles: [
-                    textWrap(textSize * 62, textSize, 'AT'),
-                    crossBorderDisclaimerWrap(textSize * 27 + 1, textSize * 33, textSize * 21.1, textSize * 15),
-                    xSmallFallback(textSize * 15),
+                    textWrap(textSize * 98.5, textSize, 'AT'),
+                    crossBorderDisclaimerWrap(textSize * 27 + 1, textSize * 33, textSize * 23.5, textSize * 15),
+                    xSmallFallback(textSize * 24),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25),
                     setLogoTop(textSize * 20),
                     xSmallNoWrap(textSize * 14.2),
@@ -156,16 +148,16 @@ export default {
                     },
                     { tag: 'xsmall', br: ['verfügbar.'] }
                 ],
-                disclaimer: ['extra', 'default']
+                disclaimer: ['large', 'extra', 'default']
             })
         ],
         [
             'logo.type:primary && logo.position:right',
             ({ textSize }) => ({
                 styles: [
-                    crossBorderDisclaimerWrap(textSize * 26.4, textSize * 28.45, textSize * 21.1, textSize * 19),
-                    xSmallFallback(textSize * 19),
-                    setLogoTop(textSize * 61.75),
+                    crossBorderDisclaimerWrap(textSize * 26.4, textSize * 28.45, textSize * 23, textSize * 19),
+                    xSmallFallback(textSize * 25),
+                    setLogoTop(textSize * 99.5),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
                     `.message__headline > .tag--medium > span > span:last-child::after {
                         content: '.'
@@ -183,8 +175,8 @@ export default {
             'logo.type:primary && logo.position:top',
             ({ textSize }) => ({
                 styles: [
-                    crossBorderDisclaimerWrap(textSize * 27, textSize * 30.3, textSize * 21.1, textSize * 15),
-                    xSmallFallback(textSize * 19.08),
+                    crossBorderDisclaimerWrap(textSize * 27, textSize * 30.3, textSize * 23, textSize * 15),
+                    xSmallFallback(textSize * 25),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
                     `.message__headline > .tag--medium > span > span:last-child::after {
                         content: '.'
@@ -202,10 +194,10 @@ export default {
             'logo.type:alternative',
             ({ textSize }) => ({
                 styles: [
-                    crossBorderDisclaimerWrap(textSize * 27, textSize * 30.3, textSize * 21.75, textSize * 15),
+                    crossBorderDisclaimerWrap(textSize * 27, textSize * 30.3, textSize * 23.75, textSize * 15),
                     `@media screen and (max-width: ${textSize * 15.5}px) { .message__content { white-space: nowrap; }}`,
-                    textWrap(textSize * 57.2, textSize, 'AT'),
-                    xSmallFallback(textSize * 15.5),
+                    textWrap(textSize * 94.5, textSize, 'AT'),
+                    xSmallFallback(textSize * 25),
                     altNoWrap(textSize * 15.5),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25),
                     `.message__headline > .tag--medium > span > span:last-child::after {content: '.'}`,
