@@ -1,0 +1,32 @@
+{
+    "meta": {
+        "offerCountry": "CA",
+        "offerType": "PAY_LATER_LONG_TERM",
+        "language": "fr-CA",
+        "offerTerm": "${CREDIT_OFFERS_DS.total_payments}",
+        "messageType": "PLLT_NQ_GZ",
+        "lander": "https://www.paypal.com/credit-presentment/lander/modal",
+        "variables": {
+            "offer_id": "${CREDIT_OFFERS_DS.offer_id}",
+            "total_payments": "${CREDIT_OFFERS_DS.total_payments}",
+            "vendor_financing_id": "${CREDIT_OFFERS_DS.vendor_financing_id}",
+            "financing_code": "${CREDIT_OFFERS_DS.financing_code}",
+            "formattedMonthlyPayment": "${CREDIT_OFFERS_DS.formattedMonthlyPayment}",
+            "formattedPeriodicPayment": "${CREDIT_OFFERS_DS.formattedPeriodicPayment}",
+            "formattedMinAmount": "${CREDIT_OFFERS_DS.formattedMinAmount}",
+            "formattedMaxAmount": "${CREDIT_OFFERS_DS.formattedMaxAmount}"
+        }
+    },
+    "headline": [
+        ["Achetez maintenant, payez plus tard.", ["default", "xsmall"]],
+        ["Achetez maintenant et payez plus tard.", ["xsmall.2"]],
+        [
+            "Payer par mois pour les achats de {formattedMinAmount} à {formattedMaxAmount} avec PayPal.",
+            ["medium", "large", "xlarge"]
+        ]
+    ],
+    "subHeadline": [],
+    "disclaimer": [
+        ["<span aria-hidden='true'>En savoir plus</span><span class='sr-only'> En savoir plus</span>", ["default"]]
+    ]
+}
