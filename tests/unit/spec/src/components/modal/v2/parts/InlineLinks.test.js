@@ -7,6 +7,7 @@ import Disclosure from 'src/components/modal/v2/parts/Disclosure';
 import { XPropsProvider } from 'src/components/modal/v2/lib/providers/xprops';
 import { ServerDataProvider } from 'src/components/modal/v2/lib/providers/serverData';
 import { DisclosureViewProvider, useDisclosureView } from 'src/components/modal/v2/lib/providers/disclosureView';
+import { getPayPalDomain } from 'src/utils';
 
 // Mirrors how BodyContent renders the Disclosure overlay based on the shared context.
 const DisclosureOverlay = () => {
@@ -44,7 +45,7 @@ describe('InlineLinks', () => {
         fireEvent(link, clickEvent);
 
         expect(clickEvent.defaultPrevented).toBe(true);
-        expect(container.querySelector('.disclosure-view__frame')).toHaveAttribute('src', 'https://www.paypal.com/');
+        expect(container.querySelector('.disclosure-view__frame')).toHaveAttribute('src', `${getPayPalDomain()}/`);
         expect(window.xprops.onClick).toHaveBeenCalledWith({
             linkName: 'Learn more',
             src: 'link_click',
