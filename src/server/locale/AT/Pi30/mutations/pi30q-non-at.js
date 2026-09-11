@@ -44,13 +44,23 @@ const flex = [
                     tag: 'medium'
                 }
             ],
-            disclaimer: ['extra', 'default']
+            disclaimer: ['large', 'extra', 'default']
         }
     ],
     [
         'ratio:1x1',
         {
-            styles: [addPeriod()],
+            styles: [
+                addPeriod(),
+                `.message__disclaimer > span.tag--extra {
+                    font-size: 4vw;
+                }`,
+                `@media (max-aspect-ratio: 11/10) and (max-width: 150px) {
+                    .message__disclaimer > span.tag--extra {
+                        font-size: 0.6rem;
+                    }
+                }`
+            ],
             headline: [...headlineBreaks]
         }
     ],
@@ -64,7 +74,38 @@ const flex = [
     [
         'ratio:8x1',
         {
-            styles: [addPeriod()],
+            styles: [
+                addPeriod(),
+                `@media (min-aspect-ratio: 60/11) {
+                    .message__disclaimer {
+                        display: block;
+                        line-height: 1.2;
+                        margin-top: 2px;
+                    }
+                    .message__disclaimer > .tag--extra > span:only-child {
+                        line-height: 1.2;
+                    }
+                }`,
+                `@media (min-aspect-ratio: 60 / 11) and (max-width: 374px) {
+                    .message__headline {
+                        font-size: 2vw;
+                    }
+                    .message__disclaimer {
+                        font-size: 1.5vw;
+                    }
+                    .message__disclaimer > span.tag--large {
+                        font-size: 2vw;
+                    }
+                }`,
+                `@media (min-aspect-ratio: 60/11) and (max-width: 323px) {
+                    .message__headline {
+                        font-size: 2vw;
+                    }
+                    .message__disclaimer > span.tag--large {
+                        font-size: 2vw;
+                    }
+                }`
+            ],
             headline: [...headlineBreaks]
         }
     ],
@@ -85,7 +126,7 @@ export default {
             'default',
             ({ textSize }) => ({
                 styles: [
-                    textWrap(textSize * 39, textSize, 'AT'),
+                    textWrap(textSize * 68.5, textSize, 'AT'),
                     xSmallFallback(textSize * 17),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25),
                     setLogoTop(textSize * 15),
@@ -106,7 +147,7 @@ export default {
                     },
                     { tag: 'xsmall', br: [','] }
                 ],
-                disclaimer: ['extra', 'default']
+                disclaimer: ['large', 'extra', 'default']
             })
         ],
         [
@@ -114,7 +155,7 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     xSmallFallback(textSize * 10),
-                    setLogoTop(textSize * 39),
+                    setLogoTop(textSize * 68.5),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
                     addPeriod(),
                     crossBorderDisclaimerWrap(textSize * 21.4, textSize * 30.4, textSize * 21.4, textSize * 15)
@@ -138,7 +179,7 @@ export default {
                 styles: [
                     crossBorderDisclaimerWrap(textSize * 21.4, textSize * 30.4, textSize * 21.4, textSize * 15),
                     `@media screen and (max-width: ${textSize * 15.5}px) { .message__content { white-space: nowrap; }}`,
-                    textWrap(textSize * 55, textSize, 'AT'),
+                    textWrap(textSize * 65, textSize, 'AT'),
                     xSmallFallback(textSize * 14),
                     altNoWrap(textSize * 14),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25),

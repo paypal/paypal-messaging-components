@@ -18,7 +18,7 @@ const headlineBreaks = [
     },
     {
         sizes: ['medium'],
-        breaks: ['Einkäufen']
+        breaks: ['von']
     }
 ].reduce((acc, item) => {
     const { sizes, breaks } = item;
@@ -44,7 +44,7 @@ const flex = [
                     tag: 'medium'
                 }
             ],
-            disclaimer: ['default']
+            disclaimer: ['large', 'default']
         }
     ],
     [
@@ -84,7 +84,7 @@ export default {
             'default',
             ({ textSize }) => ({
                 styles: [
-                    textWrap(textSize * 55, textSize, 'AT'),
+                    textWrap(textSize * 72.5, textSize, 'AT'),
                     xSmallFallback(textSize * 14),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25),
                     setLogoTop(textSize * 20),
@@ -100,15 +100,15 @@ export default {
                     },
                     { tag: 'xsmall', br: [','] }
                 ],
-                disclaimer: ['default']
+                disclaimer: ['large', 'default']
             })
         ],
         [
             'logo.type:primary && logo.position:right',
             ({ textSize }) => ({
                 styles: [
-                    xSmallFallback(textSize * 15),
-                    setLogoTop(textSize * 45),
+                    xSmallFallback(textSize * 24),
+                    setLogoTop(textSize * 70),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
                     addPeriod(),
                     `@media screen and 
@@ -122,6 +122,7 @@ export default {
             'logo.type:primary && logo.position:top',
             ({ textSize }) => ({
                 styles: [
+                    textWrap(textSize * 24.33, textSize, 'AT'),
                     xSmallFallback(textSize * 15.1),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
                     addPeriod(),
@@ -136,7 +137,7 @@ export default {
             'logo.type:alternative',
             ({ textSize }) => ({
                 styles: [
-                    textWrap(textSize * 55, textSize, 'AT'),
+                    textWrap(textSize * 70, textSize, 'AT'),
                     xSmallFallback(textSize * 15.5),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25),
                     xSmallNoWrap(textSize * 8),

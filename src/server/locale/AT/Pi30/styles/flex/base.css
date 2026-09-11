@@ -62,6 +62,14 @@
     line-height: 1.5;
 }
 
+.message__disclaimer > .tag--large > span:only-child {
+    text-decoration: none;
+}
+
+.message__disclaimer > span.tag--large {
+    font-size: 3.5vw;
+}
+
 @media (min-width: 220px) {
     .message__disclaimer {
         font-size: 0.9rem;
