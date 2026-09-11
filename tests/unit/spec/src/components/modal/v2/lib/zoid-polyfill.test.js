@@ -283,7 +283,11 @@ describe('zoidPollyfill', () => {
         `);
         postMessage.mockClear();
 
-        window.xprops.onClick({ linkName: 'test link', src: 'test src' });
+        window.xprops.onClick({
+            linkName: 'test link',
+            src: 'test src',
+            url: 'https://www.paypal.com/'
+        });
 
         expect(postMessage).toHaveBeenCalledTimes(1);
         expect(postMessage.mock.calls[0][0]).toEqual(expect.any(String));
@@ -294,6 +298,7 @@ describe('zoidPollyfill', () => {
                   "event_type": "modal_clicked",
                   "page_view_link_name": "test link",
                   "page_view_link_source": "test src",
+                  "url": "https://www.paypal.com/",
                 },
               ],
               "name": "onClick",
