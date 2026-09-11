@@ -12,8 +12,12 @@ const DisclosureViewContext = createContext({
 const getFormattedDisclosureUrl = url => {
     if (!url) return url;
     try {
-        if (url.startsWith('https://www.paypal.com') || url.startsWith('https://paypal.com')) {
-            const parsed = new URL(url);
+        // eslint-disable-next-line compat/compat
+        const parsed = new URL(url);
+        const hostname = parsed.hostname.toLowerCase();
+        const isAllowedHost = hostname === 'www.paypal.com' || hostname === 'paypal.com';
+
+        if (parsed.protocol === 'https:' && isAllowedHost) {
             const domain = getPayPalDomain();
             return `${domain}${parsed.pathname}${parsed.search}${parsed.hash}`;
         }
