@@ -6,7 +6,7 @@ import { currencyFormat } from '../../../lib/hooks/currency';
 import styles from './styles.scss';
 
 export const ProductList = ({
-    content: { instructions, disclosure, productTiles },
+    content: { instructions, disclosure, productTiles, creditWarning },
     useV5Design,
     use5Dot1Design,
     setViewName
@@ -66,6 +66,7 @@ export const ProductList = ({
                     <div className="branded-image" />
                 </div>
             </div>
+            {creditWarning && <div className="content__row credit-warning">{creditWarning}</div>}
             <div
                 className={`content__row disclosure collapsed ${useV5Design ? 'v5Design' : ''} ${getEuroStyleClass(
                     country
