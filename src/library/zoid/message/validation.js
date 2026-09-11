@@ -200,7 +200,7 @@ export default {
                 'mini-cart',
                 'cart',
                 'checkout',
-                'view-edit-fi'
+                'view-edit-funding-instrument'
             ];
 
             if (!validateType(Types.STRING, pageType)) {
