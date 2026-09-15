@@ -2,7 +2,7 @@
     "meta": {
         "offerCountry": "AT",
         "offerType": "GENERIC",
-        "messageType": "GENERIC_XB",
+        "messageType": "PL_GENERIC_XB",
         "offerTerm": "{total_payments}",
         "lander": "",
         "variables": {

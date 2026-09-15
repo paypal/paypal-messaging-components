@@ -28,7 +28,8 @@
             "inputLabel": "Warenwert",
             "inputPlaceholder": "{formattedMinAmount} - {formattedMaxAmount}",
             "inputCurrencySymbol": "€",
-            "genericError": "Etwas ist schief gelaufen. Versuchen Sie es später erneut."
+            "genericError": "Etwas ist schief gelaufen. Versuchen Sie es später erneut.",
+            "loadingLabel": "Finanzierungsoptionen werden geladen"
         },
         "instructions": [
             "Wählen Sie PayPal als Bezahlmethode aus, um mit<strong> PayPal Ratenzahlung</strong> zu bezahlen.",

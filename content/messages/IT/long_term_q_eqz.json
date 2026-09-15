@@ -20,5 +20,8 @@
         [["A partire da {formattedPeriodicPayment} al mese con TAEG 0%."], ["small", "medium", "large", "xlarge"]]
     ],
     "subHeadline": [],
-    "disclaimer": [["Scopri di più", ["default"]]]
+    "disclaimer": [
+        [["Attenzione! Prendere in prestito denaro comporta dei costi."], ["large"]],
+        ["Scopri di più", ["default"]]
+    ]
 }

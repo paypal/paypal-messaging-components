@@ -26,7 +26,8 @@
             "title": "Quel est le montant de votre achat?",
             "inputLabel": "Montant de l'achat",
             "inputPlaceholder": "0 CAD",
-            "genericError": "Une erreur s’est produite. Veuillez réessayer plus tard."
+            "genericError": "Une erreur s’est produite. Veuillez réessayer plus tard.",
+            "loadingLabel": "Chargement des options de financement"
         },
         "genericDisclaimer": "Les conditions varient en fonction du montant de l'achat et de votre crédit.",
         "instructions": [

@@ -1,5 +1,102 @@
 # Changelog
 
+## [1.96.0](https://github.com/paypal/paypal-messaging-components/compare/v1.95.1...v1.96.0) (2026-09-03)
+
+
+### Features
+
+* apple modals ([#1398](https://github.com/paypal/paypal-messaging-components/issues/1398)) ([cf1c3c1](https://github.com/paypal/paypal-messaging-components/commit/cf1c3c1662b5ec36c7297c11a019664eb6ab9e3b))
+* create v2 demo ([#1384](https://github.com/paypal/paypal-messaging-components/issues/1384)) ([7e7fbf6](https://github.com/paypal/paypal-messaging-components/commit/7e7fbf6391d75ccbc89f448a4f30f4029e27ea73))
+
+
+### Bug Fixes
+
+* expose financing plans as headings ([#1392](https://github.com/paypal/paypal-messaging-components/issues/1392)) ([63641ec](https://github.com/paypal/paypal-messaging-components/commit/63641ec4f7fd3296d6464c49db0d1cb7ed2b1961))
+* improve calculator field accessibility ([#1390](https://github.com/paypal/paypal-messaging-components/issues/1390)) ([791af2b](https://github.com/paypal/paypal-messaging-components/commit/791af2b5b1912a86abd133a560fdd3540a3c55ee))
+* make modal loading states accessible ([#1394](https://github.com/paypal/paypal-messaging-components/issues/1394)) ([ac4d86c](https://github.com/paypal/paypal-messaging-components/commit/ac4d86c957a466e05e9a3be8962e4a3c27103269))
+* restore PayPal logo text alternative ([#1393](https://github.com/paypal/paypal-messaging-components/issues/1393)) ([8165bb1](https://github.com/paypal/paypal-messaging-components/commit/8165bb16a3c55ba0228efcf42bd3c5cc0a8eeead))
+
+
+### Documentation
+
+* correct contribution checks and screenshot guidance ([#1396](https://github.com/paypal/paypal-messaging-components/issues/1396)) ([069de83](https://github.com/paypal/paypal-messaging-components/commit/069de83e3bea08c7b6d10ea1b7a23710c5ed86dc))
+
+### [1.95.1](https://github.com/paypal/paypal-messaging-components/compare/v1.95.0...v1.95.1) (2026-08-25)
+
+
+### Bug Fixes
+
+* filter qualifying offers before sort, ensure aprDisclaimer.default always resolves, add getAPRDetails unit tests ([379cffd](https://github.com/paypal/paypal-messaging-components/commit/379cffd14cbda19d53a39823183825b29ba987d3))
+* guard against null target window in modal sendEvent ([#1381](https://github.com/paypal/paypal-messaging-components/issues/1381)) ([9afde0a](https://github.com/paypal/paypal-messaging-components/commit/9afde0ad868f28adacb7bbd7f919ecbbf90e2006))
+* make offer sort direction explicit with warning for unrecognized values ([b90b106](https://github.com/paypal/paypal-messaging-components/commit/b90b10637eb0f65287cdc569335f22ab356cfe54))
+* replace long-term offer reversal with explicit per-country sort direction ([da83f73](https://github.com/paypal/paypal-messaging-components/commit/da83f735f788372b6b5efb21fa7ba6f7e3589595))
+* validate total_payments as numeric before sorting offers ([02a5aec](https://github.com/paypal/paypal-messaging-components/commit/02a5aec3112fede9c98ea01df0269fb135dfe711))
+
+
+### Tests
+
+* update long-term offer expectations for sort order change ([4ce0011](https://github.com/paypal/paypal-messaging-components/commit/4ce0011247657fa0df4e4e294609503439951297))
+
+
+### Code Refactoring
+
+* simplify TermsTable offer sort and disclaimer lookup ([b4349f7](https://github.com/paypal/paypal-messaging-components/commit/b4349f7a54bf68ec2c9b78c8795ab1c94f5019cf))
+* use numeric sort direction constants with validation instead of asc/desc strings ([debee7f](https://github.com/paypal/paypal-messaging-components/commit/debee7f2d7eca20fd6c4ca27d9ccb86bae6380fb))
+
+## [1.95.0](https://github.com/paypal/paypal-messaging-components/compare/v1.94.0...v1.95.0) (2026-08-19)
+
+
+### Features
+
+* add experience-view-edit-fi pageType value ([c2e95e3](https://github.com/paypal/paypal-messaging-components/commit/c2e95e318807754c0cbabfc1f206776b340de10f))
+* add TikTok Pay Later short-term US modal content ([#1374](https://github.com/paypal/paypal-messaging-components/issues/1374)) ([d2b3a4c](https://github.com/paypal/paypal-messaging-components/commit/d2b3a4c5d06c581309893375799755200d2eb138))
+* add view-edit-fi pageType value ([2b3c122](https://github.com/paypal/paypal-messaging-components/commit/2b3c122b1b13e671b6aeec0b4e889a1283adbcf2))
+* view-edit-fi pageType value ([634b7c1](https://github.com/paypal/paypal-messaging-components/commit/634b7c130b7981469116a452f0c6b1da2a7a861b))
+
+## [1.94.0](https://github.com/paypal/paypal-messaging-components/compare/v1.93.0...v1.94.0) (2026-08-06)
+
+
+### Features
+
+* Pl2go darkmode ([#1370](https://github.com/paypal/paypal-messaging-components/issues/1370)) ([374364e](https://github.com/paypal/paypal-messaging-components/commit/374364e92374156ef0f0af36dadd34ed20bbb7fd))
+
+
+### Bug Fixes
+
+* fall back to server-resolved account for FPTI on credential-less landers ([90b86f6](https://github.com/paypal/paypal-messaging-components/commit/90b86f6b5ccab33174283e929034fb5e792fcd91))
+* fix desktop snapshots ([#1364](https://github.com/paypal/paypal-messaging-components/issues/1364)) ([7c773c7](https://github.com/paypal/paypal-messaging-components/commit/7c773c733f0b79f9873f60f3810f09836db39348))
+
+## [1.93.0](https://github.com/paypal/paypal-messaging-components/compare/v1.92.1...v1.93.0) (2026-08-03)
+
+
+### Features
+
+* add flex layout support to renderV2Message (DTCRCMERC-5374) ([#1367](https://github.com/paypal/paypal-messaging-components/issues/1367)) ([cdaa69f](https://github.com/paypal/paypal-messaging-components/commit/cdaa69fd444d12a94e044203ea02e51484c73b2c))
+
+
+### Bug Fixes
+
+* Ios26 modal fix ([#1373](https://github.com/paypal/paypal-messaging-components/issues/1373)) ([263ab0f](https://github.com/paypal/paypal-messaging-components/commit/263ab0f08a94f503719bedfd6d968eaad80f344b))
+
+### [1.92.1](https://github.com/paypal/paypal-messaging-components/compare/v1.92.0...v1.92.1) (2026-07-27)
+
+
+### Bug Fixes
+
+* route PL_GENERIC_XB messageType to cross-border generic mutations for AT/DE ([#1369](https://github.com/paypal/paypal-messaging-components/issues/1369)) ([36c3238](https://github.com/paypal/paypal-messaging-components/commit/36c323801819e6caaaac84bb4cd449153a770318))
+
+## [1.92.0](https://github.com/paypal/paypal-messaging-components/compare/v1.91.0...v1.92.0) (2026-07-23)
+
+
+### Features
+
+* fix firefox logos for rewrite ([#1347](https://github.com/paypal/paypal-messaging-components/issues/1347)) ([d9b2991](https://github.com/paypal/paypal-messaging-components/commit/d9b2991da077bb4944d976581a1d333bc966d994))
+
+
+### Bug Fixes
+
+* UK Pi30 message update on removing extra space ([#1351](https://github.com/paypal/paypal-messaging-components/issues/1351)) ([dc30231](https://github.com/paypal/paypal-messaging-components/commit/dc3023141e929410ea806c7347211549881317ae))
+
 ## [1.91.0](https://github.com/paypal/paypal-messaging-components/compare/v1.90.1...v1.91.0) (2026-07-21)
 
 

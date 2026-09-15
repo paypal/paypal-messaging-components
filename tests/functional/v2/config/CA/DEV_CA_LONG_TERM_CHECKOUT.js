@@ -10,9 +10,9 @@ export const DEV_CA_LONG_TERM_CHECKOUT = {
             message: 'Qualifying Pay Monthly',
             expectedValue: 'Pay Monthly',
             modalContent: {
-                offerHeadline: '$5.15/mo. for 12 months',
-                updatedOfferHeadline: '$52.50/mo. for 12 months',
-                offerFieldValues: ['26%', '$12.74', '$61.74'],
+                offerHeadline: '$9.23/mo. for 6 months',
+                updatedOfferHeadline: '$94.17/mo. for 6 months',
+                offerFieldValues: ['26%', '$6.37', '$55.37'],
                 aprDisclaimer: '*APR is 0% to 31.99%. Terms and rates vary based on purchase amount and your credit.',
                 cta: 'Continue with Pay Monthly'
             }
@@ -22,9 +22,9 @@ export const DEV_CA_LONG_TERM_CHECKOUT = {
             message: 'Qualifying Pay Monthly',
             expectedValue: 'Pay Monthly',
             modalContent: {
-                offerHeadline: '$105.00/mo. for 12 months',
-                updatedOfferHeadline: '$52.50/mo. for 12 months',
-                offerFieldValues: ['26%', '$260.00', '$1,260.00'],
+                offerHeadline: '$188.33/mo. for 6 months',
+                updatedOfferHeadline: '$94.17/mo. for 6 months',
+                offerFieldValues: ['26%', '$130.00', '$1,130.00'],
                 aprDisclaimer: '*APR is 0% to 31.99%. Terms and rates vary based on purchase amount and your credit.',
                 cta: 'Continue with Pay Monthly'
             }

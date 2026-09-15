@@ -21,8 +21,8 @@ export const DEV_AT_LONG_TERM_0APR = {
             message: 'Qualifying AT Long Term Installments 0% APR',
             expectedValue: '0% eff. Jahreszins: ab',
             modalContent: {
-                offerHeadline: '33,00€/Monat',
-                updatedOfferHeadline: '166,67€/Monat',
+                offerHeadline: '4,13€/Monat',
+                updatedOfferHeadline: '20,83€/Monat',
                 offerFieldValues: ['99,00€', '0,00€', '99,00€'],
                 aprDisclaimer: 'Eff. Jahreszins 0,00% p.a.'
             }

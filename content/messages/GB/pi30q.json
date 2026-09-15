@@ -14,7 +14,10 @@
     },
     "headline": [
         [["Buy now, pay later."], ["default", "xsmall"]],
-        [["Pay in 30 days."], ["medium", "large", "xlarge"]]
+        [
+            ["Pay in 30 days", [".", "weak"]],
+            ["medium", "large", "xlarge"]
+        ]
     ],
     "subHeadline": [],
     "disclaimer": [

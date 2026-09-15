@@ -77,13 +77,22 @@ const Calculator = ({
     useV4Design,
     useV5Design,
     use5Dot1Design,
-    useNewCheckoutDesign
+    useNewCheckoutDesign,
+    useDarkMode
 }) => {
     const { view, value, isLoading, submit, changeInput } = useCalculator({ autoSubmit: true });
     const { amount } = useXProps();
     const { country, views } = useServerData();
     const { language } = views[0].meta;
-    const { title, genericTitle, inputLabel, inputPlaceholder, inputCurrencySymbol } = calculator;
+    const {
+        title,
+        genericTitle,
+        inputLabel,
+        inputPlaceholder,
+        inputCurrencySymbol,
+        loadingLabel = 'Loading financing options'
+    } = calculator;
+    const formattedInputPlaceholder = currencyFormat(inputPlaceholder).replace(/(\s?€)/g, '');
 
     // Set hasUsedInputField to true if someone has typed in the input field at any point.
     const [hasUsedInputField, setHasUsedInputField] = useState(false);
@@ -101,6 +110,10 @@ const Calculator = ({
 
     // Pass view, isLoading state, and calculator props into getError to get the appropriate error, if any. Could return as 'null'.
     const error = getError(view, isLoading, calculator, delocalize(displayValue ?? '0', country, language), country);
+    const hasInputError = Boolean(
+        error && error !== calculator.genericError && (hasInitialAmount || hasUsedInputField)
+    );
+    const showVisualInputError = Boolean(error && error !== calculator.genericError && hasEnteredAmount);
 
     useEffect(() => {
         if (!hasInitialAmount && !hasUsedInputField) {
@@ -172,11 +185,11 @@ const Calculator = ({
                 <div
                     className={`content-column transitional calculator__error ${
                         !(error || emptyState || isLoading) ? 'hide' : ''
-                    }`}
+                    } ${useDarkMode ? 'darkMode' : ''}`}
                 >
                     <div>
-                        {error && hasEnteredAmount ? <Icon name="warning" /> : null}
-                        <div>{error}</div>
+                        {showVisualInputError ? <Icon name="warning" /> : null}
+                        <div id={hasInputError ? 'purchase-amount-error' : undefined}>{error}</div>
                     </div>
                 </div>
             );
@@ -205,7 +218,7 @@ const Calculator = ({
             <form
                 className={`form ${useV4Design === 'true' ? 'v4Design' : ''} ${
                     useV5Design === 'true' ? 'v5Design' : ''
-                } ${useNewCheckoutDesign === 'true' ? 'checkout' : ''}`}
+                } ${useNewCheckoutDesign === 'true' ? 'checkout' : ''} ${useDarkMode ? 'darkMode' : ''}`}
                 onSubmit={submit}
             >
                 <h3 className={`title ${cta ? 'checkout-title' : ''}`}>
@@ -214,7 +227,7 @@ const Calculator = ({
                 <div
                     className={`input__wrapper transitional ${useV5Design === 'true' ? 'v5Design' : ''} ${
                         cta ? 'checkout' : ''
-                    } ${country || ''} ${error && hasEnteredAmount ? 'input__wrapper--error' : ''}`}
+                    } ${country || ''} ${showVisualInputError ? 'input__wrapper--error' : ''}`}
                 >
                     <label htmlFor="purchase-amount" className={`input__label ${country}`}>
                         {renderInputLabelOnEmptyField(country)}
@@ -222,9 +235,12 @@ const Calculator = ({
                     {inputCurrencySymbol && <div className="input__currency-symbol">{inputCurrencySymbol}</div>}
                     <input
                         id="purchase-amount"
+                        aria-label={country === 'US' && displayValue === '' ? formattedInputPlaceholder : undefined}
+                        aria-invalid={hasInputError ? 'true' : undefined}
+                        aria-describedby={hasInputError ? 'purchase-amount-error' : undefined}
                         aria-required="true"
                         className={`input ${displayValue === '' && country === 'US' ? 'empty-input' : ''}`}
-                        placeholder={currencyFormat(inputPlaceholder).replace(/(\s?€)/g, '')}
+                        placeholder={formattedInputPlaceholder}
                         type="text"
                         value={displayValue}
                         onInput={onInput}
@@ -234,8 +250,11 @@ const Calculator = ({
                 </div>
                 <div aria-live="polite">{renderError(error || emptyState || isLoading)}</div>
             </form>
+            <div role="status" className="sr-only">
+                {isLoading ? loadingLabel : ''}
+            </div>
             {(hasInitialAmount || hasUsedInputField) && !error ? (
-                <div aria-live="polite" className="content-column">
+                <div className="content-column" aria-live="polite" aria-busy={isLoading ? 'true' : undefined}>
                     <TermsTable
                         view={view}
                         isLoading={isLoading}
@@ -244,6 +263,7 @@ const Calculator = ({
                         useV5Design={useV5Design}
                         use5Dot1Design={use5Dot1Design}
                         useNewCheckoutDesign={useNewCheckoutDesign}
+                        useDarkMode={useDarkMode}
                     />
                 </div>
             ) : null}
@@ -251,9 +271,9 @@ const Calculator = ({
                 <div
                     className={`finance-terms__disclaimer ${
                         !(hasInitialAmount || hasUsedInputField) || error ? 'no-amount' : ''
-                    } ${useV5Design === 'true' ? 'v5Design' : ''}`}
+                    } ${useV5Design === 'true' ? 'v5Design' : ''} ${useDarkMode ? 'darkMode' : ''}`}
                 >
-                    {aprDisclaimer[0].aprDisclaimer}
+                    {Object.values(aprDisclaimer)[0].aprDisclaimer}
                 </div>
             )}
             {(country === 'ES' || country === 'IT') && (

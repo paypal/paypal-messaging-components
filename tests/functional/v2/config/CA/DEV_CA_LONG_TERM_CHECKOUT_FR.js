@@ -10,9 +10,9 @@ export const DEV_CA_LONG_TERM_CHECKOUT_FR = {
             message: 'Qualifying Pay Monthly',
             expectedValue: 'Payer par mois',
             modalContent: {
-                offerHeadline: '$5.15 CAD/mois pendant 12 mois',
-                updatedOfferHeadline: '$52.50 CAD/mois pendant 12 mois',
-                offerFieldValues: ['26%', '$12.74', '$61.74'],
+                offerHeadline: '$9.23 CAD/mois pendant 6 mois',
+                updatedOfferHeadline: '$94.17 CAD/mois pendant 6 mois',
+                offerFieldValues: ['26%', '$6.37', '$55.37'],
                 aprDisclaimer:
                     "*Le TAEG est de 0 % à 31,99 %. Les conditions et les taux varient en fonction du montant de l'achat et de votre crédit.",
                 cta: 'Continuer avec Payer par mois'
@@ -23,9 +23,9 @@ export const DEV_CA_LONG_TERM_CHECKOUT_FR = {
             message: 'Qualifying Pay Monthly',
             expectedValue: 'Payer par mois',
             modalContent: {
-                offerHeadline: '$105.00 CAD/mois pendant 12 mois',
-                updatedOfferHeadline: '$52.50 CAD/mois pendant 12 mois',
-                offerFieldValues: ['26%', '$260.00', '$1,260.00'],
+                offerHeadline: '$188.33 CAD/mois pendant 6 mois',
+                updatedOfferHeadline: '$94.17 CAD/mois pendant 6 mois',
+                offerFieldValues: ['26%', '$130.00', '$1,130.00'],
                 aprDisclaimer:
                     "*Le TAEG est de 0 % à 31,99 %. Les conditions et les taux varient en fonction du montant de l'achat et de votre crédit.",
                 cta: 'Continuer avec Payer par mois'

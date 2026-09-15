@@ -1,0 +1,25 @@
+{
+    "id": "a4ed1918-55ad-41bd-ad68-4497d4b63abd",
+    "type": "PPBAL_GENERIC",
+    "offer_types": ["PAYPAL_BALANCE"],
+    "priority_rules": [
+        {
+            "type": "ELIGIBLE",
+            "priority_score": 0
+        }
+    ],
+    "content": {
+        "main_items": [
+            {
+                "type": "IMAGE",
+                "name": "paypal_logo",
+                "source_url": "https://www.paypalobjects.com/upstream/assets/logos/v2/paypal_badge.svg",
+                "alternative_text": "PayPal"
+            },
+            {
+                "type": "TEXT",
+                "text": "Balance available."
+            }
+        ]
+    }
+}

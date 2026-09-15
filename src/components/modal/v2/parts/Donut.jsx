@@ -19,7 +19,8 @@ const Donut = ({
     useV4Design,
     useV5Design,
     use5Dot1Design,
-    useNewCheckoutDesign
+    useNewCheckoutDesign,
+    useDarkMode
 }) => {
     const percentage = (currentNum / numOfPayments) * 100;
     const segStrokeWidth = segmentStrokeWidth ?? strokeWidth;
@@ -51,7 +52,9 @@ const Donut = ({
             }`}
         >
             <span
-                className={`${isV5Design ? 'v5Design' : ''} ${useNewCheckoutDesign === 'true' ? 'checkout' : ''} svg`}
+                className={`${isV5Design ? 'v5Design' : ''} ${useNewCheckoutDesign === 'true' ? 'checkout' : ''} svg ${
+                    useDarkMode ? 'darkMode' : ''
+                }`}
             >
                 <svg aria-hidden viewBox={viewBox} className="donut" style={style} xmlns="http://www.w3.org/2000/svg">
                     <circle

@@ -1,0 +1,32 @@
+{
+    "id": "0615fea0-ba66-4cd9-bd79-d8217bef6fe3",
+    "type": "PPDC",
+    "offer_types": ["PAYPAL_DEBIT_CARD"],
+    "priority_rules": [
+        {
+            "type": "ELIGIBLE",
+            "priority_score": 0
+        }
+    ],
+    "content": {
+        "main_items": [
+            {
+                "type": "IMAGE",
+                "name": "paypal_logo",
+                "source_url": "https://www.paypalobjects.com/upstream/assets/logos/v2/paypal_badge.svg",
+                "alternative_text": "PayPal"
+            },
+            {
+                "type": "TEXT",
+                "text": "Earn 5% cash back with PayPal Debit Mastercard."
+            }
+        ],
+        "action_items": [
+            {
+                "type": "LINK",
+                "text": "See terms",
+                "click_url": "http://paypal.com/rewardspal"
+            }
+        ]
+    }
+}

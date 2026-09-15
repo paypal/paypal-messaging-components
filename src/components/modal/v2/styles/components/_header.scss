@@ -47,6 +47,9 @@
         .v5Design {
             background-color: colors.$v5-white;
         }
+        .darkMode {
+            background-color: colors.$dark-mode-black;
+        }
     }
 
     &__background-wrapper {
@@ -351,6 +354,10 @@
                 font-size: 40px;
                 line-height: 36px;
             }
+
+            &.darkMode {
+                color: colors.$white;
+            }
         }
 
         .subheadline_p {
@@ -405,6 +412,10 @@
                 @include mixins.mobile {
                     margin-left: 0px;
                 }
+            }
+
+            &.darkMode {
+                color: colors.$white;
             }
         }
 

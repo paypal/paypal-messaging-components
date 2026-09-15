@@ -1,5 +1,6 @@
 import render from 'server/v2/render';
 import validateStyle from 'server/v2/validateStyle';
+import { FLEX_DEFAULTS } from 'server/v2/constants';
 
 jest.mock('server/message/logos', () => {
     const makeVariant = (name, mw, mh, ww, wh) => [
@@ -1005,6 +1006,566 @@ describe('v2 render snapshots', () => {
     });
 });
 
+describe('v2 render flex layout', () => {
+    const baseFlexOptions = {
+        style: {
+            layout: 'flex',
+            color: 'blue',
+            ratio: '8x1'
+        }
+    };
+
+    const flexContentWithLogo = {
+        main_items: [
+            {
+                type: 'IMAGE',
+                source_url: 'https://example.com/logo.svg',
+                alternative_text: 'PayPal',
+                name: 'paypal_logo'
+            },
+            { type: 'TEXT', text: 'Pay Later.' }
+        ],
+        action_items: [{ type: 'LINK', text: 'Learn more', click_url: 'https://example.com/lander', embeddable: true }],
+        disclaimer_items: [{ type: 'TEXT', text: 'Subject to approval.' }]
+    };
+
+    test('renders pp-message.pp-flex root element', () => {
+        const result = render(baseFlexOptions, flexContentWithLogo, mockLog);
+        expect(result).toContain('class="pp-message pp-flex');
+    });
+
+    test('does not use v5 cascade structure', () => {
+        const result = render(baseFlexOptions, flexContentWithLogo, mockLog);
+        expect(result).not.toContain('message__container');
+        expect(result).not.toContain('message__headline');
+        expect(result).not.toContain('message__foreground');
+        expect(result).not.toContain('message__content');
+        expect(result).not.toContain('message__background');
+    });
+
+    test('renders pp-flex__background and pp-flex__content layers', () => {
+        const result = render(baseFlexOptions, flexContentWithLogo, mockLog);
+        expect(result).toContain('class="pp-flex__background"');
+        expect(result).toContain('class="pp-flex__content"');
+    });
+
+    test('renders logo in pp-flex__logo-container when IMAGE item is present', () => {
+        const result = render(baseFlexOptions, flexContentWithLogo, mockLog);
+        expect(result).toContain('class="pp-flex__logo-container"');
+        expect(result).toContain('class="pp-flex__logo paypal"');
+        expect(result).toContain('data:local/white-monogram');
+        expect(result).toContain('data:local/white-wordmark');
+        expect(result).not.toContain('https://example.com/logo.svg');
+        expect(result).toContain('aria-hidden="true"');
+        expect(result.match(/class="pp-flex__logo paypal"/g)).toHaveLength(2);
+    });
+
+    test('renders single PayPal Credit lockup with brand class', () => {
+        const content = {
+            ...flexContentWithLogo,
+            main_items: [
+                {
+                    type: 'IMAGE',
+                    source_url: 'https://example.com/ppc.svg',
+                    alternative_text: 'PayPal Credit',
+                    name: 'paypal_credit_logo'
+                },
+                { type: 'TEXT', text: 'Pay Later.' }
+            ]
+        };
+        const result = render(baseFlexOptions, content, mockLog);
+        expect(result).toContain('class="pp-flex__logo paypal-credit"');
+        expect(result).toContain('data:local/ppc-single-white');
+        expect(result).not.toContain('data:local/white-monogram');
+        expect(result).not.toContain('https://example.com/ppc.svg');
+        expect(result.match(/class="pp-flex__logo paypal-credit"/g)).toHaveLength(1);
+    });
+
+    test('renders single Venmo lockup with brand class', () => {
+        const content = {
+            ...flexContentWithLogo,
+            main_items: [
+                {
+                    type: 'IMAGE',
+                    source_url: 'https://example.com/venmo.svg',
+                    alternative_text: 'Venmo',
+                    name: 'venmo_logo'
+                },
+                { type: 'TEXT', text: 'Pay Later.' }
+            ]
+        };
+        const result = render(baseFlexOptions, content, mockLog);
+        expect(result).toContain('class="pp-flex__logo venmo"');
+        expect(result).toContain('data:local/venmo-white');
+        expect(result).not.toContain('https://example.com/venmo.svg');
+        expect(result.match(/class="pp-flex__logo venmo"/g)).toHaveLength(1);
+    });
+
+    test('renders unknown IMAGE as fallback lockup span', () => {
+        const content = {
+            ...flexContentWithLogo,
+            main_items: [
+                {
+                    type: 'IMAGE',
+                    source_url: 'https://example.com/unknown.svg',
+                    alternative_text: 'Unknown Brand'
+                },
+                { type: 'TEXT', text: 'Pay Later.' }
+            ]
+        };
+        const result = render(baseFlexOptions, content, mockLog);
+        expect(result).toContain('class="pp-flex__logo pp-flex__logo--fallback"');
+        expect(result).toContain('https://example.com/unknown.svg');
+        expect(result.match(/class="pp-flex__logo pp-flex__logo--fallback"/g)).toHaveLength(1);
+    });
+
+    test('flex stylesheet sizes single-piece lockups larger than PayPal monograms', () => {
+        const result1x1 = render(
+            { style: { layout: 'flex', color: 'blue', ratio: '1x1' } },
+            flexContentWithLogo,
+            mockLog
+        );
+        const css1x1 = result1x1.match(/<style>([\s\S]*?)<\/style>/)[1];
+        expect(css1x1).toMatch(/\.pp-flex__logo\.paypal-credit:nth-of-type\(1\)[\s\S]*width:\s*50%/);
+        expect(css1x1).toMatch(/\.pp-flex__logo\.venmo:nth-of-type\(1\)[\s\S]*width:\s*50%/);
+        expect(css1x1).toMatch(/\.pp-flex__logo:only-child[\s\S]*width:\s*50%/);
+        expect(css1x1).toMatch(/\.pp-message\.pp-flex\.r-1x1 \.pp-flex__logo:nth-of-type\(1\)[\s\S]*width:\s*29px/);
+
+        const result1x4 = render(
+            { style: { layout: 'flex', color: 'blue', ratio: '1x4' } },
+            flexContentWithLogo,
+            mockLog
+        );
+        const css1x4 = result1x4.match(/<style>([\s\S]*?)<\/style>/)[1];
+        expect(css1x4).toMatch(/\.pp-flex__logo\.paypal-credit:nth-of-type\(1\)[\s\S]*width:\s*70%/);
+        expect(css1x4).toMatch(/\.pp-message\.pp-flex\.r-1x4 \.pp-flex__logo:nth-of-type\(1\)[\s\S]*width:\s*27px/);
+
+        const result8x1 = render(baseFlexOptions, flexContentWithLogo, mockLog);
+        const css8x1 = result8x1.match(/<style>([\s\S]*?)<\/style>/)[1];
+        expect(css8x1).toMatch(
+            /@media \(max-aspect-ratio: 61\/10\) and \(min-width: 324px\)[\s\S]*\.pp-flex__logo\.paypal-credit:nth-of-type\(1\)[\s\S]*width:\s*60%/
+        );
+    });
+
+    test('omits logo-container when no IMAGE item in main_items', () => {
+        const content = { ...flexContentWithLogo, main_items: [{ type: 'TEXT', text: 'Pay Later.' }] };
+        const result = render(baseFlexOptions, content, mockLog);
+        expect(result).not.toContain('class="pp-flex__logo-container"');
+        expect(result).not.toContain('class="pp-flex__logo"');
+    });
+
+    test('renders main text in pp-flex__main', () => {
+        const result = render(baseFlexOptions, flexContentWithLogo, mockLog);
+        expect(result).toContain('class="pp-flex__main"');
+        expect(result).toContain('Pay Later.');
+    });
+
+    test('includes leading logo alternative_text in pp-flex__main aria-label', () => {
+        const result = render(baseFlexOptions, flexContentWithLogo, mockLog);
+        expect(result).toContain('aria-label="PayPal Pay Later."');
+        expect(result).toContain('class="pp-flex__logo-container" aria-hidden="true"');
+    });
+
+    test('includes custom unknown IMAGE alternative_text in pp-flex__main aria-label', () => {
+        const content = {
+            ...flexContentWithLogo,
+            main_items: [
+                {
+                    type: 'IMAGE',
+                    source_url: 'https://example.com/unknown.svg',
+                    alternative_text: 'Custom Brand'
+                },
+                { type: 'TEXT', text: 'Pay Later.' }
+            ]
+        };
+        const result = render(baseFlexOptions, content, mockLog);
+        expect(result).toContain('aria-label="Custom Brand Pay Later."');
+        expect(result).toContain('class="pp-flex__logo-container" aria-hidden="true"');
+    });
+
+    test('renders action items in pp-flex__action without click_url iframe attrs', () => {
+        const result = render(baseFlexOptions, flexContentWithLogo, mockLog);
+        expect(result).toContain('class="pp-flex__action"');
+        expect(result).toContain('Learn more');
+        expect(result).not.toContain('data-iframe-url');
+        expect(result).not.toContain('data-embeddable');
+        expect(result).not.toContain('https://example.com/lander');
+    });
+
+    test('omits pp-flex__action when action_items is empty', () => {
+        const content = { ...flexContentWithLogo, action_items: [] };
+        const result = render(baseFlexOptions, content, mockLog);
+        expect(result).not.toContain('class="pp-flex__action"');
+    });
+
+    test('renders disclaimer in pp-flex__disclaimer', () => {
+        const result = render(baseFlexOptions, flexContentWithLogo, mockLog);
+        expect(result).toContain('class="pp-flex__disclaimer"');
+        expect(result).toContain('Subject to approval.');
+    });
+
+    test('omits pp-flex__disclaimer when disclaimer_items is empty', () => {
+        const content = { ...flexContentWithLogo, disclaimer_items: [] };
+        const result = render(baseFlexOptions, content, mockLog);
+        expect(result).not.toContain('class="pp-flex__disclaimer"');
+    });
+
+    test('keeps non-LINK action copy in pp-flex__action (GB Credit option pattern)', () => {
+        const content = {
+            ...flexContentWithLogo,
+            disclaimer_items: [],
+            action_items: [
+                { type: 'TEXT', text: 'Credit option. ' },
+                { type: 'LINK', text: 'Learn more', click_url: 'https://example.com/lander', embeddable: true }
+            ]
+        };
+        const result = render(baseFlexOptions, content, mockLog);
+        expect(result).not.toContain('class="pp-flex__disclaimer"');
+        const actionMatch = result.match(/class="pp-flex__action"[^>]*>([\s\S]*?)<\/div>/);
+        expect(actionMatch).not.toBeNull();
+        expect(actionMatch[1]).toContain('Credit option.');
+        expect(actionMatch[1]).toContain('Learn more');
+    });
+
+    test('IMAGE item does not appear in pp-flex__main (logo is extracted)', () => {
+        const result = render(baseFlexOptions, flexContentWithLogo, mockLog);
+        const mainMatch = result.match(/class="pp-flex__main"[^<]*([\s\S]*?)<\/div>/);
+        expect(mainMatch).not.toBeNull();
+        const mainContent = mainMatch[0];
+        expect(mainContent).not.toContain('src="https://example.com/logo.svg"');
+    });
+
+    test.each([['blue'], ['black'], ['white'], ['white-no-border'], ['gray'], ['monochrome'], ['grayscale']])(
+        'maps color %s to class on root element',
+        color => {
+            const options = { style: { layout: 'flex', color, ratio: '8x1' } };
+            const result = render(options, flexContentWithLogo, mockLog);
+            expect(result).toContain(`class="pp-message pp-flex ${color}`);
+            expect(result).toContain(`data-pp-style-color="${color}"`);
+        }
+    );
+
+    test.each([['1x1'], ['1x4'], ['8x1'], ['20x1']])('maps ratio %s to class on root element', ratio => {
+        const options = { style: { layout: 'flex', color: 'blue', ratio } };
+        const result = render(options, flexContentWithLogo, mockLog);
+        expect(result).toContain(`r-${ratio}`);
+        expect(result).toContain(`data-pp-style-ratio="${ratio}"`);
+    });
+
+    test('emits data-pp-style-layout="flex"', () => {
+        const result = render(baseFlexOptions, flexContentWithLogo, mockLog);
+        expect(result).toContain('data-pp-style-layout="flex"');
+    });
+
+    test('flex stylesheet includes color background rule', () => {
+        const result = render(baseFlexOptions, flexContentWithLogo, mockLog);
+        expect(result).toContain('.pp-message.pp-flex.blue .pp-flex__background');
+        expect(result).toContain('#023188');
+    });
+
+    test('flex stylesheet includes all 7 color themes', () => {
+        const result = render(baseFlexOptions, flexContentWithLogo, mockLog);
+        expect(result).toContain('.pp-message.pp-flex.blue');
+        expect(result).toContain('.pp-message.pp-flex.black');
+        expect(result).toContain('.pp-message.pp-flex.white');
+        expect(result).toContain('.pp-message.pp-flex.white-no-border');
+        expect(result).toContain('.pp-message.pp-flex.gray');
+        expect(result).toContain('.pp-message.pp-flex.monochrome');
+        expect(result).toContain('.pp-message.pp-flex.grayscale');
+    });
+
+    test('flex stylesheet emits ratio-specific layout rules', () => {
+        const result8x1 = render(baseFlexOptions, flexContentWithLogo, mockLog);
+        const css8x1 = result8x1.match(/<style>([\s\S]*?)<\/style>/)[1];
+        expect(css8x1).toContain('.pp-message.pp-flex.r-8x1 .pp-flex__content');
+        expect(css8x1).not.toContain('transform: translateY(-80px)');
+        expect(css8x1).not.toContain('.pp-message.pp-flex.r-20x1 .pp-flex__content');
+
+        const result1x1 = render(
+            { style: { layout: 'flex', color: 'blue', ratio: '1x1' } },
+            flexContentWithLogo,
+            mockLog
+        );
+        const css1x1 = result1x1.match(/<style>([\s\S]*?)<\/style>/)[1];
+        expect(css1x1).toMatch(/\.pp-message\.pp-flex\.r-1x1 \.pp-flex__logo-container[\s\S]*width:\s*100%/);
+        expect(css1x1).not.toContain('.pp-message.pp-flex.r-8x1 .pp-flex__content');
+        expect(css1x1).not.toContain('@media (min-aspect-ratio: 200/11)');
+
+        const result1x4 = render(
+            { style: { layout: 'flex', color: 'blue', ratio: '1x4' } },
+            flexContentWithLogo,
+            mockLog
+        );
+        const css1x4 = result1x4.match(/<style>([\s\S]*?)<\/style>/)[1];
+        expect(css1x4).toContain('transform: translateY(-80px)');
+        expect(css1x4).not.toContain('.pp-message.pp-flex.r-8x1 .pp-flex__content');
+    });
+
+    test('flex stylesheet does not include text-layout selectors', () => {
+        const result = render(baseFlexOptions, flexContentWithLogo, mockLog);
+        const css = result.match(/<style>([\s\S]*?)<\/style>/)[1];
+        expect(css).not.toContain('.pp-message .main');
+        expect(css).not.toContain('.pp-message .action');
+        expect(css).not.toContain('.pp-message .logo');
+    });
+
+    test('flex stylesheet sizes html, body, and button to fill iframe', () => {
+        const result = render(baseFlexOptions, flexContentWithLogo, mockLog);
+        const css = result.match(/<style>([\s\S]*?)<\/style>/)[1];
+        expect(css).toMatch(/html,\s*body,\s*button\s*\{[^}]*height:\s*100%/);
+        expect(css).toContain('button {');
+        expect(css).toContain('width: 100%');
+    });
+
+    test('flex stylesheet underlines action and disclaimer links', () => {
+        const result = render(baseFlexOptions, flexContentWithLogo, mockLog);
+        const css = result.match(/<style>([\s\S]*?)<\/style>/)[1];
+        expect(css).toContain('.pp-flex__action span');
+        expect(css).toContain('.pp-flex__disclaimer span');
+        expect(css).toMatch(/\.pp-flex__action span[\s\S]*text-decoration:\s*underline/);
+        expect(css).not.toContain('[data-iframe-url]');
+    });
+
+    test('flex portrait pairs action and disclaimer font sizing', () => {
+        const result = render({ style: { layout: 'flex', color: 'blue', ratio: '1x4' } }, flexContentWithLogo, mockLog);
+        const css = result.match(/<style>([\s\S]*?)<\/style>/)[1];
+        expect(css).toMatch(
+            /\.pp-message\.pp-flex\.r-1x4 \.pp-flex__disclaimer,\s*\n\.pp-message\.pp-flex\.r-1x4 \.pp-flex__action[\s\S]*font-size:\s*0\.9rem/
+        );
+        expect(result).toContain('Learn more');
+    });
+
+    test('flex action links inherit theme color rather than text-layout blue', () => {
+        const result = render(baseFlexOptions, flexContentWithLogo, mockLog);
+        const css = result.match(/<style>([\s\S]*?)<\/style>/)[1];
+        expect(css).not.toContain('#0070ba');
+    });
+
+    test('flex white theme uses color logo assets', () => {
+        const options = { style: { layout: 'flex', color: 'white', ratio: '8x1' } };
+        const result = render(options, flexContentWithLogo, mockLog);
+        expect(result).toContain('data:local/color-monogram');
+        expect(result).toContain('data:local/color-wordmark');
+        expect(result).not.toContain('https://example.com/logo.svg');
+    });
+
+    test('flex stylesheet applies theme logo filters for dark backgrounds', () => {
+        const result = render(baseFlexOptions, flexContentWithLogo, mockLog);
+        const css = result.match(/<style>([\s\S]*?)<\/style>/)[1];
+        expect(css).toMatch(
+            /\.pp-message\.pp-flex\.blue \.pp-flex__logo img[\s\S]*filter:\s*brightness\(0\) invert\(1\)/
+        );
+        expect(css).toMatch(/\.pp-message\.pp-flex\.monochrome \.pp-flex__logo img[\s\S]*filter:\s*grayscale\(100%\)/);
+    });
+
+    test('flex stylesheet includes img display rules for renderV2 logo markup', () => {
+        const result = render(baseFlexOptions, flexContentWithLogo, mockLog);
+        const css = result.match(/<style>([\s\S]*?)<\/style>/)[1];
+        expect(css).toContain('.pp-flex__logo img {');
+        expect(css).toMatch(/\.pp-flex__logo img[\s\S]*display:\s*block/);
+    });
+
+    test('flex landscape uses row flex layout for 8x1 and 20x1', () => {
+        const result = render(baseFlexOptions, flexContentWithLogo, mockLog);
+        const css = result.match(/<style>([\s\S]*?)<\/style>/)[1];
+        expect(css).toMatch(
+            /\.pp-message\.pp-flex\.r-8x1 \.pp-flex__content[\s\S]*display:\s*flex[\s\S]*flex-direction:\s*row/
+        );
+        expect(css).toMatch(/\.pp-message\.pp-flex\.r-8x1 \.pp-flex__logo[\s\S]*width:\s*60%/);
+        expect(css).toMatch(/\.pp-flex__logo img[\s\S]*width:\s*100%/);
+    });
+
+    test('flex landscape narrow path shares locale-A logo rules for 8x1 and 20x1', () => {
+        ['8x1', '20x1'].forEach(ratio => {
+            const result = render({ style: { layout: 'flex', color: 'blue', ratio } }, flexContentWithLogo, mockLog);
+            const css = result.match(/<style>([\s\S]*?)<\/style>/)[1];
+            expect(css).toMatch(
+                new RegExp(
+                    `\\.pp-message\\.pp-flex\\.r-${ratio} \\.pp-flex__logo:nth-of-type\\(2\\)[\\s\\S]*display:\\s*none`
+                )
+            );
+            expect(css).toMatch(
+                new RegExp(
+                    `@media \\(max-aspect-ratio: 61/10\\)[\\s\\S]*\\.pp-message\\.pp-flex\\.r-${ratio} \\.pp-flex__logo-container[\\s\\S]*flex-basis:\\s*12%`
+                )
+            );
+            expect(css).toMatch(
+                new RegExp(
+                    `@media \\(max-aspect-ratio: 61/10\\)[\\s\\S]*\\.pp-message\\.pp-flex\\.r-${ratio} \\.pp-flex__logo-container[\\s\\S]*margin-bottom:\\s*-6px`
+                )
+            );
+            expect(css).toContain(`@media (max-aspect-ratio: 61/10) and (min-width: 324px)`);
+            expect(css).toContain(`@media (max-aspect-ratio: 61/10) and (max-width: 323px)`);
+        });
+    });
+
+    test('flex 1x4 centers messaging vertically and uses full-width logo container', () => {
+        const options = { style: { layout: 'flex', color: 'blue', ratio: '1x4' } };
+        const result = render(options, flexContentWithLogo, mockLog);
+        const css = result.match(/<style>([\s\S]*?)<\/style>/)[1];
+        expect(css).toMatch(/\.pp-message\.pp-flex\.r-1x4 \.pp-flex__logo-container[\s\S]*width:\s*100%/);
+        expect(css).toMatch(/\.pp-message\.pp-flex\.r-1x4 \.pp-flex__messaging[\s\S]*justify-content:\s*center/);
+        expect(css).toMatch(/\.pp-message\.pp-flex\.r-1x4 \.pp-flex__messaging[\s\S]*transform:\s*translateY\(-80px\)/);
+        expect(css).toMatch(/\.pp-message\.pp-flex\.r-1x4 \.pp-flex__logo:nth-of-type\(1\)[\s\S]*width:\s*27px/);
+        expect(css).not.toMatch(/\.pp-message\.pp-flex\.r-1x4 \.pp-flex__logo:nth-of-type\(1\)[\s\S]*max-width:\s*15%/);
+    });
+
+    test('flex 1x1 uses US locale logo container and headline sizing', () => {
+        const options = { style: { layout: 'flex', color: 'blue', ratio: '1x1' } };
+        const result = render(options, flexContentWithLogo, mockLog);
+        const css = result.match(/<style>([\s\S]*?)<\/style>/)[1];
+        expect(css).toMatch(/\.pp-message\.pp-flex\.r-1x1 \.pp-flex__logo-container[\s\S]*width:\s*100%/);
+        expect(css).toMatch(/\.pp-message\.pp-flex\.r-1x1 \.pp-flex__main[\s\S]*line-height:\s*1\.55em/);
+        expect(css).toMatch(/\.pp-message\.pp-flex\.r-1x1 \.pp-flex__content\s*\{[^}]*padding:\s*7%/);
+        expect(css).not.toMatch(/\.pp-message\.pp-flex\.r-1x1 \.pp-flex__content\s*\{[^}]*display:\s*flex/);
+        expect(css).toContain('@media (min-width: 140px)');
+        expect(result).toContain('Pay Later.');
+    });
+
+    test('flex 20x1 centers logo and messaging on one line', () => {
+        const options = { style: { layout: 'flex', color: 'blue', ratio: '20x1' } };
+        const result = render(options, flexContentWithLogo, mockLog);
+        const css = result.match(/<style>([\s\S]*?)<\/style>/)[1];
+        expect(css).toMatch(
+            /@media \(min-aspect-ratio: 200\/11\)[\s\S]*\.pp-message\.pp-flex\.r-20x1 \.pp-flex__content[\s\S]*align-items:\s*center/
+        );
+        expect(css).toMatch(/\.pp-message\.pp-flex\.r-20x1 \.pp-flex__content[\s\S]*justify-content:\s*center/);
+        expect(css).toMatch(/\.pp-message\.pp-flex\.r-20x1 \.pp-flex__logo-container[\s\S]*padding-top:\s*2\.5px/);
+        expect(css).toMatch(/\.pp-message\.pp-flex\.r-20x1 \.pp-flex__logo-container[\s\S]*align-self:\s*center/);
+        expect(css).toMatch(/\.pp-message\.pp-flex\.r-20x1 \.pp-flex__logo img[\s\S]*width:\s*100%/);
+        expect(css).toMatch(
+            /\.pp-message\.pp-flex\.r-20x1 \.pp-flex__messaging[\s\S]*display:\s*flex[\s\S]*flex-direction:\s*row/
+        );
+        expect(css).toMatch(/\.pp-message\.pp-flex\.r-20x1 \.pp-flex__messaging[\s\S]*align-items:\s*center/);
+        expect(css).toMatch(/\.pp-message\.pp-flex\.r-20x1 \.pp-flex__messaging[\s\S]*align-self:\s*center/);
+        expect(css).not.toMatch(/\.pp-message\.pp-flex\.r-20x1 \.pp-flex__main[\s\S]*vertical-align:\s*bottom/);
+    });
+
+    test('flex 8x1 keeps disclaimer under main (v5 block flow parity)', () => {
+        const options = { style: { layout: 'flex', color: 'blue', ratio: '8x1' } };
+        const result = render(options, flexContentWithLogo, mockLog);
+        const css = result.match(/<style>([\s\S]*?)<\/style>/)[1];
+        expect(css).toMatch(/\.pp-message\.pp-flex\.r-8x1 \.pp-flex__main[\s\S]*display:\s*block/);
+        expect(css).toMatch(/\.pp-message\.pp-flex\.r-8x1 \.pp-flex__disclaimer[\s\S]*display:\s*inline/);
+        expect(css).toMatch(
+            /@media \(min-aspect-ratio: 80\/11\)[\s\S]*\.pp-message\.pp-flex\.r-8x1 \.pp-flex__main[\s\S]*display:\s*block/
+        );
+    });
+
+    test('flex 8x1 includes dedicated landscape breakpoint rules', () => {
+        const options = { style: { layout: 'flex', color: 'blue', ratio: '8x1' } };
+        const result = render(options, flexContentWithLogo, mockLog);
+        const css = result.match(/<style>([\s\S]*?)<\/style>/)[1];
+        expect(css).toMatch(/\.pp-message\.pp-flex\.r-8x1 \.pp-flex__logo-container[\s\S]*padding-bottom:\s*2\.5px/);
+        expect(css).toContain('@media (min-aspect-ratio: 80/11) and (min-width: 500px)');
+    });
+
+    test('flex stylesheet includes button focus underline parity with v5 flex base', () => {
+        const result = render(baseFlexOptions, flexContentWithLogo, mockLog);
+        const css = result.match(/<style>([\s\S]*?)<\/style>/)[1];
+        expect(css).toContain('button:focus .pp-message.pp-flex .pp-flex__content');
+    });
+
+    test('grey alias normalizes to gray class', () => {
+        const options = { style: { layout: 'flex', color: 'grey', ratio: '8x1' } };
+        const validatedStyle = validateStyle(mockLog, options.style);
+        const result = render({ style: validatedStyle }, flexContentWithLogo, mockLog);
+        expect(result).toContain('class="pp-message pp-flex gray');
+        expect(result).not.toContain('class="pp-message pp-flex grey');
+    });
+
+    test('handles empty main_items gracefully', () => {
+        const content = { ...flexContentWithLogo, main_items: [] };
+        const result = render(baseFlexOptions, content, mockLog);
+        expect(typeof result).toBe('string');
+        expect(result).toContain('class="pp-message pp-flex');
+    });
+
+    test('handles missing v2Content fields gracefully', () => {
+        const result = render(baseFlexOptions, {}, mockLog);
+        expect(typeof result).toBe('string');
+        expect(result).toContain('class="pp-message pp-flex');
+    });
+
+    test('bare render({ style: { layout: "flex" } }) defaults match validateStyle defaults', () => {
+        const validatedStyle = validateStyle(mockLog, { layout: 'flex' });
+        const directResult = render({ style: { layout: 'flex' } }, flexContentWithLogo, mockLog);
+        const validatedResult = render({ style: validatedStyle }, flexContentWithLogo, mockLog);
+        expect(directResult).toContain(`class="pp-message pp-flex ${FLEX_DEFAULTS.color} r-${FLEX_DEFAULTS.ratio}"`);
+        expect(directResult).toBe(validatedResult);
+    });
+});
+
+describe('v2 render flex snapshots', () => {
+    const flexContentWithLogo = {
+        main_items: [
+            {
+                type: 'IMAGE',
+                source_url: 'https://example.com/logo.svg',
+                alternative_text: 'PayPal',
+                name: 'paypal_logo'
+            },
+            { type: 'TEXT', text: 'Pay Later.' }
+        ],
+        action_items: [{ type: 'LINK', text: 'Learn more', click_url: 'https://example.com/lander', embeddable: true }],
+        disclaimer_items: [{ type: 'TEXT', text: 'Subject to approval.' }]
+    };
+
+    test('full render snapshot for representative case (blue/8x1)', () => {
+        const options = { style: { layout: 'flex', color: 'blue', ratio: '8x1' } };
+        expect(render(options, flexContentWithLogo)).toMatchSnapshot();
+    });
+
+    test('renders flex stylesheet once', () => {
+        const options = { style: { layout: 'flex', color: 'blue', ratio: '8x1' } };
+        const result = render(options, flexContentWithLogo);
+        expect(result.match(/<style>[\s\S]*?<\/style>/)[0]).toMatchSnapshot();
+    });
+
+    test('no-custom-font snapshot uses v5 Helvetica/Arial default stack', () => {
+        const options = { style: { layout: 'flex', color: 'blue', ratio: '8x1' } };
+        const result = render(options, flexContentWithLogo);
+        const css = result.match(/<style>([\s\S]*?)<\/style>/)[1];
+
+        expect(css).not.toContain('@font-face');
+        expect(css).not.toContain('PayPal Pro');
+        expect(css).toContain('font-family: Helvetica, Arial, sans-serif;');
+        expect(css).toMatchSnapshot();
+    });
+
+    test('custom fontSource still prepends merchant font before v5 fallbacks', () => {
+        const options = {
+            style: {
+                layout: 'flex',
+                color: 'blue',
+                ratio: '8x1',
+                text: { fontSource: ['https://example.com/font.woff2'] }
+            }
+        };
+        const result = render(options, flexContentWithLogo);
+        const css = result.match(/<style>([\s\S]*?)<\/style>/)[1];
+
+        expect(css).toContain('@font-face');
+        expect(css).toMatch(/font-family:\s*'PP Merchant Font 1',\s*Helvetica, Arial, sans-serif/);
+        expect(css).not.toContain('PayPal Pro');
+    });
+
+    test.each([
+        ['black', '8x1'],
+        ['white', '1x1'],
+        ['gray', '1x4'],
+        ['monochrome', '20x1']
+    ])('flex color=%s ratio=%s renders expected root class and data attributes', (color, ratio) => {
+        const options = { style: { layout: 'flex', color, ratio } };
+        const result = render(options, flexContentWithLogo);
+        expect(result).toContain(`class="pp-message pp-flex ${color} r-${ratio}"`);
+        expect(result).toContain(`data-pp-style-color="${color}"`);
+        expect(result).toContain(`data-pp-style-ratio="${ratio}"`);
+        expect(result).toContain('class="pp-flex__background"');
+        expect(result).toContain('class="pp-flex__content"');
+    });
+});
+
 describe('v2 render stylesheet isolation', () => {
     test('stylesheet is embedded inline — no external CSS dependency', () => {
         const result = render(baseOptions, baseV2Content, mockLog);
@@ -1031,5 +1592,31 @@ describe('v2 render stylesheet isolation', () => {
         expect(css).toContain('cursor: pointer;');
         expect(css).toContain('text-decoration: underline;');
         expect(css).toContain('button:focus .pp-message');
+    });
+
+    test('flex stylesheet is embedded inline — no external CSS dependency', () => {
+        const result = render({ style: { layout: 'flex', color: 'blue', ratio: '8x1' } }, baseV2Content, mockLog);
+        expect(result).toMatch(/<style>[\s\S]*?<\/style>/);
+        expect(result).not.toContain('<link');
+    });
+
+    test('all flex stylesheet selectors are scoped to .pp-message or body reset', () => {
+        const result = render({ style: { layout: 'flex', color: 'blue', ratio: '8x1' } }, baseV2Content, mockLog);
+        const css = result.match(/<style>([\s\S]*?)<\/style>/)[1];
+        const selectorLines = css
+            .split('\n')
+            .map(l => l.trim())
+            .filter(l => l.length > 0 && !l.startsWith('@') && !l.startsWith('}') && l.includes('{'));
+        expect(
+            selectorLines.every(
+                l =>
+                    l.startsWith('.pp-message') ||
+                    l.startsWith('.pp-flex__') ||
+                    l.startsWith('body') ||
+                    l.startsWith('html') ||
+                    l.startsWith('button') ||
+                    l.startsWith('*')
+            )
+        ).toBe(true);
     });
 });

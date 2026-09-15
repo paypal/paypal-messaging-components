@@ -6,12 +6,14 @@ const imgur = require('imgur');
 const DIFF_FOLDER = '__diff_output__';
 const DIFF_DIR = pathPackage.resolve(__dirname, `../${DIFF_FOLDER}`);
 const DIFF_FOLDERS_LIST = pathPackage.resolve(__dirname, '../../../../diff_folders.log');
-const SNAPSHOT_PATH = pathPackage.resolve(__dirname, '../snapshots');
 
 const renameFile = async ({ folderPath, fileName }) => {
     const oldPath = pathPackage.resolve(folderPath, fileName);
     // {snapshotType}/{integrationType}/{locale}/{account}/{screenSize}
-    const relativePath = pathPackage.relative(SNAPSHOT_PATH, folderPath.replace(DIFF_FOLDER, ''));
+    const relativePath = pathPackage.relative(
+        pathPackage.resolve(__dirname, '../snapshots'),
+        folderPath.replace(DIFF_FOLDER, '')
+    );
     // {integrationType}__{locale}__{account}__{screenSize}
     const configName = relativePath.replace(/^(modal|banner)\//, '').replace(/\//g, '__');
 

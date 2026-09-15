@@ -16,7 +16,7 @@ const LoadingShimmer = ({ numOffers = 3, offerCountry, useNewCheckoutDesign }) =
             {Array.from({ length: numOffers }).map((_, index) => {
                 if (accordionShimmerCountries.includes(offerCountry)) {
                     return (
-                        <div id={index} className="accordion__container shimmer">
+                        <div id={index} className="accordion__container shimmer" aria-hidden="true">
                             <div className="accordion__row">
                                 <div className="accordion__header-container loading">
                                     <div className="offer__field-loading" style={{ width: '60%' }} />
@@ -31,6 +31,7 @@ const LoadingShimmer = ({ numOffers = 3, offerCountry, useNewCheckoutDesign }) =
                         className={`offer__container shimmer key=${index} ${
                             useNewCheckoutDesign === 'true' ? 'checkout' : ''
                         }`}
+                        aria-hidden="true"
                     >
                         <div className="offer__row">
                             <div className="offer__field-loading" />

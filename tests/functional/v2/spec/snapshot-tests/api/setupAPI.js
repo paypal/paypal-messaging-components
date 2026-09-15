@@ -32,22 +32,19 @@ const setViewportWithRetry = async (viewport, maxRetries = 5) => {
     }
 };
 
-export const setupAPI = async (viewport, account, amount) => {
+export const setupAPI = async (viewport, account, amount, queryParams = {}) => {
     // Reset page between tests to get a clean state
     await resetPageSafely();
 
     await setViewportWithRetry(viewport);
     const { width, height } = screenDimensions[viewport];
-    await page.goto(
-        `https://localhost.paypal.com:8080/snapshot/v2/api.html?account=${account}&amount=${amount}&width=${width}&height=${height}`
-    );
+    const params = new URLSearchParams({ account, amount, width, height, ...queryParams });
+    await page.goto(`https://localhost.paypal.com:8080/snapshot/v2/api.html?${params.toString()}`);
 
     apiIframeEl = await page.waitForSelector(apiIframe, {
         visible: true
     });
     const modalFrame = await apiIframeEl.contentFrame();
-
-    await page.evaluate(() => new Promise(resolve => setTimeout(resolve, 5 * 1000)));
 
     return { modalFrame };
 };

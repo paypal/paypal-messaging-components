@@ -30,23 +30,19 @@ const setViewportWithRetry = async (viewport, maxRetries = 5) => {
     }
 };
 
-export const setupWebpage = async (viewport, account, amount) => {
+export const setupWebpage = async (viewport, account, amount, queryParams = {}) => {
     // Reset page between tests to get a clean state
     await resetPageSafely();
 
-    // Small delay to ensure page is ready after jest-environment-puppeteer reset
-    await new Promise(resolve => setTimeout(resolve, 100));
+    // Set viewport before navigation so responsive layout resolves deterministically.
+    await setViewportWithRetry(viewport);
 
     // Navigate to page
-    await page.goto(
-        `https://localhost.paypal.com:8080/credit-presentment/lander/modal?payer_id=${account}&amount=${amount}`,
-        { waitUntil: 'networkidle2' }
-    );
-
-    // Set viewport after page loads with retries
-    await setViewportWithRetry(viewport);
+    const params = new URLSearchParams({ payer_id: account, amount, ...queryParams });
+    await page.goto(`https://localhost.paypal.com:8080/credit-presentment/lander/modal?${params.toString()}`, {
+        waitUntil: 'networkidle0'
+    });
 
     // Wait for modal to be visible
     await page.waitForSelector(overlay, { visible: true });
-    await page.evaluate(() => new Promise(resolve => setTimeout(resolve, 5 * 1000)));
 };

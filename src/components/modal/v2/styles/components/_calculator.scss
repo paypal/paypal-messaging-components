@@ -206,6 +206,25 @@
             }
         }
 
+        &.darkMode {
+            h3 {
+                color: colors.$white;
+            }
+            .input__label {
+                color: colors.$white;
+                opacity: 0.72;
+            }
+            .input {
+                color: colors.$white;
+                background: #363434;
+                border: 1px solid #4f4e4e;
+                &::placeholder {
+                    color: colors.$white;
+                    opacity: 0.72;
+                }
+            }
+        }
+        
         &.checkout {
             .input__wrapper {
                 width: 100%;
@@ -253,6 +272,11 @@
             svg {
                 margin: 0 0.3rem 0 0;
             }
+
+            .darkMode & {
+                color: colors.$white;
+                opacity: 0.72;
+            }
         }
     }
 
@@ -271,6 +295,11 @@
         &.v5Design {
             color: colors.$v5-gray;
             padding-top: 16px;
+        }
+
+        &.darkMode {
+            color: colors.$white;
+            opacity: 0.72;
         }
     }
 

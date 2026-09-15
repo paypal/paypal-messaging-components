@@ -36,7 +36,7 @@ export default function getMutations(id, type) {
         case 'PLLT_NQ_EZ':
             return gplEqz[type];
         case 'GENERIC:NON-AT':
-        case 'GENERIC_XB':
+        case 'PL_GENERIC_XB':
             return genericNonAt[type];
         case 'GENERIC':
         default:

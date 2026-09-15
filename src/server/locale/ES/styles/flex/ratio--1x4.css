@@ -27,6 +27,26 @@
 
 .message__disclaimer {
     font-size: 0.9rem;
+    white-space: normal;
+}
+
+.message__disclaimer > span,
+.message__disclaimer > span > span {
+    white-space: normal;
+}
+
+.message__disclaimer > span.tag--default {
+    font-size: 1rem;
+    white-space: nowrap;
+}
+
+.message__disclaimer > span.tag--default > span {
+    white-space: nowrap;
+}
+
+.message__disclaimer > span.tag--xsmall,
+.message__disclaimer > span.tag--large {
+    font-size: 1.1rem;
 }
 
 .message__disclaimer span.multi:nth-of-type(1) {
@@ -39,12 +59,17 @@
 
 @media (min-height: 500px) {
     .message__headline {
-        font-size: 1.6rem;
+        font-size: 1.2rem;
+    }
+
+    .message__disclaimer > span.tag--xsmall,
+    .message__disclaimer > span.tag--large {
+        font-size: 1.2rem;
     }
 }
 
 @media (aspect-ratio: 1/2) {
     .message__messaging {
-        transform: translateY(-40px);
+        transform: translateY(-30px);
     }
 }

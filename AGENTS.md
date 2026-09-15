@@ -45,7 +45,7 @@
 
 ## Project snapshot
 
--   **Runtime**: Node `20` (see `.nvmrc`)
+-   **Runtime**: use the Node version in `.nvmrc` (currently `22`); treat `.nvmrc` as the source of truth
 -   **Build**: Webpack 4 + `@krakenjs/webpack-config-grumbler` (`webpack.config.js`, `webpack.config.dev.js`)
 -   **UI**: Preact + JSX (`preact`, `@krakenjs/jsx-pragmatic`) + SCSS (modal v2)
 -   **Cross-domain components**: Zoid + Post-Robot (`@krakenjs/zoid`, `@krakenjs/post-robot`)
@@ -77,7 +77,7 @@
 
 ## Local gate (run before PR / handoff)
 
--   `nvm use` (Node 20)
+-   `nvm use` (uses the version in `.nvmrc`)
 -   `npm install`
 -   `npm run lint`
 -   `npm test` (unit tests; Jest)
@@ -199,6 +199,14 @@ Use Playwright’s interactive modes when tests fail or when implementing a comp
 -   Include a clear plan with acceptance criteria before implementing non-trivial changes.
 -   Keep changes aligned with repo patterns (webpack targets, demo verification, test suites).
 -   Run the most relevant local gates for the impacted area(s) and cite the commands you executed.
+
+## Pull request evidence
+
+-   Before publishing a public PR, scan its title, body, branch, commits, screenshots, and testing instructions for internal URLs, stage tags, identifiers, service details, credentials, and merchant or customer data. Replace them with public local-demo instructions.
+-   Include screenshots or video for visible UI changes. For semantics-only changes, write `N/A` and include the exact DOM, accessibility-tree, or automated assertion that proves the behavior.
+-   Bug-fix testing instructions must name the regression covered and the exact command that passes with the fix.
+-   After opening the PR, verify the live title, body, base branch, diff, labels, and checks.
+-   For fork PRs, report missing review labels and `action_required` workflows as maintainer actions. Do not describe missing or unapproved checks as passing.
 
 ## Plan Mode Default
 

@@ -1,0 +1,34 @@
+{
+    "id": "0d5f0c31-39b8-4c3e-930e-55f4e831585e",
+    "type": "PL_GENERIC",
+    "offer_types": ["PAY_LATER_LONG_TERM", "PAY_LATER_SHORT_TERM"],
+    "priority_rules": [
+        {
+            "type": "ELIGIBLE",
+            "min_amount": "0.00",
+            "max_amount": "0.00",
+            "priority_score": 6
+        }
+    ],
+    "content": {
+        "main_items": [
+            {
+                "type": "IMAGE",
+                "name": "paypal_logo",
+                "source_url": "https://www.paypalobjects.com/upstream/assets/logos/v2/paypal_badge.svg",
+                "alternative_text": "PayPal"
+            },
+            {
+                "type": "TEXT",
+                "text": "Acquista ora, paga dopo."
+            }
+        ],
+        "action_items": [
+            {
+                "type": "LINK",
+                "text": "Scopri di più",
+                "click_url": "{click_url}"
+            }
+        ]
+    }
+}

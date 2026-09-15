@@ -1,0 +1,34 @@
+{
+    "id": "f2f081cd-08fc-4779-a3f2-484c01ce67ed",
+    "type": "PL_GENERIC",
+    "offer_types": ["PAY_LATER_SHORT_TERM", "PAY_LATER_LONG_TERM", "PAYPAL_CREDIT_NO_INTEREST"],
+    "priority_rules": [
+        {
+            "type": "ELIGIBLE",
+            "min_amount": "0.00",
+            "max_amount": "0.00",
+            "priority_score": 3
+        }
+    ],
+    "content": {
+        "main_items": [
+            {
+                "type": "IMAGE",
+                "name": "paypal_logo",
+                "source_url": "https://www.paypalobjects.com/upstream/assets/logos/v2/paypal_badge.svg",
+                "alternative_text": "PayPal"
+            },
+            {
+                "type": "TEXT",
+                "text": "Buy now, pay later."
+            }
+        ],
+        "action_items": [
+            {
+                "type": "LINK",
+                "text": "Learn more",
+                "click_url": "{click_url}"
+            }
+        ]
+    }
+}

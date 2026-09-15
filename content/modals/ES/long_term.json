@@ -29,7 +29,8 @@
             "inputLabel": "Importe de compra",
             "inputPlaceholder": "0 €",
             "inputCurrencySymbol": "€",
-            "genericError": "Algo salió mal. Por favor, inténtalo de nuevo más tarde."
+            "genericError": "Algo salió mal. Por favor, inténtalo de nuevo más tarde.",
+            "loadingLabel": "Cargando opciones de financiación"
         },
         "genericDisclaimer": "*Todos los ejemplos tienen carácter representativo. Las condiciones finales y los tipos de interés varían en función del importe de la compra y el perfil del cliente. El importe de los plazos está redondeado.",
         "instructions": [

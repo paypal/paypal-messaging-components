@@ -101,4 +101,8 @@
     @include mixins.apiIframe {
         max-height: 100%;
     }
+
+    .darkMode & {
+        background: colors.$dark-mode-black;
+    }
 }

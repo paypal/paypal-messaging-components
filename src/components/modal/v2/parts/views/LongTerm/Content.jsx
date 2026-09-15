@@ -14,7 +14,7 @@ import styles from './styles.scss';
 /**
  * Checks qualifying offer APRs in order to determine which APR disclaimer to render.
  */
-const getAPRDetails = ({ offers, genericDisclaimer, disclaimer: { zeroAPR, mixedAPR, nonZeroAPR } = {} }) => {
+export const getAPRDetails = ({ offers, genericDisclaimer, disclaimer: { zeroAPR, mixedAPR, nonZeroAPR } = {} }) => {
     const qualifyingOffers = offers.filter(offer => offer?.meta?.qualifying === 'true');
 
     let totalNonZero = 0;
@@ -29,13 +29,13 @@ const getAPRDetails = ({ offers, genericDisclaimer, disclaimer: { zeroAPR, mixed
     });
 
     if (qualifyingOffers.length === 0) {
-        return [
-            {
-                /**
-                 * Specifically, this impacts US Long Term and which legal disclaimer shows underneath the offer cards.
-                 * If no initial amount is passed in or there is an error, we default to a generic disclaimer.
-                 * i.e. Terms may vary based on purchase amount.
-                 */
+        return {
+            /**
+             * Specifically, this impacts US Long Term and which legal disclaimer shows underneath the offer cards.
+             * If no initial amount is passed in or there is an error, we default to a generic disclaimer.
+             * i.e. Terms may vary based on purchase amount.
+             */
+            default: {
                 aprDisclaimer: genericDisclaimer ?? zeroAPR,
                 /**
                  * Used by DE Long Term to determine which legal disclosure shows at the bottom of the modal.
@@ -43,30 +43,35 @@ const getAPRDetails = ({ offers, genericDisclaimer, disclaimer: { zeroAPR, mixed
                  */
                 aprType: 'nonZeroAPR'
             }
-        ];
+        };
     }
 
     // TODO: Clean up backwards compatible code after release and content updates.
-    return qualifyingOffers.map(({ content: { disclaimer } }) => {
-        if (qualifyingOffers.length === totalNonZero) {
-            return {
-                aprDisclaimer: disclaimer?.nonZeroAPR ?? nonZeroAPR,
-                aprType: 'nonZeroAPR'
-            };
-        }
+    // Keyed by each offer's own term (total_payments) so the disclaimer stays paired with its offer
+    // regardless of what order `offers` is rendered/sorted in downstream.
+    return qualifyingOffers.reduce(
+        (acc, { meta, content: { disclaimer } }) => {
+            if (qualifyingOffers.length === totalNonZero) {
+                acc[meta.total_payments] = {
+                    aprDisclaimer: disclaimer?.nonZeroAPR ?? nonZeroAPR,
+                    aprType: 'nonZeroAPR'
+                };
+            } else if (qualifyingOffers.length === totalZero) {
+                acc[meta.total_payments] = {
+                    aprDisclaimer: disclaimer?.zeroAPR ?? zeroAPR,
+                    aprType: 'zeroAPR'
+                };
+            } else {
+                acc[meta.total_payments] = {
+                    aprDisclaimer: disclaimer?.mixedAPR ?? mixedAPR,
+                    aprType: 'mixedAPR'
+                };
+            }
 
-        if (qualifyingOffers.length === totalZero) {
-            return {
-                aprDisclaimer: disclaimer?.zeroAPR ?? zeroAPR,
-                aprType: 'zeroAPR'
-            };
-        }
-
-        return {
-            aprDisclaimer: disclaimer?.mixedAPR ?? mixedAPR,
-            aprType: 'mixedAPR'
-        };
-    });
+            return acc;
+        },
+        { default: { aprDisclaimer: genericDisclaimer ?? nonZeroAPR, aprType: 'nonZeroAPR' } }
+    );
 };
 
 export const LongTerm = ({
@@ -85,7 +90,8 @@ export const LongTerm = ({
     productMeta: { useV4Design, useV5Design, showPromoContent, prequalExperience, product },
     openProductList,
     useNewCheckoutDesign,
-    use5Dot1Design
+    use5Dot1Design,
+    useDarkMode
 }) => {
     const [expandedState, setExpandedState] = useState(false);
     const { amount, onClick, onClose } = useXProps();
@@ -182,7 +188,7 @@ export const LongTerm = ({
 
     // Determine disclosure content based on type
     const getDisclosure = disclosureContent => {
-        const aprType = offerAPRDisclaimers?.[0]?.aprType;
+        const aprType = Object.values(offerAPRDisclaimers)[0]?.aprType;
 
         let text = disclosureContent;
         if (typeof disclosureContent !== 'string' && !Array.isArray(disclosureContent)) {
@@ -196,7 +202,11 @@ export const LongTerm = ({
     return (
         <Fragment>
             <style>{styles._getCss()}</style>
-            <div className={`content__row dynamic ${useNewCheckoutDesign === 'true' ? 'checkout' : ''}`}>
+            <div
+                className={`content__row dynamic ${useNewCheckoutDesign === 'true' ? 'checkout' : ''} ${
+                    useDarkMode ? 'darkMode' : ''
+                }`}
+            >
                 <div className="content__col">
                     <Calculator
                         setExpandedState={setExpandedState}
@@ -208,6 +218,7 @@ export const LongTerm = ({
                         useV5Design={useV5Design}
                         use5Dot1Design={use5Dot1Design}
                         useNewCheckoutDesign={useNewCheckoutDesign}
+                        useDarkMode={useDarkMode}
                     />
                     {showOfferTerms && offerTerms && (
                         <OfferTerms
@@ -237,7 +248,7 @@ export const LongTerm = ({
                     useNewCheckoutDesign === 'true' ? 'checkout' : ''
                 } ${useV5Design === 'true' ? 'v5Design' : ''} ${getEuroStyleClass(country)} ${
                     isPrequalExperience ? 'prequal-fixed-offset' : ''
-                }`}
+                } ${useDarkMode ? 'darkMode' : ''}`}
             >
                 {getDisclosure(disclosure)}
             </div>

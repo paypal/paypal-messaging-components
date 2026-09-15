@@ -9,11 +9,14 @@ import {
     useScroll,
     useDidUpdateEffect,
     useTransitionState,
+    usePrefersDarkMode,
+    useDisclosureView,
     isLander
 } from '../lib';
 import Header from './Header';
 import { LongTerm, ShortTerm, NoInterest, ProductList, PayIn1 } from './views';
 import CheckoutHeader from './CheckoutHeader';
+import Disclosure from './Disclosure';
 
 const VIEW_IDS = {
     // TODO: add an error view in case we receive an invalid view?
@@ -29,6 +32,7 @@ const BodyContent = () => {
     const { offer, features } = useXProps();
     const { scrollTo } = useScroll();
     const [transitionState] = useTransitionState();
+    const { disclosureUrl, closeDisclosure } = useDisclosureView();
     const primaryViewName = useMemo(() => {
         if (offer) {
             const viewName = views.find(view => view.meta.product === offer)?.meta.product;
@@ -65,6 +69,9 @@ const BodyContent = () => {
     const useV5Design = productMeta?.useV5Design === 'true';
     const use5Dot1Design = productMeta?.['v5.1'];
     const useNewCheckoutDesign = features?.includes('new-checkout-design') ? 'true' : 'false';
+    const prefersDarkMode = usePrefersDarkMode();
+    const useDarkMode =
+        productMeta?.enableDarkMode === 'true' && (prefersDarkMode || !!features?.includes('use-dark-mode'));
 
     // add v4Design or v5Design class to root html to update lander specific styles to v4 or v5 respectively
     const documentClassName = document.documentElement.className;
@@ -111,6 +118,7 @@ const BodyContent = () => {
                 content={content}
                 productMeta={productMeta}
                 useNewCheckoutDesign={useNewCheckoutDesign}
+                useDarkMode={useDarkMode}
                 use5Dot1Design={use5Dot1Design}
                 openProductList={openProductList}
             />
@@ -128,6 +136,7 @@ const BodyContent = () => {
                 content={content}
                 productMeta={productMeta}
                 useNewCheckoutDesign={useNewCheckoutDesign}
+                useDarkMode={useDarkMode}
                 use5Dot1Design={use5Dot1Design}
                 openProductList={openProductList}
             />
@@ -174,17 +183,19 @@ const BodyContent = () => {
                     useV4Design={useV4Design}
                     useV5Design={useV5Design}
                     use5Dot1Design={use5Dot1Design}
+                    useDarkMode={useDarkMode}
                 />
             )}
             <div
                 className={`content__container ${useV4Design ? 'v4Design' : ''} ${useV5Design ? 'v5Design' : ''} ${
                     useNewCheckoutDesign === 'true' ? 'checkout' : ''
-                } ${use5Dot1Design ? 'v5Dot1Design' : ''} `}
+                } ${use5Dot1Design ? 'v5Dot1Design' : ''} ${useDarkMode ? 'darkMode' : ''}`}
             >
                 <main className="main">
                     <div className="content__body">{viewComponents[viewName]}</div>
                 </main>
             </div>
+            {disclosureUrl && <Disclosure url={disclosureUrl} onBack={closeDisclosure} />}
         </Fragment>
     );
 };
