@@ -15,6 +15,12 @@ const flex = [
             disclaimer: ['default']
         }
     ],
+    [
+        'ratio:1x4',
+        {
+            styles: [`.message__headline .tag--xsmall { display: inline;}`]
+        }
+    ],
     ['color:white-no-border', { logo: Logo.PP_PAYPAL.COLOR }],
     ...flexLogoMutations
 ];
