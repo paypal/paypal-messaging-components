@@ -128,8 +128,8 @@ export default {
                         tag: 'medium',
                         br: ['for', 'pour'],
                         replace: [
-                            ['with PayPal.', ''],
-                            ['avec PayPal.', '']
+                            ['00.', '00'],
+                            ['00 $.', '00 $']
                         ]
                     },
                     {
@@ -152,8 +152,8 @@ export default {
                         tag: 'medium',
                         br: ['for', 'pour'],
                         replace: [
-                            ['with PayPal.', ''],
-                            ['avec PayPal.', '']
+                            ['00.', '00'],
+                            ['00 $.', '00 $']
                         ]
                     },
                     {

@@ -21,7 +21,7 @@
         ["Achetez maintenant, payez plus tard.", ["default", "xsmall"]],
         ["Achetez maintenant et payez plus tard.", ["xsmall.2"]],
         [
-            "Payer par mois pour les achats de {formattedMinAmount} à {formattedMaxAmount} avec PayPal.",
+            "Payer par mois pour les achats de {formattedMinAmount} à {formattedMaxAmount}.",
             ["medium", "large", "xlarge"]
         ]
     ],

@@ -20,10 +20,7 @@
     "headline": [
         ["Buy now, pay later.", ["default", "xsmall"]],
         ["Buy now and pay later.", ["xsmall.2"]],
-        [
-            "Pay monthly for purchases of {formattedMinAmount}-{formattedMaxAmount} with PayPal.",
-            ["medium", "large", "xlarge"]
-        ]
+        ["Pay monthly for purchases of {formattedMinAmount}-{formattedMaxAmount}.", ["medium", "large", "xlarge"]]
     ],
     "subHeadline": [],
     "disclaimer": [["<span aria-hidden='true'>Learn more</span><span class='sr-only'> Learn more</span>", ["default"]]]
