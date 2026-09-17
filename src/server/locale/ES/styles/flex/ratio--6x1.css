@@ -44,8 +44,20 @@
 
 @media (max-aspect-ratio: 61/10) {
     .message__headline {
-        font-size: 4.5vw;
+        font-size: 2vw;
         line-height: 1.3em;
+        display: inline;
+    }
+    .message__disclaimer {
+        font-size: 2vw;
+    }
+    .message__disclaimer > span.tag--large,
+    .message__disclaimer > span.tag--large > span {
+        white-space: normal;
+    }
+    .message__disclaimer > span.tag--large,
+    .message__disclaimer > span.tag--large:nth-of-type(1),
+    .message__disclaimer > span.tag--large:nth-of-type(2) {
         display: inline;
     }
     .message__logo-container {
@@ -68,7 +80,11 @@
 
 @media (max-width: 374px) {
     .message__headline {
-        font-size: 3.8vw;
+        font-size: 2vw;
+    }
+
+    .message__disclaimer {
+        font-size: 2vw;
     }
 
     .message__logo:nth-of-type(1) {
@@ -76,7 +92,7 @@
     }
 
     .message__logo-container {
-        margin-right: 2.5%;
+        margin-right: none;
     }
 
     .weak {
@@ -96,9 +112,10 @@
     }
     .message__logo:nth-of-type(1) {
         margin: 0 5px;
-        width: 30%;
+        width: 20%;
     }
     .message__logo:nth-of-type(2) {
         display: inline;
+        width: 50px;
     }
 }

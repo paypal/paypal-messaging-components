@@ -10,11 +10,13 @@ import {
     useDidUpdateEffect,
     useTransitionState,
     usePrefersDarkMode,
+    useDisclosureView,
     isLander
 } from '../lib';
 import Header from './Header';
 import { LongTerm, ShortTerm, NoInterest, ProductList, PayIn1 } from './views';
 import CheckoutHeader from './CheckoutHeader';
+import Disclosure from './Disclosure';
 
 const VIEW_IDS = {
     // TODO: add an error view in case we receive an invalid view?
@@ -30,6 +32,7 @@ const BodyContent = () => {
     const { offer, features } = useXProps();
     const { scrollTo } = useScroll();
     const [transitionState] = useTransitionState();
+    const { disclosureUrl, closeDisclosure } = useDisclosureView();
     const primaryViewName = useMemo(() => {
         if (offer) {
             const viewName = views.find(view => view.meta.product === offer)?.meta.product;
@@ -192,6 +195,7 @@ const BodyContent = () => {
                     <div className="content__body">{viewComponents[viewName]}</div>
                 </main>
             </div>
+            {disclosureUrl && <Disclosure url={disclosureUrl} onBack={closeDisclosure} />}
         </Fragment>
     );
 };
