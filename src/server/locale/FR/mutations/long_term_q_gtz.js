@@ -7,7 +7,7 @@ import {
     logo20x1,
     xSmallFallback,
     addPeriod,
-    disclaimerWrap
+    disclaimerSpanWrap
 } from '../../../message/mediaQueries';
 import { flexLogoMutations, textLogoMutations } from '../../../message/logoMutations';
 
@@ -74,7 +74,7 @@ export default {
                     messageLogoWidth(false, textSize * 4, textSize * 1.25),
                     setLogoTop(textSize * 16),
                     addPeriod(),
-                    disclaimerWrap()
+                    disclaimerSpanWrap()
                 ],
                 logo: Logo.PP_PAYPAL.COLOR,
                 headline: [
@@ -101,7 +101,7 @@ export default {
                     setLogoTop(textSize * 63),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
                     addPeriod(),
-                    disclaimerWrap(),
+                    disclaimerSpanWrap(),
                     `@media screen and (max-width: ${
                         textSize * 14.5
                     }px) { .message__headline > .tag--xsmall > span { white-space: normal;} }`
@@ -118,7 +118,7 @@ export default {
                     xSmallFallback(textSize * 12),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
                     addPeriod(),
-                    disclaimerWrap(),
+                    disclaimerSpanWrap(),
                     `@media screen and (max-width: ${
                         textSize * 14.5
                     }px) { .message__headline > .tag--xsmall > span { white-space: normal;} }`
@@ -145,7 +145,7 @@ export default {
                     altNoWrap(textSize * 10.6),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25),
                     addPeriod(),
-                    disclaimerWrap()
+                    disclaimerSpanWrap()
                 ],
                 logo: Logo.PP_PAYPAL.COLOR[0],
                 headline: [
@@ -165,7 +165,7 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     xSmallFallback(textSize * 20),
-                    disclaimerWrap(),
+                    disclaimerSpanWrap(),
                     `@media screen and (max-width: ${
                         textSize * 14.5
                     }px) { .message__headline > .tag--xsmall > span { white-space: normal;} }`
@@ -191,7 +191,7 @@ export default {
                 styles: [
                     xSmallFallback(textSize * 18),
                     `.message__logo { width: ${textSize * 4}px }`,
-                    disclaimerWrap(),
+                    disclaimerSpanWrap(),
                     `@media screen and (max-width: ${
                         textSize * 14.5
                     }px) { .message__headline > .tag--xsmall > span { white-space: normal;} }`

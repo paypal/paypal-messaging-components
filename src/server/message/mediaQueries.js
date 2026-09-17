@@ -203,7 +203,7 @@ export function primaryWrap(breakpoint) {
  * Allows the first disclaimer span (e.g. a regulatory caveat) to wrap onto multiple lines
  * without forcing a following "Learn more" link span to wrap as well.
  */
-export function disclaimerWrap() {
+export function disclaimerSpanWrap() {
     return `.message__disclaimer > span.multi:first-of-type { white-space: normal; }`;
 }
 

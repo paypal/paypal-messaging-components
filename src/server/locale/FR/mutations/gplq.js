@@ -5,7 +5,7 @@ import {
     altNoWrap,
     setLogoTop,
     logo20x1,
-    disclaimerWrap
+    disclaimerSpanWrap
 } from '../../../message/mediaQueries';
 import { textLogoMutations, flexLogoMutations } from '../../../message/logoMutations';
 
@@ -18,7 +18,7 @@ export default {
                     textWrap(textSize * 62, textSize, 'FR'),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25),
                     setLogoTop(textSize * 20),
-                    disclaimerWrap()
+                    disclaimerSpanWrap()
                 ],
                 logo: Logo.PP_PAYPAL.COLOR,
                 headline: [
@@ -37,7 +37,7 @@ export default {
                     textWrap(textSize * 31, textSize, 'FR'),
                     setLogoTop(textSize * 62),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
-                    disclaimerWrap()
+                    disclaimerSpanWrap()
                 ]
             })
         ],
@@ -46,7 +46,7 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
-                    disclaimerWrap(),
+                    disclaimerSpanWrap(),
                     `@media screen and (min-width: ${textSize * 11.5}px) {
                     .message__messaging span.br {
                         white-space: normal;
@@ -62,7 +62,7 @@ export default {
                     textWrap(textSize * 62, textSize, 'FR'),
                     altNoWrap(textSize * 10.6),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25),
-                    disclaimerWrap(),
+                    disclaimerSpanWrap(),
                     `@media screen and (max-width: ${
                         textSize * 7.5
                     }px) { message__content, .locale--FR  .message__messaging { white-space: nowrap; }}`
@@ -74,7 +74,7 @@ export default {
             'logo.type:none',
             ({ textSize }) => ({
                 styles: [
-                    disclaimerWrap(),
+                    disclaimerSpanWrap(),
                     `@media screen and (min-width: ${textSize * 11.5}px) {
                     .message__messaging span.br {
                         white-space: normal;
@@ -96,7 +96,7 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     `.message__logo { width: ${textSize * 4}px }`,
-                    disclaimerWrap(),
+                    disclaimerSpanWrap(),
                     `@media screen and (min-width: ${textSize * 11.5}px) {
                     .message__messaging span.br {
                         white-space: normal;

@@ -6,7 +6,7 @@ import {
     setLogoTop,
     logo20x1,
     xSmallFallback,
-    disclaimerWrap
+    disclaimerSpanWrap
 } from '../../../message/mediaQueries';
 import { textLogoMutations, flexLogoMutations } from '../../../message/logoMutations';
 
@@ -69,7 +69,7 @@ export default {
                     xSmallFallback(textSize * 16),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25),
                     setLogoTop(textSize * 16),
-                    disclaimerWrap()
+                    disclaimerSpanWrap()
                 ],
                 logo: Logo.PP_PAYPAL.COLOR,
                 headline: [
@@ -88,7 +88,7 @@ export default {
                     xSmallFallback(textSize * 17.4),
                     setLogoTop(textSize * 52),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
-                    disclaimerWrap()
+                    disclaimerSpanWrap()
                 ],
                 headline: [
                     {
@@ -104,7 +104,7 @@ export default {
                 styles: [
                     xSmallFallback(textSize * 17.4),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
-                    disclaimerWrap()
+                    disclaimerSpanWrap()
                 ],
                 headline: [
                     {
@@ -123,7 +123,7 @@ export default {
                     xSmallFallback(textSize * 17.75),
                     altNoWrap(textSize * 10.6),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25),
-                    disclaimerWrap()
+                    disclaimerSpanWrap()
                 ],
                 logo: Logo.PP_PAYPAL.COLOR[0],
                 headline: [
@@ -137,7 +137,7 @@ export default {
         [
             'logo.type:none',
             ({ textSize }) => ({
-                styles: [xSmallFallback(textSize * 20), disclaimerWrap()],
+                styles: [xSmallFallback(textSize * 20), disclaimerSpanWrap()],
                 logo: false,
                 headline: [
                     {
@@ -154,7 +154,7 @@ export default {
                 styles: [
                     xSmallFallback(textSize * 20),
                     `.message__logo { width: ${textSize * 4}px }`,
-                    disclaimerWrap()
+                    disclaimerSpanWrap()
                 ],
                 logo: Logo.NO_PP_MONOGRAM.COLOR,
                 headline: [
