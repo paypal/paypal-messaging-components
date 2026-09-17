@@ -46,6 +46,8 @@
             "The subsequent installments will be debited automatically. It's easy!"
         ],
 
+        "creditWarning": "Warning! A loan costs money and must be repaid.",
+
         "disclosure": [
             "Only for private individuals residing in France. French PayPal account required. Pay in 4X is available, subject to acceptance, for purchases between {formattedMinAmount} and {formattedMaxAmount}. A loan is a binding commitment and must be repaid, check your repayment capacity. ",
             ["Terms and Conditions", "https://www.paypal.com/fr/webapps/mpp/ua/pay-in-4x-full"],
