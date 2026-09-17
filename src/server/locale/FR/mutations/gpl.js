@@ -15,7 +15,7 @@ export default {
             'default',
             ({ textSize }) => ({
                 styles: [
-                    textWrap(textSize * 43, textSize, 'FR'),
+                    textWrap(textSize * 85, textSize, 'FR'),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25),
                     setLogoTop(textSize * 20),
                     disclaimerWrap(),
@@ -40,7 +40,7 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     textWrap(textSize * 43, textSize, 'FR'),
-                    setLogoTop(textSize * 40),
+                    setLogoTop(textSize * 70),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
                     disclaimerWrap(),
                     `@media screen and (min-width: ${textSize * 11.5}px) {
@@ -82,7 +82,7 @@ export default {
             'logo.type:alternative',
             ({ textSize }) => ({
                 styles: [
-                    textWrap(textSize * 39, textSize, 'FR'),
+                    textWrap(textSize * 85, textSize, 'FR'),
                     altNoWrap(textSize * 10.6),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25),
                     disclaimerWrap()

@@ -69,7 +69,7 @@ export default {
             'default',
             ({ textSize }) => ({
                 styles: [
-                    textWrap(textSize * 42, textSize, 'FR'),
+                    textWrap(textSize * 66, textSize, 'FR'),
                     xSmallFallback(textSize * 16),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25),
                     setLogoTop(textSize * 16),
@@ -98,7 +98,7 @@ export default {
                         textSize * 18.5
                     }px) { .message__headline > .tag--medium > span > span:first-child { white-space: normal; } }`,
                     xSmallFallback(textSize * 12),
-                    setLogoTop(textSize * 40),
+                    setLogoTop(textSize * 63),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
                     addPeriod(),
                     disclaimerWrap(),
@@ -140,7 +140,7 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     `@media screen and (max-width: ${textSize * 10.6}px) { .message__content { white-space: nowrap; }}`,
-                    textWrap(textSize * 34, textSize, 'FR'),
+                    textWrap(textSize * 66, textSize, 'FR'),
                     xSmallFallback(textSize * 11.5),
                     altNoWrap(textSize * 10.6),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25),

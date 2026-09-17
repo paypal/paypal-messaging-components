@@ -15,7 +15,7 @@ export default {
             'default',
             ({ textSize }) => ({
                 styles: [
-                    textWrap(textSize * 38, textSize, 'FR'),
+                    textWrap(textSize * 62, textSize, 'FR'),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25),
                     setLogoTop(textSize * 20),
                     disclaimerWrap()
@@ -35,7 +35,7 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     textWrap(textSize * 31, textSize, 'FR'),
-                    setLogoTop(textSize * 24),
+                    setLogoTop(textSize * 62),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
                     disclaimerWrap()
                 ]
@@ -59,7 +59,7 @@ export default {
             'logo.type:alternative',
             ({ textSize }) => ({
                 styles: [
-                    textWrap(textSize * 32, textSize, 'FR'),
+                    textWrap(textSize * 62, textSize, 'FR'),
                     altNoWrap(textSize * 10.6),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25),
                     disclaimerWrap(),
