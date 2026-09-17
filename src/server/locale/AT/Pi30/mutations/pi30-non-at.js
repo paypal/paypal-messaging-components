@@ -37,7 +37,7 @@ const flex = [
                     tag: 'xsmall'
                 }
             ],
-            disclaimer: ['extra', 'large', 'default']
+            disclaimer: ['large', 'extra', 'default']
         }
     ],
     [
@@ -114,11 +114,11 @@ export default {
                 logo: Logo.PP_PAYPAL.COLOR,
                 headline: [{ tag: 'xsmall', br: [','] }],
                 disclaimer: [
+                    'large',
                     {
                         tag: 'extra',
                         br: ['.']
                     },
-                    'large',
                     'default'
                 ]
             })

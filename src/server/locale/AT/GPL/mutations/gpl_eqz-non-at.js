@@ -44,11 +44,11 @@ const flex = [
                 }
             ],
             disclaimer: [
+                'large',
                 {
                     tag: 'extra',
                     br: ['.']
                 },
-                'large',
                 'default'
             ]
         }
@@ -162,7 +162,7 @@ export default {
                     },
                     { tag: 'xsmall', br: ['verfügbar.'] }
                 ],
-                disclaimer: [{ tag: 'extra', br: ['.'] }, 'large', 'default']
+                disclaimer: ['large', { tag: 'extra', br: ['.'] }, 'default']
             })
         ],
         [

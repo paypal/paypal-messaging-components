@@ -46,7 +46,7 @@ const flex = [
                     tag: 'medium'
                 }
             ],
-            disclaimer: ['extra', 'large', 'default']
+            disclaimer: ['large', 'extra', 'default']
         }
     ],
     [
@@ -131,11 +131,11 @@ export default {
                     { tag: 'xsmall', br: [','] }
                 ],
                 disclaimer: [
+                    'large',
                     {
                         tag: 'extra',
                         br: ['.']
                     },
-                    'large',
                     'default'
                 ]
             })

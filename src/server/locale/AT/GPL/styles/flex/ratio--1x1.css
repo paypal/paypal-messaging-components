@@ -6,7 +6,7 @@
     white-space: normal;
 }
 .message__disclaimer > span.tag--large {
-    font-size: 6vw;
+    font-size: 5.5vw;
 }
 .message__disclaimer > span.tag--default,
 .message__disclaimer > span.tag--default > span {
@@ -19,7 +19,7 @@
     display: inline;
 }
 .message__headline {
-    font-size: 6vw;
+    font-size: 5.5vw;
     line-height: 1.33em;
 }
 .message__disclaimer {

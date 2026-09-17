@@ -25,7 +25,7 @@
     white-space: nowrap;
 }
 .message__headline {
-    font-size: 1.2rem;
+    font-size: 1rem;
     line-height: 1.3em;
     margin-bottom: 10%;
 }
@@ -33,7 +33,7 @@
     display: none;
 }
 .message__disclaimer {
-    font-size: 0.9rem;
+    font-size: 1rem;
 }
 .message__disclaimer span.multi:nth-of-type(1) {
     display: inline;
@@ -44,7 +44,7 @@
 
 @media (min-height: 500px) {
     .message__headline {
-        font-size: 1.2rem;
+        font-size: 1rem;
     }
 }
 @media (aspect-ratio: 1/2) {
