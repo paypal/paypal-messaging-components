@@ -121,10 +121,21 @@ const accounts = [
     // DEV00ITPLQEQZ,
 
     // CA
+    //pay later short term
     // 'DEV000ENCAPLQ',
     // 'DEV00ENCAPLNQ',
     // 'DEV00ENCAPLNA',
     // 'DEV000FRCAPLQ',
     // 'DEV00FRCAPLNQ',
     // 'DEV00FRCAPLNA',
+
+    // pay later long term
+    //'DEV00ENCAPLTQ',
+    //'DEV00FRCAPLTQ',
+    //'DEV0ENCAPLTNQ',
+    //'DEV0FRCAPLTNQ',
+    
+    // generic
+    // 'DEVFRCAGENRIC',
+    // 'DEVENCAGENRIC',
 ];
