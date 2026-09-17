@@ -17,7 +17,7 @@
 }
 
 .message__headline {
-    font-size: 1.1rem;
+    font-size: 1rem;
     margin-bottom: 10%;
 }
 
@@ -46,7 +46,7 @@
 
 .message__disclaimer > span.tag--xsmall,
 .message__disclaimer > span.tag--large {
-    font-size: 1.1rem;
+    font-size: 1rem;
 }
 
 .message__disclaimer span.multi:nth-of-type(1) {
@@ -59,12 +59,12 @@
 
 @media (min-height: 500px) {
     .message__headline {
-        font-size: 1.2rem;
+        font-size: 1rem;
     }
 
     .message__disclaimer > span.tag--xsmall,
     .message__disclaimer > span.tag--large {
-        font-size: 1.2rem;
+        font-size: 1rem;
     }
 }
 

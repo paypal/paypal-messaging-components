@@ -69,7 +69,7 @@ export default {
                     xSmallFallback(textSize * 16),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25),
                     setLogoTop(textSize * 16),
-                    disclaimerWrap(textSize * 18)
+                    disclaimerWrap(textSize * 12)
                 ],
                 logo: Logo.PP_PAYPAL.COLOR,
                 headline: [
@@ -86,9 +86,9 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     xSmallFallback(textSize * 17.4),
-                    setLogoTop(textSize * 98),
+                    setLogoTop(textSize * 58),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
-                    disclaimerWrap(textSize * 18)
+                    disclaimerWrap(textSize * 12)
                 ],
                 headline: [
                     {
@@ -104,7 +104,7 @@ export default {
                 styles: [
                     xSmallFallback(textSize * 17.4),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
-                    disclaimerWrap(textSize * 18)
+                    disclaimerWrap(textSize * 12)
                 ],
                 headline: [
                     {
@@ -123,7 +123,7 @@ export default {
                     xSmallFallback(textSize * 17.75),
                     altNoWrap(textSize * 10.6),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25),
-                    disclaimerWrap(textSize * 18)
+                    disclaimerWrap(textSize * 12)
                 ],
                 logo: Logo.PP_PAYPAL.COLOR[0],
                 headline: [

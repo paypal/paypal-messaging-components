@@ -21,12 +21,7 @@
     ],
     "subHeadline": [],
     "disclaimer": [
-        [
-            [
-                "Atención, un crédito es vinculante para ti y debe ser devuelto. Comprueba el coste del préstamo y tu capacidad de reembolso antes de comprometerte."
-            ],
-            ["large"]
-        ],
+        [["Atención, un crédito puede tener un coste y debe ser devuelto."], ["large"]],
         ["Más información", ["default"]]
     ]
 }
