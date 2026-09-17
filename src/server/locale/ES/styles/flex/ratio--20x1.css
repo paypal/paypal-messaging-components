@@ -132,12 +132,12 @@
 
 @media (min-aspect-ratio: 200/11) and (min-width: 500px) {
     .message__headline {
-        font-size: 1vw;
+        font-size: 1.2vw;
     }
 
     .message__disclaimer > span.tag--xsmall,
     .message__disclaimer > span.tag--large,
     .message__disclaimer > span.tag--default {
-        font-size: 1vw;
+        font-size: 1.2vw;
     }
 }

@@ -92,11 +92,11 @@ const accounts = [
     // 'DEV000GBPI30Q',
 
     // FR
-    // DEV0FRGENERIC
-    // DEV000000FRPL
-    // DEV00000FRPLQ
-    // DEV0000FRPLTQ
-    // DEV000FRPLTNQ
+    // 'DEV0FRGENERIC',
+    // 'DEV000000FRPL',
+    // 'DEV00000FRPLQ',
+    // 'DEV0000FRPLTQ',
+    // 'DEV000FRPLTNQ'
 
     // ES
     // 'DEV00000ESPLQ',
@@ -104,8 +104,8 @@ const accounts = [
     // 'DEV0000ESPLNA',
     // 'DEV0000ESPLTQ',
     // 'DEV000ESPLTNQ',
-    // DEV000ESPLEQZ,
-    // DEV00ESPLQEQZ,
+    // 'DEV000ESPLEQZ',
+    // 'DEV00ESPLQEQZ',
 
     // AU
     // 'DEV000000AUPL',
@@ -117,8 +117,8 @@ const accounts = [
     // 'DEV0000ITPLNQ',
     // 'DEV0000ITPLTQ',
     // 'DEV000ITPLTNQ',
-    // DEV000ITPLEQZ,
-    // DEV00ITPLQEQZ,
+    // 'DEV000ITPLEQZ',
+    // 'DEV00ITPLQEQZ',
 
     // CA
     // 'DEV000ENCAPLQ',

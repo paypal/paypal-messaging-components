@@ -56,13 +56,13 @@ const flex = [
                 '.message__headline .tag--medium > span:first-child:after { content: "."; }',
                 `@media (min-aspect-ratio: 61/10) and (max-width: 500px) {
                     .message__headline {
-                        font-size: 0.24rem;
+                        font-size: 0.4rem;
                 }
 
                 .message__disclaimer > span.tag--xsmall,
                 .message__disclaimer > span.tag--large,
                 .message__disclaimer > span.tag--default {
-                    font-size: 0.24rem;
+                    font-size: 0.4rem;
                     }
                 }`
             ]
@@ -88,7 +88,7 @@ export default {
                     messageLogoWidth(false, textSize * 4, textSize * 1.25),
                     setLogoTop(textSize * 16),
                     addPeriod(),
-                    disclaimerWrap(textSize * 15)
+                    disclaimerWrap(textSize * 12)
                 ],
                 logo: Logo.PP_PAYPAL.COLOR,
                 headline: [
@@ -112,10 +112,10 @@ export default {
                         textSize * 18.5
                     }px) { .message__headline > .tag--medium > span > span:first-child { white-space: normal; } }`,
                     xSmallFallback(textSize * 12),
-                    setLogoTop(textSize * 94.5),
+                    setLogoTop(textSize * 55),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
                     addPeriod(),
-                    disclaimerWrap(textSize * 15),
+                    disclaimerWrap(textSize * 12),
                     `@media screen and (max-width: ${
                         textSize * 14.5
                     }px) { .message__headline > .tag--xsmall > span { white-space: normal;} }`

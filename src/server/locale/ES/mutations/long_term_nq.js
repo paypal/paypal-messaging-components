@@ -51,32 +51,7 @@ const flex = [
         'ratio:20x1',
         {
             headline: [...headlineBreaks],
-            styles: [
-                logo20x1(),
-                '.message__headline .tag--medium > span:first-child:after { content: "."; }',
-                `@media (min-aspect-ratio: 61/10) and (max-width: 500px) {
-                    .message__headline {
-                        font-size: 0.24rem;
-                    }
-
-                    .message__disclaimer > span.tag--xsmall,
-                    .message__disclaimer > span.tag--default
-                    .message__disclaimer > span.tag--large {
-                        font-size: 0.24rem;
-                    }
-                }`,
-                `@media (min-aspect-ratio: 200/11) and (min-width: 500px) {
-                    .message__headline {
-                        font-size: 0.9vw;
-                    }
-
-                    .message__disclaimer > span.tag--xsmall,
-                    .message__disclaimer > span.tag--large,
-                    .message__disclaimer > span.tag--default {
-                        font-size: 0.9vw;
-                    }
-                }`
-            ]
+            styles: [logo20x1(), '.message__headline .tag--medium > span:first-child:after { content: "."; }']
         }
     ],
     [
@@ -99,7 +74,7 @@ export default {
                     messageLogoWidth(false, textSize * 4, textSize * 1.25),
                     setLogoTop(textSize * 20),
                     addPeriod(),
-                    disclaimerWrap(textSize * 19)
+                    disclaimerWrap(textSize * 12)
                 ],
                 logo: Logo.PP_PAYPAL.COLOR,
                 headline: [
@@ -112,7 +87,13 @@ export default {
                         br: ['ahora, ']
                     }
                 ],
-                disclaimer: ['large', 'default']
+                disclaimer: [
+                    {
+                        tag: 'large',
+                        br: ['coste']
+                    },
+                    'default'
+                ]
             })
         ],
         [
@@ -120,10 +101,10 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     xSmallFallback(textSize * 16),
-                    setLogoTop(textSize * 107),
+                    setLogoTop(textSize * 67),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
                     addPeriod(),
-                    disclaimerWrap(textSize * 19),
+                    disclaimerWrap(textSize * 12),
                     `@media screen and (max-width: ${
                         textSize * 14.5
                     }px) { .message__headline > .tag--xsmall > span { white-space: normal;} }`
@@ -137,6 +118,13 @@ export default {
                         tag: 'xsmall',
                         br: ['ahora, ']
                     }
+                ],
+                disclaimer: [
+                    {
+                        tag: 'large',
+                        br: ['tener']
+                    },
+                    'default'
                 ]
             })
         ],
@@ -147,7 +135,7 @@ export default {
                     xSmallFallback(textSize * 16),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
                     addPeriod(),
-                    disclaimerWrap(textSize * 19),
+                    disclaimerWrap(textSize * 12),
                     `@media screen and (max-width: ${
                         textSize * 14.5
                     }px) { .message__headline > .tag--xsmall > span { white-space: normal;} }`
@@ -161,6 +149,13 @@ export default {
                         tag: 'xsmall',
                         br: ['ahora, ']
                     }
+                ],
+                disclaimer: [
+                    {
+                        tag: 'large',
+                        br: ['puede']
+                    },
+                    'default'
                 ]
             })
         ],
@@ -174,7 +169,7 @@ export default {
                     altNoWrap(textSize * 10.6),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25),
                     addPeriod(),
-                    disclaimerWrap(textSize * 19)
+                    disclaimerWrap(textSize * 12)
                 ],
                 logo: Logo.PP_PAYPAL.COLOR[0],
                 headline: [
