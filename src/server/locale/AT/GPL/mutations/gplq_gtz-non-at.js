@@ -5,7 +5,8 @@ import {
     messageLogoWidth,
     altNoWrap,
     setLogoTop,
-    primaryWrap
+    primaryWrap,
+    disclaimerWrap
 } from '../../../../message/mediaQueries';
 import {
     logoNoneAddRatenzahlungAfterPayPal,
@@ -126,8 +127,8 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     textWrap(textSize * 68, textSize, 'AT'),
-                    crossBorderDisclaimerWrap(textSize * 20.5, textSize * 20, textSize * 23.5, textSize * 22.5),
-                    xSmallFallback(textSize * 12.4),
+                    crossBorderDisclaimerWrap(textSize * 20.5, textSize * 20, textSize * 18.6, textSize * 22.5),
+                    xSmallFallback(textSize * 13.75),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25),
                     setLogoTop(textSize * 20),
                     xSmallNoWrap(textSize * 12.5),
@@ -141,17 +142,25 @@ export default {
                     },
                     { tag: 'xsmall' }
                 ],
-                disclaimer: ['extra', 'large', 'default']
+                disclaimer: [
+                    {
+                        tag: 'extra',
+                        br: ['.']
+                    },
+                    'large',
+                    'default'
+                ]
             })
         ],
         [
             'logo.type:primary && logo.position:right',
             ({ textSize }) => ({
                 styles: [
-                    crossBorderDisclaimerWrap(textSize * 20.5, textSize * 20, textSize * 23.5, textSize * 22.5),
-                    xSmallFallback(textSize * 12),
+                    crossBorderDisclaimerWrap(textSize * 20.5, textSize * 20, textSize * 18.6, textSize * 22.5),
+                    xSmallFallback(textSize * 13.75),
                     setLogoTop(textSize * 68),
-                    messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
+                    messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
+                    disclaimerWrap(textSize * 20.5)
                 ]
             })
         ],
@@ -159,9 +168,10 @@ export default {
             'logo.type:primary && logo.position:top',
             ({ textSize }) => ({
                 styles: [
-                    crossBorderDisclaimerWrap(textSize * 31, textSize * 38, textSize * 23.5, textSize * 22.5),
-                    xSmallFallback(textSize * 12.5),
-                    messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
+                    crossBorderDisclaimerWrap(textSize * 31, textSize * 38, textSize * 18.6, textSize * 22.5),
+                    xSmallFallback(textSize * 13.75),
+                    messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
+                    disclaimerWrap(textSize * 20.5)
                 ]
             })
         ],
@@ -170,7 +180,7 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     `@media screen and (max-width: ${textSize * 15}px) { .message__content { white-space: nowrap; }}`,
-                    crossBorderDisclaimerWrap(textSize * 33.2, textSize * 39.42, textSize * 23.5, textSize * 11.6),
+                    crossBorderDisclaimerWrap(textSize * 33.2, textSize * 39.42, textSize * 20.2, textSize * 11.6),
                     textWrap(textSize * 64.5, textSize, 'AT'),
                     xSmallFallback(textSize * 12.25),
                     altNoWrap(textSize * 10.6),

@@ -1,5 +1,12 @@
 import Logo from '../../../../message/logos';
-import { xSmallFallback, textWrap, messageLogoWidth, altNoWrap, setLogoTop } from '../../../../message/mediaQueries';
+import {
+    xSmallFallback,
+    textWrap,
+    messageLogoWidth,
+    altNoWrap,
+    setLogoTop,
+    disclaimerWrap
+} from '../../../../message/mediaQueries';
 import { crossBorderDisclaimerWrap, xSmallNoWrap } from './mediaQueries';
 import { flexLogoMutations, textLogoMutations } from '../../../../message/logoMutations';
 
@@ -10,7 +17,7 @@ const headlineBreaks = [
     },
     {
         sizes: ['medium'],
-        breaks: ['- pro, .']
+        breaks: ['pro', '.']
     }
 ].reduce((acc, item) => {
     const { sizes, breaks } = item;
@@ -116,7 +123,6 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     textWrap(textSize * 70, textSize, 'AT'),
-                    crossBorderDisclaimerWrap(textSize * 32.2, textSize * 39, textSize * 23.5, textSize * 19.45),
                     xSmallFallback(textSize * 13.8),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25),
                     setLogoTop(textSize * 20),
@@ -130,18 +136,26 @@ export default {
                     },
                     { tag: 'xsmall', br: ['verfügbar.'] }
                 ],
-                disclaimer: ['extra', 'large', 'default']
+                disclaimer: [
+                    {
+                        tag: 'extra',
+                        br: ['.']
+                    },
+                    'large',
+                    'default'
+                ]
             })
         ],
         [
             'logo.type:primary && logo.position:right',
             ({ textSize }) => ({
                 styles: [
-                    crossBorderDisclaimerWrap(textSize * 32.2, textSize * 39, textSize * 23.5, textSize * 19.45),
+                    crossBorderDisclaimerWrap(textSize * 32.2, textSize * 39, textSize * 20.5, textSize * 19.45),
                     xSmallFallback(textSize * 17.08),
-                    setLogoTop(textSize * 70),
+                    setLogoTop(textSize * 70.5),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
-                    xSmallNoWrap(textSize * 17.08)
+                    xSmallNoWrap(textSize * 17.08),
+                    disclaimerWrap(textSize * 20.5)
                 ]
             })
         ],
@@ -153,10 +167,11 @@ export default {
                     `@media screen and (max-width: ${
                         textSize * 17.25
                     }px) { .locale--AT .message__headline > .tag--medium > span > span { white-space: nowrap; }}`,
-                    crossBorderDisclaimerWrap(textSize * 32.2, textSize * 39, textSize * 23.5, textSize * 19.45),
+                    crossBorderDisclaimerWrap(textSize * 32.2, textSize * 39, textSize * 20.5, textSize * 19.45),
                     xSmallFallback(textSize * 13.5),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
-                    xSmallNoWrap(textSize * 13.5)
+                    xSmallNoWrap(textSize * 13.5),
+                    disclaimerWrap(textSize * 20.5)
                 ]
             })
         ],
@@ -165,13 +180,16 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     `@media screen and (max-width: ${textSize * 15}px) { .message__content { white-space: nowrap; }}`,
-                    crossBorderDisclaimerWrap(textSize * 33.2, textSize * 40.75, textSize * 23.5, textSize * 15),
+                    crossBorderDisclaimerWrap(textSize * 33.2, textSize * 40.75, textSize * 19.6, textSize * 15),
                     textWrap(textSize * 68, textSize, 'AT'),
                     altNoWrap(textSize * 10.6),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25),
                     xSmallFallback(textSize * 15)
                 ],
-                headline: [{ tag: 'medium', br: ['ab'] }, { tag: 'xsmall' }],
+                headline: [
+                    { tag: 'medium', br: ['ab'] },
+                    { tag: 'xsmall', br: ['Ratenzahlung'] }
+                ],
                 logo: Logo.PP_PAYPAL.COLOR[0]
             })
         ],

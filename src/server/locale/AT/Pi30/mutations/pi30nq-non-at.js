@@ -7,7 +7,8 @@ import {
     setLogoTop,
     xSmallNoWrap,
     addPeriod,
-    primaryWrap
+    primaryWrap,
+    disclaimerWrap
 } from '../../../../message/mediaQueries';
 import { crossBorderDisclaimerWrap, crossBorderLogoNoneWrap } from '../../GPL/mutations/mediaQueries';
 import { flexLogoMutations, textLogoMutations } from '../../../../message/logoMutations';
@@ -64,22 +65,8 @@ const flex = [
                     }
                 }`,
                 `@media (min-aspect-ratio: 60 / 11) and (max-width: 374px) {
-                    .message__headline {
-                        font-size: 2vw;
-                    }
                     .message__disclaimer {
                         font-size: 1.5vw;
-                    }
-                    .message__disclaimer > span.tag--large {
-                        font-size: 2vw;
-                    }
-                }`,
-                `@media (min-aspect-ratio: 60/11) and (max-width: 323px) {
-                    .message__headline {
-                        font-size: 2vw;
-                    }
-                    .message__disclaimer > span.tag--large {
-                        font-size: 2vw;
                     }
                 }`
             ],
@@ -143,20 +130,27 @@ export default {
                     },
                     { tag: 'xsmall', br: [','] }
                 ],
-                disclaimer: ['extra', 'large', 'default']
+                disclaimer: [
+                    {
+                        tag: 'extra',
+                        br: ['.']
+                    },
+                    'large',
+                    'default'
+                ]
             })
         ],
         [
             'logo.type:primary && logo.position:right',
             ({ textSize }) => ({
                 styles: [
-                    textWrap(textSize * 24.33, textSize, 'AT'),
                     xSmallFallback(textSize * 15),
                     setLogoTop(textSize * 86.5),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
                     addPeriod(),
                     crossBorderDisclaimerWrap(textSize * 21.4, textSize * 30.2, textSize * 21.4, textSize * 15),
-                    `@media screen and 
+                    disclaimerWrap(textSize * 24.5),
+                    `@media screen and
                     (max-width: ${textSize * 29}px) {
                         .message__headline > .tag--medium > span > span.br:nth-child(2) {white-space: nowrap;}
                     }`
@@ -167,12 +161,12 @@ export default {
             'logo.type:primary && logo.position:top',
             ({ textSize }) => ({
                 styles: [
-                    textWrap(textSize * 24.33, textSize, 'AT'),
                     xSmallFallback(textSize * 15.1),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
                     addPeriod(),
                     crossBorderDisclaimerWrap(textSize * 21.4, textSize * 30.2, textSize * 21.4, textSize * 15),
-                    `@media screen and 
+                    disclaimerWrap(textSize * 24.5),
+                    `@media screen and
                     (max-width: ${textSize * 29}px) {
                         .message__headline > .tag--medium > span > span.br:nth-child(2) {white-space: nowrap;}
                     }`

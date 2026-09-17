@@ -5,7 +5,8 @@ import {
     altNoWrap,
     setLogoTop,
     xSmallNoWrap,
-    primaryWrap
+    primaryWrap,
+    disclaimerWrap
 } from '../../../../message/mediaQueries';
 import { crossBorderDisclaimerWrap, crossBorderLogoNoneWrap } from './mediaQueries';
 import { flexLogoMutations, textLogoMutations } from '../../../../message/logoMutations';
@@ -84,7 +85,14 @@ export default {
                 ],
                 logo: Logo.PP_PAYPAL.COLOR,
                 headline: [{ tag: 'xsmall', br: [','] }],
-                disclaimer: ['extra', 'large', 'default']
+                disclaimer: [
+                    {
+                        tag: 'extra',
+                        br: ['.']
+                    },
+                    'large',
+                    'default'
+                ]
             })
         ],
         [
@@ -94,7 +102,8 @@ export default {
                     setLogoTop(textSize * 62),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
                     crossBorderDisclaimerWrap(textSize * 21.4, textSize * 30.4, textSize * 21.4, textSize * 15),
-                    `@media screen and 
+                    disclaimerWrap(textSize * 20.5),
+                    `@media screen and
                     (max-width: ${textSize * 29}px) {
                         .message__headline > .tag--medium > span > span.br:nth-child(2) {white-space: nowrap;}
                     }`
@@ -107,7 +116,8 @@ export default {
                 styles: [
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
                     crossBorderDisclaimerWrap(textSize * 21.4, textSize * 30.4, textSize * 21.4, textSize * 15),
-                    `@media screen and 
+                    disclaimerWrap(textSize * 20.5),
+                    `@media screen and
                     (max-width: ${textSize * 29}px) {
                         .message__headline > .tag--medium > span > span.br:nth-child(2) {white-space: nowrap;}
                     }`

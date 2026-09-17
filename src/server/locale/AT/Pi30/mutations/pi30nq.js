@@ -7,7 +7,8 @@ import {
     setLogoTop,
     xSmallNoWrap,
     addPeriod,
-    primaryWrap
+    primaryWrap,
+    disclaimerWrap
 } from '../../../../message/mediaQueries';
 import { flexLogoMutations, textLogoMutations } from '../../../../message/logoMutations';
 
@@ -96,7 +97,7 @@ export default {
                 headline: [
                     {
                         tag: 'medium',
-                        br: ['erst']
+                        br: ['bis', 'erst']
                     },
                     { tag: 'xsmall', br: [','] }
                 ],
@@ -107,9 +108,10 @@ export default {
             'logo.type:primary && logo.position:right',
             ({ textSize }) => ({
                 styles: [
-                    xSmallFallback(textSize * 24),
+                    xSmallFallback(textSize * 15),
                     setLogoTop(textSize * 70),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
+                    disclaimerWrap(textSize * 19),
                     addPeriod(),
                     `@media screen and 
                     (max-width: ${textSize * 29}px) {
@@ -122,9 +124,9 @@ export default {
             'logo.type:primary && logo.position:top',
             ({ textSize }) => ({
                 styles: [
-                    textWrap(textSize * 24.33, textSize, 'AT'),
                     xSmallFallback(textSize * 15.1),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
+                    disclaimerWrap(textSize * 19),
                     addPeriod(),
                     `@media screen and 
                     (max-width: ${textSize * 29}px) {

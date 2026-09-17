@@ -54,23 +54,7 @@ const flex = [
                     .message__disclaimer {
                         display: block;
                     }
-                }`,
-                `@media (min-aspect-ratio: 60 / 11) and (max-width: 374px) {
-                .message__headline {
-                    font-size: 2vw;
-                }
-                .message__disclaimer > span.tag--large {
-                    font-size: 2vw;
-                }
-            }`,
-                `@media (min-aspect-ratio: 60/11) and (max-width: 323px) {
-                .message__headline {
-                    font-size: 2vw;
-                }
-                .message__disclaimer > span.tag--large {
-                    font-size: 2vw;
-                }
-            }`
+                }`
             ]
         }
     ],
@@ -105,9 +89,8 @@ export default {
             'logo.type:primary && logo.position:right',
             ({ textSize }) => ({
                 styles: [
-                    xSmallFallback(textSize * 54.5),
-                    textWrap(textSize * 51.03, textSize, 'AT'),
-                    setLogoTop(textSize * 35),
+                    xSmallFallback(textSize * 14.5),
+                    setLogoTop(textSize * 54.5),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
                     xSmallNoWrap(textSize * 13.6)
                 ]

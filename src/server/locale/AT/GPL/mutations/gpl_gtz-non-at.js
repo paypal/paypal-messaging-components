@@ -5,7 +5,8 @@ import {
     messageLogoWidth,
     altNoWrap,
     setLogoTop,
-    primaryWrap
+    primaryWrap,
+    disclaimerWrap
 } from '../../../../message/mediaQueries';
 import {
     addPeriod,
@@ -137,7 +138,7 @@ export default {
                     messageLogoWidth(false, textSize * 4, textSize * 1.25),
                     setLogoTop(textSize * 20),
                     addPeriod(),
-                    xSmallFallback(textSize * 26.5),
+                    xSmallFallback(textSize * 17.5),
                     xSmallNoWrap(textSize * 16.5),
                     primaryWrap(textSize * 15.4)
                 ],
@@ -145,11 +146,18 @@ export default {
                 headline: [
                     {
                         tag: 'medium',
-                        br: ['Einkäufen']
+                        br: ['Raten', 'Einkäufen']
                     },
                     { tag: 'xsmall' }
                 ],
-                disclaimer: ['extra', 'large', 'default']
+                disclaimer: [
+                    {
+                        tag: 'extra',
+                        br: ['.']
+                    },
+                    'large',
+                    'default'
+                ]
             })
         ],
         [
@@ -157,10 +165,11 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     crossBorderDisclaimerWrap(textSize * 21.4, textSize * 30.2, textSize * 21.4, textSize * 15),
-                    xSmallFallback(textSize * 26.5),
+                    xSmallFallback(textSize * 17.5),
                     setLogoTop(textSize * 83.5),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
-                    addPeriod()
+                    addPeriod(),
+                    disclaimerWrap(textSize * 20.5)
                 ]
             })
         ],
@@ -168,10 +177,11 @@ export default {
             'logo.type:primary && logo.position:top',
             ({ textSize }) => ({
                 styles: [
-                    crossBorderDisclaimerWrap(textSize * 25.2, textSize * 29, textSize * 22.5, textSize * 15),
+                    crossBorderDisclaimerWrap(textSize * 25.2, textSize * 29, textSize * 20.5, textSize * 15),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
                     addPeriod(),
-                    xSmallFallback(textSize * 26.5)
+                    xSmallFallback(textSize * 17.5),
+                    disclaimerWrap(textSize * 20.5)
                 ]
             })
         ],
@@ -179,7 +189,7 @@ export default {
             'logo.type:alternative',
             ({ textSize }) => ({
                 styles: [
-                    crossBorderDisclaimerWrap(textSize * 25.5, textSize * 29, textSize * 24, textSize * 15),
+                    crossBorderDisclaimerWrap(textSize * 25.5, textSize * 29, textSize * 20.5, textSize * 15),
                     `@media screen and (max-width: ${
                         textSize * 14
                     }px) { .message__headline > .tag--xsmall > span:first-child { white-space: normal;}}`,
@@ -187,7 +197,7 @@ export default {
                     altNoWrap(textSize * 10.6),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25),
                     addPeriod(),
-                    xSmallFallback(textSize * 14)
+                    xSmallFallback(textSize * 17.5)
                 ],
                 headline: [{ tag: 'medium', br: ['Einkäufen'] }, { tag: 'xsmall' }],
                 logo: Logo.PP_PAYPAL.COLOR[0]

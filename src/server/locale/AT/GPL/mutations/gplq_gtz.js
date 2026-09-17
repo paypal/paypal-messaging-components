@@ -51,25 +51,7 @@ const flex = [
     [
         'ratio:8x1',
         {
-            headline: [...headlineBreaks],
-            styles: [
-                `@media (min-aspect-ratio: 60 / 11) and (max-width: 374px) {
-                .message__headline {
-                    font-size: 2vw;
-                }
-                .message__disclaimer > span.tag--large {
-                    font-size: 2vw;
-                }
-            }`,
-                `@media (min-aspect-ratio: 60/11) and (max-width: 323px) {
-                .message__headline {
-                    font-size: 2vw;
-                }
-                .message__disclaimer > span.tag--large {
-                    font-size: 2vw;
-                }
-            }`
-            ]
+            headline: [...headlineBreaks]
         }
     ],
     ...flexLogoMutations
@@ -93,7 +75,7 @@ export default {
                 headline: [
                     {
                         tag: 'medium',
-                        br: ['monatlichen']
+                        br: ['24', 'monatlichen']
                     },
                     { tag: 'xsmall' }
                 ],

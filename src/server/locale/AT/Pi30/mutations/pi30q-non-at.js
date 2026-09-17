@@ -6,7 +6,8 @@ import {
     altNoWrap,
     setLogoTop,
     xSmallNoWrap,
-    addPeriod
+    addPeriod,
+    disclaimerWrap
 } from '../../../../message/mediaQueries';
 import { crossBorderDisclaimerWrap, crossBorderLogoNoneWrap } from '../../GPL/mutations/mediaQueries';
 import { flexLogoMutations, textLogoMutations } from '../../../../message/logoMutations';
@@ -87,22 +88,8 @@ const flex = [
                     }
                 }`,
                 `@media (min-aspect-ratio: 60 / 11) and (max-width: 374px) {
-                    .message__headline {
-                        font-size: 2vw;
-                    }
                     .message__disclaimer {
                         font-size: 1.5vw;
-                    }
-                    .message__disclaimer > span.tag--large {
-                        font-size: 2vw;
-                    }
-                }`,
-                `@media (min-aspect-ratio: 60/11) and (max-width: 323px) {
-                    .message__headline {
-                        font-size: 2vw;
-                    }
-                    .message__disclaimer > span.tag--large {
-                        font-size: 2vw;
                     }
                 }`
             ],
@@ -147,7 +134,14 @@ export default {
                     },
                     { tag: 'xsmall', br: [','] }
                 ],
-                disclaimer: ['extra', 'large', 'default']
+                disclaimer: [
+                    {
+                        tag: 'extra',
+                        br: ['.']
+                    },
+                    'large',
+                    'default'
+                ]
             })
         ],
         [
@@ -158,7 +152,8 @@ export default {
                     setLogoTop(textSize * 68.5),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
                     addPeriod(),
-                    crossBorderDisclaimerWrap(textSize * 21.4, textSize * 30.4, textSize * 21.4, textSize * 15)
+                    crossBorderDisclaimerWrap(textSize * 21.4, textSize * 30.4, textSize * 21.4, textSize * 15),
+                    disclaimerWrap(textSize * 20.5)
                 ]
             })
         ],
@@ -169,7 +164,8 @@ export default {
                     xSmallFallback(textSize * 9.5),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
                     addPeriod(),
-                    crossBorderDisclaimerWrap(textSize * 21.4, textSize * 30.4, textSize * 21.4, textSize * 15)
+                    crossBorderDisclaimerWrap(textSize * 21.4, textSize * 30.4, textSize * 21.4, textSize * 15),
+                    disclaimerWrap(textSize * 20.5)
                 ]
             })
         ],
@@ -189,7 +185,7 @@ export default {
                 ],
                 headline: [
                     { tag: 'medium', br: ['nach'] },
-                    { tag: 'xsmall', br: ['später'] }
+                    { tag: 'xsmall', br: [','] }
                 ],
                 logo: Logo.PP_PAYPAL.COLOR[0]
             })

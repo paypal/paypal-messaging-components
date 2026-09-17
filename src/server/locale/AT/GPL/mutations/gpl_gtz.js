@@ -5,7 +5,8 @@ import {
     messageLogoWidth,
     altNoWrap,
     setLogoTop,
-    primaryWrap
+    primaryWrap,
+    disclaimerWrap
 } from '../../../../message/mediaQueries';
 import {
     addPeriod,
@@ -57,25 +58,7 @@ const flex = [
     [
         'ratio:8x1',
         {
-            styles: [
-                addPeriod(),
-                `@media (min-aspect-ratio: 60 / 11) and (max-width: 374px) {
-                .message__headline {
-                    font-size: 2vw;
-                }
-                .message__disclaimer > span.tag--large {
-                    font-size: 2vw;
-                }
-            }`,
-                `@media (min-aspect-ratio: 60/11) and (max-width: 323px) {
-                .message__headline {
-                    font-size: 2vw;
-                }
-                .message__disclaimer > span.tag--large {
-                    font-size: 2vw;
-                }
-            }`
-            ],
+            styles: [addPeriod()],
             headline: [...headlineBreaks]
         }
     ],
@@ -107,7 +90,7 @@ export default {
                     messageLogoWidth(false, textSize * 4, textSize * 1.25),
                     setLogoTop(textSize * 20),
                     addPeriod(),
-                    xSmallFallback(textSize * 16.5),
+                    xSmallFallback(textSize * 16),
                     xSmallNoWrap(textSize * 16.5),
                     primaryWrap(textSize * 15.4)
                 ],
@@ -126,10 +109,11 @@ export default {
             'logo.type:primary && logo.position:right',
             ({ textSize }) => ({
                 styles: [
-                    xSmallFallback(textSize * 20),
-                    setLogoTop(textSize * 67.5),
+                    xSmallFallback(textSize * 16),
+                    setLogoTop(textSize * 66.5),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
-                    addPeriod()
+                    addPeriod(),
+                    disclaimerWrap(textSize * 27)
                 ]
             })
         ],
@@ -137,10 +121,10 @@ export default {
             'logo.type:primary && logo.position:top',
             ({ textSize }) => ({
                 styles: [
-                    textWrap(textSize * 26.87, textSize, 'AT'),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
                     addPeriod(),
-                    xSmallFallback(textSize * 20)
+                    xSmallFallback(textSize * 16),
+                    disclaimerWrap(textSize * 27)
                 ]
             })
         ],
