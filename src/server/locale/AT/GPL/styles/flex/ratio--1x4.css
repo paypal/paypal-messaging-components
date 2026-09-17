@@ -52,4 +52,13 @@
     .message__messaging {
         transform: translateY(-40px);
     }
+    .message__headline {
+        font-size: 1rem;
+    }
+    .message__disclaimer {
+        font-size: 0.8rem;
+    }
+    .message__disclaimer > span.tag--large {
+        font-size: 1rem;
+    }
 }

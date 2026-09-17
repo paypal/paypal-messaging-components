@@ -90,7 +90,9 @@ export default {
                     messageLogoWidth(false, textSize * 4, textSize * 1.25),
                     setLogoTop(textSize * 20),
                     xSmallNoWrap(textSize * 7.7),
-                    addPeriod(),
+                    `.message__headline > .tag--medium > span > span:last-child::after {
+                        content: '.'
+                    }`,
                     primaryWrap(textSize * 12.4)
                 ],
                 logo: Logo.PP_PAYPAL.COLOR,
@@ -112,8 +114,10 @@ export default {
                     setLogoTop(textSize * 70),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
                     disclaimerWrap(textSize * 19),
-                    addPeriod(),
-                    `@media screen and 
+                    `.message__headline > .tag--medium > span > span:last-child::after {
+                        content: '.'
+                    }`,
+                    `@media screen and
                     (max-width: ${textSize * 29}px) {
                         .message__headline > .tag--medium > span > span.br:nth-child(2) {white-space: nowrap;}
                     }`
@@ -127,8 +131,10 @@ export default {
                     xSmallFallback(textSize * 15.1),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
                     disclaimerWrap(textSize * 19),
-                    addPeriod(),
-                    `@media screen and 
+                    `.message__headline > .tag--medium > span > span:last-child::after {
+                        content: '.'
+                    }`,
+                    `@media screen and
                     (max-width: ${textSize * 29}px) {
                         .message__headline > .tag--medium > span > span.br:nth-child(2) {white-space: nowrap;}
                     }`

@@ -82,7 +82,7 @@ const flex = [
                         display: none;
                     }
                     .message__headline {
-                        font-size: 2vw;
+                        font-size: 2.5vw;
                     }
                 }`
             ],

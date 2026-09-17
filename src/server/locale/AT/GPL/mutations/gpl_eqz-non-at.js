@@ -86,7 +86,7 @@ const flex = [
                 }`,
                 `@media (min-aspect-ratio: 60/11) and (max-width: 323px) {
                     .message__headline {
-                        font-size: 2vw;
+                        font-size: 2.5vw;
                     }
                 }`
             ],

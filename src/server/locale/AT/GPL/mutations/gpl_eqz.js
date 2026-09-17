@@ -10,7 +10,7 @@ const headlineBreaks = [
     },
     {
         sizes: ['medium'],
-        breaks: ['monatlichen', 'Einkäufen']
+        breaks: ['Sie in', 'Einkäufen']
     }
 ].reduce((acc, item) => {
     const { sizes, breaks } = item;
@@ -150,7 +150,7 @@ export default {
                         .message__headline > .tag--medium > span > span.br:nth-child(2) {white-space: nowrap;}
                     }`
                 ],
-                headline: [{ tag: 'medium' }, { tag: 'xsmall' }]
+                headline: [{ tag: 'medium', br: ['Sie', 'Raten'] }, { tag: 'xsmall' }]
             })
         ],
         [
