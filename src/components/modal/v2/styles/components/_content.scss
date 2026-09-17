@@ -177,6 +177,30 @@
             }
         }
 
+        &.credit-warning {
+            text-align: left;
+            font-size: 18px;
+            font-weight: 400;
+            line-height: 24px;
+            color: colors.$text-main;
+
+            @include mixins.desktop {
+                margin: 20px 30px 0px 30px;
+            }
+
+            @include mixins.tablet {
+                margin: 20px 44px 0px 44px;
+            }
+
+            @include mixins.mobile {
+                margin-top: 10px;
+            }
+
+            &.darkMode {
+                color: colors.$white;
+            }
+        }
+
         &.checkout {
             &.disclosure {
                 @include mixins.desktop {
