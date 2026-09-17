@@ -6,7 +6,6 @@
 .message__headline {
     font-size: 8.4vw;
     font-weight: 500;
-    line-height: 1.6em;
 }
 
 .message__disclaimer > span {
@@ -15,11 +14,13 @@
     white-space: normal;
 }
 
-.message__disclaimer > span > span {
+.message__disclaimer > span:not(.multi) > span,
+.message__disclaimer > span.multi:last-of-type > span {
     white-space: nowrap;
 }
 
-.message__disclaimer > span > span:only-child,
+.message__disclaimer > span:not(.multi) > span:only-child,
+.message__disclaimer > span.multi:last-of-type > span:only-child,
 .message__disclaimer > span > span.em {
     text-decoration: underline;
 }
