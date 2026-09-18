@@ -9,8 +9,7 @@ const headlineBreaks = [
         breaks: ['Ratenzahlung']
     },
     {
-        sizes: ['medium'],
-        breaks: ['Sie in', 'Einkäufen']
+        sizes: ['medium']
     }
 ].reduce((acc, item) => {
     const { sizes, breaks } = item;
@@ -36,7 +35,7 @@ const flex = [
                     tag: 'medium'
                 }
             ],
-            disclaimer: ['default']
+            disclaimer: ['large', 'default']
         }
     ],
     [
@@ -56,16 +55,6 @@ const flex = [
             styles: [
                 `.message__headline > .tag--medium > span > span:last-child::after {
                     content: '.'
-                }`,
-                `@media (min-aspect-ratio: 60 / 11) and (max-width: 374px) {
-                    .message__headline {
-                        font-size: 4.5vw;
-                    }
-                }`,
-                `@media (min-aspect-ratio: 60/11) and (max-width: 323px) {
-                    .message__headline {
-                        font-size: 4.5vw;
-                    }
                 }`
             ],
             headline: [...headlineBreaks]
@@ -103,8 +92,8 @@ export default {
             'default',
             ({ textSize }) => ({
                 styles: [
-                    textWrap(textSize * 55, textSize, 'AT'),
-                    xSmallFallback(textSize * 15),
+                    textWrap(textSize * 85.5, textSize, 'AT'),
+                    xSmallFallback(textSize * 18.5),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25),
                     setLogoTop(textSize * 20),
                     xSmallNoWrap(textSize * 14.2),
@@ -119,19 +108,19 @@ export default {
                 headline: [
                     {
                         tag: 'medium',
-                        br: ['Sie']
+                        br: ['Einkäufen']
                     },
                     { tag: 'xsmall', br: ['verfügbar.'] }
                 ],
-                disclaimer: ['default']
+                disclaimer: ['large', 'default']
             })
         ],
         [
             'logo.type:primary && logo.position:right',
             ({ textSize }) => ({
                 styles: [
-                    xSmallFallback(textSize * 15),
-                    setLogoTop(textSize * 53),
+                    xSmallFallback(textSize * 17.5),
+                    setLogoTop(textSize * 83),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
                     `.message__headline > .tag--medium > span > span:last-child::after {
                         content: '.'
@@ -142,14 +131,14 @@ export default {
                         .message__headline > .tag--medium > span > span.br:nth-child(2) {white-space: nowrap;}
                     }`
                 ],
-                headline: [{ tag: 'medium', br: ['Sie', 'Raten'] }, { tag: 'xsmall' }]
+                headline: [{ tag: 'medium', br: ['monatlichen', 'Raten'] }, { tag: 'xsmall' }]
             })
         ],
         [
             'logo.type:primary && logo.position:top',
             ({ textSize }) => ({
                 styles: [
-                    xSmallFallback(textSize * 14.8),
+                    xSmallFallback(textSize * 17),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
                     `.message__headline > .tag--medium > span > span:last-child::after {
                         content: '.'
@@ -168,8 +157,8 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     `@media screen and (max-width: ${textSize * 15.5}px) { .message__content { white-space: nowrap; }}`,
-                    textWrap(textSize * 55, textSize, 'AT'),
-                    xSmallFallback(textSize * 15.5),
+                    textWrap(textSize * 79, textSize, 'AT'),
+                    xSmallFallback(textSize * 16.5),
                     altNoWrap(textSize * 15.5),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25),
                     `.message__headline > .tag--medium > span > span:last-child::after {content: '.'}`,
@@ -180,7 +169,7 @@ export default {
                     }px) { .locale--AT .message__messaging { white-space: nowrap;}}`
                 ],
                 headline: [
-                    { tag: 'medium', br: ['Sie', 'Raten'] },
+                    { tag: 'medium', br: ['Raten'] },
                     { tag: 'xsmall', br: ['Ratenzahlung'] }
                 ],
                 logo: Logo.PP_PAYPAL.COLOR[0]

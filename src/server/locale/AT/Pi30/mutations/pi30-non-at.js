@@ -5,7 +5,8 @@ import {
     altNoWrap,
     setLogoTop,
     xSmallNoWrap,
-    primaryWrap
+    primaryWrap,
+    disclaimerWrap
 } from '../../../../message/mediaQueries';
 import { crossBorderDisclaimerWrap, crossBorderLogoNoneWrap } from '../../GPL/mutations/mediaQueries';
 import { flexLogoMutations, textLogoMutations } from '../../../../message/logoMutations';
@@ -36,19 +37,47 @@ const flex = [
                     tag: 'xsmall'
                 }
             ],
-            disclaimer: ['extra', 'default']
+            disclaimer: ['large', 'extra', 'default']
         }
     ],
     [
         'ratio:8x1',
         {
             headline: [...headlineBreaks],
-            styles: [`@media (min-aspect-ratio: 60/11) {.message__headline span.tag--xsmall {display: inline}};`]
+            styles: [
+                `@media (min-aspect-ratio: 60/11) {.message__headline span.tag--xsmall {display: inline}};`,
+                `@media (min-aspect-ratio: 60/11) {
+                    .message__disclaimer {
+                        display: block;
+                        font-size: 1vw;
+                        line-height: 1.2;
+                        margin-top: 2px;
+                    }
+                    .message__disclaimer > .tag--extra > span:only-child {
+                        line-height: 1.2;
+                    }
+                }`,
+                `@media (min-aspect-ratio: 60 / 11) and (max-width: 374px) {
+                    .message__disclaimer {
+                        font-size: 1.5vw;
+                    }
+                }`
+            ]
         }
     ],
     [
         'ratio:1x1',
         {
+            styles: [
+                `.message__disclaimer > span.tag--extra {
+                    font-size: 4vw;
+                }`,
+                `@media (max-aspect-ratio: 11/10) and (max-width: 150px) {
+                    .message__disclaimer > span.tag--extra {
+                        font-size: 0.6rem;
+                    }
+                }`
+            ],
             headline: [...headlineBreaks]
         }
     ],
@@ -75,7 +104,7 @@ export default {
             'default',
             ({ textSize }) => ({
                 styles: [
-                    textWrap(textSize * 39, textSize, 'AT'),
+                    textWrap(textSize * 68.5, textSize, 'AT'),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25),
                     setLogoTop(textSize * 20),
                     xSmallNoWrap(textSize * 7.7),
@@ -84,17 +113,25 @@ export default {
                 ],
                 logo: Logo.PP_PAYPAL.COLOR,
                 headline: [{ tag: 'xsmall', br: [','] }],
-                disclaimer: ['extra', 'default']
+                disclaimer: [
+                    'large',
+                    {
+                        tag: 'extra',
+                        br: ['.']
+                    },
+                    'default'
+                ]
             })
         ],
         [
             'logo.type:primary && logo.position:right',
             ({ textSize }) => ({
                 styles: [
-                    setLogoTop(textSize * 39),
+                    setLogoTop(textSize * 68.5),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
                     crossBorderDisclaimerWrap(textSize * 21.4, textSize * 30.4, textSize * 21.4, textSize * 15),
-                    `@media screen and 
+                    disclaimerWrap(textSize * 20.5),
+                    `@media screen and
                     (max-width: ${textSize * 29}px) {
                         .message__headline > .tag--medium > span > span.br:nth-child(2) {white-space: nowrap;}
                     }`
@@ -107,7 +144,8 @@ export default {
                 styles: [
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
                     crossBorderDisclaimerWrap(textSize * 21.4, textSize * 30.4, textSize * 21.4, textSize * 15),
-                    `@media screen and 
+                    disclaimerWrap(textSize * 20.5),
+                    `@media screen and
                     (max-width: ${textSize * 29}px) {
                         .message__headline > .tag--medium > span > span.br:nth-child(2) {white-space: nowrap;}
                     }`
@@ -119,7 +157,7 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     crossBorderDisclaimerWrap(textSize * 21.4, textSize * 30.4, textSize * 21.4, textSize * 15),
-                    textWrap(textSize * 39, textSize, 'AT'),
+                    textWrap(textSize * 65, textSize, 'AT'),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25),
                     xSmallNoWrap(textSize * 8),
                     altNoWrap(textSize * 15.5)

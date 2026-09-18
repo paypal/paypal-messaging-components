@@ -1,0 +1,16 @@
+.message__disclaimer > span.tag--large,
+.message__disclaimer > span.tag--large.multi:first-of-type,
+.message__disclaimer > span.tag--large.multi:last-of-type {
+    color: #2c2e2f;
+    font-weight: normal;
+    text-decoration: none;
+    white-space: normal;
+}
+
+/* Cross-border (XB) messages insert the "large" disclaimer before "extra", which pushes
+   "extra" out of the :first-of-type position it relied on in base.css for its styling. */
+.message__disclaimer > span.tag--extra {
+    color: #2c2e2f;
+    font-weight: normal;
+    text-decoration: none;
+}

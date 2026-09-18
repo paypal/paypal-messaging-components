@@ -5,7 +5,8 @@ import {
     messageLogoWidth,
     altNoWrap,
     setLogoTop,
-    primaryWrap
+    primaryWrap,
+    disclaimerWrap
 } from '../../../../message/mediaQueries';
 import {
     logoNoneAddRatenzahlungAfterPayPal,
@@ -19,7 +20,7 @@ import { flexLogoMutations, textLogoMutations } from '../../../../message/logoMu
 const headlineBreaks = [
     {
         sizes: ['medium'],
-        breaks: ['monatlichen']
+        breaks: ['.']
     }
 ].reduce((acc, item) => {
     const { sizes, breaks } = item;
@@ -45,23 +46,13 @@ const flex = [
                     tag: 'medium'
                 }
             ],
-            disclaimer: ['extra', 'default']
+            disclaimer: ['large', 'extra', 'default']
         }
     ],
     [
         'ratio:20x1',
         {
             styles: [
-                `@media (min-aspect-ratio: 200/11) {
-                    .message__headline {
-                        font-size: 1.7vw;
-                    }
-                }`,
-                `@media (min-aspect-ratio: 60 / 11) and (max-width: 374px) {
-                    .message__headline {
-                        font-size: 3.5vw;
-                    }
-                }`,
                 `@media (min-aspect-ratio: 200 / 11) and (max-width: 650px) {
                     .message__disclaimer > .tag--extra > span {
                         margin-right: 2px;
@@ -80,7 +71,7 @@ const flex = [
             styles: [
                 `@media (min-aspect-ratio: 60 / 11) and (max-width: 374px) {
                     .message__headline {
-                        font-size: 4vw;
+                        font-size: 2vw;
                     }
                 }`,
                 `@media (min-aspect-ratio: 60/11) and (max-width: 323px) {
@@ -91,7 +82,7 @@ const flex = [
                         display: none;
                     }
                     .message__headline {
-                        font-size: 3.5vw;
+                        font-size: 2.5vw;
                     }
                 }`
             ],
@@ -102,6 +93,9 @@ const flex = [
         'ratio:1x1',
         {
             styles: [
+                `.message__disclaimer > span.tag--extra {
+                    font-size: 4vw;
+                }`,
                 `@media (max-aspect-ratio: 11/10) and (max-width: 220px) {
             .message__disclaimer {
                 font-size: 0.65rem;
@@ -132,9 +126,9 @@ export default {
             'default',
             ({ textSize }) => ({
                 styles: [
-                    textWrap(textSize * 43.8, textSize, 'AT'),
+                    textWrap(textSize * 68, textSize, 'AT'),
                     crossBorderDisclaimerWrap(textSize * 20.5, textSize * 20, textSize * 18.6, textSize * 22.5),
-                    xSmallFallback(textSize * 12.4),
+                    xSmallFallback(textSize * 13.75),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25),
                     setLogoTop(textSize * 20),
                     xSmallNoWrap(textSize * 12.5),
@@ -148,7 +142,14 @@ export default {
                     },
                     { tag: 'xsmall' }
                 ],
-                disclaimer: ['extra', 'default']
+                disclaimer: [
+                    'large',
+                    {
+                        tag: 'extra',
+                        br: ['.']
+                    },
+                    'default'
+                ]
             })
         ],
         [
@@ -156,9 +157,10 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     crossBorderDisclaimerWrap(textSize * 20.5, textSize * 20, textSize * 18.6, textSize * 22.5),
-                    xSmallFallback(textSize * 12),
-                    setLogoTop(textSize * 44),
-                    messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
+                    xSmallFallback(textSize * 13.75),
+                    setLogoTop(textSize * 68),
+                    messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
+                    disclaimerWrap(textSize * 20.5)
                 ]
             })
         ],
@@ -167,8 +169,9 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     crossBorderDisclaimerWrap(textSize * 31, textSize * 38, textSize * 18.6, textSize * 22.5),
-                    xSmallFallback(textSize * 12.5),
-                    messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
+                    xSmallFallback(textSize * 13.75),
+                    messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
+                    disclaimerWrap(textSize * 20.5)
                 ]
             })
         ],
@@ -178,7 +181,7 @@ export default {
                 styles: [
                     `@media screen and (max-width: ${textSize * 15}px) { .message__content { white-space: nowrap; }}`,
                     crossBorderDisclaimerWrap(textSize * 33.2, textSize * 39.42, textSize * 20.2, textSize * 11.6),
-                    textWrap(textSize * 39.5, textSize, 'AT'),
+                    textWrap(textSize * 64.5, textSize, 'AT'),
                     xSmallFallback(textSize * 12.25),
                     altNoWrap(textSize * 10.6),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25)
