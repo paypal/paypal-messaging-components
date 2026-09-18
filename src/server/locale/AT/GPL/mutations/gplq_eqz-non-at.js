@@ -16,8 +16,7 @@ const headlineBreaks = [
         breaks: ['Ratenzahlung']
     },
     {
-        sizes: ['medium'],
-        breaks: ['pro', '.']
+        sizes: ['medium']
     }
 ].reduce((acc, item) => {
     const { sizes, breaks } = item;

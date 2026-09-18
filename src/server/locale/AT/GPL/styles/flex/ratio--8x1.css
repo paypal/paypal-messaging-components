@@ -72,9 +72,6 @@
         position: relative;
         top: 0;
     }
-    .message__disclaimer {
-        line-height: 10px;
-    }
     .message__disclaimer > span.tag--large {
         font-size: 2.5vw;
     }
