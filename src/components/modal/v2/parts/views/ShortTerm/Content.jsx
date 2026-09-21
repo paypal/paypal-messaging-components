@@ -37,7 +37,8 @@ export const ShortTerm = ({
         showPreapprovedBadge,
         showPromoContent,
         prequalExperience,
-        product
+        product,
+        amount
     },
     openProductList,
     useNewCheckoutDesign,
@@ -48,7 +49,8 @@ export const ShortTerm = ({
     const { onClick, onClose } = useXProps();
     const spendingPowerClickTitle = 'Check Spending Power';
     const handlePrequalification = usePrequalification(spendingPowerClickTitle, onClick, {
-        offer: product
+        offer: product,
+        amount
     });
 
     const isQualifying = qualifying === 'true';
