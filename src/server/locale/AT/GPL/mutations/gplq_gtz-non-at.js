@@ -57,9 +57,6 @@ const flex = [
                     .message__disclaimer > .tag--extra > span {
                         margin-right: 2px;
                     }
-                    .message__promo-container {
-                        padding-right: 0px;
-                    }
                 }`
             ],
             headline: [...headlineBreaks]

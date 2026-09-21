@@ -16,7 +16,8 @@ const headlineBreaks = [
         breaks: ['Ratenzahlung']
     },
     {
-        sizes: ['medium']
+        sizes: ['medium'],
+        breaks: ['bei']
     }
 ].reduce((acc, item) => {
     const { sizes, breaks } = item;
@@ -62,9 +63,6 @@ const flex = [
                 `@media (min-aspect-ratio: 200 / 11) and (max-width: 650px) {
                     .message__disclaimer > .tag--extra > span {
                         margin-right: 2px;
-                    }
-                    .message__promo-container {
-                        padding-right: 0px;
                     }
                 }`
             ],

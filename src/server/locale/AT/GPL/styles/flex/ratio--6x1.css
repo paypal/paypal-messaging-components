@@ -48,12 +48,6 @@
     .message__disclaimer > span.tag--large {
         font-size: 2vw;
     }
-    .message__headline span.tag--xsmall {
-        display: inline;
-    }
-    .message__headline span.tag--medium {
-        display: none;
-    }
     .message__content {
         padding: 0.5rem;
     }

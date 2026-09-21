@@ -4,8 +4,6 @@
     }
     .message__disclaimer {
         font-size: 1.25vw;
-        line-height: 1.43rem;
-        margin-left: 4px;
     }
     .message__disclaimer > span.tag--large {
         font-size: 1.25vw;

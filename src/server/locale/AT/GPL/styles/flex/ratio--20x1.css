@@ -4,8 +4,6 @@
     }
     .message__disclaimer {
         font-size: 1.25vw;
-        line-height: 1.43rem;
-        margin-left: 4px;
     }
     .message__disclaimer > span.tag--large {
         font-size: 1.25vw;
@@ -50,9 +48,12 @@
         max-width: 12%;
         margin-bottom: 0px;
     }
-    .message__headline span.tag--xsmall {
+    .message__headline span.tag--medium {
         display: inline;
         font-size: 1vw;
+    }
+    .message__headline span.tag--xsmall {
+        display: none;
     }
     .tag--default {
         font-size: 1vw;
@@ -65,9 +66,6 @@
     }
     .message__disclaimer > span.tag--extra {
         font-size: 1vw;
-    }
-    .message__headline span.tag--medium {
-        display: none;
     }
     .message__logo-container {
         max-width: 18%;
