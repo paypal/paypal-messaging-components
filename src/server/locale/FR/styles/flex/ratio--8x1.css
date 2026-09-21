@@ -25,6 +25,12 @@
         vertical-align: super;
         margin-left: 4px;
     }
+
+    .message__disclaimer > span.multi:last-of-type,
+    .message__disclaimer > span.multi:last-of-type > span {
+        white-space: nowrap;
+        font-size: 0.75rem;
+    }
 }
 
 @media (min-aspect-ratio: 80/11) and (min-width: 501px) {
@@ -55,7 +61,11 @@
 
 @media (min-aspect-ratio: 80/11) and (min-width: 351px) {
     .message__headline {
-        font-size: 3vw;
+        font-size: 2vw;
+    }
+
+    .message__disclaimer > span.multi:first-of-type {
+        font-size: 2vw;
     }
 }
 
