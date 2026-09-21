@@ -30,6 +30,7 @@
     "subHeadline": [],
 
     "disclaimer": [
+        [["Achtung! Kreditaufnahme kostet Geld."], ["large"]],
         ["Mehr erfahren", ["default"]],
         ["Mit österreichischem PayPal-Konto.", ["extra"]]
     ]
