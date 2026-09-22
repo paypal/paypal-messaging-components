@@ -165,6 +165,11 @@
                 }
             }
 
+            span:first-of-type {
+                display: inline-block;
+                margin-bottom: 20px;
+            }
+
             &.checkout {
                 @include mixins.mobile {
                     margin-bottom: 60px;
@@ -185,20 +190,24 @@
             color: colors.$text-main;
 
             @include mixins.desktop {
-                margin: 20px 30px 0px 30px;
+                margin: 20px 30px 50px 30px;
             }
 
             @include mixins.tablet {
-                margin: 20px 44px 0px 44px;
+                margin: 20px 44px 50px 44px;
             }
 
             @include mixins.mobile {
-                margin-top: 10px;
+                margin-block: 10px 50px;
             }
 
             &.darkMode {
                 color: colors.$white;
             }
+        }
+
+        &.dynamic:has(+ .credit-warning) .instructions.v5Design {
+            margin-bottom: 0px;
         }
 
         &.checkout {
