@@ -136,10 +136,7 @@ export default {
             'ratio:1x1',
             {
                 headline: [{ tag: 'small', br: ['frais.'] }],
-                subHeadline: [{ tag: 'small', br: ['achats'] }],
-                styles: [
-                    `@media (min-width: 140px) {.message__headline {font-size: 8.5vw;} .message__sub-headline {font-size: 6vw;}`
-                ]
+                subHeadline: [{ tag: 'small', br: ['achats'] }]
             }
         ],
         [

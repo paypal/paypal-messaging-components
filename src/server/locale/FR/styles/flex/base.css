@@ -4,7 +4,7 @@
 }
 
 .message__headline {
-    font-size: 8.4vw;
+    font-size: 5vw;
     font-weight: 500;
 }
 
@@ -49,10 +49,4 @@
 
 .message__headline > span:nth-child(3) > strong {
     font-weight: 500;
-}
-
-@media (min-width: 220px) {
-    .message__disclaimer {
-        font-size: 0.95rem;
-    }
 }

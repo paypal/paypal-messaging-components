@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`v2 render flex snapshots full render snapshot for representative case (blue/8x1) 1`] = `
-"<div class=\\"pp-message pp-flex blue r-8x1\\" data-pp-style-layout=\\"flex\\" data-pp-style-color=\\"blue\\" data-pp-style-ratio=\\"8x1\\"><style>
+"<div class="pp-message pp-flex blue r-8x1" data-pp-style-layout="flex" data-pp-style-color="blue" data-pp-style-ratio="8x1"><style>
 html,
 body,
 button {
@@ -283,7 +283,7 @@ button:focus .pp-message.pp-flex .pp-flex__content span.br {
         font-size: 0.9rem;
     }
 }
-</style><div class=\\"pp-flex__background\\"></div><div class=\\"pp-flex__content\\"><div class=\\"pp-flex__logo-container\\" aria-hidden=\\"true\\"><span class=\\"pp-flex__logo paypal\\"><img src=\\"data:local/white-monogram\\" alt role=\\"presentation\\" width=\\"24\\" height=\\"32\\" /></span><span class=\\"pp-flex__logo paypal\\"><img src=\\"data:local/white-wordmark\\" alt role=\\"presentation\\" width=\\"100\\" height=\\"32\\" /></span></div><div class=\\"pp-flex__messaging\\"><div aria-label=\\"PayPal Pay Later.\\" class=\\"pp-flex__main\\">Pay Later.</div><div aria-label=\\"Learn more\\" class=\\"pp-flex__action\\"><span>Learn more</span></div><div class=\\"pp-flex__disclaimer\\">Subject to approval.</div></div></div></div>"
+</style><div class="pp-flex__background"></div><div class="pp-flex__content"><div class="pp-flex__logo-container" aria-hidden="true"><span class="pp-flex__logo paypal"><img src="data:local/white-monogram" alt role="presentation" width="24" height="32" /></span><span class="pp-flex__logo paypal"><img src="data:local/white-wordmark" alt role="presentation" width="100" height="32" /></span></div><div class="pp-flex__messaging"><div aria-label="PayPal Pay Later." class="pp-flex__main">Pay Later.</div><div aria-label="Learn more" class="pp-flex__action"><span>Learn more</span></div><div class="pp-flex__disclaimer">Subject to approval.</div></div></div></div>"
 `;
 
 exports[`v2 render flex snapshots no-custom-font snapshot uses v5 Helvetica/Arial default stack 1`] = `
@@ -859,7 +859,7 @@ button:focus .pp-message.pp-flex .pp-flex__content span.br {
 `;
 
 exports[`v2 render snapshots full render snapshot for representative case 1`] = `
-"<div class=\\"pp-message\\" data-pp-style-layout=\\"text\\" data-pp-style-logo-position=\\"left\\" data-pp-style-logo-type=\\"primary\\" data-pp-style-text-align=\\"left\\" data-pp-style-text-color=\\"black\\" data-pp-style-text-size=\\"12\\"><style>
+"<div class="pp-message" data-pp-style-layout="text" data-pp-style-logo-position="left" data-pp-style-logo-type="primary" data-pp-style-text-align="left" data-pp-style-text-color="black" data-pp-style-text-size="12"><style>
 body {
     margin: 0;
     padding: 0;
@@ -938,7 +938,7 @@ button:active .pp-message .main {
   max-height: 1em;
   height: 1em;
 }
-</style><span role=\\"img\\" aria-label=\\"PayPal\\" class=\\"logo black left wordmark paypal\\"><img src=\\"data:local/color-monogram\\" alt role=\\"presentation\\" width=\\"24\\" height=\\"32\\" /><img src=\\"data:local/color-wordmark\\" alt role=\\"presentation\\" width=\\"100\\" height=\\"32\\" /></span><span aria-label=\\"Pay Later. Subject to approval.\\" class=\\"main left black\\">Pay Later. Subject to approval.</span> <span aria-label=\\"Learn more\\" class=\\"action black\\"><span class=\\"action__link\\">Learn more</span></span></div>"
+</style><span role="img" aria-label="PayPal" class="logo black left wordmark paypal"><img src="data:local/color-monogram" alt role="presentation" width="24" height="32" /><img src="data:local/color-wordmark" alt role="presentation" width="100" height="32" /></span><span aria-label="Pay Later. Subject to approval." class="main left black">Pay Later. Subject to approval.</span> <span aria-label="Learn more" class="action black"><span class="action__link">Learn more</span></span></div>"
 `;
 
 exports[`v2 render snapshots renders the v2 stylesheet once 1`] = `

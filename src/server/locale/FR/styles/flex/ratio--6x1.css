@@ -38,7 +38,7 @@
         display: none;
     }
     .message__disclaimer {
-        font-size: 0.7rem;
+        font-size: 2.5vw;
     }
 }
 
@@ -67,11 +67,11 @@
 
 @media (max-width: 374px) {
     .message__headline {
-        font-size: 3.5vw;
+        font-size: 2.5vw;
     }
 
     .message__disclaimer > span.multi:first-of-type {
-        font-size: 3.5vw;
+        font-size: 2.5vw;
     }
 
     .message__logo:nth-of-type(1) {
