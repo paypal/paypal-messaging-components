@@ -35,7 +35,7 @@ const flex = [
                     tag: 'xsmall'
                 }
             ],
-            disclaimer: ['default']
+            disclaimer: ['large', 'default']
         }
     ],
     [
@@ -74,7 +74,7 @@ export default {
             'default',
             ({ textSize }) => ({
                 styles: [
-                    textWrap(textSize * 55, textSize, 'AT'),
+                    textWrap(textSize * 52, textSize, 'AT'),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25),
                     setLogoTop(textSize * 20),
                     xSmallNoWrap(textSize * 7.7),
@@ -82,14 +82,14 @@ export default {
                 ],
                 logo: Logo.PP_PAYPAL.COLOR,
                 headline: [{ tag: 'xsmall', br: [','] }],
-                disclaimer: ['default']
+                disclaimer: ['large', 'default']
             })
         ],
         [
             'logo.type:primary && logo.position:right',
             ({ textSize }) => ({
                 styles: [
-                    setLogoTop(textSize * 28),
+                    setLogoTop(textSize * 52),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
                     `@media screen and 
                     (max-width: ${textSize * 29}px) {
@@ -114,7 +114,7 @@ export default {
             'logo.type:alternative',
             ({ textSize }) => ({
                 styles: [
-                    textWrap(textSize * 55, textSize, 'AT'),
+                    textWrap(textSize * 50, textSize, 'AT'),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25),
                     xSmallNoWrap(textSize * 8),
                     altNoWrap(textSize * 15.5)
