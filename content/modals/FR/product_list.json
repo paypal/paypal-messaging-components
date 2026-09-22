@@ -10,7 +10,7 @@
         "creditWarning": "Attention ! Un crédit coûte de l'argent et doit être remboursé.",
         "disclosure": "Soumis à conditions. Sous réserve d'acceptation par PayPal. Pour en savoir plus sur le Paiement en plusieurs fois de PayPal, sélectionnez l'une des options ci-dessus. ",
         "instructions": {
-            "payLater": "Sélectionnez une option pour en savoir plus."
+            "payLater": "Sélectionnez une option pour en savoir plus. Cette information est fournie par PayPal."
         },
         "productTiles": {
             "payLater": [
