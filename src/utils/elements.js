@@ -3,6 +3,7 @@ import { ZalgoPromise } from '@krakenjs/zalgo-promise/src';
 import { curry } from './functional';
 import { objectMerge, flattenedToObject } from './objects';
 import { ppDebug } from './debug';
+import { isPayPalDomain } from './sdk';
 
 export const getWindowFromElement = node => node?.ownerDocument?.defaultView;
 
@@ -66,10 +67,13 @@ export function getInlineOptions(container) {
         .reduce((accumulator, { nodeName, nodeValue }) => {
             if (nodeValue) {
                 const attributeName = nodeName.replace('data-pp-', '');
-                const value = inlineEventHandlers.includes(attributeName)
-                    ? // eslint-disable-next-line no-new-func
-                      new Function(nodeValue)
-                    : nodeValue;
+
+                let value = nodeValue;
+                if (inlineEventHandlers.includes(attributeName)) {
+                    const hostname = getWindowFromElement(container)?.location?.hostname;
+                    // eslint-disable-next-line no-new-func
+                    value = isPayPalDomain(hostname) ? undefined : new Function(nodeValue);
+                }
 
                 return objectMerge(
                     accumulator,
