@@ -175,13 +175,6 @@
                 color: colors.$white;
                 opacity: 0.72;
             }
-
-            &.fr {
-                span:first-of-type {
-                    display: inline-block;
-                    margin-bottom: 20px;
-                }
-            }
         }
 
         &.credit-warning {
@@ -223,6 +216,11 @@
                 }
             }
         }
+    }
+
+    .content__row.credit-warning + .content__row.disclosure span:first-of-type {
+        display: inline-block;
+        margin-bottom: 20px;
     }
 
     &.v4Design {
