@@ -17,7 +17,7 @@ const getButtonAlignmentStyles = textAlign => {
     return '';
 };
 
-export default ({ fontFamily, fontSource, fontSize = 14, textAlign = 'left' } = {}) => {
+export default ({ fontFamily, fontSource, fontSize = 12, textAlign = 'left' } = {}) => {
     const { fontFaceRules, effectiveFontFamily } = buildFontRules({
         fontSource,
         fontFamily,

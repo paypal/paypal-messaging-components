@@ -106,6 +106,8 @@ export default {
     DEV000ATPLGTZ: ['AT', ['long_term'], 'gpl_gtz'],
     DEV00ATPLQEQZ: ['AT', ['long_term'], 'gplq_eqz'],
     DEV00ATPLQGTZ: ['AT', ['long_term'], 'gplq_gtz'],
+    DEV0XBATPLEQZ: ['AT', ['long_term'], 'gpl_eqz-non-at'],
+    DEV0XBATPLGTZ: ['AT', ['long_term'], 'gpl_gtz-non-at'],
     DEVXBATPLQEQZ: ['AT', ['long_term'], 'gplq_eqz-non-at'],
     DEVXBATPLQGTZ: ['AT', ['long_term'], 'gplq_gtz-non-at'],
     DEV00ATPI30NQ: ['AT', ['pay_in_1'], 'pi30nq'],
