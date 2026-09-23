@@ -10,8 +10,22 @@
     flex-direction: column;
     justify-content: center;
 }
+.message__disclaimer {
+    white-space: normal;
+}
+.message__disclaimer > span,
+.message__disclaimer > span > span {
+    white-space: normal;
+}
+.message__disclaimer > span.tag--large {
+    font-size: 1rem;
+}
+.message__disclaimer > span.tag--default,
+.message__disclaimer > span.tag--default > span {
+    white-space: nowrap;
+}
 .message__headline {
-    font-size: 1.1rem;
+    font-size: 1rem;
     line-height: 1.3em;
     margin-bottom: 10%;
 }
@@ -19,7 +33,7 @@
     display: none;
 }
 .message__disclaimer {
-    font-size: 0.8rem;
+    font-size: 1rem;
 }
 .message__disclaimer span.multi:nth-of-type(1) {
     display: inline;
@@ -30,11 +44,20 @@
 
 @media (min-height: 500px) {
     .message__headline {
-        font-size: 1.5rem;
+        font-size: 1rem;
     }
 }
 @media (aspect-ratio: 1/2) {
     .message__messaging {
         transform: translateY(-40px);
+    }
+    .message__headline {
+        font-size: 1rem;
+    }
+    .message__disclaimer {
+        font-size: 0.8rem;
+    }
+    .message__disclaimer > span.tag--large {
+        font-size: 1rem;
     }
 }
