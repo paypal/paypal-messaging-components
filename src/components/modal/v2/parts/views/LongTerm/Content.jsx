@@ -252,7 +252,7 @@ export const LongTerm = ({
                     useNewCheckoutDesign === 'true' ? 'checkout' : ''
                 } ${useV5Design === 'true' ? 'v5Design' : ''} ${getEuroStyleClass(country)} ${
                     isPrequalExperience ? 'prequal-fixed-offset' : ''
-                } ${useDarkMode ? 'darkMode' : ''}`}
+                } ${useDarkMode ? 'darkMode' : ''} ${country?.toLowerCase() ?? ''}`}
             >
                 {getDisclosure(disclosure)}
             </div>

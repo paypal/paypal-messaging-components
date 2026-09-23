@@ -165,11 +165,6 @@
                 }
             }
 
-            span:first-of-type {
-                display: inline-block;
-                margin-bottom: 20px;
-            }
-
             &.checkout {
                 @include mixins.mobile {
                     margin-bottom: 60px;
@@ -179,6 +174,13 @@
             &.darkMode {
                 color: colors.$white;
                 opacity: 0.72;
+            }
+
+            &.fr {
+                span:first-of-type {
+                    display: inline-block;
+                    margin-bottom: 20px;
+                }
             }
         }
 
