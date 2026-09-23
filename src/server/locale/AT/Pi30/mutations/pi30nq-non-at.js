@@ -52,7 +52,9 @@ const flex = [
         'ratio:8x1',
         {
             styles: [
-                addPeriod(),
+                `.message__headline > .tag--medium > span:last-child::after {
+                    content: '.'
+                }`,
                 `@media (min-aspect-ratio: 60/11) {
                     .message__disclaimer {
                         display: block;
@@ -76,7 +78,9 @@ const flex = [
         'ratio:1x1',
         {
             styles: [
-                addPeriod(),
+                `.message__headline > .tag--medium > span:last-child::after {
+                    content: '.'
+                }`,
                 `.message__disclaimer > span.tag--extra {
                     font-size: 4vw;
                 }`,
@@ -92,14 +96,22 @@ const flex = [
     [
         'ratio:1x4',
         {
-            styles: [addPeriod()],
+            styles: [
+                `.message__headline > .tag--medium > span:last-child::after {
+                    content: '.'
+                }`
+            ],
             headline: [...headlineBreaks]
         }
     ],
     [
         'ratio:20x1',
         {
-            styles: [addPeriod()],
+            styles: [
+                `.message__headline > .tag--medium > span:last-child::after {
+                    content: '.'
+                }`
+            ],
             headline: [...headlineBreaks]
         }
     ],
