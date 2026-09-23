@@ -223,6 +223,11 @@
         }
     }
 
+    .content__row.credit-warning + .content__row.disclosure span:first-of-type {
+        display: inline-block;
+        margin-bottom: 20px;
+    }
+
     &.v4Design {
         background: colors.$v4-gray;
     }
