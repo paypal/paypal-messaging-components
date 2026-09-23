@@ -13,11 +13,6 @@
     display: none;
 }
 
-.message__disclaimer {
-    font-size: 0.9rem;
-    vertical-align: super;
-}
-
 @media (max-aspect-ratio: 61/10) and (min-width: 375px) {
     .message__headline span.multi:nth-of-type(2) {
         display: inline;
@@ -44,6 +39,9 @@
 
 @media (max-aspect-ratio: 61/10) {
     .message__headline {
+        font-size: 2.5vw;
+    }
+    .message__disclaimer {
         font-size: 2.5vw;
         display: inline;
     }
