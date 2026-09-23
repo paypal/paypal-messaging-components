@@ -134,7 +134,9 @@ export default {
                     crossBorderDisclaimerWrap(textSize * 21.4, textSize * 30.4, textSize * 21.4, textSize * 15),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25),
                     setLogoTop(textSize * 20),
-                    addPeriod(),
+                    `.message__headline > .tag--medium > span > span:last-child::after {
+                        content: '.'
+                    }`,
                     xSmallFallback(textSize * 17.5),
                     xSmallNoWrap(textSize * 16.5),
                     primaryWrap(textSize * 15.4)
@@ -165,7 +167,9 @@ export default {
                     xSmallFallback(textSize * 17.5),
                     setLogoTop(textSize * 83.5),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
-                    addPeriod(),
+                    `.message__headline > .tag--medium > span > span:last-child::after {
+                        content: '.'
+                    }`,
                     disclaimerWrap(textSize * 20.5)
                 ]
             })
@@ -176,7 +180,9 @@ export default {
                 styles: [
                     crossBorderDisclaimerWrap(textSize * 25.2, textSize * 29, textSize * 20.5, textSize * 15),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
-                    addPeriod(),
+                    `.message__headline > .tag--medium > span > span:last-child::after {
+                        content: '.'
+                    }`,
                     xSmallFallback(textSize * 17.5),
                     disclaimerWrap(textSize * 20.5)
                 ]
