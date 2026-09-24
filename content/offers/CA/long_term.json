@@ -30,15 +30,15 @@
     },
     "content": {
         "calculator": {
-            "belowThreshold": "Enter an amount of {formattedMinAmount} or more.",
-            "aboveThreshold": "Enter an amount no larger than {formattedMaxAmount}."
+            "belowThreshold": "Enter an amount between {formattedMinAmount} CAD - {formattedMaxAmount} CAD.",
+            "aboveThreshold": "Enter an amount between {formattedMinAmount} CAD - {formattedMaxAmount} CAD."
         },
         "disclaimer": {
             "zeroAPR": "Terms vary based on purchase amount and your credit.",
-            "nonZeroAPR": "*APR is 0% to 31.99%. Terms and rates vary based on purchase amount and your credit."
+            "nonZeroAPR": "*Terms and rates vary based on purchase amount and your credit. In Quebec and Newfoundland, APR is no more than 22%."
         },
         "termsLabel": {
-            "offerHeader": "{formattedPeriodicPayment}/<span aria-hidden='true'>mo.</span><span class='sr-only'>month.</span> for {total_payments} months",
+            "offerHeader": "{formattedPeriodicPayment} CAD/<span aria-hidden='true'>mo.</span><span class='sr-only'>month.</span> for {total_payments} months",
             "nonZeroApr": "<span aria-hidden='true'>Est. APR*</span><span class='sr-only'>Estimated APR, see star for more details below.</span>",
             "totalInterest": "Interest",
             "total": "Total"

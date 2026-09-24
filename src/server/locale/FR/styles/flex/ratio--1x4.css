@@ -13,7 +13,7 @@
 }
 
 .message__headline {
-    font-size: 1.1rem;
+    font-size: 1rem;
     margin-bottom: 10%;
     padding-top: 10%;
 }
@@ -24,6 +24,7 @@
 
 .message__disclaimer span.multi:nth-of-type(1) {
     display: inline;
+    font-size: 1rem;
 }
 
 .message__headline .tag--xsmall {
@@ -36,7 +37,11 @@
 
 @media (min-height: 500px) {
     .message__headline {
-        font-size: 1.7rem;
+        font-size: 1.3rem;
+    }
+
+    .message__disclaimer > span.multi:first-of-type {
+        font-size: 1.3rem;
     }
 }
 
