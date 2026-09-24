@@ -173,7 +173,7 @@ describe('setupTabTrap', () => {
         expect(document.activeElement).toBe(paypalCreditBtn);
     });
 
-    it('does not hijack Shift+Tab away from the last element, so focus can move backward through the middle buttons (regression for DTCRCMERC-5668)', () => {
+    it('does not hijack Shift+Tab away from the last element, so focus can move backward through the middle buttons', () => {
         paypalCreditBtn.focus();
 
         const event = dispatchTabKey(true);
