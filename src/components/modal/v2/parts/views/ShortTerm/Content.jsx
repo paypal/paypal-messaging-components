@@ -37,8 +37,7 @@ export const ShortTerm = ({
         showPreapprovedBadge,
         showPromoContent,
         prequalExperience,
-        product,
-        amount
+        product
     },
     openProductList,
     useNewCheckoutDesign,
@@ -46,7 +45,7 @@ export const ShortTerm = ({
     useDarkMode
 }) => {
     const { views, country } = useServerData();
-    const { onClick, onClose } = useXProps();
+    const { amount, onClick, onClose } = useXProps();
     const spendingPowerClickTitle = 'Check Spending Power';
     const handlePrequalification = usePrequalification(spendingPowerClickTitle, onClick, {
         offer: product,
