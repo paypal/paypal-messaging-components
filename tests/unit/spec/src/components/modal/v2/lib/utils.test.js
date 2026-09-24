@@ -2,7 +2,8 @@ import {
     formatDateByCountry,
     validateProps,
     openPrequalification,
-    createPrequalToken
+    createPrequalToken,
+    setupTabTrap
 } from 'src/components/modal/v2/lib/utils';
 import { uniqueID } from '@krakenjs/belter/src';
 
@@ -116,6 +117,93 @@ describe('createPrequalToken', () => {
         const token = createPrequalToken();
 
         expect(token.length).toBeLessThanOrEqual(36);
+    });
+});
+
+describe('setupTabTrap', () => {
+    let closeBtn;
+    let payMonthlyBtn;
+    let payIn4Btn;
+    let paypalCreditBtn;
+
+    const dispatchTabKey = (shiftKey = false) => {
+        const event = new KeyboardEvent('keydown', { keyCode: 9, shiftKey, cancelable: true });
+        window.dispatchEvent(event);
+        return event;
+    };
+
+    beforeAll(() => {
+        // trapTabKey listener is attached once for the module's lifetime, mirroring real usage
+        // (setupTabTrap is called once per modal instance in Container.jsx)
+        setupTabTrap();
+    });
+
+    beforeEach(() => {
+        document.body.innerHTML = `
+            <button id="close">Close</button>
+            <button id="pay-monthly">Pay monthly</button>
+            <button id="pay-in-4">Pay in 4 interest</button>
+            <button id="paypal-credit">PayPal Credit</button>
+        `;
+        closeBtn = document.getElementById('close');
+        payMonthlyBtn = document.getElementById('pay-monthly');
+        payIn4Btn = document.getElementById('pay-in-4');
+        paypalCreditBtn = document.getElementById('paypal-credit');
+    });
+
+    afterEach(() => {
+        document.body.innerHTML = '';
+    });
+
+    it('wraps focus from the last focusable element to the first on Tab', () => {
+        paypalCreditBtn.focus();
+
+        const event = dispatchTabKey(false);
+
+        expect(event.defaultPrevented).toBe(true);
+        expect(document.activeElement).toBe(closeBtn);
+    });
+
+    it('wraps focus from the first focusable element to the last on Shift+Tab', () => {
+        closeBtn.focus();
+
+        const event = dispatchTabKey(true);
+
+        expect(event.defaultPrevented).toBe(true);
+        expect(document.activeElement).toBe(paypalCreditBtn);
+    });
+
+    it('does not hijack Shift+Tab away from the last element, so focus can move backward through the middle buttons (regression for DTCRCMERC-5668)', () => {
+        paypalCreditBtn.focus();
+
+        const event = dispatchTabKey(true);
+
+        // Native backward tab navigation (unblocked) would move focus to pay-in-4,
+        // not get force-wrapped back to the first element like plain Tab does.
+        expect(event.defaultPrevented).toBe(false);
+        expect(document.activeElement).toBe(paypalCreditBtn);
+    });
+
+    it('does not hijack Tab away from the first element when Shift is not held', () => {
+        closeBtn.focus();
+
+        const event = dispatchTabKey(false);
+
+        expect(event.defaultPrevented).toBe(false);
+        expect(document.activeElement).toBe(closeBtn);
+    });
+
+    it('does nothing for a middle element regardless of Shift state', () => {
+        payMonthlyBtn.focus();
+
+        const forwardEvent = dispatchTabKey(false);
+        expect(forwardEvent.defaultPrevented).toBe(false);
+        expect(document.activeElement).toBe(payMonthlyBtn);
+
+        payIn4Btn.focus();
+        const backwardEvent = dispatchTabKey(true);
+        expect(backwardEvent.defaultPrevented).toBe(false);
+        expect(document.activeElement).toBe(payIn4Btn);
     });
 });
 
