@@ -28,7 +28,7 @@ const VIEW_IDS = {
 };
 
 const BodyContent = () => {
-    const { views } = useServerData();
+    const { views, country } = useServerData();
     const { offer, features } = useXProps();
     const { scrollTo } = useScroll();
     const [transitionState] = useTransitionState();
@@ -88,6 +88,9 @@ const BodyContent = () => {
     const preapprovalLabel = content?.preapproval?.preapprovalLabel;
 
     const openProductList = () => setViewName(VIEW_IDS.PRODUCT_LIST);
+
+    // Used to specifically target styles to a specific country
+    const countryClassName = country?.toLowerCase();
 
     useDidUpdateEffect(() => {
         scrollTo(0); // Reset scroll position to top when view changes
@@ -189,7 +192,7 @@ const BodyContent = () => {
             <div
                 className={`content__container ${useV4Design ? 'v4Design' : ''} ${useV5Design ? 'v5Design' : ''} ${
                     useNewCheckoutDesign === 'true' ? 'checkout' : ''
-                } ${use5Dot1Design ? 'v5Dot1Design' : ''} ${useDarkMode ? 'darkMode' : ''}`}
+                } ${use5Dot1Design ? 'v5Dot1Design' : ''} ${useDarkMode ? 'darkMode' : ''} ${countryClassName ?? ''}`}
             >
                 <main className="main">
                     <div className="content__body">{viewComponents[viewName]}</div>
