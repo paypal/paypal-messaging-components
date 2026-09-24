@@ -165,11 +165,6 @@
                 }
             }
 
-            span:first-of-type {
-                display: inline-block;
-                margin-bottom: 20px;
-            }
-
             &.checkout {
                 @include mixins.mobile {
                     margin-bottom: 60px;
@@ -223,11 +218,6 @@
         }
     }
 
-    .content__row.credit-warning + .content__row.disclosure span:first-of-type {
-        display: inline-block;
-        margin-bottom: 20px;
-    }
-
     &.v4Design {
         background: colors.$v4-gray;
     }
@@ -241,5 +231,16 @@
     
     &.darkMode {
         background-color: colors.$dark-mode-black;
+    }
+
+    &.fr {
+        .content__row {
+            &.disclosure {
+                span:first-of-type {
+                    display: inline-block;
+                    margin-bottom: 20px;
+                }
+            }
+        }
     }
 }

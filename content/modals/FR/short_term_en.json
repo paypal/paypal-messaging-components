@@ -26,9 +26,9 @@
         }
     },
     "content": {
-        "headline": "Pay in 4X with no fees",
+        "headline": "Pay in 4 with no fees",
 
-        "subheadline": "Available for purchases from <span>{formattedMinAmount} to {formattedMaxAmount}.</span> No administration fees or late fees.",
+        "subheadline": "Available for purchases from <span>{formattedMinAmount} to {formattedMaxAmount}.</span> No administration fees or late fees. This information is provided by PayPal.",
         "qualifyingSubheadline": "Pay for your purchase of {formattedTransactionAmount} in 4 instalments without administration fees or late fees.",
         "donutTimestamps": ["Today", "1 month", "2 months", "3 months"],
         "estimatedInstallments": {
@@ -46,13 +46,14 @@
             "The subsequent installments will be debited automatically. It's easy!"
         ],
 
-        "creditWarning": "Warning! A loan costs money and must be repaid.",
+        "creditWarning": "Caution! A credit costs money and must be repaid.",
 
         "disclosure": [
-            "Only for private individuals residing in France. French PayPal account required. Pay in 4X is available, subject to acceptance, for purchases between {formattedMinAmount} and {formattedMaxAmount}. A loan is a binding commitment and must be repaid, check your repayment capacity. ",
-            ["Terms and Conditions", "https://www.paypal.com/fr/webapps/mpp/ua/pay-in-4x-full"],
-            ". Credit offered by PayPal (Europe) S.à r.l. et Cie, S.C.A., 22-24 Boulevard Royal, L-2449, Luxembourg, Trade and Companies Register of Luxembourg B 118 349, which is duly licensed as a Luxembourg credit institution and falls under the oversight of the supervisory authority of Luxembourg, Commission de Surveillance du Secteur Financier. This information is provided by PayPal."
+            "Only for individuals residing in France. Pay in 4 installments is available subject to approval, for purchases from {formattedMinAmount} to {formattedMaxAmount}.",
+            "Credit is offered by PayPal (Europe) S.à r.l. et Cie, S.C.A., 22-24 Boulevard Royal, L-2449, Luxembourg, R.C.S. Luxembourg B 118 349, which is duly licensed as a Luxembourg credit institution and is under the prudential supervision of the Luxembourg supervisory authority, the Commission de Surveillance du Secteur Financier. This information is provided by PayPal. Learn more about ",
+            ["Pay Later options", "https://www.paypal.com/fr/digital-wallet/ways-to-pay/buy-now-pay-later"],
+            "."
         ],
-        "linkToProductList": "See other ways to pay in installments"
+        "linkToProductList": "See other ways to pay later"
     }
 }
