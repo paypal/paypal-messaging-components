@@ -1,5 +1,12 @@
 import Logo from '../../../message/logos';
-import { textWrap, messageLogoWidth, altNoWrap, setLogoTop, logo20x1 } from '../../../message/mediaQueries';
+import {
+    textWrap,
+    messageLogoWidth,
+    altNoWrap,
+    setLogoTop,
+    logo20x1,
+    disclaimerSpanWrap
+} from '../../../message/mediaQueries';
 import { textLogoMutations, flexLogoMutations } from '../../../message/logoMutations';
 
 export default {
@@ -8,9 +15,10 @@ export default {
             'default',
             ({ textSize }) => ({
                 styles: [
-                    textWrap(textSize * 43, textSize, 'FR'),
+                    textWrap(textSize * 85, textSize, 'FR'),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25),
                     setLogoTop(textSize * 20),
+                    disclaimerSpanWrap(),
                     `@media screen and (min-width: ${textSize * 11.5}px) {
                         .message__messaging span.br {
                             white-space: normal;
@@ -24,7 +32,7 @@ export default {
                         br: ['achats']
                     }
                 ],
-                disclaimer: ['default']
+                disclaimer: ['large', 'default']
             })
         ],
         [
@@ -32,8 +40,9 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     textWrap(textSize * 43, textSize, 'FR'),
-                    setLogoTop(textSize * 40),
+                    setLogoTop(textSize * 70),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
+                    disclaimerSpanWrap(),
                     `@media screen and (min-width: ${textSize * 11.5}px) {
                         .message__messaging span.br {
                             white-space: normal;
@@ -54,6 +63,7 @@ export default {
                 styles: [
                     // textWrap(textSize * 43, textSize, 'FR'),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
+                    disclaimerSpanWrap(),
                     `@media screen and (min-width: ${textSize * 11.5}px) {
                         .message__messaging span.br {
                             white-space: normal;
@@ -72,9 +82,10 @@ export default {
             'logo.type:alternative',
             ({ textSize }) => ({
                 styles: [
-                    textWrap(textSize * 39, textSize, 'FR'),
+                    textWrap(textSize * 85, textSize, 'FR'),
                     altNoWrap(textSize * 10.6),
-                    messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25)
+                    messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25),
+                    disclaimerSpanWrap()
                 ],
                 logo: Logo.PP_PAYPAL.COLOR[0],
                 headline: [
@@ -89,6 +100,7 @@ export default {
             'logo.type:none',
             ({ textSize }) => ({
                 styles: [
+                    disclaimerSpanWrap(),
                     `@media screen and (min-width: ${textSize * 11.5}px) {
                         .message__messaging span.br {
                             white-space: normal;
@@ -113,6 +125,7 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     `.message__logo { width: ${textSize * 4}px }`,
+                    disclaimerSpanWrap(),
                     `@media screen and (min-width: ${textSize * 11.5}px) {
                     .message__messaging span.br {
                         white-space: normal;
@@ -147,7 +160,7 @@ export default {
                         tag: 'default'
                     }
                 ],
-                disclaimer: ['default']
+                disclaimer: ['large', 'default']
             }
         ],
         [
