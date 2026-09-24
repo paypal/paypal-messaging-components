@@ -50,20 +50,23 @@ export const getAPRDetails = ({ offers, genericDisclaimer, disclaimer: { zeroAPR
     // Keyed by each offer's own term (total_payments) so the disclaimer stays paired with its offer
     // regardless of what order `offers` is rendered/sorted in downstream.
     return qualifyingOffers.reduce(
-        (acc, { meta, content: { disclaimer } }) => {
+        (acc, { meta, content: { disclaimer, disclaimerFootnote } = {} }) => {
             if (qualifyingOffers.length === totalNonZero) {
                 acc[meta.total_payments] = {
                     aprDisclaimer: disclaimer?.nonZeroAPR ?? nonZeroAPR,
+                    disclaimerFootnote: disclaimerFootnote?.nonZeroAPR,
                     aprType: 'nonZeroAPR'
                 };
             } else if (qualifyingOffers.length === totalZero) {
                 acc[meta.total_payments] = {
                     aprDisclaimer: disclaimer?.zeroAPR ?? zeroAPR,
+                    disclaimerFootnote: disclaimerFootnote?.zeroAPR,
                     aprType: 'zeroAPR'
                 };
             } else {
                 acc[meta.total_payments] = {
                     aprDisclaimer: disclaimer?.mixedAPR ?? mixedAPR,
+                    disclaimerFootnote: disclaimerFootnote?.mixedAPR,
                     aprType: 'mixedAPR'
                 };
             }
@@ -243,6 +246,15 @@ export const LongTerm = ({
                     expandedState={expandedState}
                 />
             </div>
+            {country === 'AU' && Object.values(offerAPRDisclaimers)[0]?.disclaimerFootnote && (
+                <div
+                    className={`content__row disclaimer-footnote ${expandedState ? '' : 'collapsed'} ${
+                        useNewCheckoutDesign === 'true' ? 'checkout' : ''
+                    } ${useV5Design === 'true' ? 'v5Design' : ''}`}
+                >
+                    {Object.values(offerAPRDisclaimers)[0].disclaimerFootnote}
+                </div>
+            )}
             <div
                 className={`content__row disclosure ${expandedState ? '' : 'collapsed'} ${
                     useNewCheckoutDesign === 'true' ? 'checkout' : ''

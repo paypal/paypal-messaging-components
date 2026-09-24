@@ -44,7 +44,8 @@ const getError = ({ offers, error = '' }, isLoading, calculator, amount, country
         DE: /(,[0-9]*?)00/g,
         ES: /(,[0-9]*?)00/g,
         IT: /(,[0-9]*?)00/g,
-        US: /(\.[0-9]*?)00/g
+        US: /(\.[0-9]*?)00/g,
+        AU: /(\.[0-9]*?)00/g
     };
     // If amount is undefined (none is passed in), return the belowThreshold error.
     if (typeof amount === 'undefined') {
@@ -267,7 +268,7 @@ const Calculator = ({
                     />
                 </div>
             ) : null}
-            {(country === 'US' || country === 'CA') && (
+            {(country === 'US' || country === 'CA' || country === 'AU') && (
                 <div
                     className={`finance-terms__disclaimer ${
                         !(hasInitialAmount || hasUsedInputField) || error ? 'no-amount' : ''

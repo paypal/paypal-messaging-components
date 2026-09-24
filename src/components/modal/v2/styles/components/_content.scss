@@ -177,6 +177,29 @@
             }
         }
 
+        &.disclaimer-footnote {
+            text-align: left;
+            font-size: 14px;
+            line-height: 1.5;
+            color: colors.$gray;
+
+            @include mixins.desktop {
+                margin: 16px 30px 0px 30px;
+            }
+
+            @include mixins.tablet {
+                margin: 16px 44px 0px 44px;
+            }
+
+            @include mixins.mobile {
+                margin-top: 16px;
+            }
+
+            &.v5Design {
+                color: colors.$v5-gray;
+            }
+        }
+
         &.checkout {
             &.disclosure {
                 @include mixins.desktop {
