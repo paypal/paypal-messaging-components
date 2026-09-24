@@ -293,15 +293,19 @@ export function getFeatures(featureProps) {
     return featureProps === undefined && newFeatures === '' ? undefined : newFeatures;
 }
 
+export function isPayPalDomain(hostname) {
+    return typeof hostname === 'string' && /\.paypal\.com$/i.test(hostname);
+}
+
 // open mini-browser with message lander url
 export function getURIPopup(lander, label) {
     try {
         // eslint-disable-next-line compat/compat
         const parsed = new URL(lander);
         const isHttp = parsed.protocol === 'https:';
-        const isPayPalDomain = /\.paypal\.com$/i.test(parsed.hostname);
+        const isDomainAllowed = /\.paypal\.com$/i.test(parsed.hostname);
 
-        if (isHttp && isPayPalDomain) {
+        if (isHttp && isDomainAllowed) {
             return window.open(lander, label, 'width=460,height=900');
         } else {
             return null;
