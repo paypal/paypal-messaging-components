@@ -28,6 +28,7 @@
     "subHeadline": [],
 
     "disclaimer": [
+        [["Achtung! Kreditaufnahme kostet Geld."], ["large"]],
         ["Mehr erfahren", ["default"]],
         ["Nur mit dt. PayPal Konto.", ["extra"]]
     ]
