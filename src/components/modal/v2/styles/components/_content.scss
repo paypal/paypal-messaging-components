@@ -200,6 +200,34 @@
             }
         }
 
+        &.credit-warning {
+            text-align: left;
+            font-size: 18px;
+            font-weight: 400;
+            line-height: 24px;
+            color: colors.$text-main;
+
+            @include mixins.desktop {
+                margin: 20px 30px 50px 30px;
+            }
+
+            @include mixins.tablet {
+                margin: 20px 44px 50px 44px;
+            }
+
+            @include mixins.mobile {
+                margin-block: 10px 50px;
+            }
+
+            &.darkMode {
+                color: colors.$white;
+            }
+        }
+
+        &.dynamic:has(+ .credit-warning) .instructions.v5Design {
+            margin-bottom: 0px;
+        }
+
         &.checkout {
             &.disclosure {
                 @include mixins.desktop {
@@ -226,5 +254,16 @@
     
     &.darkMode {
         background-color: colors.$dark-mode-black;
+    }
+
+    &.fr {
+        .content__row {
+            &.disclosure {
+                span:first-of-type {
+                    display: inline-block;
+                    margin-bottom: 20px;
+                }
+            }
+        }
     }
 }

@@ -72,6 +72,8 @@ const accounts = [
     // 'DEV000ATPLGTZ',
     // 'DEV00ATPLQEQZ',
     // 'DEV00ATPLQGTZ',
+    // 'DEV0XBATPLEQZ',
+    // 'DEV0XBATPLGTZ',
     // 'DEVXBATPLQEQZ',
     // 'DEVXBATPLQGTZ',
     // 'DEV00ATPI30NQ',
@@ -92,11 +94,11 @@ const accounts = [
     // 'DEV000GBPI30Q',
 
     // FR
-    // DEV0FRGENERIC
-    // DEV000000FRPL
-    // DEV00000FRPLQ
-    // DEV0000FRPLTQ
-    // DEV000FRPLTNQ
+    // 'DEV0FRGENERIC',
+    // 'DEV000000FRPL',
+    // 'DEV00000FRPLQ',
+    // 'DEV0000FRPLTQ',
+    // 'DEV000FRPLTNQ'
 
     // ES
     // 'DEV00000ESPLQ',
@@ -104,8 +106,8 @@ const accounts = [
     // 'DEV0000ESPLNA',
     // 'DEV0000ESPLTQ',
     // 'DEV000ESPLTNQ',
-    // DEV000ESPLEQZ,
-    // DEV00ESPLQEQZ,
+    // 'DEV000ESPLEQZ',
+    // 'DEV00ESPLQEQZ',
 
     // AU
     // 'DEV000000AUPL',
@@ -117,14 +119,25 @@ const accounts = [
     // 'DEV0000ITPLNQ',
     // 'DEV0000ITPLTQ',
     // 'DEV000ITPLTNQ',
-    // DEV000ITPLEQZ,
-    // DEV00ITPLQEQZ,
+    // 'DEV000ITPLEQZ',
+    // 'DEV00ITPLQEQZ',
 
     // CA
+    //pay later short term
     // 'DEV000ENCAPLQ',
     // 'DEV00ENCAPLNQ',
     // 'DEV00ENCAPLNA',
     // 'DEV000FRCAPLQ',
     // 'DEV00FRCAPLNQ',
     // 'DEV00FRCAPLNA',
+
+    // pay later long term
+    //'DEV00ENCAPLTQ',
+    //'DEV00FRCAPLTQ',
+    //'DEV0ENCAPLTNQ',
+    //'DEV0FRCAPLTNQ',
+    
+    // generic
+    // 'DEVFRCAGENRIC',
+    // 'DEVENCAGENRIC',
 ];

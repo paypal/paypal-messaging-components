@@ -125,7 +125,9 @@ export const clickProductListTiles = async (contentWindow, modalContent, account
         account === 'DEV_ES_MULTI' ||
         account === 'DEV_IT_MULTI' ||
         account === 'DEV_FR_MULTI' ||
-        account === 'DEV_AU_MULTI'
+        account === 'DEV_AU_MULTI' ||
+        account === 'DEV_CA_MULTI' ||
+        account === 'DEV_CA_MULTI_FR'
     ) {
         // Switch to long term view
         await switchViews(2, 'shortTerm');

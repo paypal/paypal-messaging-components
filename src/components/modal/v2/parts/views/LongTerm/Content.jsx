@@ -84,6 +84,7 @@ export const LongTerm = ({
         genericDisclaimer,
         instructions,
         disclosure,
+        creditWarning,
         navLinkPrefix,
         linkToProductList,
         cta,
@@ -246,6 +247,9 @@ export const LongTerm = ({
                     expandedState={expandedState}
                 />
             </div>
+            {creditWarning && (
+                <div className={`content__row credit-warning ${useDarkMode ? 'darkMode' : ''}`}>{creditWarning}</div>
+            )}
             {country === 'AU' && Object.values(offerAPRDisclaimers)[0]?.disclaimerFootnote && (
                 <div
                     className={`content__row disclaimer-footnote ${expandedState ? '' : 'collapsed'} ${

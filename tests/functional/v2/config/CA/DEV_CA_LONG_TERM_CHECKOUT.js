@@ -10,10 +10,11 @@ export const DEV_CA_LONG_TERM_CHECKOUT = {
             message: 'Qualifying Pay Monthly',
             expectedValue: 'Pay Monthly',
             modalContent: {
-                offerHeadline: '$9.23/mo. for 6 months',
-                updatedOfferHeadline: '$94.17/mo. for 6 months',
-                offerFieldValues: ['26%', '$6.37', '$55.37'],
-                aprDisclaimer: '*APR is 0% to 31.99%. Terms and rates vary based on purchase amount and your credit.',
+                offerHeadline: '$9.23 CAD/mo. for 6 months',
+                updatedOfferHeadline: '$94.17 CAD/mo. for 6 months',
+                offerFieldValues: ['26%', '$6.37 CAD', '$55.37 CAD'],
+                aprDisclaimer:
+                    '*Terms and rates vary based on purchase amount and your credit. In Quebec and Newfoundland, APR is no more than 22%.',
                 cta: 'Continue with Pay Monthly'
             }
         },
@@ -22,10 +23,11 @@ export const DEV_CA_LONG_TERM_CHECKOUT = {
             message: 'Qualifying Pay Monthly',
             expectedValue: 'Pay Monthly',
             modalContent: {
-                offerHeadline: '$188.33/mo. for 6 months',
-                updatedOfferHeadline: '$94.17/mo. for 6 months',
-                offerFieldValues: ['26%', '$130.00', '$1,130.00'],
-                aprDisclaimer: '*APR is 0% to 31.99%. Terms and rates vary based on purchase amount and your credit.',
+                offerHeadline: '$188.33 CAD/mo. for 6 months',
+                updatedOfferHeadline: '$94.17 CAD/mo. for 6 months',
+                offerFieldValues: ['26%', '$130.00 CAD', '$1,130.00 CAD'],
+                aprDisclaimer:
+                    '*Terms and rates vary based on purchase amount and your credit. In Quebec and Newfoundland, APR is no more than 22%.',
                 cta: 'Continue with Pay Monthly'
             }
         },
@@ -34,7 +36,7 @@ export const DEV_CA_LONG_TERM_CHECKOUT = {
             message: 'Non-qualifying Pay Monthly',
             expectedValue: 'Pay Monthly',
             modalContent: {
-                belowMinAmountErr: 'Enter an amount of $49.00 or more.'
+                belowMinAmountErr: 'Enter an amount of $49.00 CAD or more.'
             }
         },
         {
@@ -42,7 +44,7 @@ export const DEV_CA_LONG_TERM_CHECKOUT = {
             message: 'Non-qualifying Pay Monthly',
             expectedValue: 'Pay Monthly',
             modalContent: {
-                aboveMaxAmountErr: 'Enter an amount no larger than $10,000.00.'
+                aboveMaxAmountErr: 'Enter an amount no larger than $10,000.00 CAD.'
             }
         }
     ]

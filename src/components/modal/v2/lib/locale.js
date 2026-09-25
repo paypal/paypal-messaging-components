@@ -16,7 +16,7 @@ const getLocale = (country, language) => {
 
 const setCurrency = (country, value, language) => {
     if (country === 'CA') {
-        return language === 'fr-CA' ? `${value} $ CAD` : `$${value}`;
+        return language === 'fr-CA' ? `${value} $ CA` : `$${value} CAD`;
     }
     return (
         {
