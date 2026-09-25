@@ -154,10 +154,10 @@ export function createPrequalToken() {
  * @param {Object} params - query parameters to append to the URL
  */
 export function openPrequalification(params = {}) {
-    const { offer } = params;
+    const { offer, amount } = params;
     const token = createPrequalToken();
     const baseUrl = getGlobalUrl('PREQUALIFICATION');
-    const query = Object.entries({ offer })
+    const query = Object.entries({ offer, amount })
         .filter(([, val]) => typeof val !== 'undefined' && val !== null && val !== '')
         // Encode values to keep URL valid; keys are expected to be safe identifiers.
         .map(([key, val]) => `${key}=${encodeURIComponent(val)}`)

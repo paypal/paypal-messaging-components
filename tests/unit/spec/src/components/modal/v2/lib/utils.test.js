@@ -170,4 +170,11 @@ describe('openPrequalification', () => {
 
         expect(token1).not.toEqual(token2);
     });
+    it('redirects with auto-generated UM token and amount param when amount is not undefined', () => {
+        openPrequalification({ amount: '19.99' });
+
+        expect(window.location.assign).toHaveBeenCalledWith(
+            'https://www.paypal.com/paylateracq/prequalify?token=UM-A1B2C3D4E5MTE3MJA&amount=19.99'
+        );
+    });
 });
