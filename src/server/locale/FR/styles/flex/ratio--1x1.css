@@ -1,9 +1,7 @@
-.message__disclaimer span.multi:nth-of-type(1) {
-    display: none;
-}
-
 .message__disclaimer {
-    bottom: 12%;
+    margin-top: 10px;
+    font-size: 5vw;
+    position: relative;
 }
 
 .message__headline span.multi:nth-of-type(2) {
@@ -27,10 +25,6 @@
     margin-left: 3%;
 }
 
-.message__headline {
-    line-height: 1.55em;
-}
-
 .message__sub-headline {
     font-size: 1rem;
 }
@@ -43,7 +37,7 @@
 
 @media (min-width: 140px) {
     .message__headline {
-        font-size: 8.4vw;
+        font-size: 5vw;
     }
 
     .message__headline span.multi:nth-of-type(1) {
@@ -58,6 +52,13 @@
         display: inline;
     }
 }
+@media (min-width: 220px) {
+    .message__disclaimer {
+        margin-top: 10px;
+        font-size: 5vw;
+    }
+}
+
 @media (max-width: 270px) {
     .message__sub-headline {
         display: none;

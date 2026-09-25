@@ -44,6 +44,7 @@
 
     .message__disclaimer {
         font-size: 0.95rem;
+        margin-left: 4px;
     }
 }
 
@@ -55,13 +56,11 @@
 
 @media (min-aspect-ratio: 80/11) and (min-width: 351px) {
     .message__headline {
-        font-size: 3vw;
+        font-size: 2vw;
     }
-}
 
-@media (min-aspect-ratio: 80/11) and (max-width: 350px) {
-    .message__headline {
-        line-height: 1.1rem;
+    .message__disclaimer > span.multi:first-of-type {
+        font-size: 2vw;
     }
 }
 

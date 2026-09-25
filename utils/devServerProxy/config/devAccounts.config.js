@@ -106,6 +106,8 @@ export default {
     DEV000ATPLGTZ: ['AT', ['long_term'], 'gpl_gtz'],
     DEV00ATPLQEQZ: ['AT', ['long_term'], 'gplq_eqz'],
     DEV00ATPLQGTZ: ['AT', ['long_term'], 'gplq_gtz'],
+    DEV0XBATPLEQZ: ['AT', ['long_term'], 'gpl_eqz-non-at'],
+    DEV0XBATPLGTZ: ['AT', ['long_term'], 'gpl_gtz-non-at'],
     DEVXBATPLQEQZ: ['AT', ['long_term'], 'gplq_eqz-non-at'],
     DEVXBATPLQGTZ: ['AT', ['long_term'], 'gplq_gtz-non-at'],
     DEV00ATPI30NQ: ['AT', ['pay_in_1'], 'pi30nq'],
@@ -154,8 +156,14 @@ export default {
     DEV00ENCAPLNA: ['CA', ['short_term'], 'generic'],
     DEV000ENCAPLQ: ['CA', ['short_term'], 'short_term_q'],
     DEV00ENCAPLNQ: ['CA', ['short_term'], 'short_term_nq'],
+    DEV00ENCAPLTQ: ['CA', ['long_term'], 'long_term_q_gtz'],
+    DEV0ENCAPLTNQ: ['CA', ['long_term'], 'long_term_nq_gtz'],
+    DEVENCAGENRIC: ['CA', ['long_term'], 'generic'],
     // fr-CA
     DEV00FRCAPLNA: ['CA', ['short_term_fr'], 'generic_fr'],
     DEV000FRCAPLQ: ['CA', ['short_term_fr'], 'short_term_q_fr'],
-    DEV00FRCAPLNQ: ['CA', ['short_term_fr'], 'short_term_nq_fr']
+    DEV00FRCAPLNQ: ['CA', ['short_term_fr'], 'short_term_nq_fr'],
+    DEV00FRCAPLTQ: ['CA', ['long_term_fr'], 'long_term_q_gtz_fr'],
+    DEV0FRCAPLTNQ: ['CA', ['long_term_fr'], 'long_term_nq_gtz_fr'],
+    DEVFRCAGENRIC: ['CA', ['long_term_fr'], 'generic_fr']
 };

@@ -7,7 +7,8 @@ import {
     setLogoTop,
     xSmallNoWrap,
     addPeriod,
-    primaryWrap
+    primaryWrap,
+    disclaimerWrap
 } from '../../../../message/mediaQueries';
 import { crossBorderDisclaimerWrap, crossBorderLogoNoneWrap } from '../../GPL/mutations/mediaQueries';
 import { flexLogoMutations, textLogoMutations } from '../../../../message/logoMutations';
@@ -18,8 +19,7 @@ const headlineBreaks = [
         breaks: ['kaufen,']
     },
     {
-        sizes: ['medium'],
-        breaks: ['Einkäufen']
+        sizes: ['medium']
     }
 ].reduce((acc, item) => {
     const { sizes, breaks } = item;
@@ -45,34 +45,73 @@ const flex = [
                     tag: 'medium'
                 }
             ],
-            disclaimer: ['extra', 'default']
+            disclaimer: ['large', 'extra', 'default']
         }
     ],
     [
         'ratio:8x1',
         {
-            styles: [addPeriod()],
+            styles: [
+                `.message__headline > .tag--medium > span:last-child::after {
+                    content: '.'
+                }`,
+                `@media (min-aspect-ratio: 60/11) {
+                    .message__disclaimer {
+                        display: block;
+                        line-height: 1.2;
+                        margin-top: 2px;
+                    }
+                    .message__disclaimer > .tag--extra > span:only-child {
+                        line-height: 1.2;
+                    }
+                }`,
+                `@media (min-aspect-ratio: 60 / 11) and (max-width: 374px) {
+                    .message__disclaimer {
+                        font-size: 1.5vw;
+                    }
+                }`
+            ],
             headline: [...headlineBreaks]
         }
     ],
     [
         'ratio:1x1',
         {
-            styles: [addPeriod()],
+            styles: [
+                `.message__headline > .tag--medium > span:last-child::after {
+                    content: '.'
+                }`,
+                `.message__disclaimer > span.tag--extra {
+                    font-size: 4vw;
+                }`,
+                `@media (max-aspect-ratio: 11/10) and (max-width: 150px) {
+                    .message__disclaimer > span.tag--extra {
+                        font-size: 0.6rem;
+                    }
+                }`
+            ],
             headline: [...headlineBreaks]
         }
     ],
     [
         'ratio:1x4',
         {
-            styles: [addPeriod()],
+            styles: [
+                `.message__headline > .tag--medium > span:last-child::after {
+                    content: '.'
+                }`
+            ],
             headline: [...headlineBreaks]
         }
     ],
     [
         'ratio:20x1',
         {
-            styles: [addPeriod()],
+            styles: [
+                `.message__headline > .tag--medium > span:last-child::after {
+                    content: '.'
+                }`
+            ],
             headline: [...headlineBreaks]
         }
     ],
@@ -85,7 +124,7 @@ export default {
             'default',
             ({ textSize }) => ({
                 styles: [
-                    textWrap(textSize * 60, textSize, 'DE'),
+                    textWrap(textSize * 85.5, textSize, 'DE'),
                     xSmallFallback(textSize * 14),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25),
                     setLogoTop(textSize * 20),
@@ -102,7 +141,14 @@ export default {
                     },
                     { tag: 'xsmall', br: [','] }
                 ],
-                disclaimer: ['extra', 'default']
+                disclaimer: [
+                    'large',
+                    {
+                        tag: 'extra',
+                        br: ['.']
+                    },
+                    'default'
+                ]
             })
         ],
         [
@@ -110,10 +156,11 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     xSmallFallback(textSize * 15),
-                    setLogoTop(textSize * 60),
+                    setLogoTop(textSize * 81.5),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
                     addPeriod(),
                     crossBorderDisclaimerWrap(textSize * 21.4, textSize * 30.2, textSize * 21.4, textSize * 15),
+                    disclaimerWrap(textSize * 24.5),
                     `@media screen and 
                     (max-width: ${textSize * 29}px) {
                         .message__headline > .tag--medium > span > span.br:nth-child(2) {white-space: nowrap;}
@@ -129,6 +176,7 @@ export default {
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
                     addPeriod(),
                     crossBorderDisclaimerWrap(textSize * 21.4, textSize * 30.2, textSize * 21.4, textSize * 15),
+                    disclaimerWrap(textSize * 24.5),
                     `@media screen and 
                     (max-width: ${textSize * 29}px) {
                         .message__headline > .tag--medium > span > span.br:nth-child(2) {white-space: nowrap;}
@@ -141,7 +189,7 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     crossBorderDisclaimerWrap(textSize * 21.4, textSize * 30.2, textSize * 21.4, textSize * 15),
-                    textWrap(textSize * 55, textSize, 'DE'),
+                    textWrap(textSize * 83.5, textSize, 'DE'),
                     xSmallFallback(textSize * 15.5),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25),
                     xSmallNoWrap(textSize * 8),
