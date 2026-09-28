@@ -8,7 +8,8 @@ const getLocale = (country, language) => {
             IT: 'it-IT',
             ES: 'es-ES',
             DE: 'de-DE',
-            AT: 'de-AT'
+            AT: 'de-AT',
+            AU: 'en-AU'
         }[country] ?? 'en-US'
     );
 };
@@ -23,7 +24,8 @@ const setCurrency = (country, value, language) => {
             IT: value,
             ES: value,
             DE: value,
-            AT: value
+            AT: value,
+            AU: `$${value}`
         }[country] ?? `$${value}`
     );
 };
