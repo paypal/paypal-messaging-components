@@ -45,11 +45,12 @@ export const ShortTerm = ({
     use5Dot1Design,
     useDarkMode
 }) => {
-    const { views, country } = useServerData();
+    const { views, country, payerId } = useServerData();
     const { onClick, onClose } = useXProps();
     const spendingPowerClickTitle = 'Check Spending Power';
     const handlePrequalification = usePrequalification(spendingPowerClickTitle, onClick, {
-        offer: product
+        offer: product,
+        payerId
     });
 
     const isQualifying = qualifying === 'true';
