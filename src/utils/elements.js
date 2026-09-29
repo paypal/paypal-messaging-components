@@ -77,7 +77,7 @@ export function getInlineOptions(container) {
                           if (/\(/.test(fnPath)) {
                               // eslint-disable-next-line no-console
                               console.warn(
-                                  `PayPal Messages: "${nodeName}" value "${nodeValue}" looks like a JS expression and cannot be evaluated for CSP compliance. Use a global function name instead, e.g. data-${nodeName}="myHandler" where window.myHandler calls your logic.`
+                                  `PayPal Messages: "${nodeName}" value "${nodeValue}" looks like a JS expression and cannot be evaluated for CSP compliance. Use a global function name instead, e.g. ${nodeName}="myHandler" where window.myHandler calls your logic.`
                               );
                               return;
                           }
