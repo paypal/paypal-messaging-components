@@ -59,5 +59,51 @@ describe('elements utils', () => {
             expect(options.onRender.toString()).toContain('console.log("onRender")');
             expect(options.onApply.toString()).toContain('console.log("onApply")');
         });
+
+        describe('inline event hooks on a PayPal-owned origin', () => {
+            const originalLocation = window.location;
+
+            const setHostname = hostname => {
+                delete window.location;
+                window.location = { ...originalLocation, hostname };
+            };
+
+            afterEach(() => {
+                window.location = originalLocation;
+            });
+
+            test.each(['www.paypal.com', 'sandbox.paypal.com', 'testenv.qa.paypal.com', 'a.b.paypal.com'])(
+                'blocks inline handlers when hostname is %s',
+                hostname => {
+                    setHostname(hostname);
+
+                    const div = document.createElement('div');
+                    div.setAttribute('data-pp-onclick', 'console.log("onClick")');
+                    div.setAttribute('data-pp-onrender', 'console.log("onRender")');
+                    div.setAttribute('data-pp-onapply', 'console.log("onApply")');
+
+                    const options = getInlineOptions(div);
+
+                    expect(options.onClick).toBeUndefined();
+                    expect(options.onRender).toBeUndefined();
+                    expect(options.onApply).toBeUndefined();
+                }
+            );
+
+            test.each(['notpaypal.com', 'paypal.com.attacker.net', 'evilpaypal.com', 'merchant.example.com'])(
+                'still allows inline handlers when hostname is %s',
+                hostname => {
+                    setHostname(hostname);
+
+                    const div = document.createElement('div');
+                    div.setAttribute('data-pp-onclick', 'console.log("onClick")');
+
+                    const options = getInlineOptions(div);
+
+                    expect(options.onClick).toEqual(expect.any(Function));
+                    expect(options.onClick.toString()).toContain('console.log("onClick")');
+                }
+            );
+        });
     });
 });
