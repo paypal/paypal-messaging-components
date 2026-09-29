@@ -88,8 +88,8 @@ describe('elements utils', () => {
             delete window.testNs;
         });
 
-        test('Logs a console error for expression-style values instead of silently no-oping', () => {
-            const errorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+        test('Logs a console warning for expression-style values instead of silently no-oping', () => {
+            const errorSpy = jest.spyOn(console, 'warn').mockImplementation(() => {});
             window.testFn = jest.fn();
 
             const div = document.createElement('div');

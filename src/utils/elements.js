@@ -76,7 +76,7 @@ export function getInlineOptions(container) {
                           // e.g. data-pp-onclick="trackEvent('click', 42)" won't work — wrap it in a named global function.
                           if (/\(/.test(fnPath)) {
                               // eslint-disable-next-line no-console
-                              console.error(
+                              console.warn(
                                   `PayPal Messages: "${nodeName}" value "${nodeValue}" looks like a JS expression and cannot be evaluated for CSP compliance. Use a global function name instead, e.g. data-${nodeName}="myHandler" where window.myHandler calls your logic.`
                               );
                               return;
