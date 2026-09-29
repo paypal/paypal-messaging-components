@@ -89,7 +89,7 @@ describe('elements utils', () => {
         });
 
         test('Logs a console warning for expression-style values instead of silently no-oping', () => {
-            const errorSpy = jest.spyOn(console, 'warn').mockImplementation(() => {});
+            const warnspy = jest.spyOn(console, 'warn').mockImplementation(() => {});
             window.testFn = jest.fn();
 
             const div = document.createElement('div');
@@ -99,10 +99,10 @@ describe('elements utils', () => {
             options.onClick();
 
             expect(window.testFn).not.toHaveBeenCalled();
-            expect(errorSpy).toHaveBeenCalledTimes(1);
-            expect(errorSpy.mock.calls[0][0]).toContain('data-pp-onclick');
+            expect(warnspy).toHaveBeenCalledTimes(1);
+            expect(warnspy.mock.calls[0][0]).toContain('data-pp-onclick');
 
-            errorSpy.mockRestore();
+            warnspy.mockRestore();
             delete window.testFn;
         });
     });
