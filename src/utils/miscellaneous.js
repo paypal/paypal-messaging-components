@@ -161,10 +161,21 @@ export const viewportHijack = memoize(() => {
             }
 
             viewport.__pp_prev_content__ = viewport.getAttribute('content') ?? '';
-            viewport.setAttribute(
-                'content',
-                'width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, minimal-ui, shrink-to-fit=no'
-            );
+            const preservesCover = /(?:^|,)\s*viewport-fit\s*=\s*cover(?:\s*,|$)/i.test(viewport.__pp_prev_content__);
+
+            const hijackedContent = [
+                'width=device-width',
+                'initial-scale=1.0',
+                'minimum-scale=1.0',
+                'maximum-scale=1.0',
+                'minimal-ui',
+                'shrink-to-fit=no',
+                preservesCover && 'viewport-fit=cover'
+            ]
+                .filter(Boolean)
+                .join(', ');
+
+            viewport.setAttribute('content', hijackedContent);
 
             document.body.__pp_prev_overflow__ = document.body.style.overflow ?? '';
             document.body.__pp_prev_msOverflowStyle__ = document.body.style.msOverflowStyle ?? '';

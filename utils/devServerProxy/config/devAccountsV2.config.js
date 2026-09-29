@@ -5,6 +5,7 @@ import ES from './ES';
 import IT from './IT';
 import FR from './FR';
 import DE from './DE';
+import AT from './AT';
 import CA from './CA';
 
 // Note that these values are solely mock structures for development purposes
@@ -17,5 +18,6 @@ export default {
     ...IT,
     ...FR,
     ...DE,
+    ...AT,
     ...CA
 };

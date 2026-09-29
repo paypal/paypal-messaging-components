@@ -1,0 +1,40 @@
+{
+    "id": "fe7e77e9-5d1f-4745-9775-c3d26d303c18",
+    "type": "PL_GENERIC",
+    "offer_types": ["PAY_LATER_LONG_TERM", "PAY_LATER_PAY_IN_1"],
+    "priority_rules": [
+        {
+            "type": "ELIGIBLE",
+            "min_amount": "0.00",
+            "max_amount": "0.00",
+            "priority_score": 5
+        }
+    ],
+    "content": {
+        "main_items": [
+            {
+                "type": "IMAGE",
+                "name": "paypal_logo",
+                "source_url": "https://www.paypalobjects.com/upstream/assets/logos/v2/paypal_badge.svg",
+                "alternative_text": "PayPal"
+            },
+            {
+                "type": "TEXT",
+                "text": "Jetzt kaufen, später bezahlen."
+            }
+        ],
+        "disclaimer_items": [
+            {
+                "type": "TEXT",
+                "text": "Nur mit dt. PayPal Konto."
+            }
+        ],
+        "action_items": [
+            {
+                "type": "LINK",
+                "text": "Mehr erfahren",
+                "click_url": "{click_url}"
+            }
+        ]
+    }
+}

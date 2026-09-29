@@ -8,6 +8,7 @@ jest.mock('src/utils', () => {
 
     return {
         ...originalModule,
+        getOrCreateDeviceID: jest.fn(() => 'mock-device-id'),
         logger: {
             track: jest.fn(),
             addMetaBuilder: jest.fn(),
@@ -262,11 +263,11 @@ describe('zoidPollyfill', () => {
         expect(postMessage).toHaveBeenCalledTimes(1);
         expect(postMessage.mock.calls[0][0]).toEqual(expect.any(String));
         expect(JSON.parse(postMessage.mock.calls[0][0])).toMatchInlineSnapshot(`
-            Object {
-              "args": Array [
-                Object {
-                  "__shared__": Object {
-                    "credit_product_identifiers": Array [
+            {
+              "args": [
+                {
+                  "__shared__": {
+                    "credit_product_identifiers": [
                       "PAY_LATER_LONG_TERM_US",
                     ],
                     "fdata": "123abc",
@@ -282,17 +283,22 @@ describe('zoidPollyfill', () => {
         `);
         postMessage.mockClear();
 
-        window.xprops.onClick({ linkName: 'test link', src: 'test src' });
+        window.xprops.onClick({
+            linkName: 'test link',
+            src: 'test src',
+            url: 'https://www.paypal.com/'
+        });
 
         expect(postMessage).toHaveBeenCalledTimes(1);
         expect(postMessage.mock.calls[0][0]).toEqual(expect.any(String));
         expect(JSON.parse(postMessage.mock.calls[0][0])).toMatchInlineSnapshot(`
-            Object {
-              "args": Array [
-                Object {
+            {
+              "args": [
+                {
                   "event_type": "modal_clicked",
                   "page_view_link_name": "test link",
                   "page_view_link_source": "test src",
+                  "url": "https://www.paypal.com/",
                 },
               ],
               "name": "onClick",
@@ -305,9 +311,9 @@ describe('zoidPollyfill', () => {
         expect(postMessage).toHaveBeenCalledTimes(1);
         expect(postMessage.mock.calls[0][0]).toEqual(expect.any(String));
         expect(JSON.parse(postMessage.mock.calls[0][0])).toMatchInlineSnapshot(`
-            Object {
-              "args": Array [
-                Object {
+            {
+              "args": [
+                {
                   "calculator_input": "500",
                   "event_type": "modal_clicked",
                   "page_view_link_name": "Calculator",
@@ -324,9 +330,9 @@ describe('zoidPollyfill', () => {
         expect(postMessage).toHaveBeenCalledTimes(1);
         expect(postMessage.mock.calls[0][0]).toEqual(expect.any(String));
         expect(JSON.parse(postMessage.mock.calls[0][0])).toMatchInlineSnapshot(`
-            Object {
-              "args": Array [
-                Object {
+            {
+              "args": [
+                {
                   "event_type": "modal_viewed",
                   "page_view_link_name": "Show",
                   "page_view_link_source": "Show",
@@ -342,9 +348,9 @@ describe('zoidPollyfill', () => {
         expect(postMessage).toHaveBeenCalledTimes(1);
         expect(postMessage.mock.calls[0][0]).toEqual(expect.any(String));
         expect(JSON.parse(postMessage.mock.calls[0][0])).toMatchInlineSnapshot(`
-            Object {
-              "args": Array [
-                Object {
+            {
+              "args": [
+                {
                   "event_type": "modal_closed",
                   "page_view_link_name": "Close Button",
                   "page_view_link_source": "Close Button",
@@ -354,6 +360,42 @@ describe('zoidPollyfill', () => {
             }
         `);
         postMessage.mockClear();
+    });
+
+    describe('getAccount falls back to a server-provided accountIdOverride when no URL ids are present', () => {
+        beforeAll(() => {
+            mockLoadUrl(
+                'https://localhost.paypal.com:8080/credit-presentment/lander/modal?offer=TIKTOK_PAYPAL_PAY_LATER_SHORT_TERM_US&channel=TIKTOK_MOBILE_APP'
+            );
+
+            zoidPolyfill();
+        });
+        beforeEach(() => {
+            logger.track.mockClear();
+            logger.addMetaBuilder.mockClear();
+        });
+
+        test('uses meta.accountIdOverride when merchantId/clientId/payerId are absent from the URL', () => {
+            window.xprops.onReady({
+                products: ['PAY_LATER_SHORT_TERM'],
+                meta: { trackingDetails: 'trackingDetails', accountIdOverride: 'W9WK2RH9RWWQC' }
+            });
+
+            expect(logger.track).toHaveBeenCalledTimes(1);
+            expect(logger.addMetaBuilder).toHaveBeenCalledTimes(1);
+            const metaBuilder = logger.addMetaBuilder.mock.calls[0][0];
+            expect(metaBuilder({})[1].account).toBe('W9WK2RH9RWWQC');
+        });
+
+        test('leaves account undefined when neither URL ids nor accountIdOverride are present', () => {
+            window.xprops.onReady({
+                products: ['PAY_LATER_SHORT_TERM'],
+                meta: { trackingDetails: 'trackingDetails' }
+            });
+
+            const metaBuilder = logger.addMetaBuilder.mock.calls[0][0];
+            expect(metaBuilder({})[1].account).toBeUndefined();
+        });
     });
 
     describe('notifies when props update', () => {
@@ -420,24 +462,24 @@ describe('zoidPollyfill', () => {
             expect(postMessage).toHaveBeenCalledTimes(1);
             expect(postMessage.mock.calls[0][0]).toEqual(expect.any(String));
             expect(JSON.parse(postMessage.mock.calls[0][0])).toMatchInlineSnapshot(`
-            Object {
-              "args": Array [
-                Object {
-                  "__shared__": Object {
-                    "credit_product_identifiers": Array [
-                      "PAY_LATER_LONG_TERM_US",
-                    ],
-                    "fdata": "123abc",
-                    "offer_country_code": "US",
-                  },
-                  "event_type": "modal_rendered",
-                  "render_duration": "50",
-                  "request_duration": "100",
-                },
-              ],
-              "name": "onReady",
-            }
-        `);
+                {
+                  "args": [
+                    {
+                      "__shared__": {
+                        "credit_product_identifiers": [
+                          "PAY_LATER_LONG_TERM_US",
+                        ],
+                        "fdata": "123abc",
+                        "offer_country_code": "US",
+                      },
+                      "event_type": "modal_rendered",
+                      "render_duration": "50",
+                      "request_duration": "100",
+                    },
+                  ],
+                  "name": "onReady",
+                }
+            `);
             postMessage.mockClear();
         });
         test('uses browser flow for webview when embedded in iframe', () => {

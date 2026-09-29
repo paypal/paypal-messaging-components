@@ -42,7 +42,7 @@ export default {
                         tag: 'medium'
                     }
                 ],
-                disclaimer: ['default'],
+                disclaimer: ['large', 'default'],
                 styles: []
             }
         ],
@@ -66,7 +66,7 @@ export default {
             'default',
             ({ textSize }) => ({
                 styles: [
-                    textWrap(textSize * 40.5, textSize, 'IT'),
+                    textWrap(textSize * 50.5, textSize, 'IT'),
                     xSmallFallback(textSize * 22),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25),
                     setLogoTop(textSize * 20)
@@ -79,7 +79,7 @@ export default {
                     },
                     { tag: 'xsmall' }
                 ],
-                disclaimer: ['default']
+                disclaimer: ['large', 'default']
             })
         ],
         [
@@ -87,7 +87,7 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     xSmallFallback(textSize * 17.4),
-                    setLogoTop(textSize * 41.5),
+                    setLogoTop(textSize * 50.5),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
                 ]
             })
@@ -103,7 +103,7 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     `@media screen and (max-width: ${textSize * 10.6}px) { .message__content { white-space: nowrap; }}`,
-                    textWrap(textSize * 36.5, textSize, 'IT'),
+                    textWrap(textSize * 48, textSize, 'IT'),
                     xSmallFallback(textSize * 17.75),
                     altNoWrap(textSize * 10.6),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25)

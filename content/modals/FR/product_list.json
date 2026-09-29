@@ -7,9 +7,10 @@
     },
     "content": {
         "headline": "<span aria-hidden='true'>Achetez maintenant, payez plus tard</span><span class='sr-only'>Achetez maintenant, payez plus tard</span>",
-        "disclosure": "Soumis à conditions. Sous réserve d'acceptation par PayPal. Pour en savoir plus sur le Paiement en plusieurs fois de PayPal, sélectionnez l'une des options ci-dessus. ",
+        "creditWarning": "Attention ! Un crédit coûte de l'argent et doit être remboursé.",
+        "disclosure": "Sous réserve d'une vérification de solvabilité. PayPal propose des produits similaires aux clients d'autres pays. Les caractéristiques du produit et la disponibilité transfrontalière varient selon le marché. Pour plus de détails, veuillez consulter les conditions du produit correspondant.",
         "instructions": {
-            "payLater": "Sélectionnez une option pour en savoir plus."
+            "payLater": "Sélectionnez une option pour en savoir plus. Cette information est fournie par PayPal."
         },
         "productTiles": {
             "payLater": [

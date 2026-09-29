@@ -24,6 +24,42 @@ const modalSnapshot = async (testNameParts, viewport, account) => {
     const elementModal = await page.$(selectors.modal.iframe);
     const modalFrame = await elementModal.contentFrame();
     await modalFrame.waitForSelector(selectors.modal.wrapper, { visible: true });
+
+    await modalFrame.waitForFunction(
+        ({ wrapperSelector, contentSelector }) => {
+            const wrapperEl = document.querySelector(wrapperSelector);
+            const contentEl = document.querySelector(contentSelector);
+
+            if (!wrapperEl || !contentEl) {
+                return false;
+            }
+
+            const rect = contentEl.getBoundingClientRect();
+            if (rect.width < 50 || rect.height < 50) {
+                return false;
+            }
+
+            const text = (wrapperEl.innerText || '').replace(/\s+/g, ' ').trim();
+            if (text.length < 30 || /^learn more$/i.test(text)) {
+                return false;
+            }
+
+            const meaningfulContent = wrapperEl.querySelector(
+                'h1, h2, .content-body, .instructions, .calculator, .button.content__row'
+            );
+
+            return Boolean(meaningfulContent);
+        },
+        {
+            polling: 50,
+            timeout: 8000
+        },
+        {
+            wrapperSelector: selectors.modal.wrapper,
+            contentSelector: selectors.modal.contentBackground
+        }
+    );
+
     const modalDimensions = await modalFrame.$eval(selectors.modal.contentBackground, element => ({
         x: element.offsetLeft,
         y: element.offsetTop,

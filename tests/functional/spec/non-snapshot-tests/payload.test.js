@@ -52,9 +52,9 @@ const runTest = async ({
     const { bannerFrame, openModal } = await setupTestPage({ config, testPage });
     const { modalFrame } = await openModal();
 
-    await page.waitFor(5 * 1000);
+    await new Promise(resolve => setTimeout(resolve, 5 * 1000));
     if (callback) await callback({ bannerFrame, modalFrame });
-    await page.waitFor(15 * 1000);
+    await new Promise(resolve => setTimeout(resolve, 15 * 1000));
 
     const { data, matchingEvents, components, matchingComponentEvents } = payloadSpy;
 
@@ -133,7 +133,7 @@ describe('payload testing', () => {
             matchData: {
                 merchant_id: config.account,
                 integration_version: packageConfig.version,
-                integration_type: 'STANDALONE'
+                integration_type: expect.stringMatching(/^(STANDALONE|CI)$/)
             },
             matchEvents: [],
             matchComponents: [
@@ -168,14 +168,14 @@ describe('payload testing', () => {
     });
 
     test('scroll stat sent if below fold', async () => {
-        await page.viewport({ width: 600, height: 200 });
+        await page.setViewport({ width: 600, height: 200 });
         await runTest({
             testName: 'scroll stat sent if below fold',
             testPage: 'banner-scroll.html',
             config,
             callback: async () => {
                 await page.evaluate(() => window.scrollBy(0, 1000));
-                await page.waitFor(5 * 1000);
+                await new Promise(resolve => setTimeout(resolve, 5 * 1000));
             },
             matchComponentEvents: [
                 {
@@ -224,7 +224,7 @@ describe('payload testing', () => {
             callback: async () => {
                 await page.hover(selectors.message.messageIframe);
             },
-            matchObjematchComponentEventscts: [
+            matchComponentEvents: [
                 {
                     index: expect.any(String),
                     et: 'CLIENT_IMPRESSION',

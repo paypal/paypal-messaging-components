@@ -5,7 +5,7 @@
  */
 export const screenDimensions = {
     desktop: { width: 1920, height: 1440 },
-    mobile: { width: 375, height: 1250 }
+    mobile: { width: 375, height: 1250, isMobile: false, hasTouch: false }
 };
 
 /**

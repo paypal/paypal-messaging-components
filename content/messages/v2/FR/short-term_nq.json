@@ -1,0 +1,62 @@
+{
+    "id": "41b1307b-643d-42aa-b19e-47c3e7f71eb4",
+    "type": "PLST_NQ",
+    "offer_types": ["PAY_LATER_SHORT_TERM"],
+    "priority_rules": [
+        {
+            "type": "ELIGIBLE",
+            "priority_score": 3
+        }
+    ],
+    "content": {
+        "main_items": [
+            {
+                "type": "IMAGE",
+                "name": "paypal_logo",
+                "source_url": "https://www.paypalobjects.com/upstream/assets/logos/v2/paypal_badge.svg",
+                "alternative_text": "PayPal"
+            },
+            {
+                "type": "TEXT",
+                "text": "Payez en "
+            },
+            {
+                "type": "TEXT_VARIABLE",
+                "name": "periodic_payment_count",
+                "text": "{PAY_LATER_SHORT_TERM.periodic_payment_count}",
+                "text_path": "{PAY_LATER_SHORT_TERM.preferred_offer.financing_code}.periodic_payment_count"
+            },
+            {
+                "type": "TEXT",
+                "text": "X sans frais pour les achats de "
+            },
+            {
+                "type": "TEXT_VARIABLE",
+                "name": "min_amount",
+                "text": "{PAY_LATER_SHORT_TERM.min_amount.formatted_value}",
+                "text_path": "{PAY_LATER_SHORT_TERM.preferred_offer.financing_code}.min_amount.formatted_value"
+            },
+            {
+                "type": "TEXT",
+                "text": " à "
+            },
+            {
+                "type": "TEXT_VARIABLE",
+                "name": "max_amount",
+                "text": "{PAY_LATER_SHORT_TERM.max_amount.formatted_value}",
+                "text_path": "{PAY_LATER_SHORT_TERM.preferred_offer.financing_code}.max_amount.formatted_value"
+            },
+            {
+                "type": "TEXT",
+                "text": "."
+            }
+        ],
+        "action_items": [
+            {
+                "type": "LINK",
+                "text": "En savoir plus",
+                "click_url": "{click_url}"
+            }
+        ]
+    }
+}

@@ -1,6 +1,8 @@
 import createBannerTest from '../../createBannerTest';
 import accounts from '../accounts';
 
+// This suite is ignored in v2Renderer mode and should be re-enabled once renderV2Message supports flex styling.
+
 const ratios = ['1x1', '1x4', '8x1', '20x1'];
 const colors = ['blue', 'black', 'white', 'white-no-border', 'monochrome', 'grayscale'];
 // each viewport has a height of 700 as defined in the describe block below

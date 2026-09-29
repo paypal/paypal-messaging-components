@@ -6,11 +6,14 @@ import ES from './ES';
 import AU from './AU';
 import IT from './IT';
 import CA from './CA';
+import AT from './AT';
 
 const getLocaleSettings = (offerCountry, offerType, contextualComponents, language) => {
     switch (offerCountry) {
         case 'DE':
             return DE(offerType);
+        case 'AT':
+            return AT(offerType);
         case 'GB':
             return GB;
         case 'ES':

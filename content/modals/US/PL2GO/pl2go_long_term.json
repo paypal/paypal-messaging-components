@@ -4,6 +4,7 @@
         "offerCountry": "US",
         "useV5Design": "true",
         "v5.1": "true",
+        "enableDarkMode": "true",
         "variables": {
             "transaction_amount": "${eval(transaction_amount ? transaction_amount : '-')}",
             "qualifying_offer": "${eval(CREDIT_OFFERS_DS.qualifying_offer ? CREDIT_OFFERS_DS.qualifying_offer : 'false')}",
@@ -26,7 +27,8 @@
             "title": "How much is your purchase?",
             "inputLabel": "Purchase amount",
             "inputPlaceholder": "Enter amount",
-            "genericError": "Something went wrong. Please try again later."
+            "genericError": "Something went wrong. Please try again later.",
+            "loadingLabel": "Loading financing options"
         },
         "genericDisclaimer": "Terms vary based on purchase amount and your credit.",
         "instructions": [

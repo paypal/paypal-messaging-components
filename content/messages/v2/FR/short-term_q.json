@@ -1,0 +1,52 @@
+{
+    "id": "fc95f6dd-6b43-4a73-aeb4-2a351fc9cf99",
+    "type": "PLST_SQ",
+    "offer_types": ["PAY_LATER_SHORT_TERM"],
+    "priority_rules": [
+        {
+            "type": "QUALIFYING",
+            "priority_score": 6
+        }
+    ],
+    "content": {
+        "main_items": [
+            {
+                "type": "IMAGE",
+                "name": "paypal_logo",
+                "source_url": "https://www.paypalobjects.com/upstream/assets/logos/v2/paypal_badge.svg",
+                "alternative_text": "PayPal"
+            },
+            {
+                "type": "TEXT",
+                "text": "Payez en "
+            },
+            {
+                "type": "TEXT_VARIABLE",
+                "name": "periodic_payment_count",
+                "text": "{PAY_LATER_SHORT_TERM.periodic_payment_count}",
+                "text_path": "{PAY_LATER_SHORT_TERM.preferred_offer.financing_code}.periodic_payment_count"
+            },
+            {
+                "type": "TEXT",
+                "text": " échéances de "
+            },
+            {
+                "type": "TEXT_VARIABLE",
+                "name": "periodic_payment",
+                "text": "{PAY_LATER_SHORT_TERM.periodic_payment.formatted_value}",
+                "text_path": "{PAY_LATER_SHORT_TERM.preferred_offer.financing_code}.breakdown.periodic_payment.formatted_value"
+            },
+            {
+                "type": "TEXT",
+                "text": " sans frais."
+            }
+        ],
+        "action_items": [
+            {
+                "type": "LINK",
+                "text": "En savoir plus",
+                "click_url": "{click_url}"
+            }
+        ]
+    }
+}

@@ -7,7 +7,8 @@ import {
     setLogoTop,
     xSmallNoWrap,
     addPeriod,
-    primaryWrap
+    primaryWrap,
+    disclaimerWrap
 } from '../../../../message/mediaQueries';
 import { flexLogoMutations, textLogoMutations } from '../../../../message/logoMutations';
 
@@ -17,8 +18,7 @@ const headlineBreaks = [
         breaks: ['kaufen,']
     },
     {
-        sizes: ['medium'],
-        breaks: ['Einkäufen']
+        sizes: ['medium']
     }
 ].reduce((acc, item) => {
     const { sizes, breaks } = item;
@@ -44,34 +44,50 @@ const flex = [
                     tag: 'medium'
                 }
             ],
-            disclaimer: ['default']
+            disclaimer: ['large', 'default']
         }
     ],
     [
         'ratio:8x1',
         {
-            styles: [addPeriod()],
+            styles: [
+                `.message__headline > .tag--medium > span:last-child::after {
+                    content: '.'
+                }`
+            ],
             headline: [...headlineBreaks]
         }
     ],
     [
         'ratio:1x1',
         {
-            styles: [addPeriod()],
+            styles: [
+                `.message__headline > .tag--medium > span:last-child::after {
+                    content: '.'
+                }`
+            ],
             headline: [...headlineBreaks]
         }
     ],
     [
         'ratio:1x4',
         {
-            styles: [addPeriod()],
+            styles: [
+                `.message__headline > .tag--medium > span:last-child::after {
+                    content: '.'
+                }`
+            ],
             headline: [...headlineBreaks]
         }
     ],
     [
         'ratio:20x1',
         {
-            styles: [addPeriod()],
+            styles: [
+                `.message__headline > .tag--medium > span:last-child::after {
+                    content: '.'
+                }`
+            ],
             headline: [...headlineBreaks]
         }
     ],
@@ -84,23 +100,25 @@ export default {
             'default',
             ({ textSize }) => ({
                 styles: [
-                    textWrap(textSize * 55, textSize, 'DE'),
+                    textWrap(textSize * 72.5, textSize, 'DE'),
                     xSmallFallback(textSize * 14),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25),
                     setLogoTop(textSize * 20),
                     xSmallNoWrap(textSize * 7.7),
-                    addPeriod(),
+                    `.message__headline > .tag--medium > span > span:last-child::after {
+                        content: '.'
+                    }`,
                     primaryWrap(textSize * 12.4)
                 ],
                 logo: Logo.PP_PAYPAL.COLOR,
                 headline: [
                     {
                         tag: 'medium',
-                        br: ['erst']
+                        br: ['bis', 'erst']
                     },
                     { tag: 'xsmall', br: [','] }
                 ],
-                disclaimer: ['default']
+                disclaimer: ['large', 'default']
             })
         ],
         [
@@ -108,10 +126,13 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     xSmallFallback(textSize * 15),
-                    setLogoTop(textSize * 45),
+                    setLogoTop(textSize * 70),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
-                    addPeriod(),
-                    `@media screen and 
+                    disclaimerWrap(textSize * 19),
+                    `.message__headline > .tag--medium > span > span:last-child::after {
+                        content: '.'
+                    }`,
+                    `@media screen and
                     (max-width: ${textSize * 29}px) {
                         .message__headline > .tag--medium > span > span.br:nth-child(2) {white-space: nowrap;}
                     }`
@@ -124,8 +145,11 @@ export default {
                 styles: [
                     xSmallFallback(textSize * 15.1),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
-                    addPeriod(),
-                    `@media screen and 
+                    disclaimerWrap(textSize * 19),
+                    `.message__headline > .tag--medium > span > span:last-child::after {
+                        content: '.'
+                    }`,
+                    `@media screen and
                     (max-width: ${textSize * 29}px) {
                         .message__headline > .tag--medium > span > span.br:nth-child(2) {white-space: nowrap;}
                     }`
@@ -136,7 +160,7 @@ export default {
             'logo.type:alternative',
             ({ textSize }) => ({
                 styles: [
-                    textWrap(textSize * 55, textSize, 'DE'),
+                    textWrap(textSize * 70, textSize, 'DE'),
                     xSmallFallback(textSize * 15.5),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25),
                     xSmallNoWrap(textSize * 8),

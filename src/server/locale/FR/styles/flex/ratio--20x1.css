@@ -35,11 +35,15 @@
         margin-left: 4px;
         vertical-align: super;
     }
+
+    .message__disclaimer > span.multi:first-of-type {
+        display: inline;
+    }
 }
 
 @media (min-aspect-ratio: 200/11) and (min-width: 351px) {
     .message__disclaimer {
-        font-size: 0.9rem;
+        font-size: 0.5rem;
     }
 }
 
@@ -51,7 +55,11 @@
 
 @media (min-aspect-ratio: 200/11) and (min-width: 400px) {
     .message__headline {
-        font-size: 1.7vw;
+        font-size: 1.2vw;
+    }
+
+    .message__disclaimer > span.multi:first-of-type {
+        font-size: 1.2vw;
     }
 
     .message__headline > span:nth-of-type(3) {
@@ -99,11 +107,15 @@
     }
 
     .message__headline {
-        font-size: 2.75vw;
+        font-size: 1.2vw;
     }
 
     .message__disclaimer {
-        font-size: 0.6rem;
+        font-size: 1.2vw;
+    }
+
+    .message__disclaimer > span.multi:first-of-type {
+        font-size: 1.2vw;
     }
 
     .message__headline > span:nth-of-type(3) {
@@ -113,6 +125,14 @@
 
 @media (min-aspect-ratio: 200/11) and (max-width: 350px) {
     .message__headline {
-        font-size: 9px;
+        font-size: 1.2vw;
+    }
+
+    .message__disclaimer {
+        font-size: 1.2vw;
+    }
+
+    .message__disclaimer > span.multi:first-of-type {
+        font-size: 1.2vw;
     }
 }

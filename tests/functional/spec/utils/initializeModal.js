@@ -35,7 +35,7 @@ const openModal = async (viewport, config, testPage = 'modal-test.html') => {
     await modalFrame.waitForSelector(hasContentBody ? selectors.modal.contentBody : selectors.modal.modalContent);
 
     await page.waitForSelector(selectors.modal.iframe, { visible: true });
-    await page.waitFor(10 * 1000);
+    await new Promise(resolve => setTimeout(resolve, 10 * 1000));
 };
 
 export default openModal;

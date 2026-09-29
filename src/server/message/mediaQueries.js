@@ -103,6 +103,21 @@ export function setLogoTop(breakpoint) {
 }
 
 /**
+ * Used in logo position:right/top messages to restore text wrapping under setLogoTop's
+ * display: inline-block, which otherwise shrink-to-fits .message__messaging and blocks wrapping.
+ */
+export function disclaimerWrap(breakpoint) {
+    return `@media screen and (max-width: ${breakpoint}px) {
+        .message__messaging {
+            display: inline;
+        }
+        .message__messaging span.br:first-child {
+            white-space: normal;
+        }
+    }`;
+}
+
+/**
  * Used for message logo width configurations.
  * @param {number} logoContainerWidth Changes message logo container width.
  * @param {number} logoWidth Changes overall logo width.
@@ -197,6 +212,14 @@ export function primaryWrap(breakpoint) {
         }
         .locale--DE .message__messaging span.br:first-child { white-space: nowrap; }
     }`;
+}
+
+/**
+ * Allows the first disclaimer span (e.g. a regulatory caveat) to wrap onto multiple lines
+ * without forcing a following "Learn more" link span to wrap as well.
+ */
+export function disclaimerSpanWrap() {
+    return `.message__disclaimer > span.multi:first-of-type { white-space: normal; }`;
 }
 
 /**

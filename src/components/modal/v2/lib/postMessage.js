@@ -23,6 +23,10 @@ export function sendEvent(payload, trustedOrigin) {
     const isTest = process.env.NODE_ENV === 'test';
     const targetWindow = !isTest && window.parent === window ? window.opener : window.parent;
 
+    if (!targetWindow) {
+        return;
+    }
+
     targetWindow.postMessage(payload, trustedOrigin);
 }
 
@@ -41,6 +45,7 @@ function createSafePayload(unscreenedPayload) {
             if (allowedFields.includes(key)) {
                 safePayload[key] = value;
             } else {
+                // eslint-disable-next-line no-console
                 console.warn(`modal hook payload param should be allowlisted if secure: ${key}`);
             }
         });

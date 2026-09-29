@@ -46,6 +46,7 @@
             ["Terms and conditions apply.", "https://www.paypal.com/uk/campaign/paypal-payin3/terms"],
             "PayPal Pay in 3 is a trading name of PayPal UK Ltd, 5 Fleet Place, London, United Kingdom, EC4M 7RD."
         ],
-        "learnMoreLink": [["Learn more about Pay in 3", ["https://www.paypal.com/uk/webapps/mpp/paypal-payin3/faq"]]]
+        "learnMoreLink": [["Learn more about Pay in 3", ["https://www.paypal.com/uk/webapps/mpp/paypal-payin3/faq"]]],
+        "linkToProductList": "See other ways to pay later"
     }
 }

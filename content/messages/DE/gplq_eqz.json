@@ -24,5 +24,8 @@
 
     "subHeadline": [],
 
-    "disclaimer": [["Mehr erfahren", ["default"]]]
+    "disclaimer": [
+        [["Achtung! Kredite können bei Verzug zu Kosten führen."], ["large"]],
+        ["Mehr erfahren", ["default"]]
+    ]
 }

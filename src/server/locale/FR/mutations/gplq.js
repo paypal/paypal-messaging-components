@@ -1,5 +1,12 @@
 import Logo from '../../../message/logos';
-import { textWrap, messageLogoWidth, altNoWrap, setLogoTop, logo20x1 } from '../../../message/mediaQueries';
+import {
+    textWrap,
+    messageLogoWidth,
+    altNoWrap,
+    setLogoTop,
+    logo20x1,
+    disclaimerSpanWrap
+} from '../../../message/mediaQueries';
 import { textLogoMutations, flexLogoMutations } from '../../../message/logoMutations';
 
 export default {
@@ -8,9 +15,10 @@ export default {
             'default',
             ({ textSize }) => ({
                 styles: [
-                    textWrap(textSize * 38, textSize, 'FR'),
+                    textWrap(textSize * 62, textSize, 'FR'),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25),
-                    setLogoTop(textSize * 20)
+                    setLogoTop(textSize * 20),
+                    disclaimerSpanWrap()
                 ],
                 logo: Logo.PP_PAYPAL.COLOR,
                 headline: [
@@ -19,7 +27,7 @@ export default {
                         br: ['achats']
                     }
                 ],
-                disclaimer: ['default']
+                disclaimer: ['large', 'default']
             })
         ],
         [
@@ -27,8 +35,9 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     textWrap(textSize * 31, textSize, 'FR'),
-                    setLogoTop(textSize * 24),
-                    messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
+                    setLogoTop(textSize * 62),
+                    messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
+                    disclaimerSpanWrap()
                 ]
             })
         ],
@@ -37,6 +46,7 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
+                    disclaimerSpanWrap(),
                     `@media screen and (min-width: ${textSize * 11.5}px) {
                     .message__messaging span.br {
                         white-space: normal;
@@ -49,9 +59,10 @@ export default {
             'logo.type:alternative',
             ({ textSize }) => ({
                 styles: [
-                    textWrap(textSize * 32, textSize, 'FR'),
+                    textWrap(textSize * 62, textSize, 'FR'),
                     altNoWrap(textSize * 10.6),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25),
+                    disclaimerSpanWrap(),
                     `@media screen and (max-width: ${
                         textSize * 7.5
                     }px) { message__content, .locale--FR  .message__messaging { white-space: nowrap; }}`
@@ -63,6 +74,7 @@ export default {
             'logo.type:none',
             ({ textSize }) => ({
                 styles: [
+                    disclaimerSpanWrap(),
                     `@media screen and (min-width: ${textSize * 11.5}px) {
                     .message__messaging span.br {
                         white-space: normal;
@@ -84,6 +96,7 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     `.message__logo { width: ${textSize * 4}px }`,
+                    disclaimerSpanWrap(),
                     `@media screen and (min-width: ${textSize * 11.5}px) {
                     .message__messaging span.br {
                         white-space: normal;
@@ -116,17 +129,14 @@ export default {
                     }
                 ],
                 subHeadline: [{ tag: 'small', br: ['paiement en 4X.'] }],
-                disclaimer: ['default']
+                disclaimer: ['large', 'default']
             }
         ],
         [
             'ratio:1x1',
             {
                 headline: [{ tag: 'small', br: ['frais.'] }],
-                subHeadline: [{ tag: 'small', br: ['achats'] }],
-                styles: [
-                    `@media (min-width: 140px) {.message__headline {font-size: 8.5vw;} .message__sub-headline {font-size: 6vw;}`
-                ]
+                subHeadline: [{ tag: 'small', br: ['achats'] }]
             }
         ],
         [

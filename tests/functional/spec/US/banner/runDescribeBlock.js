@@ -3,13 +3,23 @@ import accounts from '../accounts';
 
 // layout is flex or text
 export default function runDescribeBlock(layout, tests) {
+    const isV2RendererMode = process.env.BANNER_SNAPSHOT_MODE === 'v2Renderer';
+    const isButtonOrMarkAccount = account => account.includes('BTN') || account.includes('MRK');
+    const excludedV2Accounts = ['DEV000GENBNPL', 'DEV0GENERICPL', 'DEV0000GENPYPL', 'DEV000GENPYPL'];
+    const isExcludedV2Account = account => excludedV2Accounts.includes(account);
+    // Re-enable BTN/MRK and explicitly excluded v2 accounts once renderV2Message supports flex and full text styling.
+    const shouldExcludeAccount = account =>
+        (isButtonOrMarkAccount(account) && (isV2RendererMode || layout === 'flex')) ||
+        (isV2RendererMode && isExcludedV2Account(account));
+    const accountsToRun = accounts.filter(account => !shouldExcludeAccount(account));
+
     // +1 is for GPL unqualified
-    describe(`US > ${layout} (Test Count: ${tests.length * (accounts.length + 1)})`, () => {
+    describe(`US > ${layout} (Test Count: ${tests.length * (accountsToRun.length + 1)})`, () => {
         const runBannerTest = createBannerTest('US');
         const isFlexLayout = layout === 'flex';
         const viewportDefault = isFlexLayout ? { width: 1100 } : { width: 600, height: 100 };
 
-        describe.each(accounts)(`> %s (Test Count: ${tests.length})`, account => {
+        describe.each(accountsToRun)(`> %s (Test Count: ${tests.length})`, account => {
             const getConfig = style => ({
                 account,
                 style: {
@@ -18,16 +28,11 @@ export default function runDescribeBlock(layout, tests) {
                 }
             });
 
-            // Skip the tests if the account includes 'BTN' or 'MRK' and layout is 'flex' as we do not support flex layouts for this integration.
-            const shouldSkip = (account.includes('BTN') || account.includes('MRK')) && layout === 'flex';
-
             describe.each(tests)('%s', (name, style, viewport = viewportDefault) => {
                 if (isFlexLayout) {
                     viewport.height = 700; // eslint-disable-line no-param-reassign
                 }
-                if (!shouldSkip) {
-                    runBannerTest(viewport, getConfig(style));
-                }
+                runBannerTest(viewport, getConfig(style));
             });
         });
 

@@ -24,6 +24,7 @@
     ],
     "subHeadline": [],
     "disclaimer": [
+        [["Atención, un crédito puede tener un coste y debe ser devuelto."], ["large"]],
         ["<span aria-hidden='true'>Más información</span><span class='sr-only'>Más información</span>", ["default"]]
     ]
 }

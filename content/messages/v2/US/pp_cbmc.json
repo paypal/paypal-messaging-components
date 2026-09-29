@@ -1,0 +1,38 @@
+{
+    "id": "b438d446-045a-4ad5-8a36-f5aa648d71ee",
+    "type": "PPCBMC",
+    "offer_types": ["PAYPAL_CASHBACK_MASTERCARD"],
+    "priority_rules": [
+        {
+            "type": "ELIGIBLE",
+            "priority_score": 0
+        }
+    ],
+    "content": {
+        "main_items": [
+            {
+                "type": "IMAGE",
+                "name": "paypal_logo",
+                "source_url": "https://www.paypalobjects.com/upstream/assets/logos/v2/paypal_badge.svg",
+                "alternative_text": "PayPal"
+            },
+            {
+                "type": "TEXT",
+                "text": "Earn 3% cash back with PayPal Cashback Mastercard."
+            }
+        ],
+        "disclaimer_items": [
+            {
+                "type": "TEXT",
+                "text": "Eligibility varies."
+            }
+        ],
+        "action_items": [
+            {
+                "type": "LINK",
+                "text": "See terms",
+                "click_url": "https://www.synchronybankterms.com/gecrbterms/html/PayPalCashbackRewardsTerms.htm"
+            }
+        ]
+    }
+}

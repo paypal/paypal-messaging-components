@@ -13,7 +13,8 @@ const Header = ({
     viewName,
     useV4Design,
     useV5Design,
-    use5Dot1Design
+    use5Dot1Design,
+    useDarkMode
 }) => {
     const { country } = useServerData();
     const [, handleClose] = useTransitionState();
@@ -42,14 +43,14 @@ const Header = ({
                 <div
                     className={`header__background-wrapper header__background-wrapper--gradient ${
                         useV4Design ? 'v4Design' : ''
-                    } ${useV5Design ? 'v5Design' : ''}`}
+                    } ${useV5Design ? 'v5Design' : ''} ${useDarkMode ? 'darkMode' : ''}`}
                 />
             </div>
             <div aria-hidden="true" className="header__fixed-wrapper">
                 <div
                     className={`header__background-wrapper ${useV4Design ? 'v4Design' : ''} ${
                         useV5Design ? 'v5Design' : ''
-                    }`}
+                    } ${useDarkMode ? 'darkMode' : ''}`}
                 />
             </div>
             <div className="header__icons">
@@ -76,7 +77,7 @@ const Header = ({
                     <div
                         className={`header__background-wrapper header__background-wrapper--sticky ${
                             useV4Design ? 'v4Design' : ''
-                        } ${useV5Design ? 'v5Design' : ''}`}
+                        } ${useV5Design ? 'v5Design' : ''} ${useDarkMode ? 'darkMode' : ''}`}
                     />
                 </div>
             </div>
@@ -93,7 +94,7 @@ const Header = ({
                     id="header__headline"
                     className={`headline-${countryClassName} ${useV5Design ? 'v5Design' : ''} ${
                         use5Dot1Design ? 'headline-new' : ''
-                    }`}
+                    } ${useDarkMode ? 'darkMode' : ''}`}
                     // eslint-disable-next-line react/no-danger
                     dangerouslySetInnerHTML={{ __html: headline }}
                 />
@@ -101,14 +102,14 @@ const Header = ({
                     <p
                         className={`subheadline_p subheadline-${countryClassName} qualifying ${
                             useV5Design ? 'v5Design' : ''
-                        }`}
+                        } ${useDarkMode ? 'darkMode' : ''}`}
                     >
                         {qualifyingSubheadline.replace(/(\s?EUR)/g, ' €')}
                     </p>
                 ) : (
                     <p
-                        className={`subheadline_p subheadline-${countryClassName} ${
-                            useV5Design ? 'v5Design' : ''
+                        className={`subheadline_p subheadline-${countryClassName} ${useV5Design ? 'v5Design' : ''} ${
+                            useDarkMode ? 'darkMode' : ''
                         } ${getEuroStyleClass(country)}`}
                         // eslint-disable-next-line react/no-danger
                         dangerouslySetInnerHTML={{

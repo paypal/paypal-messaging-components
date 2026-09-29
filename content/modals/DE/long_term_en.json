@@ -29,7 +29,8 @@
             "inputLabel": "Value of goods",
             "inputPlaceholder": "{formattedMinAmount} - {formattedMaxAmount}",
             "inputCurrencySymbol": "€",
-            "genericError": "Something went wrong. Please try later."
+            "genericError": "Something went wrong. Please try later.",
+            "loadingLabel": "Loading financing options"
         },
         "instructions": [
             "Choose PayPal at checkout to pay later with<strong> PayPal Ratenzahlung</strong>.",

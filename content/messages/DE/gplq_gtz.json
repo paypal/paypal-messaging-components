@@ -24,5 +24,8 @@
 
     "subHeadline": [],
 
-    "disclaimer": [["Mehr erfahren", ["default"]]]
+    "disclaimer": [
+        [["Achtung! Kreditaufnahme kostet Geld."], ["large"]],
+        ["Mehr erfahren", ["default"]]
+    ]
 }

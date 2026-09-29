@@ -36,7 +36,7 @@ const flex = [
                     tag: 'medium'
                 }
             ],
-            disclaimer: ['default']
+            disclaimer: ['large', 'default']
         }
     ],
     [
@@ -50,14 +50,9 @@ const flex = [
         {
             headline: [...headlineBreaks],
             styles: [
-                `@media (min-aspect-ratio: 60 / 11) and (max-width: 374px) {
-                .message__headline {
-                    font-size: 4.5vw;
-                }
-            }`,
-                `@media (min-aspect-ratio: 60/11) and (max-width: 323px) {
-                .message__headline {
-                    font-size: 4.5vw;
+                `@media (min-aspect-ratio: 60 / 11) {
+                .message__disclaimer {
+                    display: block;
                 }
             }`
             ]
@@ -73,7 +68,7 @@ export default {
             'default',
             ({ textSize }) => ({
                 styles: [
-                    textWrap(textSize * 38, textSize, 'DE'),
+                    textWrap(textSize * 54.5, textSize, 'DE'),
                     xSmallFallback(textSize * 14.5),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25),
                     setLogoTop(textSize * 20),
@@ -87,15 +82,15 @@ export default {
                     },
                     { tag: 'xsmall', br: ['verfügbar.'] }
                 ],
-                disclaimer: ['default']
+                disclaimer: ['large', 'default']
             })
         ],
         [
             'logo.type:primary && logo.position:right',
             ({ textSize }) => ({
                 styles: [
-                    xSmallFallback(textSize * 13.6),
-                    setLogoTop(textSize * 35),
+                    xSmallFallback(textSize * 14.5),
+                    setLogoTop(textSize * 54.5),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
                     xSmallNoWrap(textSize * 13.6)
                 ]
@@ -116,7 +111,7 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     `@media screen and (max-width: ${textSize * 15.5}px) { .message__content { white-space: nowrap; }}`,
-                    textWrap(textSize * 32, textSize, 'DE'),
+                    textWrap(textSize * 52, textSize, 'DE'),
                     xSmallFallback(textSize * 12.5),
                     altNoWrap(textSize * 10.6),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25),

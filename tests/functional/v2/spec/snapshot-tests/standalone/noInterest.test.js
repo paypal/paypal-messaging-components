@@ -24,10 +24,6 @@ descFn.each(filterPermutations([LOCALE_CONFIG], [ACCOUNT]))(
             logTestName(getTestName(country, integration, account, amount, viewport));
         });
 
-        afterEach(async () => {
-            page.close();
-        });
-
         test(`Amount:${amount} - Shows correct content for amount - ${viewport}`, async () => {
             await openNoInterestView(
                 modalFrame,

@@ -199,7 +199,8 @@ export default {
                 'product-details',
                 'mini-cart',
                 'cart',
-                'checkout'
+                'checkout',
+                'view-edit-funding-instrument'
             ];
 
             if (!validateType(Types.STRING, pageType)) {

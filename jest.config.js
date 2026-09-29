@@ -13,7 +13,7 @@ module.exports = {
             }
         ]
     ],
-    testEnvironment: 'jest-environment-jsdom-sixteen',
+    testEnvironment: 'jsdom',
     testMatch: ['<rootDir>/tests/unit/**/?(*.)test.js?(x)'],
     moduleNameMapper: {
         '^src/(.*)': '<rootDir>/src/$1',
@@ -34,6 +34,9 @@ module.exports = {
         '^.+\\.scss$': '<rootDir>/tests/unit/utils/sassLoader.js',
         '^.+\\.(html|css)$': '<rootDir>/tests/unit/utils/rawLoader.js'
     },
+    transformIgnorePatterns: [
+        '/node_modules/(?!(preact|preact-render-to-string|@testing-library/preact-hooks|@testing-library/preact)/)'
+    ],
     setupFilesAfterEnv: ['<rootDir>/tests/unit/utils/setup.js', '<rootDir>/tests/customMatchers.js'],
     // grumbler-scripts includes babel-plugin-istanbul
     coveragePathIgnorePatterns: ['<rootDir>']

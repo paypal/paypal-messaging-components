@@ -74,10 +74,26 @@ export const showCorrectOfferBreakdown = async (contentWindow, modalContent, tes
 export const updateTermsViaCalc = async (contentWindow, modalContent, testName) => {
     await contentWindow.waitForSelector(contentWrapper);
     await contentWindow.waitForSelector(input);
-    await contentWindow.click(input, { clickCount: 3 });
-    await contentWindow.type(input, '500', { delay: 100 });
 
-    await page.waitFor(3 * 1000);
+    // Set the input value directly and fire change events
+    await contentWindow.evaluate(selector => {
+        const inputEl = document.querySelector(selector);
+        if (inputEl) {
+            // Set the value
+            inputEl.value = '500';
+
+            // Fire input event
+            const inputEvent = new Event('input', { bubbles: true, cancelable: true });
+            inputEl.dispatchEvent(inputEvent);
+
+            // Fire change event
+            const changeEvent = new Event('change', { bubbles: true, cancelable: true });
+            inputEl.dispatchEvent(changeEvent);
+        }
+    }, input);
+
+    // Wait for backend to recalculate
+    await contentWindow.evaluate(() => new Promise(resolve => setTimeout(resolve, 5 * 1000)));
 
     await contentWindow.waitForSelector(`${offerRow}:first-child`);
     const offerFieldHeadline = await contentWindow.$eval(offerRow, element => element.innerText);
@@ -149,10 +165,26 @@ export const showCorrectOfferBreakdownAccordion = async (contentWindow, modalCon
 export const updateOfferAccordionTermsViaCalc = async (contentWindow, modalContent, testName) => {
     await contentWindow.waitForSelector(contentWrapper);
     await contentWindow.waitForSelector(input);
-    await contentWindow.click(input, { clickCount: 3 });
-    await contentWindow.type(input, '500', { delay: 100 });
 
-    await page.waitFor(3 * 1000);
+    // Set the input value directly and fire change events
+    await contentWindow.evaluate(selector => {
+        const inputEl = document.querySelector(selector);
+        if (inputEl) {
+            // Set the value
+            inputEl.value = '500';
+
+            // Fire input event
+            const inputEvent = new Event('input', { bubbles: true, cancelable: true });
+            inputEl.dispatchEvent(inputEvent);
+
+            // Fire change event
+            const changeEvent = new Event('change', { bubbles: true, cancelable: true });
+            inputEl.dispatchEvent(changeEvent);
+        }
+    }, input);
+
+    // Wait for backend to recalculate
+    await contentWindow.evaluate(() => new Promise(resolve => setTimeout(resolve, 5 * 1000)));
 
     await contentWindow.waitForSelector(openAccordion);
     await contentWindow.waitForSelector(accordionHeaderContainer);

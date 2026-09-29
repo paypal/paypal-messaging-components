@@ -33,10 +33,6 @@ descFn.each(filterPermutations([LOCALE_CONFIG], [ACCOUNT]))(
             logTestName(getTestName(country, integration, account, amount, viewport));
         });
 
-        afterEach(async () => {
-            page.close();
-        });
-
         // enable these tests after generic BNPL message works with DEV_US_MULTI
         test.skip(`Amount:${amount} - Opens to product list view - ${viewport}`, async () => {
             await openProductListView(

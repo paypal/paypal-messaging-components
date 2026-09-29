@@ -54,6 +54,14 @@ describe('buildContentLabel', () => {
         expect(buildContentLabel(items)).toBe('Pay Later');
     });
 
+    test('does not insert a space before punctuation-only items', () => {
+        const items = [
+            { type: 'TEXT', text: 'Pay in 3 interest-free payments with PayPal' },
+            { type: 'TEXT', text: '.' }
+        ];
+        expect(buildContentLabel(items)).toBe('Pay in 3 interest-free payments with PayPal.');
+    });
+
     test('returns empty string for empty array', () => {
         expect(buildContentLabel([])).toBe('');
     });
@@ -64,7 +72,11 @@ describe('buildLogoConfiguration', () => {
     const textItem = { type: 'TEXT', text: 'Pay Later' };
 
     test('extracts IMAGE block and filters from mainBlocks for left position', () => {
-        const result = buildLogoConfiguration({ logoPosition: 'left', mainItems: [logoItem, textItem] });
+        const result = buildLogoConfiguration({
+            effectiveLogoType: 'wordmark',
+            effectiveLogoPosition: 'left',
+            mainItems: [logoItem, textItem]
+        });
         expect(result.logoBlock).toBe(logoItem);
         expect(result.mainBlocks).toEqual([textItem]);
         expect(result.hasInitialLogo).toBe(true);
@@ -72,27 +84,55 @@ describe('buildLogoConfiguration', () => {
     });
 
     test('sets hasRightLogo for right position', () => {
-        const result = buildLogoConfiguration({ logoPosition: 'right', mainItems: [textItem, logoItem] });
+        const result = buildLogoConfiguration({
+            effectiveLogoType: 'wordmark',
+            effectiveLogoPosition: 'right',
+            mainItems: [textItem, logoItem]
+        });
         expect(result.hasRightLogo).toBe(true);
         expect(result.hasInitialLogo).toBe(false);
     });
 
     test('sets hasInitialLogo for top position', () => {
-        const result = buildLogoConfiguration({ logoPosition: 'top', mainItems: [logoItem, textItem] });
+        const result = buildLogoConfiguration({
+            effectiveLogoType: 'wordmark',
+            effectiveLogoPosition: 'top',
+            mainItems: [logoItem, textItem]
+        });
         expect(result.hasInitialLogo).toBe(true);
         expect(result.hasRightLogo).toBe(false);
     });
 
-    test('inline position keeps all items in mainBlocks', () => {
-        const result = buildLogoConfiguration({ logoPosition: 'inline', mainItems: [logoItem, textItem] });
+    test('inline position preserves mainItems order and leaves IMAGE blocks in place', () => {
+        const result = buildLogoConfiguration({
+            effectiveLogoType: 'wordmark',
+            effectiveLogoPosition: 'inline',
+            mainItems: [logoItem, textItem]
+        });
+        expect(result.logoBlock).toBeUndefined();
         expect(result.mainBlocks).toEqual([logoItem, textItem]);
         expect(result.hasInitialLogo).toBe(false);
         expect(result.hasRightLogo).toBe(false);
+    });
+
+    test('none type replaces IMAGE blocks with their accessible brand text', () => {
+        const result = buildLogoConfiguration({
+            effectiveLogoType: 'none',
+            effectiveLogoPosition: 'left',
+            mainItems: [logoItem, textItem]
+        });
         expect(result.logoBlock).toBeUndefined();
+        expect(result.mainBlocks).toEqual([{ type: 'TEXT', text: 'PayPal ', brand: true }, textItem]);
+        expect(result.hasInitialLogo).toBe(false);
+        expect(result.hasRightLogo).toBe(false);
     });
 
     test('returns no logo block when no IMAGE items present', () => {
-        const result = buildLogoConfiguration({ logoPosition: 'left', mainItems: [textItem] });
+        const result = buildLogoConfiguration({
+            effectiveLogoType: 'wordmark',
+            effectiveLogoPosition: 'left',
+            mainItems: [textItem]
+        });
         expect(result.logoBlock).toBeUndefined();
         expect(result.hasInitialLogo).toBe(false);
         expect(result.mainBlocks).toEqual([textItem]);

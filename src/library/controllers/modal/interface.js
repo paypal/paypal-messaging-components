@@ -139,8 +139,15 @@ const memoizedModal = memoizeOnProps(
 
             // TODO: Remove after DE universal modal ramp is complete. Allows both old and new modals to work with DE messages while ramping.
             const validDEProductValues = ['PAY_LATER_LONG_TERM', 'PAY_LATER_PAY_IN_1', 'PAY_LATER_SHORT_TERM'];
+            // TODO: Remove after GB universal modal ramp is complete. Allows both Pi30 and Pay in 3 modals to work with GB messages while ramping.
+            const validGBProductValues = ['PAY_LATER_PAY_IN_1', 'PAY_LATER_SHORT_TERM'];
             // TODO: Remove after DE universal modal ramp is complete
-            const productState = options?.offerCountry === 'DE' ? validDEProductValues : zoidComponent.state.products;
+            let productState = zoidComponent.state.products;
+            if (options?.offerCountry === 'DE') {
+                productState = validDEProductValues;
+            } else if (options?.offerCountry === 'GB') {
+                productState = validGBProductValues;
+            }
 
             if (
                 typeof requestedProduct !== 'undefined' &&

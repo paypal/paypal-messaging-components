@@ -17,5 +17,8 @@
         [["Bezahlen Sie nach 30 Tagen"], ["medium", "large", "xlarge"]]
     ],
     "subHeadline": [],
-    "disclaimer": [["Mehr erfahren", ["default"]]]
+    "disclaimer": [
+        [["Achtung! Kredite können bei Verzug zu Kosten führen."], ["large"]],
+        ["Mehr erfahren", ["default"]]
+    ]
 }

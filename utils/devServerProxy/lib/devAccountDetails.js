@@ -75,22 +75,22 @@ const countryBasedPaymentDates = country => {
  * @param {object}
  * @returns array of payments and date objects
  */
-const countryBasedInstallments = ({ amount, total, totalPayments, country }) => {
-    const toLocaleCurrency = localizeCurrency(country);
+const countryBasedInstallments = ({ amount, total, totalPayments, country, language }) => {
+    const toLocaleCurrency = localizeCurrency(country, language);
     return countryBasedPaymentDates(country).map(dateLabel => ({
         total_payment: amount ? toLocaleCurrency(total / totalPayments) : '-',
         payment_date: dateLabel
     }));
 };
 
-const getMorsVars = (country, offer, amount) => {
+const getMorsVars = (country, offer, amount, language) => {
     if (!offer) {
         // If no offer, return proxy object that always returns '-' for its variable values
         return new Proxy({}, { get: () => '-' });
     }
 
-    const toLocaleNumber = localizeNumber(country);
-    const toLocaleCurrency = localizeCurrency(country);
+    const toLocaleNumber = localizeNumber(country, language);
+    const toLocaleCurrency = localizeCurrency(country, language);
     const { apr, nominalRate, totalPayments, minAmount, maxAmount } = offer;
     const total = Number(amount) + Number(amount) * (apr * 0.01) * (totalPayments / 12);
     const totalInterest = total - Number(amount);
@@ -113,26 +113,47 @@ const getMorsVars = (country, offer, amount) => {
         formattedPeriodicPayment: amount ? toLocaleCurrency(total / totalPayments) : '-',
         formattedMonthlyPayment: amount ? toLocaleCurrency(total / totalPayments) : '-',
         formattedTotalInterest: amount ? toLocaleCurrency(totalInterest) : '-',
-        estimated_installments: countryBasedInstallments({ amount, total, totalPayments, country })
+        estimated_installments: countryBasedInstallments({ amount, total, totalPayments, country, language })
     };
 };
 
-export default function getDevAccountDetails({ account, amount, buyerCountry }) {
+// These mock accounts hardcode French vs English CA content by template filename rather than a runtime language prop
+const getTemplateLanguage = (country, ...templateNames) =>
+    country === 'CA' && templateNames.some(name => name?.includes('_fr')) ? 'fr-CA' : undefined;
+
+export default function getDevAccountDetails({ account, amount, buyerCountry, useV2MessageContent = false }) {
     if (devAccountMap[account]) {
-        const [country, productNames, messageName] = devAccountMap[account];
+        const [country, productNames, messageName, v2MessageName] = devAccountMap[account];
         const offers = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../config/terms.json'), 'utf-8'));
         const terms = getTerms(country, offers, Number(amount));
+        // The renderer flag switches the base directory from content/messages to content/messages/v2.
+        // Only provide an explicit v2 message name when the filename differs between the two trees.
+        const selectedMessageName = useV2MessageContent ? v2MessageName || messageName : messageName;
+        const messageBasePath = useV2MessageContent ? `${CONTENT_PATH}/messages/v2` : `${CONTENT_PATH}/messages`;
+        const messagePath = `${messageBasePath}/${country}/${selectedMessageName}.json`;
+        // Temporary strict mode for v2 validation: do not fallback to legacy (v1) content.
+        const messageTemplatePath = messagePath;
 
         return {
             country,
             terms,
             modalViews: productNames.map(modalName => ({
                 template: fs.readFileSync(`${CONTENT_PATH}/modals/${country}/${modalName}.json`, 'utf8'),
-                morsVars: getMorsVars(country, selectBestOffer(offers, amount), amount)
+                morsVars: getMorsVars(
+                    country,
+                    selectBestOffer(offers, amount),
+                    amount,
+                    getTemplateLanguage(country, modalName)
+                )
             })),
             message: {
-                template: fs.readFileSync(`${CONTENT_PATH}/messages/${country}/${messageName}.json`, 'utf8'),
-                morsVars: getMorsVars(country, selectBestOffer(offers, amount), amount)
+                template: fs.readFileSync(messageTemplatePath, 'utf8'),
+                morsVars: getMorsVars(
+                    country,
+                    selectBestOffer(offers, amount),
+                    amount,
+                    getTemplateLanguage(country, selectedMessageName)
+                )
             }
         };
     }
@@ -140,11 +161,42 @@ export default function getDevAccountDetails({ account, amount, buyerCountry }) 
     if (devAccountMapV2[account]) {
         const { country, modalViews, messageThresholds, offers } = devAccountMapV2[account];
         const selectedMessage = selectMessageThreshold(messageThresholds, amount);
+        const morsVarsByProduct = Object.entries(offers).reduce((mappedVars, [productName, productOffers]) => {
+            const selectedOffer = selectBestOffer(productOffers, amount);
 
-        const messageTemplate =
-            buyerCountry && buyerCountry !== country && selectedMessage.templateXB
-                ? fs.readFileSync(`${CONTENT_PATH}/messages/${country}/${selectedMessage.templateXB}`, 'utf8')
-                : fs.readFileSync(`${CONTENT_PATH}/messages/${country}/${selectedMessage.template}`, 'utf8');
+            if (!selectedOffer) {
+                return mappedVars;
+            }
+
+            return {
+                ...mappedVars,
+                [productName]: getMorsVars(country, selectedOffer, amount)
+            };
+        }, {});
+        const shouldUseXBTemplate = buyerCountry && buyerCountry !== country;
+        const selectedTemplateName = (() => {
+            // templateV2/templateXBV2 are only needed when the v2 filename differs.
+            // Otherwise the same template name is resolved from content/messages/v2 via messageBasePath.
+            if (useV2MessageContent) {
+                if (shouldUseXBTemplate && selectedMessage.templateXBV2) {
+                    return selectedMessage.templateXBV2;
+                }
+
+                if (selectedMessage.templateV2) {
+                    return selectedMessage.templateV2;
+                }
+            }
+
+            if (shouldUseXBTemplate && selectedMessage.templateXB) {
+                return selectedMessage.templateXB;
+            }
+
+            return selectedMessage.template;
+        })();
+        const messageBasePath = useV2MessageContent ? `${CONTENT_PATH}/messages/v2` : `${CONTENT_PATH}/messages`;
+        const messageTemplatePath = `${messageBasePath}/${country}/${selectedTemplateName}`;
+        // Temporary strict mode for v2 validation: do not fallback to legacy (v1) content.
+        const messageTemplate = fs.readFileSync(messageTemplatePath, 'utf8');
 
         return {
             country,
@@ -163,22 +215,31 @@ export default function getDevAccountDetails({ account, amount, buyerCountry }) 
                 }
 
                 const viewOffers = offers[product];
+                const language = getTemplateLanguage(country, template, offersTemplate);
 
                 return {
                     template: JSON.stringify(viewTemplate),
-                    morsVars: viewOffers ? getMorsVars(country, selectBestOffer(viewOffers, amount), amount) : {},
+                    morsVars: viewOffers
+                        ? getMorsVars(country, selectBestOffer(viewOffers, amount), amount, language)
+                        : {},
                     offers:
                         viewOffersTemplate &&
                         viewOffers &&
                         viewOffers.map(offer => ({
                             template: JSON.stringify(viewOffersTemplate),
-                            morsVars: getMorsVars(country, offer, amount)
+                            morsVars: getMorsVars(country, offer, amount, language)
                         }))
                 };
             }),
             message: {
                 template: messageTemplate,
-                morsVars: getMorsVars(country, selectBestOffer(offers[selectedMessage.product], amount), amount)
+                morsVars: getMorsVars(
+                    country,
+                    selectBestOffer(offers[selectedMessage.product], amount),
+                    amount,
+                    getTemplateLanguage(country, selectedTemplateName)
+                ),
+                morsVarsByProduct
             }
         };
     }

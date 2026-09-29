@@ -1,0 +1,58 @@
+{
+    "id": "598d6714-85b1-44f9-bead-fdd7140a4502",
+    "type": "PLLT_SQ_GZ",
+    "offer_types": ["PAY_LATER_LONG_TERM"],
+    "priority_rules": [
+        {
+            "type": "QUALIFYING",
+            "min_amount": "199.00",
+            "priority_score": 7.1
+        },
+        {
+            "type": "QUALIFYING",
+            "priority_score": 5.7
+        }
+    ],
+    "content": {
+        "main_items": [
+            {
+                "type": "IMAGE",
+                "name": "paypal_logo",
+                "source_url": "https://www.paypalobjects.com/upstream/assets/logos/v2/paypal_badge.svg",
+                "alternative_text": "PayPal"
+            },
+            {
+                "type": "TEXT",
+                "text": "Make "
+            },
+            {
+                "type": "TEXT_VARIABLE",
+                "name": "periodic_payment_count",
+                "text": "{PAY_LATER_LONG_TERM.periodic_payment_count}",
+                "text_path": "{PAY_LATER_LONG_TERM.preferred_offer.financing_code}.periodic_payment_count"
+            },
+            {
+                "type": "TEXT",
+                "text": " payments of "
+            },
+            {
+                "type": "TEXT_VARIABLE",
+                "name": "periodic_payment",
+                "text": "{PAY_LATER_LONG_TERM.periodic_payment.formatted_value}",
+                "text_path": "{PAY_LATER_LONG_TERM.preferred_offer.financing_code}.breakdown.periodic_payment.formatted_value"
+            },
+            {
+                "type": "TEXT",
+                "text": "/mo.",
+                "alternative_text": " per month."
+            }
+        ],
+        "action_items": [
+            {
+                "type": "LINK",
+                "text": "Learn more",
+                "click_url": "{click_url}"
+            }
+        ]
+    }
+}

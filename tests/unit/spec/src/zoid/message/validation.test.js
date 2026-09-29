@@ -265,7 +265,8 @@ describe('validate', () => {
             'product-details',
             'mini-cart',
             'cart',
-            'checkout'
+            'checkout',
+            'view-edit-funding-instrument'
         ].forEach(supportedPageType => {
             const pageType = validate.pageType({ props: { pageType: supportedPageType } });
 

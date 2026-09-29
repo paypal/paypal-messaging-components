@@ -9,7 +9,7 @@ export const populateTemplate = (template, variables) =>
         .replace(/\r\n|\r|\n/g, '');
 
 export const localizeNumber =
-    country =>
+    (country, language) =>
     (amount, fractionDigits = 2) => {
         const number = Number(amount) || Number(0);
 
@@ -30,6 +30,9 @@ export const localizeNumber =
                     /^([\d,]+)(\.)(\d+)$/,
                     (match, p1, p2, p3) => `${p1.replace(/,/g, '.')},${p3}`
                 );
+            case 'CA':
+                // French Canadian convention uses a space thousands separator and a comma decimal separator
+                return language === 'fr-CA' ? baseFormat.replace(/,/g, ' ').replace('.', ',') : baseFormat;
             case 'GB':
             case 'AU':
             case 'US':
@@ -39,10 +42,12 @@ export const localizeNumber =
     };
 
 export const localizeCurrency =
-    country =>
+    (country, language) =>
     (amount, fractionDigits = 2) => {
         // Handle already localized numbers
-        const localizedAmount = Number.isNaN(Number(amount)) ? amount : localizeNumber(country)(amount, fractionDigits);
+        const localizedAmount = Number.isNaN(Number(amount))
+            ? amount
+            : localizeNumber(country, language)(amount, fractionDigits);
 
         switch (country) {
             case 'DE':
@@ -54,6 +59,9 @@ export const localizeCurrency =
             case 'ES':
             case 'IT':
                 return `${localizedAmount} €`;
+            case 'CA':
+                // French Canadian amounts trail the dollar sign (e.g. "115,78 $"); English Canadian leads with it
+                return language === 'fr-CA' ? `${localizedAmount} $` : `$${localizedAmount}`;
             case 'AU':
             case 'US':
             default:

@@ -61,9 +61,9 @@ describe('SSR message', () => {
         }
     };
 
-    const defaultMarkup = () => ({
+    const defaultMarkup = (offerType = 'NI') => ({
         meta: {
-            offerType: 'NI'
+            offerType
         },
         headline: [[headline, ['default']]],
         subHeadline: [[subHeadline, ['default']]],
@@ -114,14 +114,38 @@ describe('SSR message', () => {
                     }
                 })
             );
-            const { getByText, getByAltText } = render(
+            const { container, getByText } = render(
                 <Message locale="US" addLog={mockLogger} options={renderOptions} markup={defaultMarkup()} />
             );
             expect(getByText(headline)).toBeInTheDocument();
             expect(getByText(subHeadline)).toBeInTheDocument();
             expect(getByText(disclaimer)).toBeInTheDocument();
 
-            expect(getByAltText('')).toHaveAttribute('src', logoSrc);
+            expect(getByText('PayPal Credit')).toHaveClass('sr-only');
+            expect(container.querySelector('img')).toHaveAttribute('src', logoSrc);
+            expect(container.querySelector('img')).toHaveAttribute('alt', '');
+        });
+
+        test('uses PayPal as the default semantic brand', () => {
+            getMutations.mockReturnValue(
+                defaultMutations({
+                    logo: {
+                        src: 'logoSrc',
+                        dimensions: [10, 10]
+                    }
+                })
+            );
+
+            const { getByText } = render(
+                <Message
+                    locale="US"
+                    addLog={mockLogger}
+                    options={renderOptions}
+                    markup={defaultMarkup('PAY_LATER_LONG_TERM')}
+                />
+            );
+
+            expect(getByText('PayPal')).toHaveClass('sr-only');
         });
         const getMatchPattern = (cssSelector, cssValue) => {
             // convert plain string css into an array if RegExps

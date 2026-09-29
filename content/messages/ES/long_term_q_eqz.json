@@ -20,5 +20,8 @@
         [["Desde {formattedPeriodicPayment} al mes al 0% TAE."], ["small", "medium", "large", "xlarge"]]
     ],
     "subHeadline": [],
-    "disclaimer": [["Más información", ["default"]]]
+    "disclaimer": [
+        [["Atención, un crédito puede tener un coste y debe ser devuelto."], ["large"]],
+        ["Más información", ["default"]]
+    ]
 }

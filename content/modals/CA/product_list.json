@@ -1,0 +1,30 @@
+{
+    "meta": {
+        "product": "PRODUCT_LIST",
+        "useV5Design": "true",
+        "v5.1": "true",
+        "offerCountry": "CA",
+        "language": "en-CA"
+    },
+    "content": {
+        "headline": "<span aria-hidden='true'>Buy now, <br />pay later</span><span class='sr-only'>Buy now, pay later</span>",
+        "disclosure": "Terms apply for each option. Offer availability may depend on consumer and merchant eligibility.",
+        "instructions": {
+            "payLater": "Get more info on Pay Later options."
+        },
+        "productTiles": {
+            "payLater": [
+                {
+                    "header": "Pay in 4",
+                    "body": "Interest-free payments every 2 weeks, starting today.",
+                    "viewName": "PAY_LATER_SHORT_TERM"
+                },
+                {
+                    "header": "Pay Monthly",
+                    "body": "Split your purchase into equal monthly payments, $0 CAD due today.",
+                    "viewName": "PAY_LATER_LONG_TERM"
+                }
+            ]
+        }
+    }
+}

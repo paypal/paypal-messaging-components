@@ -4,15 +4,18 @@ const delay = async duration => new Promise(resolve => setTimeout(resolve, durat
 
 const getContext = () => {
     const events = ['onRender', 'onClick', 'onApply'];
+    const config = {
+        account: 'DEV_US_NO_INTEREST',
+        amount: 120,
+        style: {
+            layout: 'text'
+        },
+        ...(process.env.BANNER_SNAPSHOT_MODE === 'v2Renderer' ? { features: 'useRenderV2Message' } : {})
+    };
+
     return {
         selectors,
-        config: {
-            account: 'DEV_US_NO_INTEREST',
-            amount: 120,
-            style: {
-                layout: 'text'
-            }
-        },
+        config,
         onEvents: events.reduce((acc, event) => {
             const eventMessage = `${event} callback`;
             return {

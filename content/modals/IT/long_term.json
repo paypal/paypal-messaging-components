@@ -29,7 +29,8 @@
             "inputLabel": "Importo dell'acquisto",
             "inputPlaceholder": "0 €",
             "inputCurrencySymbol": "€",
-            "genericError": "Qualcosa è andato storto. Riprova più tardi."
+            "genericError": "Qualcosa è andato storto. Riprova più tardi.",
+            "loadingLabel": "Caricamento delle opzioni di finanziamento"
         },
         "genericDisclaimer": "*Tutti gli esempi hanno natura rappresentativa. Le condizioni finali e i tassi d'interesse applicati variano in base all'importo dell'acquisto e al profilo del cliente. L’importo delle rate è arrotondato.",
         "instructions": [
