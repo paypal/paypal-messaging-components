@@ -99,7 +99,8 @@ export const LongTerm = ({
     const { views, country } = useServerData();
     const spendingPowerClickTitle = 'Check Spending Power';
     const handlePrequalification = usePrequalification(spendingPowerClickTitle, onClick, {
-        offer: product
+        offer: product,
+        amount
     });
     const { offers } = views.find(view => view.offers);
     const { minAmount, maxAmount } = getComputedVariables(offers);
