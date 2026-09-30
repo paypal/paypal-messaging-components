@@ -58,16 +58,19 @@ describe('Calculator amount field accessibility', () => {
         mockUseXProps.mockReturnValue({ amount: undefined });
     });
 
-    test('uses the visible placeholder as the accessible name for an empty US amount', () => {
+    test('uses the visible calculator title as the accessible name for an empty US amount', () => {
         renderCalculator();
 
-        const input = screen.getByRole('textbox', { name: 'Enter amount' });
+        const input = screen.getByRole('textbox', { name: 'How much is your purchase?' });
 
         expect(input).toHaveAttribute('placeholder', 'Enter amount');
+        expect(input).not.toHaveAttribute('aria-label');
         expect(input).not.toHaveAttribute('aria-invalid');
+        expect(screen.getByText('Purchase amount')).toBeVisible();
+        expect(screen.getByText('Purchase amount')).toHaveAttribute('aria-hidden', 'true');
     });
 
-    test('uses the visible label as the accessible name for a populated US amount', () => {
+    test('uses the visible calculator title as the accessible name for a populated US amount', () => {
         mockUseCalculator.mockReturnValue({
             ...defaultCalculatorState,
             value: '100'
@@ -77,7 +80,8 @@ describe('Calculator amount field accessibility', () => {
         renderCalculator();
 
         expect(screen.getByText('Purchase amount')).toBeVisible();
-        expect(screen.getByRole('textbox', { name: 'Purchase amount' })).toHaveValue('100');
+        expect(screen.getByText('Purchase amount')).toHaveAttribute('aria-hidden', 'true');
+        expect(screen.getByRole('textbox', { name: 'How much is your purchase?' })).toHaveValue('100');
     });
 
     test('associates an invalid populated amount with its single live error message', () => {
@@ -88,7 +92,7 @@ describe('Calculator amount field accessibility', () => {
         mockUseXProps.mockReturnValue({ amount: 25 });
 
         const { container } = renderCalculator();
-        const input = screen.getByRole('textbox', { name: 'Purchase amount' });
+        const input = screen.getByRole('textbox', { name: 'How much is your purchase?' });
         const error = screen.getByText('Enter an amount of at least $49.');
 
         expect(input).toHaveAttribute('aria-invalid', 'true');
@@ -107,7 +111,7 @@ describe('Calculator amount field accessibility', () => {
 
         const { container } = renderCalculator();
 
-        const input = screen.getByRole('textbox', { name: 'Purchase amount' });
+        const input = screen.getByRole('textbox', { name: 'How much is your purchase?' });
         const error = screen.getByText('Enter an amount of at least $49.');
 
         expect(input).toHaveAttribute('aria-invalid', 'true');
@@ -119,7 +123,7 @@ describe('Calculator amount field accessibility', () => {
     test('associates a cleared amount with its error after the field has been used', () => {
         const { container } = renderCalculator();
 
-        const input = screen.getByRole('textbox', { name: 'Enter amount' });
+        const input = screen.getByRole('textbox', { name: 'How much is your purchase?' });
         fireEvent.input(input, { target: { value: '' } });
 
         const error = screen.getByText('Enter an amount of at least $49.');
@@ -139,7 +143,7 @@ describe('Calculator amount field accessibility', () => {
 
         renderCalculator();
 
-        const input = screen.getByRole('textbox', { name: 'Purchase amount' });
+        const input = screen.getByRole('textbox', { name: 'How much is your purchase?' });
         const error = screen.getByText('Something went wrong. Please try again.');
 
         expect(input).not.toHaveAttribute('aria-invalid');

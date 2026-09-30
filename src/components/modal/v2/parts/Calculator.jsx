@@ -197,18 +197,6 @@ const Calculator = ({
         return null;
     };
 
-    /**
-     * Due to slight differences in the calculator input styling between
-     * the US and DE versions of the universal modal, the function below
-     * determines when to return the inputLabel content depending on the country.
-     */
-    const renderInputLabelOnEmptyField = offerCountry => {
-        if (offerCountry === 'US') {
-            return displayValue !== '' ? inputLabel : '';
-        }
-        return inputLabel;
-    };
-
     return (
         <div
             className={`calculator ${useNewCheckoutDesign === 'true' ? 'checkout' : ''} ${
@@ -221,21 +209,20 @@ const Calculator = ({
                 } ${useNewCheckoutDesign === 'true' ? 'checkout' : ''} ${useDarkMode ? 'darkMode' : ''}`}
                 onSubmit={submit}
             >
-                <h3 className={`title ${cta ? 'checkout-title' : ''}`}>
+                <label htmlFor="purchase-amount" className={`title ${cta ? 'checkout-title' : ''}`}>
                     {!hasInitialAmount ? genericTitle || title : title}
-                </h3>
+                </label>
                 <div
                     className={`input__wrapper transitional ${useV5Design === 'true' ? 'v5Design' : ''} ${
                         cta ? 'checkout' : ''
                     } ${country || ''} ${showVisualInputError ? 'input__wrapper--error' : ''}`}
                 >
-                    <label htmlFor="purchase-amount" className={`input__label ${country}`}>
-                        {renderInputLabelOnEmptyField(country)}
-                    </label>
+                    <span aria-hidden="true" className={`input__label ${country}`}>
+                        {inputLabel}
+                    </span>
                     {inputCurrencySymbol && <div className="input__currency-symbol">{inputCurrencySymbol}</div>}
                     <input
                         id="purchase-amount"
-                        aria-label={country === 'US' && displayValue === '' ? formattedInputPlaceholder : undefined}
                         aria-invalid={hasInputError ? 'true' : undefined}
                         aria-describedby={hasInputError ? 'purchase-amount-error' : undefined}
                         aria-required="true"
