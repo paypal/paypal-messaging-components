@@ -49,8 +49,11 @@ const renderMessage = async method => {
             div.setAttribute('data-pp-style-layout', layout);
 
             // add a callback function for each event
-            Object.values(onEvents).forEach(({ tagAttribute, inValue }) => {
-                div.setAttribute(tagAttribute, inValue);
+            Object.entries(onEvents).forEach(([event, { tagAttribute, outValue }]) => {
+                const handlerName = `test${event}Callback`;
+                // eslint-disable-next-line no-console
+                window[handlerName] = () => console.log(outValue);
+                div.setAttribute(tagAttribute, handlerName);
             });
 
             document.body.appendChild(div);
