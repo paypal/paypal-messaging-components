@@ -147,6 +147,49 @@ describe('SSR message', () => {
 
             expect(getByText('PayPal')).toHaveClass('sr-only');
         });
+        describe.each(['text', 'flex'])('disclaimer in %s layout', layout => {
+            const learnMore = 'En savoir plus';
+            const warning = 'Credit warning';
+            const locales = ['AT', 'AU', 'CA', 'DE', 'ES', 'FR', 'GB', 'IT', 'US'];
+
+            beforeEach(() => {
+                getMutations.mockReturnValue(defaultMutations({ disclaimer: ['large', 'default'] }));
+            });
+
+            test.each(locales)('renders a single-entry disclaimer only once for %s', locale => {
+                const { container, getAllByText } = render(
+                    <Message
+                        locale={locale}
+                        options={{ ...options, style: { ...options.style, layout } }}
+                        markup={{ ...defaultMarkup(), disclaimer: [[learnMore, ['default']]] }}
+                    />
+                );
+
+                expect(getAllByText(learnMore)).toHaveLength(1);
+                expect(container.querySelector('.message__disclaimer > .tag--large')).toBeNull();
+            });
+
+            test.each(locales)('preserves both entries in a two-entry disclaimer for %s', locale => {
+                const { container, getAllByText } = render(
+                    <Message
+                        locale={locale}
+                        options={{ ...options, style: { ...options.style, layout } }}
+                        markup={{
+                            ...defaultMarkup(),
+                            disclaimer: [
+                                [warning, ['large']],
+                                [learnMore, ['default']]
+                            ]
+                        }}
+                    />
+                );
+
+                expect(getAllByText(warning)).toHaveLength(1);
+                expect(getAllByText(learnMore)).toHaveLength(1);
+                expect(container.querySelector('.message__disclaimer > .tag--large')).toHaveTextContent(warning);
+                expect(container.querySelector('.message__disclaimer > .tag--default')).toHaveTextContent(learnMore);
+            });
+        });
         const getMatchPattern = (cssSelector, cssValue) => {
             // convert plain string css into an array if RegExps
             const matchCssValue =
