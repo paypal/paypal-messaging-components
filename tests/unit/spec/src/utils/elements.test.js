@@ -59,5 +59,60 @@ describe('elements utils', () => {
             expect(options.onRender.toString()).toContain('console.log("onRender")');
             expect(options.onApply.toString()).toContain('console.log("onApply")');
         });
+
+        test('Sets newFuncExpression to false when no inline event handler attributes are present', () => {
+            const div = document.createElement('div');
+            div.setAttribute('data-pp-amount', '100.00');
+
+            const options = getInlineOptions(div);
+
+            expect(options.newFuncExpression).toBe(false);
+            expect(options.newFuncExpressionOnclickValue).toBeUndefined();
+            expect(options.newFuncExpressionOnapplyValue).toBeUndefined();
+            expect(options.newFuncExpressionOnrenderValue).toBeUndefined();
+        });
+
+        test('Sets newFuncExpression to true and captures the raw value for a plain identifier handler', () => {
+            window.testOnClick = jest.fn();
+
+            const div = document.createElement('div');
+            div.setAttribute('data-pp-onclick', 'testOnClick');
+
+            const options = getInlineOptions(div);
+
+            expect(options.newFuncExpression).toBe(true);
+            expect(options.newFuncExpressionOnclickValue).toBe('testOnClick');
+
+            delete window.testOnClick;
+        });
+
+        test('Sets newFuncExpression to true and captures the raw value for a call-style expression, without changing execution', () => {
+            const div = document.createElement('div');
+            div.setAttribute('data-pp-onclick', "trackEvent('click', 42)");
+
+            const options = getInlineOptions(div);
+
+            expect(options.newFuncExpression).toBe(true);
+            expect(options.newFuncExpressionOnclickValue).toBe("trackEvent('click', 42)");
+            expect(options.newFuncExpressionOnapplyValue).toBeUndefined();
+            expect(options.newFuncExpressionOnrenderValue).toBeUndefined();
+            // Execution is unchanged: the expression still runs via new Function, same as today.
+            expect(options.onClick).toEqual(expect.any(Function));
+            expect(options.onClick.toString()).toContain("trackEvent('click', 42)");
+        });
+
+        test('Tracks onclick, onapply, and onrender independently', () => {
+            const div = document.createElement('div');
+            div.setAttribute('data-pp-onclick', "clickFn('a')");
+            div.setAttribute('data-pp-onapply', 'myApplyHandler');
+            div.setAttribute('data-pp-onrender', "renderFn('c')");
+
+            const options = getInlineOptions(div);
+
+            expect(options.newFuncExpression).toBe(true);
+            expect(options.newFuncExpressionOnclickValue).toBe("clickFn('a')");
+            expect(options.newFuncExpressionOnapplyValue).toBe('myApplyHandler');
+            expect(options.newFuncExpressionOnrenderValue).toBe("renderFn('c')");
+        });
     });
 });

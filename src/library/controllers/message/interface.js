@@ -112,7 +112,11 @@ export default (options = {}) => ({
                                     ecToken,
                                     contextualComponents,
                                     cspNonce,
-                                    features
+                                    features,
+                                    newFuncExpression,
+                                    newFuncExpressionOnclickValue,
+                                    newFuncExpressionOnapplyValue,
+                                    newFuncExpressionOnrenderValue
                                 } = merchantOptions;
 
                                 // Explicitly select props to pass in to avoid unintentionally sending
@@ -145,6 +149,10 @@ export default (options = {}) => ({
                                     offer,
                                     onClick,
                                     onApply,
+                                    newFuncExpression,
+                                    newFuncExpressionOnclickValue,
+                                    newFuncExpressionOnapplyValue,
+                                    newFuncExpressionOnrenderValue,
                                     onReady: (...args) => {
                                         if (typeof onRender === 'function') {
                                             onRender(...args);

@@ -89,6 +89,30 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 required: false,
                 value: validate.pageType
             },
+            newFuncExpression: {
+                type: 'boolean',
+                queryParam: false,
+                required: false,
+                value: ({ props }) => props.newFuncExpression
+            },
+            newFuncExpressionOnclickValue: {
+                type: 'string',
+                queryParam: false,
+                required: false,
+                value: ({ props }) => props.newFuncExpressionOnclickValue
+            },
+            newFuncExpressionOnapplyValue: {
+                type: 'string',
+                queryParam: false,
+                required: false,
+                value: ({ props }) => props.newFuncExpressionOnapplyValue
+            },
+            newFuncExpressionOnrenderValue: {
+                type: 'string',
+                queryParam: false,
+                required: false,
+                value: ({ props }) => props.newFuncExpressionOnrenderValue
+            },
             style: {
                 type: 'object',
                 serialization: 'json',
@@ -243,11 +267,21 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                     const { onReady } = props;
                     return ({ meta, activeTags, ts, requestDuration, messageRequestId, globalSessionID }) => {
                         const { account, merchantId, index, modal, getContainer, pageType, language, locale } = props;
+                        const {
+                            newFuncExpression,
+                            newFuncExpressionOnclickValue,
+                            newFuncExpressionOnapplyValue,
+                            newFuncExpressionOnrenderValue
+                        } = props;
                         const { trackingDetails, offerType, ppDebugId, language: renderedLanguage } = meta;
                         const partnerClientId = merchantId && account.slice(10); // slice is to remove the characters 'client-id:' from account name
 
                         // overwrites potentially poisoned PAGE_TYPE value from cached trackingDetails
                         trackingDetails.PAGE_TYPE = pageType;
+                        trackingDetails.NEW_FUNC_EXPRESSION = Boolean(newFuncExpression);
+                        trackingDetails.NEW_FUNC_EXPRESSION_ONCLICK_VALUE = newFuncExpressionOnclickValue || '';
+                        trackingDetails.NEW_FUNC_EXPRESSION_ONAPPLY_VALUE = newFuncExpressionOnapplyValue || '';
+                        trackingDetails.NEW_FUNC_EXPRESSION_ONRENDER_VALUE = newFuncExpressionOnrenderValue || '';
 
                         ppDebug(`Message Correlation ID: ${ppDebugId}`);
 
