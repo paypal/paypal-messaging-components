@@ -51,6 +51,21 @@ export function getInlineOptions(container) {
     };
 
     const inlineEventHandlers = ['onclick', 'onapply', 'onrender'];
+    // Resolve handler by global name (e.g. "myFn" or "MyApp.onClick").
+    // Supports optional trailing "()" for convenience (e.g. "myFn()").
+    const getHandlerPath = value => value.trim().replace(/\(\s*\)$/, '');
+    // Anything that isn't a plain dotted identifier (e.g. "myFn" or "MyApp.onClick") is not
+    // safely resolvable without new Function / eval, regardless of whether it contains "(" —
+    // e.g. "trackEvent('x')" and "this.style.display='none'" are both rejected.
+    const isValidIdentifier = segment => /^[A-Za-z_$][\w$]*$/.test(segment);
+    const isExpressionStyleHandler = fnPath => !fnPath.split('.').every(isValidIdentifier);
+    const expressionValueKeyByAttribute = {
+        onclick: 'newFuncExpressionOnclickValue',
+        onapply: 'newFuncExpressionOnapplyValue',
+        onrender: 'newFuncExpressionOnrenderValue'
+    };
+    let hasExpressionStyleHandler = false;
+    const expressionStyleHandlerValues = {};
 
     const getOptionValue = (name, value) => {
         if (typeof value === 'string' && value.startsWith('[')) {
@@ -61,20 +76,21 @@ export function getInlineOptions(container) {
         return flattenedToObject(name, value);
     };
 
-    const dataOptions = Array.from(container.attributes)
+    let dataOptions = Array.from(container.attributes)
         .filter(({ nodeName }) => nodeName.startsWith('data-pp-'))
         .reduce((accumulator, { nodeName, nodeValue }) => {
             if (nodeValue) {
                 const attributeName = nodeName.replace('data-pp-', '');
+                const fnPath = inlineEventHandlers.includes(attributeName) ? getHandlerPath(nodeValue) : null;
+                if (fnPath && isExpressionStyleHandler(fnPath)) {
+                    hasExpressionStyleHandler = true;
+                    expressionStyleHandlerValues[expressionValueKeyByAttribute[attributeName]] = nodeValue;
+                }
                 const value = inlineEventHandlers.includes(attributeName)
                     ? (...args) => {
-                          // Resolve handler by global name (e.g. "myFn" or "MyApp.onClick").
-                          // Supports optional trailing "()" for convenience (e.g. "myFn()").
-                          // Does not use new Function / eval so script-src stays free of 'unsafe-eval'.
-                          const fnPath = nodeValue.trim().replace(/\(\s*\)$/, '');
                           // Warn if the value looks like an expression with arguments rather than a plain identifier.
                           // e.g. data-pp-onclick="trackEvent('click', 42)" won't work — wrap it in a named global function.
-                          if (/\(/.test(fnPath)) {
+                          if (isExpressionStyleHandler(fnPath)) {
                               // eslint-disable-next-line no-console
                               console.warn(
                                   `PayPal Messages: "${nodeName}" value "${nodeValue}" looks like a JS expression and cannot be evaluated for CSP compliance. Use a global function name instead, e.g. ${nodeName}="myHandler" where window.myHandler calls your logic.`
@@ -96,6 +112,11 @@ export function getInlineOptions(container) {
 
             return accumulator;
         }, {});
+
+    dataOptions = objectMerge(dataOptions, {
+        newFuncExpression: hasExpressionStyleHandler,
+        ...expressionStyleHandlerValues
+    });
 
     if (
         !container.firstElementChild ||
