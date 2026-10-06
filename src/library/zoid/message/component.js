@@ -89,29 +89,29 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                 required: false,
                 value: validate.pageType
             },
-            newFuncExpression: {
+            inlineExpression: {
                 type: 'boolean',
                 queryParam: false,
                 required: false,
-                value: ({ props }) => props.newFuncExpression
+                value: ({ props }) => props.inlineExpression
             },
-            newFuncExpressionOnclickValue: {
+            inlineExpressionOnclickValue: {
                 type: 'string',
                 queryParam: false,
                 required: false,
-                value: ({ props }) => props.newFuncExpressionOnclickValue
+                value: ({ props }) => props.inlineExpressionOnclickValue
             },
-            newFuncExpressionOnapplyValue: {
+            inlineExpressionOnapplyValue: {
                 type: 'string',
                 queryParam: false,
                 required: false,
-                value: ({ props }) => props.newFuncExpressionOnapplyValue
+                value: ({ props }) => props.inlineExpressionOnapplyValue
             },
-            newFuncExpressionOnrenderValue: {
+            inlineExpressionOnrenderValue: {
                 type: 'string',
                 queryParam: false,
                 required: false,
-                value: ({ props }) => props.newFuncExpressionOnrenderValue
+                value: ({ props }) => props.inlineExpressionOnrenderValue
             },
             style: {
                 type: 'object',
@@ -268,20 +268,20 @@ export default createGlobalVariableGetter('__paypal_credit_message__', () =>
                     return ({ meta, activeTags, ts, requestDuration, messageRequestId, globalSessionID }) => {
                         const { account, merchantId, index, modal, getContainer, pageType, language, locale } = props;
                         const {
-                            newFuncExpression,
-                            newFuncExpressionOnclickValue,
-                            newFuncExpressionOnapplyValue,
-                            newFuncExpressionOnrenderValue
+                            inlineExpression,
+                            inlineExpressionOnclickValue,
+                            inlineExpressionOnapplyValue,
+                            inlineExpressionOnrenderValue
                         } = props;
                         const { trackingDetails, offerType, ppDebugId, language: renderedLanguage } = meta;
                         const partnerClientId = merchantId && account.slice(10); // slice is to remove the characters 'client-id:' from account name
 
                         // overwrites potentially poisoned PAGE_TYPE value from cached trackingDetails
                         trackingDetails.PAGE_TYPE = pageType;
-                        trackingDetails.NEW_FUNC_EXPRESSION = Boolean(newFuncExpression);
-                        trackingDetails.NEW_FUNC_EXPRESSION_ONCLICK_VALUE = newFuncExpressionOnclickValue || '';
-                        trackingDetails.NEW_FUNC_EXPRESSION_ONAPPLY_VALUE = newFuncExpressionOnapplyValue || '';
-                        trackingDetails.NEW_FUNC_EXPRESSION_ONRENDER_VALUE = newFuncExpressionOnrenderValue || '';
+                        trackingDetails.INLINE_EXPRESSION = Boolean(inlineExpression);
+                        trackingDetails.INLINE_EXPRESSION_ONCLICK_VALUE = inlineExpressionOnclickValue || '';
+                        trackingDetails.INLINE_EXPRESSION_ONAPPLY_VALUE = inlineExpressionOnapplyValue || '';
+                        trackingDetails.INLINE_EXPRESSION_ONRENDER_VALUE = inlineExpressionOnrenderValue || '';
 
                         ppDebug(`Message Correlation ID: ${ppDebugId}`);
 

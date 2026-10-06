@@ -113,10 +113,10 @@ export default (options = {}) => ({
                                     contextualComponents,
                                     cspNonce,
                                     features,
-                                    newFuncExpression,
-                                    newFuncExpressionOnclickValue,
-                                    newFuncExpressionOnapplyValue,
-                                    newFuncExpressionOnrenderValue
+                                    inlineExpression,
+                                    inlineExpressionOnclickValue,
+                                    inlineExpressionOnapplyValue,
+                                    inlineExpressionOnrenderValue
                                 } = merchantOptions;
 
                                 // Explicitly select props to pass in to avoid unintentionally sending
@@ -149,10 +149,10 @@ export default (options = {}) => ({
                                     offer,
                                     onClick,
                                     onApply,
-                                    newFuncExpression,
-                                    newFuncExpressionOnclickValue,
-                                    newFuncExpressionOnapplyValue,
-                                    newFuncExpressionOnrenderValue,
+                                    inlineExpression,
+                                    inlineExpressionOnclickValue,
+                                    inlineExpressionOnapplyValue,
+                                    inlineExpressionOnrenderValue,
                                     onReady: (...args) => {
                                         if (typeof onRender === 'function') {
                                             onRender(...args);

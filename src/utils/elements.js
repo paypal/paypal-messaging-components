@@ -52,9 +52,9 @@ export function getInlineOptions(container) {
 
     const inlineEventHandlers = ['onclick', 'onapply', 'onrender'];
     const expressionValueKeyByAttribute = {
-        onclick: 'newFuncExpressionOnclickValue',
-        onapply: 'newFuncExpressionOnapplyValue',
-        onrender: 'newFuncExpressionOnrenderValue'
+        onclick: 'inlineExpressionOnclickValue',
+        onapply: 'inlineExpressionOnapplyValue',
+        onrender: 'inlineExpressionOnrenderValue'
     };
     let hasInlineEventHandler = false;
     const expressionStyleHandlerValues = {};
@@ -92,7 +92,7 @@ export function getInlineOptions(container) {
         }, {});
 
     dataOptions = objectMerge(dataOptions, {
-        newFuncExpression: hasInlineEventHandler,
+        inlineExpression: hasInlineEventHandler,
         ...expressionStyleHandlerValues
     });
 
