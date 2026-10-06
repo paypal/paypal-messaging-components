@@ -81,6 +81,7 @@
 
     .form {
         .title {
+            display: block;
             color: colors.$text-main;
             font-weight: 500;
             font-size: 18px;
@@ -178,10 +179,7 @@
         }
 
         &.v5Design {
-            h4 {
-                font-weight: 700;
-            }
-            label {
+            .input__label {
                 color: colors.$v5-gray;
             }
             input {
@@ -201,13 +199,13 @@
 
         &.v4Design,
         &.checkout {
-            h3 {
+            .title {
                 font-weight: 700;
             }
         }
 
         &.darkMode {
-            h3 {
+            .title {
                 color: colors.$white;
             }
             .input__label {
