@@ -133,8 +133,15 @@ export default {
     DEV0000FRPLTQ: ['FR', ['long_term'], 'long_term_q_gtz'],
     DEV000FRPLTNQ: ['FR', ['long_term'], 'long_term_nq_gtz'],
 
-    DEV000000AUPL: ['AU', ['short_term'], 'gpl', 'short-term_nq'],
-    DEV00000AUPLQ: ['AU', ['short_term'], 'gplq', 'short-term_q'],
+    DEV000000AUPL: ['AU', ['short_term'], 'gpl'],
+    DEV00000AUPLQ: ['AU', ['short_term'], 'gplq'],
+    // AU Long term messages use a placeholder modal for now, until it is updated.
+    // These will be replaced, same as with modalView for v2 testing accounts
+    DEV0AUGENERIC: ['AU', ['long_term_placeholder'], 'generic'],
+    DEV000AULTQGZ: ['AU', ['long_term_placeholder'], 'long_term_q_gtz'],
+    DEV000AULTQEZ: ['AU', ['long_term_placeholder'], 'long_term_q_eqz'],
+    DEV00AULTNQGZ: ['AU', ['long_term_placeholder'], 'long_term_nq_gtz'],
+    DEV00AULTNQEZ: ['AU', ['long_term_placeholder'], 'long_term_nq_eqz'],
 
     DEV0000ESPLNA: ['ES', ['short_term'], 'short_term_no_amount', 'short_term_no_amount'],
     DEV00000ESPLQ: ['ES', ['short_term'], 'short_term_q', 'short_term_q'],

@@ -1,0 +1,29 @@
+{
+    "meta": {
+        "offerCountry": "AU",
+        "offerType": "PAY_LATER_LONG_TERM",
+        "messageType": "PLLT_MQ_GZ",
+        "offerTerm": "${CREDIT_OFFERS_DS.total_payments}",
+        "lander": "",
+        "variables": {
+            "financing_code": "${CREDIT_OFFERS_DS.financing_code}",
+            "formattedMonthlyPayment": "${CREDIT_OFFERS_DS.formattedMonthlyPayment}",
+            "total_payments": "${CREDIT_OFFERS_DS.total_payments}",
+            "minAmount": "${CREDIT_OFFERS_DS.minAmount}",
+            "maxAmount": "${CREDIT_OFFERS_DS.maxAmount}",
+            "formattedMinAmount": "${CREDIT_OFFERS_DS.formattedMinAmount}",
+            "formattedMaxAmount": "${CREDIT_OFFERS_DS.formattedMaxAmount}",
+            "formattedTotalCost": "${CREDIT_OFFERS_DS.formattedTotalCost}"
+        }
+    },
+    "headline": [
+        ["Buy now, pay later.", ["default", "xsmall"]],
+        ["Buy now and pay later.", ["xsmall.2"]],
+        [["Pay in up to {total_payments} monthly instalments."], ["small", "medium", "large", "xlarge"]]
+    ],
+    "subHeadline": [],
+    "disclaimer": [
+        ["Interest applies. ", ["extra"]],
+        ["<span aria-hidden='true'>Learn more</span><span class='sr-only'> Learn more</span>", ["default"]]
+    ]
+}
