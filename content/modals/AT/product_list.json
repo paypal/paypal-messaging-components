@@ -11,7 +11,7 @@
         "instructions": {
             "payLater": "Wählen Sie <strong>PayPal</strong>, um <strong>“Später Bezahlen”</strong> zu nutzen. Diese Information wird von PayPal zur Verfügung gestellt."
         },
-        "creditWarning": "Achtung! Kreditaufnahme kostet Geld",
+        "creditWarning": "Achtung! Kreditaufnahme kostet Geld.",
         "productTiles": {
             "payLater": [
                 {
