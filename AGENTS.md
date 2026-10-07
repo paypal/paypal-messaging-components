@@ -27,6 +27,32 @@
 -   Offload research, exploration, and parallel analysis to subagents whenever tasks are independent.
 -   Keep one task per subagent for focused execution and easier validation handoff.
 
+## Agent skills
+
+Canonical skills live under `tools/agent-skills/`. The files in `.claude/skills/`
+are thin pointers — read the canonical document, never a summary of it. On any
+conflict, the canonical document and this file win.
+
+**`geo-expansion-pr`** — adds a new market, or a new product in an existing
+market. A three-skill family sharing one input contract
+(`tools/agent-skills/geo-expansion-pr/spec.schema.json`), chained onto one branch
+and one draft PR:
+
+-   `tools/agent-skills/geo-expansion-pr/SKILL.md` — source and config only; never authors tests
+-   `tools/agent-skills/geo-expansion-pr/unit-tests.md` — unit coverage, fail-closed coverage matrix
+-   `tools/agent-skills/geo-expansion-pr/functional-tests.md` — functional and snapshot coverage from the PRD
+
+Deterministic mutations are scripted in `tools/scripts/apply-geo-*.js` — zero
+dependencies, `--dry-run` supported, idempotent, and they refuse to write a test
+path. Judgment-heavy layers (content copy, test authoring) are agent-driven.
+
+When running or extending these skills:
+
+-   The JIRA key is mandatory and never derived. Branches are `feature/<JIRA>-geo-expansion-<cc>`.
+-   Take explicit user validation before **every** commit, and explicit approval before any push or PR.
+-   `develop` currently has pre-existing test failures. Record a baseline before mutating; the gate is no _new_ failures.
+-   Shared modal UI under `src/components/modal/v2/` is out of scope — cross-market blast radius, hand to a human.
+
 ## Docs-first (read before coding)
 
 -   `README.md` (scripts, dev server targets, stage env override)

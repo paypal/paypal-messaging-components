@@ -1,0 +1,251 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "geo-expansion-spec",
+    "title": "Geo-expansion spec",
+    "description": "The single input contract shared by the geo-expansion-pr skill family (source, unit-tests, functional-tests). Authored from a PRD. Read by tools/scripts/apply-geo-*.js. Content and functional expectations must agree on identical literals, which is why one spec drives all three skills rather than chaining them.",
+    "type": "object",
+    "required": ["jira", "mode", "targetCountry", "products"],
+    "additionalProperties": false,
+    "properties": {
+        "jira": {
+            "type": "string",
+            "pattern": "^[A-Z][A-Z0-9]+-[0-9]+$",
+            "description": "Mandatory. Supplied by the user; never derived from the branch, the PRD, or anything else. Used for the branch name feature/<jira>-geo-expansion-<cc>."
+        },
+        "mode": {
+            "enum": ["new-country", "new-product", "modal-only"],
+            "description": "new-country: full locale tree + registration (ref PR #1276). new-product: add a product to a country that already exists (ref PR #1321). modal-only: a single modal view (ref PR #1310, #1305) — stops before src/components/modal/v2."
+        },
+        "targetCountry": {
+            "type": "string",
+            "pattern": "^[A-Z]{2}$"
+        },
+        "countryName": {
+            "type": "string",
+            "description": "Human-readable name used only in the // <CC> - <Name> banner comments, e.g. Austria."
+        },
+        "templateCountry": {
+            "type": "string",
+            "pattern": "^[A-Z]{2}$",
+            "description": "The existing country whose locale tree is cloned. Required for mode new-country. Choose by language and product shape, not alphabetically — AT clones DE."
+        },
+        "currency": {
+            "type": "string",
+            "description": "ISO 4217, e.g. EUR. Used only for human-readable output; formatting comes from the content files."
+        },
+        "locale": {
+            "type": "string",
+            "description": "BCP 47 tag written into meta.language of content files, e.g. de-AT."
+        },
+        "localeClass": {
+            "type": "string",
+            "description": "Value of localeClass in src/server/locale/<CC>/**/index.js. Defaults to locale--<targetCountry>."
+        },
+        "productName": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+            "description": "The productName tuple in the locale module, e.g. ['mit', 'PayPal.'] for AT. Localized — must come from the PRD or the template country's copy, never invented."
+        },
+        "crossBorder": {
+            "type": "boolean",
+            "description": "Whether this market has non-<CC> (cross-border) message variants. Doubles the mutation module count and adds the :NON-<CC> offerType keys."
+        },
+        "products": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+                "type": "object",
+                "required": ["name", "offerType", "mutations"],
+                "additionalProperties": false,
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Directory name under src/server/locale/<CC>/, e.g. GPL or Pi30. Omitted for countries whose locale module is flat (GB has mutations/ directly)."
+                    },
+                    "offerType": {
+                        "type": "string",
+                        "description": "The OFFER.* constant this product dispatches on, e.g. PAY_LATER_PAY_IN_1."
+                    },
+                    "minAmount": {
+                        "type": "number"
+                    },
+                    "maxAmount": {
+                        "type": "number"
+                    },
+                    "apr": {
+                        "type": "number"
+                    },
+                    "nominalRate": {
+                        "type": "number"
+                    },
+                    "totalPayments": {
+                        "type": "number"
+                    },
+                    "rendersAs": {
+                        "enum": ["cards", "accordion"],
+                        "description": "Drives which of the hardcoded arrays in the four snapshot specs this product's account joins. 'accordion' is the European long-term shape."
+                    },
+                    "mutations": {
+                        "type": "array",
+                        "minItems": 1,
+                        "description": "One entry per mutation module. This list is the source of truth for the unit-test coverage matrix — every entry must end up with both a jest.mock block and a test.each row.",
+                        "items": {
+                            "type": "object",
+                            "required": ["file", "offerTypeKey"],
+                            "additionalProperties": false,
+                            "properties": {
+                                "file": {
+                                    "type": "string",
+                                    "description": "Module basename without .js, e.g. gpl_eqz or pi30q-non-at."
+                                },
+                                "offerTypeKey": {
+                                    "type": "string",
+                                    "description": "The colon-style dispatch key this module answers to, e.g. GPL:EQZ. Must match a case label in mutations/index.js — the unit test asserts getMutations returns ['text', locale, offerTypeKey]."
+                                },
+                                "v2Code": {
+                                    "type": "string",
+                                    "description": "The parallel v2 case label, e.g. PLLT_NQ_EZ. Emitted alongside offerTypeKey in the switch."
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "content": {
+            "type": "object",
+            "additionalProperties": false,
+            "description": "Layer 1. content/ is a dev fixture tree consumed only by utils/devServerProxy — it never ships. Fixtures must still match production copy closely, because snapshot baselines bake in whatever they say.",
+            "properties": {
+                "messages": {
+                    "$ref": "#/definitions/contentFileList"
+                },
+                "modals": {
+                    "$ref": "#/definitions/contentFileList"
+                },
+                "offers": {
+                    "$ref": "#/definitions/contentFileList"
+                }
+            }
+        },
+        "devAccounts": {
+            "type": "array",
+            "description": "Layer 4. Keys are generated to the 13-character rule and validated, not authored. Supply only the semantic parts.",
+            "items": {
+                "type": "object",
+                "required": ["slug", "modalTypes", "contentFile"],
+                "additionalProperties": false,
+                "properties": {
+                    "slug": {
+                        "type": "string",
+                        "pattern": "^[A-Z0-9]+$",
+                        "description": "The meaningful tail, e.g. ATPLEQZ or XBATPI30NQ. The generator left-pads DEV + zeros to reach exactly 13 characters."
+                    },
+                    "modalTypes": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "e.g. ['long_term'] or ['pay_in_1', 'long_term'] for multi-product."
+                    },
+                    "contentFile": {
+                        "type": "string",
+                        "description": "Basename in content/messages/<CC>/, e.g. gpl_eqz."
+                    },
+                    "v2Name": {
+                        "type": "string",
+                        "pattern": "^DEV_[A-Z0-9_]+$",
+                        "description": "The v2 logical account name, e.g. DEV_AT_LONG_TERM. Underscore style, not length-constrained."
+                    },
+                    "v2ContentFile": {
+                        "type": "string",
+                        "description": "Optional 4th tuple element when the v2 content file differs from the v1 one."
+                    }
+                }
+            }
+        },
+        "scenarios": {
+            "type": "array",
+            "description": "Which functional scenario families apply. Derived from the PRD — write only what it calls for, nothing speculative.",
+            "items": {
+                "enum": [
+                    "base",
+                    "belowMin",
+                    "aboveMax",
+                    "crossBorder",
+                    "zeroApr",
+                    "suppression",
+                    "error",
+                    "multiProduct",
+                    "checkout"
+                ]
+            }
+        },
+        "contentSource": {
+            "type": "object",
+            "additionalProperties": false,
+            "description": "Provenance only — not consumed by any script.",
+            "properties": {
+                "umcRef": {
+                    "type": "string",
+                    "description": "upstream-message-content ref checked for a counterpart. Expect a miss for new markets: across the four reference PRs only 2 of 24 added content files had one."
+                },
+                "figmaUrl": {
+                    "type": "string",
+                    "description": "Figma frame the copy was transcribed from, when UMC had no counterpart."
+                },
+                "prd": {
+                    "type": "string"
+                }
+            }
+        },
+        "interactive": {
+            "type": "boolean",
+            "default": true,
+            "description": "false for orchestrator runs: no prompts, no gates, terminal line is PR_URL= or ERROR=."
+        }
+    },
+    "definitions": {
+        "contentFileList": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "required": ["filename"],
+                "additionalProperties": false,
+                "properties": {
+                    "filename": {
+                        "type": "string",
+                        "description": "Relative to content/<kind>/<CC>/, e.g. gpl_eqz.json."
+                    },
+                    "cloneFrom": {
+                        "type": "string",
+                        "description": "Path relative to content/ to clone structure from. Copy is still replaced from the PRD or Figma; only shape is inherited."
+                    },
+                    "source": {
+                        "enum": ["umc", "figma", "prd", "template"],
+                        "description": "Which rung of the ladder actually supplied the copy."
+                    },
+                    "figmaUrl": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "if": {
+                "properties": {
+                    "mode": {
+                        "const": "new-country"
+                    }
+                }
+            },
+            "then": {
+                "required": ["templateCountry", "locale", "devAccounts"]
+            }
+        }
+    ]
+}
