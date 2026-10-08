@@ -27,7 +27,7 @@
         "headline": "Buy what you love now. Pay in 30 Days.",
         "subheadline": "Available for purchases of <span>{formattedMinAmount} - {formattedMaxAmount}.</span> This information is provided by PayPal.",
         "instructions": [
-            "Choose PayPal at checkout to use Pay in 30 Days.",
+            "Choose PayPal at checkout to use <strong> Pay in 30 Days.</strong>",
             "Complete your purchase in a few quick steps.",
             "Need more than 30 days? Optionally, you can apply to extend the payment deadline for a fee by an additional 30 days or alternatively by 54 days."
         ],
@@ -37,13 +37,13 @@
             [
                 "Terms for Pay in 30 days apply",
                 "https://www.paypal.com/at/digital-wallet/bezahlungnach30tagen/terms",
-                "Terms for Pay in 30 days, opens new tab"
+                "Terms for Pay in 30 days apply, opens new tab"
             ],
             ". Optionally, you can apply to extend the payment deadline by an additional 30 days (to a total of 60 days) or alternatively by 54 days (to a total of 84 days) for a fee. The amount of the fee will be displayed transparently in your PayPal account before the extension is completed. For the extension, ",
             [
                 "Terms for More Time To Pay apply.",
                 "https://www.paypal.com/at/digital-wallet/moretimetopay/terms",
-                "Terms for More Time To Pay, opens new tab"
+                "Terms for More Time To Pay apply, opens new tab"
             ],
             "PayPal offers customers in other countries similar products. Product features and cross-border availability vary depending on the market. Further details can be found in the respective product terms."
         ],
