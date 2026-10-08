@@ -23,9 +23,9 @@
     },
     "content": {
         "headline": "Pay later in monthly installments",
-        "subheadline": "Buy today, with no down payment.",
+        "subheadline": "Buy today, with no down payment. This information is provided by PayPal.",
         "calculator": {
-            "title": "How much is your purchase?",
+            "title": "How much is this purchase?",
             "inputLabel": "Value of goods",
             "inputPlaceholder": "{formattedMinAmount} - {formattedMaxAmount}",
             "inputCurrencySymbol": "€",
@@ -34,19 +34,28 @@
         },
         "instructions": [
             "Choose PayPal at checkout to pay later with<strong> PayPal Ratenzahlung</strong>.",
-            "Complete your purchase in a few easy steps.",
-            "That’s it! Pay early if you like, with no extra cost."
+            "Complete your purchase in a few steps.",
+            "That’s it! Pay early if you like, with no extra costs."
         ],
+        "creditWarning": "Caution! Borrowing money costs money.",
         "disclosure": {
             "nonZeroAPR": [
-                "* Subject to credit check. Starting from {formattedMinAmount} up to {formattedMaxAmount} order value. Terms of 3, 6, 12, or 24 months. For amounts over €5,000, only terms of 12 or 24 months are available. The lender is PayPal (Europe) S.à r.l. et Cie, S.C.A., 22-24 Boulevard Royal, L-2449 Luxembourg. Eligible customers must have a German private PayPal account with a linked debit card or bank account with valid SEPA mandate as a funding instrument.",
-                ["Terms ", "https://www.paypal.com/de/digital-wallet/ratenzahlung/terms", "Terms, opens new tab"],
-                " apply."
+                "* Subject to credit check. Terms of 3, 6, 12 or 24 months. Available for purchases from {formattedMinAmount} up to {formattedMaxAmount} (depending on loan term). ",
+                [
+                    "PayPal Ratenzahlung terms apply",
+                    "https://www.paypal.com/de/digital-wallet/ratenzahlung/terms",
+                    "PayPal Ratenzahlung terms apply, opens new tab"
+                ],
+                ". PayPal offers customers in other countries similar products. Product features and cross-border availability vary depending on the market. Further details can be found in the respective product terms."
             ],
             "zeroAPR": [
-                "* Subject to credit check. Terms of 3, 6, 12, or 24 months. Starting from {formattedMinAmount} up to {formattedMaxAmount} order value with an effective annual percentage rate (APR) of {formattedAPR}% p.a. and a fixed nominal interest rate of {formattedNominalRatePrecision2}% p.a. for loan agreements concluded during the promotional period. The lender is PayPal (Europe) S.à r.l. et Cie, S.C.A., 22-24 Boulevard Royal, L-2449 Luxembourg. As a consumer, you have a right of withdrawal according to § 514 BGB for gratuitous loan agreements from a financing amount of €200. Eligible customers must have a German private PayPal account with a linked debit card or bank account with valid SEPA mandate as a funding instrument. Available terms may vary in certain use cases.",
-                ["Terms", "https://www.paypal.com/de/digital-wallet/ratenzahlung/terms", "Terms, opens new tab"],
-                " apply."
+                "* Subject to credit check. Terms of 3, 6, 12 or 24 months. Available for purchases from {formattedMinAmount} up to {formattedMaxAmount} (depending on loan term). ",
+                [
+                    "PayPal Ratenzahlung terms apply",
+                    "https://www.paypal.com/de/digital-wallet/ratenzahlung/terms",
+                    "PayPal Ratenzahlung terms apply, opens new tab"
+                ],
+                ". PayPal offers customers in other countries similar products. Product features and cross-border availability vary depending on the market. Further details can be found in the respective product terms."
             ]
         },
         "navLinkPrefix": "For other Pay later options,",
