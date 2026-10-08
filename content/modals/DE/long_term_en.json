@@ -40,7 +40,7 @@
         "creditWarning": "Caution! Borrowing money costs money.",
         "disclosure": {
             "nonZeroAPR": [
-                "* Subject to credit check. Terms of 3, 6, 12 or 24 months. Available for purchases from {formattedMinAmount} up to {formattedMaxAmount} (depending on loan term). ",
+                "Subject to credit check. Terms of 3, 6, 12 or 24 months. Available for purchases from {formattedMinAmount} up to {formattedMaxAmount} (depending on loan term). ",
                 [
                     "PayPal Ratenzahlung terms apply",
                     "https://www.paypal.com/de/digital-wallet/ratenzahlung/terms",
@@ -49,7 +49,7 @@
                 ". PayPal offers customers in other countries similar products. Product features and cross-border availability vary depending on the market. Further details can be found in the respective product terms."
             ],
             "zeroAPR": [
-                "* Subject to credit check. Terms of 3, 6, 12 or 24 months. Available for purchases from {formattedMinAmount} up to {formattedMaxAmount} (depending on loan term). ",
+                "Subject to credit check. Terms of 3, 6, 12 or 24 months. Available for purchases from {formattedMinAmount} up to {formattedMaxAmount} (depending on loan term). ",
                 [
                     "PayPal Ratenzahlung terms apply",
                     "https://www.paypal.com/de/digital-wallet/ratenzahlung/terms",

@@ -39,7 +39,7 @@
         "creditWarning": "Achtung! Kreditaufnahme kostet Geld.",
         "disclosure": {
             "nonZeroAPR": [
-                "* Vorbehaltlich Kreditwürdigkeitsprüfung. Laufzeiten von 3, 6, 12 oder 24 Monaten. Ab {formattedMinAmount} und bis zu {formattedMaxAmount} Bestellwert (laufzeitabhängig). ",
+                "Vorbehaltlich Kreditwürdigkeitsprüfung. Laufzeiten von 3, 6, 12 oder 24 Monaten. Ab {formattedMinAmount} und bis zu {formattedMaxAmount} Bestellwert (laufzeitabhängig). ",
                 [
                     "Es gelten die Bedingungen für PayPal Ratenzahlung",
                     "https://www.paypal.com/de/digital-wallet/ratenzahlung/terms",
@@ -48,7 +48,7 @@
                 ". PayPal bietet Kunden in anderen Ländern ähnliche Produkte an. Produktmerkmale und grenzüberschreitende Verfügbarkeit sind je nach Markt unterschiedlich. Weitere Einzelheiten finden Sie in den jeweiligen Produktbedingungen."
             ],
             "zeroAPR": [
-                "* Vorbehaltlich Kreditwürdigkeitsprüfung. Laufzeiten von 3, 6, 12 oder 24 Monaten. Ab {formattedMinAmount} und bis zu {formattedMaxAmount} Bestellwert (laufzeitabhängig). ",
+                "Vorbehaltlich Kreditwürdigkeitsprüfung. Laufzeiten von 3, 6, 12 oder 24 Monaten. Ab {formattedMinAmount} und bis zu {formattedMaxAmount} Bestellwert (laufzeitabhängig). ",
                 [
                     "Es gelten die Bedingungen für PayPal Ratenzahlung",
                     "https://www.paypal.com/de/digital-wallet/ratenzahlung/terms",
