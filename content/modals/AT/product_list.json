@@ -7,10 +7,11 @@
     },
     "content": {
         "headline": "<span aria-hidden='true'>Jetzt kaufen, <br/>später bezahlen</span><span class='sr-only'>Jetzt kaufen, später bezahlen</span>",
-        "disclosure": "Es gelten die Nutzungsbedingungen. Vorbehaltlich Kreditwürdigkeitsprüfung. Für weitere Informationen zur Bezahlung nach 30 Tagen oder PayPal Ratenzahlung wählen Sie eine der obigen Optionen.",
+        "disclosure": "Vorbehaltlich Kreditwürdigkeitsprüfung. PayPal bietet Kunden in anderen Ländern ähnliche Produkte an. Produktmerkmale und grenzüberschreitende Verfügbarkeit sind je nach Markt unterschiedlich. Weitere Einzelheiten finden Sie in den jeweiligen Produktbedingungen.",
         "instructions": {
-            "payLater": "Wählen Sie <strong>PayPal</strong>, um <strong>“Später Bezahlen”</strong> zu nutzen."
+            "payLater": "Wählen Sie <strong>PayPal</strong>, um <strong>“Später Bezahlen”</strong> zu nutzen. Diese Information wird von PayPal zur Verfügung gestellt."
         },
+        "creditWarning": "Achtung! Kreditaufnahme kostet Geld.",
         "productTiles": {
             "payLater": [
                 {
