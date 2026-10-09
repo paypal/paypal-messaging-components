@@ -24,25 +24,27 @@
     },
     "content": {
         "headline": "Kaufen Sie jetzt was Sie möchten. Bezahlen Sie erst in 30 Tagen.",
-        "subheadline": "Erhältlich für Einkäufe i.H.v. <span>{formattedMinAmount} - {formattedMaxAmount}.</span>",
+        "subheadline": "Erhältlich für Einkäufe i.H.v. <span>{formattedMinAmount} - {formattedMaxAmount}.</span> Diese Information wird von PayPal zur Verfügung gestellt.",
         "instructions": [
             "Wählen Sie PayPal als Bezahlmethode aus und nutzen Sie die Option,<strong> 30 Tage später zu bezahlen.</strong>",
             "Schließen Sie Ihren Einkauf in wenigen Schritten ab.",
             "Sie benötigen mehr als 30 Tage? Optional kann eine Verlängerung der Zahlungsfrist um weitere 30 Tage oder alternativ um 54 Tage gegen Gebühr beantragt werden."
         ],
+        "creditWarning": "Achtung! Kredite können bei Verzug zu Kosten führen.",
         "disclosure": [
-            "Vorbehaltlich Kreditwürdigkeitsprüfung. Für Einkäufe zwischen {formattedMinAmount} - {formattedMaxAmount}. Es gelten die ",
+            "Vorbehaltlich Kreditwürdigkeitsprüfung. Für Einkäufe zwischen {formattedMinAmount} und {formattedMaxAmount}. ",
             [
-                "Bezahlung nach 30 Tagen Bedingungen.",
+                "Es gelten die Bedingungen für Bezahlung nach 30 Tagen",
                 "https://www.paypal.com/de/digital-wallet/bezahlungnach30tagen/terms",
-                "Bedingungen für die Nutzung von Bezahlung nach 30 Tagen, öffnet in neuem Tab"
+                "Es gelten die Bedingungen für Bezahlung nach 30 Tagen, öffnet in neuem Tab"
             ],
-            " Nutzungsvoraussetzung ist ein deutsches PayPal-Privatkonto mit einer verknüpften Debitkarte oder einem Bankkonto mit gültigem SEPA-Lastschriftmandat als Zahlungsquelle. Optional können Sie beantragen, die Zahlungsfrist zusätzlich um weitere 30 Tage (auf insgesamt 60 Tage) oder alternativ um 54 Tage (auf insgesamt 84 Tage) gegen Gebühr zu verlängern. Die Höhe der Gebühr wird transparent vor Abschluss der Verlängerung im PayPal-Konto angezeigt. Für die Verlängerung gelten die ",
+            ". Optional kannst du beantragen, die Zahlungsfrist zusätzlich um weitere 30 Tage (auf insgesamt 60 Tage) oder alternativ um 54 Tage (auf insgesamt 84 Tage) gegen Gebühr zu verlängern. Die Höhe der Gebühr wird transparent vor Abschluss der Verlängerung im PayPal-Konto angezeigt. Für die Verlängerung gelten ",
             [
-                "Bedingungen für Mehr Zeit zum Bezahlen.",
+                "die Bedingungen für Mehr Zeit zum Bezahlen.",
                 "https://www.paypal.com/de/digital-wallet/moretimetopay/terms",
-                "Besondere Nutzungsbedingungen für die Nutzung von Mehr Zeit zum Bezahlen, öffnet in neuem Tab"
-            ]
+                "die Bedingungen für Mehr Zeit zum Bezahlen, öffnet in neuem Tab"
+            ],
+            "PayPal bietet Kunden in anderen Ländern ähnliche Produkte an. Produktmerkmale und grenzüberschreitende Verfügbarkeit sind je nach Markt unterschiedlich. Weitere Einzelheiten finden Sie in den jeweiligen Produktbedingungen."
         ],
         "navLinkPrefix": "Um Ihren Einkauf in monatlichen Raten zu zahlen,",
         "linkToProductList": "wählen Sie die PayPal Ratenzahlung."
