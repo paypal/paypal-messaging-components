@@ -243,4 +243,15 @@
             }
         }
     }
+
+    &.de {
+        .content__row {
+            &.disclosure.pay-in-1 {
+                span:last-of-type {
+                    display: inline-block;
+                    margin-top: 20px;
+                }
+            }
+        }
+    }
 }
