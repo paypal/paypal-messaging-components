@@ -218,6 +218,14 @@
         }
     }
 
+    // credit-warning and disclosure are flex siblings, so their margins
+    // don't collapse like normal block siblings would. Zero out
+    // disclosure's own top margin when it follows credit-warning so the
+    // gap is just credit-warning's margin-bottom, not both stacked.
+    .content__row.credit-warning + .content__row.disclosure {
+        margin-top: 0;
+    }
+
     &.v4Design {
         background: colors.$v4-gray;
     }
