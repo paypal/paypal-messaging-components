@@ -1,0 +1,74 @@
+{
+    "meta": {
+        "product": "PAY_LATER_LONG_TERM",
+        "offerCountry": "AU",
+        "useV5Design": "true",
+        "v5.1": "true",
+        "variables": {
+            "transaction_amount": "${eval(transaction_amount ? transaction_amount : '-')}",
+            "qualifying_offer": "${eval(CREDIT_OFFERS_DS.qualifying_offer ? CREDIT_OFFERS_DS.qualifying_offer : 'false')}",
+            "financing_code": "${CREDIT_OFFERS_DS.financing_code}",
+            "formattedPeriodicPayment": "${CREDIT_OFFERS_DS.formattedPeriodicPayment}",
+            "total_payments": "${CREDIT_OFFERS_DS.total_payments}",
+            "formattedMinAmount": "${CREDIT_OFFERS_DS.formattedMinAmount}",
+            "formattedMaxAmount": "${CREDIT_OFFERS_DS.formattedMaxAmount}",
+            "formattedTotalCost": "${CREDIT_OFFERS_DS.formattedTotalCost}",
+            "minAmount": "${CREDIT_OFFERS_DS.minAmount}",
+            "maxAmount": "${CREDIT_OFFERS_DS.maxAmount}",
+            "apr": "${CREDIT_OFFERS_DS.apr}",
+            "nominal_rate": "${CREDIT_OFFERS_DS.nominal_rate}",
+            "formattedNominalRatePrecision2": "${CREDIT_OFFERS_DS.formattedNominalRatePrecision2}"
+        }
+    },
+    "content": {
+        "headline": "Pay Monthly",
+        "subheadline": "Get more time to pay, with no down payment or late fees.",
+        "calculator": {
+            "title": "How much is your purchase?",
+            "inputLabel": "Purchase amount",
+            "inputPlaceholder": "Enter amount",
+            "genericError": "Something went wrong. Please try again later.",
+            "loadingLabel": "Loading financing options"
+        },
+        "genericDisclaimer": "",
+        "instructions": [
+            "Choose PayPal at checkout to pay later with <strong>Pay Monthly</strong>.",
+            "Get a real-time decision and complete your purchase.",
+            "Set-up automatic monthly repayments. It's easy!"
+        ],
+        "disclosure": [
+            "PayPal Pay Monthly is provided by PayPal Credit Pty Limited (ABN 66 600 629 258; Australian Credit Licence 568848) to Australian residents aged 18 years or over, subject to eligibility criteria, credit application and suitability assessment. Pay Monthly is a fixed-term monthly instalment product available on eligible transactions between AU{formattedMinAmount} and AU{formattedMaxAmount}, repayable over 12, 18 or 24 instalments at a fixed annual percentage rate. Application and use may impact your credit score. Before applying, please read and consider the",
+            [
+                "Target Market Determination",
+                "https://www.paypal.com/au/legalhub/paypal/home?locale.x=en_AU",
+                "Target Market Determination, opens new tab"
+            ],
+            ",",
+            [
+                "PayPal Credit Guide",
+                "https://www.paypal.com/au/legalhub/paypal/home?locale.x=en_AU",
+                "PayPal Credit Guide, opens new tab"
+            ],
+            "and the",
+            [
+                "PayPal Pay Monthly Agreement",
+                "https://www.paypal.com/au/legalhub/paypal/home?locale.x=en_AU",
+                "PayPal Pay Monthly Agreement, opens new tab"
+            ],
+            "for full terms and conditions. PayPal may disclose your personal information to a credit reporting body. For more information on how PayPal handles your personal information and credit reporting practices, see our",
+            [
+                "Privacy Statement",
+                "https://www.paypal.com/au/legalhub/paypal/privacy-full",
+                "Privacy Statement, opens new tab"
+            ],
+            "and",
+            [
+                "Statement of Notifiable Matters",
+                "https://www.paypal.com/au/legalhub/paypal/credit-reporting?locale.x=en_AU",
+                "Statement of Notifiable Matters, opens new tab"
+            ],
+            "."
+        ],
+        "linkToProductList": "See other ways to pay later"
+    }
+}
