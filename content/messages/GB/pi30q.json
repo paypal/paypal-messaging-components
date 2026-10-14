@@ -15,7 +15,7 @@
     "headline": [
         [["Buy now, pay later."], ["default", "xsmall"]],
         [
-            ["Pay in 30 days", [".", "weak"]],
+            ["Pay in 30 days. New to Pay Later? Spend £100+ and get £15 cashback", [".", "weak"]],
             ["medium", "large", "xlarge"]
         ]
     ],
