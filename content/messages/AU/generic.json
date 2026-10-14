@@ -1,0 +1,14 @@
+{
+    "meta": {
+        "offerCountry": "AU",
+        "offerType": "GENERIC",
+        "messageType": "PL_GENERIC",
+        "lander": "",
+        "variables": {
+            "financing_code": "GENERIC"
+        }
+    },
+    "headline": [["Buy now, pay later.", ["default", "xsmall"]]],
+    "subHeadline": [],
+    "disclaimer": [["<span aria-hidden='true'>Learn more</span><span class='sr-only'> Learn more</span>", ["default"]]]
+}
