@@ -1,4 +1,4 @@
-import { getPayPalDomain, getDevTouchpoint, getFeatures } from '../../../../../src/utils/sdk';
+import { getPayPalDomain, getDevTouchpoint, getFeatures, isPayPalDomain } from '../../../../../src/utils/sdk';
 
 describe('getPayPalDomain', () => {
     beforeEach(() => {
@@ -101,5 +101,25 @@ describe('getFeatures', () => {
             __NATIVE_MODAL__: false
         };
         expect(getFeatures()).toBe(undefined);
+    });
+});
+
+describe('isPayPalDomain', () => {
+    test.each(['www.paypal.com', 'sandbox.paypal.com', 'testenv.qa.paypal.com', 'a.b.paypal.com', 'WWW.PAYPAL.COM'])(
+        'returns true for %s',
+        hostname => {
+            expect(isPayPalDomain(hostname)).toBe(true);
+        }
+    );
+
+    test.each(['notpaypal.com', 'paypal.com.attacker.net', 'evilpaypal.com', 'merchant.example.com', 'paypal.com'])(
+        'returns false for %s',
+        hostname => {
+            expect(isPayPalDomain(hostname)).toBe(false);
+        }
+    );
+
+    test.each([undefined, null, 123, {}])('returns false for non-string input %p', value => {
+        expect(isPayPalDomain(value)).toBe(false);
     });
 });
