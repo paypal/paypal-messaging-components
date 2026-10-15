@@ -1,6 +1,6 @@
-@use "../globals/colors";
-@use "../globals/mixins";
-@use "../globals/variables";
+@use '../globals/colors';
+@use '../globals/mixins';
+@use '../globals/variables';
 
 .content__container {
     position: relative;
@@ -228,7 +228,7 @@
     &.checkout {
         background-color: colors.$white;
     }
-    
+
     &.darkMode {
         background-color: colors.$dark-mode-black;
     }
@@ -239,6 +239,18 @@
                 span:first-of-type {
                     display: inline-block;
                     margin-bottom: 20px;
+                }
+            }
+        }
+    }
+
+    &.de,
+    &.at {
+        .content__row {
+            &.disclosure.pay-in-1 {
+                span:last-of-type {
+                    display: inline-block;
+                    margin-top: 20px;
                 }
             }
         }
