@@ -218,6 +218,31 @@
         }
     }
 
+    // credit-warning and disclosure are flex siblings, so their margins
+    // don't collapse like normal block siblings would. Zero out
+    // disclosure's own top margin when it follows credit-warning so the
+    // gap is just credit-warning's margin-bottom, not both stacked.
+    .content__row.credit-warning + .content__row.disclosure {
+        margin-top: 0;
+    }
+
+    // ShortTerm wraps its .dynamic row in an extra .dynamic__container, so
+    // credit-warning is a sibling of that wrapper, not of .content__row.dynamic
+    // directly. The existing :has() rule above (for LongTerm) can't reach it,
+    // so match the wrapper separately to keep ShortTerm's spacing consistent.
+    .dynamic__container:has(+ .credit-warning) .instructions.v5Design {
+        margin-bottom: 0px;
+    }
+
+    // ShortTerm/styles.scss adds padding-top: 24px to .disclosure.v5Design for
+    // when disclosure follows the dynamic row directly (no credit-warning).
+    // When credit-warning IS present, that padding stacks on top of its own
+    // margin-bottom and adds an extra line of space PM never had, so zero it
+    // out here (specificity beats ShortTerm's rule regardless of load order).
+    .content__row.credit-warning + .content__row.disclosure.v5Design {
+        padding-top: 0;
+    }
+
     &.v4Design {
         background: colors.$v4-gray;
     }
@@ -231,17 +256,6 @@
 
     &.darkMode {
         background-color: colors.$dark-mode-black;
-    }
-
-    &.fr {
-        .content__row {
-            &.disclosure {
-                span:first-of-type {
-                    display: inline-block;
-                    margin-bottom: 20px;
-                }
-            }
-        }
     }
 
     &.de,
