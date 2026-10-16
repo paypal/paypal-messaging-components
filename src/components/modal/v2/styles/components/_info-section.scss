@@ -1,0 +1,43 @@
+@use "../globals/colors";
+@use "../globals/mixins";
+
+.info-section {
+    text-align: left;
+    box-sizing: border-box;
+    margin: 12px 0;
+    padding-right: 24px;
+
+    @include mixins.tablet {
+        padding-left: 37px;
+    }
+
+    &__headline {
+        font-size: 18px;
+        font-weight: 700;
+        line-height: 24px;
+        text-align: left;
+        color: colors.$text-main;
+        margin: 0 0 8px 0;
+
+        .darkMode & {
+            color: colors.$white;
+        }
+    }
+
+    &__paragraph {
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 20px;
+        text-align: left;
+        color: colors.$text-main;
+        margin: 0 0 12px 0;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+
+        .darkMode & {
+            color: colors.$white;
+        }
+    }
+}
