@@ -13,7 +13,7 @@ import { getEuroStyleClass } from '../../../lib';
 
 export const PayIn1 = ({
     productMeta: { useV5Design, qualifying },
-    content: { instructions, linkToProductList, disclosure, navLinkPrefix, learnMoreLink, cta },
+    content: { instructions, linkToProductList, disclosure, navLinkPrefix, learnMoreLink, cta, cashbackOffer },
     useNewCheckoutDesign,
     openProductList
 }) => {
@@ -113,6 +113,15 @@ export const PayIn1 = ({
             <div className="content__row productLink">
                 <div className="productLink__container">{renderProductListLink()}</div>
             </div>
+            {cashbackOffer && (
+                <div
+                    className={`content__row disclosure cashback-offer ${
+                        useV5Design ? 'v5Design' : ''
+                    } ${getEuroStyleClass(country)}`}
+                >
+                    <InlineLinks text={cashbackOffer} />
+                </div>
+            )}
             <div className="content__row">{renderCheckoutCtaButton()}</div>
         </Fragment>
     );
