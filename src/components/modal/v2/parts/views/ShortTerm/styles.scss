@@ -265,6 +265,10 @@
         }
     }
 
+    .dynamic__container:has(~ .cashback-offer) .instructions.v5Design {
+        margin-bottom: 0px;
+    }
+
     .button,
     .content__disclaimer {
         display: flex;
@@ -286,6 +290,11 @@
             padding-bottom: 60px;
             @include mixins.mobile {
                 padding-bottom: 100px;
+            }
+
+            // same as above, cashback-offer takes over the clearance
+            &:has(~ .cashback-offer) {
+                padding-bottom: 0px;
             }
         }
 
