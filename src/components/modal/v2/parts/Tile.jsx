@@ -8,7 +8,6 @@ const Tile = ({ header, body, viewName, setViewName, useV5Design, use5Dot1Design
     return (
         <button
             className={`tile ${useV5Design ? 'v5Design' : ''} ${use5Dot1Design ? 'v5Dot1Design' : ''}`}
-            aria-label={`${header} ${body}`}
             type="button"
             onClick={() => {
                 setViewName(viewName);
@@ -16,7 +15,7 @@ const Tile = ({ header, body, viewName, setViewName, useV5Design, use5Dot1Design
             }}
         >
             <div className="tile__row">
-                <div aria-hidden="true" className="tile__col">
+                <div className="tile__col">
                     <div className="tile__header">{header}</div>
                     <div
                         className={`tile__body ${useV5Design ? 'v5Design' : ''} ${
