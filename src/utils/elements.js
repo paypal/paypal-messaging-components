@@ -51,6 +51,13 @@ export function getInlineOptions(container) {
     };
 
     const inlineEventHandlers = ['onclick', 'onapply', 'onrender'];
+    const expressionValueKeyByAttribute = {
+        onclick: 'inlineExpressionOnclickValue',
+        onapply: 'inlineExpressionOnapplyValue',
+        onrender: 'inlineExpressionOnrenderValue'
+    };
+    let hasInlineEventHandler = false;
+    const expressionStyleHandlerValues = {};
 
     const getOptionValue = (name, value) => {
         if (typeof value === 'string' && value.startsWith('[')) {
@@ -61,11 +68,15 @@ export function getInlineOptions(container) {
         return flattenedToObject(name, value);
     };
 
-    const dataOptions = Array.from(container.attributes)
+    let dataOptions = Array.from(container.attributes)
         .filter(({ nodeName }) => nodeName.startsWith('data-pp-'))
         .reduce((accumulator, { nodeName, nodeValue }) => {
             if (nodeValue) {
                 const attributeName = nodeName.replace('data-pp-', '');
+                if (inlineEventHandlers.includes(attributeName)) {
+                    hasInlineEventHandler = true;
+                    expressionStyleHandlerValues[expressionValueKeyByAttribute[attributeName]] = nodeValue;
+                }
                 const value = inlineEventHandlers.includes(attributeName)
                     ? // eslint-disable-next-line no-new-func
                       new Function(nodeValue)
@@ -79,6 +90,11 @@ export function getInlineOptions(container) {
 
             return accumulator;
         }, {});
+
+    dataOptions = objectMerge(dataOptions, {
+        inlineExpression: hasInlineEventHandler,
+        ...expressionStyleHandlerValues
+    });
 
     if (
         !container.firstElementChild ||
