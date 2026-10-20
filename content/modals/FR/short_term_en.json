@@ -51,8 +51,11 @@
         "disclosure": [
             "Only for individuals residing in France. Pay in 4 installments is available subject to approval, for purchases from {formattedMinAmount} to {formattedMaxAmount}.",
             "Credit is offered by PayPal (Europe) S.à r.l. et Cie, S.C.A., 22-24 Boulevard Royal, L-2449, Luxembourg, R.C.S. Luxembourg B 118 349, which is duly licensed as a Luxembourg credit institution and is under the prudential supervision of the Luxembourg supervisory authority, the Commission de Surveillance du Secteur Financier. This information is provided by PayPal. Learn more about ",
-            ["Pay Later options", "https://www.paypal.com/fr/digital-wallet/ways-to-pay/buy-now-pay-later"],
-            "."
+            [
+                "Pay Later options.",
+                "https://www.paypal.com/fr/digital-wallet/ways-to-pay/buy-now-pay-later",
+                "Pay Later options, opens a new tab"
+            ]
         ],
         "linkToProductList": "See other ways to pay later"
     }
