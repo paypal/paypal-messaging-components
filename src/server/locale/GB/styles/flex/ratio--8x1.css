@@ -25,6 +25,7 @@
 
     .message__disclaimer {
         margin-left: 1%;
+        font-size: 1.2vw;
     }
 }
 
@@ -63,6 +64,10 @@
 @media (min-aspect-ratio: 80/11) and (max-width: 350px) {
     .message__headline {
         font-size: 2vw;
+    }
+
+    .message__disclaimer {
+        font-size: 1.2vw;
     }
 }
 
