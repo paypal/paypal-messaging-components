@@ -27,7 +27,8 @@ export const ShortTerm = ({
         learnMoreLink,
         cta,
         offerTerms,
-        spendingPowerSubtext
+        spendingPowerSubtext,
+        cashbackOffer
     },
     productMeta: {
         qualifying,
@@ -239,6 +240,15 @@ export const ShortTerm = ({
             <div className={`content__row productLink${isPrequalExperience ? ' prequal-fixed-offset' : ''}`}>
                 <div className="productLink__container">{renderProductListLink()}</div>
             </div>
+            {cashbackOffer && (
+                <div
+                    className={`content__row disclosure cashback-offer ${useV5Design === 'true' ? 'v5Design' : ''} ${
+                        useDarkMode ? 'darkMode' : ''
+                    } ${countryClassName}`}
+                >
+                    <InlineLinks text={cashbackOffer} />
+                </div>
+            )}
             <div className="content__row">{renderCheckoutCtaButton()}</div>
         </Fragment>
     );

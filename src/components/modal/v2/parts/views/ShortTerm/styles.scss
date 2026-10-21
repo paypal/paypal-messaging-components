@@ -190,11 +190,7 @@
         }
 
         &.checkout {
-            .button {
-                @include mixins.tablet {
-                    width: auto;
-                }
-            }
+            padding-top: 10px;
         }
     }
 
@@ -265,6 +261,10 @@
         }
     }
 
+    .dynamic__container:has(~ .cashback-offer) .instructions.v5Design {
+        margin-bottom: 0px;
+    }
+
     .button,
     .content__disclaimer {
         display: flex;
@@ -280,12 +280,21 @@
         &.v5Design {
             color: colors.$v5-gray;
             padding-top: 24px;
+
+            &.cashback-offer {
+                padding-top: 0px;
+            }
         }
 
         &.checkout {
             padding-bottom: 60px;
             @include mixins.mobile {
                 padding-bottom: 100px;
+            }
+
+            // same as above, cashback-offer takes over the clearance
+            &:has(~ .cashback-offer) {
+                padding-bottom: 0px;
             }
         }
 

@@ -17,7 +17,7 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     xSmallFallback(textSize * 16),
-                    textWrap(textSize * 32, textSize, 'GB'),
+                    textWrap(textSize * 62, textSize, 'GB'),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25),
                     `.weak { display: none}`,
                     addPeriod()
@@ -26,7 +26,7 @@ export default {
                 headline: [
                     {
                         tag: 'medium',
-                        br: ['payments']
+                        br: ['Later?']
                     },
                     { tag: 'xsmall' }
                 ],
@@ -41,7 +41,7 @@ export default {
                         textSize * 14.15
                     }px) { .message__headline > .tag--medium > span > span:first-child { white-space: normal; } }`,
                     xSmallFallback(textSize * 10.75),
-                    setLogoTop(textSize * 32 + 10),
+                    setLogoTop(textSize * 60 + 10),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
                     `.weak { display: none}`,
                     addPeriod()
@@ -67,7 +67,7 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     `@media screen and (max-width: ${textSize * 10.6}px) { .message__content { white-space: nowrap; }}`,
-                    textWrap(textSize * 32, textSize, 'GB'),
+                    textWrap(textSize * 62, textSize, 'GB'),
                     xSmallFallback(textSize * 11.5),
                     altNoWrap(textSize * 10.6),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25),
@@ -86,7 +86,7 @@ export default {
                     {
                         tag: 'medium',
                         br: ['on'],
-                        replace: [['purchases.', 'purchases']]
+                        replace: [[/\.$/, '']]
                     },
                     {
                         tag: 'xsmall.2',
@@ -104,7 +104,7 @@ export default {
                     {
                         tag: 'medium',
                         br: ['on'],
-                        replace: [['purchases.', 'purchases']]
+                        replace: [[/\.$/, '']]
                     },
                     {
                         tag: 'xsmall.2',
@@ -155,7 +155,7 @@ export default {
                     },
                     {
                         tag: 'medium',
-                        br: ['payments']
+                        br: ['Later?']
                     }
                 ],
                 styles: [
