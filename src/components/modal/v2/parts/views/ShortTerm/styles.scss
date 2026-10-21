@@ -190,11 +190,7 @@
         }
 
         &.checkout {
-            .button {
-                @include mixins.tablet {
-                    width: auto;
-                }
-            }
+            padding-top: 10px;
         }
     }
 
@@ -284,6 +280,10 @@
         &.v5Design {
             color: colors.$v5-gray;
             padding-top: 24px;
+
+            &.cashback-offer {
+                padding-top: 0px;
+            }
         }
 
         &.checkout {

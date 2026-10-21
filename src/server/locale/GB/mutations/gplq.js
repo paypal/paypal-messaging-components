@@ -86,7 +86,7 @@ export default {
                     {
                         tag: 'medium',
                         br: ['on'],
-                        replace: [['cashback.', 'cashback']]
+                        replace: [[/\.$/, '']]
                     },
                     {
                         tag: 'xsmall.2',
@@ -104,7 +104,7 @@ export default {
                     {
                         tag: 'medium',
                         br: ['on'],
-                        replace: [['cashback.', 'cashback']]
+                        replace: [[/\.$/, '']]
                     },
                     {
                         tag: 'xsmall.2',

@@ -74,7 +74,7 @@ export default {
                         tag: 'medium',
                         br: ['0.'],
                         replace: [
-                            ['cashback.', 'cashback'],
+                            [/\.$/, ''],
                             ['later.', 'later']
                         ]
                     },
@@ -102,7 +102,7 @@ export default {
                         tag: 'medium',
                         br: ['0.'],
                         replace: [
-                            ['cashback.', 'cashback'],
+                            [/\.$/, ''],
                             ['later.', 'later']
                         ]
                     },
