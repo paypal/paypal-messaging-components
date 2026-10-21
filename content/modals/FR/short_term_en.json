@@ -30,15 +30,6 @@
 
         "subheadline": "Available for purchases from <span>{formattedMinAmount} to {formattedMaxAmount}.</span> No administration fees or late fees. This information is provided by PayPal.",
         "qualifyingSubheadline": "Pay for your purchase of {formattedTransactionAmount} in 4 instalments without administration fees or late fees.",
-        "donutTimestamps": ["Today", "1 month", "2 months", "3 months"],
-        "estimatedInstallments": {
-            "items": [
-                { "total_payment:": "{formattedPeriodicPayment}", "payment_date": "Today" },
-                { "total_payment:": "{formattedPeriodicPayment}", "payment_date": "1 month" },
-                { "total_payment:": "{formattedPeriodicPayment}", "payment_date": "2 months" },
-                { "total_payment:": "{formattedPeriodicPayment}", "payment_date": "3 months" }
-            ]
-        },
 
         "instructions": [
             "Choose PayPal at checkout to benefit from Pay in 4X. ",

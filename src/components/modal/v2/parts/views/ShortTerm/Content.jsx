@@ -152,7 +152,7 @@ export const ShortTerm = ({
     };
 
     const hasInstallments = Object.keys(estimatedInstallments?.items ?? {}).length;
-    const elements = hasInstallments ? estimatedInstallments?.items : donutTimestamps;
+    const elements = hasInstallments ? estimatedInstallments?.items : donutTimestamps ?? [];
 
     // regex replaces EUR with the euro symbol €
     const localeFormattedPayment = periodicPayment.replace(/(\s?EUR)/g, ' €');
@@ -167,30 +167,32 @@ export const ShortTerm = ({
                     } ${countryClassName}`}
                 >
                     <div className="content__col">
-                        <div className={`content__row donuts ${useNewCheckoutDesign === 'true' ? 'checkout' : ''}`}>
-                            <div className="donuts__container">
-                                {elements.map((installment, index) => (
-                                    <Donut
-                                        key={index}
-                                        useV4Design={useV4Design}
-                                        useV5Design={useV5Design}
-                                        use5Dot1Design={use5Dot1Design}
-                                        useNewCheckoutDesign={useNewCheckoutDesign}
-                                        useDarkMode={useDarkMode}
-                                        qualifying={qualifying}
-                                        // regex replaces EUR with the euro symbol €
-                                        periodicPayment={
-                                            installment?.total_payment
-                                                ? installment.total_payment.replace(/(\s?EUR)/g, ' €')
-                                                : localeFormattedPayment
-                                        }
-                                        currentNum={index + 1}
-                                        timeStamp={installment?.payment_date ?? donutTimestamps[index]}
-                                        numOfPayments={elements.length}
-                                    />
-                                ))}
+                        {elements.length > 0 && (
+                            <div className={`content__row donuts ${useNewCheckoutDesign === 'true' ? 'checkout' : ''}`}>
+                                <div className="donuts__container">
+                                    {elements.map((installment, index) => (
+                                        <Donut
+                                            key={index}
+                                            useV4Design={useV4Design}
+                                            useV5Design={useV5Design}
+                                            use5Dot1Design={use5Dot1Design}
+                                            useNewCheckoutDesign={useNewCheckoutDesign}
+                                            useDarkMode={useDarkMode}
+                                            qualifying={qualifying}
+                                            // regex replaces EUR with the euro symbol €
+                                            periodicPayment={
+                                                installment?.total_payment
+                                                    ? installment.total_payment.replace(/(\s?EUR)/g, ' €')
+                                                    : localeFormattedPayment
+                                            }
+                                            currentNum={index + 1}
+                                            timeStamp={installment?.payment_date ?? donutTimestamps?.[index]}
+                                            numOfPayments={elements.length}
+                                        />
+                                    ))}
+                                </div>
                             </div>
-                        </div>
+                        )}
                         {showPreapprovalContent && (
                             <PreapprovalDisclaimer
                                 preapprovalDisclaimerBody={preapprovalDisclaimerBody}
