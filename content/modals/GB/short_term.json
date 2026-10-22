@@ -47,6 +47,11 @@
             "PayPal Pay in 3 is a trading name of PayPal UK Ltd, 5 Fleet Place, London, United Kingdom, EC4M 7RD."
         ],
         "learnMoreLink": [["Learn more about Pay in 3", ["https://www.paypal.com/uk/webapps/mpp/paypal-payin3/faq"]]],
-        "linkToProductList": "See other ways to pay later"
+        "linkToProductList": "See other ways to pay later",
+        "cashbackOffer": [
+            "£15 cashback offer:<br>New to Pay Later customers only. Get £15 cashback when you use Pay in 3 or Pay in 30 for the first time on a purchase of over £100, added as cash balance to your PayPal account 35 days after purchase. One reward per customer. Offer ends on the earlier of 07/01/27 or when 140,000 customers have used it. See full ",
+            ["offer terms", "https://www.paypal.com/uk/campaign/paylaterftu15gbp", "offer terms, opens new tab"],
+            " for eligibility and exclusions."
+        ]
     }
 }

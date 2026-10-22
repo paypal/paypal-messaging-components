@@ -15,7 +15,7 @@ export default {
             'default',
             ({ textSize }) => ({
                 styles: [
-                    textWrap(textSize * 55, textSize, 'GB'),
+                    textWrap(textSize * 105, textSize, 'GB'),
                     xSmallFallback(textSize * 16),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25)
                 ],
@@ -23,7 +23,7 @@ export default {
                 headline: [
                     {
                         tag: 'medium',
-                        br: ['purchases']
+                        br: ['Later?']
                     },
                     { tag: 'xsmall' }
                 ],
@@ -35,7 +35,7 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     xSmallFallback(textSize * 16),
-                    setLogoTop(textSize * 44 + 10),
+                    setLogoTop(textSize * 64 + 10),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
                 ]
             })
@@ -50,7 +50,7 @@ export default {
             'logo.type:alternative',
             ({ textSize }) => ({
                 styles: [
-                    textWrap(textSize * 55, textSize, 'GB'),
+                    textWrap(textSize * 64, textSize, 'GB'),
                     xSmallFallback(textSize * 16),
                     altNoWrap(textSize * 10.6),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25)
@@ -66,7 +66,7 @@ export default {
                 headline: [
                     {
                         tag: 'medium',
-                        br: ['purchases'],
+                        br: ['Later?'],
                         replace: [[/\.$/, '']]
                     },
                     { tag: 'xsmall', replace: [['later.', 'later']] }
@@ -81,7 +81,7 @@ export default {
                 headline: [
                     {
                         tag: 'medium',
-                        br: ['purchases'],
+                        br: ['Later?'],
                         replace: [[/\.$/, '']]
                     },
                     { tag: 'xsmall', replace: [['later.', 'later']] }
@@ -110,7 +110,7 @@ export default {
         [
             'ratio:8x1',
             {
-                headline: [{ tag: 'xsmall' }, { tag: 'medium', br: ['purchases'] }]
+                headline: [{ tag: 'xsmall' }, { tag: 'medium', br: ['Later?'] }]
             }
         ],
         ...flexLogoMutations

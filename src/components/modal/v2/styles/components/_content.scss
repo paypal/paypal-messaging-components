@@ -216,6 +216,18 @@
                 }
             }
         }
+
+        &.checkout.disclosure:has(~ .cashback-offer) {
+            margin-bottom: 0px;
+        }
+
+        &.cashback-offer {
+            padding-bottom: 60px;
+        }
+
+        &.dynamic:has(~ .cashback-offer) .instructions.v5Design {
+            margin-bottom: 0px;
+        }
     }
 
     &.v4Design {
