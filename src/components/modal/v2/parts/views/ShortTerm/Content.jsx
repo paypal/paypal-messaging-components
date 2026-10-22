@@ -9,6 +9,7 @@ import ProductListLink from '../../ProductListLink';
 import InlineLinks from '../../InlineLinks';
 import Button from '../../Button';
 import OfferTerms from '../../OfferTerms';
+import InfoSection from '../../InfoSection';
 import Icon from '../../Icon';
 import styles from './styles.scss';
 
@@ -28,7 +29,9 @@ export const ShortTerm = ({
         cta,
         offerTerms,
         spendingPowerSubtext,
-        cashbackOffer
+        cashbackOffer,
+        spendingPowerSection,
+        autopayMethodSection
     },
     productMeta: {
         qualifying,
@@ -214,6 +217,18 @@ export const ShortTerm = ({
                                 bullets={offerTerms.bullets}
                                 footer={offerTerms.footer}
                                 seeTermsLink={offerTerms.seeTermsLink}
+                            />
+                        )}
+                        {spendingPowerSection && (
+                            <InfoSection
+                                headline={spendingPowerSection.headline}
+                                paragraphs={spendingPowerSection.paragraphs}
+                            />
+                        )}
+                        {autopayMethodSection && (
+                            <InfoSection
+                                headline={autopayMethodSection.headline}
+                                paragraphs={autopayMethodSection.paragraphs}
                             />
                         )}
                     </div>
