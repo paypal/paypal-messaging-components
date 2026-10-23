@@ -27,7 +27,7 @@ export const donutsShowCorrectPayment = async (amount, minAmount, maxAmount, con
     await contentWindow.waitForSelector(contentWrapper);
     await contentWindow.waitForSelector(contentRow);
 
-    if (amount < minAmount || amount > maxAmount) {
+    if (amount < minAmount || amount > maxAmount || modalContent.periodicPayment === undefined) {
         const periodicPaymentEl = await contentWindow.evaluate(donutSelector => {
             return document.querySelector(donutSelector);
         }, periodicPayment);
