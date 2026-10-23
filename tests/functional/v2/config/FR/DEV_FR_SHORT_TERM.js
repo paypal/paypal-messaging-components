@@ -20,8 +20,7 @@ export const DEV_FR_SHORT_TERM = {
             message: 'Qualifying Pay in 4',
             expectedValue: 'Payez votre achat de 30,00 €',
             modalContent: {
-                subheadline: 'Payez votre achat de 30,00 € en 4 fois sans frais de dossier ni frais de retard.',
-                periodicPayment: '7,50 €'
+                subheadline: 'Payez votre achat de 30,00 € en 4 fois sans frais de dossier ni frais de retard.'
             }
         },
         {
