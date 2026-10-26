@@ -96,11 +96,12 @@ export const LongTerm = ({
 }) => {
     const [expandedState, setExpandedState] = useState(false);
     const { amount, onClick, onClose } = useXProps();
-    const { views, country } = useServerData();
+    const { views, country, payerId } = useServerData();
     const spendingPowerClickTitle = 'Check Spending Power';
     const handlePrequalification = usePrequalification(spendingPowerClickTitle, onClick, {
         offer: product,
-        amount
+        amount,
+        payerId
     });
     const { offers } = views.find(view => view.offers);
     const { minAmount, maxAmount } = getComputedVariables(offers);
