@@ -9,6 +9,7 @@ import ProductListLink from '../../ProductListLink';
 import InlineLinks from '../../InlineLinks';
 import Button from '../../Button';
 import OfferTerms from '../../OfferTerms';
+import InfoSection from '../../InfoSection';
 import Icon from '../../Icon';
 import styles from './styles.scss';
 
@@ -27,7 +28,10 @@ export const ShortTerm = ({
         learnMoreLink,
         cta,
         offerTerms,
-        spendingPowerSubtext
+        spendingPowerSubtext,
+        cashbackOffer,
+        spendingPowerSection,
+        autopayMethodSection
     },
     productMeta: {
         qualifying,
@@ -46,10 +50,11 @@ export const ShortTerm = ({
     useDarkMode
 }) => {
     const { views, country, payerId } = useServerData();
-    const { onClick, onClose } = useXProps();
+    const { amount, onClick, onClose } = useXProps();
     const spendingPowerClickTitle = 'Check Spending Power';
     const handlePrequalification = usePrequalification(spendingPowerClickTitle, onClick, {
         offer: product,
+        amount,
         payerId
     });
 
@@ -215,6 +220,18 @@ export const ShortTerm = ({
                                 seeTermsLink={offerTerms.seeTermsLink}
                             />
                         )}
+                        {spendingPowerSection && (
+                            <InfoSection
+                                headline={spendingPowerSection.headline}
+                                paragraphs={spendingPowerSection.paragraphs}
+                            />
+                        )}
+                        {autopayMethodSection && (
+                            <InfoSection
+                                headline={autopayMethodSection.headline}
+                                paragraphs={autopayMethodSection.paragraphs}
+                            />
+                        )}
                     </div>
                     <div className="content__col">
                         <div className="branded-image">
@@ -239,6 +256,15 @@ export const ShortTerm = ({
             <div className={`content__row productLink${isPrequalExperience ? ' prequal-fixed-offset' : ''}`}>
                 <div className="productLink__container">{renderProductListLink()}</div>
             </div>
+            {cashbackOffer && (
+                <div
+                    className={`content__row disclosure cashback-offer ${useV5Design === 'true' ? 'v5Design' : ''} ${
+                        useDarkMode ? 'darkMode' : ''
+                    } ${countryClassName}`}
+                >
+                    <InlineLinks text={cashbackOffer} />
+                </div>
+            )}
             <div className="content__row">{renderCheckoutCtaButton()}</div>
         </Fragment>
     );

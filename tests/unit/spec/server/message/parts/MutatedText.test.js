@@ -53,4 +53,90 @@ describe('<MutatedText />', () => {
         expect(getByText('Buy now. Pay never!')).toBeInTheDocument();
         expect(queryByText(smallText)).toBeNull();
     });
+
+    describe('resolved-entry deduplication', () => {
+        test.each([
+            [
+                'partial three-tag content',
+                ['xsmall', 'large', 'default'],
+                [
+                    ['Short warning', ['xsmall']],
+                    ['Learn more', ['default']]
+                ],
+                ['xsmall', 'default']
+            ],
+            [
+                'complete three-tag content',
+                ['xsmall', 'large', 'default'],
+                [
+                    ['Short warning', ['xsmall']],
+                    ['Long warning', ['large']],
+                    ['Learn more', ['default']]
+                ],
+                ['xsmall', 'large', 'default']
+            ],
+            ['single-entry content', ['xsmall', 'large', 'default'], [['Learn more', ['default']]], ['default']],
+            [
+                'identical text in distinct entries',
+                ['large', 'default'],
+                [
+                    ['Same text', ['large']],
+                    ['Same text', ['default']]
+                ],
+                ['large', 'default']
+            ],
+            [
+                'dotted-tag fallback with an explicit match',
+                ['large.2', 'large', 'default'],
+                [
+                    ['Long warning', ['large']],
+                    ['Learn more', ['default']]
+                ],
+                ['large', 'default']
+            ],
+            ['fallback without an explicit match', ['large', 'xsmall'], [['Learn more', ['default']]], ['large']],
+            ['explicit match before fallback', ['default', 'large'], [['Learn more', ['default']]], ['default']],
+            ['unresolved tags', ['large'], [['Short warning', ['xsmall']]], []]
+        ])('handles %s', (scenario, options, content, expectedTags) => {
+            const { container } = render(<MutatedText tagData={content} options={options} deduplicate />);
+            const entries = Array.from(container.children);
+
+            expect(entries).toHaveLength(expectedTags.length);
+            entries.forEach((entry, entryIndex) => {
+                expect(entry).toHaveClass(`tag--${expectedTags[entryIndex]}`);
+                expect(entry.textContent.trim()).toBe(
+                    content.find(([, tags]) => tags.includes(expectedTags[entryIndex]))?.[0] ?? 'Learn more'
+                );
+                expect(entry.classList.contains('multi')).toBe(expectedTags.length > 1);
+            });
+            if (entries.length) {
+                expect(entries[entries.length - 1].textContent.endsWith(' ')).toBe(false);
+            }
+        });
+
+        test('keeps the exact matching option and its mutations', () => {
+            const { container, getByText, queryByText } = render(
+                <MutatedText
+                    tagData={[[smallText, ['default']]]}
+                    options={[
+                        { tag: 'large', replace: [['over time.', 'fallback!']] },
+                        { tag: 'default', replace: [['over time.', 'never!']] }
+                    ]}
+                    deduplicate
+                />
+            );
+
+            expect(getByText('Buy now. Pay never!')).toBeInTheDocument();
+            expect(queryByText('Buy now. Pay fallback!')).toBeNull();
+            expect(container.firstElementChild).toHaveClass('tag--default');
+        });
+
+        test('does not deduplicate other callers by default', () => {
+            const { getAllByText } = render(
+                <MutatedText tagData={[[smallText, ['default']]]} options={['large', 'default']} />
+            );
+
+            expect(getAllByText(smallText)).toHaveLength(2);
+        });
+    });
 });

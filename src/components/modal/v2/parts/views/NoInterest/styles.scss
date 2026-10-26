@@ -65,6 +65,11 @@
                 align-items: center;
             }
 
+            .button:focus-visible {
+                outline: 3px solid colors.$light-blue;
+                outline-offset: 2px;
+            }
+
             .content__disclaimer {
                 margin-top: 10px;
             }

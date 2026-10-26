@@ -5,7 +5,7 @@ import { getDataByTag } from '../../../utils/server';
 import Text from './Text';
 import BreakText from './BreakText';
 
-const MutatedText = ({ tagData, options }) => {
+const MutatedText = ({ tagData, options, deduplicate = false }) => {
     if (typeof options !== 'string' && typeof options !== 'object') return null;
 
     let uniformOptions;
@@ -15,6 +15,32 @@ const MutatedText = ({ tagData, options }) => {
         uniformOptions = [options];
     } else {
         uniformOptions = options;
+    }
+
+    if (deduplicate) {
+        const indexedTagData = tagData.map(([, tags], entryIndex) => [entryIndex, tags]);
+        const resolvedOptions = uniformOptions.map(option => {
+            const tag = typeof option === 'string' ? option : option.tag;
+            const entryIndex = getDataByTag(indexedTagData, tag);
+            return {
+                option,
+                entryIndex,
+                exact: tagData[entryIndex]?.[1].includes(tag) ?? false
+            };
+        });
+        const preferredOptions = new Map();
+
+        resolvedOptions.forEach(resolved => {
+            if (resolved.entryIndex === '') return;
+            const previous = preferredOptions.get(resolved.entryIndex);
+            if (!previous || (resolved.exact && !previous.exact)) {
+                preferredOptions.set(resolved.entryIndex, resolved);
+            }
+        });
+
+        uniformOptions = resolvedOptions
+            .filter(resolved => preferredOptions.get(resolved.entryIndex) === resolved)
+            .map(({ option }) => option);
     }
 
     /**

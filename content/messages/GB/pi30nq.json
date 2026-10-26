@@ -16,7 +16,10 @@
     },
     "headline": [
         [["Buy now, pay later."], ["default", "xsmall"]],
-        ["Pay in 30 days for purchases of {formattedMinAmount} to {formattedMaxAmount}.", ["medium", "large", "xlarge"]]
+        [
+            "Pay in 30 days for purchases of {formattedMinAmount} to {formattedMaxAmount}. New to Pay Later? Spend £100+ and get £15 cashback.",
+            ["medium", "large", "xlarge"]
+        ]
     ],
     "subHeadline": [],
     "disclaimer": [

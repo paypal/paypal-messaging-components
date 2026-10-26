@@ -147,6 +147,86 @@ describe('SSR message', () => {
 
             expect(getByText('PayPal')).toHaveClass('sr-only');
         });
+        describe.each(['text', 'flex'])('disclaimer in %s layout', layout => {
+            const learnMore = 'En savoir plus';
+            const warning = 'Credit warning';
+            const locales = ['AT', 'AU', 'CA', 'DE', 'ES', 'FR', 'GB', 'IT', 'US'];
+
+            beforeEach(() => {
+                getMutations.mockReturnValue(defaultMutations({ disclaimer: ['large', 'default'] }));
+            });
+
+            test.each(locales)('renders a single-entry disclaimer only once for %s', locale => {
+                const { container, getAllByText } = render(
+                    <Message
+                        locale={locale}
+                        options={{ ...options, style: { ...options.style, layout } }}
+                        markup={{ ...defaultMarkup(), disclaimer: [[learnMore, ['default']]] }}
+                    />
+                );
+
+                expect(getAllByText(learnMore)).toHaveLength(1);
+                expect(container.querySelector('.message__disclaimer > .tag--large')).toBeNull();
+            });
+
+            test.each(locales)('preserves both entries in a two-entry disclaimer for %s', locale => {
+                const { container, getAllByText } = render(
+                    <Message
+                        locale={locale}
+                        options={{ ...options, style: { ...options.style, layout } }}
+                        markup={{
+                            ...defaultMarkup(),
+                            disclaimer: [
+                                [warning, ['large']],
+                                [learnMore, ['default']]
+                            ]
+                        }}
+                    />
+                );
+
+                expect(getAllByText(warning)).toHaveLength(1);
+                expect(getAllByText(learnMore)).toHaveLength(1);
+                expect(container.querySelector('.message__disclaimer > .tag--large')).toHaveTextContent(warning);
+                expect(container.querySelector('.message__disclaimer > .tag--default')).toHaveTextContent(learnMore);
+            });
+            test.each(['ES', 'IT'])('deduplicates partial three-tag content for %s', locale => {
+                getMutations.mockReturnValue(defaultMutations({ disclaimer: ['xsmall', 'large', 'default'] }));
+
+                const { container, getAllByText } = render(
+                    <Message
+                        locale={locale}
+                        options={{ ...options, style: { ...options.style, layout } }}
+                        markup={{
+                            ...defaultMarkup(),
+                            disclaimer: [
+                                [warning, ['xsmall']],
+                                [learnMore, ['default']]
+                            ]
+                        }}
+                    />
+                );
+
+                expect(getAllByText(warning)).toHaveLength(1);
+                expect(getAllByText(learnMore)).toHaveLength(1);
+                expect(container.querySelector('.message__disclaimer > .tag--large')).toBeNull();
+                expect(container.querySelector('.message__disclaimer > .tag--default')).toHaveTextContent(learnMore);
+            });
+            test('does not deduplicate headline mutations', () => {
+                getMutations.mockReturnValue(
+                    defaultMutations({ headline: ['large', 'default'], disclaimer: ['large', 'default'] })
+                );
+                const { getAllByText } = render(
+                    <Message
+                        locale="ES"
+                        options={{ ...options, style: { ...options.style, layout } }}
+                        markup={defaultMarkup()}
+                    />
+                );
+
+                expect(getAllByText(headline)).toHaveLength(2);
+                expect(getAllByText(disclaimer)).toHaveLength(1);
+            });
+        });
         const getMatchPattern = (cssSelector, cssValue) => {
             // convert plain string css into an array if RegExps
             const matchCssValue =

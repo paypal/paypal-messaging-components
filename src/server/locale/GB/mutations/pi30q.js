@@ -15,7 +15,7 @@ export default {
             'default',
             ({ textSize }) => ({
                 styles: [
-                    textWrap(textSize * 32, textSize, 'GB'),
+                    textWrap(textSize * 62, textSize, 'GB'),
                     xSmallFallback(textSize * 16),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25),
                     `.weak { display: none}`,
@@ -31,7 +31,7 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     xSmallFallback(textSize * 10.75),
-                    setLogoTop(textSize * 32 + 10),
+                    setLogoTop(textSize * 52 + 10),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
                     `.weak { display: none}`,
                     '.message__headline .tag--medium > span:first-child:after { content: "."; }'
@@ -53,7 +53,7 @@ export default {
             'logo.type:alternative',
             ({ textSize }) => ({
                 styles: [
-                    textWrap(textSize * 32, textSize, 'GB'),
+                    textWrap(textSize * 62, textSize, 'GB'),
                     xSmallFallback(textSize * 11.5),
                     altNoWrap(textSize * 10.6),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25),

@@ -100,6 +100,7 @@ export const LongTerm = ({
     const spendingPowerClickTitle = 'Check Spending Power';
     const handlePrequalification = usePrequalification(spendingPowerClickTitle, onClick, {
         offer: product,
+        amount,
         payerId
     });
     const { offers } = views.find(view => view.offers);

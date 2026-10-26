@@ -50,10 +50,11 @@
 
         "disclosure": [
             "Uniquement pour les particuliers résidant en France. Le Paiement en 4X est disponible sous réserve d'acceptation, pour les achats de {formattedMinAmount} à {formattedMaxAmount}.",
-            "Crédit proposé par PayPal (Europe) S.à r.l. et Cie, S.C.A., 22-24 Boulevard Royal, L-2449, Luxembourg, R.C.S. Luxembourg B 118 349, qui est dûment licencié en tant qu'établissement de crédit du Luxembourg et est sous le contrôle prudentiel de l'autorité de surveillance du Luxembourg, la Commission de Surveillance du Secteur Financier. Pour en savoir plus, consultez",
+            "Crédit proposé par PayPal (Europe) S.à r.l. et Cie, S.C.A., 22-24 Boulevard Royal, L-2449, Luxembourg, R.C.S. Luxembourg B 118 349, qui est dûment licencié en tant qu'établissement de crédit du Luxembourg et est sous le contrôle prudentiel de l'autorité de surveillance du Luxembourg, la Commission de Surveillance du Secteur Financier. Cette information est fournie par PayPal. En savoir plus sur les ",
             [
-                "[https://www.paypal.com/fr/digital-wallet/ways-to-pay/buy-now-pay-later].",
-                "https://www.paypal.com/fr/digital-wallet/ways-to-pay/buy-now-pay-later"
+                "options du Paiement en plusieurs fois.",
+                "https://www.paypal.com/fr/digital-wallet/ways-to-pay/buy-now-pay-later",
+                "options du Paiement en plusieurs fois, se ouvre dans une nouvelle fenêtre"
             ]
         ],
         "linkToProductList": "Découvrir les autres options de paiement en plusieurs fois"

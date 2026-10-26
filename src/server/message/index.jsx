@@ -149,7 +149,7 @@ export default ({ options, markup, locale }) => {
                             </div>
                         </div>{' '}
                         <p className="message__disclaimer">
-                            <MutatedText tagData={markup.disclaimer} options={mutationRules.disclaimer} />
+                            <MutatedText tagData={markup.disclaimer} options={mutationRules.disclaimer} deduplicate />
                         </p>
                     </div>
                 </div>

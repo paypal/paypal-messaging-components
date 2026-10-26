@@ -34,8 +34,27 @@
             "Complete your purchase with a 25% down payment.",
             "Use autopay for the rest of your payments. It's easy!"
         ],
+        "spendingPowerSection": {
+            "headline": "TikTok Exclusive Spending Power",
+            "paragraphs": [
+                "Your TikTok spending power is an estimate of how much you can spend using TikTok PayLater powered by PayPal on eligible purchases. This amount is not a guarantee or a credit line, and each loan is subject to approval. The amount may change over time.",
+                "The amount is based on your PayPal account data and, in some cases, external credit bureau data. If bureau data is needed, it's a soft credit check that does not impact your credit score. You only pay back what you borrow. You may be able to apply for a loan that exceeds your TikTok spending power; however, not all TikTok PayLater applications will be approved."
+            ]
+        },
+        "autopayMethodSection": {
+            "headline": "TikTok PayLater Autopay Method",
+            "paragraphs": [
+                "When you get started with TikTok PayLater powered by PayPal, you select a repayment method that will be used for automatic payments on your TikTok PayLater loans. You can update or add a new payment method at any time within your PayPal account. To do so, select \"TikTok PayLater\" within the Pay Later section of your PayPal account and then update your payment method for an individual loan or apply the change to all TikTok PayLater loans."
+            ]
+        },
         "disclosure": [
-            "Pay in 4 is available to consumers upon approval for purchases of {formattedMinAmount} to {formattedMaxAmount}. Pay in 4 is not currently available to residents of <span aria-hidden='true'>MO</span><span class='sr-only'>Missouri</span>. Offer availability depends on the merchant and also may not be available for certain recurring, subscription services. When applying, a soft credit check may be needed, but will not affect your credit score. You must be of legal age in your U.S. state of residence to use Pay in 4. Loans to California residents are made or arranged pursuant to a California Financing Law License. PayPal, Inc. is a Georgia Installment Lender Licensee, NMLS #910457. Rhode Island Small Loan Lender Licensee."
+            "Pay in 4 is available to consumers upon approval for purchases of {formattedMinAmount} to {formattedMaxAmount}. Pay in 4 is currently not available to residents of <span aria-hidden='true'>MO</span><span class='sr-only'>Missouri</span>. Offer availability depends on the merchant and also may not be available for certain recurring, subscription services. A soft credit check may be needed, but will not affect your credit score. You must be 18 years old or older to apply. The lender for Pay in 4 is PayPal, Inc. (NMLS #910457): Loans to <span aria-hidden='true'>CA</span><span class='sr-only'>California</span> residents are made or arranged pursuant to a <span aria-hidden='true'>CA</span><span class='sr-only'>California</span> Financing Law License. <span aria-hidden='true'>RI</span><span class='sr-only'>Rhode Island</span> Small Loan Lender Licensee. <span aria-hidden='true'>NM</span><span class='sr-only'>New Mexico</span> residents:",
+            [
+                "Find more disclosures ",
+                "https://www.paypal.com/us/webapps/mpp/campaigns/newmexicodisclosure",
+                "Find more disclosures, opens new tab"
+            ],
+            "related to Pay in 4."
         ]
     }
 }
