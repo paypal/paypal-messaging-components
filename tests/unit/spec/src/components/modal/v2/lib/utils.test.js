@@ -208,11 +208,14 @@ describe('setupTabTrap', () => {
 });
 
 describe('openPrequalification', () => {
-    it('redirects with auto-generated UM token and offer param', () => {
-        openPrequalification({ offer: 'PAY_LATER_SHORT_TERM' });
+    it('redirects with token, offer, and resolved payer_id params', () => {
+        openPrequalification({
+            offer: 'PAY_LATER_SHORT_TERM',
+            payerId: '2JML46ZWTSK9E'
+        });
 
         expect(window.location.assign).toHaveBeenCalledWith(
-            'https://www.paypal.com/paylateracq/prequalify?token=UM-A1B2C3D4E5MTE3MJA&offer=PAY_LATER_SHORT_TERM'
+            'https://www.paypal.com/paylateracq/prequalify?token=UM-A1B2C3D4E5MTE3MJA&offer=PAY_LATER_SHORT_TERM&payer_id=2JML46ZWTSK9E'
         );
     });
 
