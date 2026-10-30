@@ -15,7 +15,7 @@ export default {
             'default',
             ({ textSize }) => ({
                 styles: [
-                    textWrap(textSize * 45, textSize, 'GB'),
+                    textWrap(textSize * 85, textSize, 'GB'),
                     xSmallFallback(textSize * 16),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25)
                 ],
@@ -23,7 +23,7 @@ export default {
                 headline: [
                     {
                         tag: 'medium',
-                        br: ['from']
+                        br: ['Later?']
                     },
                     { tag: 'xsmall' }
                 ],
@@ -35,7 +35,7 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     xSmallFallback(textSize * 16),
-                    setLogoTop(textSize * 44 + 10),
+                    setLogoTop(textSize * 64 + 10),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
                 ]
             })
@@ -51,7 +51,7 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     `@media screen and (max-width: ${textSize * 10.6}px) { .message__content { white-space: nowrap; }}`,
-                    textWrap(textSize * 40, textSize, 'GB'),
+                    textWrap(textSize * 64, textSize, 'GB'),
                     xSmallFallback(textSize * 16),
                     altNoWrap(textSize * 10.6),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25)
@@ -72,9 +72,9 @@ export default {
                 headline: [
                     {
                         tag: 'medium',
-                        br: ['purchases'],
+                        br: ['0.'],
                         replace: [
-                            ['0.', '0'],
+                            [/\.$/, ''],
                             ['later.', 'later']
                         ]
                     },
@@ -100,9 +100,9 @@ export default {
                 headline: [
                     {
                         tag: 'medium',
-                        br: ['purchases'],
+                        br: ['0.'],
                         replace: [
-                            ['0.', '0'],
+                            [/\.$/, ''],
                             ['later.', 'later']
                         ]
                     },

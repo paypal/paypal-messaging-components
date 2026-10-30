@@ -10,6 +10,7 @@ import InlineLinks from '../../InlineLinks';
 import Button from '../../Button';
 import OfferTerms from '../../OfferTerms';
 import SpendingPowerCard from '../../SpendingPowerCard';
+import InfoSection from '../../InfoSection';
 import styles from './styles.scss';
 
 import { useXProps, useServerData } from '../../../lib';
@@ -27,7 +28,10 @@ export const ShortTerm = ({
         learnMoreLink,
         cta,
         offerTerms,
-        spendingPower
+        spendingPower,
+        cashbackOffer,
+        spendingPowerSection,
+        autopayMethodSection
     },
     productMeta: {
         qualifying,
@@ -129,7 +133,7 @@ export const ShortTerm = ({
     };
 
     const hasInstallments = Object.keys(estimatedInstallments?.items ?? {}).length;
-    const elements = hasInstallments ? estimatedInstallments?.items : donutTimestamps;
+    const elements = hasInstallments ? estimatedInstallments?.items : donutTimestamps ?? [];
 
     // regex replaces EUR with the euro symbol €
     const localeFormattedPayment = periodicPayment.replace(/(\s?EUR)/g, ' €');
@@ -144,30 +148,32 @@ export const ShortTerm = ({
                     } ${countryClassName}`}
                 >
                     <div className="content__col">
-                        <div className={`content__row donuts ${useNewCheckoutDesign === 'true' ? 'checkout' : ''}`}>
-                            <div className="donuts__container">
-                                {elements.map((installment, index) => (
-                                    <Donut
-                                        key={index}
-                                        useV4Design={useV4Design}
-                                        useV5Design={useV5Design}
-                                        use5Dot1Design={use5Dot1Design}
-                                        useNewCheckoutDesign={useNewCheckoutDesign}
-                                        useDarkMode={useDarkMode}
-                                        qualifying={qualifying}
-                                        // regex replaces EUR with the euro symbol €
-                                        periodicPayment={
-                                            installment?.total_payment
-                                                ? installment.total_payment.replace(/(\s?EUR)/g, ' €')
-                                                : localeFormattedPayment
-                                        }
-                                        currentNum={index + 1}
-                                        timeStamp={installment?.payment_date ?? donutTimestamps[index]}
-                                        numOfPayments={elements.length}
-                                    />
-                                ))}
+                        {elements.length > 0 && (
+                            <div className={`content__row donuts ${useNewCheckoutDesign === 'true' ? 'checkout' : ''}`}>
+                                <div className="donuts__container">
+                                    {elements.map((installment, index) => (
+                                        <Donut
+                                            key={index}
+                                            useV4Design={useV4Design}
+                                            useV5Design={useV5Design}
+                                            use5Dot1Design={use5Dot1Design}
+                                            useNewCheckoutDesign={useNewCheckoutDesign}
+                                            useDarkMode={useDarkMode}
+                                            qualifying={qualifying}
+                                            // regex replaces EUR with the euro symbol €
+                                            periodicPayment={
+                                                installment?.total_payment
+                                                    ? installment.total_payment.replace(/(\s?EUR)/g, ' €')
+                                                    : localeFormattedPayment
+                                            }
+                                            currentNum={index + 1}
+                                            timeStamp={installment?.payment_date ?? donutTimestamps?.[index]}
+                                            numOfPayments={elements.length}
+                                        />
+                                    ))}
+                                </div>
                             </div>
-                        </div>
+                        )}
                         {showPreapprovalContent && (
                             <PreapprovalDisclaimer
                                 preapprovalDisclaimerBody={preapprovalDisclaimerBody}
@@ -194,6 +200,18 @@ export const ShortTerm = ({
                                 seeTermsLink={offerTerms.seeTermsLink}
                             />
                         )}
+                        {spendingPowerSection && (
+                            <InfoSection
+                                headline={spendingPowerSection.headline}
+                                paragraphs={spendingPowerSection.paragraphs}
+                            />
+                        )}
+                        {autopayMethodSection && (
+                            <InfoSection
+                                headline={autopayMethodSection.headline}
+                                paragraphs={autopayMethodSection.paragraphs}
+                            />
+                        )}
                     </div>
                     <div className="content__col">
                         <div className="branded-image">
@@ -218,6 +236,15 @@ export const ShortTerm = ({
             <div className="content__row productLink">
                 <div className="productLink__container">{renderProductListLink()}</div>
             </div>
+            {cashbackOffer && (
+                <div
+                    className={`content__row disclosure cashback-offer ${useV5Design === 'true' ? 'v5Design' : ''} ${
+                        useDarkMode ? 'darkMode' : ''
+                    } ${countryClassName}`}
+                >
+                    <InlineLinks text={cashbackOffer} />
+                </div>
+            )}
             <div className="content__row">{renderCheckoutCtaButton()}</div>
         </Fragment>
     );
