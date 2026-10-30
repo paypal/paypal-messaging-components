@@ -9,10 +9,10 @@ import ProductListLink from '../../ProductListLink';
 import InlineLinks from '../../InlineLinks';
 import Button from '../../Button';
 import OfferTerms from '../../OfferTerms';
-import Icon from '../../Icon';
+import SpendingPowerCard from '../../SpendingPowerCard';
 import styles from './styles.scss';
 
-import { useXProps, useServerData, usePrequalification } from '../../../lib';
+import { useXProps, useServerData } from '../../../lib';
 import { currencyFormat } from '../../../lib/hooks/currency'; // Remove .00 cents from formated min and max
 
 export const ShortTerm = ({
@@ -27,7 +27,7 @@ export const ShortTerm = ({
         learnMoreLink,
         cta,
         offerTerms,
-        spendingPowerSubtext
+        spendingPower
     },
     productMeta: {
         qualifying,
@@ -46,12 +46,7 @@ export const ShortTerm = ({
     useDarkMode
 }) => {
     const { views, country } = useServerData();
-    const { amount, onClick, onClose } = useXProps();
-    const spendingPowerClickTitle = 'Check Spending Power';
-    const handlePrequalification = usePrequalification(spendingPowerClickTitle, onClick, {
-        offer: product,
-        amount
-    });
+    const { onClick, onClose } = useXProps();
 
     const isQualifying = qualifying === 'true';
 
@@ -61,6 +56,9 @@ export const ShortTerm = ({
     const shouldShowPreapprovedBadge = showPreapprovedBadge === 'true';
     const showPreapprovalContent = isPreapproved && shouldShowPreapprovedBadge;
     const isPrequalExperience = prequalExperience === 'true';
+    // Spending Power is excluded from checkout modals.
+    const isCheckout = typeof cta !== 'undefined' || useNewCheckoutDesign === 'true';
+    const showSpendingPowerCard = isQualifying && isPrequalExperience && !isCheckout;
 
     const preapprovalDisclaimerHeadline = preapproval?.preapprovalDisclaimerHeadline;
     const preapprovalDisclaimerBody = preapproval?.preapprovalDisclaimerBody;
@@ -74,26 +72,6 @@ export const ShortTerm = ({
          */
         const eligibleClickTitle = 'Short Term Continue';
         const ineligibleClickTitle = 'Back to Checkout';
-
-        if (isQualifying && isPrequalExperience) {
-            return (
-                <div className="button__fixed-wrapper">
-                    <div
-                        className={`button__container ${
-                            useNewCheckoutDesign === 'true' ? 'checkout' : ''
-                        } ${countryClassName}`}
-                    >
-                        <p className="spending-power__subtext">{spendingPowerSubtext}</p>
-                        <Button onClick={handlePrequalification} className="cta">
-                            <span className="cta__content">
-                                {cta?.buttonTextSpendingPower ?? 'Check your Spending Power'}
-                                <Icon name="lightning-bolt" />
-                            </span>
-                        </Button>
-                    </div>
-                </div>
-            );
-        }
 
         if (typeof cta !== 'undefined') {
             return (
@@ -199,6 +177,7 @@ export const ShortTerm = ({
                                 useNewCheckoutDesign={useNewCheckoutDesign}
                             />
                         )}
+                        {showSpendingPowerCard && <SpendingPowerCard content={spendingPower} offer={product} />}
                         <Instructions
                             instructions={instructions}
                             cta={cta}
@@ -236,7 +215,7 @@ export const ShortTerm = ({
                 <InlineLinks text={currencyFormat(disclosure)} />
                 {renderLearnMoreLink()}
             </div>
-            <div className={`content__row productLink${isPrequalExperience ? ' prequal-fixed-offset' : ''}`}>
+            <div className="content__row productLink">
                 <div className="productLink__container">{renderProductListLink()}</div>
             </div>
             <div className="content__row">{renderCheckoutCtaButton()}</div>

@@ -42,6 +42,11 @@
             "by going to PayPal's page on Pay Later."
         ],
         "linkToProductList": "See other ways to pay over time",
-        "spendingPowerSubtext": "Get an estimate of how much you qualify for — across all eligible Pay Later offers."
+        "spendingPowerSubtext": "Get an estimate of how much you qualify for — across all eligible Pay Later offers.",
+        "spendingPower": {
+            "headline": "What’s your spending power?",
+            "subtext": "Log in or sign up to see what you can spend across eligible Pay Later plans.",
+            "buttonText": "See your Spending Power"
+        }
     }
 }

@@ -53,13 +53,13 @@
                 }
 
                 &.v5Design {
-                    button {
+                    button:not(.spending-power-card__button) {
                         background-color: #f5f7fb;
                     }
                 }
 
                 &.v5Dot1Design {
-                    button {
+                    button:not(.spending-power-card__button) {
                         background-color: colors.$white;
                     }
                 }
