@@ -1,14 +1,14 @@
 /** @jsx h */
 import { h, Fragment } from 'preact';
 import { useState } from 'preact/hooks';
-import { useXProps, useServerData, getComputedVariables, usePrequalification, getEuroStyleClass } from '../../../lib';
+import { useXProps, useServerData, getComputedVariables, getEuroStyleClass } from '../../../lib';
 import Calculator from '../../Calculator';
 import ProductListLink from '../../ProductListLink';
 import Instructions from '../../Instructions';
 import InlineLinks from '../../InlineLinks';
 import Button from '../../Button';
 import OfferTerms from '../../OfferTerms';
-import Icon from '../../Icon';
+import SpendingPowerCard from '../../SpendingPowerCard';
 import styles from './styles.scss';
 
 /**
@@ -86,7 +86,7 @@ export const LongTerm = ({
         linkToProductList,
         cta,
         offerTerms,
-        spendingPowerSubtext
+        spendingPower
     },
     productMeta: { useV4Design, useV5Design, showPromoContent, prequalExperience, product },
     openProductList,
@@ -96,13 +96,7 @@ export const LongTerm = ({
 }) => {
     const [expandedState, setExpandedState] = useState(false);
     const { amount, onClick, onClose } = useXProps();
-    const { views, country, payerId } = useServerData();
-    const spendingPowerClickTitle = 'Check Spending Power';
-    const handlePrequalification = usePrequalification(spendingPowerClickTitle, onClick, {
-        offer: product,
-        amount,
-        payerId
-    });
+    const { views, country } = useServerData();
     const { offers } = views.find(view => view.offers);
     const { minAmount, maxAmount } = getComputedVariables(offers);
     const offerAPRDisclaimers = getAPRDetails({ offers, disclaimer, genericDisclaimer });
@@ -110,6 +104,9 @@ export const LongTerm = ({
     const isQualifyingAmount = amount >= minAmount && amount <= maxAmount;
     const showOfferTerms = showPromoContent === 'true';
     const isPrequalExperience = prequalExperience === 'true';
+    // Spending Power is excluded from checkout modals.
+    const isCheckout = typeof cta !== 'undefined' || useNewCheckoutDesign === 'true';
+    const showSpendingPowerCard = isQualifyingAmount && isPrequalExperience && !isCheckout;
 
     /**
      * The presence of "cta" in the content means the channel is checkout and the checkout-specific
@@ -124,22 +121,6 @@ export const LongTerm = ({
          */
         const eligibleClickTitle = 'Pay Monthly Continue';
         const ineligibleClickTitle = 'Back to Checkout';
-
-        if (isQualifyingAmount && isPrequalExperience) {
-            return (
-                <div className="button__fixed-wrapper">
-                    <div className={`button__container ${useNewCheckoutDesign === 'true' ? 'checkout' : ''}`}>
-                        <p className="spending-power__subtext">{spendingPowerSubtext}</p>
-                        <Button onClick={handlePrequalification} className="cta">
-                            <span className="cta__content">
-                                {cta?.buttonTextSpendingPower ?? 'Check your Spending Power'}
-                                <Icon name="lightning-bolt" />
-                            </span>
-                        </Button>
-                    </div>
-                </div>
-            );
-        }
 
         if (typeof cta !== 'undefined') {
             return (
@@ -231,6 +212,7 @@ export const LongTerm = ({
                             seeTermsLink={offerTerms.seeTermsLink}
                         />
                     )}
+                    {showSpendingPowerCard && <SpendingPowerCard content={spendingPower} offer={product} />}
                     <div className={`content__col ${expandedState ? '' : 'collapsed'}`}>
                         <div className="branded-image">
                             {/* TODO: include Icon component when desktop images are final */}
@@ -253,8 +235,8 @@ export const LongTerm = ({
                 className={`content__row disclosure ${expandedState ? '' : 'collapsed'} ${
                     useNewCheckoutDesign === 'true' ? 'checkout' : ''
                 } ${useV5Design === 'true' ? 'v5Design' : ''} ${getEuroStyleClass(country)} ${
-                    isPrequalExperience ? 'prequal-fixed-offset' : ''
-                } ${useDarkMode ? 'darkMode' : ''}`}
+                    useDarkMode ? 'darkMode' : ''
+                }`}
             >
                 {getDisclosure(disclosure)}
             </div>
