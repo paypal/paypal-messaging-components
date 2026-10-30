@@ -1,6 +1,6 @@
 /** @jsx h */
 import { h } from 'preact';
-import { useXProps, usePrequalification } from '../lib';
+import { useXProps, useServerData, usePrequalification } from '../lib';
 import Button from './Button';
 import Icon from './Icon';
 
@@ -10,7 +10,8 @@ import Icon from './Icon';
  */
 const SpendingPowerCard = ({ content: { headline, subtext, buttonText } = {}, offer }) => {
     const { amount, onClick } = useXProps();
-    const handlePrequalification = usePrequalification('Check Spending Power', onClick, { offer, amount });
+    const { payerId } = useServerData();
+    const handlePrequalification = usePrequalification('Check Spending Power', onClick, { offer, amount, payerId });
 
     return (
         <div className="content__row spending-power-card">

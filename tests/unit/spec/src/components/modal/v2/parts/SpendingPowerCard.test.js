@@ -14,7 +14,8 @@ jest.mock('src/components/modal/v2/lib/utils', () => ({
 
 jest.mock('src/components/modal/v2/lib/providers', () => ({
     ...jest.requireActual('src/components/modal/v2/lib/providers'),
-    useXProps: () => ({ amount: 600, onClick: mockOnClick })
+    useXProps: () => ({ amount: 600, onClick: mockOnClick }),
+    useServerData: () => ({ payerId: 'ABC123' })
 }));
 
 describe('<SpendingPowerCard />', () => {
@@ -41,6 +42,10 @@ describe('<SpendingPowerCard />', () => {
         fireEvent.click(getByRole('button'));
 
         expect(mockOnClick).toHaveBeenCalledWith({ linkName: 'Check Spending Power' });
-        expect(openPrequalification).toHaveBeenCalledWith({ offer: 'PAY_LATER_SHORT_TERM', amount: 600 });
+        expect(openPrequalification).toHaveBeenCalledWith({
+            offer: 'PAY_LATER_SHORT_TERM',
+            amount: 600,
+            payerId: 'ABC123'
+        });
     });
 });
