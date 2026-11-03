@@ -132,6 +132,7 @@ const Message = function ({ markup, meta, parentStyles, warnings }) {
                     contextualComponents,
                     treatmentsHash,
                     deviceID,
+                    integrationType,
                     disableSetCookie,
                     features,
                     pageType
@@ -179,6 +180,7 @@ const Message = function ({ markup, meta, parentStyles, warnings }) {
                     channel,
                     contextual_components: contextualComponents,
                     deviceID,
+                    integrationType,
                     treatments: treatmentsHash,
                     disableSetCookie,
                     features,
