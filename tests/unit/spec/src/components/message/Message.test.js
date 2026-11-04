@@ -204,4 +204,18 @@ describe('Message', () => {
         expect(requestUrl).toContain(`deviceID=${MERCHANT_DEVICE_ID}`);
         expect(requestUrl).not.toContain(PAYPAL_DEVICE_ID);
     });
+
+    test('Prop update forwards xprops.integrationType', async () => {
+        window.xprops.amount = 100;
+        window.xprops.integrationType = 'SDK';
+
+        document.body.appendChild(Message(serverData));
+
+        updateProps({ amount: 500 });
+
+        await new Promise(resolve => setTimeout(resolve, 0));
+
+        expect(request).toHaveBeenCalledTimes(1);
+        expect(request.mock.calls[0][1]).toContain('integrationType=SDK');
+    });
 });
