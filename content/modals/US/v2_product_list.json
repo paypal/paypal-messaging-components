@@ -3,7 +3,8 @@
         "product": "PRODUCT_LIST",
         "useV5Design": "true",
         "v5.1": "true",
-        "offerCountry": "US"
+        "offerCountry": "US",
+        "prequalExperience": "false"
     },
     "content": {
         "headline": "<span aria-hidden='true'>Buy now, <br />pay over time</span><span class='sr-only'>Buy now, pay over time</span>",
@@ -32,6 +33,11 @@
                     "viewName": "PAYPAL_CREDIT_NO_INTEREST"
                 }
             ]
+        },
+        "spendingPower": {
+            "headline": "What’s your spending power?",
+            "subtext": "Log in or sign up to see what you can spend across eligible Pay Later plans.",
+            "buttonText": "See your Spending Power"
         }
     }
 }

@@ -2110,7 +2110,8 @@ export default {
         messageThresholds: [
             {
                 amount: 0,
-                template: 'generic.json',
+                template: '/prequalification/generic.json',
+                templateV2: 'generic.json',
                 product: 'PRODUCT_LIST'
             },
             {

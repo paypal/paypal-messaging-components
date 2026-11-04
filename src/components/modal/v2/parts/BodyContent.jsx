@@ -147,6 +147,8 @@ const BodyContent = () => {
         [VIEW_IDS.PRODUCT_LIST]: (
             <ProductList
                 content={content}
+                productMeta={productMeta}
+                useNewCheckoutDesign={useNewCheckoutDesign}
                 useV5Design={useV5Design}
                 use5Dot1Design={use5Dot1Design}
                 setViewName={setViewName}

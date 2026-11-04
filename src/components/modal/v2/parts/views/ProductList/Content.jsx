@@ -2,11 +2,14 @@
 import { h, Fragment } from 'preact';
 import { useServerData, getEuroStyleClass } from '../../../lib';
 import Tile from '../../Tile';
+import SpendingPowerCard from '../../SpendingPowerCard';
 import { currencyFormat } from '../../../lib/hooks/currency';
 import styles from './styles.scss';
 
 export const ProductList = ({
-    content: { instructions, disclosure, productTiles, creditWarning },
+    content: { instructions, disclosure, productTiles, creditWarning, cta, spendingPower },
+    productMeta,
+    useNewCheckoutDesign,
     useV5Design,
     use5Dot1Design,
     setViewName
@@ -16,6 +19,9 @@ export const ProductList = ({
         payLater: productTiles?.payLater?.filter(tile => views.find(view => tile.viewName === view.meta.product)),
         credit: productTiles?.credit?.filter(tile => views.find(view => tile.viewName === view.meta.product))
     };
+    // Checkout is excluded from the inline Spending Power card.
+    const isCheckout = typeof cta !== 'undefined' || useNewCheckoutDesign === 'true';
+    const showSpendingPowerCard = productMeta?.prequalExperience === 'true' && !isCheckout;
 
     return (
         <Fragment>
@@ -33,6 +39,7 @@ export const ProductList = ({
                             dangerouslySetInnerHTML={{ __html: instructions?.payLater }}
                         />
                     </div>
+                    {showSpendingPowerCard && <SpendingPowerCard content={spendingPower} />}
                     {productTiles &&
                         availableTiles.payLater?.map(({ header, body, viewName }) => (
                             <Tile

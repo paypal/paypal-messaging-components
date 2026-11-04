@@ -59,20 +59,8 @@
     align-items: center;
 
     .button.cta {
+        margin-top: 10px;
         padding: 12px 0;
-    }
-
-    .cta__content {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        white-space: nowrap;
-    }
-
-    .spending-power__subtext {
-        text-align: center;
-        width: 80%;
-        margin: 20px 0 8px 0;
     }
 
     @include mixins.tablet {
@@ -100,17 +88,13 @@
     }
 }
 
-.prequal-fixed-offset {
-    padding-bottom: 100px;
-}
-
 .checkout {
     background: colors.$white;
 }
 
 .offer-terms {
     color: colors.$text-main;
-    background-color: #E3F7FF;
+    background-color: #e3f7ff;
     border-radius: 12px;
     padding: 16px;
     margin: 12px 0;
