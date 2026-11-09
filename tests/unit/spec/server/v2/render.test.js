@@ -1460,10 +1460,11 @@ describe('v2 render flex layout', () => {
         expect(css).toContain('@media (min-aspect-ratio: 80/11) and (min-width: 500px)');
     });
 
-    test('flex stylesheet includes button focus underline parity with v5 flex base', () => {
+    test('flex stylesheet underlines keyboard focus and active pointer input', () => {
         const result = render(baseFlexOptions, flexContentWithLogo, mockLog);
         const css = result.match(/<style>([\s\S]*?)<\/style>/)[1];
-        expect(css).toContain('button:focus .pp-message.pp-flex .pp-flex__content');
+        expect(css).toContain('button:focus:not([data-pp-pointer-focus]) .pp-message.pp-flex .pp-flex__content');
+        expect(css).toContain('button:active .pp-message.pp-flex .pp-flex__content');
     });
 
     test('grey alias normalizes to gray class', () => {
@@ -1591,7 +1592,7 @@ describe('v2 render stylesheet isolation', () => {
 
         expect(css).toContain('cursor: pointer;');
         expect(css).toContain('text-decoration: underline;');
-        expect(css).toContain('button:focus .pp-message');
+        expect(css).toContain('button:focus:not([data-pp-pointer-focus]) .pp-message');
     });
 
     test('flex stylesheet is embedded inline — no external CSS dependency', () => {

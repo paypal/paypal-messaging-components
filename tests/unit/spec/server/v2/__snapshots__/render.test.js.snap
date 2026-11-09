@@ -65,8 +65,10 @@ html {
     width: 100%;
 }
 
-button:focus .pp-message.pp-flex .pp-flex__content,
-button:focus .pp-message.pp-flex .pp-flex__content span.br {
+button:focus:not([data-pp-pointer-focus]) .pp-message.pp-flex .pp-flex__content,
+button:focus:not([data-pp-pointer-focus]) .pp-message.pp-flex .pp-flex__content span.br,
+button:active .pp-message.pp-flex .pp-flex__content,
+button:active .pp-message.pp-flex .pp-flex__content span.br {
     text-decoration: underline;
 }
 
@@ -351,8 +353,10 @@ html {
     width: 100%;
 }
 
-button:focus .pp-message.pp-flex .pp-flex__content,
-button:focus .pp-message.pp-flex .pp-flex__content span.br {
+button:focus:not([data-pp-pointer-focus]) .pp-message.pp-flex .pp-flex__content,
+button:focus:not([data-pp-pointer-focus]) .pp-message.pp-flex .pp-flex__content span.br,
+button:active .pp-message.pp-flex .pp-flex__content,
+button:active .pp-message.pp-flex .pp-flex__content span.br {
     text-decoration: underline;
 }
 
@@ -637,8 +641,10 @@ html {
     width: 100%;
 }
 
-button:focus .pp-message.pp-flex .pp-flex__content,
-button:focus .pp-message.pp-flex .pp-flex__content span.br {
+button:focus:not([data-pp-pointer-focus]) .pp-message.pp-flex .pp-flex__content,
+button:focus:not([data-pp-pointer-focus]) .pp-message.pp-flex .pp-flex__content span.br,
+button:active .pp-message.pp-flex .pp-flex__content,
+button:active .pp-message.pp-flex .pp-flex__content span.br {
     text-decoration: underline;
 }
 
@@ -891,7 +897,7 @@ body {
 .pp-message .grayscale .action__link { color: #000; }
 .pp-message .white .action__link { color: #fff; text-decoration-color: #fff; }
 
-button:focus .pp-message .main,
+button:focus:not([data-pp-pointer-focus]) .pp-message .main,
 button:active .pp-message .main {
   text-decoration: underline;
 }
@@ -974,7 +980,7 @@ body {
 .pp-message .grayscale .action__link { color: #000; }
 .pp-message .white .action__link { color: #fff; text-decoration-color: #fff; }
 
-button:focus .pp-message .main,
+button:focus:not([data-pp-pointer-focus]) .pp-message .main,
 button:active .pp-message .main {
   text-decoration: underline;
 }

@@ -57,6 +57,23 @@ const Message = function ({ markup, meta, parentStyles, warnings }) {
 
     button.setAttribute('type', 'button');
 
+    const handlePointerFocus = event => {
+        if (!button.querySelector('.pp-message')) return;
+
+        if (event.type === 'mousedown' && event.button === 0) {
+            // Safari otherwise blurs buttons during the default mouse action.
+            event.preventDefault();
+            button.focus();
+        }
+        button.setAttribute('data-pp-pointer-focus', '');
+    };
+    const clearPointerFocus = () => button.removeAttribute('data-pp-pointer-focus');
+
+    button.addEventListener('pointerdown', handlePointerFocus);
+    button.addEventListener('mousedown', handlePointerFocus);
+    // Keep input mode across modal focus changes. Tab keyup reaches the destination iframe.
+    button.addEventListener('keydown', clearPointerFocus);
+    button.addEventListener('keyup', clearPointerFocus);
     button.addEventListener('click', handleClick);
     button.addEventListener('mouseover', handleHover);
     button.addEventListener('focus', handleHover);

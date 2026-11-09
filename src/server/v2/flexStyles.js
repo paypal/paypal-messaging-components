@@ -82,8 +82,10 @@ function buildBaseRules() {
     width: 100%;
 }
 
-button:focus .pp-message.pp-flex .pp-flex__content,
-button:focus .pp-message.pp-flex .pp-flex__content span.br {
+button:focus:not([data-pp-pointer-focus]) .pp-message.pp-flex .pp-flex__content,
+button:focus:not([data-pp-pointer-focus]) .pp-message.pp-flex .pp-flex__content span.br,
+button:active .pp-message.pp-flex .pp-flex__content,
+button:active .pp-message.pp-flex .pp-flex__content span.br {
     text-decoration: underline;
 }
 
