@@ -16,7 +16,7 @@ export default {
             'default',
             ({ textSize }) => ({
                 styles: [
-                    xSmallFallback(textSize * 16),
+                    xSmallFallback(textSize * 18),
                     textWrap(textSize * 62, textSize, 'GB'),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25),
                     `.weak { display: none}`,
@@ -26,7 +26,7 @@ export default {
                 headline: [
                     {
                         tag: 'medium',
-                        br: ['Later?']
+                        br: ['Credit']
                     },
                     { tag: 'xsmall' }
                 ],
@@ -40,7 +40,7 @@ export default {
                     `@media screen and (max-width: ${
                         textSize * 14.15
                     }px) { .message__headline > .tag--medium > span > span:first-child { white-space: normal; } }`,
-                    xSmallFallback(textSize * 10.75),
+                    xSmallFallback(textSize * 18),
                     setLogoTop(textSize * 60 + 10),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
                     `.weak { display: none}`,
@@ -55,7 +55,7 @@ export default {
                     `@media screen and (max-width: ${
                         textSize * 14.15
                     }px) { .message__headline > .tag--medium > span > span:first-child { white-space: normal; } }`,
-                    xSmallFallback(textSize * 10.75),
+                    xSmallFallback(textSize * 18),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
                     `.weak { display: none}`,
                     addPeriod()
@@ -68,7 +68,7 @@ export default {
                 styles: [
                     `@media screen and (max-width: ${textSize * 10.6}px) { .message__content { white-space: nowrap; }}`,
                     textWrap(textSize * 62, textSize, 'GB'),
-                    xSmallFallback(textSize * 11.5),
+                    xSmallFallback(textSize * 18),
                     altNoWrap(textSize * 10.6),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25),
                     `.weak { display: none}`,
@@ -85,7 +85,7 @@ export default {
                 headline: [
                     {
                         tag: 'medium',
-                        br: ['on'],
+                        br: ['Credit'],
                         replace: [[/\.$/, '']]
                     },
                     {
@@ -103,7 +103,7 @@ export default {
                 headline: [
                     {
                         tag: 'medium',
-                        br: ['on'],
+                        br: ['Credit'],
                         replace: [[/\.$/, '']]
                     },
                     {
