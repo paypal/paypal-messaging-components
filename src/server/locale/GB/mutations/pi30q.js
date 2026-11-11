@@ -60,7 +60,7 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     textWrap(textSize * 62, textSize, 'GB'),
-                    xSmallFallback(textSize * 11.5),
+                    xSmallFallback(textSize * 13),
                     altNoWrap(textSize * 10.6),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25),
                     `.weak { display: none}`,

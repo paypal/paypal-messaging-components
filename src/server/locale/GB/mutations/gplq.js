@@ -17,7 +17,7 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     xSmallFallback(textSize * 18),
-                    textWrap(textSize * 62, textSize, 'GB'),
+                    textWrap(textSize * 64, textSize, 'GB'),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25),
                     `.weak { display: none}`,
                     addPeriod()
@@ -41,7 +41,7 @@ export default {
                         textSize * 14.15
                     }px) { .message__headline > .tag--medium > span > span:first-child { white-space: normal; } }`,
                     xSmallFallback(textSize * 18),
-                    setLogoTop(textSize * 60 + 10),
+                    setLogoTop(textSize * 62 + 10),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25),
                     `.weak { display: none}`,
                     addPeriod()

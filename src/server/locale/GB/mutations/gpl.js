@@ -15,7 +15,7 @@ export default {
             'default',
             ({ textSize }) => ({
                 styles: [
-                    textWrap(textSize * 85, textSize, 'GB'),
+                    textWrap(textSize * 87, textSize, 'GB'),
                     xSmallFallback(textSize * 20),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25)
                 ],
@@ -34,8 +34,8 @@ export default {
             'logo.type:primary && logo.position:right',
             ({ textSize }) => ({
                 styles: [
-                    xSmallFallback(textSize * 20),
-                    setLogoTop(textSize * 64 + 10),
+                    xSmallFallback(textSize * 24),
+                    setLogoTop(textSize * 74 + 10),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
                 ]
             })
@@ -51,7 +51,7 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     `@media screen and (max-width: ${textSize * 10.6}px) { .message__content { white-space: nowrap; }}`,
-                    textWrap(textSize * 64, textSize, 'GB'),
+                    textWrap(textSize * 68, textSize, 'GB'),
                     xSmallFallback(textSize * 20),
                     altNoWrap(textSize * 10.6),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25)
