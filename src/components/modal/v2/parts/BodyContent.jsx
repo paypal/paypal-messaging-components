@@ -87,13 +87,7 @@ const BodyContent = () => {
     const preapprovalSubHeadline = content?.preapproval?.preapprovalSubHeadline;
     const preapprovalLabel = content?.preapproval?.preapprovalLabel;
 
-    // Move focus before the triggering element unmounts, otherwise Windows screen readers reset to the top of the document
-    const changeView = nextViewName => {
-        window.document.querySelector('#close-btn')?.focus();
-        setViewName(nextViewName);
-    };
-
-    const openProductList = () => changeView(VIEW_IDS.PRODUCT_LIST);
+    const openProductList = () => setViewName(VIEW_IDS.PRODUCT_LIST);
 
     // Used to specifically target styles to a specific country
     const countryClassName = country?.toLowerCase();
@@ -155,7 +149,7 @@ const BodyContent = () => {
                 content={content}
                 useV5Design={useV5Design}
                 use5Dot1Design={use5Dot1Design}
-                setViewName={changeView}
+                setViewName={setViewName}
             />
         )
     };
