@@ -22,7 +22,7 @@ jest.mock('src/components/modal/v2/lib', () => ({
     useScroll: jest.fn(),
     useTransitionState: jest.fn(),
     useDisclosureView: jest.fn(),
-    useDidUpdateEffect: jest.fn(),
+    useDidUpdateEffect: jest.requireActual('src/components/modal/v2/lib/hooks/helpers').useDidUpdateEffect,
     usePrefersDarkMode: jest.fn(),
     isLander: false
 }));
