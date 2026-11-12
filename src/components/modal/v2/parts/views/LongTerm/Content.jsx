@@ -106,7 +106,7 @@ export const LongTerm = ({
     const isPrequalExperience = prequalExperience === 'true';
     // Spending Power is excluded from checkout modals.
     const isCheckout = typeof cta !== 'undefined' || useNewCheckoutDesign === 'true';
-    const showSpendingPowerCard = isQualifyingAmount && isPrequalExperience && !isCheckout;
+    const showSpendingPowerCard = isPrequalExperience && !isCheckout;
 
     /**
      * The presence of "cta" in the content means the channel is checkout and the checkout-specific

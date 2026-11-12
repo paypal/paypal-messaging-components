@@ -62,7 +62,7 @@ export const ShortTerm = ({
     const isPrequalExperience = prequalExperience === 'true';
     // Spending Power is excluded from checkout modals.
     const isCheckout = typeof cta !== 'undefined' || useNewCheckoutDesign === 'true';
-    const showSpendingPowerCard = isQualifying && isPrequalExperience && !isCheckout;
+    const showSpendingPowerCard = isPrequalExperience && !isCheckout;
 
     const preapprovalDisclaimerHeadline = preapproval?.preapprovalDisclaimerHeadline;
     const preapprovalDisclaimerBody = preapproval?.preapprovalDisclaimerBody;
