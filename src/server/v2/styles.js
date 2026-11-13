@@ -59,7 +59,7 @@ body {
 .pp-message .grayscale .action__link { color: #000; }
 .pp-message .white .action__link { color: #fff; text-decoration-color: #fff; }
 
-button:focus .pp-message .main,
+button:focus:not([data-pp-pointer-focus]) .pp-message .main,
 button:active .pp-message .main {
   text-decoration: underline;
 }
