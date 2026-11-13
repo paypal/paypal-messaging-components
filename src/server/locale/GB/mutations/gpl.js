@@ -15,15 +15,15 @@ export default {
             'default',
             ({ textSize }) => ({
                 styles: [
-                    textWrap(textSize * 85, textSize, 'GB'),
-                    xSmallFallback(textSize * 16),
+                    textWrap(textSize * 87, textSize, 'GB'),
+                    xSmallFallback(textSize * 20),
                     messageLogoWidth(false, textSize * 4, textSize * 1.25)
                 ],
                 logo: Logo.PP_PAYPAL.COLOR,
                 headline: [
                     {
                         tag: 'medium',
-                        br: ['Later?']
+                        br: ['Credit']
                     },
                     { tag: 'xsmall' }
                 ],
@@ -34,8 +34,8 @@ export default {
             'logo.type:primary && logo.position:right',
             ({ textSize }) => ({
                 styles: [
-                    xSmallFallback(textSize * 16),
-                    setLogoTop(textSize * 64 + 10),
+                    xSmallFallback(textSize * 24),
+                    setLogoTop(textSize * 74 + 10),
                     messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)
                 ]
             })
@@ -43,7 +43,7 @@ export default {
         [
             'logo.type:primary && logo.position:top',
             ({ textSize }) => ({
-                styles: [xSmallFallback(textSize * 16), messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)]
+                styles: [xSmallFallback(textSize * 20), messageLogoWidth(textSize * 6, textSize * 4, textSize * 1.25)]
             })
         ],
         [
@@ -51,8 +51,8 @@ export default {
             ({ textSize }) => ({
                 styles: [
                     `@media screen and (max-width: ${textSize * 10.6}px) { .message__content { white-space: nowrap; }}`,
-                    textWrap(textSize * 64, textSize, 'GB'),
-                    xSmallFallback(textSize * 16),
+                    textWrap(textSize * 68, textSize, 'GB'),
+                    xSmallFallback(textSize * 20),
                     altNoWrap(textSize * 10.6),
                     messageLogoWidth(textSize * 1.75, textSize * 4, textSize * 1.25)
                 ],
@@ -72,7 +72,7 @@ export default {
                 headline: [
                     {
                         tag: 'medium',
-                        br: ['0.'],
+                        br: ['Credit'],
                         replace: [
                             [/\.$/, ''],
                             ['later.', 'later']
@@ -90,7 +90,7 @@ export default {
             'logo.type:inline',
             ({ textSize }) => ({
                 styles: [
-                    xSmallFallback(textSize * 16),
+                    xSmallFallback(textSize * 20),
                     `.message__logo { width: ${textSize * 4}px }`,
                     `@media screen and (max-width: ${textSize * 21}px) {
                         .message__messaging span.br { white-space: normal }
@@ -100,7 +100,7 @@ export default {
                 headline: [
                     {
                         tag: 'medium',
-                        br: ['0.'],
+                        br: ['Credit'],
                         replace: [
                             [/\.$/, ''],
                             ['later.', 'later']
