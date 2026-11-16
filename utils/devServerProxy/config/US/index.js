@@ -2121,7 +2121,7 @@ export default {
             },
             {
                 amount: 30,
-                template: 'short_term_q.json',
+                template: '/prequalification/short_term_q.json',
                 product: OFFER.PAY_LATER_SHORT_TERM
             },
             {
