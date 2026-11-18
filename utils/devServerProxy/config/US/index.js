@@ -2110,7 +2110,8 @@ export default {
         messageThresholds: [
             {
                 amount: 0,
-                template: 'generic.json',
+                template: '/prequalification/generic.json',
+                templateV2: 'generic.json',
                 product: 'PRODUCT_LIST'
             },
             {
@@ -2120,7 +2121,7 @@ export default {
             },
             {
                 amount: 30,
-                template: 'short_term_q.json',
+                template: '/prequalification/short_term_q.json',
                 product: OFFER.PAY_LATER_SHORT_TERM
             },
             {

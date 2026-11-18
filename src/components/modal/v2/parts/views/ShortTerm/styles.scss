@@ -155,14 +155,8 @@
         align-items: center;
 
         .button.cta {
+            margin-top: 10px;
             padding: 12px 0;
-        }
-
-        .cta__content {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            white-space: nowrap;
         }
 
         @include mixins.tablet {
@@ -188,15 +182,11 @@
         @include mixins.apiIframe {
             max-width: variables.$content-wrapper-max-width-api-iframe;
         }
-
-        &.checkout {
-            padding-top: 10px;
-        }
     }
 
     .offer-terms {
         color: colors.$text-main;
-        background-color: #E3F7FF;
+        background-color: #e3f7ff;
         border-radius: 12px;
         padding: 16px;
         margin: 12px 0;
@@ -235,16 +225,6 @@
             color: colors.$light-blue;
             text-decoration: underline;
         }
-    }
-
-    .prequal-fixed-offset {
-        padding-bottom: 100px;
-    }
-
-    .spending-power__subtext {
-        width: 80%;
-        text-align: center;
-        margin: 20px 0 8px 0;
     }
 
     .checkout {
